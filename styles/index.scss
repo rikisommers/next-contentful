@@ -1,0 +1,174 @@
+@use 'variables' as *;
+@use 'type';
+@use 'objects';
+@use 'components/header';
+@use 'components/img';
+@use 'components/modal';
+@use 'components/cursor';
+@use 'components/reel';
+@use 'components/project-list';
+@use 'components/scroll';
+@use 'components/menu';
+@use 'utils';
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body{
+    font-family: $font-family-body;
+    font-size:16px;
+    color:$text;
+    margin:0;
+}
+
+.postImage{
+    padding-bottom:55%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background:red;
+}
+
+
+.postop{
+    position:fixed;
+    top:0;
+    right:0;
+    padding:10px;
+    z-index:9999;
+    font-size: 14px;
+    background:red;
+}
+
+
+.header{
+    height: 90px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position:absolute;
+}
+
+.layout{
+ //   padding-top:90px;
+}
+
+
+
+
+
+
+  html.lenis {
+    height: auto;
+  }
+  
+  .lenis.lenis-smooth {
+    scroll-behavior: auto;
+  }
+  
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+  
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+  
+  .lenis.lenis-scrolling iframe {
+     pointer-events: none;
+  } 
+
+
+
+
+
+h1{
+  font-size:3rem;
+}
+
+h1 span span {
+  position: relative;
+  display: inline-block;
+ // animation: move-text-color 0.9s forwards cubic-bezier(0.37, 0, 0.63, 1);
+  opacity: 0;
+  transform-style: preserve-3d;
+  transform-origin: 0 100%;
+  right:-20px;
+  transition: transform 2s ease;
+  color:red;
+  display:inline-block;
+  margin-right:20px;
+
+text-shadow: -1px 39px 49px -12px rgba(117, 108, 255, 0.5);
+}
+
+
+@keyframes move-text-color {
+  
+  0% {
+    opacity: 0;
+    color: #3E5C76;
+    right:-20px;
+     transform:scaleY(1) rotate(3deg);     
+  }
+
+  50% {
+    color: #EC058E;
+
+  }
+
+
+  70%{
+    transform: scaleY(0.9); 
+  }
+
+  100% {
+    opacity: 1;
+    color: #000;
+    right:0px;
+   transform: scaleY(1) rotate(0deg); 
+  }
+
+}
+.content{
+  max-width: 70vw;
+  height: auto;
+  margin: auto;
+  //  animation: move-cont 1.5s forwards cubic-bezier(0.37, 0, 0.63, 1);
+  transition: all 3s ease;
+  perspective: 682px;
+  perspective-origin: 50% 50%;
+}
+
+@keyframes move-cont {
+
+  0% {
+  transform: scaleX(1.2) translate(60px, -60px) skew(0deg, 12deg); 
+  }
+
+  100% {
+  transform: scaleX(1) translate(0, 0) skew(0, 0);
+  }
+
+
+}
+
+
+
+#globalLoader{
+  position: fixed;
+  z-index: 1700;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: hotpink;
+  display: flex;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
