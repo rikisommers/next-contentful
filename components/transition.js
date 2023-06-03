@@ -28,6 +28,7 @@ const HomeTransitionContent = () => {
 const WorkTransitionContent = () => {
   return (
     <motion.div
+      id="tranny-content"
       className="fixed top-0 h-full w-full bg-white rounded-xl z-20"
       initial={{ y: "100%" }}
       exit={{
@@ -39,7 +40,7 @@ const WorkTransitionContent = () => {
         delay: 0.6,
       }}
     >
-      <div className="flex align-middle rounded-xl z-20">
+      <div className="flex align-middle rounded-xl">
         <h1>WORK</h1>
       </div>
     </motion.div>
@@ -49,10 +50,14 @@ const WorkTransitionContent = () => {
 const Overlay = () => {
   return (
     <motion.div
-      className="top-0 h-full w-full bg-black "
-      initial={{ opacity: 0 }}
+      id="overlay"
+      className="fixed top-0 h-full w-full bg-green-400 z-0"
+      initial={{  opacity: 0 }}
+      animate={{
+        opacity:0
+      }}
       exit={{
-        className: "z-20 fixed ",
+        zIndex:10,
         opacity: 0.5,
       }}
       transition={{

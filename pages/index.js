@@ -25,36 +25,32 @@ export default function Index({ home }) {
   // });
 
   return (
-  
-      <Layout>
-        <Head>
-          <title>{`Next.js Blog Example with ${CMS_NAME}`}</title>
-        </Head>
-        <motion.div
-    className="fixed w-full h-full overflow-hidden top-0"
-    initial={{ scale: 1 }}
-    exit={{
-      scale: 0.9,
-      className: "z-10 test",
-    }}
-    transition={{
-      ease: [0.33, 1, 0.68, 1],
-      duration: 1.6,
-      //  delay: 1,
-    }}
-  >
-          <div className="fixed w-full h-full p-5 top-0">
-            <div className="w-full h-full bg-blue-200 0 flex items-center justify-center rounded-xl">
-              <h1>HOME</h1>
-              {/* <TextAnimation content={home.intro}></TextAnimation> */}
-            </div>
+    <Layout>
+      <Head>
+        <title>{`Next.js Blog Example with ${CMS_NAME}`}</title>
+      </Head>
+      <motion.div
+        className="fixed w-full h-full overflow-hidden top-0"
+        initial={{ scale: 1 }}
+        exit={{
+          scale: 0.9,
+          className: "z-10 test",
+        }}
+        transition={{
+          ease: [0.33, 1, 0.68, 1],
+          duration: 1.6,
+          //  delay: 1,
+        }}
+      >
+        <div className="fixed w-full h-full p-5 top-0">
+          <div className="w-full h-full bg-blue-200 0 flex items-center justify-center rounded-xl">
+            <h1>HOME</h1>
+            {/* <TextAnimation content={home.intro}></TextAnimation> */}
           </div>
-          </motion.div>
-          <Transition/>
-
-      </Layout>
-     
-
+        </div>
+      </motion.div>
+      <Transition />
+    </Layout>
   );
 }
 

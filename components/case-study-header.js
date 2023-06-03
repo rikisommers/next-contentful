@@ -3,22 +3,23 @@ import DateComponent from "../components/date";
 import CoverImage from "../components/cover-image";
 import PostTitle from "../components/post-title";
 
-export default function CaseStudyHeader({ title, img, subtitle }) {
+export default function CaseStudyHeader({ title, img, subtitle}) {
   return (
-    <>
-      <div className="o-content-grid u-mt--64 u-mb--32">
+    
+    <div className="mb-36">
+      <div className="o-content-grid pt-32 pb-16">
         <div className="title">
           <PostTitle>{title}</PostTitle>
           <h3 className="u-c--light">sssss</h3>
         </div>
-        {subtitle && <h2 className="content">{subtitle}</h2>}
+        {subtitle && <h2 className="content p-">{subtitle}</h2>}
       </div>
 
       {img && (
-        <div className="u-mb--80">
-          <CoverImage title={img.title} url={img.url} layout="landscape-tall" />
+        <div className="h-vhh rounded-xl overflow-hidden">
+          <CoverImage title={img.title} url={img.url} layout="landscape" />
         </div>
       )}
-    </>
+    </div>
   );
 }

@@ -11,7 +11,7 @@ function MyApp({ Component, pageProps, router }) {
   
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <Navigation />
       <AnimatePresence
         mode="wait"

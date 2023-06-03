@@ -1,11 +1,12 @@
+import Avatar from "../components/avatar";
+import DateComponent from "../components/date";
+import CoverImage from "../components/cover-image";
+import PostTitle from "../components/post-title";
+import CaseStudyTile from "./case-study-tile";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import CoverImage from "./cover-image";
 import { motion } from "framer-motion";
-export default function CaseStudyTile({ post, index }) {
-  //${index == 0 ? "h-vhr" : ""
- // console.log(post);
- const router = useRouter();
+export default function CaseStudyNext( {post} ) {
+    console.log(post)
 
 
   const animateContentOnHover = {
@@ -22,19 +23,38 @@ export default function CaseStudyTile({ post, index }) {
     
   };
 
+
   return (
-    <Link
-      scroll={false}
-      href={`/work?post=${post.slug}`}
-      as={`/posts/${post.slug}`}
-      className="c-tile rounded-xl relative"
-   
-    >
+
+ <motion.div
+ className="overflow-hidden h-vhh fixed bottom-0 left-0 z-0 m-6"
+ initial={{
+    height: 'calc(64vh - 3rem',
+    borderRadius: '0.75rem'
+ }}
+ exit={{
+    height: '100vh',
+    zIndex: 0,
+    margin:0,
+    borderRadius: '0rem'
+
+ }}
+ transition={{
+    ease: [0.33, 1, 0.68, 1],
+    duration: 0.6,
+   // delay:1.6
+ }}
+ >
+
+ <Link
+ scroll={false}
+ href={`/posts/${post.slug}`}
+>
       <motion.div
          initial="blur"
          whileHover="hover"
          animate="blur"
-         
+         className=""
       // initial="initial" whileHover="hover" animate="initial"
       >
 
@@ -61,5 +81,6 @@ export default function CaseStudyTile({ post, index }) {
         />
       )}
     </Link>
+    </motion.div>
   );
 }

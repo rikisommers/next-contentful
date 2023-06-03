@@ -22,6 +22,7 @@ body{
     font-size:16px;
     color:$text;
     margin:0;
+    background-color: aliceblue;
 }
 
 .postImage{
@@ -35,13 +36,22 @@ body{
 .postop{
     position:fixed;
     top:0;
-    right:0;
+    left:0;
     padding:10px;
     z-index:9999;
     font-size: 14px;
     background:red;
 }
 
+.postop2{
+  position:fixed;
+  top:60px;
+  left:0;
+  padding:10px;
+  z-index:9999;
+  font-size: 14px;
+  background:red;
+}
 
 .header{
     height: 90px;
@@ -81,7 +91,9 @@ body{
   } 
 
 
-
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
 
 
 h1{
@@ -157,6 +169,7 @@ text-shadow: -1px 39px 49px -12px rgba(117, 108, 255, 0.5);
 
 
 
+
 #globalLoader{
   position: fixed;
   z-index: 1700;
@@ -172,3 +185,53 @@ text-shadow: -1px 39px 49px -12px rgba(117, 108, 255, 0.5);
   justify-content: center;
   align-items: center;
 }
+
+
+.no-scroll {
+  overflow: hidden;
+}
+
+
+// ::-webkit-scrollbar {
+//   display: none;
+// }
+// * {
+//   -ms-overflow-style: none;  /* IE and Edge */
+//   scrollbar-width: none;  /* Firefox */
+// }
+
+// .scrollable-wrapper{
+//   position: fixed;
+//     inset: 0;
+//     z-index: 1;
+//     height: 100%;
+//     padding: 12.2222222222vh 13.9583333333vw;
+//     display: flex;
+//     transition: opacity .5s var(--ease-out-expo),transform .5s var(--ease-out-expo);
+// }
+.scrollable,body{
+  flex-grow: 1;
+  position: relative;
+  overflow-y: scroll;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    width: 0 !important;
+    height: 0 !important;
+  }
+
+  // fix bottom gradient
+  padding-bottom: desktop-vh(40px);
+  }
+
+
+  .work{
+
+border:10px blue solid;
+  }
+
+  .work--exit{
+    border:10px red solid;
+
+  }
