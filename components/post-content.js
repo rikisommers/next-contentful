@@ -14,7 +14,7 @@ import CaseStudyHeader from "./case-study-header";
 
 export default function PostContent({post}) {
 
-  console.log('p',post);
+//  console.log('p',post);
   return (
     <>
       <article className="px-24 pt-32">

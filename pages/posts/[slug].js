@@ -119,19 +119,19 @@ export default function Post({ post, nextPost, preview }) {
     return <ErrorPage statusCode={404} />;
   }
 
-  console.log("p", post);
-  console.log("np", nextPost);
+  // console.log("p", post);
+  // console.log("np", nextPost);
 
   return (
     <Layout>
       <div className="postop2">{isActive}</div>
-      <Head>
+      {/* <Head>
         <title>{`${post.title} | Next.js Blog Example with ${CMS_NAME}`}</title>
 
         {post.img && <meta property="og:image" content={post.img.url} />}
 
         <Link rel="preload" as="image" href={post.img.url} />
-      </Head>
+      </Head> */}
       <Transition />
 
       <motion.div
@@ -160,7 +160,13 @@ export default function Post({ post, nextPost, preview }) {
                 duration: 1.6,
               }}
             >
-              <motion.div
+
+              <CaseStudyHeader
+                title={post.title}
+                subtitle={post.subtitle}
+                img={post.img}
+              />
+              {/* <motion.div
                 initial={{ opacity: 0 }}
                 animate={{
                   opacity: 1,
@@ -173,21 +179,21 @@ export default function Post({ post, nextPost, preview }) {
                   duration: 0.1,
                 }}
               >
-                <CaseStudyHeader
-                  title={post.title}
-                  subtitle={post.subtitle}
-                  img={post.img}
-                />
-              </motion.div>
+     
+              </motion.div> */}
 
-              <motion.div
+     
+                {post.csblocksCollection && (
+                  <PostBody content={post.csblocksCollection} />
+                )}
+                         {/* <motion.div
                 initial={{ opacity: 0 }}
                 animate={{
                   opacity: 1,
                   transition: {
                     easing: easing,
                     duration: 0.3,
-                    delay: 0.6,
+                    delay: 0,
                   },
                 }}
                 exit={{
@@ -199,10 +205,7 @@ export default function Post({ post, nextPost, preview }) {
                   },
                 }}
               >
-                {post.csblocksCollection && (
-                  <PostBody content={post.csblocksCollection} />
-                )}
-              </motion.div>
+              </motion.div> */}
             </motion.article>
 
             {nextPost && isActive && (

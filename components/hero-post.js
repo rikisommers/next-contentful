@@ -8,7 +8,7 @@ export default function HeroPost({
   post
 }) {
   return (
-    <Link href={`/posts/${post.slug}`} className="hover:underline">
+    <Link href={`/work/${post.slug}`} className="hover:underline">
 
     <div className="c-hero-img">
     <div className="o-fill">

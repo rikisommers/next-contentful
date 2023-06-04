@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import CoverImage from "./cover-image";
 import { motion } from "framer-motion";
-export default function CaseStudyTile({ post, index }) {
+export default function CaseStudyTile({ post, index, onclick }) {
   //${index == 0 ? "h-vhr" : ""
  // console.log(post);
  const router = useRouter();
@@ -23,13 +23,20 @@ export default function CaseStudyTile({ post, index }) {
   };
 
   return (
-    <Link
+    <div
+     
+      className="c-tile rounded-xl relative"
+   
+    >
+          {/* <Link
       scroll={false}
       href={`/work?post=${post.slug}`}
       as={`/posts/${post.slug}`}
       className="c-tile rounded-xl relative"
    
-    >
+    > */}
+
+    
       <motion.div
          initial="blur"
          whileHover="hover"
@@ -60,6 +67,6 @@ export default function CaseStudyTile({ post, index }) {
           layout={post.layout}
         />
       )}
-    </Link>
+    </div>
   );
 }

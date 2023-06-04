@@ -26,15 +26,13 @@ export default function Index({ home }) {
 
   return (
     <Layout>
-      <Head>
-        <title>{`Next.js Blog Example with ${CMS_NAME}`}</title>
-      </Head>
+    
       <motion.div
         className="fixed w-full h-full overflow-hidden top-0"
         initial={{ scale: 1 }}
         exit={{
           scale: 0.9,
-          className: "z-10 test",
+          zIndex:10
         }}
         transition={{
           ease: [0.33, 1, 0.68, 1],

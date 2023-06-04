@@ -15,8 +15,8 @@ export function ScrollableBox({ children, className, infinite, reset, onScrollCh
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // https://www.desmos.com/calculator/brs54l4xou
       orientation: 'vertical',
-      gestureDirection: 'vertical',
-      smooth: true,
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
       infinite: infinite,
     })
     lenis.start()

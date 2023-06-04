@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 const HomeTransitionContent = () => {
   return (
     <motion.div
-      className="fixed top-0 h-full w-full bg-white rounded-xl z-20"
+      className="fixed top-0 h-full w-full bg-white rounded-xl z-50"
       initial={{ y: "100%" }}
       exit={{
         y: 0,
@@ -17,7 +17,7 @@ const HomeTransitionContent = () => {
       }}
     >
       <div className="fixed w-full h-full p-6">
-        <div className="w-full h-full bg-blue-200 0 flex items-center justify-center rounded-xl">
+        <div className="w-full h-full bg-blue-200 flex items-center justify-center rounded-xl">
           <h1>HOME</h1>
         </div>
       </div>
@@ -29,7 +29,7 @@ const WorkTransitionContent = () => {
   return (
     <motion.div
       id="tranny-content"
-      className="fixed top-0 h-full w-full bg-white rounded-xl z-20"
+      className="fixed top-0 h-full w-full bg-white rounded-xl z-50"
       initial={{ y: "100%" }}
       exit={{
         y: 0,
@@ -51,13 +51,13 @@ const Overlay = () => {
   return (
     <motion.div
       id="overlay"
-      className="fixed top-0 h-full w-full bg-green-400 z-0"
+      className="fixed top-0 h-full w-full bg-red-400 z-0"
       initial={{  opacity: 0 }}
       animate={{
         opacity:0
       }}
       exit={{
-        zIndex:10,
+        zIndex:40,
         opacity: 0.5,
       }}
       transition={{
@@ -99,14 +99,14 @@ const Transition = ({ children }) => {
 
   return (
     <>
-      <div className="postop">route:{route}</div>
+      <div className="postop2">route:{route}</div>
       {route === "/" && (
         <>
           <Overlay />
           <HomeTransitionContent />
         </>
       )}
-      {route === "/work" && (
+      {route === "/posts" && (
         <>
           <Overlay />
           <WorkTransitionContent />

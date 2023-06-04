@@ -15,8 +15,8 @@ export default function Navigation() {
       <li className={router.pathname == "/" ? "is-active" : ""}>
         <Link href="/">Home</Link>
       </li>
-      <li className={router.pathname == "/work" ? "is-active" : ""}>
-        <Link href="/work">Work</Link>
+      <li className={router.pathname == "/posts" ? "is-active" : ""}>
+        <Link href="/posts">Work</Link>
       </li>
       <li className={router.pathname == "/bio" ? "is-active" : ""}>
         <Link href="/bio">About</Link>

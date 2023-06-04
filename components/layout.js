@@ -10,17 +10,6 @@ import { Router, useRouter } from "next/router";
 
 export default function Layout({ children, infinite }) {
   return (
-    // <ReactLenis
-    //   root
-    //   options={{
-    //     smooth: true,
-    //     infinite: infinite && infinite,
-    //   }}
-    // >
-    <>
-      <Meta />
       <main>{children}</main>
-      </>
-    // </ReactLenis>
   );
 }

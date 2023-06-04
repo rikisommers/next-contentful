@@ -13,6 +13,7 @@ import { ScrollableBox } from "./scrollable";
 import CaseStudyNext from "./case-study-next";
 
 const Modal = ({ isOpen, onClose, children, nextPost }) => {
+  
   const [isClosing, setIsClosing] = useState(false);
   const [isActive, setIsActive] = useState(false);
 
@@ -41,17 +42,17 @@ const Modal = ({ isOpen, onClose, children, nextPost }) => {
       }
   };
 
-  useEffect(()=> {
-    // if(scrollValue <= 200){
-    //   setIsActive(true)
-    // }
-  },[scrollValue])
+  // useEffect(()=> {
+  //   // if(scrollValue <= 200){
+  //   //   setIsActive(true)
+  //   // }
+  // },[scrollValue])
 
 
 
 
 
-  const easing = cubicBezier(0.35, 0.17, 0.3, 0.86);
+  const easing = cubicBezier(0.33, 1, 0.68, 1);
   const x = useMotionValue(0);
 
   const input = [0, 200];
@@ -69,18 +70,30 @@ const Modal = ({ isOpen, onClose, children, nextPost }) => {
 
 
   const closeModal = () => {
-   // router.push('/work')
-    setIsClosing(true);
-    setTimeout(() => {
-      setIsClosing(false);
-      onClose();
-    }, 300); // Adjust the duration to match your transition animation
+    onClose()
+    //router.push('/posts')
+    // setIsClosing(true);
+    // setTimeout(() => {
+    //   setIsClosing(false);
+    //   onClose();
+    // }, 600); // Adjust the duration to match your transition animation
   };
 
-  if (!isOpen && !isClosing) {
-    return null;
-  }
+  // if (!isOpen && !isClosing) {
+  //   return null;
+  // }
 
+  const modalRef = useRef(null);
+
+  useEffect(() => {
+    if (!isOpen) {
+      modalRef.current.scrollTop = 0; // Scroll to top when modal is closed
+    }
+  }, [isOpen]);
+
+
+
+  
   const variants = {
     active: { opacity: 0.3 },
     inactive: { opacity: 0 },
@@ -101,16 +114,12 @@ const Modal = ({ isOpen, onClose, children, nextPost }) => {
   const wrapperVariants = {
     active: {
       y: 0,
-                opacity: 1,
+      opacity: 1,
      },
     inactive: {
-                opacity: 0,
-              y: "100vh",
-
-     },
-     transition:{ duration: 0.3, easing:easing }
-
-  
+      opacity: 0,
+      y: "100vh",
+     }
   };
 
 
@@ -121,16 +130,17 @@ const Modal = ({ isOpen, onClose, children, nextPost }) => {
 
     
 
-            <motion.div 
-            className="fixed top-0 left-0 bg-black bg-opacity-50 w-full h-full z-0"
+            {/* <motion.div 
+            className="fixed top-0 left-0 bg-black bg-opacity-50 w-full h-full z-30"
             animate={isOpen ? "active" : "inactive"}
+            exit={{opacity:1, y:0}}
             variants={bgVariants}
         
             >
-            </motion.div>
+            </motion.div> */}
 
             <motion.button
-                onClick={closeModal}
+                onClick={() => closeModal()}
                 animate={isActive ? "active" : "inactive"}
                 whileHover={'hover'}
                 variants={variants}
@@ -141,11 +151,17 @@ const Modal = ({ isOpen, onClose, children, nextPost }) => {
 
           
           <motion.div
+            ref={modalRef}
+            initial={{y:'100vh'}}
             animate={isOpen ? "active" : "inactive"}
             variants={wrapperVariants}
+            transition={{
+              duration: 0.6,
+              ease: [0.33, 1, 0.68, 1],
+            }}
             style={{ clipPath: clipPathValue }}
           
-            className="fixed w-full h-full top-0 z-30 flex inset"
+            className="fixed w-full h-full top-0 z-30 flex inset "
           >
  
             <motion.div
@@ -171,8 +187,8 @@ const Modal = ({ isOpen, onClose, children, nextPost }) => {
                 y: 0,
               }}
               exit={{
-                opacity: 0,
-                y: "-64vh",
+                opacity: 1,
+               // y: "-64vh",
               }}
               transition={{
                 ease: [0.33, 1, 0.68, 1],
@@ -182,8 +198,8 @@ const Modal = ({ isOpen, onClose, children, nextPost }) => {
                 {children}
                 </motion.article>
                 {nextPost && isActive && (
-              <CaseStudyNext next={true} post={nextPost} />
-              )}
+                <CaseStudyNext next={true} post={nextPost} />
+                )}
               </ScrollableBox>
         
 

@@ -37,7 +37,6 @@ export default function CaseStudyNext( {post} ) {
     zIndex: 0,
     margin:0,
     borderRadius: '0rem'
-
  }}
  transition={{
     ease: [0.33, 1, 0.68, 1],

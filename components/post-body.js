@@ -23,9 +23,9 @@ export default function PostBody({ content }) {
       <div>
         {content.items &&
           content.items.length > 0 &&
-          content.items.map((item) => {
+          content.items.map((item,index) => {
             return (
-              <section>
+              <section key={index}>
                 {item.__typename === "BlockArticle" && (
                   <BlockArticle key={item.id} article={item} ></BlockArticle>
                 )}
