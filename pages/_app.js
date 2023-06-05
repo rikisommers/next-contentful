@@ -14,11 +14,11 @@ function MyApp({ Component, pageProps, router }) {
       {/* <Header /> */}
       <Navigation />
       <AnimatePresence
-        mode="wait"
-        initial={true}
-        onExitComplete={() => {
-          console.log("exited");
-        }}
+         mode="wait"
+        // initial={true}
+        // onExitComplete={() => {
+        //   console.log("exited");
+        // }}
       >
           <Component {...pageProps} key={router.asPath} />
 

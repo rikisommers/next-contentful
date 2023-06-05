@@ -43,6 +43,7 @@ export default function Post({ post, nextPost, preview }) {
   const [scrollValue, setScrollValue] = useState(0);
   const isOpen = true;
 
+  
   const handleScrollChange = (value) => {
     setScrollValue(value);
 
@@ -113,7 +114,9 @@ export default function Post({ post, nextPost, preview }) {
   };
 
   const router = useRouter();
-  const shouldAnimate = router.pathname.startsWith("/posts/");
+  //const shouldAnimate = router.pathname.startsWith("/posts/");
+
+  console.log('rr',router)
 
   if (!router.isFallback && !post) {
     return <ErrorPage statusCode={404} />;
@@ -153,11 +156,11 @@ export default function Post({ post, nextPost, preview }) {
               }}
               exit={{
                 opacity: 0,
-                y: "-64vh",
+                y: router.route = "/posts/[slug]" ? 0 : "-64vh",
               }}
               transition={{
                 ease: [0.33, 1, 0.68, 1],
-                duration: 1.6,
+                duration: 0.6,
               }}
             >
 

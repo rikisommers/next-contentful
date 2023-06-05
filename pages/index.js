@@ -25,6 +25,7 @@ export default function Index({ home }) {
   // });
 
   return (
+    
     <Layout>
     
       <motion.div

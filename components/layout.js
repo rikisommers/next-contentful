@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 import Transition from "./transition";
 import { Router, useRouter } from "next/router";
 
-export default function Layout({ children, infinite }) {
+export default function Layout({ children }) {
   return (
       <main>{children}</main>
   );

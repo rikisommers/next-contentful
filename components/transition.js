@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Router, useRouter } from "next/router";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const HomeTransitionContent = () => {
   return (
