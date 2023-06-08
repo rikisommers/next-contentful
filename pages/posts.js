@@ -74,26 +74,28 @@ export default function Index({ intro, caseStudies, allCaseStudies }) {
     { rootMargin: "0px", threshold: 1},
   false
   );
+
+
+
+
   
   return (
     <Layout>
       <div className="postop">{router.query.post ? "T" : "F"}</div>
       
       
-      <Modal
+       <Modal
         isOpen={router.query.post}
         onClose={closeModal}
         nextPost={nextPost}
       >
         {selectedPost && <PostContent post={selectedPost} />}
-        {nextPost &&
-           <CaseStudyNext  post={nextPost} />
-        }
-      </Modal>
 
-      <ScrollableBox infinite={true}> 
+      </Modal> 
+
+      <ScrollableBox infinite={true} stopScroll={true}> 
       <motion.div
-          className="w-full bg-slate-50 bg-teal-300 top-0"
+          className="w-full bg-white top-0 bg-red-500"
           exit={{
             zIndex: 0,
           }}
@@ -104,21 +106,42 @@ export default function Index({ intro, caseStudies, allCaseStudies }) {
           }}
         >
       {allCaseStudies && (
-        <div className="flex flex-col gap-6 py-6 mx-6 relative">
+        <div className="flex flex-col gap-6 py-6 mx-6 relative  work-grid ">
 
           <motion.div
             animate={{
-              background: isIntroVisible ? "red" : "blue",
+             /// background: isIntroVisible ? "red" : "blue",
             }}
-            className="absolute z-20 top-0 mt-6 w-full c-tile c-tile--intro flex items-center justify-center rounded-xl"
+            className="
+            absolute 
+            z-20 
+            top-0 
+            mt-6 
+            w-full   
+            h-vhr flex items-center justify-center rounded-xl bg-white z-30  item"
             ref={introRef}
           >
-            {/* <TextAnimation content={intro.intro}></TextAnimation> */}
+            <TextAnimation content={intro.intro}></TextAnimation>
           </motion.div>
 
           {allCaseStudies.map((post, index) => {
             return (
+              <motion.div
+            //  onClick={openModal}
+              className={`item overflow-hidden bg-slate-200 rounded-xl w-full ${index == 0 ? 'h-vhr': 'h-full'}`}
+              initial={{
+                opacity:0
+              }}
+              animate={{
+                opacity:1
+              }}
+                  transition={{
+            ease: [0.33, 1, 0.68, 1],
+            duration: 0.6,
+            //  delay: 1,
+          }}>
               <Link
+             
                 key={index}
                 scroll={false}
                 href={`/posts?post=${post.slug}`}
@@ -132,13 +155,16 @@ export default function Index({ intro, caseStudies, allCaseStudies }) {
                   slug={slug}
                 />
               </Link>
+                            </motion.div>
+
             );
           })}
+          
         </div>
       )}
       </motion.div>
       </ScrollableBox>
-
+      <Transition/>
     </Layout>
   );
 }

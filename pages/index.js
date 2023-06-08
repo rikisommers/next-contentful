@@ -41,10 +41,14 @@ export default function Index({ home }) {
           //  delay: 1,
         }}
       >
-        <div className="fixed w-full h-full p-5 top-0">
+        <div className="fixed w-full h-full p-6 top-0">
           <div className="w-full h-full bg-blue-200 0 flex items-center justify-center rounded-xl">
-            <h1>HOME</h1>
-            {/* <TextAnimation content={home.intro}></TextAnimation> */}
+
+          <div className="flex flex-col content gap-3">
+          
+            <TextAnimation content={home.title}></TextAnimation>
+            <p className="uppercase text-sm	text-center">{home.intro}</p>
+            </div>
           </div>
         </div>
       </motion.div>

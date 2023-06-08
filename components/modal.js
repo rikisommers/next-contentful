@@ -121,7 +121,7 @@ const Modal = ({ isOpen, onClose, children, nextPost }) => {
           ease: [0.33, 1, 0.68, 1],
         }}
         style={{ clipPath: clipPathValue }}
-        className="fixed w-full h-full top-0 z-30 flex inset "
+        className="fixed w-full h-full top-0 z-30 flex inset shadow-2xl"
       >
         <motion.button
           onClick={() => closeModal()}
@@ -161,12 +161,15 @@ const Modal = ({ isOpen, onClose, children, nextPost }) => {
             >
               {children}
             </motion.article>
-         
+            {nextPost &&
+           <CaseStudyNext post={nextPost} />
+        } 
           </ScrollableBox>
         </motion.div>
 
         {/* </motion.div> */}
       </motion.div>
+    
     </>
   );
 };

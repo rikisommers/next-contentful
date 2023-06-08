@@ -30,6 +30,7 @@ export function ScrollableBox({ children, className, infinite, reset, onScrollCh
   useFrame((time) => {
     lenis?.raf(time)
     if(onScrollChange){
+      console.log('sc')
         onScrollChange(lenis?.animatedScroll); // Call the callback function and pass the scroll value
     }
   }, [])
@@ -38,6 +39,8 @@ export function ScrollableBox({ children, className, infinite, reset, onScrollCh
 
   useEffect(() => {
     if (reset) {
+      console.log('reset')
+
       lenis?.scrollTo(0, { immediate: true })
     }
   }, [reset])
@@ -50,7 +53,7 @@ export function ScrollableBox({ children, className, infinite, reset, onScrollCh
   }, [stopScroll])
 
   return (
-    <div className="fixed w-full h-full top-0 flex inset">
+    <div className="fixed w-full h-full top-0 flex inset z-10">
 
     <div className="scrollable" ref={wrapperRef} >
       <div ref={contentRef}>{children}</div>

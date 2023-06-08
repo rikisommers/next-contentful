@@ -146,7 +146,7 @@ export default function Post({ post, nextPost, preview }) {
         <motion.div className=" z-10 flex flex-grow ">
           <ScrollableBox onScrollChange={handleScrollChange}>
             <motion.article
-              className="px-24 py-32  relative z-10 overflow-hidden mb-vhh bg-white rounded-xl"
+              className="px-24 py-32  relative z-10 overflow-hidden mb-vhh bg-white rounded-xl shadow-xl"
               initial={{
                 y: "100vh",
               }}
@@ -155,7 +155,6 @@ export default function Post({ post, nextPost, preview }) {
                 y: 0,
               }}
               exit={{
-                opacity: 0,
                 y: router.route = "/posts/[slug]" ? 0 : "-64vh",
               }}
               transition={{
@@ -212,10 +211,13 @@ export default function Post({ post, nextPost, preview }) {
             </motion.article>
 
             {nextPost && isActive && (
+              <div className="fixed bottom-0">
               <CaseStudyNext next={true} post={nextPost} />
+              </div>
             )}
           </ScrollableBox>
         </motion.div>
+  
       </motion.div>
 
       {!isActive && (

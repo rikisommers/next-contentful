@@ -18,7 +18,6 @@ const HomeTransitionContent = () => {
     >
       <div className="fixed w-full h-full p-6">
         <div className="w-full h-full bg-blue-200 flex items-center justify-center rounded-xl">
-          <h1>HOME</h1>
         </div>
       </div>
     </motion.div>
@@ -41,7 +40,6 @@ const WorkTransitionContent = () => {
       }}
     >
       <div className="flex align-middle rounded-xl">
-        <h1>WORK</h1>
       </div>
     </motion.div>
   );
@@ -51,7 +49,7 @@ const Overlay = () => {
   return (
     <motion.div
       id="overlay"
-      className="fixed top-0 h-full w-full bg-red-400 z-0"
+      className="fixed top-0 h-full w-full bg-black z-0"
       initial={{  opacity: 0 }}
       animate={{
         opacity:0
@@ -88,12 +86,12 @@ const Transition = ({ children }) => {
   useEffect(() => {
     router.events.on("routeChangeStart", (url) => {
       setRouteOnChangeStart(url);
-      console.log("------ROUTESTART", url);
+     // console.log("------ROUTESTART", url);
       // console.log(`routing to ${url}`);
     });
     router.events.on("routeChangeComplete", (url) => {
       setLoadingFalse();
-      console.log("------ROUTEEND", url);
+   //   console.log("------ROUTEEND", url);
     });
   }, []);
 

@@ -16,7 +16,8 @@ export default function CaseStudyTile({ post, index, onclick }) {
       opacity: 1,
       transition: {
         ease: [0.33, 1, 0.68, 1],
-        duration: 0.3,
+        duration: 0.6,
+        delay:0.6
       },
     },
     
@@ -25,7 +26,7 @@ export default function CaseStudyTile({ post, index, onclick }) {
   return (
     <div
      
-      className="c-tile rounded-xl relative"
+      className="relative w-full "
    
     >
           {/* <Link

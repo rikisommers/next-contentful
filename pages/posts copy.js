@@ -88,8 +88,7 @@ export default function Index({ intro, caseStudies, allCaseStudies }) {
 
   };
 
-  // const closeModal = () => {
-  // };
+
 
  const [isIntroVisible, setIntroIsVisible] = useState(true);
 
@@ -129,7 +128,7 @@ export default function Index({ intro, caseStudies, allCaseStudies }) {
 
       <div className="postop2">slug:{slug}</div>
 
-      <Transition />
+      {/* <Transition /> */}
 
      
  
