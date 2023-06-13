@@ -32,12 +32,16 @@ import NextPost from "../../components/next-post";
 import CaseStudyHeader from "../../components/case-study-header";
 import CaseStudyPreview from "../../components/case-study-tile";
 import CustomCursor from "../../components/cursor";
+
 import Transition from "../../components/transition-wipe";
+
 import { ScrollableBox } from "../../components/scrollable";
 import TransitionContent from "../../components/transition-content";
 import CaseStudyNext from "../../components/case-study-next";
 import CoverImage from "../../components/cover-image";
+
 import CaseStudyIntro from "../../components/case-study-header";
+
 
 export default function Post({ post, nextPost, preview }) {
   const [isActive, setIsActive] = useState(false);

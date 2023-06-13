@@ -13,7 +13,9 @@ import {
 
 import { AnimatePresence, motion, transform, useAnimation } from "framer-motion";
 
+
 import Transition from "../../components/transition-wipe";
+
 import Modal from "../../components/modal";
 import CaseStudyTile from "../../components/case-study-tile";
 import PostContent from "../../components/post-content";

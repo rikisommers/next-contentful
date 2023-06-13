@@ -25,7 +25,9 @@ import {
   Lenis as ReactLenis,
   useLenis,
 } from "@studio-freight/react-lenis";
+
 import Transition from "../components/transition-wipe";
+
 import Modal from "../components/modal";
 import CaseStudyTile from "../components/case-study-tile";
 import PostContent from "../components/post-content";

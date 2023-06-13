@@ -20,6 +20,7 @@ const Modal = ({ isOpen, onClose, children, nextPost, reset, name ,setName}) => 
 
   const router = useRouter();
   const post = router.query.post
+    const post = router.query.post
   
   const [scrollValue, setScrollValue] = useState(0);
 
@@ -27,16 +28,19 @@ const Modal = ({ isOpen, onClose, children, nextPost, reset, name ,setName}) => 
     setScrollValue(value);
    // console.log(scrollValue)
 
+   // console.log(scrollValue)
+
 
     if (value <= 1000) {
       x.set(value);
       // console.log('sv',scrollValue)
-        
+                
       if (value <= 200) {
         setIsActive(false);
       }
 
       if (value > 200) {
+        setScrollValue(0)
         setScrollValue(0)
         setIsActive(true);
       }
@@ -44,6 +48,11 @@ const Modal = ({ isOpen, onClose, children, nextPost, reset, name ,setName}) => 
     }
   };
 
+  useEffect(()=> {
+    if(isClosing === true){
+      setIsActive(true)
+    }
+  },[isClosing])
   useEffect(()=> {
     if(isClosing === true){
       setIsActive(true)
@@ -64,6 +73,10 @@ const Modal = ({ isOpen, onClose, children, nextPost, reset, name ,setName}) => 
 
   let clipPathValue = `inset(${yv.current}rem ${xv.current}rem 0px round ${rv.current}rem ${rv.current}rem 0px 0px)`;
   const clipPathValueExit = `inset(0px 0px 100vh round 8rem 8rem 8rem 8rem)`;
+
+
+  const scrollRef = useRef(null);
+
 
 
   const scrollRef = useRef(null);

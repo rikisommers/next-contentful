@@ -8,6 +8,7 @@ import Head from 'next/head'
 import { CMS_NAME } from '../lib/constants'
 import Transition from "../components/transition-wipe";
 
+
 export default function Bio() {
   
   return (

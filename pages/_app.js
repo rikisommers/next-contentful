@@ -1,6 +1,7 @@
 import "../styles/index.scss";
 import { useState, useEffect } from "react";
 import { Router , useRouter} from "next/router";
+import { Router , useRouter} from "next/router";
 import Header from "../components/header";
 import Navigation from "../components/nav";
 import { AnimatePresence } from "framer-motion";
@@ -10,8 +11,6 @@ import Chrome from "../components/chrome";
 function MyApp({ Component, pageProps, router }) {
   
   const [animate,setAnimate] = useState(false)
-  // const [animate,setAnimate] = useState(false)
-
 
  // useEffect(() => {
 
