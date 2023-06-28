@@ -11,6 +11,7 @@ import Chrome from "../components/chrome";
 function MyApp({ Component, pageProps, router }) {
   
   const [animate,setAnimate] = useState(false)
+  // const [animate,setAnimate] = useState(false)
 
  // useEffect(() => {
 
