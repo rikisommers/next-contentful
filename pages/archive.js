@@ -7,7 +7,7 @@ import Container from '../components/container'
 import Layout from '../components/layout'
 import Head from 'next/head'
 import { CMS_NAME } from '../lib/constants'
-import Transition from "../components/transition";
+import Transition from "../components/transition-wipe";
 import { useLenis } from '@studio-freight/react-lenis';
 import Lenis from '@studio-freight/lenis';
 import { ScrollableBox } from "../components/scrollable";
