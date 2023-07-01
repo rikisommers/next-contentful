@@ -2,6 +2,7 @@
 module.exports = {
   images: {
     loader: 'custom',
+    formats: ['image/avif', 'image/webp'],
   },
 }
 
@@ -12,3 +13,4 @@ module.exports = {
     includePaths: [path.join(__dirname, 'styles')],
   },
 };
+

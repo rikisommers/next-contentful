@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useImperativeHandle } from "react";
 import {
   motion,
   useScroll,
@@ -12,37 +12,43 @@ import { getAllCaseStudies2 } from "../lib/api";
 import { ScrollableBox } from "./scrollable";
 import CaseStudyNext from "./case-study-next";
 import Link from "next/link";
-const Modal = ({ isOpen, onClose, children, nextPost }) => {
+const Modal = ({ isOpen, onClose, children, nextPost, reset, name ,setName}) => {
+ 
   const [isClosing, setIsClosing] = useState(false);
   const [isActive, setIsActive] = useState(false);
+  const [cpv, setCpv] = useState(null);
 
   const router = useRouter();
-
+  const post = router.query.post
+  
   const [scrollValue, setScrollValue] = useState(0);
 
   const handleScrollChange = (value) => {
     setScrollValue(value);
+   // console.log(scrollValue)
+
 
     if (value <= 1000) {
       x.set(value);
       // console.log('sv',scrollValue)
-
+        
       if (value <= 200) {
         setIsActive(false);
       }
 
       if (value > 200) {
+        setScrollValue(0)
         setIsActive(true);
       }
       // console.log('isActive',isActive)
     }
   };
 
-  // useEffect(()=> {
-  //   // if(scrollValue <= 200){
-  //   //   setIsActive(true)
-  //   // }
-  // },[scrollValue])
+  useEffect(()=> {
+    if(isClosing === true){
+      setIsActive(true)
+    }
+  },[isClosing])
 
   const easing = cubicBezier(0.33, 1, 0.68, 1);
   const x = useMotionValue(0);
@@ -56,16 +62,22 @@ const Modal = ({ isOpen, onClose, children, nextPost }) => {
   const xv = useTransform(x, input, cpxo, { easing });
   const rv = useTransform(x, input, ro, { easing });
 
-  const clipPathValue = `inset(${yv.current}rem ${xv.current}rem 0px round ${rv.current}rem ${rv.current}rem 0px 0px)`;
+  let clipPathValue = `inset(${yv.current}rem ${xv.current}rem 0px round ${rv.current}rem ${rv.current}rem 0px 0px)`;
+  const clipPathValueExit = `inset(0px 0px 100vh round 8rem 8rem 8rem 8rem)`;
+
+
+  const scrollRef = useRef(null);
+
 
   const closeModal = () => {
-    console.log('closing from modal onCLose')
+    setScrollValue(0)
     onClose();
-    
-//    modalRef.current.scrollTop = 0; 
+    handleResetLenis
+    console.log('closing from modal onCLose')
+   // console.log(scrollRef.current)
    // router.push('/posts');
 
-    // setIsClosing(true);
+     clipPathValue = clipPathValueExit;
     // setTimeout(() => {
     //   setIsClosing(false);
     //   onClose();
@@ -78,11 +90,12 @@ const Modal = ({ isOpen, onClose, children, nextPost }) => {
 
   const modalRef = useRef(null);
 
-  // useEffect(() => {
-  //   if (!isOpen) {
-  //     modalRef.current.scrollTop = 0; 
-  //   }
-  // }, [isOpen]);
+  useEffect(() => {
+    setCpv(clipPathValue)
+    // if (!isOpen) {
+    //   scrollRef.current.scrollValue(0) 
+    // }
+  }, [isOpen]);
 
   const variants = {
     active: { opacity: 0.3 },
@@ -109,6 +122,20 @@ const Modal = ({ isOpen, onClose, children, nextPost }) => {
     },
   };
 
+
+  const handleResetLenis = () => {
+    // Call the resetLenis function in the Modal component
+    if (scrollRef.current) {
+      scrollRef.current.resetLenis();
+    }
+  };
+
+  const handleStopScroll = () => {
+    // Toggle the stopScroll prop in the Modal component
+    setStopScroll((prevState) => !prevState);
+  };
+
+
   return (
     <>
       <motion.div
@@ -123,7 +150,7 @@ const Modal = ({ isOpen, onClose, children, nextPost }) => {
         style={{ clipPath: clipPathValue }}
         className="fixed w-full h-full top-0 z-30 flex inset shadow-2xl"
       >
-        <motion.button
+     <motion.div
           onClick={() => closeModal()}
           animate={isActive ? "active" : "inactive"}
           whileHover={"hover"}
@@ -131,11 +158,25 @@ const Modal = ({ isOpen, onClose, children, nextPost }) => {
           className="fixed top-6 right-36 z-50 bg-black text-white p-2 rounded-3xl"
         >
           Closes
-        </motion.button>
+        </motion.div>
 
         <motion.div
           className="bg-white z-10 flex flex-grow"
-
+          // initial={{
+          //   y: "100vh",
+          // }}
+          // animate={{
+          //   opacity: 1,
+          //   y: 0,
+          // }}
+          // exit={{
+          //   className:"bg-red",
+          //   y: "-36vh",
+          // }}
+          // transition={{
+          //   ease: [0.33, 1, 0.68, 1],
+          //   duration: 0.6,
+          // }}
           // variants={wrapperVariants}
           ///animate={!isActive ? "initial" : "animate"}
 
@@ -144,7 +185,17 @@ const Modal = ({ isOpen, onClose, children, nextPost }) => {
           //exit={{ opacity: 0, scale: 0.8 }}
           //transition={{ duration: 0.3 }}
         >
-          <ScrollableBox onScrollChange={handleScrollChange}>
+          <ScrollableBox 
+          ref={scrollRef} 
+          onScrollChange={handleScrollChange} 
+          onClose={closeModal}
+          orientation={'vertical'}
+          name={name} 
+          setName={
+            setName
+          }
+          >
+
             <motion.article
               className="px-24 py-32  relative z-10 overflow-hidden mb-vhh bg-white rounded-xl"
               initial={{
@@ -154,11 +205,16 @@ const Modal = ({ isOpen, onClose, children, nextPost }) => {
                 opacity: 1,
                 y: 0,
               }}
+              exit={{
+                y: (router.pathname === "/posts/[slug]") ? "-36vh"  : 0,
+              }}
               transition={{
                 ease: [0.33, 1, 0.68, 1],
-                duration: 1.6,
+                duration: 0.6,
               }}
             >
+        {/* <h1 className="absolute z-50 text-9xl">Name:{name} <button onClick={setName}>CLICKC</button></h1> */}
+
               {children}
             </motion.article>
             {nextPost &&

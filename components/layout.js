@@ -5,7 +5,7 @@ import { Lenis as ReactLenis, useLenis } from "@studio-freight/react-lenis";
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import Transition from "./transition";
+import Transition from "./transition-wipe";
 import { Router, useRouter } from "next/router";
 
 export default function Layout({ children }) {

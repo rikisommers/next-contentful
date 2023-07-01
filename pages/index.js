@@ -6,52 +6,64 @@ import Head from "next/head";
 
 import Intro from "../components/intro";
 import Layout from "../components/layout";
-import { getAllCaseStudiesForHome, getHome } from "../lib/api";
+import { getHome, lastUpdatedDate } from "../lib/api";
 import { CMS_NAME } from "../lib/constants";
-import { motion, AnimatePresence } from "framer-motion";
-import Transition from "../components/transition";
+import { motion, cubicBezier, useMotionValue, useTransform } from "framer-motion";
+import Transition from "../components/transition-wipe";
+import TransitionTilt from "../components/transition-tilt";
 import TextAnimation from "../components/text-animation";
-export default function Index({ home }) {
-  // const router = useRouter();
+import CaseStudyIntro from "../components/caseStudyIntro";
+import Chrome from "../components/chrome";
+export default function Index({ home, lastUpdate }) {
+  const router = useRouter();
 
-  // const handleScroll = (e) => {
-  //   //const delta = e.deltaY;
-  //   // router.push("/work");
-  //   // return;
-  // };
-  // useEffect(() => {
-  //   window.addEventListener("wheel", handleScroll);
-  //   return () => window.removeEventListener("wheel", handleScroll);
-  // });
+  useEffect(() => {
+    const wheelEvent =
+      "onwheel" in document
+        ? "wheel"
+        : "onmousewheel" in document
+        ? "mousewheel"
+        : "DOMMouseScroll";
+    const touchEvent = "ontouchstart" in window ? "touchmove" : "";
+
+    const handleScroll = (e) => {
+      router.push("/posts");
+    };
+
+    window.addEventListener(wheelEvent, handleScroll);
+    window.addEventListener(touchEvent, handleScroll);
+
+    return () => {
+      window.removeEventListener(wheelEvent, handleScroll);
+      window.removeEventListener(touchEvent, handleScroll);
+    };
+  }, []);
+
+  const lastUpdatedDate = home?.sys?.updatedAt || "N/A";
+
+  const clipPathInitial = `inset(-1rem )`;
+  const clipPathAnimate = `inset(1.5rem round 1.5rem )`;
 
   return (
-    
     <Layout>
-    
-      <motion.div
-        className="fixed w-full h-full overflow-hidden top-0"
-        initial={{ scale: 1 }}
-        exit={{
-          scale: 0.9,
-          zIndex:10
-        }}
-        transition={{
-          ease: [0.33, 1, 0.68, 1],
-          duration: 1.6,
-          //  delay: 1,
-        }}
-      >
-        <div className="fixed w-full h-full p-6 top-0">
-          <div className="w-full h-full bg-blue-200 0 flex items-center justify-center rounded-xl">
+      <TransitionTilt>
+        {/* bg-slate-100 */}
 
-          <div className="flex flex-col content gap-3">
-          
-            <TextAnimation content={home.title}></TextAnimation>
-            <p className="uppercase text-sm	text-center">{home.intro}</p>
+        <motion.div
+          initial={{clipPath: clipPathInitial}}
+          animate={{ clipPath: clipPathAnimate }}
+          transition={{
+            duration: 1.2,
+            easing:cubicBezier(0.35, 0.17, 0.3, 0.86)
+          }}
+          className="fixed w-full h-full top-0 z-30 flex inset"
+        >
+            <Chrome lastUpdate={lastUpdate} />
+            <div className="w-full h-full 0 flex items-end justify-end  grad">
+              <CaseStudyIntro title={home.title} content={home.intro} />
             </div>
-          </div>
-        </div>
-      </motion.div>
+        </motion.div>
+      </TransitionTilt>
       <Transition />
     </Layout>
   );
@@ -59,9 +71,11 @@ export default function Index({ home }) {
 
 export async function getStaticProps({ preview = false }) {
   const home = (await getHome(preview)) ?? [];
+  const lastUpdate = (await lastUpdatedDate(preview)) ?? [];
   return {
     props: {
       home,
+      lastUpdate,
     },
   };
 }

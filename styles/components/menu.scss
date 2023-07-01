@@ -1,3 +1,4 @@
+
 // Menu Item Variables
 // The number of items in the menu
 $menu-items: 3;
@@ -5,23 +6,38 @@ $menu-items: 3;
 $width: (100/$menu-items) * 1%;
 $menu-items-loop-offset: $menu-items - 1; // the number of items in the menu
 
-$background-color: rgba(67, 67, 67, 0.4);
-$indicator-color: #e82d00;
+$background-color: rgba(255, 255, 255, 0.4);
+$indicator-color: #fff;
+
+.logo{
+  position: fixed;
+  width:40px;
+  height:40px;
+  top:2rem;
+  left:2rem;
+  background-image: url('../../public/Subtract.svg');
+  background-size: contain;
+  z-index:9999;
+}
+
 
 .c-menu__wrapper{
   position: fixed;
-  bottom:2.5rem;
+  bottom:3rem;
   transform: translateX(-50%);
   left: 50%;
   right: auto;
   z-index:9999;
-  
+
 }
+
+
+
 
 ul.c-menu{
  
-  border-radius: 12px;
-    backdrop-filter: blur(12px);
+  border-radius: 0.6rem ;
+    backdrop-filter: blur(0.6rem);
     background-color: $background-color;
   display:flex;
     list-style: none;
@@ -31,15 +47,23 @@ ul.c-menu{
     position: relative;// the menu is "relative" to the absolute position last-child pseudo elements.
 //    z-index: 0;
     
-  
+    
+  // &:before{
+  //   display: block;
+  //   position: absolute;
+  //   top:0px;
+  //   left:-20px;
+  //   backdrop-filter: blur(12px);
+  //   background-color: $background-color;
+  // }
 
     li{
     flex:1 1 0%;
 
         a{
-        line-height: 48px;
-        padding:0 18px;
-        color:#fff;
+        line-height: 4rem;
+        padding:1.5rem;
+        color:#000;
             font-size: 14px;
         }
 
@@ -83,10 +107,11 @@ ul.c-menu{
                     // top: -6px;
                     bottom: 8px;
                     left: 0;
-                    width: $width - 12;
+                    width: $width - 8;
                     margin-left:12px;
-                    height:6px;
+                    height:3rem;
                     z-index: -1;
+                    border-radius: 0.3rem;
                 }
         
         
@@ -107,10 +132,8 @@ ul.c-menu{
         // We have to use !important to make the hovers overide if the last:child is the active or hovered
         .li:nth-child(#{$i}):hover ~ .li:last-child:after {
           left:($width*$i)-$width !important;
-        }
-
-          
-      }
+        }     
+    }
         
         // // this could be nested in the original .Nav-item
         // .li {
@@ -127,4 +150,103 @@ ul.c-menu{
     
 
 
+}
+
+$corner-size:12px;
+
+.corner{
+
+  display: block;
+  content: '';
+  position: absolute;
+  width: $corner-size;
+  height: $corner-size;
+  background: $background-color;
+  mask-image: radial-gradient(circle 10px at 0 0, transparent 0, transparent $corner-size, black $corner-size);
+  -webkit-mask-image: radial-gradient(circle 10px at 0 0, transparent 0, transparent $corner-size, black $corner-size);
+}
+
+
+
+.inset{
+position: relative;// the menu is "relative" to the absolute position last-child pseudo elements.
+border-radius: 12px ;
+backdrop-filter: blur(12px);
+background-color: $background-color;
+height: 3rem;
+display:flex;
+list-style: none;
+margin: 0;
+padding:0;
+gap:0;
+}
+
+
+.inset--top-left{
+  border-radius:0  0 12px 0 ;
+
+  &::before{
+    right:-$corner-size;
+    top:0;
+    @extend .corner;
+    transform: rotate(180deg);
+
+  }
+  &::after{
+
+    left:0;
+    bottom:-$corner-size;
+    @extend .corner;
+    transform: rotate(180deg);
+
+  }
+}
+.inset--top-right{
+  border-radius:0  0 0 12px ;
+
+  &::before{
+    @extend .corner;
+    transform: rotate(-90deg);
+    left:-$corner-size;
+    top:0;
+  }
+  &::after{
+    @extend .corner;
+    transform: rotate(-90deg);
+
+    right:0;
+    bottom:-$corner-size;
+  }
+}
+.inset--bottom-left{
+  border-radius:0 12px 0 0;
+
+  &::before{
+    @extend .corner;
+    transform: rotate(90deg);
+    left:0;
+    top:-$corner-size;
+  }
+  &::after{
+    @extend .corner;
+    transform: rotate(90deg);
+    right:-$corner-size;
+    bottom:0;
+  }
+}
+.inset--bottom-right{
+  border-radius:12px 0 0 0;
+
+  &::before{
+    @extend .corner;
+    
+    right:0;
+    top:-$corner-size;
+  }
+  &::after{
+    @extend .corner;
+
+    left:-$corner-size;
+    bottom:0;
+  }
 }

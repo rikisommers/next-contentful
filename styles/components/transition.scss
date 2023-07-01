@@ -1,0 +1,12 @@
+//fixed top-0 h-full w-full bg-white rounded-3xl z-50
+
+.transition-wipe--y{
+    position: fixed;
+    width:100%;
+    height: calc(100vh + 4rem);
+    top:0;
+    border-radius: 2rem;
+    padding:calc(40px + 1.5rem) 1.5rem 1.5rem;
+    background-color: #fff;
+    z-index: 50;
+}

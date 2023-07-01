@@ -37,7 +37,7 @@ import { ScrollableBox } from "../../components/scrollable";
 import TransitionContent from "../../components/transition-content";
 import CaseStudyNext from "../../components/case-study-next";
 import CoverImage from "../../components/cover-image";
-import CaseStudyIntro from "../../components/caseStudyIntro";
+import CaseStudyIntro from "../../components/case-study-header";
 
 export default function Post({ post, nextPost, preview }) {
   const [isActive, setIsActive] = useState(false);
@@ -163,7 +163,7 @@ export default function Post({ post, nextPost, preview }) {
                 duration: 0.6,
               }}
             >
-              <CaseStudyIntro title={post.title} content={post.subtitle}></CaseStudyIntro>
+
               <CaseStudyHeader
                 title={post.title}
                 subtitle={post.subtitle}
@@ -255,7 +255,7 @@ export async function getStaticProps({ params, preview = false }) {
 export async function getStaticPaths() {
   const allPosts = await getAllCaseStudies(false);
   return {
-    paths: allPosts?.map(({ slug }) => `/posts/${slug}`) ?? [],
+    paths: allPosts?.map(({ slug }) => `/projects/${slug}`) ?? [],
     fallback: true,
   };
 }

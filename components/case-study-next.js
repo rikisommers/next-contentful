@@ -21,7 +21,7 @@ export default function CaseStudyNext({ post }) {
 
   return (
     <motion.div
-      className="overflow-hidden h-vhh bottom-0 left-0 z-0 m-6"
+      className="overflow-hidden fixed h-vhh bottom-0 left-0 z-0 m-6"
       initial={{
         height: "64vh",
         borderRadius: "0.75rem",

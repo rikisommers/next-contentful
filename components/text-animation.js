@@ -1,12 +1,36 @@
 import { motion, AnimatePresence } from "framer-motion";
 
-export default function TextAnimation({ content }) {
+export default function TextAnimation({ content, style , direction, size }) {
   const container = {
     hidden: { opacity: 0.5 },
     show: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
+       staggerChildren: - 0.1,
+      },
+    },
+  };
+
+  const wordv = {
+    hidden: {
+      opacity: 0,
+      rotateX: -40,
+      x:30
+    },
+    show: {
+      x:0,
+      rotateX: 0,
+
+      opacity: 1,
+      transition: {
+        opacity: {
+          ease: [0.33, 1, 0.68, 1],
+          duration: 1.6 // custom duration for opacity property only
+        },
+        x: {
+          ease: [0.33, 1, 0.68, 1],
+          duration: 1.2 // custom duration for opacity property only
+        }
       },
     },
   };
@@ -15,74 +39,51 @@ export default function TextAnimation({ content }) {
     hidden: {
       opacity: 0,
       rotateX: -20,
-     // rotateY: 12,
-      y: -10,
+      y:  60,
     },
     show: {
       y: 0,
 
       opacity: 1,
-      rotateX: 0,
+     rotateX: 0,
       rotateY: 0,
-     // rotateX: -20,
-      //rotateY: 12,
       transition: {
         ease: [0.33, 1, 0.68, 1],
-        duration: 0.6,
+        duration: 1.6,
       },
     },
   };
 
   return (
     <motion.h1
-      className="flex flex-col"
+      className="text-anim"
       key="text-wrapper"
       variants={container}
       initial="hidden"
       animate="show"
+      exit="eixt"
     >
       {content &&
         content.split(" ").map(function (word, index) {
           return (
-            <span
-              className="uppercase text-9xl text-black text-anim-wrap block"
+            <motion.span
+              variants={wordv}
+   
+              className="text-anim-word overflow-hidden"
               key={index}
             >
               {word.split("").map(function (letter, index) {
                 return (
                   <motion.span
-                    className="text-anim text-black"
+                    className="text-anim-letter"
                     key={index}
                     variants={item}
-                    // initial={{
-                    //   opacity: 0,
-                    //   rotateX:-30,
-                    //   rotateY:12,
-
-                    //   y: -20
-
-                    //  }}
-                    //  animate={{
-                    //   y: 0,
-
-                    //   opacity: 1,
-                    //   rotateX:0,
-                    //   rotateY:0,
-
-                    //  }}
-
-                    // transition={{
-                    //   ease: [0.33, 1, 0.68, 1],
-                    //   duration: 0.6,
-                    //   delay: 0.1 * index + 1,
-                    // }}
                   >
                     {letter}
-                    {/* {index} */}
                   </motion.span>
                 );
               })}
-            </span>
+            </motion.span>
           );
         })}
     </motion.h1>

@@ -5,20 +5,18 @@ import { motion, AnimatePresence } from "framer-motion";
 const HomeTransitionContent = () => {
   return (
     <motion.div
-      className="fixed top-0 h-full w-full bg-white rounded-xl z-50"
+      className="transition-wipe--y"
       initial={{ y: "100%" }}
       exit={{
-        y: 0,
+        y: -40,
       }}
       transition={{
         ease: [0.33, 1, 0.68, 1],
         duration: 0.6,
-        delay: 1.6,
+        delay: 0.3,
       }}
     >
-      <div className="fixed w-full h-full p-6">
-        <div className="w-full h-full bg-blue-200 flex items-center justify-center rounded-xl">
-        </div>
+        <div className="w-full h-full grad flex items-center justify-center rounded-xl">
       </div>
     </motion.div>
   );
@@ -28,15 +26,15 @@ const WorkTransitionContent = () => {
   return (
     <motion.div
       id="tranny-content"
-      className="fixed top-0 h-full w-full bg-white rounded-xl z-50"
+      className="transition-wipe--y"
       initial={{ y: "100%" }}
       exit={{
-        y: 0,
+        y: -40,
       }}
       transition={{
         ease: [0.33, 1, 0.68, 1],
         duration: 0.6,
-        delay: 0.6,
+        delay: 0.3,
       }}
     >
       <div className="flex align-middle rounded-xl">
@@ -69,6 +67,8 @@ const Overlay = () => {
 
 const Transition = ({ children }) => {
   const router = useRouter();
+  const dynamicRoute = useRouter().asPath;
+
   const [route, setRoute] = useState("/");
   const [isLoading, setLoaded] = useState(false);
 
@@ -85,29 +85,31 @@ const Transition = ({ children }) => {
 
   useEffect(() => {
     router.events.on("routeChangeStart", (url) => {
+      //setLoadingTrue()
       setRouteOnChangeStart(url);
-     // console.log("------ROUTESTART", url);
+      
+    //  console.log("------ROUTESTART", url);
+      
       // console.log(`routing to ${url}`);
     });
     router.events.on("routeChangeComplete", (url) => {
-      setLoadingFalse();
-   //   console.log("------ROUTEEND", url);
+     // setLoadingFalse();
+     // console.log("------ROUTEEND", url);
     });
   }, []);
 
   return (
     <>
-      <div className="postop2">route:{route}</div>
       {route === "/" && (
         <>
-          <Overlay />
           <HomeTransitionContent />
+          {/* <Overlay /> */}
         </>
       )}
-      {route === "/posts" && (
+      {(route === "/posts" || route === "/posts?") && (
         <>
-          <Overlay />
           <WorkTransitionContent />
+          {/* <Overlay /> */}
         </>
       )}
     </>

@@ -1,12 +1,16 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import CoverImage from "./cover-image";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform, } from "framer-motion";
+import Image from "next/image";
+import ContentfulImage from "./contentful-image";
+
 export default function CaseStudyTile({ post, index, onclick }) {
   //${index == 0 ? "h-vhr" : ""
  // console.log(post);
  const router = useRouter();
-
+ const { scrollY } = useScroll();
+ const y = useTransform(scrollY,[0,1],["0%","50%"])
 
   const animateContentOnHover = {
     initial: {
@@ -17,37 +21,20 @@ export default function CaseStudyTile({ post, index, onclick }) {
       transition: {
         ease: [0.33, 1, 0.68, 1],
         duration: 0.6,
-        delay:0.6
       },
     },
     
   };
 
+
   return (
-    <div
-     
-      className="relative w-full "
-   
-    >
-          {/* <Link
-      scroll={false}
-      href={`/work?post=${post.slug}`}
-      as={`/posts/${post.slug}`}
-      className="c-tile rounded-xl relative"
-   
-    > */}
+    <div className="relative w-full h-full">
 
-    
-      <motion.div
-         initial="blur"
-         whileHover="hover"
-         animate="blur"
-         
-      // initial="initial" whileHover="hover" animate="initial"
-      >
-
+ 
 
         <motion.div
+                initial="initial"
+                whileHover="hover"
         key={post?.title}
           variants={animateContentOnHover}
           className="absolute z-20 w-full h-full bg-zinc-900/30"
@@ -60,14 +47,29 @@ export default function CaseStudyTile({ post, index, onclick }) {
             {post?.title}
           </h2>
         </motion.div>
-      </motion.div>
       {post.img != null && (
-        <CoverImage
-          title={post.title}
-          url={post.img.url}
-          layout={post.layout}
-        />
+        <motion.div
+        className="absolute"
+          style={{y:-50}}
+        
+        >
+            <ContentfulImage
+            className="img-cover"
+            alt={`Cover Image for ${post.title}`}
+            src={post.img.url}
+          />
+          </motion.div>
+
+        // <CoverImage
+
+        //   title={post.title}
+        //   url={post.img.url}
+        //   layout={post.layout}
+        // />
+
       )}
+      
     </div>
+
   );
 }

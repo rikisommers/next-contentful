@@ -5,7 +5,6 @@ import cn from "classnames";
 export default function CoverImage({ title, url, slug, layout }) {
   const image = (
     <ContentfulImage
-      // className="o-fill"
       width={1920}
       height={1280}
       sizes="(max-width: 768px) 100vw,
@@ -16,6 +15,5 @@ export default function CoverImage({ title, url, slug, layout }) {
     />
   );
 
-  // <div className={`c-image--${layout}`}> </div>
   return image;
 }

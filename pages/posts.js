@@ -16,7 +16,13 @@ import {
 } from "../lib/api";
 import Head from "next/head";
 import { CMS_NAME } from "../lib/constants";
-import { AnimatePresence, motion, transform } from "framer-motion";
+import {
+  AnimatePresence,
+  motion,
+  cubicBezier,
+  transform,
+  useAnimation,
+} from "framer-motion";
 import CaseStudyPreview from "../components/case-study-tile";
 import CustomCursor from "../components/cursor";
 import Reel from "../components/reel";
@@ -25,7 +31,8 @@ import {
   Lenis as ReactLenis,
   useLenis,
 } from "@studio-freight/react-lenis";
-import Transition from "../components/transition";
+import Transition from "../components/transition-wipe";
+import TransitionTilt from "../components/transition-tilt";
 import Modal from "../components/modal";
 import CaseStudyTile from "../components/case-study-tile";
 import PostContent from "../components/post-content";
@@ -34,137 +41,219 @@ import TextAnimation from "../components/text-animation";
 import useIntersectionObserver from "../components/intersection-observer";
 import Link from "next/link";
 import CaseStudyNext from "../components/case-study-next";
+import FadeInWhenVisible from "../components/fadeInVisible";
+import { sl } from "date-fns/locale";
 
-export default function Index({ intro, caseStudies, allCaseStudies }) {
+import CaseStudyIntro from "../components/caseStudyIntro";
+
+export default function Posts({ intro, caseStudies, allCaseStudies }) {
   const router = useRouter();
+
+  const loopedPosts = allCaseStudies.slice(0, 2);
+
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [slug, setSlug] = useState(null);
-  const [post, setPost] = useState("test");
+  const [post, setPost] = useState(null);
+  const [nextPost, setNextPost] = useState(null);
+  const [name, setName] = useState("Omar");
 
-  const selectedPost = allCaseStudies.find(
-    (post) => post.slug === router.query.post
-  );
+  function changeName() {
+    setName("Riki");
+  }
 
-  const currentPostIndex = allCaseStudies.findIndex(
-    (post) => post.slug === router.query.post
-  );
+  useEffect(() => {
+    const newPost = allCaseStudies.find((post) => post.slug === slug);
+    setPost(newPost);
 
-  const nextPostIndex = currentPostIndex + 1;
-  const nextPost =
-    nextPostIndex < allCaseStudies.length
-      ? allCaseStudies[nextPostIndex]
-      : allCaseStudies[0];
+    const currentPostIndex = allCaseStudies.findIndex(
+      (post) => post.slug === slug
+    );
 
-  const openModal = () => {
+    const nextPostIndex = currentPostIndex + 1;
+    const newNextPost =
+      nextPostIndex < allCaseStudies.length
+        ? allCaseStudies[nextPostIndex]
+        : allCaseStudies[0];
+
+    setNextPost(newNextPost);
+  }, [slug]); // Re-run the effect whenever the route changes
+
+  // const [isIntroVisible, setIntroIsVisible] = useState(true);
+  // const introRef = useIntersectionObserver(
+  //   () => {
+  //     setIntroIsVisible(false);
+  //   },
+  //   { rootMargin: "0px", threshold: 1 },
+  //   false
+  // );
+
+  const updateUrl = (url) => {
+    const newUrl = `/projects/${url}`;
+
+    window.history.replaceState(
+      { ...window.history.state, as: newUrl, url: newUrl },
+      "",
+      newUrl
+    );
+  };
+
+  const openModal = (slug) => {
+    setSlug(slug);
+    updateUrl(slug);
     setIsModalOpen(true);
+    // router.push('/posts?');
   };
 
-  const closeModal = () => {
+  const [clickedCount, setClickCount] = useState("");
+  const dynamicRoute = router.asPath;
+
+  // useEffect(() => {
+  //   setClickCount(clickedCount+1)
+  //   console.log(clickedCount)
+
+  // }, [dynamicRoute]); // Re-run the effect whenever the route changes
+
+  const closeModal = (slug) => {
+    setClickCount(clickedCount + 1);
+    changeName();
     // setIsModalOpen(false);
-    router.push("/posts");
+    console.log("ruote", router.asPath);
+    console.log("ruote", router.route);
+    //router.push(router.route !== '/posts' ? '/posts' :  `/posts?${clickedCount}`);
+
+    if (router.asPath === "/posts?") {
+      router.push("/posts");
+    } else {
+      router.push("/posts?");
+    }
+
+    //  console.log(clickedCount);
   };
+  //   useEffect(() => {
+  //     router.reload
+  // }, [router])
 
-
-  const [isIntroVisible, setIntroIsVisible] = useState(true);
-  const introRef = useIntersectionObserver(
-    () => {
-      setIntroIsVisible(false);
-    },
-    { rootMargin: "0px", threshold: 1},
-  false
-  );
-
-
-
-
-  
   return (
     <Layout>
-      <div className="postop">{router.query.post ? "T" : "F"}</div>
-      
-      
-       <Modal
-        isOpen={router.query.post}
+      <div className="postop2">
+        <div>route:{router.route}</div>
+        <div>asPath:{router.asPath}</div>
+        <button onClick={openModal}>Open Modal</button>
+      </div>
+
+      {/* <div className="postop">
+      <div>route: {router.route}</div>
+        <div>asPath:{router.asPath}</div>
+
+        <div>slug : {slug}</div>
+
+       <div>{ dynamicRoute && dynamicRoute}</div> 
+       <div>{ clickedCount && clickedCount.valueOf}</div> 
+
+      </div> */}
+
+      <Modal
+        isOpen={isModalOpen}
         onClose={closeModal}
         nextPost={nextPost}
+        name={name}
+        setName={changeName}
       >
-        {selectedPost && <PostContent post={selectedPost} />}
+        {post && <PostContent post={post} />}
+      </Modal>
 
-      </Modal> 
-
-      <ScrollableBox infinite={true} stopScroll={true}> 
-      <motion.div
-          className="w-full bg-white top-0 bg-red-500"
+      <TransitionTilt>
+      <ScrollableBox infinite={true} name={name} orientation={"vertical"}>
+        <motion.div
+          className="w-full bg-slate-100 top-0 px-6"
           exit={{
             zIndex: 0,
           }}
-          transition={{
-            ease: [0.33, 1, 0.68, 1],
-            duration: 1.6,
-            //  delay: 1,
-          }}
         >
-      {allCaseStudies && (
-        <div className="flex flex-col gap-6 py-6 mx-6 relative  work-grid ">
-
-          <motion.div
-            animate={{
-             /// background: isIntroVisible ? "red" : "blue",
-            }}
-            className="
-            absolute 
-            z-20 
-            top-0 
-            mt-6 
-            w-full   
-            h-vhr flex items-center justify-center rounded-xl bg-white z-30  item"
-            ref={introRef}
-          >
-            <TextAnimation content={intro.intro}></TextAnimation>
-          </motion.div>
-
-          {allCaseStudies.map((post, index) => {
-            return (
-              <motion.div
-            //  onClick={openModal}
-              className={`item overflow-hidden bg-slate-200 rounded-xl w-full ${index == 0 ? 'h-vhr': 'h-full'}`}
-              initial={{
-                opacity:0
-              }}
-              animate={{
-                opacity:1
-              }}
-                  transition={{
-            ease: [0.33, 1, 0.68, 1],
-            duration: 0.6,
-            //  delay: 1,
-          }}>
-              <Link
+          {allCaseStudies && (
+            <div className="relative  work-grid ">
+              
              
-                key={index}
-                scroll={false}
-                href={`/posts?post=${post.slug}`}
-                as={`/posts/${post.slug}`}
-                shallow={true}
-              >
-                <CaseStudyTile
-                  index={index}
-                  key={post.slug}
-                  post={post}
-                  slug={slug}
-                />
-              </Link>
-                            </motion.div>
+              <CaseStudyIntro title={intro.title} content={intro.intro}/>
 
-            );
-          })}
-          
-        </div>
-      )}
-      </motion.div>
+              {allCaseStudies.map((post, index) => {
+                return (
+                  <motion.div
+                    initial={{
+                      opacity:0,
+                      y:50
+                    }}
+                    animate={{
+                      opacity:1,
+                      y:1
+                    }}
+                    transition={{
+                      opacity:{
+                        easing:cubicBezier(0.35, 0.17, 0.3, 0.86),
+                        duration: 1.2,
+                      },
+                      y:{
+                        easing:cubicBezier(0.35, 0.17, 0.3, 0.86),
+                        duration: 0.6,
+                      }
+                    
+                    }}
+                    onClick={() => openModal(post.slug)}
+                    className={`relative cursor-pointer item overflow-hidden bg-slate-200 rounded-xl w-full`}
+                  >
+                    {/*
+          relative ${index == 0 ? 'h-vhr': 'h-vhh'}
+          <Link 
+                key={index}
+                onClick={() => openModal(post.slug)}
+
+               href={`/posts?post=${post.slug}`}
+               as={`/projects/${post.slug}`}
+  
+                > */}
+                    <FadeInWhenVisible>
+                      <CaseStudyTile
+                        index={index}
+                        key={post.slug}
+                        post={post}
+                        slug={slug}
+                      />
+                    </FadeInWhenVisible>
+                    {/* </Link>        */}
+                  </motion.div>
+                  //               <FadeInWhenVisible>
+
+                  // </FadeInWhenVisible>
+                );
+              })}
+               {loopedPosts && (
+                <>
+              {loopedPosts.map((post, index) => {
+                return (
+                  <motion.div
+                    onClick={() => openModal(post.slug)}
+                    className={`relative cursor-pointer item overflow-hidden bg-slate-200 rounded-xl w-full truncate`}
+                  >
+                    <FadeInWhenVisible>
+                      <CaseStudyTile
+                        index={index}
+                        key={post.slug}
+                        post={post}
+                        slug={slug}
+                      />
+                    </FadeInWhenVisible>
+                  </motion.div>
+                );
+              })}
+              </>
+               )}
+            </div>
+          )}
+        </motion.div>
       </ScrollableBox>
-      <Transition/>
+      </TransitionTilt>
+      <Transition />
     </Layout>
   );
 }
