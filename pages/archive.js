@@ -10,7 +10,7 @@ import { CMS_NAME } from '../lib/constants'
 import Transition from "../components/transition-wipe";
 import { useLenis } from '@studio-freight/react-lenis';
 import Lenis from '@studio-freight/lenis';
-import { ScrollableBox } from "../components/scrollable";
+import { ScrollableBox } from "../components/utils/scrollable";
 
 export default function Archive() {
   
