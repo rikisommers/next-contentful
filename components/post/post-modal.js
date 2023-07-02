@@ -118,7 +118,6 @@ const PostModal = ({
     }
   };
 
-
   return (
     <>
       <motion.div
