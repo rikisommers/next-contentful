@@ -15,31 +15,18 @@ export const BlockArticle = ({ article }) => {
 
   return (
     <section ref={ref} className="u-mb--80" id={article.title}>
-              <figure className="progress">
-          <svg id="progress" width="75" height="75" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="30" pathLength="1" className="bg" />
-            <motion.circle
-              cx="50"
-              cy="50"
-              r="30"
-              pathLength="1"
-              className="indicator"
-              style={{ pathLength: scrollYProgress }}
-            />
-          </svg>
-        </figure>
-      <div className="o-content-grid-alt">
+              
 
-        <div className="title">
-            {article.title && (
-              <h2>{article.title}</h2>
-            )}
-            {article.content && (
-              <h3 >{article.content.content}</h3>
-            )}
-      </div>
+        <div className="title mb-4">
+          {article.title && (
+            <h2 className="text-2xl">{article.title}</h2>
+          )}
+          {article.content && (
+            <p className="text-base mb-2">{article.content.content}</p>
+          )}
+        </div>
 
-        <div className="content rich-content">
+        <div className="rich-content">
           {article.contentRich && (
 
             <>{documentToReactComponents(article.contentRich.json, RichTextOptions)}</>
@@ -57,7 +44,7 @@ export const BlockArticle = ({ article }) => {
               );
             })}
         </div>
-      </div>
+      
     </section>
   );
 };

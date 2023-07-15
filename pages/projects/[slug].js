@@ -16,7 +16,7 @@ import {
 import { ScrollableBox } from "../../components/utils/scrollable";
 
 import PostBody from "../../components/post/post-body";
-import Transition from "../../components/transition-wipe";
+import TransitionWipe from "../../components/transition/transition-wipe";
 import NextPost from "../../components/post/post-next";
 import CoverImage from "../../components/image/cover-image";
 
@@ -128,7 +128,7 @@ export default function Post({ post, nextPost, preview }) {
           </div>
         </motion.div>
       )}
-      <Transition />
+      <TransitionWipe />
     </Layout>
   );
 }

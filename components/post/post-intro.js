@@ -8,13 +8,12 @@ export default function PostIntro({ title, content }) {
       className="
           top-0 
           w-full   
-          flex items-center justify-center rounded-xl  z-30  item"
+          flex items-center justify-center rounded-xl z-30 item"
     >
-      <div className="home-content gap-8">
+      <div className="flex flex-col gap-8 max-w-3xl">
         <TextAnimation content={title}></TextAnimation>
-
         <motion.p
-          className="text-sm	text-left"
+          className="text-sm text-center"
           initial={{ opacity: 0 }}
           animate={{
             opacity: 1,

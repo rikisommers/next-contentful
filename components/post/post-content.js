@@ -8,6 +8,9 @@ export default function PostContent({ post }) {
         <PostHeader
           title={post.title}
           subtitle={post.subtitle}
+          client={post.client}
+          tags={post.tags}
+          role={post.role}
           img={post.img}
         />
         {post.csblocksCollection && (

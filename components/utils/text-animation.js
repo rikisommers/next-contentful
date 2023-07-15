@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 export default function TextAnimation({ content, style , direction, size }) {
   const container = {
@@ -20,7 +20,6 @@ export default function TextAnimation({ content, style , direction, size }) {
     show: {
       x:0,
       rotateX: 0,
-
       opacity: 1,
       transition: {
         opacity: {
@@ -61,17 +60,15 @@ export default function TextAnimation({ content, style , direction, size }) {
       variants={container}
       initial="hidden"
       animate="show"
-      exit="eixt"
     >
       {content &&
         content.split(" ").map(function (word, index) {
           return (
             <motion.span
               variants={wordv}
-   
               className="text-anim-word overflow-hidden"
               key={index}
-            >
+            > 
               {word.split("").map(function (letter, index) {
                 return (
                   <motion.span

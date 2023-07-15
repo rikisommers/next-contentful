@@ -13,6 +13,7 @@ import PostIntro from "../components/post/post-intro";
 import PostContent from "../components/post/post-content";
 import PostTile from "../components/post/post-tile";
 import PostModal from "../components/post/post-modal";
+import CustomCursor from "../components/utils/cursor";
 
 export default function Posts({ intro, caseStudies, allCaseStudies }) {
   const router = useRouter();
@@ -82,12 +83,15 @@ export default function Posts({ intro, caseStudies, allCaseStudies }) {
 
   return (
     <Layout>
+
+      <CustomCursor/>
+
+
       {/* <div className="postop2">
         <div>route:{router.route}</div>
         <div>asPath:{router.asPath}</div>
         <button onClick={openModal}>Open Modal</button>
       </div> */}
-
       <PostModal
         isOpen={isModalOpen}
         onClose={closeModal}

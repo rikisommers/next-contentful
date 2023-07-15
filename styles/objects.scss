@@ -56,6 +56,15 @@
 
 }
 
+.content{
+  max-width: 70vh;
+  height: auto;
+  margin-bottom:6rem;
+  //margin: 13% auto auto  8%;
+}
+
+
+
 .o-content-grid-alt{
   display:grid;
   grid-template-columns: repeat(12,minmax(0,1fr));

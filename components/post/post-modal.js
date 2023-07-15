@@ -8,6 +8,10 @@ import {
 import { useRouter } from "next/router";
 import { ScrollableBox } from "../utils/scrollable";
 import NextPost from "./post-next";
+import Close from "../base/close";
+import { is } from "date-fns/locale";
+
+
 const PostModal = ({
   isOpen,
   onClose,
@@ -20,6 +24,17 @@ const PostModal = ({
   const [isClosing, setIsClosing] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [cpv, setCpv] = useState(null);
+
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleHoverStart = () => {
+    setIsHovered(true);
+  };
+
+  const handleHoverEnd = () => {
+    setIsHovered(false);
+  };
+
 
   const router = useRouter();
   const post = router.query.post;
@@ -68,7 +83,12 @@ const PostModal = ({
   const rv = useTransform(x, input, ro, { easing });
 
   let clipPathValue = `inset(${yv.current}rem ${xv.current}rem 0px round ${rv.current}rem ${rv.current}rem 0px 0px)`;
+//  const clipPathValueInitial = `inset(90vh 0px 0px round 8rem 8rem 0rem 0rem)`;
   const clipPathValueExit = `inset(0px 0px 100vh round 8rem 8rem 8rem 8rem)`;
+
+
+
+
 
   const scrollRef = useRef(null);
 
@@ -87,14 +107,6 @@ const PostModal = ({
     setCpv(clipPathValue);
   }, [isOpen]);
 
-  const variants = {
-    active: { opacity: 0.3 },
-    inactive: { opacity: 0 },
-    hover: {
-      background: "red",
-      opacity: 1,
-    },
-  };
 
   const bgVariants = {
     active: { opacity: 1 },
@@ -111,6 +123,7 @@ const PostModal = ({
       y: "100vh",
     },
   };
+  
 
   const handleResetLenis = () => {
     if (scrollRef.current) {
@@ -132,15 +145,8 @@ const PostModal = ({
         style={{ clipPath: clipPathValue }}
         className="fixed w-full h-full top-0 z-30 flex inset shadow-2xl"
       >
-        <motion.div
-          onClick={() => closeModal()}
-          animate={isActive ? "active" : "inactive"}
-          whileHover={"hover"}
-          variants={variants}
-          className="fixed top-6 right-36 z-50 bg-black text-white p-2 rounded-3xl"
-        >
-          Close
-        </motion.div>
+  
+        <Close isActive={isActive} onClick={() => closeModal()}/>
 
         <motion.div className="bg-white z-10 flex flex-grow">
           <ScrollableBox

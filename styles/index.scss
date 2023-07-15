@@ -11,6 +11,7 @@
 @use 'components/scroll';
 @use 'components/menu';
 @use 'components/transition';
+@use 'components/rich-text';
 @use 'utils';
 
 
@@ -175,7 +176,8 @@ body{
 .content{
   max-width: 70vh;
   height: auto;
-  margin: 13% auto auto  8%;
+  margin-bottom:6rem;
+  //margin: 13% auto auto  8%;
 }
 
 

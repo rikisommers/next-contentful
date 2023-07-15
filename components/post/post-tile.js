@@ -1,9 +1,9 @@
-import { motion, useScroll, useTransform } from "framer-motion";
+import  { useContext, useEffect, useState, useRef} from "react"
+import { motion, useScroll, useTransform,useMotionValue,useSpring } from "framer-motion";
 import ContentfulImage from "../image/contentful-image";
-
+import CursorProject from "../utils/cursor-project";
+import { AppContext } from "../appContext";
 export default function PostTile({ post }) {
-  const { scrollY } = useScroll();
-  const y = useTransform(scrollY, [0, 1], ["0%", "50%"]);
 
   const animateContentOnHover = {
     initial: {
@@ -16,10 +16,13 @@ export default function PostTile({ post }) {
         duration: 0.6,
       },
     },
-  };
+  };  
 
   return (
-    <div className="relative w-full h-full">
+    <div className="tile relative w-full h-full overflow-hidden cursor-as--post">
+
+
+      
       <motion.div
         initial="initial"
         whileHover="hover"
@@ -31,9 +34,10 @@ export default function PostTile({ post }) {
           <span>{post?.client}</span>
           <span>DATE</span>
         </div>
-        <h2 className="absolute w-full text-center bottom-0 px-8 pb-5">
+        <h2 className="absolute w-full bottom-0 left-0 px-8 pb-5">
           {post?.title}
         </h2>
+
       </motion.div>
       {post.img != null && (
         <motion.div className="absolute" style={{ y: -50 }}>

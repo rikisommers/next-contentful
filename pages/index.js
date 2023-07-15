@@ -1,14 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Layout from "../components/layout";
 import { getHome, lastUpdatedDate } from "../lib/api";
 import { motion, cubicBezier } from "framer-motion";
 import TransitionWipe from "../components/transition/transition-wipe";
 import TransitionTilt from "../components/transition/transition-tilt";
-import PostIntro from "../components/post/post-intro";
+import PostIntro from "../components/post/post-intro"
 import Chrome from "../components/navigation/chrome";
-export default function Index({ home, lastUpdate }) {
+export default function Index({ home }) {
   const router = useRouter();
+  // const [isFirstRender, setIsFirstRender] = useState(true);
+
+  // useEffect(() => {
+  //   if (router.asPath !== router.route) {
+  //     setIsFirstRender(false);
+  //   }
+  // }, [router.asPath, router.route]);
+
+  console.log('home',home)
 
   useEffect(() => {
     const wheelEvent =
@@ -49,10 +58,15 @@ export default function Index({ home, lastUpdate }) {
           }}
           className="fixed w-full h-full top-0 z-30 flex inset"
         >
-          <Chrome lastUpdate={lastUpdate} />
-          <div className="w-full h-full 0 flex items-end justify-end  grad">
+          {/* <Chrome lastUpdate={lastUpdate} /> */}
+
+          <motion.div className="w-full h-full 0 flex items-center justify-end grad  rounded-xl"
+          exit={{
+            className:'rounded-xl'
+          }}
+          >
             <PostIntro title={home.title} content={home.intro} />
-          </div>
+          </motion.div>
         </motion.div>
       </TransitionTilt>
       <TransitionWipe />
@@ -62,11 +76,9 @@ export default function Index({ home, lastUpdate }) {
 
 export async function getStaticProps({ preview = false }) {
   const home = (await getHome(preview)) ?? [];
-  const lastUpdate = (await lastUpdatedDate(preview)) ?? [];
   return {
     props: {
-      home,
-      lastUpdate,
-    },
+      home   
+     },
   };
 }

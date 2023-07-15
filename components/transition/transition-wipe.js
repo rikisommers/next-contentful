@@ -47,7 +47,7 @@ const Overlay = () => {
   return (
     <motion.div
       id="overlay"
-      className="fixed top-0 h-full w-full bg-white z-0"
+      className="fixed top-0 h-full w-full  bg-slate-100 z-0"
       initial={{  opacity: 0 }}
       animate={{
         opacity:0
