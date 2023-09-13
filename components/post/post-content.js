@@ -1,5 +1,6 @@
 import PostBody from "./post-body";
 import PostHeader from "./post-header";
+import PostDetails from "./post-details";
 
 export default function PostContent({ post }) {
   return (
@@ -7,12 +8,16 @@ export default function PostContent({ post }) {
       <article className="px-24 pt-32">
         <PostHeader
           title={post.title}
-          subtitle={post.subtitle}
-          client={post.client}
-          tags={post.tags}
-          role={post.role}
+          duration={post.duration}
           img={post.img}
         />
+        <PostDetails
+          subtitle={post.subtitle}
+          intro={post.intro}
+          tags={post.tags}
+          role={post.role}
+          client={post.client}
+        ></PostDetails>
         {post.csblocksCollection && (
           <PostBody content={post.csblocksCollection} />
         )}

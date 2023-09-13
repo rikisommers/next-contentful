@@ -2,21 +2,22 @@ import React from "react";
 import CoverImage from "../image/cover-image";
 
 export const BlockImg = ({ data }) => {
-
   return (
-    <section className="u-mb--80">
+    <figure>
       {data.image && data.title && (
         <>
-        
-          <CoverImage title={data.image.title} url={data.image.url} layout="landscape" />
-
+          <CoverImage
+            title={data.image.title}
+            url={data.image.url}
+            layout="landscape"
+          />
 
           <figcaption className="u-fs--caption u-c--light u-mt--16 figcaption">
             {data.image.description}
           </figcaption>
         </>
       )}
-    </section>
+    </figure>
   );
 };
 

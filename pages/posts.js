@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
 import Layout from "../components/layout";
-import { getAllCaseStudies, getWork } from "../lib/api";
+import { getAllCaseStudies, getWork, getAllCaseStudiesForHome, getPostWithSlug} from "../lib/api";
 import { motion, cubicBezier } from "framer-motion";
 
 import TransitionWipe from "../components/transition/transition-wipe";
@@ -15,20 +15,17 @@ import PostTile from "../components/post/post-tile";
 import PostModal from "../components/post/post-modal";
 import CustomCursor from "../components/utils/cursor";
 
-export default function Posts({ intro, caseStudies, allCaseStudies }) {
+export default function Posts({ intro, allCaseStudies, allCaseStudiesForHome }) {
   const router = useRouter();
 
+  console.log(allCaseStudies)
+  
   const loopedPosts = allCaseStudies.slice(0, 2);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [slug, setSlug] = useState(null);
   const [post, setPost] = useState(null);
   const [nextPost, setNextPost] = useState(null);
-  const [name, setName] = useState("Omar");
-
-  function changeName() {
-    setName("Riki");
-  }
 
   useEffect(() => {
     const newPost = allCaseStudies.find((post) => post.slug === slug);
@@ -70,12 +67,12 @@ export default function Posts({ intro, caseStudies, allCaseStudies }) {
 
   const closeModal = (slug) => {
     setClickCount(clickedCount + 1);
-    changeName();
+    
     console.log("ruote", router.asPath);
     console.log("ruote", router.route);
 
     if (router.asPath === "/posts?") {
-      router.push("/posts");
+      router.push("/posts?");
     } else {
       router.push("/posts?");
     }
@@ -86,24 +83,16 @@ export default function Posts({ intro, caseStudies, allCaseStudies }) {
 
       <CustomCursor/>
 
-
-      {/* <div className="postop2">
-        <div>route:{router.route}</div>
-        <div>asPath:{router.asPath}</div>
-        <button onClick={openModal}>Open Modal</button>
-      </div> */}
-      <PostModal
+      {/* <PostModal
         isOpen={isModalOpen}
         onClose={closeModal}
         nextPost={nextPost}
-        name={name}
-        setName={changeName}
       >
         {post && <PostContent post={post} />}
-      </PostModal>
+      </PostModal> */}
 
       <TransitionTilt>
-        <ScrollableBox infinite={true} name={name} orientation={"vertical"}>
+        <ScrollableBox infinite={true}  orientation={"vertical"}>
           <motion.div
             className="w-full bg-slate-100 top-0 px-6"
             exit={{
@@ -114,9 +103,10 @@ export default function Posts({ intro, caseStudies, allCaseStudies }) {
               <div className="relative  work-grid ">
                 <PostIntro title={intro.title} content={intro.intro} />
 
-                {allCaseStudies.map((post, index) => {
+                {allCaseStudiesForHome.map((post, index) => {
                   return (
                     <motion.div
+                      key={post.slug}
                       initial={{
                         opacity: 0,
                         y: 50,
@@ -135,7 +125,7 @@ export default function Posts({ intro, caseStudies, allCaseStudies }) {
                           duration: 0.6,
                         },
                       }}
-                      onClick={() => openModal(post.slug)}
+                      //onClick={() => openModal(post.slug)}
                       className={`relative cursor-pointer item overflow-hidden bg-slate-200 rounded-xl w-full`}
                     >
                       <FadeInWhenVisible>
@@ -154,13 +144,13 @@ export default function Posts({ intro, caseStudies, allCaseStudies }) {
                     {loopedPosts.map((post, index) => {
                       return (
                         <motion.div
-                          onClick={() => openModal(post.slug)}
+                          key={post.slug}
+                          //onClick={() => openModal(post.slug)}
                           className={`relative cursor-pointer item overflow-hidden bg-slate-200 rounded-xl w-full truncate`}
                         >
                           <FadeInWhenVisible>
                             <PostTile
                               index={index}
-                              key={post.slug}
                               post={post}
                               slug={slug}
                             />
@@ -181,11 +171,16 @@ export default function Posts({ intro, caseStudies, allCaseStudies }) {
 }
 
 export async function getStaticProps() {
+
+  const allCaseStudiesForHome = (await getAllCaseStudiesForHome()) ?? [];
+  const selectedPost = (await getPostWithSlug()) ?? []
+
   const allCaseStudies = (await getAllCaseStudies()) ?? [];
   const intro = (await getWork()) ?? [];
 
   return {
     props: {
+      allCaseStudiesForHome,
       allCaseStudies,
       intro,
     },

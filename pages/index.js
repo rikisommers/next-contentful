@@ -17,7 +17,7 @@ export default function Index({ home }) {
   //   }
   // }, [router.asPath, router.route]);
 
-  console.log('home',home)
+  //console.log('home',home)
 
   useEffect(() => {
     const wheelEvent =
@@ -42,7 +42,6 @@ export default function Index({ home }) {
   }, []);
 
   const lastUpdatedDate = home?.sys?.updatedAt || "N/A";
-
   const clipPathInitial = `inset(-1rem )`;
   const clipPathAnimate = `inset(1.5rem round 1.5rem )`;
 

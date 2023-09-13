@@ -15,12 +15,18 @@ import {
 } from "framer-motion";
 import { ScrollableBox } from "../../components/utils/scrollable";
 
+import PostHeader from "../../components/post/post-header";
 import PostBody from "../../components/post/post-body";
 import TransitionWipe from "../../components/transition/transition-wipe";
+import TransitionTilt from "../../components/transition/transition-tilt";
 import NextPost from "../../components/post/post-next";
 import CoverImage from "../../components/image/cover-image";
+import PostContent from "../../components/post/post-content";
+import Link from "next/link";
 
 export default function Post({ post, nextPost, preview }) {
+  const [scrollValue, setScrollValue] = useState(false);
+
   const [isActive, setIsActive] = useState(false);
   const isOpen = true;
 
@@ -70,16 +76,12 @@ export default function Post({ post, nextPost, preview }) {
 
   return (
     <Layout>
-      <motion.div
-        animate={isOpen ? "active" : "inactive"}
-        variants={wrapperVariants}
-        style={{ clipPath: clipPathValue }}
-        className="fixed w-full h-full top-0 z-30 flex inset"
-      >
+  
+  <TransitionTilt>
         <motion.div className=" z-10 flex flex-grow ">
           <ScrollableBox onScrollChange={handleScrollChange}>
-            <motion.article
-              className="px-24 py-32  relative z-10 overflow-hidden mb-vhh bg-white rounded-xl shadow-xl"
+            <motion.div
+              className="px-24  relative z-10 overflow-hidden bg-white rounded-xl"
               initial={{
                 y: "100vh",
               }}
@@ -95,26 +97,36 @@ export default function Post({ post, nextPost, preview }) {
                 duration: 0.6,
               }}
             >
-              <CaseStudyHeader
-                title={post.title}
-                subtitle={post.subtitle}
-                img={post.img}
-              />
-              {post.csblocksCollection && (
-                <PostBody content={post.csblocksCollection} />
-              )}
-            </motion.article>
+              <PostContent post={post}></PostContent>
+            </motion.div>
 
             {nextPost && isActive && (
-              <div className="fixed bottom-0">
-                <NextPost next={true} post={nextPost} />
-              </div>
+   
+                <Link href={`/projects/${nextPost.slug}`} shallow={false}>
+                <article className="px-24 pt-32">
+
+                <PostHeader
+                title={nextPost.title}
+                duration={nextPost.duration}
+                img={nextPost.img}
+                />
+                </article>
+               </Link>  
+
+            
             )}
           </ScrollableBox>
         </motion.div>
-      </motion.div>
+</TransitionTilt>
+        {/* <motion.div
+        animate={isOpen ? "active" : "inactive"}
+        variants={wrapperVariants}
+        style={{ clipPath: clipPathValue }}
+        className="fixed w-full h-full top-0 z-30 flex inset"
+      >
+      </motion.div> */}
 
-      {!isActive && (
+      {/* {!isActive && (
 
         //TODO: Add clippath
         <motion.div className="fixed z-0 w-full h-full bg-black">
@@ -127,7 +139,7 @@ export default function Post({ post, nextPost, preview }) {
             />
           </div>
         </motion.div>
-      )}
+      )} */}
       <TransitionWipe />
     </Layout>
   );

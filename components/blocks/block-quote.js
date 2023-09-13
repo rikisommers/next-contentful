@@ -2,10 +2,10 @@ import React from "react";
 
 export const BlockQuote = ({ data }) => {
   return (
-    <blockquote className="o-content-grid u-mt--80 u-mb--80">
-      <div className="content">
-        {data.title && <span className="u-c--light u-mb--32">{data.title}</span>}
-        {data.content && <h2>{data.content}</h2>}
+    <blockquote className="grid grid-cols-6">
+      <div className="col-span-4 col-start-2 flex flex-col gap-4">
+        {data.title && <span className="text-slate-400 text-sm">{data.title}</span>}
+        {data.content && <h2 className="italic text-3xl">{data.content}</h2>}
       </div>
     </blockquote>
   );

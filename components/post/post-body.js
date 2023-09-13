@@ -19,8 +19,8 @@ const customMarkdownOptions = (content) => ({
 
 export default function PostBody({ content }) {
   return (
-    <div className="max-w-6xl mx-auto">
-      <div>
+    <div className="max-w-6xl mx-auto flex flex-col gap-32">
+
         {content.items &&
           content.items.length > 0 &&
           content.items.map((item,index) => {
@@ -56,7 +56,7 @@ export default function PostBody({ content }) {
                 // )} */}
             );
           })}
-      </div>
+  
     </div>
   );
 }

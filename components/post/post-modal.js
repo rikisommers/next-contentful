@@ -20,6 +20,7 @@ const PostModal = ({
   reset,
   name,
   setName,
+  slug
 }) => {
   const [isClosing, setIsClosing] = useState(false);
   const [isActive, setIsActive] = useState(false);

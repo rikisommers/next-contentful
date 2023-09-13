@@ -8,9 +8,7 @@ function MyApp({ Component, pageProps, router }) {
   return (
     <AppProvider>
       <Navigation />
-
       <AnimatePresence mode="wait">
-
         <Component {...pageProps} key={router.asPath} />
       </AnimatePresence>
     </AppProvider>

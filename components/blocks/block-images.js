@@ -3,7 +3,7 @@ import CoverImage from "../image/cover-image";
 
 export const BlockImages = ({ data }) => {
   return (
-    <section className="u-mb--80">
+    <figure>
       <h3 className="col-6 u-ph--title u-t-subtitle u-mb--16">{data.title}</h3>
 
       <div className="o-img-grid">
@@ -19,7 +19,7 @@ export const BlockImages = ({ data }) => {
             );
           })}
       </div>
-    </section>
+    </figure>
   );
 };
 

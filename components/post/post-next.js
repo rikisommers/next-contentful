@@ -33,7 +33,7 @@ export default function NextPost({ post }) {
         duration: 0.6,
       }}
     >
-      <Link href={`/posts/${post.slug}`} shallow={false}>
+      <Link href={`/projects/${post.slug}`} shallow={false}>
         {/* <motion.div
           initial="blur"
           whileHover="hover"

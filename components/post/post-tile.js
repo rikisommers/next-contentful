@@ -2,6 +2,8 @@ import  { useContext, useEffect, useState, useRef} from "react"
 import { motion, useScroll, useTransform,useMotionValue,useSpring } from "framer-motion";
 import ContentfulImage from "../image/contentful-image";
 import CursorProject from "../utils/cursor-project";
+import Link from "next/link";
+
 import { AppContext } from "../appContext";
 export default function PostTile({ post }) {
 
@@ -19,6 +21,8 @@ export default function PostTile({ post }) {
   };  
 
   return (
+    <Link href={`/projects/${post.slug}`} shallow={false}>
+
     <div className="tile relative w-full h-full overflow-hidden cursor-as--post">
 
 
@@ -39,15 +43,14 @@ export default function PostTile({ post }) {
         </h2>
 
       </motion.div>
-      {post.img != null && (
-        <motion.div className="absolute" style={{ y: -50 }}>
+      {post.img && (
           <ContentfulImage
             className="img-cover"
             alt={`Cover Image for ${post.title}`}
             src={post.img.url}
           />
-        </motion.div>
       )}
     </div>
+    </Link>
   );
 }
