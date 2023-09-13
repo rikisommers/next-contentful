@@ -48,7 +48,7 @@ const ProjectTransitionContent = () => {
   return (
     <motion.div
       id="tranny-content"
-      className="transition-wipe--y bg-red-300"
+      className="transition-wipe--y bg-white"
       initial={{ y: "100%" }}
       exit={{
         y: -40,

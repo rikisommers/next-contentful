@@ -82,20 +82,6 @@ export default function Post({ post, nextPost, preview }) {
           <ScrollableBox onScrollChange={handleScrollChange}>
             <motion.div
               className="px-24  relative z-10 overflow-hidden bg-white rounded-xl"
-              initial={{
-                y: "100vh",
-              }}
-              animate={{
-                opacity: 1,
-                y: 0,
-              }}
-              exit={{
-                y: router.pathname === "/posts/[slug]" ? "-36vh" : 0,
-              }}
-              transition={{
-                ease: [0.33, 1, 0.68, 1],
-                duration: 0.6,
-              }}
             >
               <PostContent post={post}></PostContent>
             </motion.div>
