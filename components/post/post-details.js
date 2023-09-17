@@ -1,5 +1,5 @@
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import RichTextOptions from "../rich-text/rich-text";
+import { RichTextOptions } from "../rich-text/rich-text";
 
 export default function PostDetails({ intro, tags, role, client, subtitle }) {
   return (

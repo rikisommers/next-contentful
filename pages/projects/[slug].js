@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/router";
 import ErrorPage from "next/error";
 import Layout from "../../components/layout";
@@ -16,15 +16,12 @@ import {
 import { ScrollableBox } from "../../components/utils/scrollable";
 
 import PostHeader from "../../components/post/post-header";
-import PostBody from "../../components/post/post-body";
 import TransitionWipe from "../../components/transition/transition-wipe";
 import TransitionTilt from "../../components/transition/transition-tilt";
-import NextPost from "../../components/post/post-next";
-import CoverImage from "../../components/image/cover-image";
 import PostContent from "../../components/post/post-content";
 import Link from "next/link";
 
-export default function Post({ post, nextPost, preview }) {
+export default function Post({ post, nextPost }) {
   const [scrollValue, setScrollValue] = useState(false);
 
   const [isActive, setIsActive] = useState(false);
@@ -79,53 +76,29 @@ export default function Post({ post, nextPost, preview }) {
   
   <TransitionTilt>
         <motion.div className=" z-10 flex flex-grow ">
-          <ScrollableBox onScrollChange={handleScrollChange}>
+          
             <motion.div
               className="px-24  relative z-10 overflow-hidden bg-white rounded-xl"
             >
               <PostContent post={post}></PostContent>
             </motion.div>
 
-            {nextPost && isActive && (
+            {nextPost &&(
    
-                <Link href={`/projects/${nextPost.slug}`} shallow={false}>
+                <Link href={`/projects/${nextPost?.slug}`} shallow={false}>
                 <article className="px-24 pt-32">
 
                 <PostHeader
-                title={nextPost.title}
-                duration={nextPost.duration}
-                img={nextPost.img}
+                duration={nextPost?.duration}
+                img={nextPost?.img}
                 />
                 </article>
                </Link>  
 
             
             )}
-          </ScrollableBox>
         </motion.div>
-</TransitionTilt>
-        {/* <motion.div
-        animate={isOpen ? "active" : "inactive"}
-        variants={wrapperVariants}
-        style={{ clipPath: clipPathValue }}
-        className="fixed w-full h-full top-0 z-30 flex inset"
-      >
-      </motion.div> */}
-
-      {/* {!isActive && (
-
-        //TODO: Add clippath
-        <motion.div className="fixed z-0 w-full h-full bg-black">
-          <div className="opacity-50">
-            <CoverImage
-              className="opacity-50"
-              title={post.title}
-              url={post.img.url}
-              layout={post.layout}
-            />
-          </div>
-        </motion.div>
-      )} */}
+      </TransitionTilt>
       <TransitionWipe />
     </Layout>
   );

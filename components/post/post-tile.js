@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 import ContentfulImage from "../image/contentful-image";
 import Link from "next/link";
 
-import { AppContext } from "../appContext";
 export default function PostTile({ post }) {
 
   const animateContentOnHover = {
@@ -44,7 +43,7 @@ export default function PostTile({ post }) {
       {post.img && (
           <ContentfulImage
             className="img-cover"
-            alt={`Cover Image for ${post.title}`}
+            alt={`Cover Image for ${post?.title}`}
             src={post.img.url}
           />
       )}
