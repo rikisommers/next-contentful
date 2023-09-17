@@ -76,14 +76,14 @@ export default function Post({ post, nextPost }) {
   
   <TransitionTilt>
         <motion.div className=" z-10 flex flex-grow ">
-          
+          <ScrollableBox onScrollChange={handleScrollChange}>
             <motion.div
               className="px-24  relative z-10 overflow-hidden bg-white rounded-xl"
             >
               <PostContent post={post}></PostContent>
             </motion.div>
 
-            {nextPost &&(
+            {nextPost && (
    
                 <Link href={`/projects/${nextPost?.slug}`} shallow={false}>
                 <article className="px-24 pt-32">
@@ -97,6 +97,7 @@ export default function Post({ post, nextPost }) {
 
             
             )}
+          </ScrollableBox>
         </motion.div>
       </TransitionTilt>
       <TransitionWipe />
