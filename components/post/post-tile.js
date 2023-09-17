@@ -1,7 +1,5 @@
-import  { useContext, useEffect, useState, useRef} from "react"
-import { motion, useScroll, useTransform,useMotionValue,useSpring } from "framer-motion";
+import { motion } from "framer-motion";
 import ContentfulImage from "../image/contentful-image";
-import CursorProject from "../utils/cursor-project";
 import Link from "next/link";
 
 import { AppContext } from "../appContext";

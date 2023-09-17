@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { motion, cubicBezier, useMotionValue, useSpring } from "framer-motion";
+import { motion, cubicBezier } from "framer-motion";
 const CustomCursor = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [touchDevice, setTouchDevice] = useState(false);

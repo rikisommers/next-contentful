@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from "react";
-import ReactDOM from "react-dom";
 import "../styles/styles.scss"
 
 const ModalImage = () => {

@@ -1,6 +1,4 @@
 import CoverImage from "../image/cover-image";
-import TextAnimation from "../utils/text-animation";
-import { motion } from "framer-motion";
 import FadeInWhenVisible from "../utils/fade-in-visible";
 
 export default function PostHeader({

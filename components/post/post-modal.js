@@ -9,7 +9,6 @@ import { useRouter } from "next/router";
 import { ScrollableBox } from "../utils/scrollable";
 import NextPost from "./post-next";
 import Close from "../base/close";
-import { is } from "date-fns/locale";
 
 
 const PostModal = ({

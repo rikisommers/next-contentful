@@ -1,5 +1,4 @@
 import React from "react";
-import ContentfulImage from "../image/contentful-image";
 
 import { INLINES, BLOCKS, MARKS } from "@contentful/rich-text-types";
 

@@ -1,5 +1,4 @@
-import { useRef } from "react";
-import {motion, cubicBezier, useInView, useAnimation} from "framer-motion";
+import { motion } from "framer-motion";
 
 export default function FadeInWhenVisible({ children }) {
 

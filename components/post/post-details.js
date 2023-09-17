@@ -1,6 +1,3 @@
-import CoverImage from "../image/cover-image";
-import TextAnimation from "../utils/text-animation";
-import { motion } from "framer-motion";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import RichTextOptions from "../rich-text/rich-text";
 

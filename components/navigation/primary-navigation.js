@@ -1,8 +1,7 @@
 
 import Link from "next/link";
 import { motion, cubicBezier } from "framer-motion";
-import { Router, useRouter } from "next/router";
-import { useEffect,useState } from "react";
+import { useRouter } from "next/router";
 
 export default function Navigation() {
   const router = useRouter();
