@@ -1,8 +1,8 @@
 import { createContext, useState } from "react";
 
-export const AppContext = createContext();
+export const MousePosContext = createContext();
 
-export const AppProvider = ({ children }) => {
+export const MousePosProvider = ({ children }) => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   const handleMouseMove = (event) => {
@@ -18,8 +18,8 @@ export const AppProvider = ({ children }) => {
 
 
   return (
-    <AppContext.Provider value={{ mousePosition, handleMouseMove }}>
+    <MousePosContext.Provider value={{ mousePosition, handleMouseMove }}>
       {children}
-    </AppContext.Provider>
+    </MousePosContext.Provider>
   );
 };

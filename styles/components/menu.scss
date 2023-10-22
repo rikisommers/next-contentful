@@ -6,47 +6,82 @@ $menu-items: 3;
 $width: (100/$menu-items) * 1%;
 $menu-items-loop-offset: $menu-items - 1; // the number of items in the menu
 
-$background-color: rgba(255, 255, 255, 0.4);
+$background-color: rgba(255, 255, 255, 1);
 $indicator-color: #fff;
 
-.logo{
+
+.logo_wrapper{
   position: fixed;
-  width:40px;
-  height:40px;
-  top:2rem;
-  left:2rem;
-  background-image: url('../../public/Subtract.svg');
-  background-size: contain;
+ // height:40px;
+  top:1.5rem;
+  left:1.5rem;
+  border-radius: 0.6rem ;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap:14px;
   z-index:9999;
+  color: #000;
+  transition: all 300ms ease;
+  transform-origin: 0 0;
+
+
+  .logo{
+    border-radius: 0.6rem ;
+    padding:0.8rem;
+    transition: all 300ms ease;
+    background-color: #fff;
+    img{
+      width:32px;
+    }
+  }
+
+  .logotext{
+    transition: all 300ms ease;
+  }
+
+  &.active{
+    transform: scale(0.9);
+    .logo{
+      background-color: aquamarine;
+
+    }
+    .logotext{
+      opacity: 0;
+    }
+  }
+
 }
+
 
 
 .c-menu__wrapper{
   position: fixed;
   top:1.5rem;
-  transform: translateX(-50%);
-  left: 50%;
-  right: auto;
+ // transform: translateX(-50%);
+  right: 1.5rem;
   z-index:9999;
 
+  &.active{
+    
+    ul.c-menu{
+    background-color: $background-color;
+    }
+  }
 }
 
-
-
-
 ul.c-menu{
- 
-  border-radius: 0.6rem ;
+    border-radius: 0.6rem ;
     backdrop-filter: blur(0.6rem);
-    background-color: $background-color;
-  display:flex;
+    display:flex;
     list-style: none;
     margin: 0;
     padding:0;
     gap:0;
     position: relative;// the menu is "relative" to the absolute position last-child pseudo elements.
-//    z-index: 0;
+    //    z-index: 0;
     
+
     
   // &:before{
   //   display: block;
@@ -88,10 +123,10 @@ ul.c-menu{
 
 
         li{
-                // ======================================================
-                // Step 2.1 - Making the indicator with the pseudo element.
-                // ======================================================
-                &:last-child {
+            // ======================================================
+            // Step 2.1 - Making the indicator with the pseudo element.
+            // ======================================================
+            &:last-child {
         
         
             &:after {
@@ -110,6 +145,7 @@ ul.c-menu{
                     width: $width - 8;
                     margin-left:12px;
                     height:3rem;
+                    background-color: aqua;
                     z-index: -1;
                     border-radius: 0.3rem;
                 }
@@ -173,12 +209,14 @@ position: relative;// the menu is "relative" to the absolute position last-child
 border-radius: 12px ;
 backdrop-filter: blur(12px);
 background-color: $background-color;
-height: 3rem;
+height: 3.5rem;
+width:3.5rem;
 display:flex;
 list-style: none;
 margin: 0;
 padding:0;
 gap:0;
+z-index: 9999;
 }
 
 
@@ -203,6 +241,8 @@ gap:0;
 }
 .inset--top-right{
   border-radius:0  0 0 12px ;
+  width:250px;
+  height:64px;
 
   &::before{
     @extend .corner;

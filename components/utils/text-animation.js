@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-export default function TextAnimation({ content, style , direction, size }) {
+export default function TextAnimation({ content, style , direction, size, color }) {
   const container = {
     hidden: { opacity: 0.5 },
     show: {
@@ -53,6 +53,12 @@ export default function TextAnimation({ content, style , direction, size }) {
     },
   };
 
+  const textStyle = {
+    color: color || "black", // Default to black if color prop is not provided
+    ...style, // Include other styles passed via the style prop
+  };
+
+
   return (
     <motion.h1
       className="text-anim"
@@ -60,6 +66,8 @@ export default function TextAnimation({ content, style , direction, size }) {
       variants={container}
       initial="hidden"
       animate="show"
+      style={textStyle}
+
     >
       {content &&
         content.split(" ").map(function (word, index) {
@@ -72,6 +80,7 @@ export default function TextAnimation({ content, style , direction, size }) {
               {word.split("").map(function (letter, index) {
                 return (
                   <motion.span
+
                     className="text-anim-letter"
                     key={index}
                     variants={item}

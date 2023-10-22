@@ -24,7 +24,6 @@ html,
 body{
   height  : 100%;
   overflow: hidden;
-
 }
 
 .grad{
@@ -38,7 +37,8 @@ body{
     font-size:16px;
     color:$text;
     margin:0;
-    background-color:rgb(241, 245, 249);
+
+    // background-color:rgb(241, 245, 249);
     // background: #DAE2F8;  /* fallback for old browsers */
     // background: -webkit-linear-gradient(to bottom, #D6A4A4, #DAE2F8);  /* Chrome 10-25, Safari 5.1-6 */
     // background: linear-gradient(to bottom, #D6A4A4, #DAE2F8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
@@ -301,25 +301,58 @@ position: relative;
     border:10px red solid;
   }
 
-  .perc{
-    perspective: 900px;
-    height: 100vh;
-    width:100vw;
-    z-index:9;
-    position: relative;
-  }
+
+
+
 .text-anim{
   display: inline-flex;
   flex-wrap: wrap;
   word-wrap: break-word;
   gap: 0.1rem 0.7rem;
   line-height: 1.23;
+  text-wrap: balance
+}
+
+.perc{
+  perspective: 100px;
+  height: 100vh;
+  width:100vw;
+  z-index:9;
+  position: relative;
+//     transform: rotateX(40deg);
+
+// transform: scale(0.9);
+  
+}
+
+.testp{
+  perspective: 100px;
 
 }
 
+
 .anim-el{
-  perspective: 3.5em;
-  transform-style: preserve-3d;
+ // transform-style: preserve-3d;
+ // position: relative;
+  border:1px solid red;
+  
+}
+
+// .inner{
+//   height: 100%;
+//   width:100%;
+//   transform:
+//   rotateX(1deg)
+//   scale(1)
+//   translate3d(0,-5em,0);
+
+  
+// }
+
+
+.post-header{
+  height:20rem;
+  align-items: center;
 }
 
   .text-anim-word{
@@ -339,9 +372,9 @@ position: relative;
   //   position: relative;
   //   display: flex;
   // flex-direction: row;
-  gap:0.7rem;
+    gap:0.7rem;
     transform-origin: top;
-    perspective: 3.5em;
+   // perspective: 3.5em;
 
   }
 

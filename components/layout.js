@@ -1,5 +1,5 @@
 export default function Layout({ children }) {
   return (
-      <main>{children}</main>
+      <main className="bg-white">{children}</main>
   );
 }

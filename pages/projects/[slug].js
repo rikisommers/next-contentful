@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useRouter } from "next/router";
 import ErrorPage from "next/error";
 import Layout from "../../components/layout";
@@ -20,12 +20,30 @@ import TransitionWipe from "../../components/transition/transition-wipe";
 import TransitionTilt from "../../components/transition/transition-tilt";
 import PostContent from "../../components/post/post-content";
 import Link from "next/link";
+import PostTile from "../../components/post/post-tile";
+import FadeInWhenVisible from "../../components/utils/fade-in-visible";
+import NextPost from "../../components/post/post-next";
+import { RouteContext } from "../../components/routeContext";
 
 export default function Post({ post, nextPost }) {
+  const router = useRouter();
+
   const [scrollValue, setScrollValue] = useState(false);
 
   const [isActive, setIsActive] = useState(false);
   const isOpen = true;
+
+  const { routeInfo } = useContext(RouteContext);
+  const [sourceRoute, setSourceRoute] = useState('');
+  const [destRoute, setDestRoute] = useState('');
+ 
+  useEffect(() => {
+    setSourceRoute(routeInfo.sourceRoute)
+    setDestRoute(routeInfo.destRoute)
+  }, [routeInfo]); // Include routeInfo in the dependency array if needed
+ 
+  const shouldFadeIn = !destRoute.includes("/projects/");
+
 
   const handleScrollChange = (value) => {
     setScrollValue(value);
@@ -65,42 +83,45 @@ export default function Post({ post, nextPost }) {
     transition: { duration: 0.6, easing: easing },
   };
 
-  const router = useRouter();
 
   if (!router.isFallback && !post) {
     return <ErrorPage statusCode={404} />;
   }
 
+
+
   return (
     <Layout>
-  
-  <TransitionTilt>
-        <motion.div className=" z-10 flex flex-grow ">
-          <ScrollableBox onScrollChange={handleScrollChange}>
-            <motion.div
-              className="px-24  relative z-10 overflow-hidden bg-white rounded-xl"
-            >
-              <PostContent post={post}></PostContent>
-            </motion.div>
+      <ScrollableBox onScrollChange={handleScrollChange}>
 
-            {nextPost && (
-   
-                <Link href={`/projects/${nextPost?.slug}`} shallow={false}>
-                <article className="px-24 pt-32">
 
-                <PostHeader
-                duration={nextPost?.duration}
-                img={nextPost?.img}
-                />
-                </article>
-               </Link>  
 
-            
-            )}
-          </ScrollableBox>
-        </motion.div>
-      </TransitionTilt>
+          <div className="relative z-10 overflow-hidden bg-white rounded-xl">
+              <motion.div
+              exit={{
+                opacity:0
+              }}
+              transition={{
+                easing: cubicBezier(0.35, 0.17, 0.3, 0.86),
+                duration: 0.3,
+                delay:0   
+              }}
+              >
+              <PostContent post={post} ></PostContent>
+              </motion.div>
+              {nextPost && (
+                 <NextPost post={nextPost} />
+              )}
+        </div>
+
+      </ScrollableBox>
+
+      { shouldFadeIn &&
       <TransitionWipe />
+      }
+
+
+
     </Layout>
   );
 }

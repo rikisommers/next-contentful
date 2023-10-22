@@ -1,11 +1,12 @@
 import { motion } from "framer-motion";
 
-export default function FadeInWhenVisible({ children }) {
+export default function FadeInWhenVisible({ children, enabled = true }) {
+
 
     return (
       <motion.div
         className="w-full h-full"
-        initial="hidden"
+        initial={ enabled ? "hidden": "visible"}
         whileInView="visible"
         viewport={{ once: true, threshold:0.3}}
         transition={{ duration: 0.3, delay:0.6 }}

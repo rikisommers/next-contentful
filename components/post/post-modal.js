@@ -143,7 +143,7 @@ const PostModal = ({
           ease: [0.33, 1, 0.68, 1],
         }}
         style={{ clipPath: clipPathValue }}
-        className="fixed w-full h-full top-0 z-30 flex inset shadow-2xl"
+        className="fixed w-full h-full top-0 z-80 flex inset shadow-2xl"
       >
   
         <Close isActive={isActive} onClick={() => closeModal()}/>
@@ -158,7 +158,7 @@ const PostModal = ({
             setName={setName}
           >
             <motion.article
-              className="px-24 py-32  relative z-10 overflow-hidden mb-vhh bg-white rounded-xl"
+              className="py-32  relative z-10 overflow-hidden mb-vhh bg-white rounded-xl"
               initial={{
                 y: "100vh",
               }}
@@ -180,6 +180,8 @@ const PostModal = ({
           </ScrollableBox>
         </motion.div>
       </motion.div>
+
+
     </>
   );
 };

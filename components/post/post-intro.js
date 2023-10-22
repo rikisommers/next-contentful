@@ -4,16 +4,20 @@ import { motion } from "framer-motion";
 
 export default function PostIntro({ title, content }) {
   return (
-    <div
+    <motion.div
+    exit={{
+      opacity:0
+    }}
       className="
-          top-0 
+          h-full
           w-full   
-          flex items-center justify-center rounded-xl z-30 item"
+          flex items-center justify-center rounded-xl z-30 item "
     >
       <div className="flex flex-col gap-8 max-w-3xl">
-        <TextAnimation content={title}></TextAnimation>
+         
+        <TextAnimation content={title} color="white"></TextAnimation>
         <motion.p
-          className="text-sm text-center"
+          className="text-sm text-white"
           initial={{ opacity: 0 }}
           animate={{
             opacity: 1,
@@ -27,6 +31,6 @@ export default function PostIntro({ title, content }) {
           {content}
         </motion.p>
       </div>
-    </div>
+    </motion.div>
   );
 }

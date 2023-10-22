@@ -1,22 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
-import { motion } from "framer-motion";
+import { motion ,LayoutGroup} from "framer-motion";
+import { RouteContext } from "../../components/routeContext";
 
 const HomeTransitionContent = () => {
+
+
+
   return (
     <motion.div
-      className="transition-wipe--y"
+      className="transition-wipe--y "
       initial={{ y: "100%" }}
       exit={{
         y: -40,
+        zIndex:40,
       }}
       transition={{
         ease: [0.33, 1, 0.68, 1],
         duration: 0.6,
         delay: 0.3,
       }}
+      
     >
-        <div className="w-full h-full grad flex items-center justify-center rounded-xl">
+        <div className="w-full h-full bg-black flex items-center justify-center rounded-xl">
+       
       </div>
     </motion.div>
   );
@@ -26,10 +33,11 @@ const WorkTransitionContent = () => {
   return (
     <motion.div
       id="tranny-content"
-      className="transition-wipe--y bg-slate-100"
+      className="transition-wipe--y bg-white shadow-xl"
       initial={{ y: "100%" }}
       exit={{
         y: -40,
+        zIndex:40,
       }}
       transition={{
         ease: [0.33, 1, 0.68, 1],
@@ -45,13 +53,16 @@ const WorkTransitionContent = () => {
 
 
 const ProjectTransitionContent = () => {
+
+
   return (
     <motion.div
       id="tranny-content"
-      className="transition-wipe--y bg-white"
+      className="transition-wipe--y bg-white rounded-2xl"
       initial={{ y: "100%" }}
       exit={{
         y: -40,
+        zIndex:40,
       }}
       transition={{
         ease: [0.33, 1, 0.68, 1],
@@ -69,19 +80,19 @@ const Overlay = () => {
   return (
     <motion.div
       id="overlay"
-      className="fixed top-0 h-full w-full  bg-slate-100 z-0"
+      className="fixed top-0 h-full w-full bg-white opacity-50"
       initial={{  opacity: 0 }}
       animate={{
         opacity:0
       }}
       exit={{
-        zIndex:40,
+        zIndex:10,
         opacity: 0.5,
       }}
       transition={{
         ease: [0.33, 1, 0.68, 1],
-        duration: 0.3,
-        // delay: 0.6,
+        duration:0.9,
+        delay: 0,
       }}
     ></motion.div>
   );
@@ -89,51 +100,38 @@ const Overlay = () => {
 
 const TransitionWipe = ({ children }) => {
   const router = useRouter();
-  const dynamicRoute = useRouter().asPath;
 
-  const [route, setRoute] = useState("/");
-  const [isLoading, setLoaded] = useState(false);
+  const { routeInfo } = useContext(RouteContext);
+  const [destRoute, setDestRoute] = useState('');
+ 
+  // useEffect(() => {
+  //   setDestRoute(routeInfo.destRoute)
+  // }, [routeInfo]); // Include routeInfo in the dependency array if needed
 
-  const setRouteOnChangeStart = (newRoute) => {
-    setRoute(newRoute);
-  };
-  const setLoadingTrue = () => {
-    setLoaded(true);
-  };
-
-  const setLoadingFalse = () => {
-    setLoaded(false);
-  };
-
-  useEffect(() => {
-    router.events.on("routeChangeStart", (url) => {
-      setRouteOnChangeStart(url);
-    });
-    router.events.on("routeChangeComplete", (url) => {
-    });
-  }, []);
 
   return (
-    <>
-      {route === "/" && (
+    <LayoutGroup>
+
+      {routeInfo.destRoute === "/" && (
         <>
+        <h1>add</h1>
           <HomeTransitionContent />
-          {/* <Overlay /> */}
+          <Overlay />
         </>
       )}
-      {(route === "/posts" || route === "/posts?") && (
+      {routeInfo.destRoute === "/posts"  && (
         <>
           <WorkTransitionContent />
-          {/* <Overlay /> */}
+          <Overlay />
         </>
       )}
-      {route.includes("/projects/") && (
+      {routeInfo.destRoute.includes("/projects/") && (
         <>
           <ProjectTransitionContent />
-          {/* <Overlay /> */}
+          <Overlay />
         </>
       )}
-    </>
+    </LayoutGroup>
   );
 };
 

@@ -7,16 +7,17 @@ import ContentfulImage from "../image/contentful-image";
 export const BlockArticle = ({ article }) => {
   return (
     <article className="grid grid-cols-12 gap-3" id={article.title}>
-      <div className="col-span-6">
-        {article.title && <h2 className="text-3xl">{article.title}</h2>}
+ 
+
+      <div className="col-start-2 col-span-10 md:col-start-3 md:col-span-8">
+        
+        {article.title && 
+        <h2 className="text-3xl mb-10">{article.title}</h2>
+        }
         {article.content && (
-
-          <p className="text-base mb-2">{article.content.content}</p>
-  
+          <p className="text-base mb-8">{article.content.content}</p>
         )}
-      </div>
 
-      <div className="col-start-7 col-span-6">
         {article.contentRich && (
           <>
             {documentToReactComponents(

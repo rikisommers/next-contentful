@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
-import { AppContext } from "../appContext";
+import { MousePosContext } from "../mousePosContext";
 import { motion } from "framer-motion";
 
 const CursorProject = () => {
-  const { mousePosition } = useContext(AppContext);
+  const { mousePosition } = useContext(MousePosContext);
 
   return (
     <motion.div

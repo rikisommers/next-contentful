@@ -3,25 +3,39 @@ import { motion } from "framer-motion";
 
 const TransitionTilt = ({ children }) => {
   
+  // rotateX(1deg)
+
+  // translateY(-5em);
+
+
+
 
   return (
-    <div className="perc">
+    <div className="testp w-full h-full">
     <motion.div
-        className="anim-el fixed w-full h-full overflow-hidden top-0 z-10 origin-top"
+        className="w-screen h-screen z-10"
         initial={{ 
-         transform : 'translate3d(0px, 0px, 0px) rotateX(0deg) scale(1, 1)',
-         }}
+          transform:"translateZ(0px)",
+          opacity:1
+        //  transform :  [`
+        //  translateZ(0px) 
+        //  translateY(0px) 
+        //  rotateX(0deg)
+        //  `]
+        }}
         //  rotateX(-7.2216deg)
         exit={{
-         transform : [
-          'translate3d(0px, 0px, 0px) rotateX(0deg) scale(1, 1)',
-          'translate3d(0px, 80px, 0px) rotateX(0) scale(0.9356, 0.9356)',
-        ],
-          zIndex:10
+          transform:"translateZ(-5px)",
+          opacity:0
+        //  transform : [`
+        //   translateZ(-10px) 
+        //   translateY(-10px) 
+        //   rotateX(0deg)
+        //   `]
         }}
         transition={{
           ease: [0.33, 1, 0.68, 1],
-          duration: 0.6,
+          duration: 0.9,
         }}
       >
         {children}

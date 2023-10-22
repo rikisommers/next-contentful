@@ -1,9 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 
 import Layout from "../components/layout";
-import { getAllCaseStudies, getWork, getAllCaseStudiesForHome, getPostWithSlug} from "../lib/api";
-import { motion, cubicBezier } from "framer-motion";
+import {
+  getAllCaseStudies,
+  getWork,
+  getAllCaseStudiesForHome,
+  getPostWithSlug,
+} from "../lib/api";
+import { motion, cubicBezier, AnimatePresence } from "framer-motion";
 
 import TransitionWipe from "../components/transition/transition-wipe";
 import TransitionTilt from "../components/transition/transition-tilt";
@@ -15,17 +20,73 @@ import PostTile from "../components/post/post-tile";
 import PostModal from "../components/post/post-modal";
 import CustomCursor from "../components/utils/cursor";
 
-export default function Posts({ intro, allCaseStudies, allCaseStudiesForHome }) {
+// const getWindowSize = () => [window.innerWidth, window.innerHeight];
+
+
+
+export default function Posts({
+  intro,
+  allCaseStudies,
+  allCaseStudiesForHome,
+}) {
   const router = useRouter();
 
-  console.log(allCaseStudies)
-  
+  // console.log(allCaseStudies);
+
   const loopedPosts = allCaseStudies.slice(0, 2);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [slug, setSlug] = useState(null);
   const [post, setPost] = useState(null);
   const [nextPost, setNextPost] = useState(null);
+  const [scrollValue, setScrollValue] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(null);
+  const [finalPos, setFinalPos] = useState(null);
+
+  const elementRefs = Array.from({ length: allCaseStudies.length }, () => useRef(null));
+
+  const [windowSize, setWindowSize] = useState([0, 0]);
+
+  useEffect(() => {
+    setWindowSize([window.innerWidth, window.innerHeight]);
+
+    const handleWindowResize = () => {
+      setWindowSize([window.innerWidth, window.innerHeight]);
+    };
+
+    // Check if window is defined before adding event listener
+    if (typeof window !== 'undefined') {
+      window.addEventListener('resize', handleWindowResize);
+
+      // Clean up the event listener on component unmount
+      return () => {
+        window.removeEventListener('resize', handleWindowResize);
+      };
+    }
+  }, []); // Empty dependency array means this effect runs once after the initial render
+
+
+  const getPosition = (index) => {
+    setSelectedIndex(index);
+    const boundingRect = elementRefs[index].current.getBoundingClientRect();
+    console.log('el' ,boundingRect);
+
+    if(boundingRect.y < 448){
+      console.log('1P---',  448 - boundingRect.y)
+      setFinalPos(448 - boundingRect.y)
+    }else{
+      console.log('2P---',boundingRect.y - 448)
+      setFinalPos( - (boundingRect.y - 448))
+    } 
+
+  };
+
+
+
+  const handleScrollChange = (value) => {
+    setScrollValue(value);
+    //console.log(scrollValue)
+  };
 
   useEffect(() => {
     const newPost = allCaseStudies.find((post) => post.slug === slug);
@@ -44,8 +105,6 @@ export default function Posts({ intro, allCaseStudies, allCaseStudiesForHome }) 
     setNextPost(newNextPost);
   }, [slug]);
 
-
-
   const updateUrl = (url) => {
     const newUrl = `/projects/${url}`;
 
@@ -60,6 +119,7 @@ export default function Posts({ intro, allCaseStudies, allCaseStudiesForHome }) 
     setSlug(slug);
     updateUrl(slug);
     setIsModalOpen(true);
+    console.log('ssss')
   };
 
   const [clickedCount, setClickCount] = useState("");
@@ -67,7 +127,7 @@ export default function Posts({ intro, allCaseStudies, allCaseStudiesForHome }) 
 
   const closeModal = (slug) => {
     setClickCount(clickedCount + 1);
-    
+
     console.log("ruote", router.asPath);
     console.log("ruote", router.route);
 
@@ -80,63 +140,100 @@ export default function Posts({ intro, allCaseStudies, allCaseStudiesForHome }) 
 
   return (
     <Layout>
+      <CustomCursor />
 
-      <CustomCursor/>
-
-      {/* <PostModal
+      <PostModal
         isOpen={isModalOpen}
         onClose={closeModal}
         nextPost={nextPost}
       >
         {post && <PostContent post={post} />}
-      </PostModal> */}
+      </PostModal>
+      {/* <motion.div exit={{zIndex:0}}> */}
+      <ScrollableBox
+        infinite={true}
+        orientation={"vertical"}
+        onScrollChange={handleScrollChange}
+      >
 
-      <TransitionTilt>
-        <ScrollableBox infinite={true}  orientation={"vertical"}>
-          <motion.div
-            className="w-full bg-slate-100 top-0 px-6"
-            exit={{
-              zIndex: 0,
-            }}
-          >
+
             {allCaseStudies && (
-              <div className="relative  work-grid ">
+              <div className="relative px-6 bg-white flex flex-col gap-6">
+
+
+                
                 <PostIntro title={intro.title} content={intro.intro} />
 
                 {allCaseStudiesForHome.map((post, index) => {
+
+                  const isSelected = selectedIndex === index;
+
+
                   return (
-                    <motion.div
-                      key={post.slug}
+<>
+                    {/* {clickedIndex !== null && <div
+                                          className={`relative cursor-pointer item overflow-hidden bg-slate-200 rounded-xl w-full h-vh66`}
+
+                     />} */}
+
+                    {/* <motion.div
+                     key={post.slug}
+                      ref={elementRefs[index]} 
+                      layout
                       initial={{
+                        y: 150,
+                        x: 0,
                         opacity: 0,
-                        y: 50,
-                      }}
+                      }} 
                       animate={{
+                        y: 0,
+                        x: 0,
                         opacity: 1,
-                        y: 1,
+
+                      }}
+                      exit={{
+                        margin: 'auto',
+                        opacity : index === selectedIndex ? 1 : 0,
+                        width: index === selectedIndex ? 'calc(100vw - 12rem)': '100%',
+                        className:'h-vhh',
+                        y: index === selectedIndex ? finalPos : null
                       }}
                       transition={{
-                        opacity: {
+                  
+                        opacity:{
                           easing: cubicBezier(0.35, 0.17, 0.3, 0.86),
-                          duration: 1.2,
+                          duration: 0.3,
+                          delay:0   
                         },
-                        y: {
+                        y:{
                           easing: cubicBezier(0.35, 0.17, 0.3, 0.86),
-                          duration: 0.6,
+                          duration: 0.6,   
+                          delay:0.3   
                         },
+                        width:{
+                          easing: cubicBezier(0.35, 0.17, 0.3, 0.86),
+                          duration: 0.6,   
+                          delay:0.3   
+                        }
                       }}
-                      //onClick={() => openModal(post.slug)}
-                      className={`relative cursor-pointer item overflow-hidden bg-slate-200 rounded-xl w-full`}
+//onClick={() => openModal(post.slug)}
+                      onClick={() => getPosition(index)}
+                     // style={isClicked ? () => getPositionStyles() : null}
+                      className="relative cursor-pointer  overflow-hidden rounded-xl w-full h-vh66 bg-slate-400"
                     >
-                      <FadeInWhenVisible>
+                                  </motion.div> */}
+                      {/* <h1>is it? {index} {clickedIndex}</h1> */}
+
+                      <div onClick={() => openModal(post.slug)}>
                         <PostTile
                           index={index}
                           key={post.slug}
                           post={post}
                           slug={slug}
                         />
-                      </FadeInWhenVisible>
-                    </motion.div>
+                      </div>
+        
+                    </>
                   );
                 })}
                 {loopedPosts && (
@@ -149,11 +246,7 @@ export default function Posts({ intro, allCaseStudies, allCaseStudiesForHome }) 
                           className={`relative cursor-pointer item overflow-hidden bg-slate-200 rounded-xl w-full truncate`}
                         >
                           <FadeInWhenVisible>
-                            <PostTile
-                              index={index}
-                              post={post}
-                              slug={slug}
-                            />
+                            <PostTile index={index} post={post} slug={slug} />
                           </FadeInWhenVisible>
                         </motion.div>
                       );
@@ -162,18 +255,20 @@ export default function Posts({ intro, allCaseStudies, allCaseStudiesForHome }) 
                 )}
               </div>
             )}
-          </motion.div>
-        </ScrollableBox>
-      </TransitionTilt>
+  
+      </ScrollableBox>
+      {/* </motion.div> */}
+    
       <TransitionWipe />
+
+
     </Layout>
   );
 }
 
 export async function getStaticProps() {
-
   const allCaseStudiesForHome = (await getAllCaseStudiesForHome()) ?? [];
-  const selectedPost = (await getPostWithSlug()) ?? []
+  const selectedPost = (await getPostWithSlug()) ?? [];
 
   const allCaseStudies = (await getAllCaseStudies()) ?? [];
   const intro = (await getWork()) ?? [];

@@ -1,6 +1,7 @@
 import { useFrame } from "@studio-freight/hamo";
 import Lenis from "@studio-freight/lenis";
 import { useEffect, useRef, useState } from "react";
+import { useScrollPosition } from "../scrollPosContext";
 
 export function ScrollableBox({
   children,
@@ -13,6 +14,7 @@ export function ScrollableBox({
   const [lenis, setLenis] = useState();
   const wrapperRef = useRef();
   const contentRef = useRef();
+  const { scrollPosition, setScrollPosition } = useScrollPosition(); // Use the context hook to access scrollPosition
 
   useEffect(() => {
     const lenis = new Lenis({
@@ -35,7 +37,9 @@ export function ScrollableBox({
   useFrame((time) => {
     lenis?.raf(time);
     if (onScrollChange) {
-      onScrollChange(lenis?.animatedScroll);
+     // console.log('Scroll',lenis?.animatedScroll)
+      setScrollPosition(lenis?.animatedScroll)
+      onScrollChange(lenis?.animatedScroll)
     }
   }, []);
 
@@ -59,10 +63,10 @@ export function ScrollableBox({
   }, [stopScroll]);
 
   return (
-    <div className="fixed w-full h-full top-0 flex inset z-10">
-      <div className="scrollable" ref={wrapperRef}>
-        <div ref={contentRef}>{children}</div>
+      <div className="fixed w-full h-full top-0 flex inset z-10">
+        <div className="scrollable" ref={wrapperRef}>
+          <div ref={contentRef}>{children}</div>
+        </div>
       </div>
-    </div>
   );
 }

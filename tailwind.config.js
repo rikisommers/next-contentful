@@ -34,7 +34,9 @@ module.exports = {
       },
       height:{
         'vhr':'calc(100vh - 150px)',
-        'vhh':'64vh'
+        'vhh':'64vh',
+        'vh33':'33vh',
+        'vh66':'66vh'
       },
       padding:{
         'vhh':'64vh'
