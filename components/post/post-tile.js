@@ -19,7 +19,7 @@ export default function PostTile({ post }) {
 
   return (
     <FadeInWhenVisible>
-    {/* <Link href={`/projects/${post.slug}`} > */}
+    <Link href={`/projects/${post.slug}`} >
     <div className="relative cursor-pointer  overflow-hidden rounded-xl w-full h-vh66 bg-slate-100">
         <div className="tile relative w-full h-full overflow-hidden cursor-as--post">
           <motion.div
@@ -47,7 +47,7 @@ export default function PostTile({ post }) {
           )}
         </div>
     </div>
-    {/* </Link> */}
+    </Link>
     </FadeInWhenVisible>
 
 

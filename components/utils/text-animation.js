@@ -6,6 +6,7 @@ export default function TextAnimation({ content, style , direction, size, color 
     show: {
       opacity: 1,
       transition: {
+        delay: 0.5, // Add a delay to the start of the animation
        staggerChildren: - 0.1,
       },
     },
@@ -22,6 +23,8 @@ export default function TextAnimation({ content, style , direction, size, color 
       rotateX: 0,
       opacity: 1,
       transition: {
+        delay: 0.5, // Add a delay to the start of the animation
+
         opacity: {
           ease: [0.33, 1, 0.68, 1],
           duration: 1.6 // custom duration for opacity property only
@@ -47,6 +50,8 @@ export default function TextAnimation({ content, style , direction, size, color 
      rotateX: 0,
       rotateY: 0,
       transition: {
+        delay: 0.5, // Add a delay to the start of the animation
+
         ease: [0.33, 1, 0.68, 1],
         duration: 1.6,
       },
@@ -66,6 +71,8 @@ export default function TextAnimation({ content, style , direction, size, color 
       variants={container}
       initial="hidden"
       animate="show"
+      transition={{ delay:2 }} // Add a delay to the start of the animation
+
       style={textStyle}
 
     >
@@ -74,6 +81,7 @@ export default function TextAnimation({ content, style , direction, size, color 
           return (
             <motion.span
               variants={wordv}
+     
               className="text-anim-word overflow-hidden"
               key={index}
             > 
@@ -84,6 +92,7 @@ export default function TextAnimation({ content, style , direction, size, color 
                     className="text-anim-letter"
                     key={index}
                     variants={item}
+               
                   >
                     {letter}
                   </motion.span>

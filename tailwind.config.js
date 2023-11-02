@@ -6,6 +6,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      screens:{
+        'xxl':'1920px'
+      },
       colors: {
         'accent-1': '#FAFAFA',
         'accent-2': '#EAEAEA',
@@ -36,10 +39,13 @@ module.exports = {
         'vhr':'calc(100vh - 150px)',
         'vhh':'64vh',
         'vh33':'33vh',
-        'vh66':'66vh'
+        'vh66':'66vh',
+        'header':'20rem'
       },
       padding:{
-        'vhh':'64vh'
+        'vhh':'64vh',
+        'xlx':'8vw',
+        'header':'20rem'
       },
       margin:{
         'vhh':'64vh'

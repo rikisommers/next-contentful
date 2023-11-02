@@ -34,16 +34,15 @@ export default function Post({ post, nextPost }) {
   const isOpen = true;
 
   const { routeInfo } = useContext(RouteContext);
-  const [sourceRoute, setSourceRoute] = useState('');
-  const [destRoute, setDestRoute] = useState('');
- 
-  useEffect(() => {
-    setSourceRoute(routeInfo.sourceRoute)
-    setDestRoute(routeInfo.destRoute)
-  }, [routeInfo]); // Include routeInfo in the dependency array if needed
- 
-  const shouldFadeIn = !destRoute.includes("/projects/");
+  const [sourceRoute, setSourceRoute] = useState("");
+  const [destRoute, setDestRoute] = useState("");
 
+  useEffect(() => {
+    setSourceRoute(routeInfo.sourceRoute);
+    setDestRoute(routeInfo.destRoute);
+  }, [routeInfo]); // Include routeInfo in the dependency array if needed
+
+  const shouldFadeIn = !destRoute.includes("/projects/");
 
   const handleScrollChange = (value) => {
     setScrollValue(value);
@@ -83,45 +82,39 @@ export default function Post({ post, nextPost }) {
     transition: { duration: 0.6, easing: easing },
   };
 
-
   if (!router.isFallback && !post) {
     return <ErrorPage statusCode={404} />;
   }
 
-
-
   return (
     <Layout>
       <ScrollableBox onScrollChange={handleScrollChange}>
-
-
-
-          <div className="relative z-10 overflow-hidden bg-white rounded-xl">
-              <motion.div
-              exit={{
-                opacity:0
-              }}
-              transition={{
-                easing: cubicBezier(0.35, 0.17, 0.3, 0.86),
-                duration: 0.3,
-                delay:0   
-              }}
-              >
-              <PostContent post={post} ></PostContent>
-              </motion.div>
-              {nextPost && (
-                 <NextPost post={nextPost} />
-              )}
+      {/* xxl:grid grid-cols-3 */}
+        <div className="relative z-10 overflow-hidden bg-white rounded-xl ">
+        {/* className="xxl:col-span-2" */}
+          <motion.div
+            exit={{
+              opacity: 0,
+            }}
+            transition={{
+              easing: cubicBezier(0.35, 0.17, 0.3, 0.86),
+              duration: 0.3,
+              delay: 0,
+            }}
+          >
+              <PostContent post={post}></PostContent>
+            </motion.div>
+            {nextPost && (
+              // xxl:col-span-1 xxl:pt-header
+              <div className=" p-6 ">
+                <NextPost post={nextPost} />
+              </div>
+            )}
+      
         </div>
-
       </ScrollableBox>
 
-      { shouldFadeIn &&
-      <TransitionWipe />
-      }
-
-
-
+      {shouldFadeIn && <TransitionWipe />}
     </Layout>
   );
 }

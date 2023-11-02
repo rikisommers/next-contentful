@@ -44,6 +44,10 @@ body{
     // background: linear-gradient(to bottom, #D6A4A4, #DAE2F8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
+.text-balance{
+  text-wrap:balance;
+}
+
 .postImage{
     padding-bottom:55%;
     aspect-ratio: 16 / 9;
@@ -350,9 +354,14 @@ position: relative;
 // }
 
 
+.home{
+  margin-top: 13.5802vh;
+  margin-left: calc(58.3333% + 1.0288vh);
+}
+
 .post-header{
   height:20rem;
-  align-items: center;
+  //align-items: center;
 }
 
   .text-anim-word{

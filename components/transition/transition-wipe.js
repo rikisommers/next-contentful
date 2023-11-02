@@ -114,7 +114,6 @@ const TransitionWipe = ({ children }) => {
 
       {routeInfo.destRoute === "/" && (
         <>
-        <h1>add</h1>
           <HomeTransitionContent />
           <Overlay />
         </>

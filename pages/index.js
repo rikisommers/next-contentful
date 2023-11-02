@@ -5,9 +5,10 @@ import { getHome, lastUpdatedDate } from "../lib/api";
 import { motion, cubicBezier } from "framer-motion";
 import TransitionWipe from "../components/transition/transition-wipe";
 import TransitionTilt from "../components/transition/transition-tilt";
-import PostIntro from "../components/post/post-intro"
+import PostIntro from "../components/post/post-intro";
 import Chrome from "../components/navigation/chrome";
 import Background from "../components/utils/background";
+import TextAnimation from "../components/utils/text-animation";
 
 export default function Index({ home }) {
   const router = useRouter();
@@ -45,91 +46,99 @@ export default function Index({ home }) {
 
   const lastUpdatedDate = home?.sys?.updatedAt || "N/A";
   const clipPathInitial = `inset(-1rem )`;
-  const clipPathAnimate = `inset(1.5rem round 1.5rem )`;
+  const clipPathAnimate = `inset( 1.5rem round 1rem )`;
+  const clipPathExit = `inset( 1.5rem 1.5rem 90vh 1.5rem round 1rem )`;
 
   return (
     <Layout>
-
-
-
-
-          <motion.div 
-            initial={{ 
-            //  top: '1.5rem',
-            //  left: '1.5rem',
-             }}
-            animate={{ 
-           //   top: '1.5rem',
-            //  left: '1.5rem',
-             }}
-            transition={{
-              duration: 0.6,
-              easing: cubicBezier(0.35, 0.17, 0.3, 0.86),
-            }}
-            className="absolute  pointer-events-auto ">
-              {/* <div className="inset inset--top-left "></div> */}
-            </motion.div>
-
-
-
-          {/* <Chrome lastUpdate={lastUpdate} /> */}
   
 
-         <div className="fixed w-full h-full pointer-events-none z-50">
-<motion.div className="absolute pointer-events-auto origin-top-left	"
-  initial={{
-      scale:0,
-      top:0,
-      left:0
-  }}
-  animate={{
-    scale:1,
-    top:'1.5rem',
-    left:'1.5rem',
-    transition:{
-      duration: 0.6,
-      delay:0.3,
-      easing: cubicBezier(0.25, 1, 0.5, 1),
-    }
-  }}
-  exit={{
-    scale:0,
-    top:0,
-    left:0,
-    transition:{
-      duration: 0.6,
-      delay:0,
-      easing: cubicBezier(0.25, 1, 0.5, 1),
-    }
-  }}
+      {/* <Chrome lastUpdate={lastUpdate} /> */}
 
->
-  <motion.div className="inset inset--top-left "></motion.div>
-</motion.div> 
-</div>
 
-          <motion.div 
-                    initial={{ clipPath: clipPathInitial }}
-                    animate={{ clipPath: clipPathAnimate }}
-                    exit={{ clipPath: clipPathInitial }}
-                    transition={{
-                      duration: 0.8,
-                      easing: cubicBezier(0.35, 0.17, 0.3, 0.86),
+
+      <motion.div
+        className="w-screen h-screen flex items-center justify-end bg-black "
+        initial={{ clipPath: clipPathInitial }}
+        animate={{ clipPath: clipPathInitial}}
+        exit={{ clipPath: clipPathExit}}
+
+        transition={{
+          duration: 0.6,
+          easing: cubicBezier(0.35, 0.17, 0.3, 0.86),
+        }}
+      >
+        <div className="z-10">
+          <TransitionTilt>
+            <div className="absolute w-full h-full top-0 px-6 md:px-12 lg:px-24">
+              {/* <PostIntro title={home.title} content={home.intro} /> */}
+
+                <div className="grid grid-cols-12 gap-3 h-full items-end py-40">
+                  <div className="col-span-12 xl:col-span-6">
+                    <TextAnimation
+                      content={home.title}
+                      color="white"
+                    ></TextAnimation>
+                  </div>
+
+                  <motion.p
+                    className="col-span-6 lg:col-span-6 text-2xl text-left xl:text-right text-balance text-gray-500"
+                    initial={{ opacity: 0 }}
+                    animate={{
+                      opacity: 1,
                     }}
-          className="w-screen h-screen flex items-center justify-end bg-black rounded-xl">
-            
-
-            <TransitionTilt>
-            <div className="absolute w-full h-full top-0 z-10">
-              <PostIntro title={home.title} content={home.intro} />
+                    transition={{
+                      ease: [0.33, 1, 0.68, 1],
+                      duration: 1.6,
+                      delay: 0.6,
+                    }}
+                  >
+                    {home.intro}
+                  </motion.p>
+                </div>
+           
             </div>
-            <Background/>
-            </TransitionTilt>
-
-          </motion.div>
-
      
-  
+
+{/* 
+    <motion.div
+    exit={{
+      opacity:0
+    }}
+      className="
+         
+      grid grid-cols-12 gap-3 h-vh66 items-end pb-20"
+    >
+      <div className="col-span-12 md:col-span-6">
+         
+        <TextAnimation content={title} color="black"></TextAnimation>
+
+      </div>
+
+      <motion.h2
+          className="col-span-6 md:col-span-6 text-2xl text-left md:text-right text-balance"
+          initial={{ opacity: 0 }}
+          animate={{
+            opacity: 1,
+          }}
+          transition={{
+            ease: [0.33, 1, 0.68, 1],
+            duration: 1.6,
+            delay: 1.2,
+          }}
+        >
+          {content}
+        </motion.h2>
+   
+
+    </motion.div> */}
+
+          </TransitionTilt>
+
+        </div>
+        <Background/>
+      </motion.div>
+
       <TransitionWipe />
     </Layout>
   );
@@ -139,7 +148,7 @@ export async function getStaticProps({ preview = false }) {
   const home = (await getHome(preview)) ?? [];
   return {
     props: {
-      home   
-     },
+      home,
+    },
   };
 }

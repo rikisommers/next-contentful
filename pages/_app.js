@@ -14,6 +14,32 @@ function MyApp({ Component, pageProps, router }) {
 
   const [isLoading, setIsLoading] = useState(true);
 
+
+  useEffect(() => {
+    const handleRouteChangeStart = (url) => {
+      // Add a class to the body when the route change starts (page exit)
+      document.body.classList.add('your-exit-class');
+    };
+
+    const handleRouteChangeComplete = (url) => {
+      // Remove the class when the route change is complete (new page entered)
+      document.body.classList.remove('your-exit-class');
+    };
+
+    // Subscribe to the router events
+    router.events.on('routeChangeStart', handleRouteChangeStart);
+    router.events.on('routeChangeComplete', handleRouteChangeComplete);
+
+    // Remove event listeners when the component unmounts
+    return () => {
+      router.events.off('routeChangeStart', handleRouteChangeStart);
+      router.events.off('routeChangeComplete', handleRouteChangeComplete);
+    };
+  }, [router.events]); // Re-run the effect when the router events change
+
+
+
+
   useEffect(() => {
     window.addEventListener("load", () => {
       setIsLoading(false);

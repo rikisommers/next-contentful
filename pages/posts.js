@@ -142,13 +142,13 @@ export default function Posts({
     <Layout>
       <CustomCursor />
 
-      <PostModal
+      {/* <PostModal
         isOpen={isModalOpen}
         onClose={closeModal}
         nextPost={nextPost}
       >
         {post && <PostContent post={post} />}
-      </PostModal>
+      </PostModal> */}
       {/* <motion.div exit={{zIndex:0}}> */}
       <ScrollableBox
         infinite={true}
@@ -158,7 +158,7 @@ export default function Posts({
 
 
             {allCaseStudies && (
-              <div className="relative px-6 bg-white flex flex-col gap-6">
+              <div className="relative px-6 md:px-12 lg:px-24 bg-white flex flex-col gap-6 my-6">
 
 
                 
@@ -224,15 +224,15 @@ export default function Posts({
                                   </motion.div> */}
                       {/* <h1>is it? {index} {clickedIndex}</h1> */}
 
-                      <div onClick={() => openModal(post.slug)}>
+                      {/* <div onClick={() => openModal(post.slug)}> */}
                         <PostTile
                           index={index}
                           key={post.slug}
                           post={post}
                           slug={slug}
                         />
-                      </div>
-        
+                      {/* </div>
+         */}
                     </>
                   );
                 })}

@@ -16,7 +16,7 @@ const TransitionTilt = ({ children }) => {
         className="w-screen h-screen z-10"
         initial={{ 
           transform:"translateZ(0px)",
-          opacity:1
+          opacity:1,
         //  transform :  [`
         //  translateZ(0px) 
         //  translateY(0px) 
@@ -25,12 +25,12 @@ const TransitionTilt = ({ children }) => {
         }}
         //  rotateX(-7.2216deg)
         exit={{
-          transform:"translateZ(-5px)",
-          opacity:0
+          transform:"translateZ(-10px)",
+          opacity:1,
         //  transform : [`
-        //   translateZ(-10px) 
-        //   translateY(-10px) 
-        //   rotateX(0deg)
+        //   translateZ(-5px) 
+        //   translateY(-5px) 
+        //   rotateX(-5.2216deg)
         //   `]
         }}
         transition={{
