@@ -63,10 +63,15 @@ export default function Navigation() {
       {/* <Chrome /> */}
 
       {/* <audio ref={audioRef} play={false} src='/audio/test.mp3' /> */}
+      
+      <motion.div
+        className="audio"
 
+      > <img src="/logo7.svg" viewBox="0 0 43 27"></img></motion.div>
+        
       <motion.div
         className={`logo_wrapper ${isActive ? "active" : ""} ${
-          routeInfo.sourceRoute === "/" ? "text-white" : ""
+          router.asPath === "/" ? "bg-black text-white" : "bg-white text-black"
         }`}
       >
         <motion.span

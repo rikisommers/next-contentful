@@ -7,7 +7,7 @@ import { MousePosProvider } from "../components/mousePosContext";
 import { ScrollPositionProvider } from "../components/scrollPosContext";
 import { RouteProvider } from "../components/routeContext";
 import Navigation from "../components/navigation/primary-navigation";
- //import Preloader from "./preloader";
+ import Preloader from "./preloader";
  import { getAllImages } from "../lib/api";
 function MyApp({ Component, pageProps, router }) {
 
@@ -112,10 +112,11 @@ function MyApp({ Component, pageProps, router }) {
     <RouteProvider>
     <ScrollPositionProvider>
     <MousePosProvider>
-    {/* <Preloader />  */}
+  
 
 
-       {/* {isLoading ? 
+       {isLoading ? 
+         <Preloader /> 
         : 
         <>        <Navigation />
         <AnimatePresence mode="wait">
@@ -124,13 +125,8 @@ function MyApp({ Component, pageProps, router }) {
         </>
 
         }
-  */}
- <>        <Navigation />
-        <AnimatePresence mode="wait">
-        <Component {...pageProps} key={router.asPath} />
-        </AnimatePresence>
-        </>
-
+ 
+ 
     </MousePosProvider>
     </ScrollPositionProvider>
     </RouteProvider>
