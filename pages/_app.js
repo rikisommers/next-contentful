@@ -18,12 +18,12 @@ function MyApp({ Component, pageProps, router }) {
   useEffect(() => {
     const handleRouteChangeStart = (url) => {
       // Add a class to the body when the route change starts (page exit)
-      document.body.classList.add('your-exit-class');
+      document.body.classList.add('prevent-scroll');
     };
 
     const handleRouteChangeComplete = (url) => {
       // Remove the class when the route change is complete (new page entered)
-      document.body.classList.remove('your-exit-class');
+      document.body.classList.remove('prevent-scroll');
     };
 
     // Subscribe to the router events
@@ -52,40 +52,40 @@ function MyApp({ Component, pageProps, router }) {
   }, [isLoading]);
 
 
-  const handleStart = () => setIsLoading(true);
-  const handleComplete = () => {
-    // Delay setting isLoading to false by 2 seconds
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
-  };
+  // const handleStart = () => setIsLoading(true);
+  // const handleComplete = () => {
+  //   // Delay setting isLoading to false by 2 seconds
+  //   setTimeout(() => {
+  //     setIsLoading(false);
+  //   }, 1000);
+  // };
 
-  useEffect(() => {
-    // Check if the cookie is set (indicating it's not the initial visit)
-    if (!Cookies.get('visited')) {
-      // Set the cookie to indicate that the user has visited
-      Cookies.set('visited', 'true', { expires: null}); // Expires in 365 days
+  // useEffect(() => {
+  //   // Check if the cookie is set (indicating it's not the initial visit)
+  //   if (!Cookies.get('visited')) {
+  //     // Set the cookie to indicate that the user has visited
+  //     Cookies.set('visited', 'true', { expires: null}); // Expires in 365 days
 
-      // Display the preloader only on the initial visit to the home page
-      if (router.pathname === '/') {
-        handleStart;
-      } else {
-        handleComplete;
-      }
-    } else {
-      handleComplete
-        }
+  //     // Display the preloader only on the initial visit to the home page
+  //     if (router.pathname === '/') {
+  //       handleStart;
+  //     } else {
+  //       handleComplete;
+  //     }
+  //   } else {
+  //     handleComplete
+  //       }
 
-    // router.events.on("routeChangeStart", handleStart);
-    // router.events.on("routeChangeComplete", handleComplete);
-    // router.events.on("routeChangeError", handleComplete);
+  //   // router.events.on("routeChangeStart", handleStart);
+  //   // router.events.on("routeChangeComplete", handleComplete);
+  //   // router.events.on("routeChangeError", handleComplete);
 
-    // return () => {
-    //   router.events.off("routeChangeStart", handleStart);
-    //   router.events.off("routeChangeComplete", handleComplete);
-    //   router.events.off("routeChangeError", handleComplete);
-    // };
-  }, []);
+  //   // return () => {
+  //   //   router.events.off("routeChangeStart", handleStart);
+  //   //   router.events.off("routeChangeComplete", handleComplete);
+  //   //   router.events.off("routeChangeError", handleComplete);
+  //   // };
+  // }, []);
 
 
 

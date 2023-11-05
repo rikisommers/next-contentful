@@ -3,7 +3,7 @@ import ContentfulImage from "../image/contentful-image";
 import Link from "next/link";
 import FadeInWhenVisible from "../utils/fade-in-visible";
 
-export default function PostTile({ post }) {
+export default function PostTile({ post, index }) {
   const animateContentOnHover = {
     initial: {
       opacity: 0,
@@ -39,11 +39,13 @@ export default function PostTile({ post }) {
             </h2>
           </motion.div>
           {post.img && (
+            <>
             <ContentfulImage
               className="img-cover"
               alt={`Cover Image for ${post?.title}`}
               src={post.img.url}
             />
+            </>
           )}
         </div>
     </div>

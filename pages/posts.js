@@ -176,7 +176,7 @@ export default function Posts({
 
                      />} */}
 
-                    {/* <motion.div
+                    <motion.div
                      key={post.slug}
                       ref={elementRefs[index]} 
                       layout
@@ -221,16 +221,19 @@ export default function Posts({
                      // style={isClicked ? () => getPositionStyles() : null}
                       className="relative cursor-pointer  overflow-hidden rounded-xl w-full h-vh66 bg-slate-400"
                     >
-                                  </motion.div> */}
-                      {/* <h1>is it? {index} {clickedIndex}</h1> */}
-
-                      {/* <div onClick={() => openModal(post.slug)}> */}
-                        <PostTile
+                    
+                    <PostTile
                           index={index}
                           key={post.slug}
                           post={post}
                           slug={slug}
                         />
+                    
+                    </motion.div>
+                      {/* <h1>is it? {index} {clickedIndex}</h1> */}
+
+                      {/* <div onClick={() => openModal(post.slug)}> */}
+                 
                       {/* </div>
          */}
                     </>
@@ -259,7 +262,7 @@ export default function Posts({
       </ScrollableBox>
       {/* </motion.div> */}
     
-      <TransitionWipe />
+      {/* <TransitionWipe /> */}
 
 
     </Layout>

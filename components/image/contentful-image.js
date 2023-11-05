@@ -5,8 +5,9 @@ const contentfulLoader = ({ src, width, quality }) => {
 }
 
 const ContentfulImage = (props) => {
-  return <Image     
-    // priority
+  return <Image  
+      loading='eager'   
+      priority
       sizes="(max-width: 768px) 100vw,
               (max-width: 1200px) 50vw,
               33vw" 
