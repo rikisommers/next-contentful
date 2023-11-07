@@ -441,6 +441,9 @@ position: relative;
   // flex-direction: row;
     gap:0.7rem;
     transform-origin: top;
+    background: -webkit-linear-gradient(#fff, #000);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
    // perspective: 3.5em;
 
   }
@@ -535,4 +538,14 @@ position: relative;
   padding:1rem;
   display: inline-flex;
   font-size: 16px;
+}
+
+.goo{
+  filter: url("#goo");
+}
+
+.svg-filter{
+  position: fixed;
+  left:9999px;
+  top:0;
 }

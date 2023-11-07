@@ -39,17 +39,27 @@ $indicator-color: #fff;
   transition: all 300ms ease;
   transform-origin: 0 0;
 
+  overflow: hidden;
   //background-color: #fff;
 
 
 
 
+  .logow{
+    width:60px;
+    height:180px;
+    border: 1px solid red;
+  }
 
   .logo{
     border-radius: 0.6rem ;
-    padding:0.8rem;
+    //padding:0.8rem;
     transition: all 300ms ease;
     background-color: #fff;
+    width:60px;
+    height:60px;
+    overflow: hidden;
+
     img{
       width:32px;
     }
@@ -71,9 +81,85 @@ $indicator-color: #fff;
     }
   }
 
+
+
+.head{
+  width:30px;
+  height: 30px;
+  background-color: #000;
+  margin:0px 15px;
+  border-radius: 100%;
+  position: relative;
 }
 
+.torso{
+  width:60px;
+  height:120px;
+  border-radius: 30px;
+  margin:0px;
+}
 
+.body{
+  width:60px;
+  height:60px;
+  position:relative;
+  display: block;
+  border-radius: 30px;
+  &.light{
+    background-color: #fff;
+
+    .head::after{
+      display: block;
+      position: absolute;
+      top:10px;
+      left:10px;
+      border-radius: 100%;
+      content:'';
+      width:10px;
+      height: 10px;
+      //margin:5px 20px;
+      background-color: #fff;
+    }
+
+    .head,.torso{
+      background-color: #000;
+      }
+  }
+
+  &.dark{
+    background-color: #000;
+
+    .head{
+      width:20px;
+      height: 20px;
+      margin:5px 20px;
+    }
+
+    .head,.torso{
+      background-color: #fff;
+      }
+  }
+
+
+
+}
+
+.body1{
+  transform:translateY(0px);
+}
+
+.body2{
+  transform:translateY(-15px);
+}
+
+.body3{
+  transform:translateY(-30px);
+}
+
+.body4{
+  transform:translateY(-45px);
+}
+}
 
 .c-menu__wrapper{
   position: fixed;

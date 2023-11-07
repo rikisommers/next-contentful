@@ -14,6 +14,19 @@ export default function Navigation() {
 
   const { scrollPosition } = useScrollPosition();
   const [isActive, setIsActive] = useState(false);
+  const [offset, setOffset] = useState(0);
+
+
+  useEffect(() => {
+    if (router.asPath !== router.route) {
+      if( router.asPath === '/'){
+        setOffset(20);
+      }else if(router.asPath === '/posts'){
+        setOffset(-50);
+      }
+        
+    }
+  }, [router.asPath, router.route]);
 
   useEffect(() => {
     if (scrollPosition > 200) {
@@ -41,6 +54,7 @@ export default function Navigation() {
     },
   ];
 
+
   const [activePage, setActivePage] = useState(pages[0].id);
   const audioRef = useRef();
 
@@ -63,12 +77,11 @@ export default function Navigation() {
       {/* <Chrome /> */}
 
       {/* <audio ref={audioRef} play={false} src='/audio/test.mp3' /> */}
-      
-      <motion.div
-        className="audio"
 
-      > <img src="/logo7.svg" viewBox="0 0 43 27"></img></motion.div>
-        
+      <motion.div className="audio">
+        <img src="/logo7.svg" viewBox="0 0 43 27"></img>
+      </motion.div>
+
       <motion.div
         className={`logo_wrapper ${isActive ? "active" : ""} ${
           router.asPath === "/" ? "bg-black text-white" : "bg-white text-black"
@@ -94,7 +107,29 @@ export default function Navigation() {
             easing: cubicBezier(0.35, 0.17, 0.3, 0.86),
           }}
         >
-          <img src="/logo7.svg" viewBox="0 0 43 27"></img>
+
+          <motion.div classname="logow goo"
+      animate={{ top: offset }}
+          >
+
+          <div className="body body1 light">
+            <div className="head"></div>
+            <div className="torso"></div>
+          </div>
+          <div className="body body2 dark">
+            <div className="head"></div>
+            <div className="torso"></div>
+          </div>
+          <div className="body body3 light">
+            <div className="head"></div>
+            <div className="torso"></div>
+          </div>
+          <div className="body body4 dark">
+            <div className="head"></div>
+            <div className="torso"></div>
+          </div>
+
+          </motion.div>
         </motion.span>
 
         {router.asPath === "/" ? (
@@ -121,7 +156,7 @@ export default function Navigation() {
           </motion.span>
         ) : (
           <motion.span className="logotext text-lg text-black">
-            - All Projects
+            - All Projects {offset}
           </motion.span>
         )}
 
@@ -196,7 +231,7 @@ export default function Navigation() {
   
     </motion.ul>
     </motion.nav> */}
-{/* <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+      {/* <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
   <defs>
     <filter id="goo">
       <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
@@ -205,8 +240,6 @@ export default function Navigation() {
     </filter>
   </defs>
 </svg> */}
-
-
     </>
   );
 }
