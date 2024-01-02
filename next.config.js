@@ -2,6 +2,7 @@
 module.exports = {
   images: {
     loader: 'custom',
+    unoptimized: true,
     formats: ['image/avif', 'image/webp'],
   },
 }
