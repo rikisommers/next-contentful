@@ -44,9 +44,9 @@ export default function PostHeader({
             {client && client}
             </motion.p>
 
-            <TextAnimation content={title} />
+            <TextAnimation content={title}/>
           </div>
-          <h2 className="col-span-6 md:col-span-6 text-2xl text-left md:text-right text-balance">
+          <h2 className="text-slate-500 font-light col-span-6 md:col-span-6 text-2xl text-left md:text-right text-balance">
             {subtitle}
           </h2>
       

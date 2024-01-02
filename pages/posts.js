@@ -158,9 +158,7 @@ export default function Posts({
 
 
             {allCaseStudies && (
-              <div className="relative px-6 md:px-12 lg:px-24 bg-white flex flex-col gap-6 my-6">
-
-
+              <div className="relative px-6 md:px-12 lg:px-24 bg-orange-50 flex flex-col gap-6 ">
                 
                 <PostIntro title={intro.title} content={intro.intro} />
 

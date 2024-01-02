@@ -317,7 +317,9 @@ position: relative;
   word-wrap: break-word;
   gap: 0.1rem 0.7rem;
   line-height: 1.23;
-  text-wrap: balance
+  text-wrap: balance;
+  
+
 }
 
 .perc{
@@ -369,7 +371,6 @@ position: relative;
 
 .home{
   position: absolute;
-  padding:1.5rem;
   z-index:999;
   width:100%;
   height:100%;
@@ -384,19 +385,29 @@ position: relative;
   
 
     &__footer{
+      padding:1.5rem;
       width:100%;
       align-self: flex-end;
-      border-top:1px solid grey;
+     // border-top:1px solid grey;
       display:grid;
       grid-template-columns: repeat(12,1fr);
       grid-column:span 12;
-      color:grey;
+  
+
+//   @media only screen and (min-width: $tablet-p-max) {
+//     font-size: 7.42vw;
+//     line-height: 7.73vw;
+//   }
+
+  @media only screen and (min-width: $desktop-min) {
+    font-size: 5.42vw;
+    line-height: 5.73vw;
+  }
+
     //  padding-bottom:4rem;
 
       > div{
         display: flex;
-        align-items:flex-end;  
-
       }
 
       .service{
@@ -441,9 +452,10 @@ position: relative;
   // flex-direction: row;
     gap:0.7rem;
     transform-origin: top;
-    background: -webkit-linear-gradient(#fff, #000);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    // background-clip: text;
+    // -webkit-text-fill-color: transparent;
+    // -webkit-background-clip: text;
+    // -webkit-text-fill-color: transparent;
    // perspective: 3.5em;
 
   }

@@ -7,7 +7,7 @@ export default function TextAnimation({ content, style , direction, size, color 
       opacity: 1,
       transition: {
         delay: 0.5, // Add a delay to the start of the animation
-       staggerChildren: - 0.1,
+       staggerChildren: - 0.2,
       },
     },
   };
@@ -73,7 +73,7 @@ export default function TextAnimation({ content, style , direction, size, color 
       animate="show"
       transition={{ delay:2 }} // Add a delay to the start of the animation
 
-      style={textStyle}
+      //style={textStyle}
 
     >
       {content &&
@@ -81,15 +81,13 @@ export default function TextAnimation({ content, style , direction, size, color 
           return (
             <motion.span
               variants={wordv}
-     
-              className="text-anim-word overflow-hidden"
+              className={`text-anim-word overflow-hidden ${color}`}
               key={index}
             > 
               {word.split("").map(function (letter, index) {
                 return (
                   <motion.span
-
-                    className="text-anim-letter"
+                    className={`text-anim-letter ${color ? color : "text-slate-500"}`}
                     key={index}
                     variants={item}
                

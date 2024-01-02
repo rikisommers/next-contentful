@@ -5,10 +5,8 @@ $menu-items: 3;
 // We multiply it by 1% to get the correct % unit
 $width: (100/$menu-items) * 1%;
 $menu-items-loop-offset: $menu-items - 1; // the number of items in the menu
-
 $background-color: rgba(255, 255, 255, 1);
 $indicator-color: #fff;
-
 
 .audio{
   position: absolute;
@@ -28,8 +26,8 @@ $indicator-color: #fff;
 .logo_wrapper{
   position: fixed;
  // height:40px;
-  top:1.5rem;
-  left:1.5rem;
+  top:1rem;
+  left:1rem;
   border-radius: 0.6rem ;
   display: flex;
   flex-direction: row;
@@ -37,13 +35,13 @@ $indicator-color: #fff;
   z-index:9999;
   //color: #000;
   transition: all 300ms ease;
-  transform-origin: 0 0;
-
+  transform-origin: ce;
   overflow: hidden;
   //background-color: #fff;
 
-
-
+  img{
+    width:32px;
+  }
 
   .logow{
     width:60px;
@@ -56,18 +54,20 @@ $indicator-color: #fff;
     //padding:0.8rem;
     transition: all 300ms ease;
     background-color: #fff;
-    width:60px;
-    height:60px;
+
+  transform: scale(0.6);
     overflow: hidden;
 
-    img{
-      width:32px;
-    }
+      img{
+        color: red;
+        width: 40px;
+        height: 40px;
+        margin: 10px;
+      }
   }
 
   .logotext{
     transition: all 300ms ease;
-    padding:1rem;
   }
 
   &.active{
@@ -80,7 +80,6 @@ $indicator-color: #fff;
       opacity: 0;
     }
   }
-
 
 
 .head{

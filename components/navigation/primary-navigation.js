@@ -61,7 +61,7 @@ export default function Navigation() {
   const [play] = useSound("/audio/test.mp3", { volume: 0.5 });
 
   const handleClick = () => {
-    play();
+   // play();
   };
 
   // const play = () => {
@@ -79,15 +79,18 @@ export default function Navigation() {
       {/* <audio ref={audioRef} play={false} src='/audio/test.mp3' /> */}
 
       <motion.div className="audio">
-        <img src="/logo7.svg" viewBox="0 0 43 27"></img>
+        <img src="/logo6.svg" viewBox="0 0 43 27"></img>
       </motion.div>
 
       <motion.div
         className={`logo_wrapper ${isActive ? "active" : ""} ${
-          router.asPath === "/" ? "bg-black text-white" : "bg-white text-black"
+          router.asPath === "/" ? "text-white" : "bg-white text-black"
         }`}
-      >
-        <motion.span
+      > 
+      <div className="logo">
+                <img src="/logo3.svg" viewBox="0 0 32 32"></img>
+                </div>
+        {/* <motion.span
           className="logo origin-top-left"
           onClick={handleClick}
           //  key={router.asPath} // Key should be based on the route to trigger exit and enter animations
@@ -130,7 +133,7 @@ export default function Navigation() {
           </div>
 
           </motion.div>
-        </motion.span>
+        </motion.span> */}
 
         {router.asPath === "/" ? (
           <motion.span
@@ -167,7 +170,7 @@ export default function Navigation() {
 
       {/* //backdrop-blur-md  */}
       <div
-        className="flex space-x-2 absolute bottom-6 right-6 lg:top-6 lg:right-6 lg:bottom-auto lg:right-6  p-2 rounded-md backdrop-blur-md bg-slate-400"
+        className="flex space-x-2 absolute bottom-6 right-6 lg:top-4 lg:right-4 lg:bottom-auto lg:right-4  p-2 rounded-md backdrop-blur-md"
         style={{ zIndex: 9999 }}
       >
         {pages.map((page) => (
@@ -187,12 +190,12 @@ export default function Navigation() {
               {page.title}
             </span>
 
-            {activePage === page.id && (
+            {/* {activePage === page.id && (
               <motion.div
                 layoutId="indicator"
                 className="absolute inset-0 top-0 bg-white rounded-md"
               ></motion.div>
-            )}
+            )} */}
           </Link>
         ))}
       </div>

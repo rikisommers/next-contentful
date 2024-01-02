@@ -4,7 +4,7 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head />
-      <body className='bg-slate100'>
+      <body className='bg-slate-50'>
 
         {/* <div id={'globalLoader'}>
               <div className="loader">

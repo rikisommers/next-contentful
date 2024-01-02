@@ -7,7 +7,7 @@ export default function PostContent({ post }) {
     <>
 
     { post && 
-      <article className="pt-32 px-8 md:px-24">
+      <article>
         <PostHeader
           title={post.title && post.title}
           subtitle={post.subtitle && post.subtitle}

@@ -90,9 +90,10 @@ export default function Post({ post, nextPost }) {
     <Layout>
       <ScrollableBox onScrollChange={handleScrollChange}>
       {/* xxl:grid grid-cols-3 */}
-        <div className="relative z-10 overflow-hidden bg-white rounded-xl ">
+        <div className="relative z-10 overflow-hidden bg-slate-50 rounded-xl ">
         {/* className="xxl:col-span-2" */}
           <motion.div
+            className="pt-32 px-8 md:px-24 xl:px-xlx"
             exit={{
               opacity: 0,
             }}
@@ -102,7 +103,8 @@ export default function Post({ post, nextPost }) {
               delay: 0,
             }}
           >
-              <PostContent post={post}></PostContent>
+            
+            <PostContent post={post}></PostContent>
             </motion.div>
             {nextPost && (
               // xxl:col-span-1 xxl:pt-header

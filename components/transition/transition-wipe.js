@@ -22,7 +22,7 @@ const HomeTransitionContent = () => {
       }}
       
     >
-        <div className="w-full h-full bg-black flex items-center justify-center rounded-xl">
+        <div className="w-full h-full bg-gray-800 flex items-center justify-center rounded-xl">
        
       </div>
     </motion.div>

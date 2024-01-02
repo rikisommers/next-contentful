@@ -44,7 +44,7 @@ module.exports = {
       },
       padding:{
         'vhh':'64vh',
-        'xlx':'8vw',
+        'xlx':'10vw',
         'header':'20rem'
       },
       margin:{

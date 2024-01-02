@@ -8,6 +8,12 @@ import TransitionTilt from "../components/transition/transition-tilt";
 import PostIntro from "../components/post/post-intro";
 import Chrome from "../components/navigation/chrome";
 import TextAnimation from "../components/utils/text-animation";
+import Experience from "../components/utils/experience";
+import Background from "../components/utils/background";
+import PostHeader from "../components/post/post-header";
+import PostDetails from "../components/post/post-details";
+import FadeInWhenVisible from "../components/utils/fade-in-visible";
+import Audio from "../components/navigation/audio";
 
 export default function Index({ home }) {
   const router = useRouter();
@@ -44,120 +50,96 @@ export default function Index({ home }) {
   }, []);
 
   const lastUpdatedDate = home?.sys?.updatedAt || "N/A";
-  const clipPathInitial = `inset(-1rem )`;
+  const clipPathInitial = `inset(1.0rem 1.0rem 6.0rem round 0.5rem)`;
   const clipPathAnimate = `inset( 1.5rem round 1rem )`;
   const clipPathExit = `inset( 1.5rem 1.5rem 90vh 1.5rem round 1rem )`;
 
   return (
     <Layout>
-      <div className="home">
-        {/* <PostIntro title={home.title} content={home.intro} /> */}
+            <TransitionWipe />
+            <TransitionTilt>
+      <div className="absolute w-full h-full z-10 bg-gray-800">
 
-        <div className="lead">
-          <TextAnimation content={home.title} color="white"></TextAnimation>
+        <div className="home z-10 ">
 
-          <motion.p
-            className=" text-2xl text-left xl:text-right text-balance text-gray-500"
-            initial={{ opacity: 0 }}
-            animate={{
-              opacity: 1,
-            }}
-            transition={{
-              ease: [0.33, 1, 0.68, 1],
-              duration: 1.6,
-              delay: 0.6,
-            }}
-          >
-            {home.intro}
-          </motion.p>
+          <FadeInWhenVisible>
+
+            <div className="grid grid-cols-12 h-full items-end py-32 px-32">
+
+              <div className="col-span-12 md:col-span-6 flex flex-col gap-6">
+                {/* <h1 className="text-7xl">{title && title}</h1> */}
+                <motion.p className="text-sm text-slate-500 uppercase"
+                initial={{
+                  opacity: 0,
+                }}
+                animate={{
+                  opacity: 1,
+                }}
+                transition={{
+                  easing: cubicBezier(0.35, 0.17, 0.3, 0.86),
+                  duration: 0.6,
+                  delay: 0.3,
+                }}
+                >
+                test
+                </motion.p>
+
+                <TextAnimation content={home.title} color={'text-slate-400'}/>
+
+                <h2 className="text-slate-500 font-light col-span-6 md:col-span-6 text-2xl text-left  text-balance">
+                {home.intro}
+                </h2>
+              
+              </div>
+
+            </div>
+          </FadeInWhenVisible>
+
+
+          <div className="home__footer">
+
+              <div className="flex flex-col gap-1 col-span-3 lg:col-span-2 text-xs">
+                <span className="uppercase text-slate-400">Location:</span> 
+                <span className="text-slate-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempo</span>
+              </div>
+
+              <div className="flex flex-col gap-1 col-span-3 lg:col-span-2 text-xs">
+                <span className="uppercase text-slate-400">Location:</span> 
+                <span className="text-slate-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempo</span>
+              </div>
+
+              <div className="sound">
+                <Audio/>
+              </div>
+
+          </div>
+
+
         </div>
 
-        <div className="home__footer">
-          <div className="flex">
-            <span>Location:</span> chch
-          </div>
-          <div className="service flex">
-            <span>Location:</span> chch
-          </div>
-          <div className="sound goo">
-            <motion.div
-              initial={{
-                scale: 0,
-                width: 40,
-                height: 40,
-                x: 0,
-              }}
-              animate={{
-                scale: 1,
-                width: 60,
-                x: 0,
-              }}
-              transition={{
-                scale: {
-                  duration: 0.6,
-                  ease: [0.34, 1.56, 0.64, 1],
-                },
-                x: {
-                  delay: 0.6,
-                  duration: 0.9,
-                  ease: [0.25, 1, 0.5, 1],
-                },
-                width: {
-                  delay: 0.6,
-                  duration: 0.9,
-                  ease: [0.25, 1, 0.5, 1],
-                },
-              }}
-              className="btn absolute bottom-6 right-6 "
-            ></motion.div>
-            <motion.div
-              initial={{
-                scale: 0,
-                width: 40,
-                height: 40,
-                x: 0,
-              }}
-              animate={{
-                scale: 1,
-                width: 80,
-                x: -80,
-              }}
-              transition={{
-                scale: {
-                  duration: 0.6,
-                  ease: [0.34, 1.56, 0.64, 1],
-                },
-                x: {
-                  delay: 0.6,
-                  duration: 0.9,
-                  ease: [0.25, 1, 0.5, 1],
-                },
-                width: {
-                  delay: 0.6,
-                  duration: 0.9,
-                  ease: [0.25, 1, 0.5, 1],
-                },
-              }}
-              className="btn absolute bottom-6 right-6 "
-            ></motion.div>
-          </div>
-        </div>
-      </div>
+ 
+
+
+
+
 
       <motion.div
-        className="w-screen h-screen flex items-center justify-end bg-black "
-        initial={{ clipPath: clipPathInitial }}
-        animate={{ clipPath: clipPathInitial }}
-        exit={{ clipPath: clipPathExit }}
-        transition={{
-          duration: 0.6,
-          easing: cubicBezier(0.35, 0.17, 0.3, 0.86),
-        }}
-      >
-        <TransitionTilt></TransitionTilt>
-      </motion.div>
+                  
+                  className="absolute w-full h-full flex items-center justify-end bg-gray-900 opacity-75"
+                  initial={{ clipPath: clipPathInitial }}
+                  animate={{ clipPath: clipPathInitial }}
+                  exit={{ clipPath: clipPathInitial }}
+                  transition={{
+                    duration: 0.6,
+                    easing: cubicBezier(0.35, 0.17, 0.3, 0.86),
+                  }}
+                >
+                  {/* <Background/> */}
+                </motion.div>
+                </div>
 
-      <TransitionWipe />
+      </TransitionTilt>
+
 
 
     </Layout>

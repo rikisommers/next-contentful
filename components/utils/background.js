@@ -13,7 +13,6 @@ export default function Background() {
   // })
 
   return (
-    <div className="absolute w-full h-full top-0 left-0 z-0">
       <Canvas
         //clamp pixel ration
         //dpr={ 1 }
@@ -38,7 +37,8 @@ export default function Background() {
         }}
       >
       <Experience/>
+      
       </Canvas>
-    </div>
+
   );
 }
