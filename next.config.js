@@ -1,7 +1,8 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
   images: {
-    loader: 'custom',
+    loader: 'akamai',
+    path: '/',
     unoptimized: true,
     formats: ['image/avif', 'image/webp'],
   },
