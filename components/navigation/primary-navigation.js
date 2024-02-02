@@ -73,7 +73,7 @@ export default function Navigation() {
   // }
 
   return (
-    <>
+    <div className="p-3 w-full flex justify-between">
       {/* <Chrome /> */}
 
       {/* <audio ref={audioRef} play={false} src='/audio/test.mp3' /> */}
@@ -170,7 +170,7 @@ export default function Navigation() {
 
       {/* //backdrop-blur-md  */}
       <div
-        className="flex space-x-2 absolute bottom-6 right-6 lg:top-4 lg:right-4 lg:bottom-auto lg:right-4  p-2 rounded-md backdrop-blur-md"
+        className="flex space-x-2  bottom-6 right-50 lg:top-4 lg:right-50 lg:bottom-auto lg:right-4  p-2 rounded-md bg-black backdrop-blur-md"
         style={{ zIndex: 9999 }}
       >
         {pages.map((page) => (
@@ -198,6 +198,9 @@ export default function Navigation() {
             )} */}
           </Link>
         ))}
+      </div>
+      <div>
+        d
       </div>
       {/* <motion.nav className={`c-menu__wrapper ${isActive && (router.asPath !== '/') ? "active" : ""}`}
      initial={{
@@ -243,6 +246,6 @@ export default function Navigation() {
     </filter>
   </defs>
 </svg> */}
-    </>
+    </div>
   );
 }

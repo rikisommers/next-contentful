@@ -6,8 +6,8 @@ export default function TextAnimation({ content, style , direction, size, color 
     show: {
       opacity: 1,
       transition: {
-        delay: 0.5, // Add a delay to the start of the animation
-       staggerChildren: - 0.2,
+        delay: 0, // Add a delay to the start of the animation
+       staggerChildren:  0,
       },
     },
   };
@@ -15,15 +15,16 @@ export default function TextAnimation({ content, style , direction, size, color 
   const wordv = {
     hidden: {
       opacity: 0,
-      rotateX: -40,
-      x:30
+      rotateX: 0,
+      x:0
     },
     show: {
       x:0,
       rotateX: 0,
       opacity: 1,
       transition: {
-        delay: 0.5, // Add a delay to the start of the animation
+        //delay: 0.5, // Add a delay to the start of the animation
+        staggerChildren:  0.2,
 
         opacity: {
           ease: [0.33, 1, 0.68, 1],
@@ -40,8 +41,8 @@ export default function TextAnimation({ content, style , direction, size, color 
   const item = {
     hidden: {
       opacity: 0,
-      rotateX: -20,
-      y:  60,
+      rotateX: 0,
+      y:  0,
     },
     show: {
       y: 0,
@@ -50,7 +51,7 @@ export default function TextAnimation({ content, style , direction, size, color 
      rotateX: 0,
       rotateY: 0,
       transition: {
-        delay: 0.5, // Add a delay to the start of the animation
+       // delay: 0.5, // Add a delay to the start of the animation
 
         ease: [0.33, 1, 0.68, 1],
         duration: 1.6,

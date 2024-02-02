@@ -134,7 +134,7 @@ export default function Index({ home }) {
                     easing: cubicBezier(0.35, 0.17, 0.3, 0.86),
                   }}
                 >
-                  {/* <Background/> */}
+                  <Background/>
                 </motion.div>
                 </div>
 

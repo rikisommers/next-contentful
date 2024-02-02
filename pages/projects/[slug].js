@@ -89,6 +89,7 @@ export default function Post({ post, nextPost }) {
   return (
     <Layout>
       <ScrollableBox onScrollChange={handleScrollChange}>
+
       {/* xxl:grid grid-cols-3 */}
         <div className="relative z-10 overflow-hidden bg-slate-50 rounded-xl ">
         {/* className="xxl:col-span-2" */}
@@ -104,17 +105,16 @@ export default function Post({ post, nextPost }) {
             }}
           >
             
-            <PostContent post={post}></PostContent>
+              <PostContent post={post}></PostContent>
             </motion.div>
             {nextPost && (
-              // xxl:col-span-1 xxl:pt-header
               <div className=" p-6 ">
                 <NextPost post={nextPost} />
               </div>
             )}
       
         </div>
-      </ScrollableBox>
+        </ScrollableBox>
 
       {shouldFadeIn && <TransitionWipe />}
     </Layout>

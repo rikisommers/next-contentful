@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
-
 import Layout from "../components/layout";
 import {
   getAllCaseStudies,
@@ -18,8 +17,8 @@ import PostIntro from "../components/post/post-intro";
 import PostContent from "../components/post/post-content";
 import PostTile from "../components/post/post-tile";
 import PostModal from "../components/post/post-modal";
-import CustomCursor from "../components/utils/cursor";
-
+// import CustomCursor from "../components/utils/cursor";
+import NextPost from "../components/post/post-next";
 // const getWindowSize = () => [window.innerWidth, window.innerHeight];
 
 
@@ -140,20 +139,19 @@ export default function Posts({
 
   return (
     <Layout>
-      <CustomCursor />
+      {/* <CustomCursor /> */}
 
-      {/* <PostModal
+      <PostModal
         isOpen={isModalOpen}
         onClose={closeModal}
         nextPost={nextPost}
       >
         {post && <PostContent post={post} />}
-      </PostModal> */}
+      </PostModal> 
       {/* <motion.div exit={{zIndex:0}}> */}
-      <ScrollableBox
-        infinite={true}
+     <ScrollableBox
+        infinite={false}
         orientation={"vertical"}
-        onScrollChange={handleScrollChange}
       >
 
 
@@ -214,7 +212,7 @@ export default function Posts({
                           delay:0.3   
                         }
                       }}
-//onClick={() => openModal(post.slug)}
+                      //onClick={() => openModal(post.slug)}
                       onClick={() => getPosition(index)}
                      // style={isClicked ? () => getPositionStyles() : null}
                       className="relative cursor-pointer  overflow-hidden rounded-xl w-full h-vh66 bg-slate-400"
@@ -237,13 +235,13 @@ export default function Posts({
                     </>
                   );
                 })}
-                {loopedPosts && (
+                {/* {loopedPosts && (
                   <>
                     {loopedPosts.map((post, index) => {
                       return (
                         <motion.div
                           key={post.slug}
-                          //onClick={() => openModal(post.slug)}
+                          onClick={() => openModal(post.slug)}
                           className={`relative cursor-pointer item overflow-hidden bg-slate-200 rounded-xl w-full truncate`}
                         >
                           <FadeInWhenVisible>
@@ -253,15 +251,20 @@ export default function Posts({
                       );
                     })}
                   </>
-                )}
+                )} */}
               </div>
             )}
-  
-      </ScrollableBox>
+
+
+<div className=" p-6 ">
+                <NextPost post={loopedPosts[0]} />
+              </div>
+        </ScrollableBox>
+
       {/* </motion.div> */}
     
       {/* <TransitionWipe /> */}
-
+      
 
     </Layout>
   );

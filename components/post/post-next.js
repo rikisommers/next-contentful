@@ -38,7 +38,7 @@ export default function NextPost({ post }) {
 
   return (
     <div className="">
-      <Link href={`/projects/${post.slug}`} shallow={false}>
+      <Link href={`/projects/${post.slug}`}>
         <motion.div
           ref={nextRef}
           layout
