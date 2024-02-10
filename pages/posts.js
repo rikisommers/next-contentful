@@ -136,7 +136,7 @@ export default function Posts({
         >
           <TransitionTilt>
             <div
-              className={`relative flex flex-col pb-20 z-50 trans ${(isContentInView) ? "bg-slate-100"  : "bg-slate-800" }`}
+              className={`relative flex flex-col pb-20 z-50 trans bg-slate-100" }`}
               ref={contentRef}
               style={{ clipPath: clipPathValue }}
             >
