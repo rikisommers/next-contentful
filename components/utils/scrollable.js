@@ -20,9 +20,11 @@ export function ScrollableBox({
     const lenis = new Lenis({
       wrapper: wrapperRef.current,
       content: contentRef.current,
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // https://www.desmos.com/calculator/brs54l4xou
+      duration: 0.6,
+     // lerp: 0.1,
+     // easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // https://www.desmos.com/calculator/brs54l4xou
       smoothWheel: true,
+  
       orientation: orientation ? orientation : undefined,
       infinite: infinite,
     });

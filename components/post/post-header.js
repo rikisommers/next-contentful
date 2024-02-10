@@ -54,7 +54,6 @@ export default function PostHeader({
       </FadeInWhenVisible>
 
       <div className="h-vhh rounded-xl overflow-hidden bg-slate-100">
-        <p>sd</p>
         <CoverImage
           title={img && img.title}
           url={img && img.url}

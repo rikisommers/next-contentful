@@ -31,7 +31,7 @@ export default function Audio() {
                   ease: [0.25, 1, 0.5, 1],
                 },
               }}
-              className="btn absolute bottom-0 right-1 "
+              className="btn absolute bottom-0 right-1 bg-teal-400"
             ></motion.div>
             <motion.div
               initial={{

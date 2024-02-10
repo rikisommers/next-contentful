@@ -25,7 +25,7 @@ export default function Experience() {
     const portalMaterial = useRef()
     useFrame((state, delta) =>
     {
-        //portalMaterial.current.time += delta * .3
+        portalMaterial.current.time += delta * .3
     })
 
 
@@ -36,12 +36,12 @@ export default function Experience() {
       <Center>
       <mesh position={[0, 0, 0]} scale={1}>
           <sphereGeometry args={[ 6, 32, 32]} />
-          {/* <portalMaterial
+          <portalMaterial
             ref={ portalMaterial }
             side={THREE.DoubleSide}
             fragmentShader={fragmentShader}
             vertexShader={vertexShader}
-          /> */}
+          />
         </mesh>
       </Center>
     </>

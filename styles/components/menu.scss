@@ -1,4 +1,4 @@
-
+@import "../variables";
 // Menu Item Variables
 // The number of items in the menu
 $menu-items: 3;
@@ -160,20 +160,54 @@ $indicator-color: #fff;
 }
 }
 
-.c-menu__wrapper{
-  position: fixed;
-  top:1.5rem;
- // transform: translateX(-50%);
-  right: 1.5rem;
-  z-index:9999;
 
-  &.active{
-    
-    ul.c-menu{
-    background-color: $background-color;
-    }
+
+
+
+.c-menu__wrapper{
+  display:flex;
+  gap:8px;
+  position: fixed;
+  right: 1.5rem;
+  transform: translateX(-50%);
+  border-radius: 10px;
+  z-index:9999;
+  bottom:1.5rem;
+  background-color: rgba(0,0,0, 0.5);
+  backdrop-filter: blur(12px);
+  height:58px;
+  padding:5px;
+
+  @media only screen and (min-width: $desktop-min) {
+    top:1.5rem;
+    left:50%;
+    right:initial;
+
   }
+
 }
+
+
+.c-menu__item{
+  position:relative;
+  padding: 8px 12px;
+  font-size:15px;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+.c-menu__indicator{
+  position: absolute;
+  top:0;
+  left:0;
+  height:100%;
+  width:100%;
+  background-color: aquamarine;
+  border-radius:5px;
+}
+
 
 ul.c-menu{
     border-radius: 0.6rem ;

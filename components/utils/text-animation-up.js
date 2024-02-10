@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-export default function TextAnimation({ content, style , direction, size, color }) {
+export default function TextAnimationUp({ content, style , direction, size, color, type }) {
   const container = {
     hidden: { opacity: 0.5 },
     show: {
@@ -13,27 +13,29 @@ export default function TextAnimation({ content, style , direction, size, color 
   };
 
 
-  const blur = {
+  const fadeup = {
     hidden: {
       opacity: 0,
-      filter: 'blur(20px)',
-      y:'30px',
+      rotateX: 0,
+      y:  '30px',
     },
-    show: {
-      y:'0',
+    show: { 
+      y: 0,
       opacity: 1,
-      filter: 'blur(0px)',
+      rotateX: 0,
+      rotateY: 0,
       transition: {
-        duration: 1.6, // custom duration for opacity property only
-        opacity: {
-          ease: [0.33, 1, 0.68, 1],
-          duration: 0.6 // custom duration for opacity property only
-        },
-
+       // delay: 0.5, // Add a delay to the start of the animation
+        ease: [0.33, 1, 0.68, 1],
+        duration: 1.6,
       },
     },
   };
 
+  const textStyle = {
+    color: color || "black", // Default to black if color prop is not provided
+    ...style, // Include other styles passed via the style prop
+  };
 
 
   return (
@@ -52,7 +54,7 @@ export default function TextAnimation({ content, style , direction, size, color 
         content.split(" ").map(function (word, index) {
           return (
             <motion.span
-             variants={blur}
+             variants={fadeup}
               className={`text-anim-word overflow-hidden ${color}`}
               key={index}
             > 
@@ -61,6 +63,8 @@ export default function TextAnimation({ content, style , direction, size, color 
                   <motion.span
                     className={`text-anim-letter ${color ? color : "text-slate-500"}`}
                     key={index}
+                    // variants={item}
+               
                   >
                     {letter}
                   </motion.span>

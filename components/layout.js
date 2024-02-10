@@ -8,10 +8,9 @@ export default function Layout({ children }) {
   const { routeInfo } = useContext(RouteContext);
   // ${routeInfo.destRoute === "/" ? "bg-gray-800" :  "bg-slate-50"}
   return (
-      <main className={`absolute w-full h-full 
-      
-      `} >
+      <>
         <SpeedInsights/>
-      {children}</main>
+      {children}
+      </>
   );
 }

@@ -1,105 +1,62 @@
 $phi: 1.6180339887498948482;
 
-.work-grid{
-   /// width:100%;
+.o-grid{
+    width:100%;
     display: grid;
     grid-template-columns:repeat(12, 1fr);
-    grid-auto-rows: calc(33vh) ;
+    grid-auto-rows: auto ;
     counter-reset:div;
-    gap:2vh;
+    gap:1.5rem;
   }
 
 
 
-  .item{
-    grid-column: auto /span 12;
+  .o-grid__item{
+    position:relative;
+    overflow: hidden;
+
+    grid-column: auto /span 6;
     grid-row: auto /span 2;
-   // aspect-ratio: $phi / 1;
+    width:100%;
+    aspect-ratio: 1 / 1;
+    cursor: pointer;
+
   }
 
   //every n starting from n
-  .item:nth-child(4n + 3){
-    grid-column: auto /span 6;
+  .o-grid__item:nth-child(3n + 3){
+    grid-column: auto /span 12;
+    aspect-ratio: 16 / 9
   }
 
-  .item:nth-child(4n + 4){
-    grid-column: auto /span 6;
-    grid-row: auto /span 1;
-  }
 
-  .item:nth-child(4n + 5){
-    grid-column: auto /span 6;
-    grid-row: auto /span 1;
+
+  // .o-grid__item:nth-child(4n + 4){
+  //   aspect-ratio:  9 / 17.
+  // }
+
+  // .o-grid__item:nth-child(4n + 5){
+  //   grid-column: auto /span 6;
+  //   grid-row: auto /span 1;
     
 
-  }
+  // }
 
 
-  //reset for loop beginning
-  .item:nth-last-child(-n+2){
-    grid-column: auto /span 12!important;
-    grid-row: auto /span 2!important;
-}
-.item:nth-last-child(-n+1){
-  grid-column: auto /span 12!important;
-  grid-row: auto /span 1!important;
-}
-
-
-//   .item:nth-child(6n + 6),
-//   .item:nth-child(6n + 7){
-//     grid-column: auto /span 1;
-
-//     &:nth-last-child(-n+2){
-//         grid-column: auto /span 2;
-//     }
-//   }
-
-//   For me it was this: li:not(:nth-last-child(-n+2))
-
-
-
-// .item:nth-child(4n + 3){
-//     // border: solid royalblue;
-//      grid-column: auto /span 8;
-//     // grid-row: auto /span 2;
-//     }
-
-    
-//   .item {
-//     //  border: solid;
-//     display:flex;
-//     grid-column: auto /span 12;
-//     grid-row: auto /span 2;
-//    // height:50vh;
-//    //aspect-ratio: 16 / 9;
-//   }
-
-//   .item:nth-child(4n + 4),
-//   .item:nth-child(4n + 5){
-//   // border: solid red;
-//    grid-column: auto /span 4;
-//   grid-row: auto /span 1;
-//   }
-
-
-
-//   .item:nth-child(3n+3){
-//   grid-column: auto /span 8;
-//   grid-row: auto /span 2;
+//   //reset for loop beginning
+//   .o-grid__item:nth-last-child(-n+2){
+//     grid-column: auto /span 12!important;
+//     grid-row: auto /span 2!important;
+// }
+// .o-grid__item:nth-last-child(-n+1){
+//   grid-column: auto /span 12!important;
+//   grid-row: auto /span 1!important;
 // }
 
-// .item:nth-child(3n+4){
-//   grid-column: auto /span 4;
-//   grid-row: auto /span 1;
-// }
 
-// .item:nth-child(3n+5){
-//   grid-column: auto /span 4;
-//   grid-row: auto /span 1;
-// }
 
-.item:before {
+
+.o-grid__item:before {
   position: absolute;
   top:0;
   left:0;

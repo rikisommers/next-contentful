@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 import TextAnimation from "../utils/text-animation";
 import { motion } from "framer-motion";
 import Background from "../utils/background";
+import TextAnimationUp from "../utils/text-animation-up";
 export default function PostIntro({ title, content }) {
   return (
 
@@ -44,7 +45,7 @@ export default function PostIntro({ title, content }) {
     >
       <div className="col-span-12 md:col-span-6">
          
-        <TextAnimation content={title} color="black"></TextAnimation>
+        <TextAnimationUp content={title} color="black"></TextAnimationUp>
 
       </div>
 

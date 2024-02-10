@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import ContentfulImage from "../image/contentful-image";
 import Link from "next/link";
 import FadeInWhenVisible from "../utils/fade-in-visible";
+import RollUpWhenVisible from "../utils/roll-up-visible";
 
 export default function PostTile({ post, index }) {
   // const animateContentOnHover = {
@@ -18,36 +19,39 @@ export default function PostTile({ post, index }) {
   // };
 
   return (
-    <Link href={`/projects/${post.slug}`} >
-    <div className="relative cursor-pointer  overflow-hidden rounded-xl w-full h-vh66 bg-slate-100">
-        <div className="tile relative w-full h-full overflow-hidden cursor-as--post">
+    <Link href={`/projects/${post.slug}`} className="flex rounded-lg flex-col tile relative w-full h-full overflow-hidden">
           <motion.div
             initial="initial"
             whileHover="hover"
             exit="initial"
             key={post?.title}
             
-            className="absolute z-20 w-full h-full bg-zinc-900/30"
+            className="z-20 w-full h-full bg-zinc-900/30 flex flex-1" 
           >
             <div className="absolute w-full flex justify-between items-center top-0 left-0 px-8 pt-5 text-white">
               <span>{post?.client}</span>
-              <span>DATE</span>
+              {/* <span>DATE</span> */}
             </div>
             <h2 className="absolute w-full bottom-0 left-0 px-8 pb-5 text-white">
               {post?.title}
             </h2>
           </motion.div>
+
           {post.img && (
-            <>
+            <RollUpWhenVisible>
             <ContentfulImage
               className="img-cover"
               alt={`Cover Image for ${post?.title}`}
               src={post.img.url}
             />
-            </>
+            </RollUpWhenVisible>
           )}
-        </div>
-    </div>
+
+        {/* <h2 className="absolute w-full bottom-0 bg-gray-100 left-0 px-4 py-4 text-black z-50">
+        {post?.title}
+        </h2> */}
+
+    
     </Link>
 
 

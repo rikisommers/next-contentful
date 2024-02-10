@@ -25,7 +25,7 @@ export default function Index({ home }) {
   //   }
   // }, [router.asPath, router.route]);
 
-  //console.log('home',home)
+  console.log('home',home)
 
   useEffect(() => {
     const wheelEvent =
@@ -56,91 +56,81 @@ export default function Index({ home }) {
 
   return (
     <Layout>
-            <TransitionWipe />
-            <TransitionTilt>
-      <div className="absolute w-full h-full z-10 bg-gray-800">
 
-        <div className="home z-10 ">
+        <div className="absolute w-screen h-screen bg-gray-800">
+        <TransitionTilt>
+          <div className="home z-10 ">
+            <FadeInWhenVisible>
+              <div className="grid grid-cols-12 h-full items-end py-32 px-32">
+                <div className="col-span-12 md:col-span-6 flex flex-col gap-6">
+                  {/* <h1 className="text-7xl">{title && title}</h1> */}
+                  <motion.p
+                    className="text-sm text-slate-500 uppercase"
+                    initial={{
+                      opacity: 0,
+                    }}
+                    animate={{
+                      opacity: 1,
+                    }}
+                    transition={{
+                      easing: cubicBezier(0.35, 0.17, 0.3, 0.86),
+                      duration: 0.6,
+                      delay: 0.3,
+                    }}
+                  >
+                    test
+                  </motion.p>
 
-          <FadeInWhenVisible>
+                  <TextAnimation
+                    content={home.title}
+                    color={"text-slate-400"}
+                  />
 
-            <div className="grid grid-cols-12 h-full items-end py-32 px-32">
+                  {/* <h2 className="text-slate-500 font-light col-span-6 md:col-span-6 text-2xl text-left  text-balance">
+                    {home.intro}
+                  </h2> */}
+                </div>
+              </div>
+            </FadeInWhenVisible>
 
-              <div className="col-span-12 md:col-span-6 flex flex-col gap-6">
-                {/* <h1 className="text-7xl">{title && title}</h1> */}
-                <motion.p className="text-sm text-slate-500 uppercase"
-                initial={{
-                  opacity: 0,
-                }}
-                animate={{
-                  opacity: 1,
-                }}
-                transition={{
-                  easing: cubicBezier(0.35, 0.17, 0.3, 0.86),
-                  duration: 0.6,
-                  delay: 0.3,
-                }}
-                >
-                test
-                </motion.p>
-
-                <TextAnimation content={home.title} color={'text-slate-400'}/>
-
-                <h2 className="text-slate-500 font-light col-span-6 md:col-span-6 text-2xl text-left  text-balance">
-                {home.intro}
-                </h2>
-              
+            <div className="home__footer">
+              <div className="flex flex-col gap-1 col-span-3 lg:col-span-2 text-xs">
+                <span className="uppercase text-slate-400">Location:</span>
+                <span className="text-slate-500">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                  do eiusmod tempo
+                </span>
               </div>
 
-            </div>
-          </FadeInWhenVisible>
-
-
-          <div className="home__footer">
-
               <div className="flex flex-col gap-1 col-span-3 lg:col-span-2 text-xs">
-                <span className="uppercase text-slate-400">Location:</span> 
-                <span className="text-slate-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempo</span>
-              </div>
-
-              <div className="flex flex-col gap-1 col-span-3 lg:col-span-2 text-xs">
-                <span className="uppercase text-slate-400">Location:</span> 
-                <span className="text-slate-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempo</span>
+                <span className="uppercase text-slate-400">Location:</span>
+                <span className="text-slate-500">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                  do eiusmod tempo
+                </span>
               </div>
 
               <div className="sound">
-                <Audio/>
+                <Audio />
               </div>
-
+            </div>
           </div>
 
-
+          <motion.div
+            className="absolute w-full h-full flex items-center justify-end bg-gray-900 opacity-75"
+            initial={{ clipPath: clipPathInitial }}
+            animate={{ clipPath: clipPathInitial }}
+            exit={{ clipPath: clipPathInitial }}
+            transition={{
+              duration: 0.6,
+              easing: cubicBezier(0.35, 0.17, 0.3, 0.86),
+            }}
+          >
+            {/* <Background /> */}
+          </motion.div>
+          </TransitionTilt>
         </div>
-
- 
-
-
-
-
-
-      <motion.div
-                  
-                  className="absolute w-full h-full flex items-center justify-end bg-gray-900 opacity-75"
-                  initial={{ clipPath: clipPathInitial }}
-                  animate={{ clipPath: clipPathInitial }}
-                  exit={{ clipPath: clipPathInitial }}
-                  transition={{
-                    duration: 0.6,
-                    easing: cubicBezier(0.35, 0.17, 0.3, 0.86),
-                  }}
-                >
-                  <Background/>
-                </motion.div>
-                </div>
-
-      </TransitionTilt>
-
-
+        <TransitionWipe />
 
     </Layout>
   );

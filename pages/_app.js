@@ -14,6 +14,11 @@ function MyApp({ Component, pageProps, router }) {
 
   const [isLoading, setIsLoading] = useState(true);
 
+  const urlString = router.pathname.replace(/\//g, '');
+  const [myUrl, setMyUrl] = useState('home');
+
+
+
 
   useEffect(() => {
     const handleRouteChangeStart = (url) => {
@@ -22,8 +27,15 @@ function MyApp({ Component, pageProps, router }) {
     };
 
     const handleRouteChangeComplete = (url) => {
+
+      if(url === "/"){
+        setMyUrl('home')
+      }else{
+        setMyUrl('posts')
+      }
       // Remove the class when the route change is complete (new page entered)
       document.body.classList.remove('prevent-scroll');
+   // Get the current URL path without slashes
     };
 
     // Subscribe to the router events
@@ -89,23 +101,23 @@ function MyApp({ Component, pageProps, router }) {
 
 
 
-  const [allImages, setAllImages] = useState([]);
+  // const [allImages, setAllImages] = useState([]);
 
-  useEffect(() => {
-    const fetchImages = async () => {
-      try {
-        const images = await getAllImages();
-        setAllImages(images || []);
-        console.error("Got it:", allImages);
+  // useEffect(() => {
+  //   const fetchImages = async () => {
+  //     try {
+  //       const images = await getAllImages();
+  //       setAllImages(images || []);
+  //       console.error("Got it:", allImages);
 
-      } catch (error) {
-        console.error("Error fetching images:", error);
-        setAllImages([]); // Set an empty array or handle the error as needed
-      }
-    };
+  //     } catch (error) {
+  //       console.error("Error fetching images:", error);
+  //       setAllImages([]); // Set an empty array or handle the error as needed
+  //     }
+  //   };
 
-    fetchImages();
-  }, []);
+  //   fetchImages();
+  // }, []);
 
 
   return (
@@ -118,15 +130,15 @@ function MyApp({ Component, pageProps, router }) {
        {isLoading ? 
          <Preloader /> 
         : 
-        <>        <Navigation />
+        <div className={myUrl}>        <Navigation />
         <AnimatePresence mode="wait">
         <Component {...pageProps} key={router.asPath} />
         </AnimatePresence>
-        </>
+        </div>
 
         }
  
- <svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="svg-filter">
+      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="svg-filter">
         <defs>
           <filter id="goo">
             <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur" />
