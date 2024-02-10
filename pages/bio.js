@@ -6,6 +6,7 @@ import TransitionTilt from "../components/transition/transition-tilt";
 import PostIntro from "../components/post/post-intro";
 import { getBio, lastUpdatedDate } from "../lib/api";
 import TextRotating from "../components/utils/text-rotating";
+import { ScrollableBox } from "../components/utils/scrollable";
 export default function Bio({ data }) {
 
   console.log(data)
@@ -17,6 +18,8 @@ export default function Bio({ data }) {
       </Head>
 
       <TransitionTilt>
+      <ScrollableBox>
+
         <div className="px-6 md:px-12 lg:px-24">
           <PostIntro
             title={data.title}
@@ -24,12 +27,17 @@ export default function Bio({ data }) {
           ></PostIntro>
         </div>
 
-        <div>
-          <h1>{data.textLoop.lead}</h1>
+        <div className="p-24">
           <TextRotating leadText={data.textLoop.lead} rotatingWords={data.textLoop.textCollection.items}/>
         </div>
 
+        <div className="p-24">
+          <TextRotating leadText={data.textLoop.lead} rotatingWords={data.textLoop.textCollection.items}/>
+        </div>
+        </ScrollableBox>
+
       </TransitionTilt>
+
       <TransitionWipe />
     </Layout>
   );

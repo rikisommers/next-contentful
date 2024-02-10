@@ -107,13 +107,13 @@ export default function Navigation() {
             {/* {scrollPosition && scrollPosition} */}
           </motion.span>
         ) : (
-          <motion.span className="logotext text-lg text-black">
+          <motion.button className="logotext text-lg text-black">
+            <Link href={'/'}><span>Back</span></Link>
             
-          </motion.span>
+          </motion.button>
         )}
 
-        <h1>{router.asPath}</h1>
-        <h1>{routeInfo.sourceRoute}</h1>
+ 
         <h1>{activePage}</h1>
 
       </motion.div>
@@ -131,7 +131,7 @@ export default function Navigation() {
           >
             <span
               className={` ${
-                activePage === page.id ? "text-black" : "text-white"
+                activePage === page.id ? "text-black" : "text-slate-800"
               } relative z-10`}
             >
               {page.title}
@@ -177,7 +177,7 @@ export default function Navigation() {
                   ease: [0.25, 1, 0.5, 1],
                 },
               }}
-              className={`btn absolute bottom-0 right-1`}
+              className="btn absolute right-1"
             >
 
 

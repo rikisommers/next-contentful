@@ -195,12 +195,6 @@ export default function Posts({
 
           </TransitionTilt>
         </ScrollableBox>
-        {/* </motion.div> */}
-
-
-
-
-
         <TransitionWipe />
     
     </Layout>

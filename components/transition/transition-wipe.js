@@ -51,6 +51,28 @@ const WorkTransitionContent = () => {
   );
 };
 
+const BioTransitionContent = () => {
+  return (
+    <motion.div
+      id="tranny-content"
+      className="transition-wipe--y bg-slate-50 shadow-xl"
+      initial={{ y: "100%" }}
+      exit={{
+        y: -40,
+        zIndex:40,
+      }}
+      transition={{
+        ease: [0.33, 1, 0.68, 1],
+        duration: 0.6,
+        delay: 0.3,
+      }}
+    >
+      <div className="flex align-middle rounded-xl">
+      </div>
+    </motion.div>
+  );
+};
+
 
 const ProjectTransitionContent = () => {
 
@@ -128,6 +150,12 @@ const TransitionWipe = ({ children }) => {
         <>
           <ProjectTransitionContent />
           <Overlay />
+        </>
+      )}
+        {routeInfo.destRoute.includes("/bio") && (
+        <>
+          <BioTransitionContent />
+          {/* <Overlay /> */}
         </>
       )}
     </LayoutGroup>
