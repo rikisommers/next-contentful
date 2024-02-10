@@ -14,43 +14,6 @@ function MyApp({ Component, pageProps, router }) {
 
   const [isLoading, setIsLoading] = useState(true);
 
-  const urlString = router.pathname.replace(/\//g, '');
-  const [myUrl, setMyUrl] = useState('home');
-
-
-
-
-  useEffect(() => {
-    const handleRouteChangeStart = (url) => {
-      // Add a class to the body when the route change starts (page exit)
-      document.body.classList.add('prevent-scroll');
-    };
-
-    const handleRouteChangeComplete = (url) => {
-
-      if(url === "/"){
-        setMyUrl('home')
-      }else{
-        setMyUrl('posts')
-      }
-      // Remove the class when the route change is complete (new page entered)
-      document.body.classList.remove('prevent-scroll');
-   // Get the current URL path without slashes
-    };
-
-    // Subscribe to the router events
-    router.events.on('routeChangeStart', handleRouteChangeStart);
-    router.events.on('routeChangeComplete', handleRouteChangeComplete);
-
-    // Remove event listeners when the component unmounts
-    return () => {
-      router.events.off('routeChangeStart', handleRouteChangeStart);
-      router.events.off('routeChangeComplete', handleRouteChangeComplete);
-    };
-  }, [router.events]); // Re-run the effect when the router events change
-
-
-
 
   useEffect(() => {
     window.addEventListener("load", () => {
@@ -127,16 +90,16 @@ function MyApp({ Component, pageProps, router }) {
   
 
 
-       {isLoading ? 
+       {/* {isLoading ? 
          <Preloader /> 
-        : 
-        <div className={myUrl}>        <Navigation />
+        :  } */}
+        <>        <Navigation />
         <AnimatePresence mode="wait">
         <Component {...pageProps} key={router.asPath} />
         </AnimatePresence>
-        </div>
+        </>
 
-        }
+       
  
       <svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="svg-filter">
         <defs>

@@ -32,23 +32,12 @@ import BlockVideo from "../components/blocks/block-video";
 
 export default function Posts({
   intro,
-  allCaseStudies,
   allCaseStudiesForHome,
 }) {
-  const router = useRouter();
   const contentRef = useRef(null);
   const footerRef = useRef(null);
   const headerRef = useRef(null);
-  //  console.log('--------',intro.title);
-
-  const [slug, setSlug] = useState(null);
-
-  const [selectedIndex, setSelectedIndex] = useState(null);
-  const [finalPos, setFinalPos] = useState(0);
-
   const [scrollValue, setScrollValue] = useState(0);
-
-  // const scale = useTransform(scrollValue, [0, 1], [0.5, 1]);
 
   const handleScrollChange = (value) => {
     setScrollValue(value);
@@ -59,15 +48,12 @@ export default function Posts({
     const h = footer?.height;
     const t = -(scrollValue - (content?.height - h));
   
-
     if (value <= 1000) {
       x.set(value);
 
       // if (value <= 200) {
       //    setIsActive(false);
       // }
-
-
     }
     if (t < h) {
       x.set(t);
@@ -81,23 +67,19 @@ export default function Posts({
   const z = useMotionValue(0);
 
   const input = [0, 400];
-  const inputB = [0, 700];
   const cpyo = [8, 0.01];
   const cpxo = [1.5, 0.01];
   const ro = [1, 0];
 
-  const yv = useTransform(x, input, cpyo, {easing});
-  const xv = useTransform(x, input, cpxo, {easing});
-  const rv = useTransform(x, input, ro, {easing});
+  const yv = useTransform(x, input, cpyo);
+  const xv = useTransform(x, input, cpxo);
+  const rv = useTransform(x, input, ro);
 
   let clipPathValue = `inset(${yv.current}rem ${xv.current}rem 0px round ${rv.current}rem ${rv.current}rem ${rv.current}rem ${rv.current}rem)`;
-  //  const clipPathValueInitial = `inset(90vh 0px 0px round 8rem 8rem 0rem 0rem)`;
+  const clipPathValueInitial = `inset(90vh 0px 0px round 8rem 8rem 0rem 0rem)`;
   const clipPathValueExit = `inset(0px 0px 100vh round 8rem 8rem 8rem 8rem)`;
 
-
-
-  // const isFooterInView = useInView(footerRef);
-   const isContentInView = useInView(headerRef);
+  const isContentInView = useInView(headerRef);
   // const isInView = useInView({
   //   contentRef,
   //   margin: "0px 100px -50px 0px"
@@ -119,16 +101,11 @@ export default function Posts({
      
         {/* <CustomCursor /> */}
 
-        {/* <PostModal isOpen={isModalOpen} onClose={closeModal} nextPost={nextPost}>
-        {post && <PostContent post={post} />}
-      </PostModal> */}
-
-        {/* <motion.div exit={{zIndex:0}}> */}
-        {/* <div className="fixed top-16 left-5 z-50 bg-red-500 ">
+        <div className="fixed top-16 left-5 z-50 bg-red-500 ">
           <>
-            {scrollValue} | {finalPos}
+            {scrollValue} 
           </>
-        </div> */}
+        </div>
         <ScrollableBox
           infinite={false}
           orientation={"vertical"}
@@ -136,7 +113,7 @@ export default function Posts({
         >
           <TransitionTilt>
             <div
-              className={`relative flex flex-col pb-20 z-50 trans bg-slate-100" }`}
+              className="relative flex flex-col pb-20 z-50 bg-slate-100" 
               ref={contentRef}
               style={{ clipPath: clipPathValue }}
             >
@@ -160,8 +137,7 @@ export default function Posts({
                   }}
                 >
                   {allCaseStudiesForHome.map((post, index) => {
-                    const isSelected = selectedIndex === index;
-
+                 
                     return (
                       <motion.div
                         key={post.slug}
@@ -202,9 +178,7 @@ export default function Posts({
                       >
                         <PostTile
                           index={index}
-                          key={post.slug}
                           post={post}
-                          slug={slug}
                         />
                       </motion.div>
                     );

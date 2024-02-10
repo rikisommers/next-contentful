@@ -3,8 +3,8 @@ import { motion } from "framer-motion";
 export default function RollUpWhenVisible({ children, enabled = true }) {
 
 
-    let clipPathValue = `inset(0rem 0rem 0px round 0rem 0rem 0rem 0rem)`;
-    const clipPathValueExit = `inset(300px 0px 0px round 8rem 8rem 8rem 8rem)`;
+    let clipPathValue = `inset(0rem 0rem 0px round 0rem)`;
+    const clipPathValueExit = `inset(300px 0px 0px round 1.5rem)`;
     
 
       

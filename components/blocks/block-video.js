@@ -3,6 +3,8 @@ import { motion, cubicBezier } from "framer-motion";
 import TextAnimation from "../utils/text-animation";
 import Audio from "../navigation/audio";
 import ContentfulImage from "../image/contentful-image";
+import FadeInWhenVisible from "../utils/fade-in-visible";
+import RollUpWhenVisible from "../utils/roll-up-visible";
 export const BlockVideo = (data) => {
 
 
@@ -13,7 +15,7 @@ export const BlockVideo = (data) => {
   // console.log('dddd',data)
 
   return (
-
+    <RollUpWhenVisible>
     <motion.div className="c-video flex flex-col align-bottom content-end"
                 // initial={{ clipPath: clipPathInitial }}
                 // animate={{ clipPath: clipPathInitial }}
@@ -71,7 +73,7 @@ export const BlockVideo = (data) => {
 
 
   </motion.div>
-
+  </RollUpWhenVisible>
 
   );
 };
