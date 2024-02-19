@@ -1,10 +1,19 @@
-import React from "react";
-import { motion, cubicBezier } from "framer-motion";
+import React, {useRef} from "react";
 import TextAnimation from "../utils/text-animation";
 import Audio from "../navigation/audio";
 import ContentfulImage from "../image/contentful-image";
 import FadeInWhenVisible from "../utils/fade-in-visible";
 import RollUpWhenVisible from "../utils/roll-up-visible";
+import {
+  motion,
+  useTransform,
+  useMotionValue,
+  cubicBezier,
+  useScroll,
+  useInView,
+} from "framer-motion";
+
+
 export const BlockVideo = (data) => {
 
 
@@ -14,9 +23,28 @@ export const BlockVideo = (data) => {
   // const clipPathExit = `inset( 1.5rem 1.5rem 90vh 1.5rem round 1rem )`;
   // console.log('dddd',data)
 
+
+  const ref = useRef(null);
+
+  const { scrollYProgress } = useScroll({
+
+    target: ref,
+  
+    offset: ['start end', 'end start']
+  
+  })
+  
+  
+  const y = useTransform(scrollYProgress, [0, 1], [-200, 0])
+  
+
+
+
   return (
     <RollUpWhenVisible>
-    <motion.div className="c-video flex flex-col align-bottom content-end"
+      
+    <motion.div ref={ref} 
+    className="c-video flex flex-col align-bottom content-end"  
                 // initial={{ clipPath: clipPathInitial }}
                 // animate={{ clipPath: clipPathInitial }}
                 // exit={{ clipPath: clipPathInitial }}
@@ -30,16 +58,21 @@ export const BlockVideo = (data) => {
 
       {data.data.poster && 
         <div className="c-video__content">
+            <motion.div className="w-full h-full py-6" 
+                        style={{y}}>    
+
             <ContentfulImage
+              
               className="img-cover"
               alt={data.data.poster.title}
               src={data.data.poster.url}
             />
+             </motion.div> 
         </div>
       }
 
       
-      <div className="col-span-12 md:col-span-6 flex flex-col gap-6">
+      <div className="w-full flex flex-col gap-6 p-4"  >
       {/* <h1 className="text-7xl">{title && title}</h1> */}
       <motion.p
         className="text-sm text-slate-500 uppercase"
@@ -58,10 +91,13 @@ export const BlockVideo = (data) => {
        {data.title}
       </motion.p>
 
-      <TextAnimation
+        <FadeInWhenVisible>
+        <p className="text-slate-100">{data.data.description}</p>
+        </FadeInWhenVisible>
+      {/* <TextAnimation
         content={data.data.description}
         color={"text-slate-400"}
-      />
+      /> */}
 
   
    
@@ -73,6 +109,7 @@ export const BlockVideo = (data) => {
 
 
   </motion.div>
+
   </RollUpWhenVisible>
 
   );

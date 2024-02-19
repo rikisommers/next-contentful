@@ -530,13 +530,12 @@ position: relative;
 // }
 
 
-.img-cover{
-  object-fit: cover;
-  position:absolute;
-  width:100%;
-  height:100%;
-}
 
+
+.greyscale{
+  filter: grayscale(100%)  /* Completely grayscale */
+
+}
 
 .archive-grid{
   width:4000px;

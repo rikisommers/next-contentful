@@ -29,11 +29,6 @@ import NextPost from "../components/post/post-next";
 // const getWindowSize = () => [window.innerWidth, window.innerHeight];
 import BlockFooter from "../components/blocks/block-footer";
 import BlockVideo from "../components/blocks/block-video";
-import { gsap, ScrollTrigger } from 'gsap';
-import Lenis from '@studio-freight/lenis'
-
-
-
 
 export default function Posts({
   intro,
@@ -41,14 +36,8 @@ export default function Posts({
 }) {
   const contentRef = useRef(null);
   const footerRef = useRef(null);
-  const ref = useRef(null);
-
   const headerRef = useRef(null);
   const [scrollValue, setScrollValue] = useState(0);
-
-  //const {scrollYProgress} = useScroll({target: ref});
-
-
 
   const handleScrollChange = (value) => {
     setScrollValue(value);
@@ -100,10 +89,6 @@ export default function Posts({
   const sm = useTransform(x, [0, 1], [0, -50]);
 
   const isContentInView = useInView(headerRef);
- 
- 
- 
- 
   // const isInView = useInView({
   //   contentRef,
   //   margin: "0px 100px -50px 0px"
@@ -119,99 +104,42 @@ export default function Posts({
   //     }
   // }, [scrollValue]);
 
-  const [dimension, setDimension] = useState({width:0, height:0});
-
-
-
-
-
-
-  const { scrollYProgress } = useScroll({
-
-    target: footerRef,
-
-    offset: ['start end', 'end end']
-
-})
-const { height } = dimension;
-
-
-const y = useTransform(scrollYProgress, [0, 1], [-300, 0])
-const y2 = useTransform(scrollYProgress, [0, 1], [0, height * 3.3])
-const y3 = useTransform(scrollYProgress, [0, 1], [0, height * 1.25])
-const y4 = useTransform(scrollYProgress, [0, 1], [0, height * 3])
-
-
-
-useEffect( () => {
-
-
-  const lenis = new Lenis()
-
-
-
-  const raf = (time) => {
-
-    lenis.raf(time)
-    //console.log(scrollYProgress.current)
-    requestAnimationFrame(raf)
-
-  }
-
-
-
-  requestAnimationFrame(raf)
-
-
-  const resize = () => {
-
-    setDimension({width: window.innerWidth, height: window.innerHeight})
-
-  }
-
-
-
-  window.addEventListener("resize", resize)
-
-  requestAnimationFrame(raf);
-
-  resize();
-
-
-
-  return () => {
-
-    window.removeEventListener("resize", resize);
-
-  }
-
-}, [])
 
   return (
     <Layout>
      
-    
+        {/* <CustomCursor /> */}
+
+        <div className="fixed top-16 left-5 z-50 bg-red-500 ">
+          <>
+            {scrollValue}
+          </>
+        </div>
+        <ScrollableBox
+          infinite={false}
+          orientation={"vertical"}
+          onScrollChange={handleScrollChange}
+        >
+          <TransitionTilt>
             <div
               className="relative flex flex-col pb-20 z-50 bg-slate-100" 
               ref={contentRef}
+              style={{ clipPath: clipPathValue }}
             >
-              <div className="o-content" ref={headerRef}>
+              <div className="px-6 md:px-12 lg:px-24" ref={headerRef}>
                 <PostIntro title={intro.title} content={intro.intro} />
               </div>
 
               {intro.video && (
-                    <div className="o-content pb-24">
+                    <div className="mb-24">
                         <BlockVideo data={intro.video} />
                         </div>
         
               )}
 
-                  <div className="bg-red-200 w-full h-screen trigger" ref={ref}>
-                    <h1>ME</h1>
-                  </div>
               {allCaseStudiesForHome && (
                 <motion.div
-                  className="o-content o-grid px-24"
+                  className="o-grid px-24"
                   transition={{
                     staggerChildren: 0.3,
                     duration: 0.3,
@@ -267,20 +195,22 @@ useEffect( () => {
                 </motion.div>
               )}
 
-</div>
+            </div>
 
-              <motion.div ref={footerRef} className="testing123 relative h-vhh">
-                <motion.div
-                
-                className="absolute bottom-0"
-                style={{y}}
-                // style={{ translateY: y }}
-                //  animate={{ y: footerOffset }}
-                >
-                  <BlockFooter />
-                </motion.div>
+            <motion.div ref={footerRef} className="testing123 relative h-vhh">
+              <motion.div
+              className="absolute bottom-0"
+              style={{ translateY: footerOffset }}
+              //  animate={{ y: footerOffset }}
+              >
+                <BlockFooter />
               </motion.div>
-          
+            </motion.div>
+
+
+          </TransitionTilt>
+        </ScrollableBox>
+        <TransitionWipe />
     
     </Layout>
   );

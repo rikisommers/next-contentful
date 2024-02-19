@@ -31,9 +31,7 @@ export default function Bio({ data }) {
           <TextRotating leadText={data.textLoop.lead} rotatingWords={data.textLoop.textCollection.items}/>
         </div>
 
-        <div className="p-24">
-          <TextRotating leadText={data.textLoop.lead} rotatingWords={data.textLoop.textCollection.items}/>
-        </div>
+     
         </ScrollableBox>
 
       </TransitionTilt>
