@@ -190,11 +190,11 @@ useEffect( () => {
   return (
     <Layout>
      
-    
-            <div
-              className="relative flex flex-col pb-20 z-50 bg-slate-100" 
-              ref={contentRef}
-            >
+      
+              <div
+                className="relative flex flex-col pb-20 z-50 bg-slate-100" 
+                ref={contentRef}
+              >
               <div className="o-content" ref={headerRef}>
                 <PostIntro title={intro.title} content={intro.intro} />
               </div>
