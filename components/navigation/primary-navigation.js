@@ -54,6 +54,8 @@ export default function Navigation() {
   ];
 
   const [activePage, setActivePage] = useState(pages[0].id);
+
+
   // const audioRef = useRef();
   // const [play] = useSound("/audio/test.mp3", { volume: 0.5 });
   // const handleClick = () => {
@@ -69,6 +71,8 @@ export default function Navigation() {
 
   return (
     <div className="absolute p-3 w-full flex justify-between">
+     
+     
       {/* <audio ref={audioRef} play={false} src='/audio/test.mp3' /> */}
 
       <motion.div className="audio">
@@ -103,7 +107,7 @@ export default function Navigation() {
               easing: cubicBezier(0.35, 0.17, 0.3, 0.86),
             }}
           >
-            Brandname
+            Riki Sommers
             {/* {scrollPosition && scrollPosition} */}
           </motion.span>
         ) : (
@@ -114,12 +118,11 @@ export default function Navigation() {
         )}
 
  
-        <h1>{activePage}</h1>
+        {/* <h1>{activePage}</h1> */}
 
       </motion.div>
 
-      {/* className="flex space-x-2 fixed h-14  bottom-6 right-50 lg:top-4 left-50 lg:right-50 lg:bottom-auto p-2 rounded-md bg-opacity-40 bg-black backdrop-blur-md" */}
-
+    
       <div className="c-menu__wrapper">
 
         {pages.map((page) => (
@@ -182,8 +185,8 @@ export default function Navigation() {
 
 
                   <svg width="10px" height="8px" viewBox="0 0 10 8" version="1.1" xmlns="http://www.w3.org/2000/svg" className={`${(router.asPath !== '/') ? "text-teal-500" : "text-teal-500"}`}>
-                    <g id="Audio" transform="translate(0.000000, 0.500000)" stroke="currentColor" stroke-width="1" fill-rule="evenodd"
-                      stroke-linecap="round">
+                    <g id="Audio" transform="translate(0.000000, 0.500000)" stroke="currentColor" strokeWidth="1" fillRule="evenodd"
+                      strokeLinecap="round">
                       <line x1="8.5" y1="0.493135" x2="8.5" y2="6.50687" id="Line-5">
                         <animate attributeType="XML" attributeName="y1" values="2;0;2" keyTimes="0;0.5;1" dur=".8s"
                           repeatCount="indefinite"></animate>
@@ -219,50 +222,7 @@ export default function Navigation() {
 
             </motion.div>
       </div>
-      {/* <motion.nav className={`c-menu__wrapper ${isActive && (router.asPath !== '/') ? "active" : ""}`}
-     initial={{
-      clipPath: clipPathInitial,
-    }}
-     animate={{ 
-      clipPath: clipPathAnimate ,
-    }}
-     transition={{
-      delay:0.6,
-      duration: 0.6,
-      easing:cubicBezier(0.35, 0.17, 0.3, 0.86)
-    }}
-    >
-    <motion.ul className="c-menu with-indicator"
-    initial={{opacity:0}}
-    animate={{opacity:1}}
-    transition={{
-      delay:0.6,
-      duration: 1.2,
-      easing:cubicBezier(0.35, 0.17, 0.3, 0.86)
-    }}
-    >
-      <li className={router.pathname == "/" ? "is-active" : ""}>
-        <Link href="/">Home</Link>
-      </li>
-      <li className={router.pathname == "/posts" ? "is-active" : ""}>
-        <Link href="/posts">Work</Link>
-      </li>
-
-      <li className={router.pathname == "/bio" ? "is-active" : ""}>
-        <Link href="/bio">About</Link>
-      </li>
-  
-    </motion.ul>
-    </motion.nav> */}
-      {/* <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
-  <defs>
-    <filter id="goo">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
-      <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo" />
-      <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
-    </filter>
-  </defs>
-</svg> */}
+   
     </div>
   );
 }

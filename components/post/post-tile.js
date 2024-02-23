@@ -102,7 +102,7 @@ export default function PostTile({ post, index }) {
         </div>
       )}
 
-      <div class="flex justify-between items-start py-4 ">
+      <div className="flex justify-between items-start py-4 ">
         <div className="flex flex-col">
           <h2 className="pb-2 text-black z-50 font-semibold">{post?.title}</h2>
         </div>
