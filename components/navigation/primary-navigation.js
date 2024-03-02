@@ -70,14 +70,14 @@ export default function Navigation() {
   // }
 
   return (
-    <div className="absolute p-3 w-full flex justify-between">
+    <div className="fixed p-3 w-full flex justify-between z-50">
      
      
       {/* <audio ref={audioRef} play={false} src='/audio/test.mp3' /> */}
-
+{/* 
       <motion.div className="audio">
         <img src="/logo6.svg" viewBox="0 0 43 27"></img>
-      </motion.div>
+      </motion.div> */}
 
       <motion.div
         className={`logo_wrapper ${isActive ? "active" : ""} ${
@@ -112,7 +112,7 @@ export default function Navigation() {
           </motion.span>
         ) : (
           <motion.button className="logotext text-lg text-black">
-            <Link href={'/'}><span>Back</span></Link>
+            <Link href='/'><span>Back</span></Link>
             
           </motion.button>
         )}
@@ -130,11 +130,11 @@ export default function Navigation() {
             href={page.url}
             key={page.id}
             onClick={() => setActivePage(page.id)}
-            className="c-menu__item"
+            className="c-menu__item relative"
           >
             <span
               className={` ${
-                activePage === page.id ? "text-black" : "text-slate-800"
+                activePage === page.id ? "text-black" : "text-slate-500"
               } relative z-10`}
             >
               {page.title}
@@ -151,7 +151,7 @@ export default function Navigation() {
       </div>
 
 
-      <div className="goo z-50 mr-6">
+      {/* <div className="goo z-50 mr-6">
       <motion.div
               initial={{
                 scale: 0,
@@ -221,7 +221,7 @@ export default function Navigation() {
                   </svg>
 
             </motion.div>
-      </div>
+      </div> */}
    
     </div>
   );

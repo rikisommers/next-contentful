@@ -435,14 +435,16 @@ position: relative;
     }
 
 }
-
+.fuck{
+  will-change: transform;
+}
 .post-header{
   height:20rem;
   //align-items: center;
 }
 
   .text-anim-word{
-    font-size: 4rem;
+    font-size: 3rem;
     perspective: 3.5em;
     transform-style: preserve-3d;
     display: inline-flex;

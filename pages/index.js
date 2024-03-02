@@ -14,42 +14,32 @@ import PostHeader from "../components/post/post-header";
 import PostDetails from "../components/post/post-details";
 import FadeInWhenVisible from "../components/utils/fade-in-visible";
 import Audio from "../components/navigation/audio";
-
-export default function Index({ home }) {
+import Link from "next/link";
+export default function Index({ home, lastUpdated }) {
   const router = useRouter();
-  // const [isFirstRender, setIsFirstRender] = useState(true);
 
   // useEffect(() => {
-  //   if (router.asPath !== router.route) {
-  //     setIsFirstRender(false);
-  //   }
-  // }, [router.asPath, router.route]);
+  //   const wheelEvent =
+  //     "onwheel" in document
+  //       ? "wheel"
+  //       : "onmousewheel" in document
+  //       ? "mousewheel"
+  //       : "DOMMouseScroll";
+  //   const touchEvent = "ontouchstart" in window ? "touchmove" : "";
 
-  console.log('home',home)
+  //   const handleScroll = (e) => {
+  //     router.push("/posts");
+  //   };
 
-  useEffect(() => {
-    const wheelEvent =
-      "onwheel" in document
-        ? "wheel"
-        : "onmousewheel" in document
-        ? "mousewheel"
-        : "DOMMouseScroll";
-    const touchEvent = "ontouchstart" in window ? "touchmove" : "";
+  //   window.addEventListener(wheelEvent, handleScroll);
+  //   window.addEventListener(touchEvent, handleScroll);
 
-    const handleScroll = (e) => {
-      router.push("/posts");
-    };
+  //   return () => {
+  //     window.removeEventListener(wheelEvent, handleScroll);
+  //     window.removeEventListener(touchEvent, handleScroll);
+  //   };
+  // }, []);
 
-    window.addEventListener(wheelEvent, handleScroll);
-    window.addEventListener(touchEvent, handleScroll);
-
-    return () => {
-      window.removeEventListener(wheelEvent, handleScroll);
-      window.removeEventListener(touchEvent, handleScroll);
-    };
-  }, []);
-
-  const lastUpdatedDate = home?.sys?.updatedAt || "N/A";
   const clipPathInitial = `inset(1.0rem 1.0rem 6.0rem round 0.5rem)`;
   const clipPathAnimate = `inset( 1.5rem round 1rem )`;
   const clipPathExit = `inset( 1.5rem 1.5rem 90vh 1.5rem round 1rem )`;
@@ -58,7 +48,6 @@ export default function Index({ home }) {
     <Layout>
 
         <div className="absolute w-screen h-screen bg-gray-800">
-        <TransitionTilt>
           <div className="home z-10 ">
             <FadeInWhenVisible>
               <div className="grid grid-cols-12 h-full items-end py-32 px-32">
@@ -86,28 +75,29 @@ export default function Index({ home }) {
                     color={"text-slate-400"}
                   />
 
-                  {/* <h2 className="text-slate-500 font-light col-span-6 md:col-span-6 text-2xl text-left  text-balance">
+                  <h2 className="text-slate-500 font-light col-span-6 md:col-span-6 text-2xl text-left  text-balance">
                     {home.intro}
-                  </h2> */}
+                  </h2>
                 </div>
               </div>
             </FadeInWhenVisible>
 
             <div className="home__footer">
-              <div className="flex flex-col gap-1 col-span-3 lg:col-span-2 text-xs">
+              <div className="flex gap-1 col-span-3 lg:col-span-2 text-xs">
                 <span className="uppercase text-slate-400">Location:</span>
-                <span className="text-slate-500">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempo
-                </span>
+                <Link href="https://www.google.com/maps/place/New+Brighton,+Christchurch/@-43.5093881,172.6992615,14z/data=!3m1!4b1!4m6!3m5!1s0x6d318891a20200c1:0x500ef8684799330!8m2!3d-43.5079076!4d172.7225969!16zL20vMDNfcHMz?entry=ttu"
+                   className="text-slate-500">
+                    @-43.5093881,172.6992615
+                </Link>
               </div>
 
-              <div className="flex flex-col gap-1 col-span-3 lg:col-span-2 text-xs">
-                <span className="uppercase text-slate-400">Location:</span>
+              <div className="flex gap-1 col-span-3 lg:col-span-2 text-xs">
+                <span className="uppercase text-slate-400">Last Updated: </span>
+                {/* { lastUpdatedDate &&
                 <span className="text-slate-500">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempo
+                  {lastUpdatedDate}
                 </span>
+                } */}
               </div>
 
               <div className="sound">
@@ -128,6 +118,8 @@ export default function Index({ home }) {
           >
             {/* <Background /> */}
           </motion.div>
+                  <TransitionTilt>
+
           </TransitionTilt>
         </div>
         <TransitionWipe />
@@ -138,9 +130,12 @@ export default function Index({ home }) {
 
 export async function getStaticProps({ preview = false }) {
   const home = (await getHome(preview)) ?? [];
+  const lastUpdated = (await lastUpdatedDate(preview)) ?? [];
+
   return {
     props: {
       home,
+      lastUpdated
     },
   };
 }

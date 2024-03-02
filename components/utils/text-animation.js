@@ -7,7 +7,8 @@ export default function TextAnimation({ content, style , direction, size, color 
       opacity: 1,
       transition: {
         delay: 0, // Add a delay to the start of the animation
-       staggerChildren:  0.223,
+       staggerChildren:  0.123,
+       duration:0.6,
       },
     },
   };

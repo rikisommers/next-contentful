@@ -167,21 +167,22 @@ $indicator-color: #fff;
 .c-menu__wrapper{
   display:flex;
   gap:8px;
-  position: fixed;
+
   right: 1.5rem;
-  transform: translateX(-50%);
+  //transform: translateX(-50%);
   border-radius: 10px;
   z-index:9999;
   bottom:1.5rem;
-  background-color: rgba(255,255,255, 0.5);
+ // background-color: rgba(255,255,255, 0.5);
   backdrop-filter: blur(12px);
   height:58px;
   padding:5px;
 
-  @media only screen and (min-width: $desktop-min) {
+  @media only screen and (min-width: $tablet-p-max) {
     top:1.5rem;
-    left:50%;
-    right:initial;
+  
+   // left:50%;
+    //right:initial;
 
   }
 
@@ -238,7 +239,7 @@ ul.c-menu{
         a{
         line-height: 4rem;
         padding:1.5rem;
-        color:#000;
+        color:#555;
             font-size: 14px;
         }
 

@@ -65,6 +65,7 @@ export default function Posts({
     }
   };
 
+
   const easing = cubicBezier(0.33, 1, 0.68, 1);
   const x = useMotionValue(0);
   const z = useMotionValue(0);

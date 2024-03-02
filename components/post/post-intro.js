@@ -45,12 +45,12 @@ export default function PostIntro({ title, content }) {
     >
       <div className="col-span-12 md:col-span-6">
          
-        <TextAnimationUp content={title} color="black"></TextAnimationUp>
+        <TextAnimation content={title} color="black"></TextAnimation>
 
       </div>
 
       <motion.h2
-          className="col-span-6 md:col-span-6 text-2xl text-left md:text-right text-balance"
+          className="col-span-6 md:col-span-6 text-xl text-left md:text-right text-balance"
           initial={{ opacity: 0 }}
           animate={{
             opacity: 1,

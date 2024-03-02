@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 
+
 export default function TextAnimationUp({ content, style , direction, size, color, type }) {
   const container = {
     hidden: { opacity: 0.5 },
@@ -7,7 +8,8 @@ export default function TextAnimationUp({ content, style , direction, size, colo
       opacity: 1,
       transition: {
         delay: 0, // Add a delay to the start of the animation
-       staggerChildren:  0.223,
+       staggerChildren:  0.123,
+       duration: 0.6,
       },
     },
   };
@@ -27,7 +29,7 @@ export default function TextAnimationUp({ content, style , direction, size, colo
       transition: {
        // delay: 0.5, // Add a delay to the start of the animation
         ease: [0.33, 1, 0.68, 1],
-        duration: 1.6,
+        duration: 0.2,
       },
     },
   };
