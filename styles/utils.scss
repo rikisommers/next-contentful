@@ -132,3 +132,9 @@ $sides: (top, bottom, left, right); // Leave this variable alone
   }
 }
 
+
+
+.transition-tilt__content{
+  //position: relative;
+  z-index:49;
+}

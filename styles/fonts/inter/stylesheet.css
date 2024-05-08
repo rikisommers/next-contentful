@@ -1,0 +1,144 @@
+@font-face {
+    font-family: 'TT Interphases Pro Trl Variable';
+    src: url('TTInterphasesProTrlVariable.woff2') format('woff2'),
+        url('TTInterphasesProTrlVariable.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'TT Interphases Pro Mono Trl';
+    src: url('TTInterphasesProMonoTrl-Bd.woff2') format('woff2'),
+        url('TTInterphasesProMonoTrl-Bd.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'TT Interphases Pro Mono Trl';
+    src: url('TTInterphasesProMonoTrl-BdIt.woff2') format('woff2'),
+        url('TTInterphasesProMonoTrl-BdIt.woff') format('woff');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'TT Interphases Pro Mono Trl';
+    src: url('TTInterphasesProMonoTrl-It.woff2') format('woff2'),
+        url('TTInterphasesProMonoTrl-It.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'TT Interphases Pro Mono Trl';
+    src: url('TTInterphasesProMonoTrl-Rg.woff2') format('woff2'),
+        url('TTInterphasesProMonoTrl-Rg.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'TT Intrphss Pr Mn Trl Vr It';
+    src: url('TTIntrphssPrMnTrlVrIt.woff2') format('woff2'),
+        url('TTIntrphssPrMnTrlVrIt.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'TT Intrphss Pr Mn Trl Vr';
+    src: url('TTIntrphssPrMnTrlVr.woff2') format('woff2'),
+        url('TTIntrphssPrMnTrlVr.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'TT Interphases Pro Trl Lt';
+    src: url('TTInterphasesProTrl-Lt.woff2') format('woff2'),
+        url('TTInterphasesProTrl-Lt.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'TT Interphases Pro Trl Blc';
+    src: url('TTInterphasesProTrl-Blk.woff2') format('woff2'),
+        url('TTInterphasesProTrl-Blk.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'TT Interphases Pro Trl';
+    src: url('TTInterphasesProTrl-Bd.woff2') format('woff2'),
+        url('TTInterphasesProTrl-Bd.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'TT Interphases Pro Trl Db';
+    src: url('TTInterphasesProTrl-DmBd.woff2') format('woff2'),
+        url('TTInterphasesProTrl-DmBd.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'TT Interphases Pro Trl XBd';
+    src: url('TTInterphasesProTrl-XBd.woff2') format('woff2'),
+        url('TTInterphasesProTrl-XBd.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'TT Interphases Pro Trl XLt';
+    src: url('TTInterphasesProTrl-XLt.woff2') format('woff2'),
+        url('TTInterphasesProTrl-XLt.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'TT Interphases Pro Trl Th';
+    src: url('TTInterphasesProTrl-Th.woff2') format('woff2'),
+        url('TTInterphasesProTrl-Th.woff') format('woff');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'TT Interphases Pro Trl';
+    src: url('TTInterphasesProTrl-Rg.woff2') format('woff2'),
+        url('TTInterphasesProTrl-Rg.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'TT Interphases Pro Trl Md';
+    src: url('TTInterphasesProTrl-Md.woff2') format('woff2'),
+        url('TTInterphasesProTrl-Md.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+

@@ -7,12 +7,12 @@
     //padding:0;
     position: relative;
     z-index:9;
-  
+    padding: 0 3em;
   
     @media only screen and (min-width: $desktop-min) {
       min-width:$tablet-l-max;
-      padding: 0 2em;
-      max-width: $desktop-min;
+      padding: 0 5em;
+      max-width:1440px;
       margin:0 auto;
     }
   

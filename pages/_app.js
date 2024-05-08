@@ -115,6 +115,8 @@ function MyApp({ Component, pageProps, router }) {
           </filter>
         </defs>
       </svg>
+
+
     </MousePosProvider>
     </ScrollPositionProvider>
     </RouteProvider>

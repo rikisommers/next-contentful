@@ -3,8 +3,8 @@ import {
   Center,
 } from "@react-three/drei";
 
-import { fragmentShader } from "/shaders/water/fragment";
-import { vertexShader } from "/shaders/water/vertex";
+import { fragmentShader } from "../../shaders/fragmentShader";
+import { vertexShader } from "../../shaders/vertexShader";
 
 import * as THREE from 'three'
 import { useRef } from 'react'
@@ -14,7 +14,6 @@ const PortalMaterial = shaderMaterial(
     {
         time: 0
     },
-    
     vertexShader,
     fragmentShader
 )
@@ -25,18 +24,19 @@ export default function Experience() {
     const portalMaterial = useRef()
     useFrame((state, delta) =>
     {
-        portalMaterial.current.time += delta * .3
+        portalMaterial.current.time += delta * .6
     })
 
 
   return (
     <>
-      <color args={["red"]} attach="background" />
+      <color />
 
       <Center>
       <mesh position={[0, 0, 0]} scale={1}>
-          <sphereGeometry args={[ 6, 32, 32]} />
+          <sphereGeometry args={[ 8, 32, 32]} />
           <portalMaterial
+
             ref={ portalMaterial }
             side={THREE.DoubleSide}
             fragmentShader={fragmentShader}

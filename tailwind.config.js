@@ -49,6 +49,9 @@ module.exports = {
       },
       margin:{
         'vhh':'64vh'
+      },
+      zIndex:{
+        nav:'9999',
       }
     },
   },

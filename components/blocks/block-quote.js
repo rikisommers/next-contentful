@@ -8,7 +8,7 @@ export const BlockQuote = ({ data }) => {
         {data.title && <span className="text-slate-400 text-sm">{data.title}</span>}
 
         <TextAnimationUp content={data.content}/>
-        {data.content && <h2 className="italic text-3xl">{data.content}</h2>}
+        {/* {data.content && <h2 className="italic text-3xl">{data.content}</h2>} */}
       </div>
     </blockquote>
   );

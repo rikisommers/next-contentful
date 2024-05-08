@@ -48,9 +48,9 @@ mat2 rotate2D(float angle){
 
 void main() {
     
-    vec3 baseFirst = vec3(120./255.,158./255.,113./255.);
-    vec3 accent = vec3(0.,0.,0.);
-    vec3 baseSecond = vec3(244./255.,44./255.,66./255.);
+    vec3 baseFirst = vec3(0.5, 0.5, 0.5); 
+    vec3 accent = vec3(0.1, 0.1, 0.1); 
+    vec3 baseSecond = vec3(0.8, 0.8, 0.8); 
 
     
     float n = noise(vPosition*.29 + time*0.1);

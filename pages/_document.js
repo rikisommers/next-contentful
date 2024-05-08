@@ -15,6 +15,19 @@ export default function Document() {
 
         <Main />
         <NextScript />
+        {/* <script
+            type="module"
+            dangerouslySetInnerHTML={{
+              __html: `
+                if (!("anchorName" in document.documentElement.style)) {
+                  (async () => {
+                    const { default: polyfill } = await import("https://unpkg.com/@oddbird/css-anchor-positioning/dist/css-anchor-positioning-fn.js");
+                    polyfill(true);
+                  })();
+                }
+              `,
+            }}
+          /> */}
       </body>
     </Html>
   )

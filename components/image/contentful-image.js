@@ -14,7 +14,7 @@ const ContentfulImage = (props) => {
    loader={contentfulLoader} {...props} 
    width={400}
    height={200}
-   className='w-full h-full object-cover greyscale'
+   className='w-full h-full object-cover'
    />
 }
 

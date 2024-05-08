@@ -1,3 +1,5 @@
+@use 'variables' as *;
+
 $phi: 1.6180339887498948482;
 
 .o-grid{
@@ -6,7 +8,7 @@ $phi: 1.6180339887498948482;
     grid-template-columns:repeat(12, 1fr);
     grid-auto-rows: auto ;
     counter-reset:div;
-    gap:6rem;
+    gap:2rem;
   }
 
 
@@ -15,19 +17,19 @@ $phi: 1.6180339887498948482;
     position:relative;
     overflow: hidden;
 
-    grid-column: auto /span 12;
+    grid-column: auto /span 6;
     grid-row: auto /span 2;
 
     width:100%;
     cursor: pointer;
 
-    // &:nth-last-of-type(2n + 1){
-    //   top:200px;
-    // }
+    &:nth-last-of-type(2n + 1){
+      top:200px;
+    }
 
-    //  &:nth-last-of-type(2n + 2){
-    //   grid-column: auto /span 6;
-    // }
+     &:nth-last-of-type(2n + 2){
+      grid-column: auto /span 6;
+    }
 
   }
 
@@ -35,15 +37,32 @@ $phi: 1.6180339887498948482;
     position:relative;
     overflow: hidden;
 
-    grid-column: auto /span 12;
-    grid-row: auto /span 2;
     grid-template-columns:repeat(12, 1fr);
     
     width:100%;
     cursor: pointer;
 
+    // grid-column: auto /span 12;
+    // grid-row: auto /span 2;
+    grid-column: auto /span 4;
+    grid-row: auto /span 2;
+
+
+    @media only screen and (min-width: $desktop-min) {
+
+      grid-column: auto /span 4;
+      grid-row: auto /span 2;
+      }
+
+
+      svg { display: none; }
+
   }
 
+
+  .noise{
+    filter: url("#filter");
+  }
 
   .img-cover{
     object-fit: cover;
@@ -63,21 +82,22 @@ $phi: 1.6180339887498948482;
   //every n starting from n
   // .o-grid__item:nth-child(3n + 3){
   //   grid-column: auto /span 12;
-  //   aspect-ratio: 16 / 9
+  //   aspect-ratio: 16 / 9;
   // }
 
 
 
   // .o-grid__item:nth-child(4n + 4){
-  //   aspect-ratio:  9 / 17.
+  //   aspect-ratio:  9 / 17;
   // }
 
-  // .o-grid__item:nth-child(4n + 5){
-  //   grid-column: auto /span 6;
-  //   grid-row: auto /span 1;
-    
+  .o-grid__item--cs:nth-child(4n + 5){
+    @media only screen and (min-width: $desktop-min) {
 
-  // }
+    grid-column: auto /span 8;
+    grid-row: auto /span 2;
+    }
+  }
 
 
 //   //reset for loop beginning

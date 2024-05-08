@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'TT Interphases Pro Trl Variable';
+    src: url('TTInterphasesProTrlVariable.woff2') format('woff2'),
+        url('TTInterphasesProTrlVariable.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+

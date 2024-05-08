@@ -22,7 +22,6 @@ export default function CoverImage({ title, url, slug, layout }) {
   const y = useTransform(scrollYProgress, [0, 1], [-200, 0]);
 
   const image = (
-    <RollUpWhenVisible>
       <motion.div
         ref={ref}
         className="c-video flex flex-col align-bottom content-end"
@@ -35,7 +34,8 @@ export default function CoverImage({ title, url, slug, layout }) {
         // }}
       >
         <div className="c-video__content">
-          <motion.div className="w-full h-full py-6" style={{ y }}>
+        {/* style={{ y }} */}
+          <motion.div className="w-full h-full py-6" style={{ y }} >
             <ContentfulImage
               width={1920}
               height={1280}
@@ -48,7 +48,6 @@ export default function CoverImage({ title, url, slug, layout }) {
           </motion.div>
         </div>
       </motion.div>
-    </RollUpWhenVisible>
   );
 
   return image;

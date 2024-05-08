@@ -1,31 +1,16 @@
 import PostBody from "./post-body";
-import PostHeader from "./post-header";
-import PostDetails from "./post-details";
+// import PostHeader from "./post-header";
+// import PostDetails from "./post-details";
 
-export default function PostContent({ post }) {
+export default function PostContent({ content }) {
   return (
     <>
 
-    { post && 
+    { content && 
       <article>
-        <PostHeader
-          title={post.title && post.title}
-          subtitle={post.subtitle && post.subtitle}
-          duration={post.duration && post.duration}
-          client={post.client}
-          img={post.img && post.img}
-        />
-        <PostDetails
-          subtitle={post.subtitle && post.subtitle}
-          intro={post.intro && post.intro}
-          tags={post.tags && post.tags}
-          role={post.role && post.role}
-          client={post.client && post.client}
-          duration={post.duration && post.duration}
-
-        ></PostDetails>
-        {post.csblocksCollection && (
-          <PostBody content={post.csblocksCollection} />
+ 
+        {content.csblocksCollection && (
+          <PostBody content={content.csblocksCollection} />
         )}
       </article>
 

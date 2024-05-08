@@ -5,6 +5,7 @@ import { getHome, lastUpdatedDate } from "../lib/api";
 import { motion, cubicBezier } from "framer-motion";
 import TransitionWipe from "../components/transition/transition-wipe";
 import TransitionTilt from "../components/transition/transition-tilt";
+import TransitionHome from "../components/transition/transition-home";
 import PostIntro from "../components/post/post-intro";
 import Chrome from "../components/navigation/chrome";
 import TextAnimation from "../components/utils/text-animation";
@@ -12,12 +13,24 @@ import Experience from "../components/utils/experience";
 import Background from "../components/utils/background";
 import PostHeader from "../components/post/post-header";
 import PostDetails from "../components/post/post-details";
+import BlockFooter from "../components/blocks/block-footer";
 import FadeInWhenVisible from "../components/utils/fade-in-visible";
 import Audio from "../components/navigation/audio";
 import Link from "next/link";
+import TextScramble from "../components/utils/text-scamble";
+import TextAnimationLineUp from "../components/utils/text-animation-line-up";
+import TextAnimationUp from "../components/utils/text-animation-up";
+
+import { RichTextForAnimOptions } from "../components/rich-text/rich-text-for-anim";
+
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import { TextTitle } from "../components/rich-text/text-title";
+import { TextSubtitle } from "../components/rich-text/text-subtitle";
+
 export default function Index({ home, lastUpdated }) {
   const router = useRouter();
 
+  console.log(home)
   // useEffect(() => {
   //   const wheelEvent =
   //     "onwheel" in document
@@ -44,46 +57,47 @@ export default function Index({ home, lastUpdated }) {
   const clipPathAnimate = `inset( 1.5rem round 1rem )`;
   const clipPathExit = `inset( 1.5rem 1.5rem 90vh 1.5rem round 1rem )`;
 
+  const date = new Date(home.sys.publishedAt);
+const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+const dateString = date.toLocaleDateString('en-US', options);
+
   return (
     <Layout>
-
-        <div className="absolute w-screen h-screen bg-gray-800">
-          <div className="home z-10 ">
+{/* <TransitionTilt> */}
+        <div className="w-screen h-screen bg-gray-800 z-100">
+          <div className="z-10 home ">
             <FadeInWhenVisible>
-              <div className="grid grid-cols-12 h-full items-end py-32 px-32">
-                <div className="col-span-12 md:col-span-6 flex flex-col gap-6">
+              <div className="grid items-end h-full grid-cols-12 px-32 py-32">
+                <div className="flex flex-col col-span-12 gap-6 md:col-span-6 text-slate-50">
                   {/* <h1 className="text-7xl">{title && title}</h1> */}
-                  <motion.p
-                    className="text-sm text-slate-500 uppercase"
-                    initial={{
-                      opacity: 0,
-                    }}
-                    animate={{
-                      opacity: 1,
-                    }}
-                    transition={{
-                      easing: cubicBezier(0.35, 0.17, 0.3, 0.86),
-                      duration: 0.6,
-                      delay: 0.3,
-                    }}
-                  >
-                    test
-                  </motion.p>
 
-                  <TextAnimation
+
+                  {/* <TextAnimation  
                     content={home.title}
                     color={"text-slate-400"}
-                  />
+                  /> */}
 
-                  <h2 className="text-slate-500 font-light col-span-6 md:col-span-6 text-2xl text-left  text-balance">
-                    {home.intro}
-                  </h2>
+                  <TextTitle content={home.titlealt} color={'text-slate-400'}>
+                    {/* <TextScramble content={['Plan,Design & buid','wear many hats','like fart jokes']}/> */}
+
+                  </TextTitle>
+                  <TextSubtitle content={home.contentalt} color={'text-slate-400'}/>
+                  
+
+        
+                  {/* <TextAnimationLineUp content={home.content?.json}></TextAnimationLineUp> */}
+
+
+
                 </div>
               </div>
             </FadeInWhenVisible>
 
-            <div className="home__footer">
-              <div className="flex gap-1 col-span-3 lg:col-span-2 text-xs">
+
+            <div className="flex justify-between p-3 selef-end">
+
+<div className="flex gap-3">
+              <div className="flex gap-1 text-xs lg:col-span-2">
                 <span className="uppercase text-slate-400">Location:</span>
                 <Link href="https://www.google.com/maps/place/New+Brighton,+Christchurch/@-43.5093881,172.6992615,14z/data=!3m1!4b1!4m6!3m5!1s0x6d318891a20200c1:0x500ef8684799330!8m2!3d-43.5079076!4d172.7225969!16zL20vMDNfcHMz?entry=ttu"
                    className="text-slate-500">
@@ -91,23 +105,24 @@ export default function Index({ home, lastUpdated }) {
                 </Link>
               </div>
 
-              <div className="flex gap-1 col-span-3 lg:col-span-2 text-xs">
-                <span className="uppercase text-slate-400">Last Updated: </span>
-                {/* { lastUpdatedDate &&
+              <div className="flex gap-1 text-xs lg:col-span-2">
+                <span className="uppercase text-slate-400">Last Updated:</span>
                 <span className="text-slate-500">
-                  {lastUpdatedDate}
+                  {dateString}
                 </span>
-                } */}
+              </div>
+
               </div>
 
               <div className="sound">
                 <Audio />
               </div>
+
             </div>
           </div>
 
           <motion.div
-            className="absolute w-full h-full flex items-center justify-end bg-gray-900 opacity-75"
+            className="absolute flex items-center justify-end w-full h-full bg-gray-900 opacity-75"
             initial={{ clipPath: clipPathInitial }}
             animate={{ clipPath: clipPathInitial }}
             exit={{ clipPath: clipPathInitial }}
@@ -118,10 +133,13 @@ export default function Index({ home, lastUpdated }) {
           >
             {/* <Background /> */}
           </motion.div>
-                  <TransitionTilt>
+                  {/* <TransitionTilt>
 
-          </TransitionTilt>
+          </TransitionTilt> */}
         </div>
+
+        {/* <BlockFooter title={'sdsdsdd'}/> */}
+        {/* </TransitionTilt> */}
         <TransitionWipe />
 
     </Layout>
@@ -130,12 +148,10 @@ export default function Index({ home, lastUpdated }) {
 
 export async function getStaticProps({ preview = false }) {
   const home = (await getHome(preview)) ?? [];
-  const lastUpdated = (await lastUpdatedDate(preview)) ?? [];
 
   return {
     props: {
       home,
-      lastUpdated
     },
   };
 }

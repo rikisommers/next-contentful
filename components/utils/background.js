@@ -4,24 +4,14 @@ import { useRef } from "react";
 
 import Experience from "./experience";
 export default function Background() {
-  // const myTime = useRef(0);
 
-  // const material = useRef()
-  // useFrame((state, delta) =>
-  // {
-  // material.current.time += delta
-  // })
 
   return (
       <Canvas
-        //clamp pixel ration
-        //dpr={ 1 }
-        //dpr={ [ 1, 2 ] }
+        clamp pixel ration
+        dpr={ 1 }
 
-        // toneMapping >> add flat
-        // outputColorSpace >> add   linear
-
-        //below is default you dont need to include tone mapping or outputColorSpace
+        toneMapping 
         gl={{
           antialias: true,
           toneMapping: THREE.ACESFilmicToneMapping,
@@ -29,14 +19,16 @@ export default function Background() {
         }}
         orthographic
         camera={{
-          fov: 45,
-          zoom: 100,
+          fov: 100,
+          zoom: 30,
           near: 0.1,
           far: 200,
           position: [0, 0, 0],
         }}
-      >
-      <Experience/>
+    >
+      <ambientLight color={0x00ff00} intensity={0.5} />
+      <directionalLight color={0x00ff00} intensity={1} position={[10, 10, 10]} />
+      <Experience />
       
       </Canvas>
 

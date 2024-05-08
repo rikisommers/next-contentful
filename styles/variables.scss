@@ -48,9 +48,18 @@ $fsbody:15px;
   url("./fonts/6228016f2b172c06410f3a2356d33f6c.svg#Roobert-Regular") format("svg"); /* iOS 4.1- */
 }
 
+@font-face {
+  font-family: 'interphase';
+  src: url('./fonts/interphase/TTInterphasesProTrlVariable.woff2') format('woff2'),
+      url('./fonts/interphase/TTInterphasesProTrlVariable.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 
 
-$font-family-body: sans-serif;
+
+$font-family-body: "Roobert-Regular", sans-serif;
 $font-family-heading: "Roobert-Regular", sans-serif;
 
 

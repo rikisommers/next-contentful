@@ -12,9 +12,8 @@
     "@react-three/drei": "^9.88.4",
     "@react-three/fiber": "8.13",
     "@studio-freight/hamo": "^0.6.16",
-    "@studio-freight/react-lenis": "^0.0.19",
     "@studio-freight/lenis": "1.0.35",
-
+    "@studio-freight/react-lenis": "^0.0.19",
     "@vercel/speed-insights": "^1.0.2",
     "classnames": "2.3.1",
     "contentful-cli": "^3.1.37",
@@ -41,6 +40,8 @@
   "devDependencies": {
     "autoprefixer": "^10.4.14",
     "contentful-import": "^7.8.7",
+    "cookie": "^0.6.0",
+    "material-icons": "^1.13.12",
     "postcss": "^8.4.23",
     "tailwindcss": "^3.3.2"
   }

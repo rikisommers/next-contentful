@@ -5,61 +5,57 @@ import { useRouter } from "next/router";
 import { RouteContext } from "../../components/routeContext";
 import TextAnimation from "../utils/text-animation";
 import { motion, cubicBezier } from "framer-motion";
+import PostDetails from "./post-details";
+import BlendImage from "../image/blend-image";
+import PostTileImgAlt from "./post-tile-img-alt";
+import BlockQuote from "../blocks/block-quote";
+import { TextTitle } from "../rich-text/text-title";
+import { TextSubtitle } from "../rich-text/text-subtitle";
 
-export default function PostHeader({
-  title,
-  img,
-  subtitle,
-  tags,
-  client,
-  role,
-  duration,
-  enabled,
-}) {
+export default function PostHeader({ content }) {
   const { routeInfo } = useContext(RouteContext);
   const [sourceRoute, setSourceRoute] = useState("");
   const [destRoute, setDestRoute] = useState("");
 
+  console.log("deep", content);
   return (
     <>
-      <FadeInWhenVisible>
-        {/* pt-32 pb-16 */}
-        <div className="grid grid-cols-12 gap-3 h-header items-end pb-20">
+      <div className="grid items-end grid-cols-12 gap-3 h-header ">
+        <div className="col-span-12 mb-10 md:col-span-6">
+          {content?.titlealt && (
+            // <TextAnimation content={content?.title} color={'#000'}/>
 
-          <div className="col-span-12 md:col-span-6">
-            {/* <h1 className="text-7xl">{title && title}</h1> */}
-            <motion.p className="text-sm text-slate-400"
-             initial={{
-              opacity: 0,
-            }}
-            animate={{
-              opacity: 1,
-            }}
-            transition={{
-              easing: cubicBezier(0.35, 0.17, 0.3, 0.86),
-              duration: 0.6,
-              delay: 0.3,
-            }}
-            >
-            {client && client}
-            </motion.p>
-
-            <TextAnimation content={title}/>
-          </div>
-          <h2 className="text-slate-500 font-light col-span-6 md:col-span-6 text-2xl text-left md:text-right text-balance">
-            {subtitle}
-          </h2>
-      
+            <TextTitle content={content?.titlealt} color={"text-slate-400"} />
+          )}
         </div>
-      </FadeInWhenVisible>
-
-      <div className="h-vhh rounded-xl overflow-hidden bg-slate-100">
-        <CoverImage
-          title={img && img.title}
-          url={img && img.url}
-          layout="landscape"
-        />
+        <div className="col-span-6 mb-16 text-right text-gray-400 text-h3">
+          {content?.contentalt && (
+            <TextSubtitle
+              content={content.contentalt}
+              color={"text-slate-400"}
+            />
+          )}
+        </div>
       </div>
+
+      <motion.div
+        className="relative overflow-hidden h-vhh rounded-xl bg-slate-100"
+        initial={{
+          y: 0,
+          x: 0,
+          opacity: 0,
+        }}
+        animate={{
+          y: 0,
+          x: 0,
+          opacity: 1,
+        }}
+      >
+        <FadeInWhenVisible color={content?.color}>
+          <PostTileImgAlt post={content} />
+        </FadeInWhenVisible>
+      </motion.div>
+      <PostDetails post={content}></PostDetails>
     </>
   );
 }

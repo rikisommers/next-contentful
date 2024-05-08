@@ -5,6 +5,7 @@ import BlockQuote from "../blocks/block-quote"
 import BlockImg from "../blocks/block-img"
 import BlockEmbed  from "../blocks/block-embed"
 import BlockImages from "../blocks/block-images"
+import BlockHotspotImg from "../blocks/block-hotspot-image"
 
 const customMarkdownOptions = (content) => ({
   renderNode: {
@@ -19,7 +20,7 @@ const customMarkdownOptions = (content) => ({
 
 export default function PostBody({ content }) {
   return (
-    <div className="max-w-6xl mx-auto flex flex-col gap-32">
+    <div className="flex flex-col max-w-6xl gap-32 mx-auto">
 
         {content.items &&
           content.items.length > 0 &&
@@ -34,6 +35,9 @@ export default function PostBody({ content }) {
                   <BlockImg key={item.id} data={item} />
                 )}
 
+                {item.__typename === "BlockHotspotImage" && (
+                  <BlockHotspotImg key={item.id} data={item} />
+                )}
                 {item.__typename === "BlockIg" && (
                   <BlockImages key={item.id} data={item} />
                 )}

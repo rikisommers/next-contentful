@@ -15,7 +15,7 @@ void main()
 {
 
     
-   // vec3 color = mix(uDepthColor, uSurfaceColor, vElevation);
+   //        vec3 color = mix(uDepthColor, uSurfaceColor, vElevation);
     //separate colors more
     float mixStrength = (vElevation + uColorOffset) * uColorMultiplier;
     vec3 color = mix(uDepthColor, uSurfaceColor, mixStrength);

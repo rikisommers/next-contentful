@@ -6,7 +6,7 @@ import ContentfulImage from "../image/contentful-image";
 
 export const BlockArticle = ({ article }) => {
   return (
-    <article className="grid grid-cols-12 gap-3" id={article.title}>
+    <article className="grid grid-cols-12 gap-3 article-content" id={article.title}>
  
 
       <div className="col-start-2 col-span-10 md:col-start-3 md:col-span-8">

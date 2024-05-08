@@ -34,6 +34,7 @@ import BlockFooter from "../components/blocks/block-footer";
 import BlockVideo from "../components/blocks/block-video";
 import { gsap, ScrollTrigger } from "gsap";
 import Lenis from "@studio-freight/lenis";
+import { useScrollPosition } from "../components/scrollPosContext";
 
 export default function Posts({ intro, allCaseStudiesForHome }) {
   const contentRef = useRef(null);
@@ -42,7 +43,10 @@ export default function Posts({ intro, allCaseStudiesForHome }) {
 
   const headerRef = useRef(null);
   const [scrollValue, setScrollValue] = useState(0);
+  const { setScrollPosition } = useScrollPosition();
 
+
+  console.log(allCaseStudiesForHome)
   //const {scrollYProgress} = useScroll({target: ref});
 
 
@@ -104,6 +108,9 @@ export default function Posts({ intro, allCaseStudiesForHome }) {
 
   useMotionValueEvent(scrollContent, "change", (latest) => {
     //z.set(latest);
+    
+    console.log(scrollContent.current)
+    setScrollPosition(yv.current);
     setClipPathValue(`inset(${yv.current}rem ${xv.current}rem 0px round 1.5rem 1.5rem 1.5rem 1.5rem)`);
 
     // console.log("Page scroll: ")
@@ -150,18 +157,19 @@ export default function Posts({ intro, allCaseStudiesForHome }) {
 
   return (
     <Layout>
+      <TransitionTilt active={true} className="z-100">
       <motion.div
-        className="z-10 relative flex flex-col pb-20 bg-slate-100"
+        className="relative flex flex-col px-10 pb-20 bg-slate-100 z-100"
         ref={contentRef}
-          style={{ clipPath: clipPathValue}}
+        style={{ clipPath: clipPathValue}}
 
       >
         <div className="o-content" ref={headerRef}>
-          <PostIntro title={intro.title} content={intro.intro} />
+          <PostIntro title={intro.titlealt} content={intro.contentalt} />
         </div>
 
         {/* {intro.video && (
-                    <div className="o-content pb-24">
+                    <div className="pb-24 o-content">
                        <BlockVideo data={intro.video} />
                     </div>
         
@@ -170,7 +178,7 @@ export default function Posts({ intro, allCaseStudiesForHome }) {
 
         {allCaseStudiesForHome && (
           <motion.div
-            className="o-content o-grid px-8"
+            className="px-24 o-content o-grid"
             transition={{
               staggerChildren: 0.3,
               duration: 0.3,
@@ -213,7 +221,7 @@ export default function Posts({ intro, allCaseStudiesForHome }) {
                   //onClick={() => openModal(post.slug)}
                   // onClick={() => getPosition(index)}
                   // style={isClicked ? () => getPositionStyles() : null}
-                  className="o-grid__item"
+                  className="o-grid__item--cs"
                 >
                   <PostTileCs index={index} post={post} />
                   
@@ -224,7 +232,7 @@ export default function Posts({ intro, allCaseStudiesForHome }) {
         )}
       </motion.div>
 
-      <motion.div ref={footerRef} className="fixed testing123 relative h-vhh">
+      <motion.div ref={footerRef} className="fixed relative testing123 h-vhh">
         <motion.div
           className="fuck"
           style={{ y: footerOffsetValue }}
@@ -236,6 +244,7 @@ export default function Posts({ intro, allCaseStudiesForHome }) {
           }
         </motion.div>
       </motion.div>
+      </TransitionTilt>
       <TransitionWipe />
     </Layout>
   );
