@@ -153,7 +153,7 @@ export default function Post({ post, nextPost }) {
 
   return (
     <Layout>
-      {post.csblocksCollection && (
+      {/* {post.csblocksCollection && (
         <nav className="fixed bottom-0 z-50 flex justify-center w-full rounded-full translate-y-2/4 ">
           <ul className="flex bg-slate-100 ml-50">
           {post.csblocksCollection?.items &&
@@ -172,7 +172,7 @@ export default function Post({ post, nextPost }) {
             })}
             </ul>
         </nav>
-      )}
+      )} */}
 
       <TransitionTilt active={true}>
         {/* <h1 className="absolute p-8 m-8 left-8 top-8">{post && post.slug}</h1> */}
