@@ -34,7 +34,7 @@ import BlockFooter from "../../components/blocks/block-footer";
 import NextPostAlt from "../../components/post/post-next-alt";
 export default function Post({ post, nextPost }) {
   const router = useRouter();
-  console.log('post',post)
+  console.log("post", post);
 
   const { routeInfo } = useContext(RouteContext);
   const [destRoute, setDestRoute] = useState("");
@@ -90,7 +90,7 @@ export default function Post({ post, nextPost }) {
     "inset( 8rem 1.5rem 0px round 1.5rem 1.5rem 1.5rem 1.5rem)"
   );
 
-  const clipPathValueExit = "inset( 0rem 0rem 300px round 0rem 0rem 0rem 0rem)"
+  const clipPathValueExit = "inset( 0rem 0rem 300px round 0rem 0rem 0rem 0rem)";
 
   useMotionValueEvent(scrollContent, "change", (latest) => {
     setClipPathValue(
@@ -127,8 +127,6 @@ export default function Post({ post, nextPost }) {
     window.scrollTo(0, 0);
   }, []);
 
-
-  
   const shouldAnimate = router.pathname.startsWith("/projects/");
 
   if (!router.isFallback && !post) {
@@ -149,23 +147,18 @@ export default function Post({ post, nextPost }) {
 
   const handleLinkClick = () => {
     const next = document.querySelector(".test");
-    console.log('ddd',Math.round(next.getBoundingClientRect().y) - 90);
+    console.log("ddd", Math.round(next.getBoundingClientRect().y) - 90);
     setPosT(Math.round(next.getBoundingClientRect().y) - 90);
   };
 
-
-
   return (
     <Layout>
- 
-
-   
- {post.csblocksCollection && (
+      {/* {post.csblocksCollection && (
         <nav className="fixed bottom-0 z-50 flex justify-center w-full rounded-full translate-y-2/4 ">
           <ul className="flex bg-slate-100 ml-50">
-          {post.csblocksCollection.items &&
-            post.csblocksCollection.items.length > 0 &&
-            post.csblocksCollection.items.map((item, index) => {
+          {post.csblocksCollection?.items &&
+            post.csblocksCollection?.items.length > 0 &&
+            post.csblocksCollection?.items.map((item, index) => {
               return (
                 <div key={index}>
                   {item.__typename === "BlockArticle" && (
@@ -180,44 +173,45 @@ export default function Post({ post, nextPost }) {
             })}
             </ul>
         </nav>
-      )}
+      )} */}
 
       <TransitionTilt active={true}>
-        <h1 className="absolute p-8 m-8 left-8 top-8">{post && post.slug}</h1>
+        {/* <h1 className="absolute p-8 m-8 left-8 top-8">{post && post.slug}</h1> */}
 
-
-
-      <div className="flex">
-
-      {post.csblocksCollection && (
-        <nav className="z-50 flex flex-col justify-center w-full rounded-full translate-y-2/4">
-          <ul className="flex flex-col bg-slate-100 ml-50">
-          {post.csblocksCollection.items &&
-            post.csblocksCollection.items.length > 0 &&
-            post.csblocksCollection.items.map((item, index) => {
-              return (
-                <div key={index}>
-                  {item.__typename === "BlockArticle" && (
-                    <div className="flex p-4 text-red-400 bg-slate-500">
-                      <a href={`#${item.title}`} key={index} className="text-xs">
-                          {item.title}
-                      </a>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-            </ul>
-        </nav>
-      )}
-      </div>
+        {/* <div className="flex">
+          {post.csblocksCollection && (
+            <nav className="z-50 flex flex-col justify-center w-full rounded-full translate-y-2/4">
+              <ul className="flex flex-col bg-slate-100 ml-50">
+                {post.csblocksCollection.items &&
+                  post.csblocksCollection.items.length > 0 &&
+                  post.csblocksCollection.items.map((item, index) => {
+                    return (
+                      <div key={index}>
+                        {item.__typename === "BlockArticle" && (
+                          <div className="flex p-4 text-red-400 bg-slate-500">
+                            <a
+                              href={`#${item.title}`}
+                              key={index}
+                              className="text-xs"
+                            >
+                              {item.title}
+                            </a>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+              </ul>
+            </nav>
+          )}
+        </div> */}
         <motion.div
           className="relative z-10 flex flex-col pb-20 bg-slate-100"
           ref={contentRef}
           style={{ clipPath: clipPathValue }}
           exit={{
-            opacity:0,
-          //  clipPath: clipPathValue
+            opacity: 0,
+            //  clipPath: clipPathValue
           }}
           transition={{
             ease: [0.33, 1, 0.68, 1],
@@ -240,47 +234,44 @@ export default function Post({ post, nextPost }) {
               delay: 0,
             }}
           >
-                {/* <h1> {shouldFadeIn && shouldFadeIn}
+            {/* <h1> {shouldFadeIn && shouldFadeIn}
                 </h1> */}
-{post && 
-<>
+            {post && (
+              <>
                 <PostHeader content={post} />
-                <PostContent content={post}/>
-                </>
-}
+                <PostContent content={post} />
+              </>
+            )}
           </motion.div>
         </motion.div>
 
-
-
-      <motion.div ref={footerRef} className="relative z-10 testing123 h-vh">
-        <motion.div
-          initial={{ y: 0, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-         // exit={{ y: -posT }}
-          style={{y}}
-          transition={{
-            ease: [0.33, 1, 0.68, 1],
-            duration: 0.6, // custom duration for opacity property only
-            delay:0.2
-          }}
-        >
-          {nextPost && (
-            <div className="test">
-              <Link
-              onClick={handleLinkClick}
-              scroll={false}
-              href={`/projects/${nextPost.slug}`}
-              className="link"
-              >
-                {/* <NextPost post={nextPost} /> */}
-                <NextPostAlt post={nextPost} />
-              </Link>
-            </div>
-          )}
+        <motion.div ref={footerRef} className="relative z-10 testing123 h-vh">
+          <motion.div
+            initial={{ y: 0, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            // exit={{ y: -posT }}
+            style={{ y }}
+            transition={{
+              ease: [0.33, 1, 0.68, 1],
+              duration: 0.6, // custom duration for opacity property only
+              delay: 0.2,
+            }}
+          >
+            {nextPost && (
+              <div className="test">
+                <Link
+                  onClick={handleLinkClick}
+                  scroll={false}
+                  href={`/projects/${nextPost.slug}`}
+                  className="link"
+                >
+                  {/* <NextPost post={nextPost} /> */}
+                  <NextPostAlt post={nextPost} />
+                </Link>
+              </div>
+            )}
+          </motion.div>
         </motion.div>
-      </motion.div>
-
       </TransitionTilt>
       {/* <TransitionWipe /> */}
       {/* {shouldFadeIn && } */}
