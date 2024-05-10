@@ -34,7 +34,7 @@ import BlockFooter from "../../components/blocks/block-footer";
 import NextPostAlt from "../../components/post/post-next-alt";
 export default function Post({ post, nextPost }) {
   const router = useRouter();
-  console.log("post", post);
+  //console.log("post", post);
 
   const { routeInfo } = useContext(RouteContext);
   const [destRoute, setDestRoute] = useState("");
@@ -147,17 +147,16 @@ export default function Post({ post, nextPost }) {
 
   const handleLinkClick = () => {
     const next = document.querySelector(".test");
-    console.log("ddd", Math.round(next.getBoundingClientRect().y) - 90);
+    //console.log("ddd", Math.round(next.getBoundingClientRect().y) - 90);
     setPosT(Math.round(next.getBoundingClientRect().y) - 90);
   };
 
   return (
     <Layout>
-      {/* {post.csblocksCollection && (
+      {post.csblocksCollection && (
         <nav className="fixed bottom-0 z-50 flex justify-center w-full rounded-full translate-y-2/4 ">
           <ul className="flex bg-slate-100 ml-50">
           {post.csblocksCollection?.items &&
-            post.csblocksCollection?.items.length > 0 &&
             post.csblocksCollection?.items.map((item, index) => {
               return (
                 <div key={index}>
@@ -173,7 +172,7 @@ export default function Post({ post, nextPost }) {
             })}
             </ul>
         </nav>
-      )} */}
+      )}
 
       <TransitionTilt active={true}>
         {/* <h1 className="absolute p-8 m-8 left-8 top-8">{post && post.slug}</h1> */}
@@ -265,8 +264,8 @@ export default function Post({ post, nextPost }) {
                   href={`/projects/${nextPost.slug}`}
                   className="link"
                 >
-                  {/* <NextPost post={nextPost} /> */}
-                  <NextPostAlt post={nextPost} />
+                  <NextPost post={nextPost} />
+                  {/* <NextPostAlt post={nextPost} /> */}
                 </Link>
               </div>
             )}
