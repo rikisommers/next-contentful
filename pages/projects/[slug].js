@@ -4,8 +4,8 @@ import ErrorPage from "next/error";
 import Layout from "../../components/layout";
 import {
   getAllCaseStudies,
-  getAllCaseStudies2,
-  getAllCaseStudiesNext,
+  getPost,
+  getNextPost,
 } from "../../lib/api";
 import {
   motion,
@@ -15,26 +15,18 @@ import {
   useScroll,
   useMotionValueEvent,
 } from "framer-motion";
-import { ScrollableBox } from "../../components/utils/scrollable";
 
 import PostHeader from "../../components/post/post-header";
-import PostDetails from "../../components/post/post-details";
-import TransitionWipe from "../../components/transition/transition-wipe";
 import TransitionTilt from "../../components/transition/transition-tilt";
 import PostContent from "../../components/post/post-content";
 import Link from "next/link";
-import FadeInWhenVisible from "../../components/utils/fade-in-visible";
 import NextPost from "../../components/post/post-next";
 import { RouteContext } from "../../components/routeContext";
 import Lenis from "@studio-freight/lenis";
-import PostTile from "../../components/post/post-tile";
-import PostTileCs from "../../components/post/post-tile-cs";
-import BlendImage from "../../components/image/blend-image";
 import BlockFooter from "../../components/blocks/block-footer";
-import NextPostAlt from "../../components/post/post-next-alt";
 export default function Post({ post, nextPost }) {
   const router = useRouter();
-  //console.log("post", post);
+  console.log("post---------------------------", post);
 
   const { routeInfo } = useContext(RouteContext);
   const [destRoute, setDestRoute] = useState("");
@@ -153,57 +145,11 @@ export default function Post({ post, nextPost }) {
 
   return (
     <Layout>
-      {/* {post.csblocksCollection && (
-        <nav className="fixed bottom-0 z-50 flex justify-center w-full rounded-full translate-y-2/4 ">
-          <ul className="flex bg-slate-100 ml-50">
-          {post.csblocksCollection?.items &&
-            post.csblocksCollection?.items.map((item, index) => {
-              return (
-                <div key={index}>
-                  {item.__typename === "BlockArticle" && (
-                    <div className="flex p-4 text-red-400 bg-slate-500">
-                      <a href={`#${item.title}`} key={index} className="text-xs">
-                          {item.title}
-                      </a>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-            </ul>
-        </nav>
-      )} */}
-
+     
       <TransitionTilt active={true}>
         {/* <h1 className="absolute p-8 m-8 left-8 top-8">{post && post.slug}</h1> */}
 
-        {/* <div className="flex">
-          {post.csblocksCollection && (
-            <nav className="z-50 flex flex-col justify-center w-full rounded-full translate-y-2/4">
-              <ul className="flex flex-col bg-slate-100 ml-50">
-                {post.csblocksCollection.items &&
-                  post.csblocksCollection.items.length > 0 &&
-                  post.csblocksCollection.items.map((item, index) => {
-                    return (
-                      <div key={index}>
-                        {item.__typename === "BlockArticle" && (
-                          <div className="flex p-4 text-red-400 bg-slate-500">
-                            <a
-                              href={`#${item.title}`}
-                              key={index}
-                              className="text-xs"
-                            >
-                              {item.title}
-                            </a>
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
-              </ul>
-            </nav>
-          )}
-        </div> */}
+     
         <motion.div
           className="relative z-10 flex flex-col pb-20 bg-slate-100"
           ref={contentRef}
@@ -280,8 +226,8 @@ export default function Post({ post, nextPost }) {
 
 export async function getStaticProps({ params, preview = false }) {
   const slug = params.slug;
-  const data = await getAllCaseStudies2(slug, preview);
-  const next = await getAllCaseStudiesNext(slug, preview);
+  const data = await getPost(slug, preview);
+  const next = await getNextPost(slug, preview);
 
   return {
     props: {

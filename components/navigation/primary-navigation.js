@@ -80,7 +80,12 @@ export default function Navigation() {
     {
       id: "work",
       title: "Work",
-      url: "/posts",
+      url: "/work",
+    },
+    {
+      id: "blog",
+      title: "Blog",
+      url: "/blog",
     },
     {
       id: "about",

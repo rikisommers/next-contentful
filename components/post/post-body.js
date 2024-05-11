@@ -23,7 +23,6 @@ export default function PostBody({ content }) {
     <div className="flex flex-col max-w-6xl gap-32 mx-auto">
 
         {content.items &&
-          content.items.length > 0 &&
           content.items.map((item,index) => {
             return (
               <section key={index}>

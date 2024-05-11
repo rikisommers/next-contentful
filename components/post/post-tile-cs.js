@@ -43,7 +43,7 @@ export default function PostTileCs({ post, index }) {
               </span>
             )}
             {post?.type[0] === "blog post" && (
-              <span classname="text-white material-icons">article</span>
+              <span className="text-white material-icons">article</span>
             )}
           </div>
 

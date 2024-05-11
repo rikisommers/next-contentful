@@ -1,19 +1,16 @@
 import "../styles/index.scss";
-import React, { useState, useEffect } from 'react';
-import Cookies from 'js-cookie';
-import { useRouter } from 'next/router'; // Import useRouter from next/router
+import React, { useState, useEffect } from "react";
+import Cookies from "js-cookie";
+import { useRouter } from "next/router"; // Import useRouter from next/router
 import { AnimatePresence } from "framer-motion";
 import { MousePosProvider } from "../components/mousePosContext";
 import { ScrollPositionProvider } from "../components/scrollPosContext";
 import { RouteProvider } from "../components/routeContext";
 import Navigation from "../components/navigation/primary-navigation";
- import Preloader from "./preloader";
- import { getAllImages } from "../lib/api";
+import Preloader from "./preloader";
+import { getAllImages } from "../lib/api";
 function MyApp({ Component, pageProps, router }) {
-
-
   const [isLoading, setIsLoading] = useState(true);
-
 
   useEffect(() => {
     window.addEventListener("load", () => {
@@ -25,7 +22,6 @@ function MyApp({ Component, pageProps, router }) {
 
     return () => clearTimeout(timeout);
   }, [isLoading]);
-
 
   // const handleStart = () => setIsLoading(true);
   // const handleComplete = () => {
@@ -62,8 +58,6 @@ function MyApp({ Component, pageProps, router }) {
   //   // };
   // }, []);
 
-
-
   // const [allImages, setAllImages] = useState([]);
 
   // useEffect(() => {
@@ -82,43 +76,41 @@ function MyApp({ Component, pageProps, router }) {
   //   fetchImages();
   // }, []);
 
-
   return (
     <RouteProvider>
-    <ScrollPositionProvider>
-    <MousePosProvider>
-  
-
-
-       {/* {isLoading ? 
+      <ScrollPositionProvider>
+        <MousePosProvider>
+          {/* {isLoading ? 
          <Preloader /> 
         :  } */}
-        <>        <Navigation />
-        <AnimatePresence mode="wait">
-        <Component {...pageProps} key={router.asPath} />
-        </AnimatePresence>
-        </>
+          <>
+            {" "}
+            <Navigation />
+            <AnimatePresence mode="wait">
+              <Component {...pageProps} key={router.asPath} />
+            </AnimatePresence>
+          </>
 
-       
- 
-      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="svg-filter">
-        <defs>
-          <filter id="goo">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur" />
-            <feColorMatrix
-              in="blur"
-              mode="matrix"
-              values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"
-              result="goo"
-            />
-            <feComposite in="SourceGraphic" in2="goo" operator="atop" />
-          </filter>
-        </defs>
-      </svg>
-
-
-    </MousePosProvider>
-    </ScrollPositionProvider>
+          <svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="svg-filter">
+            <defs>
+              <filter id="goo">
+                <feGaussianBlur
+                  in="SourceGraphic"
+                  stdDeviation="6"
+                  result="blur"
+                />
+                <feColorMatrix
+                  in="blur"
+                  mode="matrix"
+                  values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"
+                  result="goo"
+                />
+                <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+              </filter>
+            </defs>
+          </svg>
+        </MousePosProvider>
+      </ScrollPositionProvider>
     </RouteProvider>
   );
 }

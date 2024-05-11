@@ -25,27 +25,7 @@ export default function BlockFooter({ content }) {
         </h2>
       </div>
 
-      <div className="px-32 home__footer ">
-        <div className="flex col-span-3 gap-1 text-xs lg:col-span-2">
-          <span className="uppercase text-slate-400">Location:</span>
-          <Link
-            href="https://www.google.com/maps/place/New+Brighton,+Christchurch/@-43.5093881,172.6992615,14z/data=!3m1!4b1!4m6!3m5!1s0x6d318891a20200c1:0x500ef8684799330!8m2!3d-43.5079076!4d172.7225969!16zL20vMDNfcHMz?entry=ttu"
-            className="text-slate-500"
-          >
-            @-43.5093881,172.6992615
-          </Link>
-        </div>
-
-        <div className="flex col-span-3 gap-1 text-xs lg:col-span-2">
-          <span className="uppercase text-slate-400">Last Updated: </span>
-
-          <span className="text-slate-500">lastUpdatedDate</span>
-        </div>
-
-        <div className="sound">
-          <Audio />
-        </div>
-      </div>
+     
       <div className="absolute z-0 w-full h-full overflow-hidden rounded-xl"></div>
     </div>
   );

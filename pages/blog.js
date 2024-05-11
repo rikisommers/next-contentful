@@ -2,10 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import Layout from "../components/layout";
 import {
-  getAllCaseStudies,
   getWork,
-  getAllCaseStudiesForHome,
-  getPostWithSlug,
+  getAllCaseStudiesIntro,
 } from "../lib/api";
 import {
   motion,
@@ -36,7 +34,7 @@ import { gsap, ScrollTrigger } from "gsap";
 import Lenis from "@studio-freight/lenis";
 import { useScrollPosition } from "../components/scrollPosContext";
 
-export default function Posts({ intro, allCaseStudiesForHome }) {
+export default function Posts({ intro, allCaseStudies }) {
   const contentRef = useRef(null);
   const footerRef = useRef(null);
   const ref = useRef(null);
@@ -46,7 +44,7 @@ export default function Posts({ intro, allCaseStudiesForHome }) {
   const { setScrollPosition } = useScrollPosition();
 
 
-  console.log(allCaseStudiesForHome)
+  console.log('ACS------------------------',allCaseStudies)
   //const {scrollYProgress} = useScroll({target: ref});
 
 
@@ -176,7 +174,7 @@ export default function Posts({ intro, allCaseStudiesForHome }) {
               )} */}
 
 
-        {allCaseStudiesForHome && (
+        {allCaseStudies && (
           <motion.div
             className="px-24 o-content o-grid"
             transition={{
@@ -184,7 +182,7 @@ export default function Posts({ intro, allCaseStudiesForHome }) {
               duration: 0.3,
             }}
           >
-            {allCaseStudiesForHome.map((post, index) => {
+            {allCaseStudies.map((post, index) => {
               return (
                 <motion.div
                   key={index}
@@ -251,15 +249,11 @@ export default function Posts({ intro, allCaseStudiesForHome }) {
 }
 
 export async function getStaticProps() {
-  const allCaseStudiesForHome = (await getAllCaseStudiesForHome()) ?? [];
-  const selectedPost = (await getPostWithSlug()) ?? [];
-
-  const allCaseStudies = (await getAllCaseStudies()) ?? [];
+  const allCaseStudies = (await getAllCaseStudiesIntro()) ?? [];
   const intro = (await getWork()) ?? [];
 
   return {
     props: {
-      allCaseStudiesForHome,
       allCaseStudies,
       intro,
     },

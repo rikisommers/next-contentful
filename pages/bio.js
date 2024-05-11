@@ -6,7 +6,7 @@ import Head from "next/head";
 import TransitionWipe from "../components/transition/transition-wipe";
 import TransitionTilt from "../components/transition/transition-tilt";
 import PostIntro from "../components/post/post-intro";
-import { getBio, lastUpdatedDate } from "../lib/api";
+import { getBio } from "../lib/api";
 import TextRotating from "../components/utils/text-rotating";
 import { ScrollableBox } from "../components/utils/scrollable";
 import BlockFooter from "../components/blocks/block-footer";
@@ -165,7 +165,6 @@ export default function Bio({ data }) {
                     {data.contentx}
                   </motion.h2> */}
             </div>
-            {/* <h1>{data.csblocksCollection.items.length}</h1> */}
             <div className="flex flex-col gap-1 py-32">
               <p className="text-red-600">convert to table</p>
               <div className="flex justify-between gap-3 p-4">
@@ -174,18 +173,15 @@ export default function Bio({ data }) {
                 <p className="text-xs">Date</p>
               </div>
               {data.sectionsCollection &&
-                data.sectionsCollection.items.length > 0 &&
                 data.sectionsCollection.items.map((item, index) => {
                   return (
-                    <div className="mb-8">
-                      {" "}
+                    <div className="mb-8" key={index}>
                       <h3 className="text-lg">{item.title}</h3>
                       <div className="flex flex-col gap-2 mb-4">
                         {item.articlesCollection &&
-                          item.articlesCollection.items.length > 0 &&
                           item.articlesCollection.items.map((item, index) => {
                             return (
-                              <div>
+                              <div key={index}>
                                 {item?.__typename === "BlockArticle" && (
                                   <div
                                     className="flex gap-3 p-4 bg-slate-200"
