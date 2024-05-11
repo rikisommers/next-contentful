@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Layout from "../components/layout";
 import {
   getWork,
-  getAllCaseStudiesIntro,
+  getAllBlogPostsIntro,
 } from "../lib/api";
 import {
   motion,
@@ -34,7 +34,7 @@ import { gsap, ScrollTrigger } from "gsap";
 import Lenis from "@studio-freight/lenis";
 import { useScrollPosition } from "../components/scrollPosContext";
 
-export default function Posts({ intro, allCaseStudies }) {
+export default function Posts({ intro, posts }) {
   const contentRef = useRef(null);
   const footerRef = useRef(null);
   const ref = useRef(null);
@@ -44,7 +44,7 @@ export default function Posts({ intro, allCaseStudies }) {
   const { setScrollPosition } = useScrollPosition();
 
 
-  console.log('ACS------------------------',allCaseStudies)
+  console.log('ACS------------------------',posts)
   //const {scrollYProgress} = useScroll({target: ref});
 
 
@@ -174,7 +174,7 @@ export default function Posts({ intro, allCaseStudies }) {
               )} */}
 
 
-        {allCaseStudies && (
+        {posts && (
           <motion.div
             className="px-24 o-content o-grid"
             transition={{
@@ -182,7 +182,7 @@ export default function Posts({ intro, allCaseStudies }) {
               duration: 0.3,
             }}
           >
-            {allCaseStudies.map((post, index) => {
+            {posts.map((post, index) => {
               return (
                 <motion.div
                   key={index}
@@ -249,12 +249,12 @@ export default function Posts({ intro, allCaseStudies }) {
 }
 
 export async function getStaticProps() {
-  const allCaseStudies = (await getAllCaseStudiesIntro()) ?? [];
+  const posts = (await getAllBlogPostsIntro()) ?? [];
   const intro = (await getWork()) ?? [];
 
   return {
     props: {
-      allCaseStudies,
+      posts,
       intro,
     },
   };
