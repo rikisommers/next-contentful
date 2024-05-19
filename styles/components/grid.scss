@@ -44,15 +44,15 @@ $phi: 1.6180339887498948482;
 
     // grid-column: auto /span 12;
     // grid-row: auto /span 2;
-    grid-column: auto /span 4;
+    grid-column: auto /span 6;
     grid-row: auto /span 2;
 
 
-    @media only screen and (min-width: $desktop-min) {
+    // @media only screen and (min-width: $desktop-min) {
 
-      grid-column: auto /span 4;
-      grid-row: auto /span 2;
-      }
+    //   grid-column: auto /span 4;
+    //   grid-row: auto /span 2;
+    //   }
 
 
       svg { display: none; }
@@ -91,7 +91,7 @@ $phi: 1.6180339887498948482;
   //   aspect-ratio:  9 / 17;
   // }
 
-  .o-grid__item--cs:nth-child(4n + 5){
+  .o-grid__item--cs:nth-child(4n + 3){
     @media only screen and (min-width: $desktop-min) {
 
     grid-column: auto /span 8;

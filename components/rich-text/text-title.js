@@ -1,10 +1,19 @@
-import React, { Children } from "react";
+import React, {useEffect, Children } from "react";
 import { motion } from "framer-motion";
 import FadeInWhenVisible from "../utils/fade-in-visible";
 
-export const TextTitle = ({ content, color, children }) => {
+
+import { useTheme } from 'next-themes';
+import { themes } from "../../utils/theme";
+import { getThemeByKey } from '../../utils/theme';
+
+
+export const TextTitle = ({ content, children }) => {
   
-  
+  const {theme} = useTheme()
+  const currentTheme = getThemeByKey(theme);
+  console.log(currentTheme)
+
   const container = {
     initial: { opacity: 0.5 },
     animate: {
@@ -57,8 +66,12 @@ export const TextTitle = ({ content, color, children }) => {
   
   // Function to render bold text
   const renderColoredText = (text, index) => (
+
+    // TODO: merge with text animation add theme color add animation options 
     <motion.span
-          className={color}
+          style={{
+            color:currentTheme?.accent
+          }}
             // variants={test} 
             key={index}>{text}</motion.span>
   );
@@ -111,18 +124,21 @@ export const TextTitle = ({ content, color, children }) => {
     animate={{
       opacity:1
     }}
+    style={{
+      color:currentTheme?.headingColor
+    }}
     // variants={container}
     // initial="initial"
     // animate="animate"
     className="text-5xl">
       {renderTextWithBoldAndLineBreaks(content)}
       <motion.span
-             className="block"
+            
             // variants={test}
             transition={{
               delay:1.2
             }}>
-      {children}
+              {children}
       </motion.span>
     </motion.h1>
   );

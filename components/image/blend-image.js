@@ -1,10 +1,20 @@
 import Image from 'next/image'
+import { useTheme } from 'next-themes';
+import { themes } from "../../utils/theme";
+import { getThemeByKey } from '../../utils/theme';
+
 
 const contentfulLoader = ({ src, width, quality }) => {
   return `${src}?w=${width}&q=${quality || 75}`
 }
 //priority eager
 const BlendImage = (props) => {
+
+
+  const {theme} = useTheme()
+  const currentTheme = getThemeByKey(theme);
+
+
   return <Image  
       loading='lazy'   
       alt="fdd"
@@ -14,7 +24,10 @@ const BlendImage = (props) => {
    loader={contentfulLoader} {...props} 
    width={400}
    height={200}
-   className='w-full h-full object-cover greyscale mix-blend-color'
+   style={{
+    mixBlendMode:currentTheme?.mixBlendMode
+  }}
+   className='object-cover w-full h-full greyscale'
    />
 }
 

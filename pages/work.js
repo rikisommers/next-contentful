@@ -34,7 +34,16 @@ import { gsap, ScrollTrigger } from "gsap";
 import Lenis from "@studio-freight/lenis";
 import { useScrollPosition } from "../components/scrollPosContext";
 
+import { useTheme } from 'next-themes';
+import { themes } from "../utils/theme";
+import { getThemeByKey } from '../utils/theme';
+
+
 export default function Posts({ intro, allCaseStudies }) {
+
+  const { theme } = useTheme()
+  const currentTheme = getThemeByKey(theme);
+
   const contentRef = useRef(null);
   const footerRef = useRef(null);
   const ref = useRef(null);
@@ -157,9 +166,14 @@ export default function Posts({ intro, allCaseStudies }) {
     <Layout>
       <TransitionTilt active={true} className="z-100">
       <motion.div
-        className="relative flex flex-col px-10 pb-20 bg-slate-100 z-100"
+        style={{
+          backgroundColor:currentTheme?.bodyBackgroundColor
+        }}
+        animate={{
+          clipPath: clipPathValue
+        }}
+        className={`relative flex flex-col px-10 pb-20 z-100`}
         ref={contentRef}
-        style={{ clipPath: clipPathValue}}
 
       >
         <div className="o-content" ref={headerRef}>

@@ -16,14 +16,6 @@ import {
 
 export const BlockVideo = (data) => {
 
-
-  // const lastUpdatedDate = home?.sys?.updatedAt || "N/A";
-  // const clipPathInitial = `inset(1.0rem 1.0rem 6.0rem round 0.5rem)`;
-  // const clipPathAnimate = `inset( 1.5rem round 1rem )`;
-  // const clipPathExit = `inset( 1.5rem 1.5rem 90vh 1.5rem round 1rem )`;
-  // console.log('dddd',data)
-
-
   const ref = useRef(null);
 
   const { scrollYProgress } = useScroll({
@@ -44,7 +36,7 @@ export const BlockVideo = (data) => {
     <RollUpWhenVisible>
       
     <motion.div ref={ref} 
-    className="c-video flex flex-col align-bottom content-end"  
+    className="flex flex-col content-end align-bottom c-video"  
                 // initial={{ clipPath: clipPathInitial }}
                 // animate={{ clipPath: clipPathInitial }}
                 // exit={{ clipPath: clipPathInitial }}
@@ -72,10 +64,10 @@ export const BlockVideo = (data) => {
       }
 
       
-      <div className="w-full flex flex-col gap-6 p-4"  >
+      <div className="flex flex-col w-full gap-6 p-4"  >
       {/* <h1 className="text-7xl">{title && title}</h1> */}
       <motion.p
-        className="text-sm text-slate-500 uppercase"
+        className="text-sm uppercase text-slate-500"
         initial={{
           opacity: 0,
         }}

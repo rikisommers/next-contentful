@@ -1,28 +1,119 @@
+  import React, { useEffect, useState } from "react";
 
-import { useControls } from 'leva'
+  import { useControls } from 'leva'
+  import { useTheme } from 'next-themes'
+  import { ThemeProvider } from "next-themes";
+  import { themes, getThemeByKey, updateTheme } from '../../utils/theme';
 
-export default function ThemeEditor() {
+  export default function ThemeEditor() {
+    
+    const { theme, setTheme } = useTheme();
+    const initialTheme = getThemeByKey(theme) || themes.light; // Use a fallback theme
+    const [currentTheme, setCurrentTheme] = useState(initialTheme);
+    const [forceUpdate, setForceUpdate] = useState(0); // State to trigger re-render
+
+
+    useEffect(() => {
+      const newTheme = getThemeByKey(theme) || themes.light; // Use a fallback theme
+      setCurrentTheme(newTheme);
+    }, [theme]);
   
-    const { myValue } = useControls({ myValue: 10 })
+    const themeKeys = Object.keys(themes);
+
+    const applyCurrentTheme = (updatedTheme) => {
+      setCurrentTheme(updatedTheme);
+      setTheme(updatedTheme.key);
+      updateTheme(updatedTheme.key, updatedTheme);
+      setForceUpdate(forceUpdate + 1); // Trigger re-render
+
+    };
+
+    
+    console.log('CT----------',currentTheme  && currentTheme)
+
+    const controls = {
+      'Theme': {
+        value: currentTheme.key,
+        options: themeKeys,
+        onChange: (value) => {
+          const updatedTheme = getThemeByKey(value);
+          applyCurrentTheme(updatedTheme);
+        },
+      },
+        'Background Color': { 
+          value: currentTheme.backgroundColor,
+          onChange: (value) => {
+            const updatedTheme = { ...currentTheme, backgroundColor: value };
+            applyCurrentTheme(updatedTheme);
+          }
+        },
+        'Body Background Color': { 
+          value: currentTheme.bodyBackgroundColor,
+          onChange: (value) => {
+            const updatedTheme = { ...currentTheme, bodyBackgroundColor: value };
+            applyCurrentTheme(updatedTheme);
+          }
+        },
+        'Inv Background Color': {
+          value: currentTheme.backgroundColorInv,
+          onChange: (value) => {
+            const updatedTheme = { ...currentTheme, backgroundColorInv: value };
+            applyCurrentTheme(updatedTheme);
+          }
+        },
+        'Heading Color': {
+          value: currentTheme.headingColor,
+          onChange: (value) => {
+            const updatedTheme = { ...currentTheme, headingColor: value };
+            applyCurrentTheme(updatedTheme);
+          }
+        },
+        'Text Color': {
+          value: currentTheme.textColor,
+          onChange: (value) => {
+            const updatedTheme = { ...currentTheme, textColor: value };
+            applyCurrentTheme(updatedTheme);
+          }
+        },
+        'Subtext Color': {
+          value: currentTheme.subtextColor,
+          onChange: (value) => {
+            const updatedTheme = { ...currentTheme, subtextColor: value };
+            applyCurrentTheme(updatedTheme);
+          }
+        },
+        'Text Color Inv': {
+          value: currentTheme.textColorInv,
+          onChange: (value) => {
+            const updatedTheme = { ...currentTheme, textColorInv: value };
+            applyCurrentTheme(updatedTheme);
+          }
+        },
+        'Accent': {
+          value: currentTheme.accent,
+          onChange: (value) => {
+            const updatedTheme = { ...currentTheme, accent: value };
+            applyCurrentTheme(updatedTheme);
+          }
+        }
+      };
+    
 
 
-  const theme = {
-    background:{
-      dark:'black',
-      light:'white'
-    }
+
+  // Use Leva to render controls
+  //const themeControls = useControls(() => controls);
+  useControls(() => controls);
+
+
+    return (
+      <div className="themeE">
+
+      <div className="flex flex-col gap-3">
+        <button onClick={() => setTheme(themes.light.key)}>Light Mode</button>
+        <button onClick={() => setTheme(themes.dark.key)}>Dark Mode</button>
+      </div> 
+      </div>
+    
+    );
   }
-
-
-  return (
-    <div className="fixed z-50 flex justify-between w-full p-3">
-        <button className="px-3 py-3 text-xs text-white uppercase bg-orange-500 rounded-lg">
-            Contact
-        </button>
-        <div>Hey, I'm {myValue}</div>
-
-
-    </div>
-   
-  );
-}

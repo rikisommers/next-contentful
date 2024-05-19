@@ -15,6 +15,11 @@ import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import { RichTextOptions } from "../components/rich-text/rich-text";
 import Link from "next/link";
 
+import { useTheme } from 'next-themes';
+import { themes } from "../utils/theme";
+import { getThemeByKey } from '../utils/theme';
+
+
 import {
   motion,
   cubicBezier,
@@ -28,6 +33,10 @@ export default function Bio({ data }) {
   console.log(data);
   const contentRef = useRef(null);
   const footerRef = useRef(null);
+
+  const { theme } = useTheme()
+  const currentTheme = getThemeByKey(theme);
+
 
   const [dimension, setDimension] = useState({ width: 0, height: 0 });
   const [footerOffsetValue, setFooterOffsetValue] = useState(0);
@@ -106,7 +115,8 @@ export default function Bio({ data }) {
     <Layout>
       <TransitionTilt>
         <motion.div
-          className="relative z-10 flex flex-col pb-20 bg-slate-100"
+                style={{ backgroundColor:currentTheme?.backgroundColor}}
+          className="relative z-10 flex flex-col pb-20 "
           ref={contentRef}
           animate={{ clipPath: [initialClipPath, finalClipPath] }}
           transition={{

@@ -18,18 +18,32 @@ import {
 
 import PostHeader from "../../components/post/post-header";
 import TransitionTilt from "../../components/transition/transition-tilt";
+import TransitionWipe from "../../components/transition/transition-wipe"
 import PostContent from "../../components/post/post-content";
 import Link from "next/link";
 import NextPost from "../../components/post/post-next";
+
 import { RouteContext } from "../../components/routeContext";
 import Lenis from "@studio-freight/lenis";
 import BlockFooter from "../../components/blocks/block-footer";
+
+import { useTheme } from 'next-themes';
+import { themes } from "../../utils/theme";
+import { getThemeByKey } from "../../utils/theme";
+
+
+
 export default function Post({ post, nextPost }) {
   const router = useRouter();
   console.log("post---------------------------", post);
 
   const { routeInfo } = useContext(RouteContext);
   const [destRoute, setDestRoute] = useState("");
+
+
+  const { theme } = useTheme()
+  const currentTheme = getThemeByKey(theme);
+
 
   useEffect(() => {
     //  setSourceRoute(routeInfo.sourceRoute);
@@ -151,9 +165,9 @@ export default function Post({ post, nextPost }) {
 
      
         <motion.div
-          className="relative z-10 flex flex-col pb-20 bg-slate-100"
+        style={{ backgroundColor:currentTheme?.backgroundColor,clipPath: clipPathValue}}
+          className={`relative z-10 flex flex-col pb-20`}
           ref={contentRef}
-          style={{ clipPath: clipPathValue }}
           exit={{
             opacity: 0,
             //  clipPath: clipPathValue
@@ -202,7 +216,7 @@ export default function Post({ post, nextPost }) {
               delay: 0.2,
             }}
           >
-            {nextPost && (
+            {/* {nextPost && (
               <div className="test">
                 <Link
                   onClick={handleLinkClick}
@@ -210,15 +224,15 @@ export default function Post({ post, nextPost }) {
                   href={`/projects/${nextPost.slug}`}
                   className="link"
                 >
-                  <NextPost post={nextPost} />
-                  {/* <NextPostAlt post={nextPost} /> */}
+                  <NextPostAlt post={nextPost} />
                 </Link>
               </div>
-            )}
+            )} */}
+            <BlockFooter/>
           </motion.div>
         </motion.div>
       </TransitionTilt>
-      {/* <TransitionWipe /> */}
+      <TransitionWipe />
       {/* {shouldFadeIn && } */}
     </Layout>
   );

@@ -14,8 +14,17 @@ import {
   useInView,
 } from "framer-motion";
 
+import { useTheme } from 'next-themes';
+import { themes } from "../../utils/theme";
+import { getThemeByKey } from '../../utils/theme';
+
+
 export default function PostTileCs({ post, index }) {
   //  console.log("ss", post);
+  
+  const {theme} = useTheme()
+  const currentTheme = getThemeByKey(theme);
+  console.log(currentTheme)
 
   const ref = useRef(null);
 
@@ -31,7 +40,10 @@ export default function PostTileCs({ post, index }) {
     <Link
       scroll={false}
       href={`/projects/${post.slug}`}
-      className="relative flex flex-col w-full h-full rounded-lg tile overflow-hidde bg-slate-50"
+      style={{
+        color:currentTheme?.backgroundColor
+      }}
+      className="relative flex flex-col w-full h-full rounded-lg tile overflow-hidde"
     >
       {post.img && (
         <div className="relative flex flex-col flex-grow overflow-hidden rounded-lg img-post">
@@ -62,7 +74,10 @@ export default function PostTileCs({ post, index }) {
                   return (
                     <div
                       key={index}
-                      className="text-xs text-slate-400 uppercase py-0.5 px-1.5 bg-slate-800 rounded-md"
+                      style={{
+                        color:currentTheme?.backgroundColor
+                      }}
+                      className="text-xs text-slate-400 uppercase py-0.5 px-1.5 rounded-md"
                     >
                       {tag}
                     </div>
@@ -79,10 +94,9 @@ export default function PostTileCs({ post, index }) {
           <motion.div style={{y}}>     
           </motion.div> */}
 
-          <FadeInWhenVisible color={post?.color}>
+          <FadeInWhenVisible color={currentTheme?.cardBackground}>
             <BlendImage
               className="img-cover"
-              color={post?.color}
               alt={`Cover Image for ${post?.title}`}
               src={post.img.url}
             />
@@ -90,10 +104,18 @@ export default function PostTileCs({ post, index }) {
         </div>
       )}
 
-      <div className="flex items-start justify-between w-full p-8 asolute ">
+      <div className="flex items-start justify-between w-full py-6 asolute ">
         <div className="flex flex-col gap-2">
-          <h2 className="z-50 text-xl text-black ">{post?.title}</h2>
-          <p className="text-md text-slate-500">{post?.subtitle}</p>
+          <h2 className="z-50 text-xl"
+               style={{
+                color:currentTheme?.textColor
+              }}
+          >{post?.title}</h2>
+          <p className="text-md"
+                         style={{
+                          color:currentTheme?.subtextColor
+                        }}
+          >{post?.subtitle}</p>
           {/* <button className="inline-flex mt-8 text-sm text-slate-400">
             View Case Study
           </button> */}

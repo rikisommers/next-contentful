@@ -6,7 +6,8 @@ import TextAnimationUp from "../utils/text-animation-up";
 import { TextTitle } from "../rich-text/text-title";
 import { TextSubtitle } from "../rich-text/text-subtitle";
 
-export default function PostIntro({ title, content }) {
+export default function PostIntro({ title, content, theme }) {
+  console.log('ttttttt------',theme)
   return (
     //   <div className="grid items-end grid-cols-12 gap-3 pb-20 h-header">
 
@@ -43,12 +44,12 @@ export default function PostIntro({ title, content }) {
       className="grid items-end grid-cols-12 gap-3 pb-20 h-vh66"
     >
       <div className="col-span-12 md:col-span-6">
-        <TextTitle content={title} color={"text-slate-400"}>
+        <TextTitle content={title} color={`${theme?.textColor}`}>
           {/* <TextScramble content={['Plan,Design & buid','wear many hats','like fart jokes']}/> */}
         </TextTitle>
       </div>
       <div className="col-span-6 text-xl text-left md:col-span-6 md:text-right text-balance">
-        <TextSubtitle content={content} color={"text-slate-400"} />
+        <TextSubtitle content={content} color={theme?.textColor} />
       </div>
     </motion.div>
   );

@@ -3,8 +3,16 @@ import { motion } from "framer-motion";
 import RichTextAsset from "./rich-text-asset";
 import { RichTextOptions } from "./rich-text";
 import { INLINES, BLOCKS, MARKS } from "@contentful/rich-text-types";
+import { useTheme } from 'next-themes';
+import { themes } from "../../utils/theme";
+import { getThemeByKey } from '../../utils/theme';
+
 
 export const TextSubtitle = ({ content, color, children }) => {
+
+  const {theme} = useTheme()
+  const currentTheme = getThemeByKey(theme);
+
   const container = {
     initial: { opacity: 0.5 },
     animate: {
@@ -40,7 +48,10 @@ export const TextSubtitle = ({ content, color, children }) => {
     <motion.span
       key={index}
       variants={line}
-      className={`block ${color}`}
+      style={{
+        color:currentTheme?.subtextColor
+      }}
+      className={`inline`}
     >
       {text}
     </motion.span>
@@ -54,11 +65,12 @@ export const TextSubtitle = ({ content, color, children }) => {
   };
 
   return (
+
     <motion.h2 
          variants={container}
          initial="initial"
          animate="animate"
-         className="text-xl text-slate-50">{renderTextAsLines(content)}
+         className={`text-xl`}>{renderTextAsLines(content)}
         {children}     
     </motion.h2>
   );

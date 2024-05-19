@@ -27,9 +27,21 @@ import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import { TextTitle } from "../components/rich-text/text-title";
 import { TextSubtitle } from "../components/rich-text/text-subtitle";
 
-export default function Index({ home,theme, }) {
+
+import { useTheme } from 'next-themes';
+import { getThemeByKey } from '../utils/theme';
+
+
+export default function Index({ home }) {
   const router = useRouter();
-  console.log('--------ssssss',theme)
+  const { theme } = useTheme();
+  const currentTheme = getThemeByKey(theme);
+
+  
+  // const { theme } = useTheme();
+  // const backgroundColor = theme.backgroundColor;
+  // const textColor = theme.textColor;
+
   //console.log(home)
   // useEffect(() => {
   //   const wheelEvent =
@@ -72,23 +84,26 @@ export default function Index({ home,theme, }) {
   return (
     <Layout>
       {/* <TransitionTilt> */}
-      <div className="w-screen h-screen bg-gray-800 z-100">
+      <div 
+          style={{ backgroundColor:currentTheme?.bodyBackgroundColor}}
+        className={`transition ease-in-out w-screen h-screen z-100`}>
         <div className="z-10 home ">
           <FadeInWhenVisible>
             <div className="grid items-end h-full grid-cols-12 px-32 py-32">
               <div className="flex flex-col col-span-12 gap-6 md:col-span-6 text-slate-50">
-                {/* <h1 className="text-7xl">{title && title}</h1> */}
+                {/* <h1 className="text-7xl">{backgroundColor}</h1> */}
 
                 {/* <TextAnimation  
                     content={home.title}
                     color={"text-slate-400"}
                   /> */}
-                <TextTitle content={home.titlealt} color={"text-slate-400"}>
+
+                <TextTitle content={home.titlealt}>
                   {/* <TextScramble content={['Plan,Design & buid','wear many hats','like fart jokes']}/> */}
                 </TextTitle>
                 <TextSubtitle
                   content={home.contentalt}
-                  color={"text-slate-400"}
+                  color={currentTheme?.textColor}
                 />
 
                 {/* <TextAnimationLineUp content={home.content?.json}></TextAnimationLineUp> */}
@@ -146,12 +161,10 @@ export default function Index({ home,theme, }) {
 
 export async function getStaticProps({ preview = false }) {
   const home = (await getHome(preview)) ?? [];
-  const theme = (await getTheme()) ?? [];
 
   return {
     props: {
-      home,
-      theme,
+      home
     },
   };
 }

@@ -10,11 +10,22 @@ import { gsap } from "gsap";
 import { Draggable } from "gsap/dist/Draggable";
 import CtxMenu from "../base/ctx-menu";
 
+import { useTheme } from 'next-themes';
+import { themes } from "../../utils/theme";
+import { getThemeByKey } from '../../utils/theme';
+
+
+
 if (typeof window !== "undefined") {
   gsap.registerPlugin(Draggable);
 }
 
 export default function Navigation() {
+
+  const {theme} = useTheme()
+  const currentTheme = getThemeByKey(theme);
+  console.log(currentTheme)
+
   const router = useRouter();
   const menuRef = useRef(null);
   const menuDragRef = useRef('menuDragRef');
@@ -110,22 +121,30 @@ export default function Navigation() {
   // }
 
   return (
-    <div className="fixed z-50 flex justify-between w-full p-3">
+    <div className="fixed z-50 flex justify-between w-full p-6"
+
+    >
       {/* <audio ref={audioRef} play={false} src='/audio/test.mp3' /> */}
 
       {/* <motion.div className="audio">
         <img src="/logo6.svg" viewBox="0 0 43 27"></img>
       </motion.div> */}
       <motion.div
-        className={`logo_wrapper gap-2 ${isActive ? "active" : ""} ${
-          router.asPath === "/" ? "text-white" : "bg-white text-black"
-        }`}
+            style={{
+              color:router.asPath === "/" ? currentTheme?.textColorInv : currentTheme?.textColor
+            }}
+        className={`bg-gray-600 bg-opacity-50 backdrop-blur-lg logo_wrapper gap-2`}
       >
-        <div className="logo">
+        <div 
+                      style={{
+                        backgroundColor: isActive ? currentTheme?.accent : null,
+                      }}
+        className="logo">
           <img src="/logo3.svg" viewBox="0 0 32 32"></img>
         </div>
 
         <motion.span
+    
           layoutId="title"
           initial={{
             opacity: 0,
@@ -152,12 +171,18 @@ export default function Navigation() {
     
         <div
           ref={menuRef}
-          className="absolute flex items-center gap-1 rounded-xl bg-slate-100 top-6 right-6"
+   
+          className="absolute flex items-center gap-1 rounded-xl top-6 right-6"
         >
           <div className="px-3 py-3" ref={menuDragRef}>dd</div>
-          <div className="relative z-50 flex gap-1 p-1.5 rounded-xl bg-slate-700 backdrop-blur-lg">
+          <div 
+          // style={{
+          //   backgroundColor:currentTheme?.headingColor
+          // }}
+          className="relative z-50 flex gap-1 p-1.5 rounded-xl bg-gray-600 bg-opacity-50 backdrop-blur-lg">
             <motion.div
-              className="absolute right-0 z-10 overflow-hidden bg-white rounded-lg shadow-lg top-14 "
+   
+              className="absolute right-0 z-10 overflow-hidden rounded-lg shadow-lg top-14 "
               // popover="auto" id="context"
               // anchor="anchor"
               initial="hidden"
@@ -222,11 +247,10 @@ export default function Navigation() {
                   className="relative flex items-center px-3 py-3 text-sm text-white uppercase rounded-lg"
                 >
                   <span
-                    className={`${
-                      activePage === page.id
-                        ? "text-orange-500"
-                        : "text-slate-50"
-                    } relative z-10`}
+                  style={{
+                    color: activePage === page.id ? currentTheme?.accent : currentTheme?.textColorInv,
+                  }}
+                    className={`relative z-10`}
                   >
                     {page.title}
                   </span>
@@ -239,7 +263,8 @@ export default function Navigation() {
                 </Link>
               )}
            
-            <button className="px-3 py-3 text-xs text-white uppercase bg-orange-500 rounded-lg">
+            <button style={{backgroundColor: currentTheme?.accent, color:currentTheme?.textColorInv}} 
+              className={`px-3 py-3 text-xs  uppercase rounded-lg`}>
               Contact
             </button>
           </div>
