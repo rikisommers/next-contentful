@@ -94,7 +94,7 @@ export default function PostTileCs({ post, index }) {
           <motion.div style={{y}}>     
           </motion.div> */}
 
-          <FadeInWhenVisible color={currentTheme?.cardBackground}>
+          <FadeInWhenVisible color={currentTheme?.accent}>
             <BlendImage
               className="img-cover"
               alt={`Cover Image for ${post?.title}`}

@@ -1,4 +1,5 @@
 
+
 // Color themes
 const colorThemes = {
   light: {
@@ -9,7 +10,8 @@ const colorThemes = {
     textColor: '#09090b',
     subtextColor: '#52525b',
     textColorInv: '#fafafa',
-    accent:'#d946ef'
+    accent:'#d946ef',
+    mixBlendMode:'color',
   },
   dark: {
     bodyBackgroundColor: '#1f2937',
@@ -19,7 +21,8 @@ const colorThemes = {
     textColor: '#fafafa',
     subtextColor: '#a1a1aa',
     textColorInv: '#09090b',
-    accent:'#99f6e4'
+    accent:'#99f6e4',
+    mixBlendMode:'luminosity',
   },
 };
 
@@ -72,16 +75,6 @@ const imageThemes = {
   }
 };
 
-const cardThemes = {
-  light: {
-    cardBackground: 'red',
-    mixBlendMode: 'color',
-  },
-  dark: {
-    cardBackground: 'green',
-    mixBlendMode:  'luminosity',
-  },
-};
 
 const transitionThemes = {
   wide: {
@@ -105,14 +98,12 @@ export const themes = {
     ...colorThemes.light,
     ...animationThemes.fadeup,
     ...layoutThemes.wide,
-    ...cardThemes.light,
   },
   dark: {
     key: 'dark', // Key for the dark theme
     ...colorThemes.dark,
     ...animationThemes.fadedown,
     ...layoutThemes.narrow,
-    ...cardThemes.dark,
   },
 
 };

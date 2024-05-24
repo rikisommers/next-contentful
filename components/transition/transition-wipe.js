@@ -2,14 +2,22 @@ import React, { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 import { motion ,LayoutGroup} from "framer-motion";
 import { RouteContext } from "../../components/routeContext";
+import { useTheme } from 'next-themes';
+import { themes } from "../../utils/theme";
+import { getThemeByKey } from '../../utils/theme';
+
 
 const HomeTransitionContent = () => {
 
-
+  const {theme} = useTheme()
+  const currentTheme = getThemeByKey(theme);
 
   return (
     <motion.div
       className="transition-wipe--y "
+      style={{
+        backgroundColor:currentTheme?.backgroundColor
+      }}
       initial={{ y: "100%" }}
       exit={{
         y: -40,
@@ -22,7 +30,11 @@ const HomeTransitionContent = () => {
       }}
       
     >
-        <div className="w-full h-full bg-gray-800 flex items-center justify-center rounded-xl">
+        <div
+             style={{
+        backgroundColor:currentTheme?.backgroundColor
+            }}
+        className="flex items-center justify-center w-full h-full rounded-xl">
        
       </div>
     </motion.div>
@@ -30,10 +42,17 @@ const HomeTransitionContent = () => {
 };
 
 const WorkTransitionContent = () => {
+
+  const {theme} = useTheme()
+  const currentTheme = getThemeByKey(theme);
+
   return (
     <motion.div
       id="tranny-content"
-      className="transition-wipe--y bg-white shadow-xl"
+      style={{
+        backgroundColor:currentTheme?.backgroundColor
+      }}
+      className="shadow-xl transition-wipe--y"
       initial={{ y: "100%" }}
       exit={{
         y: -40,
@@ -52,10 +71,17 @@ const WorkTransitionContent = () => {
 };
 
 const BioTransitionContent = () => {
+
+  const {theme} = useTheme()
+  const currentTheme = getThemeByKey(theme);
+
   return (
     <motion.div
       id="tranny-content"
-      className="transition-wipe--y bg-slate-50 shadow-xl"
+      style={{
+        backgroundColor:currentTheme?.backgroundColor
+      }}
+      className="shadow-xl transition-wipe--y"
       initial={{ y: "100%" }}
       exit={{
         y: -40,
@@ -76,11 +102,16 @@ const BioTransitionContent = () => {
 
 const ProjectTransitionContent = () => {
 
+  const {theme} = useTheme()
+  const currentTheme = getThemeByKey(theme);
 
   return (
     <motion.div
       id="tranny-content"
-      className="transition-wipe--y bg-white rounded-2xl"
+      style={{
+        backgroundColor:currentTheme?.backgroundColor
+      }}
+      className="transition-wipe--y rounded-2xl"
       initial={{ y: "100%" }}
       exit={{
         y: -40,
@@ -99,10 +130,17 @@ const ProjectTransitionContent = () => {
 };
 
 const Overlay = () => {
+
+  const {theme} = useTheme()
+  const currentTheme = getThemeByKey(theme);
+  
   return (
     <motion.div
       id="overlay"
-      className="fixed top-0 h-full w-full bg-white opacity-50"
+      style={{
+        backgroundColor:currentTheme?.bodyBackgroundColor
+      }}
+      className="fixed top-0 w-full h-full opacity-50"
       initial={{  opacity: 0 }}
       animate={{
         opacity:0

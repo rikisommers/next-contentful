@@ -1,11 +1,16 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useTheme } from 'next-themes';
+import { themes } from "../../utils/theme";
+import { getThemeByKey } from '../../utils/theme';
 
 const TransitionPost = ({ children }) => {
   
   // rotateX(1deg)
 
   // translateY(-5em);
+  const {theme} = useTheme()
+  const currentTheme = getThemeByKey(theme);
 
 
 
