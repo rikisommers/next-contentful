@@ -19,6 +19,9 @@ const customMarkdownOptions = (content) => ({
 });
 
 export default function PostBody({ content }) {
+
+
+
   return (
     <div className="flex flex-col max-w-6xl gap-32 mx-auto">
 

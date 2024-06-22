@@ -10,25 +10,23 @@ import { gsap } from "gsap";
 import { Draggable } from "gsap/dist/Draggable";
 import CtxMenu from "../base/ctx-menu";
 
-import { useTheme } from 'next-themes';
+import { useTheme } from "next-themes";
 import { themes } from "../../utils/theme";
-import { getThemeByKey } from '../../utils/theme';
-
-
+import { getThemeByKey } from "../../utils/theme";
+import ThemeEditor from "./themeEditor";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(Draggable);
 }
 
 export default function Navigation() {
-
-  const {theme} = useTheme()
+  const { theme } = useTheme();
   const currentTheme = getThemeByKey(theme);
-  console.log(currentTheme)
+  console.log(currentTheme);
 
   const router = useRouter();
   const menuRef = useRef(null);
-  const menuDragRef = useRef('menuDragRef');
+  const menuDragRef = useRef("menuDragRef");
 
   const { routeInfo } = useContext(RouteContext);
 
@@ -39,17 +37,21 @@ export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const controls = useAnimation();
 
+  const toggleTheme = () => {
+    setIsOpen(!isOpen);
+  };
+
   useEffect(() => {
     controls.start(isOpen ? "visible" : "hidden");
   }, [controls, isOpen]);
 
-  const handleMouseEnter = () => {
-    setIsOpen(true);
-  };
+  // const handleMouseEnter = () => {
+  //   setIsOpen(true);
+  // };
 
-  const handleMouseLeave = () => {
-    setIsOpen(false);
-  };
+  // const handleMouseLeave = () => {
+  //   setIsOpen(false);
+  // };
 
   useEffect(() => {
     if (menuRef.current && menuDragRef.current) {
@@ -121,30 +123,33 @@ export default function Navigation() {
   // }
 
   return (
-    <div className="fixed z-50 flex justify-between w-full p-6"
-
-    >
+    <div className="fixed z-50 flex justify-between w-full p-6">
       {/* <audio ref={audioRef} play={false} src='/audio/test.mp3' /> */}
 
       {/* <motion.div className="audio">
         <img src="/logo6.svg" viewBox="0 0 43 27"></img>
       </motion.div> */}
       <motion.div
-            style={{
-              color:router.asPath === "/" ? currentTheme?.textColorInv : currentTheme?.textColor
-            }}
-        className={`bg-gray-600 bg-opacity-50 backdrop-blur-lg logo_wrapper gap-2`}
+        style={{
+          color:
+            router.asPath === "/"
+              ? currentTheme?.textColorInv
+              : currentTheme?.textColor,
+        }}
+        className={`relative z-50 flex items-center rounded-xl bg-gray-600 bg-opacity-50 backdrop-blur-lg p-1.5`}
       >
-        <div 
-                      style={{
-                        backgroundColor: isActive ? currentTheme?.accent : null,
-                      }}
-        className="logo">
+        <div
+          style={{
+            backgroundColor: isActive ? currentTheme?.accent : null,
+          }}
+          className="w-10 h-10 p-2 rounded-lg"
+        >
           <img src="/logo3.svg" viewBox="0 0 32 32"></img>
         </div>
 
         <motion.span
-    
+          className="self-center p-3 text-sm"
+          style={{ color: currentTheme?.textAccent }}
           layoutId="title"
           initial={{
             opacity: 0,
@@ -166,29 +171,22 @@ export default function Navigation() {
       </motion.div>
 
       <div className="flex gap-2">
-
-
-    
         <div
           ref={menuRef}
-   
-          className="absolute flex items-center gap-1 rounded-xl top-6 right-6"
+          className="absolute flex items-center gap-1 rounded-lg top-6 left-[320px]"
         >
-          <div className="px-3 py-3" ref={menuDragRef}>dd</div>
-          <div 
-          // style={{
-          //   backgroundColor:currentTheme?.headingColor
-          // }}
-          className="relative z-50 flex gap-1 p-1.5 rounded-xl bg-gray-600 bg-opacity-50 backdrop-blur-lg">
-            <motion.div
-   
+          <div className="px-3 text-white py-" ref={menuDragRef}>
+            :
+          </div>
+          <div className="relative z-50 flex gap-1 p-1.5 rounded-xl bg-gray-600 bg-opacity-50 backdrop-blur-lg">
+            {/* <motion.div
               className="absolute right-0 z-10 overflow-hidden rounded-lg shadow-lg top-14 "
               // popover="auto" id="context"
               // anchor="anchor"
               initial="hidden"
               animate={controls}
-              whileHover={handleMouseEnter}
-              onHoverEnd={handleMouseLeave}
+              // whileHover={handleMouseEnter}
+              // onHoverEnd={handleMouseLeave}
               variants={{
                 visible: { height: 100, opacity: 1, y: 0 },
                 hidden: { height: 0, opacity: 0, y: 0 },
@@ -203,69 +201,78 @@ export default function Navigation() {
                 <div className="w-24 h-24 rounded-md bg-slate-400"></div>
                 <div className="w-24 h-24 rounded-md bg-slate-400"></div>
               </div>
-            </motion.div>
+            </motion.div> */}
 
-            {pages.map((page) =>
-              // page.id === "work" ? (
-              //   <div
-              //     className="relative"
-              //     onMouseEnter={handleMouseEnter}
-              //     onMouseLeave={handleMouseLeave}
-              //     id="anchor"
-              //     popovertarget="context" 
-              //   >
-              //     <Link
-              //       href={page.url}
-              //       scroll={false}
-              //       onClick={() => setActivePage(page.id)}
-              //       className="relative flex items-center px-3 py-3 text-sm text-white uppercase rounded-lg"
-              //     >
-              //       <span
-              //         className={`${
-              //           activePage === page.id
-              //             ? "text-orange-500"
-              //             : "text-slate-50"
-              //         } relative z-10`}
-              //       >
-              //         {page.title}
-              //       </span>
-              //       {activePage === page.id && (
-              //         <motion.div
-              //           layoutId="indicator"
-              //           className="absolute top-0 left-0 flex w-full h-full rounded-xl bg-slate-800/50"
-              //         ></motion.div>
-              //       )}
-              //     </Link>
-              //   </div>
-              // ) : ( )}
-
-                <Link
-                  key={page.id}
-                  href={page.url}
-                  scroll={false}
-                  onClick={() => setActivePage(page.id)}
-                  className="relative flex items-center px-3 py-3 text-sm text-white uppercase rounded-lg"
-                >
-                  <span
+            {pages.map((page) => (
+              <Link
+                key={page.id}
+                href={page.url}
+                scroll={false}
+                onClick={() => setActivePage(page.id)}
+                className="relative flex items-center px-3 py-3 text-sm text-white uppercase rounded-lg"
+              >
+                <span
                   style={{
-                    color: activePage === page.id ? currentTheme?.accent : currentTheme?.textColorInv,
+                    color:
+                      activePage === page.id
+                        ? currentTheme?.textAccent
+                        : currentTheme?.textColor,
                   }}
-                    className={`relative z-10`}
-                  >
-                    {page.title}
-                  </span>
-                  {activePage === page.id && (
-                    <motion.div
-                      layoutId="indicator"
-                      className="absolute top-0 left-0 flex w-full h-full rounded-xl bg-slate-800/50"
-                    ></motion.div>
-                  )}
-                </Link>
-              )}
-           
-            <button style={{backgroundColor: currentTheme?.accent, color:currentTheme?.textColorInv}} 
-              className={`px-3 py-3 text-xs  uppercase rounded-lg`}>
+                  className={`relative z-10`}
+                >
+                  {page.title}
+                </span>
+                {activePage === page.id && (
+                  <motion.div
+                    layoutId="indicator"
+                    className="absolute top-0 left-0 flex w-full h-full rounded-xl bg-slate-800/50"
+                  ></motion.div>
+                )}
+              </Link>
+            ))}
+
+            <button
+              style={{
+                backgroundColor: currentTheme?.accent,
+                color: currentTheme?.textColor,
+              }}
+              className={`px-3 py-3 text-xs  uppercase rounded-lg`}
+            >
               Contact
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex gap-2">
+        <div className="absolute flex items-center gap-1 rounded-lg top-6 right-6">
+          <div className="relative z-50 flex gap-1 p-1.5 rounded-xl bg-gray-600 bg-opacity-50 backdrop-blur-lg">
+            <div className="relative">
+              <button
+                style={{
+                  backgroundColor: currentTheme?.backgroundColor,
+                  color: currentTheme?.textColor,
+                }}
+                onClick={toggleTheme}
+                className="px-3 py-3 text-xs uppercase rounded-lg"
+              >
+                Theme
+              </button>
+              {isOpen && (
+                <div className="absolute right-0 w-[350px] mt-2 bg-white rounded shadow-lg top-full">
+                  <ThemeEditor />
+                </div>
+              )}
+            </div>
+
+            <button
+              style={{
+                backgroundColor: currentTheme?.backgroundColor,
+                color: currentTheme?.textColor,
+              }}
+              className={`px-3 py-3 text-xs  uppercase rounded-lg`}
+            >
+              Audio
             </button>
           </div>
         </div>

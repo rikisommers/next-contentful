@@ -16,6 +16,7 @@ import {
   useMotionValueEvent,
 } from "framer-motion";
 
+import PostIntro from "../../components/post/post-intro";
 import PostHeader from "../../components/post/post-header";
 import TransitionTilt from "../../components/transition/transition-tilt";
 import TransitionWipe from "../../components/transition/transition-wipe"
@@ -197,8 +198,9 @@ export default function Post({ post, nextPost }) {
                 </h1> */}
             {post && (
               <>
-                <PostHeader content={post} />
-                <PostContent content={post} />
+                {/* <PostIntro title={post.titlealt} content={post.contentalt} /> */}
+                <PostHeader content={post}/>
+                <PostContent content={post}/>
               </>
             )}
           </motion.div>

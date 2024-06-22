@@ -111,11 +111,11 @@ export default function PostTileCs({ post, index }) {
                 color:currentTheme?.textColor
               }}
           >{post?.title}</h2>
-          <p className="text-md"
-                         style={{
-                          color:currentTheme?.subtextColor
-                        }}
-          >{post?.subtitle}</p>
+          <motion.p className="opacity-0 text-md"
+                style={{
+                color:currentTheme?.subtextColor
+              }}
+          >{post?.subtitle}</motion.p>
           {/* <button className="inline-flex mt-8 text-sm text-slate-400">
             View Case Study
           </button> */}

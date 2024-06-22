@@ -70,7 +70,7 @@ export const TextTitle = ({ content, children }) => {
     // TODO: merge with text animation add theme color add animation options 
     <motion.span
           style={{
-            color:currentTheme?.accent
+            color:currentTheme?.textAccent
           }}
             // variants={test} 
             key={index}>{text}</motion.span>

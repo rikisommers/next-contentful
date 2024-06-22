@@ -39,6 +39,8 @@ module.exports = {
         'vhr':'calc(100vh - 150px)',
         'vhh':'64vh',
         'vh33':'33vh',
+        'vh44':'44vh',
+        'vh55':'55vh',
         'vh66':'66vh',
         'header':'20rem'
       },

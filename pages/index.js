@@ -43,27 +43,27 @@ export default function Index({ home }) {
   // const textColor = theme.textColor;
 
   //console.log(home)
-  // useEffect(() => {
-  //   const wheelEvent =
-  //     "onwheel" in document
-  //       ? "wheel"
-  //       : "onmousewheel" in document
-  //       ? "mousewheel"
-  //       : "DOMMouseScroll";
-  //   const touchEvent = "ontouchstart" in window ? "touchmove" : "";
+  useEffect(() => {
+    const wheelEvent =
+      "onwheel" in document
+        ? "wheel"
+        : "onmousewheel" in document
+        ? "mousewheel"
+        : "DOMMouseScroll";
+    const touchEvent = "ontouchstart" in window ? "touchmove" : "";
 
-  //   const handleScroll = (e) => {
-  //     router.push("/posts");
-  //   };
+    const handleScroll = (e) => {
+      router.push("/work");
+    };
 
-  //   window.addEventListener(wheelEvent, handleScroll);
-  //   window.addEventListener(touchEvent, handleScroll);
+    window.addEventListener(wheelEvent, handleScroll);
+    window.addEventListener(touchEvent, handleScroll);
 
-  //   return () => {
-  //     window.removeEventListener(wheelEvent, handleScroll);
-  //     window.removeEventListener(touchEvent, handleScroll);
-  //   };
-  // }, []);
+    return () => {
+      window.removeEventListener(wheelEvent, handleScroll);
+      window.removeEventListener(touchEvent, handleScroll);
+    };
+  }, []);
 
   
   // const theme = {

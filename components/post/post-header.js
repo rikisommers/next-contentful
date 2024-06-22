@@ -17,29 +17,28 @@ export default function PostHeader({ content }) {
   const [sourceRoute, setSourceRoute] = useState("");
   const [destRoute, setDestRoute] = useState("");
 
-  console.log("deep", content);
   return (
     <>
-      <div className="grid items-end grid-cols-12 gap-3 h-header ">
-        <div className="col-span-12 mb-10 md:col-span-6">
-          {content?.titlealt && (
+      <div className="grid items-end content-end grid-cols-12 gap-4 pb-10 mt-48 lg:gap-8 ">
+      <div className="col-span-12 md:col-span-8 lg:col-span-6">
+          {content?.title && (
             // <TextAnimation content={content?.title} color={'#000'}/>
 
-            <TextTitle content={content?.titlealt} color={"text-slate-400"} />
+            <TextTitle content={content?.title} />
           )}
         </div>
-        <div className="col-span-6 mb-16 text-right text-gray-400 text-h3">
-          {content?.contentalt && (
+        <div className="col-span-12 text-xl text-left md:col-span-8 lg:col-span-6 lg:text-right text-balance">
+        {content?.subtitle && (
             <TextSubtitle
-              content={content.contentalt}
-              color={"text-slate-400"}
+              content={content.subtitle}
+            
             />
           )}
         </div>
       </div>
 
       <motion.div
-        className="relative overflow-hidden h-vhh rounded-xl bg-slate-100"
+        className="relative overflow-hidden rounded-xl bg-slate-100"
         initial={{
           y: 0,
           x: 0,

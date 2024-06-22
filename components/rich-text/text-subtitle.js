@@ -8,7 +8,7 @@ import { themes } from "../../utils/theme";
 import { getThemeByKey } from '../../utils/theme';
 
 
-export const TextSubtitle = ({ content, color, children }) => {
+export const TextSubtitle = ({ content, children }) => {
 
   const {theme} = useTheme()
   const currentTheme = getThemeByKey(theme);

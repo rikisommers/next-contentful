@@ -167,7 +167,7 @@ export default function Posts({ intro, allCaseStudies }) {
       <TransitionTilt active={true} className="z-100">
       <motion.div
         style={{
-          backgroundColor:currentTheme?.bodyBackgroundColor
+          backgroundColor:currentTheme?.backgroundColor
         }}
         animate={{
           clipPath: clipPathValue
@@ -177,7 +177,7 @@ export default function Posts({ intro, allCaseStudies }) {
 
       >
         <div className="o-content" ref={headerRef}>
-          <PostIntro title={intro.titlealt} content={intro.contentalt} />
+          <PostIntro title={intro.titlealt} content={intro.contentalt} theme={theme} />
         </div>
 
         {/* {intro.video && (
@@ -187,10 +187,27 @@ export default function Posts({ intro, allCaseStudies }) {
         
               )} */}
 
+{/* .o-content{
+    width:100%;
+    padding:0 2rem;
+    //padding:0;
+    position: relative;
+    z-index:9;
+    padding: 0 3em;
+  
+    @media only screen and (min-width: $desktop-min) {
+      min-width:$tablet-l-max;
+      padding: 0 5em;
+      max-width:1440px;
+      margin:0 auto;
+    }
+  
+
+  } */}
 
         {allCaseStudies && (
           <motion.div
-            className="px-24 o-content o-grid"
+            className="grid grid-cols-12 gap-6 o-content"
             transition={{
               staggerChildren: 0.3,
               duration: 0.3,
@@ -202,15 +219,18 @@ export default function Posts({ intro, allCaseStudies }) {
                   key={index}
                   layout
                   initial={{
-                    y: 30,
+                   // scale:0.8,
+                    y: 60,
                     x: 0,
                     opacity: 0,
                   }}
                   animate={{
+                   // scale:1,
                     y: 0,
                     x: 0,
                     opacity: 1,
                   }}
+
                   // exit={{
                   //   margin: 'auto',
                   //   opacity : index === selectedIndex ? 1 : 0,
@@ -229,11 +249,16 @@ export default function Posts({ intro, allCaseStudies }) {
                       duration: 0.6,
                       delay: index * 0.2,
                     },
+                    scale: {
+                      easing: cubicBezier(0.76, 0, 0.24, 1),
+                      duration: 0.6,
+                      delay: index * 0.2,
+                    },
                   }}
                   //onClick={() => openModal(post.slug)}
                   // onClick={() => getPosition(index)}
                   // style={isClicked ? () => getPositionStyles() : null}
-                  className="o-grid__item--cs"
+                  className="col-span-12 md:col-span-6"
                 >
                   <PostTileCs index={index} post={post} />
                   
@@ -244,7 +269,7 @@ export default function Posts({ intro, allCaseStudies }) {
         )}
       </motion.div>
 
-      <motion.div ref={footerRef} className="fixed relative testing123 h-vhh">
+      <motion.div ref={footerRef} className="relative testing123 h-vhh">
         <motion.div
           className="fuck"
           style={{ y: footerOffsetValue }}

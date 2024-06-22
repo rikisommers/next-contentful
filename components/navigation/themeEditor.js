@@ -1,15 +1,35 @@
 import React, { useEffect, useState } from "react";
-
-import { useControls } from "leva";
+import { useControls, Leva } from "leva";
 import { useTheme } from "next-themes";
-import { ThemeProvider } from "next-themes";
 import { themes, getThemeByKey, updateTheme } from "../../utils/theme";
 
 export default function ThemeEditor() {
   const { theme, setTheme } = useTheme();
-  const initialTheme = getThemeByKey(theme) || themes.light; // Use a fallback theme
+  
+  // Function to load the initial theme from localStorage
+  const loadInitialTheme = () => {
+    if (typeof window !== "undefined") {
+      const savedTheme = localStorage.getItem('currentTheme');
+      try {
+        return savedTheme ? JSON.parse(savedTheme) : themes.dark;
+      } catch (e) {
+        console.error("Invalid JSON in localStorage:", e);
+        return themes.dark;
+      }
+    }
+    return themes.dark;
+  };
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
+
+  const initialTheme = loadInitialTheme();
   const [currentTheme, setCurrentTheme] = useState(initialTheme);
-  const [forceUpdate, setForceUpdate] = useState(0); // State to trigger re-render
+
   const mixBlendModes = [
     "normal",
     "multiply",
@@ -30,25 +50,30 @@ export default function ThemeEditor() {
   ];
 
   useEffect(() => {
-    const newTheme = getThemeByKey(theme) || themes.light; // Use a fallback theme
-    setCurrentTheme(newTheme);
-  }, [theme]);
-
-  const themeKeys = Object.keys(themes);
+    const savedTheme = localStorage.getItem('currentTheme');
+    try {
+      const parsedTheme = savedTheme ? JSON.parse(savedTheme) : null;
+      if (parsedTheme) {
+        setCurrentTheme(parsedTheme);
+        setTheme(parsedTheme.key);
+      }
+    } catch (e) {
+      console.error("Failed to parse theme from localStorage:", e);
+    }
+  }, [setTheme]);
 
   const applyCurrentTheme = (updatedTheme) => {
     setCurrentTheme(updatedTheme);
     setTheme(updatedTheme.key);
     updateTheme(updatedTheme.key, updatedTheme);
-    setForceUpdate(forceUpdate + 1); // Trigger re-render
+    localStorage.setItem('currentTheme', JSON.stringify(updatedTheme)); // Save the entire theme to localStorage
   };
 
-  console.log("CT----------", currentTheme && currentTheme);
-
   const controls = {
+
     Theme: {
-      value: currentTheme.key,
-      options: themeKeys,
+        value: currentTheme.key,
+      options: Object.keys(themes),
       onChange: (value) => {
         const updatedTheme = getThemeByKey(value);
         applyCurrentTheme(updatedTheme);
@@ -103,6 +128,13 @@ export default function ThemeEditor() {
         applyCurrentTheme(updatedTheme);
       },
     },
+    "Text Accent": {
+      value: currentTheme.textAccent,
+      onChange: (value) => {
+        const updatedTheme = { ...currentTheme, textAccent: value };
+        applyCurrentTheme(updatedTheme);
+      },
+    },
     Accent: {
       value: currentTheme.accent,
       onChange: (value) => {
@@ -120,9 +152,17 @@ export default function ThemeEditor() {
     },
   };
 
-  // Use Leva to render controls
-  //const themeControls = useControls(() => controls);
   useControls(() => controls);
 
-
-}
+  return (
+    <>
+      <Leva
+        fill={true} // Make the pane fill the parent DOM node
+        flat // Remove border radius and shadow
+        oneLineLabels={false} // Alternative layout for labels
+        hideTitleBar={true} // Hide the GUI header
+        collapsed={false} // Start the GUI in collapsed state
+        hidden={false} // GUI is visible by default
+      />
+    </>
+  );}

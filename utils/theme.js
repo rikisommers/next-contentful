@@ -1,5 +1,4 @@
 
-
 // Color themes
 const colorThemes = {
   light: {
@@ -11,6 +10,7 @@ const colorThemes = {
     subtextColor: '#52525b',
     textColorInv: '#fafafa',
     accent:'#d946ef',
+    textAccent:'#d946ef',
     mixBlendMode:'color',
   },
   dark: {
@@ -22,6 +22,7 @@ const colorThemes = {
     subtextColor: '#a1a1aa',
     textColorInv: '#09090b',
     accent:'#99f6e4',
+    textAccent:'#99f6e4',
     mixBlendMode:'luminosity',
   },
 };

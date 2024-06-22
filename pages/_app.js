@@ -6,12 +6,12 @@ import { MousePosProvider } from "../components/mousePosContext";
 import { ScrollPositionProvider } from "../components/scrollPosContext";
 import { RouteProvider } from "../components/routeContext";
 import Navigation from "../components/navigation/primary-navigation";
-import ThemeEditor from "../components/navigation/themeEditor";
 import Preloader from "./preloader";
 import { getAllImages } from "../lib/api";
 import { ThemeProvider } from 'next-themes'
 import { themes } from "../utils/theme";
 import '../styles/index.scss';
+
 
 function MyApp({ Component, pageProps, router }) {
   const [isLoading, setIsLoading] = useState(true);
@@ -92,7 +92,6 @@ function MyApp({ Component, pageProps, router }) {
         :  } */}
             <>
               {" "}
-              <ThemeEditor />
               <Navigation />
               <AnimatePresence mode="wait">
                 <Component {...pageProps} key={router.asPath} />

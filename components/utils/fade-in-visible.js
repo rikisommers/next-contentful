@@ -1,7 +1,14 @@
 import { motion } from "framer-motion";
+import { useTheme } from 'next-themes';
+import { themes } from "../../utils/theme";
+import { getThemeByKey } from '../../utils/theme';
 
 export default function FadeInWhenVisible({ color,children, enabled = true }) {
 
+    
+  const {theme} = useTheme()
+  const currentTheme = getThemeByKey(theme);
+  console.log(currentTheme)
 
     return (
       <motion.div
@@ -14,7 +21,7 @@ export default function FadeInWhenVisible({ color,children, enabled = true }) {
           visible: { opacity: 1 },
           hidden: { opacity: 1 }
         }}
-        style={{backgroundColor:color}}
+        style={{backgroundColor:currentTheme?.accent}}
 
       >
         {children}

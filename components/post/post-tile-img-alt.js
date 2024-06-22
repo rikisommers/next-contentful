@@ -7,13 +7,13 @@ import BlendImage from "../image/blend-image";
 
 export default function PostTileImgAlt({ post }) {
   return (
-    <div className="flex flex-col flex-grow rounded-lg overflow-hidden relative img-post">
-        <div className="absolute z-50 w-full h-full flex gap-4 justify-between items-start top-0 left-0 px-4 py-4 text-white ">
+    <div className="relative flex flex-col flex-grow overflow-hidden rounded-lg img-post">
+        <div className="absolute top-0 left-0 z-50 flex items-start justify-between w-full h-full gap-4 px-4 py-4 text-white ">
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-4">
                 {post?.type[0] === "case study" && (
                   <>
-                    <span className="material-icons text-white text-lg w-1">
+                    <span className="w-1 text-lg text-white material-icons">
                       inventory_alt
                     </span>
                     Case study
@@ -21,7 +21,7 @@ export default function PostTileImgAlt({ post }) {
                 )}
                 {post?.type[0] === "blog post" && (
                   <>
-                    <span className="material-icons text-white text-lg w-1">
+                    <span className="w-1 text-lg text-white material-icons">
                       article
                     </span>
                     Blog
@@ -44,7 +44,7 @@ export default function PostTileImgAlt({ post }) {
                 </div>
               )}
             </div>
-            <div className="text-xs flex gap-4">
+            <div className="flex gap-4 text-xs">
               <span>DATE</span>
             </div>
           </div>
@@ -52,10 +52,9 @@ export default function PostTileImgAlt({ post }) {
 <motion.div style={{y}}>     
 </motion.div> */}
 
-      <FadeInWhenVisible color={post?.color}>
+      <FadeInWhenVisible>
         <BlendImage
           className="img-cover"
-          color={post?.color}
           alt={`Cover Image for ${post?.title}`}
           src={post?.img.url}
         />
