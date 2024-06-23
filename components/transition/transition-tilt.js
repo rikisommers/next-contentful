@@ -9,37 +9,49 @@ const TransitionTilt = ({active, children }) => {
   const container = {
     initial: {
        z:40,
-       //scale:.9,
+       scale:1,
        transformStyle: 'preserve-3d',
-       perspective: '100px', // Adjust the perspective value as needed
+       perspective: '1000', // Adjust the perspective value as needed
        perspectiveOrigin: 'top', // Set the perspective origin (adjust as needed)
     },
     exit:{
       z: 0,
-     // scale:1,
+      scale:.9,
+
       perspective: '0px', // Adjust the perspective value as needed
       perspectiveOrigin: 'top', // Set the perspective origin (adjust as needed)
+      transition: {
+        duration: .6, // custom duration for opacity property only
+      
+      },
     }
   }
   const blur = {
     initial: {
       opacity: 0,
-      //filter: 'blur(20px)',
+      filter: 'blur(0px)',
 
-  
+
       
     },
     show: {
       opacity: 1,
-     // filter: 'blur(0px)',
+      filter: 'blur(0px)',
       y: 1,
 
-   
+   //  transform : [`
+        //   translateZ(-10px) 
+        //   translateY(-10px) 
+        //   rotateX(0deg)
+        //   translateZ(-5px) 
+        //   translateY(-5px) 
+        //   rotateX(-5.2216deg)
+        //   `]
       transition: {
-        duration: 1.6, // custom duration for opacity property only
+        duration: .6, // custom duration for opacity property only
         opacity: {
           ease: [0.33, 1, 0.68, 1],
-          duration: 0.6 // custom duration for opacity property only
+          duration: .6 // custom duration for opacity property only
         },
 
       },
@@ -47,7 +59,10 @@ const TransitionTilt = ({active, children }) => {
     exit: {
       opacity: 0,
       filter: 'blur(20px)',
-      y: -40,
+     // transform:"translateZ(-10px), rotateY(-7deg) ",
+      transform: 'rotateX(6.2216deg)',
+
+      y: -100,
       z: 0
     },
   };

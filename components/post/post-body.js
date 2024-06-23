@@ -6,6 +6,7 @@ import BlockImg from "../blocks/block-img"
 import BlockEmbed  from "../blocks/block-embed"
 import BlockImages from "../blocks/block-images"
 import BlockHotspotImg from "../blocks/block-hotspot-image"
+import { BlockList } from "../blocks/block-list"
 
 const customMarkdownOptions = (content) => ({
   renderNode: {
@@ -53,7 +54,9 @@ export default function PostBody({ content }) {
                   <BlockEmbed key={item.id} data={item} />
                 )}
 
-                
+                {item.__typename === "BlockList" && (
+                  <BlockList key={item.id} data={item} />
+                )}
 
               </section>
 
