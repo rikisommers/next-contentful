@@ -227,9 +227,7 @@ export default function Post({ post, nextPost }) {
             }}
           >
 
-     
- 
-{/* {post.relatedCollection.items && (
+    {/* {post.relatedCollection.items && (
             post.relatedCollection.items.map((item,index) => {
               return (
                 <PostTileCs post={item} index={index} />

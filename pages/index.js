@@ -65,9 +65,7 @@ const Index = ({ home }) => {
     // Initialize Three.js
     renderer.current = new THREE.WebGLRenderer({ canvas: canvasRef.current });
     renderer.current.setSize(window.innerWidth, window.innerHeight);
-
     scene.current = new THREE.Scene();
-
     camera.current = new THREE.Camera();
     scene.current.add(camera.current);
 
@@ -158,7 +156,7 @@ const Index = ({ home }) => {
               </div>
             </div>
 
-          <div className="flex justify-between p-3 self-end">
+          <div className="flex self-end justify-between p-3">
             <div className="flex gap-3">
               <div className="flex gap-1 text-xs lg:col-span-2">
                 <span className="uppercase text-slate-400">Location:</span>
