@@ -10,6 +10,8 @@ import { gsap } from 'gsap';
 import * as THREE from "three";
 import { vertexShader } from "../shaders/water/vertex";
 import { fragmentShader } from "../shaders/water/fragment";
+import { TextTitle } from "../components/rich-text/text-title";
+import { TextSubtitle } from "../components/rich-text/text-subtitle";
 
 const vs = `
 varying vec2 v_texcoord;
@@ -53,72 +55,72 @@ void main() {
 const Index = ({ home }) => {
   const { theme } = useTheme();
   const currentTheme = getThemeByKey(theme);
-  const canvasRef = useRef(null);
-  const renderer = useRef(null);
-  const scene = useRef(null);
-  const camera = useRef(null);
-  const plane = useRef(null);
-  const uniforms = useRef(null);
-  const clock = useRef(new THREE.Clock());
+  // const canvasRef = useRef(null);
+  // const renderer = useRef(null);
+  // const scene = useRef(null);
+  // const camera = useRef(null);
+  // const plane = useRef(null);
+  // const uniforms = useRef(null);
+  // const clock = useRef(new THREE.Clock());
 
-  useEffect(() => {
-    // Initialize Three.js
-    renderer.current = new THREE.WebGLRenderer({ canvas: canvasRef.current });
-    renderer.current.setSize(window.innerWidth, window.innerHeight);
-    scene.current = new THREE.Scene();
-    camera.current = new THREE.Camera();
-    scene.current.add(camera.current);
+  // useEffect(() => {
+  //   // Initialize Three.js
+  //   renderer.current = new THREE.WebGLRenderer({ canvas: canvasRef.current });
+  //   renderer.current.setSize(window.innerWidth, window.innerHeight);
+  //   scene.current = new THREE.Scene();
+  //   camera.current = new THREE.Camera();
+  //   scene.current.add(camera.current);
 
-    // Create plane geometry and shader material
-    const geometry = new THREE.PlaneGeometry(2, 2);
-    uniforms.current = {
-      time: { value: 0 },
-      tex: { value: null },
-    };
-    const material = new THREE.ShaderMaterial({
-      uniforms: uniforms.current,
-      vertexShader: vs,
-      fragmentShader: fs1,
-    });
+  //   // Create plane geometry and shader material
+  //   const geometry = new THREE.PlaneGeometry(2, 2);
+  //   uniforms.current = {
+  //     time: { value: 0 },
+  //     tex: { value: null },
+  //   };
+  //   const material = new THREE.ShaderMaterial({
+  //     uniforms: uniforms.current,
+  //     vertexShader: vs,
+  //     fragmentShader: fs1,
+  //   });
 
-    plane.current = new THREE.Mesh(geometry, material);
-    scene.current.add(plane.current);
+  //   plane.current = new THREE.Mesh(geometry, material);
+  //   scene.current.add(plane.current);
 
-    // Load texture from html2canvas
-    const loadTexture = async () => {
-      const captureCanvas = await html2canvas(document.body);
-      const texture = new THREE.Texture(captureCanvas);
-      texture.needsUpdate = true;
-      uniforms.current.tex.value = texture;
+  //   // Load texture from html2canvas
+  //   const loadTexture = async () => {
+  //     const captureCanvas = await html2canvas(document.body);
+  //     const texture = new THREE.Texture(captureCanvas);
+  //     texture.needsUpdate = true;
+  //     uniforms.current.tex.value = texture;
 
-      animate();
-    };
+  //     animate();
+  //   };
 
-    loadTexture();
+  //   loadTexture();
 
-    // Animation loop
-    const animate = () => {
-      requestAnimationFrame(animate);
+  //   // Animation loop
+  //   const animate = () => {
+  //     requestAnimationFrame(animate);
 
-      const elapsedTime = clock.current.getElapsedTime();
-      uniforms.current.time.value = elapsedTime * 0.5;
+  //     const elapsedTime = clock.current.getElapsedTime();
+  //     uniforms.current.time.value = elapsedTime * 0.5;
 
-      renderer.current.render(scene.current, camera.current);
-    };
+  //     renderer.current.render(scene.current, camera.current);
+  //   };
 
-    window.addEventListener('resize', onWindowResize);
-    return () => {
-      window.removeEventListener('resize', onWindowResize);
-    };
-  }, []);
+  //   window.addEventListener('resize', onWindowResize);
+  //   return () => {
+  //     window.removeEventListener('resize', onWindowResize);
+  //   };
+  // }, []);
 
-  const onWindowResize = () => {
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-    renderer.current.setSize(width, height);
-    camera.current.aspect = width / height;
-    camera.current.updateProjectionMatrix();
-  };
+  // const onWindowResize = () => {
+  //   const width = window.innerWidth;
+  //   const height = window.innerHeight;
+  //   renderer.current.setSize(width, height);
+  //   camera.current.aspect = width / height;
+  //   camera.current.updateProjectionMatrix();
+  // };
 
   const date = new Date(home.sys.publishedAt);
   const options = { year: "numeric", month: "2-digit", day: "2-digit" };
@@ -126,17 +128,31 @@ const Index = ({ home }) => {
 
   return (
     <Layout>
-      <canvas 
+      {/* <canvas 
         ref={canvasRef} 
         id="canvas"
-      />
+      /> */}
 
       <div className={`transition ease-in-out w-screen h-screen bg-gray-900`} style={{ backgroundColor: currentTheme?.bodyBackgroundColor }}>
         <div className="z-10 home">
             <div className="grid items-end h-full grid-cols-12 px-32 py-32">
-              <div className="flex flex-col col-span-12 gap-6 md:col-span-6 text-slate-50">
-                <h1>Sfsff</h1>
-                <h1
+              <div className="flex flex-col col-span-12 gap-6 md:col-span-6 ">
+                {/* <h1 className="text-7xl">{backgroundColor}</h1> */}
+
+                {/* <TextAnimation  
+                    content={home.title}
+                    color={"text-slate-400"}
+                  /> */}
+
+                <TextTitle content={home.titlealt}>
+                  {/* <TextScramble content={['Plan,Design & buid','wear many hats','like fart jokes']}/> */}
+                </TextTitle>
+                <TextSubtitle
+                  content={home.contentalt}
+                  color={currentTheme?.textColor}
+                />
+
+                {/* <h1
                   initial={{ opacity: 1 }}
                   animate={{ opacity: 1 }}
                 //  transition={{ delay: 0, duration: 1 }}
@@ -152,7 +168,7 @@ const Index = ({ home }) => {
                   className="text-slate-400"
                 >
                   {home.content}
-                </p>
+                </p> */}
               </div>
             </div>
 
