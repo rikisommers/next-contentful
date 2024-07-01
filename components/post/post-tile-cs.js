@@ -24,7 +24,7 @@ export default function PostTileCs({ post, index }) {
   
   const {theme} = useTheme()
   const currentTheme = getThemeByKey(theme);
-  console.log(currentTheme)
+  //console.log(currentTheme)
 
   const ref = useRef(null);
 

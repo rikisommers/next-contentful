@@ -1,27 +1,41 @@
 import React from "react";
+import { motion } from "framer-motion";
+import TextAnimation from "../utils/text-animation";
+import { TextTitle } from "../rich-text/text-title";
+import Audio from "../navigation/audio";
+import Link from "next/link";
+import { useTheme } from "next-themes";
+import { themes } from "../../utils/theme";
+import { getThemeByKey } from "../../utils/theme";
 
-export const BlockList = ({ data }) => {
+export default function BlockList({ data }) {
+
+  const { theme } = useTheme();
+  const currentTheme = getThemeByKey(theme);
   return (
-    <figure>
-      <h3 classname="col-6 u-ph--title u-t-subtitle u-mb--16">{data.title}</h3>
-        <p>{data.description}</p>
-        {data.items &&
-          data.itemsCollection.items.map((item,index) => {
-            return (
-              <figure>
-                //
-                <figcaption className="u-fs--caption u-c--light">
-                  {item.title}
-                </figcaption>
-                --
-                <figcaption className="u-fs--caption u-c--light">
-                  {item.content}
-                </figcaption>
-              </figure>
-            );
-          })}
-    </figure>
-  );
-};
+    <article className="grid grid-cols-12 gap-3 article-content">
 
-export default BlockList;
+      <div className="col-span-10 col-start-2 md:col-start-3 md:col-span-8">
+        <div className="flex flex-col w-full gap-3 p-4 rounded"
+             style={{ backgroundColor: currentTheme?.surface1 }}>
+          {data.title && <h1 className="s"
+          style={{ color: currentTheme?.headingColor }}>{data.title}</h1>}
+          {data.itemsCollection &&
+            data.itemsCollection.items.map((item, index) => {
+              return (
+                <div
+                  className="flex flex-col p-3 rounded"
+                  style={{ backgroundColor: currentTheme?.surface2 }}
+                  key={index}
+                >
+                  {item.title && <h3 className="mb-0 text-h4" 
+                  style={{ color: currentTheme?.textColor }}>{item.title}</h3>}
+                  {item.content && <p style={{ color: currentTheme?.subtextColor }}>{item.content}</p>}
+                </div>
+              );
+            })}
+        </div>
+      </div>
+    </article>
+  );
+}

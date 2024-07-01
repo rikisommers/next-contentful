@@ -27,7 +27,7 @@ import NextPost from "../../components/post/post-next";
 import { RouteContext } from "../../components/routeContext";
 import Lenis from "@studio-freight/lenis";
 import BlockFooter from "../../components/blocks/block-footer";
-
+import PostTileCs from "../../components/post/post-tile-cs";
 import { useTheme } from 'next-themes';
 import { themes } from "../../utils/theme";
 import { getThemeByKey } from "../../utils/theme";
@@ -206,6 +206,14 @@ export default function Post({ post, nextPost }) {
           </motion.div>
         </motion.div>
 
+{/* 
+        {post.related && post.relatedCollection.items.map((post, index) => {
+        <>
+        <h1>dd</h1>
+        <PostTileCs index={index} post={post} />
+        </>
+        })} */}
+                       
         <motion.div ref={footerRef} className="relative z-10 testing123 h-vh">
           <motion.div
             initial={{ y: 0, opacity: 0 }}
@@ -218,6 +226,17 @@ export default function Post({ post, nextPost }) {
               delay: 0.2,
             }}
           >
+
+     
+ 
+{/* {post.relatedCollection.items && (
+            post.relatedCollection.items.map((item,index) => {
+              return (
+                <PostTileCs post={item} index={index} />
+              )
+            })
+
+      )} */}
             {/* {nextPost && (
               <div className="test">
                 <Link

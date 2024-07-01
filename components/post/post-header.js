@@ -50,7 +50,7 @@ export default function PostHeader({ content }) {
           opacity: 1,
         }}
       >
-        <FadeInWhenVisible color={content?.color}>
+        <FadeInWhenVisible>
           <PostTileImgAlt post={content} />
         </FadeInWhenVisible>
       </motion.div>

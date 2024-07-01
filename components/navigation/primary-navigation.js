@@ -22,7 +22,7 @@ if (typeof window !== "undefined") {
 export default function Navigation() {
   const { theme } = useTheme();
   const currentTheme = getThemeByKey(theme);
-  console.log(currentTheme);
+  //console.log(currentTheme);
 
   const router = useRouter();
   const menuRef = useRef(null);

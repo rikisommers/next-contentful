@@ -37,7 +37,8 @@
     "ukiyojs": "^4.1.2",
     "url-loader": "^4.1.1",
     "use-sound": "^4.0.1",
-    "zustand": "^4.4.4"
+    "zustand": "^4.4.4",
+    "html2canvas":"1.4.1"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",

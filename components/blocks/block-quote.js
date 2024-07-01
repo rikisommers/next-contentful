@@ -14,7 +14,7 @@ export const BlockQuote = ({ data }) => {
       <div className="flex flex-col col-span-4 col-start-2 gap-4"
       style={{color:currentTheme?.subtextColor}}>
         {data.title && 
-        <span style={{color:currentTheme?.accent}}>
+        <span style={{color:currentTheme?.headingColor}}>
           {data.title}
           </span>}
 

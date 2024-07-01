@@ -100,6 +100,20 @@ export default function ThemeEditor() {
         applyCurrentTheme(updatedTheme);
       },
     },
+    "Surface 1": {
+      value: currentTheme.surface1,
+      onChange: (value) => {
+        const updatedTheme = { ...currentTheme, surface1: value };
+        applyCurrentTheme(updatedTheme);
+      },
+    },
+    "Surface 2": {
+      value: currentTheme.surface2,
+      onChange: (value) => {
+        const updatedTheme = { ...currentTheme, surface2: value };
+        applyCurrentTheme(updatedTheme);
+      },
+    },
     "Heading Color": {
       value: currentTheme.headingColor,
       onChange: (value) => {

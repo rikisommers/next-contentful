@@ -45,17 +45,17 @@ export default function PostTile({ post, index }) {
     <Link
       scroll={false}
       href={`/projects/${post.slug}`}
-      className="flex rounded-lg flex-col tile relative w-full h-full overflow-hidde "
+      className="relative flex flex-col w-full h-full rounded-lg tile overflow-hidde "
     >
       {/* <motion.div
         initial="initial"
         whileHover="hover"
         exit="initial"
         key={post?.title}
-        className="z-20 w-full h-full bg-zinc-900/30 flex flex-1 relative"
+        className="relative z-20 flex flex-1 w-full h-full bg-zinc-900/30"
       >
         
-        <h2 className="absolute w-full bottom-0 left-0 px-8 pb-5 text-white">
+        <h2 className="absolute bottom-0 left-0 w-full px-8 pb-5 text-white">
           {post?.title}
         </h2>
 
@@ -73,13 +73,13 @@ export default function PostTile({ post, index }) {
       </motion.div> */}
 
       {post.img && (
-        <div className="flex flex-grow rounded-lg overflow-hidden relative img-portrait ">
+        <div className="relative flex flex-grow overflow-hidden rounded-lg img-portrait ">
           <div
             ref={ref}
-            className="absolute z-50 w-full h-full flex gap-4 justify-between items-end top-0 left-0 px-4 pb-4 text-white "
+            className="absolute top-0 left-0 z-50 flex items-end justify-between w-full h-full gap-4 px-4 pb-4 text-white "
           >
             {/* <div className="flex flex-col gap-1">
-              <span className="uppercase text-xs">{post?.client}</span>
+              <span className="text-xs uppercase">{post?.client}</span>
               <p className="">{post?.subtitle}</p>
             </div> */}
 
@@ -97,11 +97,11 @@ export default function PostTile({ post, index }) {
         </div>
       )}
 
-      <div className="flex justify-between items-start py-4 ">
+      <div className="flex items-start justify-between py-4 ">
         <div className="flex flex-col gap-2">
-          <h2 className=" text-black z-50 text-2xl">{post?.title}</h2>
+          <h2 className="z-50 text-2xl text-black ">{post?.title}</h2>
           <p className="text-md">{post?.subtitle}</p>
-          {/* <button className="text-sm text-slate-400 inline-flex mt-8">
+          {/* <button className="inline-flex mt-8 text-sm text-slate-400">
             View Case Study
           </button>{" "} */}
         </div>

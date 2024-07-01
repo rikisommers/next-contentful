@@ -4,6 +4,8 @@ const colorThemes = {
   light: {
     bodyBackgroundColor: '#fafafa',
     backgroundColor: '#f4f4f5',
+    surface1: '#c1c1c1',
+    surface2: '#6f6f6f',
     backgroundColorInv: '#6b7280',
     headingColor: '#52525b',
     textColor: '#09090b',
@@ -12,10 +14,13 @@ const colorThemes = {
     accent:'#d946ef',
     textAccent:'#d946ef',
     mixBlendMode:'color',
+    stateSuccessBackground:'#d946ef',
   },
   dark: {
     bodyBackgroundColor: '#1f2937',
     backgroundColor: '#6b7280',
+    surface1: '#c1c1c1',
+    surface2: '#6f6f6f',
     backgroundColorInv: '#f4f4f5',
     headingColor: '#e4e4e7',
     textColor: '#fafafa',
@@ -24,6 +29,7 @@ const colorThemes = {
     accent:'#99f6e4',
     textAccent:'#99f6e4',
     mixBlendMode:'luminosity',
+    stateSuccessBackground:'#d946ef',
   },
 };
 

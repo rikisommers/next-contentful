@@ -52,6 +52,7 @@ export default function PostTileImgAlt({ post }) {
 <motion.div style={{y}}>     
 </motion.div> */}
 
+      {post?.img &&
       <FadeInWhenVisible>
         <BlendImage
           className="img-cover"
@@ -59,6 +60,7 @@ export default function PostTileImgAlt({ post }) {
           src={post?.img.url}
         />
       </FadeInWhenVisible>
+      }
     </div>
   );
 }

@@ -5,6 +5,8 @@ import { AnimatePresence } from "framer-motion";
 import { MousePosProvider } from "../components/mousePosContext";
 import { ScrollPositionProvider } from "../components/scrollPosContext";
 import { RouteProvider } from "../components/routeContext";
+import { ToastProvider } from "../components/toastContext"; 
+
 import Navigation from "../components/navigation/primary-navigation";
 import Preloader from "./preloader";
 import { getAllImages } from "../lib/api";
@@ -86,7 +88,8 @@ function MyApp({ Component, pageProps, router }) {
       <ThemeProvider defaultTheme={themes.light.key}>
 
         <MousePosProvider>
- 
+        <ToastProvider>
+
             {/* {isLoading ? 
          <Preloader /> 
         :  } */}
@@ -121,6 +124,7 @@ function MyApp({ Component, pageProps, router }) {
               </defs>
             </svg>
 
+         </ToastProvider>
         </MousePosProvider>
         </ThemeProvider>
 

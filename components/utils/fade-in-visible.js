@@ -8,7 +8,7 @@ export default function FadeInWhenVisible({ color,children, enabled = true }) {
     
   const {theme} = useTheme()
   const currentTheme = getThemeByKey(theme);
-  console.log(currentTheme)
+ // console.log(currentTheme)
 
     return (
       <motion.div

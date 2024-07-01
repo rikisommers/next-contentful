@@ -12,7 +12,7 @@ export const TextTitle = ({ content, children }) => {
   
   const {theme} = useTheme()
   const currentTheme = getThemeByKey(theme);
-  console.log(currentTheme)
+  //console.log(currentTheme)
 
   const container = {
     initial: { opacity: 0.5 },
