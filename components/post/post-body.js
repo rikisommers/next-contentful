@@ -1,6 +1,5 @@
 import { BLOCKS } from "@contentful/rich-text-types"
 import RichTextAsset from "../rich-text/rich-text-asset"
-import BlockArticle from "../blocks/block-article"
 import BlockQuote from "../blocks/block-quote"
 import BlockImg from "../blocks/block-img"
 import BlockEmbed  from "../blocks/block-embed"
@@ -8,6 +7,8 @@ import BlockImages from "../blocks/block-images"
 import BlockHotspotImg from "../blocks/block-hotspot-image"
 import BlockList from "../blocks/block-list"
 import BlockCode from "../blocks/block-code"
+import BlockArticle from "../blocks/block-article"
+import BlockArticles from "../blocks/block-articles"
 
 const customMarkdownOptions = (content) => ({
   renderNode: {
@@ -25,16 +26,18 @@ export default function PostBody({ content }) {
 
 
   return (
-    <div className="flex flex-col max-w-6xl gap-32 mx-auto">
-
+    <div className="flex flex-col gap-32 px-4 py-32">
+{/* max-w-6xl gap-32 mx-auto */}
         {content.items &&
           content.items.map((item,index) => {
             return (
               <section key={index}>
                 {item.__typename === "BlockArticle" && (
-                  <BlockArticle key={item.id} article={item} ></BlockArticle>
+                  <BlockArticle key={item.id} data={item} ></BlockArticle>
                 )}
-
+                {item.__typename === "BlockArticles" && (
+                  <BlockArticles key={item.id} data={item} ></BlockArticles>
+                )}
                 {item.__typename === "BlockImage" && (
                   <BlockImg key={item.id} data={item} />
                 )}

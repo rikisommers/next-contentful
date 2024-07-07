@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useRef } from "react";
 import ContentfulImage from "./contentful-image";
 import {
@@ -24,7 +26,7 @@ export default function CoverImage({ title, url, slug, layout }) {
   const image = (
       <motion.div
         ref={ref}
-        className="c-video flex flex-col align-bottom content-end"
+        className="flex flex-col content-end align-bottom c-video"
         // initial={{ clipPath: clipPathInitial }}
         // animate={{ clipPath: clipPathInitial }}
         // exit={{ clipPath: clipPathInitial }}

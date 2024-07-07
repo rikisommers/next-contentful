@@ -1,7 +1,6 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Layout from "../components/layout";
-import { getHome } from "../lib/api";
-import { motion } from "framer-motion";
+import { getHome, getLandingPage } from "../lib/api";
 import TransitionWipe from "../components/transition/transition-wipe";
 import { useTheme } from 'next-themes';
 import { getThemeByKey } from '../utils/theme';
@@ -12,6 +11,18 @@ import { vertexShader } from "../shaders/water/vertex";
 import { fragmentShader } from "../shaders/water/fragment";
 import { TextTitle } from "../components/rich-text/text-title";
 import { TextSubtitle } from "../components/rich-text/text-subtitle";
+import CustomCursor from "../components/utils/cursor";
+import PostBody from "../components/post/post-body";
+import BlockFooter from "../components/blocks/block-footer";
+import Lenis from "@studio-freight/lenis";
+import {
+  motion,
+  cubicBezier,
+  useMotionValue,
+  useTransform,
+  useScroll,
+  useMotionValueEvent,
+} from "framer-motion";
 
 const vs = `
 varying vec2 v_texcoord;
@@ -52,9 +63,43 @@ void main() {
 }
 `;
 
-const Index = ({ home }) => {
+const Index = ({ data }) => {
   const { theme } = useTheme();
   const currentTheme = getThemeByKey(theme);
+
+
+
+  const [dimension, setDimension] = useState({ width: 0, height: 0 });
+  const [footerOffsetValue, setFooterOffsetValue] = useState(0);
+
+ 
+
+
+  useEffect(() => {
+    const lenis = new Lenis();
+
+    const raf = (time) => {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    };
+
+    requestAnimationFrame(raf);
+
+    const resize = () => {
+      setDimension({ width: window.innerWidth, height: window.innerHeight });
+    };
+
+    window.addEventListener("resize", resize);
+
+    requestAnimationFrame(raf);
+
+    resize();
+
+    return () => {
+      window.removeEventListener("resize", resize);
+    };
+  }, []);
+  
   // const canvasRef = useRef(null);
   // const renderer = useRef(null);
   // const scene = useRef(null);
@@ -122,7 +167,7 @@ const Index = ({ home }) => {
   //   camera.current.updateProjectionMatrix();
   // };
 
-  const date = new Date(home.sys.publishedAt);
+  const date = new Date(data.sys.publishedAt);
   const options = { year: "numeric", month: "2-digit", day: "2-digit" };
   const dateString = date.toLocaleDateString("en-US", options);
 
@@ -133,7 +178,11 @@ const Index = ({ home }) => {
         id="canvas"
       /> */}
 
-      <div className={`transition ease-in-out w-screen h-screen bg-gray-900`} style={{ backgroundColor: currentTheme?.bodyBackgroundColor }}>
+      {/* <CustomCursor/> */}
+
+
+                
+      <div className={`relative transition ease-in-out w-screen h-screen`} style={{ backgroundColor: currentTheme?.bodyBackgroundColor }}>
         <div className="z-10 home">
             <div className="grid items-end h-full grid-cols-12 px-32 py-32">
               <div className="flex flex-col col-span-12 gap-6 md:col-span-6 ">
@@ -144,31 +193,14 @@ const Index = ({ home }) => {
                     color={"text-slate-400"}
                   /> */}
 
-                <TextTitle content={home.titlealt}>
+                <TextTitle content={data.titlealt}>
                   {/* <TextScramble content={['Plan,Design & buid','wear many hats','like fart jokes']}/> */}
                 </TextTitle>
                 <TextSubtitle
-                  content={home.contentalt}
+                  content={data.contentalt}
                   color={currentTheme?.textColor}
                 />
 
-                {/* <h1
-                  initial={{ opacity: 1 }}
-                  animate={{ opacity: 1 }}
-                //  transition={{ delay: 0, duration: 1 }}
-                  className="text-7xl"
-                >
-                  {home.title}
-                </h1>
-
-                <p
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0, duration: 1 }}
-                  className="text-slate-400"
-                >
-                  {home.content}
-                </p> */}
               </div>
             </div>
 
@@ -199,7 +231,7 @@ const Index = ({ home }) => {
         <motion.div
           className="absolute flex items-center justify-end w-full h-full bg-gray-900 opacity-75"
           initial={{ clipPath: "inset(1.0rem 1.0rem 6.0rem round 0.5rem)" }}
-          animate={{ clipPath: "inset( 1.5rem round 1rem )" }}
+          animate={{ clipPath: "inset( 1rem round 1rem )" }}
           exit={{ clipPath: "inset( 1.5rem 1.5rem 90vh 1.5rem round 1rem )" }}
           transition={{
             duration: 0.6,
@@ -208,17 +240,26 @@ const Index = ({ home }) => {
         />
       </div>
 
-      <TransitionWipe />
+      {data.csblocksCollection.items && (
+        // <PostContent content={data}/>
+        <PostBody content={data.csblocksCollection} />
+      )}
+
+
+      <BlockFooter/>
+      {/* <TransitionWipe /> */}
     </Layout>
+
+
   );
 };
 
 export async function getStaticProps({ preview = false }) {
-  const home = (await getHome(preview)) ?? [];
+  const data = (await getLandingPage('home')) ?? [];
 
   return {
     props: {
-      home,
+      data,
     },
   };
 }

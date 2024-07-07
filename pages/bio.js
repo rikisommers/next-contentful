@@ -10,7 +10,6 @@ import { getLandingPage } from "../lib/api";
 import TextRotating from "../components/utils/text-rotating";
 import { ScrollableBox } from "../components/utils/scrollable";
 import BlockFooter from "../components/blocks/block-footer";
-import Lenis from "@studio-freight/lenis";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { RichTextOptions } from "../components/rich-text/rich-text";
 import Link from "next/link";
@@ -21,6 +20,7 @@ import { getThemeByKey } from '../utils/theme';
 import PostBody from "../components/post/post-body";
 import PostContent from "../components/post/post-content";
 
+import Lenis from "@studio-freight/lenis";
 import {
   motion,
   cubicBezier,
@@ -182,8 +182,6 @@ export default function Bio({ data }) {
                 {data.csblocksCollection.items && (
                   // <PostContent content={data}/>
                   <PostBody content={data.csblocksCollection} />
-  
-
                 )}
             </div>
           </motion.div>

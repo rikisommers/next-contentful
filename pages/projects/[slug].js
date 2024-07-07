@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect, useRef } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import ErrorPage from "next/error";
 import Layout from "../../components/layout";
 import {
@@ -31,7 +31,6 @@ import PostTileCs from "../../components/post/post-tile-cs";
 import { useTheme } from 'next-themes';
 import { themes } from "../../utils/theme";
 import { getThemeByKey } from "../../utils/theme";
-
 
 
 export default function Post({ post, nextPost }) {

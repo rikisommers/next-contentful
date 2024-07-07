@@ -8,34 +8,35 @@ import { themes } from "../../utils/theme";
 import { getThemeByKey } from '../../utils/theme';
 
 
-export const BlockArticle = ({ article }) => {
+export const BlockArticle = ({ data }) => {
 
   const {theme} = useTheme()
   const currentTheme = getThemeByKey(theme);
 
   return (
-    <article className="grid grid-cols-12 gap-3 article-content" id={article.title}>
+
+    <article className="grid grid-cols-12 gap-3 article-content" id={data.title}>
  
 
       <div className="col-span-10 col-start-2 md:col-start-3 md:col-span-8">
         
-        {article.title && 
-        <h2 className="mb-10 text-3xl" style={{color:currentTheme?.headingColor}}>{article.title}</h2>
+        {data.title && 
+        <h2 className="mb-10 text-3xl" style={{color:currentTheme?.headingColor}}>{data.title}</h2>
         }
-        {article.content && (
-          <p className="mb-8 text-base" style={{color:currentTheme?.subtitleColor}}>{article.content.content}</p>
+        {data.content && (
+          <p className="mb-8 text-base" style={{color:currentTheme?.subtitleColor}}>{data.content.content}</p>
         )}
 
-        {article.contentRich && (
+        {data.contentRich && (
           <div style={{color:currentTheme?.textColor}}>
             {documentToReactComponents(
-              article.contentRich.json,
+              data.contentRich.json,
               RichTextOptions
             )}
           </div>
         )}
-        {article.img &&
-          article.img.map((img) => {
+        {data.img &&
+          data.img.map((img) => {
             return (
               <ContentfulImage
                 key={img.title}
@@ -48,6 +49,7 @@ export const BlockArticle = ({ article }) => {
           })}
       </div>
     </article>
+  
   );
 };
 

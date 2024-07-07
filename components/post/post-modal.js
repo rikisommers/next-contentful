@@ -5,7 +5,7 @@ import {
   useMotionValue,
   cubicBezier,
 } from "framer-motion";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { ScrollableBox } from "../utils/scrollable";
 import NextPost from "./post-next";
 import Close from "../base/close";
@@ -143,12 +143,12 @@ const PostModal = ({
           ease: [0.33, 1, 0.68, 1],
         }}
         style={{ clipPath: clipPathValue }}
-        className="fixed w-full h-full top-0 z-80 flex inset shadow-2xl"
+        className="fixed top-0 flex w-full h-full shadow-2xl z-80 inset"
       >
   
         <Close isActive={isActive} onClick={() => closeModal()}/>
 
-        <motion.div className="bg-white z-10 flex flex-grow">
+        <motion.div className="z-10 flex flex-grow bg-white">
           <ScrollableBox
             ref={scrollRef}
             onScrollChange={handleScrollChange}
@@ -158,7 +158,7 @@ const PostModal = ({
             setName={setName}
           >
             <motion.article
-              className="py-32  relative z-10 overflow-hidden mb-vhh bg-white rounded-xl"
+              className="relative z-10 py-32 overflow-hidden bg-white mb-vhh rounded-xl"
               initial={{
                 y: "100vh",
               }}

@@ -1,7 +1,6 @@
 import CoverImage from "../image/cover-image";
 import FadeInWhenVisible from "../utils/fade-in-visible";
 import { useContext, useState, useEffect } from "react";
-import { useRouter } from "next/router";
 import { RouteContext } from "../../components/routeContext";
 import TextAnimation from "../utils/text-animation";
 import { motion, cubicBezier } from "framer-motion";

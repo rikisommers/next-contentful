@@ -1,3 +1,5 @@
+"use client";
+
 import React, {useEffect, Children } from "react";
 import { motion } from "framer-motion";
 import FadeInWhenVisible from "../utils/fade-in-visible";
@@ -80,7 +82,7 @@ export const TextTitle = ({ content, children }) => {
 
   // Function to render text with bold elements and line breaks
   const renderTextWithBoldAndLineBreaks = (text) => {
-    const boldSegments = text.split("__"); // Split text by bold elements
+    const boldSegments = text?.split("__"); // Split text by bold elements
     return boldSegments.map((segment, index) => {
       if (index % 2 === 0) {
         // Non-bold segment: check for line breaks

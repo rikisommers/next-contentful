@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { motion, cubicBezier, useAnimation } from "framer-motion";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useEffect, useState, useContext, useRef } from "react";
 import { useScrollPosition } from "../scrollPosContext";
 import { RouteContext } from "../routeContext";
@@ -28,7 +28,6 @@ export default function Navigation() {
   const menuRef = useRef(null);
   const menuDragRef = useRef("menuDragRef");
 
-  const { routeInfo } = useContext(RouteContext);
 
   const { scrollPosition } = useScrollPosition();
   const [isActive, setIsActive] = useState(false);
@@ -136,7 +135,7 @@ export default function Navigation() {
               ? currentTheme?.textColorInv
               : currentTheme?.textColor,
         }}
-        className={`relative z-50 flex items-center rounded-xl bg-gray-600 bg-opacity-50 backdrop-blur-lg p-1.5`}
+        className={`relative z-50 flex items-center rounded-xl bg-gray-600 bg-opacity-50 backdrop-blur-lg `}
       >
         <div
           style={{
@@ -171,14 +170,15 @@ export default function Navigation() {
       </motion.div>
 
       <div className="flex gap-2">
+      {/* absolute  top-6 left-[320px] */}
         <div
           ref={menuRef}
-          className="absolute flex items-center gap-1 rounded-lg top-6 left-[320px]"
+          className="flex items-center gap-1 rounded-lg"
         >
-          <div className="px-3 text-white py-" ref={menuDragRef}>
+          {/* <div className="px-3 text-white py-" ref={menuDragRef}>
             :
-          </div>
-          <div className="relative z-50 flex gap-1 p-1.5 rounded-xl bg-gray-600 bg-opacity-50 backdrop-blur-lg">
+          </div> */}
+          <div className="relative z-50 flex gap-1 bg-gray-600 bg-opacity-50 rounded-xl backdrop-blur-lg">
             {/* <motion.div
               className="absolute right-0 z-10 overflow-hidden rounded-lg shadow-lg top-14 "
               // popover="auto" id="context"
@@ -244,9 +244,8 @@ export default function Navigation() {
         </div>
       </div>
 
-      <div className="flex gap-2">
-        <div className="absolute flex items-center gap-1 rounded-lg top-6 right-6">
-          <div className="relative z-50 flex gap-1 p-1.5 rounded-xl bg-gray-600 bg-opacity-50 backdrop-blur-lg">
+        <div className="flex items-center gap-1 rounded-lg">
+          <div className="relative z-50 flex gap-1 bg-gray-600 bg-opacity-50 rounded-xl backdrop-blur-lg">
             <div className="relative">
               <button
                 style={{
@@ -276,7 +275,6 @@ export default function Navigation() {
             </button>
           </div>
         </div>
-      </div>
     </div>
   );
 }

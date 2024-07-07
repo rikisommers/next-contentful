@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useRef } from "react";
 import { useToast } from "../toastContext";
 import { useTheme } from "next-themes";

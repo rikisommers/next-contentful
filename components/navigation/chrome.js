@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { motion , cubicBezier} from "framer-motion";
 import { RouteContext } from "../routeContext";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export default function Chrome({ lastUpdated }) {
 
@@ -9,10 +9,10 @@ export default function Chrome({ lastUpdated }) {
   const path = router.asPath.split("?")[0];
 
   return (
-    <div className="fixed w-full h-full pointer-events-none z-50">
+    <div className="fixed z-50 w-full h-full pointer-events-none">
       
 
-          <motion.div className="absolute top-6 left-6 pointer-events-auto"
+          <motion.div className="absolute pointer-events-auto top-6 left-6"
             initial={{
                 scale:0
             }}
@@ -30,11 +30,11 @@ export default function Chrome({ lastUpdated }) {
             <motion.div className="inset inset--top-left "></motion.div>
           </motion.div> 
 
-           <div className="absolute top-6 right-6 pointer-events-auto">
+           <div className="absolute pointer-events-auto top-6 right-6">
             <div className="inset inset--top-right">test</div>
           </div>
 
-      <div className="absolute bottom-6 left-6 pointer-events-auto">
+      <div className="absolute pointer-events-auto bottom-6 left-6">
         <motion.div className="pb-6 text-xs"
         initial={{
           opacity:0,
@@ -52,7 +52,7 @@ export default function Chrome({ lastUpdated }) {
           Last Updated : {lastUpdated}
         </motion.div>
       </div>
-      <div className="absolute bottom-6 right-6 pointer-events-auto">
+      <div className="absolute pointer-events-auto bottom-6 right-6">
         <motion.div className="pb-6 text-xs"
         initial={{
           opacity:0,
