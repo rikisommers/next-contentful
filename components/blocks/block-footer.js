@@ -4,8 +4,16 @@ import TextAnimation from "../utils/text-animation";
 import { TextTitle } from "../rich-text/text-title";
 import Audio from "../navigation/audio";
 import Link from "next/link";
+import { useTheme } from 'next-themes';
+import { getThemeByKey } from "../../utils/theme";
 
 export default function BlockFooter({ content }) {
+
+  const { theme } = useTheme();
+  const currentTheme = getThemeByKey(theme);
+
+
+
   return (
     <div className="relative flex flex-col h-vhh">
       {/* pt-32 pb-16 */}
@@ -26,7 +34,13 @@ export default function BlockFooter({ content }) {
       </div>
 
      
-      <div className="absolute z-0 w-full h-full overflow-hidden rounded-xl"></div>
+      <div
+          className="absolute w-full h-full"
+          style={{ 
+            clipPath: "inset( 1rem round 1rem )",
+            backgroundColor: currentTheme?.backgroundColor,
+          }}
+        />
     </div>
   );
 }

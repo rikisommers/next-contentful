@@ -11,6 +11,7 @@ import { vertexShader } from "../shaders/water/vertex";
 import { fragmentShader } from "../shaders/water/fragment";
 import { TextTitle } from "../components/rich-text/text-title";
 import { TextSubtitle } from "../components/rich-text/text-subtitle";
+import ScrollContainer from "../components/utils/scroll-container";
 import CustomCursor from "../components/utils/cursor";
 import PostBody from "../components/post/post-body";
 import BlockFooter from "../components/blocks/block-footer";
@@ -69,36 +70,12 @@ const Index = ({ data }) => {
 
 
 
-  const [dimension, setDimension] = useState({ width: 0, height: 0 });
   const [footerOffsetValue, setFooterOffsetValue] = useState(0);
 
  
 
 
-  useEffect(() => {
-    const lenis = new Lenis();
-
-    const raf = (time) => {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    };
-
-    requestAnimationFrame(raf);
-
-    const resize = () => {
-      setDimension({ width: window.innerWidth, height: window.innerHeight });
-    };
-
-    window.addEventListener("resize", resize);
-
-    requestAnimationFrame(raf);
-
-    resize();
-
-    return () => {
-      window.removeEventListener("resize", resize);
-    };
-  }, []);
+  
   
   // const canvasRef = useRef(null);
   // const renderer = useRef(null);
@@ -172,7 +149,8 @@ const Index = ({ data }) => {
   const dateString = date.toLocaleDateString("en-US", options);
 
   return (
-    <Layout>
+    <div style={{background:currentTheme?.bodyBackgroundColor}}>
+    <Layout >
       {/* <canvas 
         ref={canvasRef} 
         id="canvas"
@@ -181,8 +159,9 @@ const Index = ({ data }) => {
       {/* <CustomCursor/> */}
 
 
-                
-      <div className={`relative transition ease-in-out w-screen h-screen`} style={{ backgroundColor: currentTheme?.bodyBackgroundColor }}>
+        <ScrollContainer>   
+      <div className={`relative transition ease-in-out w-screen h-screen`} 
+          style={{background:currentTheme?.bodyBackgroundColor}} >
         <div className="z-10 home">
             <div className="grid items-end h-full grid-cols-12 px-32 py-32">
               <div className="flex flex-col col-span-12 gap-6 md:col-span-6 ">
@@ -229,9 +208,11 @@ const Index = ({ data }) => {
         </div>
 
         <motion.div
-          className="absolute flex items-center justify-end w-full h-full bg-gray-900 opacity-75"
+          className="absolute flex items-center justify-end w-full h-full opacity-75"
           initial={{ clipPath: "inset(1.0rem 1.0rem 6.0rem round 0.5rem)" }}
-          animate={{ clipPath: "inset( 1rem round 1rem )" }}
+          animate={{
+            backgroundColor: currentTheme?.backgroundColor,
+            clipPath: "inset( 1rem round 1rem )" }}
           exit={{ clipPath: "inset( 1.5rem 1.5rem 90vh 1.5rem round 1rem )" }}
           transition={{
             duration: 0.6,
@@ -246,11 +227,12 @@ const Index = ({ data }) => {
       )}
 
 
-      <BlockFooter/>
+      <BlockFooter content={data}/>
+      </ScrollContainer>     
       {/* <TransitionWipe /> */}
     </Layout>
 
-
+    </div>
   );
 };
 

@@ -13,9 +13,9 @@ export default function Layout({ children }) {
   const currentTheme = getThemeByKey(theme) | null;
   // ${routeInfo.destRoute === "/" ? "bg-gray-800" :  "bg-slate-50"}
   return (
-      <div className={`${currentTheme?.bodyBackgroundColor}`}>
+      <>
         <SpeedInsights/>
         {children}
-      </div>
+      </>
   );
 }

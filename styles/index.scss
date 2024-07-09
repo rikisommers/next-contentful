@@ -23,6 +23,9 @@
 @tailwind components;
 @tailwind utilities;
 
+#__next{
+  overflow: hidden;
+}
 
 #canvas{
   position: fixed;
