@@ -2,10 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import Layout from "../components/layout";
 import { getHome, getLandingPage } from "../lib/api";
 import TransitionWipe from "../components/transition/transition-wipe";
-import { useTheme } from 'next-themes';
-import { getThemeByKey } from '../utils/theme';
-import html2canvas from 'html2canvas';
-import { gsap } from 'gsap';
+import TransitionTilt from "../components/transition/transition-tilt";
+import { useTheme } from "next-themes";
+import { getThemeByKey } from "../utils/theme";
+import html2canvas from "html2canvas";
+import { gsap } from "gsap";
 import * as THREE from "three";
 import { vertexShader } from "../shaders/water/vertex";
 import { fragmentShader } from "../shaders/water/fragment";
@@ -15,6 +16,8 @@ import ScrollContainer from "../components/utils/scroll-container";
 import CustomCursor from "../components/utils/cursor";
 import PostBody from "../components/post/post-body";
 import BlockFooter from "../components/blocks/block-footer";
+import BlockHero from "../components/blocks/block-hero";
+
 import Lenis from "@studio-freight/lenis";
 import {
   motion,
@@ -68,15 +71,8 @@ const Index = ({ data }) => {
   const { theme } = useTheme();
   const currentTheme = getThemeByKey(theme);
 
-
-
   const [footerOffsetValue, setFooterOffsetValue] = useState(0);
 
- 
-
-
-  
-  
   // const canvasRef = useRef(null);
   // const renderer = useRef(null);
   // const scene = useRef(null);
@@ -149,95 +145,38 @@ const Index = ({ data }) => {
   const dateString = date.toLocaleDateString("en-US", options);
 
   return (
-    <div style={{background:currentTheme?.bodyBackgroundColor}}>
-    <Layout >
-      {/* <canvas 
+    <div style={{ background: currentTheme?.bodyBackgroundColor }}>
+      <Layout>
+        {/* <canvas 
         ref={canvasRef} 
         id="canvas"
       /> */}
 
-      {/* <CustomCursor/> */}
+        {/* <CustomCursor/> */}
+        <TransitionTilt active={true} className="z-100">
+          <ScrollContainer>
+            <BlockHero
+              titlealt={data.titlealt}
+              contentalt={data.contentalt}
+              date={dateString}
+            />
 
+            {data.csblocksCollection.items && (
+              // <PostContent content={data}/>
+              <PostBody content={data.csblocksCollection} />
+            )}
 
-        <ScrollContainer>   
-      <div className={`relative transition ease-in-out w-screen h-screen`} 
-          style={{background:currentTheme?.bodyBackgroundColor}} >
-        <div className="z-10 home">
-            <div className="grid items-end h-full grid-cols-12 px-32 py-32">
-              <div className="flex flex-col col-span-12 gap-6 md:col-span-6 ">
-                {/* <h1 className="text-7xl">{backgroundColor}</h1> */}
-
-                {/* <TextAnimation  
-                    content={home.title}
-                    color={"text-slate-400"}
-                  /> */}
-
-                <TextTitle content={data.titlealt}>
-                  {/* <TextScramble content={['Plan,Design & buid','wear many hats','like fart jokes']}/> */}
-                </TextTitle>
-                <TextSubtitle
-                  content={data.contentalt}
-                  color={currentTheme?.textColor}
-                />
-
-              </div>
-            </div>
-
-          <div className="flex self-end justify-between p-3">
-            <div className="flex gap-3">
-              <div className="flex gap-1 text-xs lg:col-span-2">
-                <span className="uppercase text-slate-400">Location:</span>
-                <a
-                  href="https://www.google.com/maps/place/New+Brighton,+Christchurch/@-43.5093881,172.6992615,14z/data=!3m1!4b1!4m6!3m5!1s0x6d318891a20200c1:0x500ef8684799330!8m2!3d-43.5079076!4d172.7225969!16zL20vMDNfcHMz?entry=ttu"
-                  className="text-slate-500"
-                >
-                  @-43.5093881,172.6992615
-                </a>
-              </div>
-
-              <div className="flex gap-1 text-xs lg:col-span-2">
-                <span className="uppercase text-slate-400">Last Updated:</span>
-                <span className="text-slate-500">{dateString}</span>
-              </div>
-            </div>
-
-            <div className="sound">
-              {/* Assuming this is where your audio component goes */}
-            </div>
-          </div>
-        </div>
-
-        <motion.div
-          className="absolute flex items-center justify-end w-full h-full opacity-75"
-          initial={{ clipPath: "inset(1.0rem 1.0rem 6.0rem round 0.5rem)" }}
-          animate={{
-            backgroundColor: currentTheme?.backgroundColor,
-            clipPath: "inset( 1rem round 1rem )" }}
-          exit={{ clipPath: "inset( 1.5rem 1.5rem 90vh 1.5rem round 1rem )" }}
-          transition={{
-            duration: 0.6,
-            ease: [0.33, 1, 0.68, 1],
-          }}
-        />
-      </div>
-
-      {data.csblocksCollection.items && (
-        // <PostContent content={data}/>
-        <PostBody content={data.csblocksCollection} />
-      )}
-
-
-      <BlockFooter content={data}/>
-      </ScrollContainer>     
-      {/* <TransitionWipe /> */}
-    </Layout>
-
+            <BlockFooter content={data} />
+          </ScrollContainer>
+        </TransitionTilt>
+        <TransitionWipe />
+      </Layout>
     </div>
   );
 };
 
 export async function getStaticProps({ preview = false }) {
-  const data = (await getLandingPage('home')) ?? [];
+  const data = (await getLandingPage("home")) ?? [];
 
   return {
     props: {

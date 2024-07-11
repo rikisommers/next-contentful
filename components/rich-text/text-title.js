@@ -82,6 +82,7 @@ export const TextTitle = ({ content, children }) => {
 
   // Function to render text with bold elements and line breaks
   const renderTextWithBoldAndLineBreaks = (text) => {
+    if(text){
     const boldSegments = text?.split("__"); // Split text by bold elements
     return boldSegments.map((segment, index) => {
       if (index % 2 === 0) {
@@ -115,6 +116,7 @@ export const TextTitle = ({ content, children }) => {
         return renderColoredText(segment, index);
       }
     });
+  }
   };
   
 

@@ -9,11 +9,11 @@ import Audio from "./audio";
 import { gsap } from "gsap";
 import { Draggable } from "gsap/dist/Draggable";
 import CtxMenu from "../base/ctx-menu";
-
 import { useTheme } from "next-themes";
 import { themes } from "../../utils/theme";
 import { getThemeByKey } from "../../utils/theme";
 import ThemeEditor from "./themeEditor";
+import Button from "../base/button";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(Draggable);
@@ -27,7 +27,6 @@ export default function Navigation() {
   const router = useRouter();
   const menuRef = useRef(null);
   const menuDragRef = useRef("menuDragRef");
-
 
   const { scrollPosition } = useScrollPosition();
   const [isActive, setIsActive] = useState(false);
@@ -137,13 +136,28 @@ export default function Navigation() {
         }}
         className={`relative z-50 flex items-center rounded-xl bg-gray-600 bg-opacity-50 backdrop-blur-lg `}
       >
-        <div
-          style={{
-            backgroundColor: isActive ? currentTheme?.accent : null,
-          }}
-          className="w-10 h-10 p-2 rounded-lg"
-        >
-          <img src="/logo3.svg" viewBox="0 0 32 32"></img>
+
+        <div className={`scene `}>
+          <div
+            style={{
+              backgroundColor: isActive ? currentTheme?.accent : null,
+            }}
+            className={`cube ${isActive ? 'show-right' : ''}`}
+          >
+            <div className="cube__face cube__face--front"
+                  
+            >            
+            <img src="/logo3.svg" viewBox="0 0 32 32"></img>
+        </div>
+            <div className="cube__face cube__face--back">back</div>
+            <div className="cube__face cube__face--right"
+                
+            >right</div>
+            <div className="cube__face cube__face--left">left</div>
+            <div className="cube__face cube__face--top">top</div>
+            <div className="cube__face cube__face--bottom">bottom</div>
+
+          </div>
         </div>
 
         <motion.span
@@ -165,16 +179,15 @@ export default function Navigation() {
             easing: cubicBezier(0.35, 0.17, 0.3, 0.86),
           }}
         >
+                    {/* <TextTitle content={ isActive ? 'Back' : 'Riki Sommers'}/> */}
+
           Riki Sommers
         </motion.span>
       </motion.div>
 
       <div className="flex gap-2">
-      {/* absolute  top-6 left-[320px] */}
-        <div
-          ref={menuRef}
-          className="flex items-center gap-1 rounded-lg"
-        >
+        {/* absolute  top-6 left-[320px] */}
+        <div ref={menuRef} className="flex items-center gap-1 rounded-lg">
           {/* <div className="px-3 text-white py-" ref={menuDragRef}>
             :
           </div> */}
@@ -244,37 +257,44 @@ export default function Navigation() {
         </div>
       </div>
 
-        <div className="flex items-center gap-1 rounded-lg">
-          <div className="relative z-50 flex gap-1 bg-gray-600 bg-opacity-50 rounded-xl backdrop-blur-lg">
-            <div className="relative">
-              <button
-                style={{
-                  backgroundColor: currentTheme?.backgroundColor,
-                  color: currentTheme?.textColor,
-                }}
-                onClick={toggleTheme}
-                className="px-3 py-3 text-xs uppercase rounded-lg"
-              >
-                Theme
-              </button>
-              {isOpen && (
-                <div className="absolute right-0 w-[350px] mt-2 bg-white rounded shadow-lg top-full">
-                  <ThemeEditor />
-                </div>
-              )}
-            </div>
-
-            <button
+      <div className="flex items-center gap-1 rounded-lg">
+        <div className="relative z-50 flex gap-1 bg-gray-600 bg-opacity-50 rounded-xl backdrop-blur-lg">
+          <div className="relative">
+            {/* <button
               style={{
                 backgroundColor: currentTheme?.backgroundColor,
                 color: currentTheme?.textColor,
               }}
-              className={`px-3 py-3 text-xs  uppercase rounded-lg`}
+              onClick={toggleTheme}
+              className="px-3 py-3 text-xs uppercase rounded-lg"
             >
-              Audio
-            </button>
+              Theme
+            </button> */}
+            
+            {/* TODO: Add audio */}
+                <Button 
+                click={toggleTheme}
+            label={'Theme'}/>
+            {isOpen && (
+              <div className="absolute right-0 w-[350px] mt-2 bg-white rounded shadow-lg top-full">
+                <ThemeEditor />
+              </div>
+            )}
           </div>
+      
+
+          {/* <button
+            style={{
+              backgroundColor: currentTheme?.backgroundColor,
+              color: currentTheme?.textColor,
+            }}
+            className={`px-3 py-3 text-xs  uppercase rounded-lg`}
+          >
+            Audio
+          </button> */}
+          <Button label={'Audio'}/>
         </div>
+      </div>
     </div>
   );
 }

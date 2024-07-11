@@ -9,6 +9,7 @@ import BlockList from "../blocks/block-list"
 import BlockCode from "../blocks/block-code"
 import BlockArticle from "../blocks/block-article"
 import BlockArticles from "../blocks/block-articles"
+import BlockHeader from "../blocks/block-header"
 
 const customMarkdownOptions = (content) => ({
   renderNode: {
@@ -26,12 +27,15 @@ export default function PostBody({ content }) {
 
 
   return (
-    <div className="flex flex-col gap-32 px-4 py-32">
+    <div className="flex flex-col px-4">
 {/* max-w-6xl gap-32 mx-auto */}
         {content.items &&
           content.items.map((item,index) => {
             return (
               <section key={index}>
+                 {item.__typename === "BlockHeader" && (
+                  <BlockHeader key={item.id} data={item} ></BlockHeader>
+                )}
                 {item.__typename === "BlockArticle" && (
                   <BlockArticle key={item.id} data={item} ></BlockArticle>
                 )}
@@ -41,23 +45,18 @@ export default function PostBody({ content }) {
                 {item.__typename === "BlockImage" && (
                   <BlockImg key={item.id} data={item} />
                 )}
-
                 {item.__typename === "BlockHotspotImage" && (
                   <BlockHotspotImg key={item.id} data={item} />
                 )}
                 {item.__typename === "BlockIg" && (
                   <BlockImages key={item.id} data={item} />
                 )}
-
-
                 {item.__typename === "BlockQuote" && (
                   <BlockQuote key={item.id} data={item} />
                 )}
-
                 {item.__typename === "BlockEmbed" && (
                   <BlockEmbed key={item.id} data={item} />
                 )}
-
                 {item.__typename === "BlockList" && (
                   <BlockList key={item.id} data={item} />
                 )}    

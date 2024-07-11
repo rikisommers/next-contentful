@@ -133,7 +133,7 @@ export default function Post({ post, nextPost }) {
     window.scrollTo(0, 0);
   }, []);
 
-  const shouldAnimate = router.pathname.startsWith("/projects/");
+  //const shouldAnimate = router.paths.startsWith("/projects/");
 
   if (!router.isFallback && !post) {
     return <ErrorPage statusCode={404} />;
@@ -158,12 +158,43 @@ export default function Post({ post, nextPost }) {
   };
 
   return (
+
+    <>
+                  {post.csblocksCollection && (
+
+     <div className="fixed grid items-center w-10 h-full pl-8 pointer-events-none z-nav">
+          <div className="relative z-50 flex flex-col gap-1 bg-gray-600 bg-opacity-50 rounded-xl backdrop-blur-lg">
+       
+        
+                {post.csblocksCollection.items &&
+                  post.csblocksCollection.items.length > 0 &&
+                  post.csblocksCollection.items.map((item, index) => {
+                    return (
+<>                        {item.__typename === "BlockArticle" && (
+                          <div className="relative flex items-center px-3 py-3 text-sm text-white uppercase rounded-lg pointer-events-auto">
+
+                          <h1 key={index}>
+                            {/* {item.title} */}
+                            P
+                            </h1>
+                          </div>
+
+                        )}
+                        </>
+
+                    );
+                  })}
+          </div>
+     </div>
+                   )}
+
     <Layout>
      
       <TransitionTilt active={true}>
         {/* <h1 className="absolute p-8 m-8 left-8 top-8">{post && post.slug}</h1> */}
 
      
+    
         <motion.div
         style={{ backgroundColor:currentTheme?.backgroundColor,clipPath: clipPathValue}}
           className={`relative z-10 flex flex-col pb-20`}
@@ -253,6 +284,7 @@ export default function Post({ post, nextPost }) {
       <TransitionWipe />
       {/* {shouldFadeIn && } */}
     </Layout>
+    </>
   );
 }
 

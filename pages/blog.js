@@ -23,12 +23,13 @@ import PostIntro from "../components/post/post-intro";
 import PostContent from "../components/post/post-content";
 import PostTile from "../components/post/post-tile";
 import PostTileCs from "../components/post/post-tile-cs";
-
+import PostTileLg from "../components/post/post-tile-lg";
 import PostModal from "../components/post/post-modal";
 // import CustomCursor from "../components/utils/cursor";
 import NextPost from "../components/post/post-next";
 // const getWindowSize = () => [window.innerWidth, window.innerHeight];
 import BlockFooter from "../components/blocks/block-footer";
+import BlockArticles from "../components/blocks/block-articles";
 import BlockVideo from "../components/blocks/block-video";
 import { gsap, ScrollTrigger } from "gsap";
 import Lenis from "@studio-freight/lenis";
@@ -182,7 +183,6 @@ export default function Posts({ intro, posts }) {
                     </div>
         
               )} */}
-
 
         {posts && (
           <motion.div

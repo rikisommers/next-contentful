@@ -32,7 +32,16 @@ export default function BlockFooter({ content }) {
           {content?.intro}
         </h2>
       </div>
-
+ {/* <motion.div ref={footerRef} className="fixed relative testing123 h-vhh">
+          <motion.div
+            className="fuck"
+            style={{ y: footerOffsetValue }}
+            // style={{ translateY: y }}
+            //  animate={{ y: footerOffset }}
+          >
+            {data.intro && <BlockFooter content={data.intro} />}
+          </motion.div>
+        </motion.div> */}
      
       <div
           className="absolute w-full h-full"

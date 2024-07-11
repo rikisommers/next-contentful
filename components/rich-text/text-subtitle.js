@@ -58,10 +58,12 @@ export const TextSubtitle = ({ content, children }) => {
   );
 
   const renderTextAsLines = (text) => {
+    if(text){
     const segments = text.split("\n");
     return segments.map((segment, index) => {
       return renderNewLine(segment, index);
     });
+  }
   };
 
   return (

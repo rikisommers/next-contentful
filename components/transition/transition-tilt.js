@@ -71,7 +71,6 @@ const TransitionTilt = ({active, children }) => {
     <motion.div className="relative transition-tilt__content"
     variants={active ? container : null}
     initial="initial"
-
     exit='exit'
     >
     <motion.div

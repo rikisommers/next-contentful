@@ -44,6 +44,7 @@
     "autoprefixer": "^10.4.14",
     "contentful-import": "^7.8.7",
     "cookie": "^0.6.0",
+    "universal-cookie":"7.1.4",
     "material-icons": "^1.13.12",
     "postcss": "^8.4.23",
     "tailwindcss": "^3.3.2"

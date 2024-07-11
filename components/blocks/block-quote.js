@@ -17,7 +17,6 @@ export const BlockQuote = ({ data }) => {
         <span style={{color:currentTheme?.headingColor}}>
           {data.title}
           </span>}
-
         {data.content && 
         // <h2 className="text-6xl ">{data.content}</h2>
         <TextAnimationUp content={data.content}/>

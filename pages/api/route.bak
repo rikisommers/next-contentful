@@ -10,10 +10,12 @@ export async function POST(request, params) {
   });
 
   if (process.env.PAGE_PASSWORD !== password) {
+    console.log('incorect')
     return new Response("incorrect password", {
       status: 401,
     });
   }
+  console.log('corect')
 
   return new Response("password correct", {
     status: 200,
