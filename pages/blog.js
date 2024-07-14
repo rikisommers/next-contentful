@@ -36,184 +36,105 @@ import { useTheme } from "next-themes";
 import { themes } from "../utils/theme";
 import { getThemeByKey } from "../utils/theme";
 
-export default function Posts({ intro, posts }) {
-  const contentRef = useRef(null);
-  const footerRef = useRef(null);
-  const ref = useRef(null);
+import ScrollContainer from "../components/utils/scroll-container";
+import ClipPathContainer from "../components/utils/clip-path-container";
 
+export default function Posts({ intro, posts }) {
   const { theme } = useTheme();
   const currentTheme = getThemeByKey(theme);
 
   const headerRef = useRef(null);
-  const [scrollValue, setScrollValue] = useState(0);
-  const { setScrollPosition } = useScrollPosition();
 
   console.log("ACS------------------------", posts);
-  //const {scrollYProgress} = useScroll({target: ref});
-
-  // const isInView = useInView({
-  //   contentRef,
-  //   margin: "0px 100px -50px 0px"
-  // })
-  //   useEffect(() => {
-
-  //     if (!isContentInView) {
-  //       console.log("Element is in view: ", isContentInView)
-
-  //         contentRef.current.classList.add('bg-black');
-  //     } else {
-  //         contentRef.current.classList.remove('bg-black');
-  //     }
-  // }, [scrollValue]);
-
-  const [dimension, setDimension] = useState({ width: 0, height: 0 });
-  const easing = cubicBezier(0.33, 1, 0.68, 1);
-
-  const { scrollYProgress: scrollContent } = useScroll({
-    target: contentRef,
-    offset: ["start start", "start -100px"],
-  });
-
-  const yv = useTransform(scrollContent, [0, 1], [8, 0.01]);
-  const xv = useTransform(scrollContent, [0, 1], [1.5, 0.01]);
-  const rv = useTransform(scrollContent, [0, 1], [1, 0]);
-  const x = useTransform(scrollContent, [0, 1], [1, 100]);
-
-  const [clipPathValue, setClipPathValue] = useState(
-    "inset( 8rem 1.5rem 0px round 1.5rem 1.5rem 1.5rem 1.5rem)"
-  );
-
-  useMotionValueEvent(scrollContent, "change", (latest) => {
-    //z.set(latest);
-
-    console.log(scrollContent.current);
-    setScrollPosition(yv.current);
-    setClipPathValue(
-      `inset(${yv.current}rem ${xv.current}rem 0px round 1.5rem 1.5rem 1.5rem 1.5rem)`
-    );
-
-    // console.log("Page scroll: ")
-    // console.log("X", x.current)
-    // console.log("XV ", xv.current)
-    // console.log("YV ", yv.current)
-    // console.log("RV ", rv.current)
-    // console.log('dddd',clipPathValue)
-  });
-
-  useEffect(() => {
-    const lenis = new Lenis();
-
-    const raf = (time) => {
-      lenis.raf(time);
-      //console.log(scrollYProgress.current)
-      requestAnimationFrame(raf);
-    };
-
-    requestAnimationFrame(raf);
-
-    const resize = () => {
-      setDimension({ width: window.innerWidth, height: window.innerHeight });
-    };
-
-    window.addEventListener("resize", resize);
-
-    requestAnimationFrame(raf);
-
-    resize();
-
-    return () => {
-      window.removeEventListener("resize", resize);
-    };
-  }, []);
 
   return (
     <Layout>
       <TransitionTilt active={true} className="z-100">
-        <motion.div
-          className="relative flex flex-col px-10 pb-20 bg-slate-100 z-100"
-          ref={contentRef}
-          style={{
-            backgroundColor: currentTheme?.backgroundColor,
-            clipPath: clipPathValue,
-          }}
-        >
-          <div className="flex">
-            <div className="w-48 pt-28">
-                <h1>sdsd</h1>
-                <h1>sdsd</h1>
-                <h1>sdsd</h1>
-                <h1>sdsd</h1>
-            </div>
-            <div className="flex flex-col flex-grow">
-              <div className="o-content" ref={headerRef}>
-                <PostIntro title={intro.titlealt} content={intro.contentalt} />
-              </div>
+        <ScrollContainer>
+          <ClipPathContainer>
 
-              {/* {intro.video && (
+              <div className="flex">
+                <div className="w-48 pt-28">
+                  <h1>sdsd</h1>
+                  <h1>sdsd</h1>
+                  <h1>sdsd</h1>
+                  <h1>sdsd</h1>
+                </div>
+                <div className="flex flex-col flex-grow">
+                  <div className="o-content" ref={headerRef}>
+                    <PostIntro
+                      title={intro.titlealt}
+                      content={intro.contentalt}
+                    />
+                  </div>
+
+                  {/* {intro.video && (
                     <div className="pb-24 o-content">
                        <BlockVideo data={intro.video} />
                     </div>
         
               )} */}
 
-              {posts && (
-                <motion.div
-                  className="px-24 o-content o-grid"
-                  transition={{
-                    staggerChildren: 0.3,
-                    duration: 0.3,
-                  }}
-                >
-                  {posts.map((post, index) => {
-                    return (
-                      <motion.div
-                        key={index}
-                        layout
-                        initial={{
-                          y: 30,
-                          x: 0,
-                          opacity: 0,
-                        }}
-                        animate={{
-                          y: 0,
-                          x: 0,
-                          opacity: 1,
-                        }}
-                        // exit={{
-                        //   margin: 'auto',
-                        //   opacity : index === selectedIndex ? 1 : 0,
-                        //   width: index === selectedIndex ? 'calc(100vw - 12rem)': '100%',
-                        //   className:'h-vhh',
-                        //   y: index === selectedIndex ? finalPos : null
-                        // }}
-                        transition={{
-                          opacity: {
-                            easing: cubicBezier(0.35, 0.17, 0.3, 0.86),
-                            duration: 0.6,
-                            delay: index * 0.2,
-                          },
-                          y: {
-                            easing: cubicBezier(0.76, 0, 0.24, 1),
-                            duration: 0.6,
-                            delay: index * 0.2,
-                          },
-                        }}
-                        //onClick={() => openModal(post.slug)}
-                        // onClick={() => getPosition(index)}
-                        // style={isClicked ? () => getPositionStyles() : null}
-                        className="o-grid__item--cs"
-                      >
-                        <PostTileCs index={index} post={post} />
-                      </motion.div>
-                    );
-                  })}
-                </motion.div>
-              )}
-            </div>
-          </div>
-        </motion.div>
+                  {posts && (
+                    <motion.div
+                      className="px-24 o-content o-grid"
+                      transition={{
+                        staggerChildren: 0.3,
+                        duration: 0.3,
+                      }}
+                    >
+                      {posts.map((post, index) => {
+                        return (
+                          <motion.div
+                            key={index}
+                            layout
+                            initial={{
+                              y: 30,
+                              x: 0,
+                              opacity: 0,
+                            }}
+                            animate={{
+                              y: 0,
+                              x: 0,
+                              opacity: 1,
+                            }}
+                            // exit={{
+                            //   margin: 'auto',
+                            //   opacity : index === selectedIndex ? 1 : 0,
+                            //   width: index === selectedIndex ? 'calc(100vw - 12rem)': '100%',
+                            //   className:'h-vhh',
+                            //   y: index === selectedIndex ? finalPos : null
+                            // }}
+                            transition={{
+                              opacity: {
+                                easing: cubicBezier(0.35, 0.17, 0.3, 0.86),
+                                duration: 0.6,
+                                delay: index * 0.2,
+                              },
+                              y: {
+                                easing: cubicBezier(0.76, 0, 0.24, 1),
+                                duration: 0.6,
+                                delay: index * 0.2,
+                              },
+                            }}
+                            //onClick={() => openModal(post.slug)}
+                            // onClick={() => getPosition(index)}
+                            // style={isClicked ? () => getPositionStyles() : null}
+                            className="o-grid__item--cs"
+                          >
+                            <PostTileCs index={index} post={post} />
+                          </motion.div>
+                        );
+                      })}
+                    </motion.div>
+                  )}
+                </div>
+              </div>
+            </ClipPathContainer>
+            
+            {intro && <BlockFooter content={intro} />}
 
-        {intro && <BlockFooter content={intro} />}
+        </ScrollContainer>
       </TransitionTilt>
       <TransitionWipe />
     </Layout>

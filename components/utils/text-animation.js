@@ -1,12 +1,31 @@
+import React from "react";
 import { motion } from "framer-motion";
+import PropTypes from "prop-types";
 
-export default function TextAnimation({
+// Define the TextSize enum
+const TextSize = {
+  SMALL: "text-sm",
+  MEDIUM: "text-base",
+  LARGE: "text-lg",
+  XLARGE: "text-xl",
+  // Add other sizes as needed
+};
+
+// Define the AnimationType enum
+const AnimationType = {
+  LINEAR: "linear",
+  RANDOM: "random",
+  FADE_UP: "fade_up",
+};
+
+const TextAnimation = ({
   content,
   style,
   direction,
-  size,
+  size = TextSize.MEDIUM, // Default size
   color,
-}) {
+  animationType = AnimationType.RANDOM, // Default animation type
+}) => {
   const container = {
     hidden: { opacity: 0.5 },
     show: {
@@ -19,12 +38,12 @@ export default function TextAnimation({
     },
   };
 
-  const blur = {
+  const opacity = {
     hidden: {
-      filter: "blur(20px)",
+      opacity: 0,
     },
     show: {
-      filter: "blur(0px)",
+      opacity: 1,
       transition: {
         duration: 1.6, // custom duration for opacity property only
         opacity: {
@@ -33,33 +52,68 @@ export default function TextAnimation({
         },
       },
     },
-    exit:{
-      filter: "blur(20px)",
-      opacity:0
-
-    }
+    exit: {
+      opacity: 0,
+    },
   };
 
   const position = {
     hidden: {
+      y: 20,
       opacity: 0,
-      // paddingLeft:'30px',
     },
     show: {
-      // paddingLeft:'0',
+      y: 0,
       opacity: 1,
       transition: {
-        duration: 0.6, // custom duration for opacity property only
-        opacity: {
-          ease: [0.33, 1, 0.68, 1],
-          duration: 0.3, // custom duration for opacity property only
-        },
+        duration: 0.6,
+        ease: [0.33, 1, 0.68, 1],
       },
     },
   };
 
+  const randomOpacity = {
+    hidden: {
+      opacity: 0,
+    },
+    show: {
+      opacity: [0, 1],
+      transition: {
+        delay: Math.random() * 0.5,
+        duration: 0.5,
+      },
+    },
+  };
+
+  const fadeUp = {
+    hidden: {
+      opacity: 0,
+      y: 20,
+    },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: [0.33, 1, 0.68, 1],
+      },
+    },
+  };
+
+  const getAnimationVariant = (type) => {
+    switch (type) {
+      case AnimationType.RANDOM:
+        return randomOpacity;
+      case AnimationType.FADE_UP:
+        return fadeUp;
+      case AnimationType.LINEAR:
+      default:
+        return position;
+    }
+  };
+
   return (
-    <motion.div variants={blur} initial="hidden" animate="show" exit="exit">
+    <motion.div variants={opacity} initial="hidden" animate="show" exit="exit">
       <motion.h1
         className="text-anim"
         key="text-wrapper"
@@ -67,33 +121,42 @@ export default function TextAnimation({
         initial="hidden"
         animate="show"
         transition={{ delay: 2 }} // Add a delay to the start of the animation
-
-        //style={textStyle}
       >
         {content &&
-          content.split(" ").map(function (word, index) {
-            return (
-              <motion.span
-                variants={position}
-                className={`text-anim-word overflow-hidden`}
-                key={index}
-              >
-                {/* {word} */}
-                {word.split("").map(function (letter, index) {
-                  return (
-                    <motion.span
-                      style={{color:color}}
-                      className={`text-anim-letter text-slate-500 ${size}`}
-                      key={index}
-                    >
-                      {letter}
-                    </motion.span>
-                  );
-                })}
-              </motion.span>
-            );
-          })}
+          content.split(" ").map((word, index) => (
+            <motion.span
+              variants={
+                opacity
+              }
+              className={`text-anim-word overflow-hidden ${
+                animationType === AnimationType.RANDOM ? "mask" : ""
+              }`}
+              key={index}
+            >
+              {word.split("").map((letter, letterIndex) => (
+                <motion.span
+                  style={{ color }}
+                  className={`text-anim-letter text-slate-500 ${size}`}
+                  variants={opacity}
+                  key={letterIndex}
+                >
+                  {letter}
+                </motion.span>
+              ))}
+            </motion.span>
+          ))}
       </motion.h1>
     </motion.div>
   );
-}
+};
+
+// Define prop types
+TextAnimation.propTypes = {
+  content: PropTypes.string.isRequired,
+  color: PropTypes.string,
+  size: PropTypes.oneOf(Object.values(TextSize)),
+  animationType: PropTypes.oneOf(Object.values(AnimationType)),
+};
+
+export default TextAnimation;
+export { TextSize, AnimationType };

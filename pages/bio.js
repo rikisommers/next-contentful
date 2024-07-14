@@ -22,6 +22,8 @@ import PostContent from "../components/post/post-content";
 import BlockHero from "../components/blocks/block-hero";
 import LandingPageContent from "../components/landing-page-content";
 import BlockHeroAlt from "../components/blocks/block-heroalt";
+import ScrollContainer from "../components/utils/scroll-container";
+import ClipPathContainer from "../components/utils/clip-path-container";
 
 import Lenis from "@studio-freight/lenis";
 import {
@@ -42,85 +44,24 @@ const Bio = ({ data }) => {
   const { theme } = useTheme();
   const currentTheme = getThemeByKey(theme);
 
-  const [dimension, setDimension] = useState({ width: 0, height: 0 });
-  const [footerOffsetValue, setFooterOffsetValue] = useState(0);
-
-  const easing = cubicBezier(0.33, 1, 0.68, 1);
-
-  const { scrollYProgress: scrollFooter } = useScroll({
-    target: footerRef,
-
-    offset: ["start end", "end end"],
-    onChange: (latest) => {
-      // Perform actions based on the scroll position changes
-      //   console.log("Latest scroll position:", latest);
-      // You can perform any other actions or state updates here
-    },
-  });
-  const { height } = dimension;
-
-  const y = useTransform(scrollFooter, [0, 1], [-300, 0], easing);
-
-  useMotionValueEvent(scrollFooter, "change", (latest) => {
-    //z.set(latest);
-    setFooterOffsetValue(y);
-  });
-
-  const { scrollYProgress: scrollContent } = useScroll({
-    target: contentRef,
-    offset: ["start start", "start -100px"],
-  });
-
-  const yv = useTransform(scrollContent, [0, 1], [8, 0.01]);
-  const xv = useTransform(scrollContent, [0, 1], [1.5, 0.01]);
-  const rv = useTransform(scrollContent, [0, 1], [1, 0]);
-  const x = useTransform(scrollContent, [0, 1], [1, 100]);
-
-  const initialClipPath = "inset( 0rem 0rem 0px round 0rem 0rem 0rem 0rem)";
-  const finalClipPath =
-    "inset( 5rem 1.5rem 0px round 1.5rem 1.5rem 1.5rem 1.5rem)";
-
-  const [clipPath, setClipPathValue] = useState(initialClipPath);
-
-  useMotionValueEvent(scrollContent, "change", (latest) => {
-    setClipPathValue(
-      `inset(${yv.current}rem ${xv.current}rem 0px round 1.5rem 1.5rem 1.5rem 1.5rem)`
-    );
-  });
-
-  useEffect(() => {
-    const lenis = new Lenis();
-
-    const raf = (time) => {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    };
-
-    requestAnimationFrame(raf);
-
-    const resize = () => {
-      setDimension({ width: window.innerWidth, height: window.innerHeight });
-    };
-
-    window.addEventListener("resize", resize);
-
-    requestAnimationFrame(raf);
-
-    resize();
-
-    return () => {
-      window.removeEventListener("resize", resize);
-    };
-  }, []);
-
   return (
     <div style={{ background: currentTheme?.bodyBackgroundColor }}>
       <Layout>
         <TransitionTilt>
-          <BlockHeroAlt titlealt={data.titlealt} contentalt={data.contentalt} />
-          <BlockHero titlealt={data.titlealt} contentalt={data.contentalt} />
-          <LandingPageContent data={data} />
-          <BlockFooter content={data.intro} />
+          <ScrollContainer>
+
+              <BlockHeroAlt
+                titlealt={data.titlealt}
+                contentalt={data.contentalt}
+              />
+              <BlockHero
+                titlealt={data.titlealt}
+                contentalt={data.contentalt}
+              />
+              <LandingPageContent data={data} />
+              <BlockFooter content={data.intro} />
+ 
+          </ScrollContainer>
         </TransitionTilt>
         <TransitionWipe />
       </Layout>

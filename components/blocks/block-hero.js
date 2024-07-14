@@ -14,6 +14,7 @@ export default function BlockHero({
   titlealt,
   contentalt,
   date,
+  layout
 }) {
   const { theme } = useTheme();
   const currentTheme = getThemeByKey(theme);
@@ -24,7 +25,7 @@ export default function BlockHero({
       style={{ background: currentTheme?.bodyBackgroundColor }}
     >
       <div className="z-10 home">
-        <div className="grid items-end h-full grid-cols-12 px-32 py-32">
+        <div className="flex items-end justify-start h-full px-32 py-32">
           <div className="flex flex-col col-span-12 gap-6 md:col-span-6 ">
             {/* <h1 className="text-7xl">{backgroundColor}</h1> */}
 

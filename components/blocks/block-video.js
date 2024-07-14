@@ -36,7 +36,7 @@ export const BlockVideo = (data) => {
     <RollUpWhenVisible>
       
     <motion.div ref={ref} 
-    className="flex flex-col content-end align-bottom c-video"  
+    className="flex flex-col content-end overflow-hidden align-bottom rounded-lg c-video"  
                 // initial={{ clipPath: clipPathInitial }}
                 // animate={{ clipPath: clipPathInitial }}
                 // exit={{ clipPath: clipPathInitial }}

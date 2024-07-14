@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
-import TextAnimation from "../utils/text-animation";
-import { motion } from "framer-motion";
+import { motion, cubicBezier } from "framer-motion";
 import Background from "../utils/background";
 import TextAnimationUp from "../utils/text-animation-up";
 import { TextTitle } from "../rich-text/text-title";
 import { TextSubtitle } from "../rich-text/text-subtitle";
-
+import TextAnimation,{TextSize, AnimationType} from "../utils/text-animation";
+import TextScramble from "../utils/text-scamble";
+import TextAnimationLineUp from "../utils/text-animation-line-up";
 export default function PostIntro({ title, content }) {
 
 
@@ -46,7 +47,8 @@ export default function PostIntro({ title, content }) {
       className="grid items-end content-end grid-cols-12 pb-20 gap h-vh44 md:h-vh55"
     >
       <div className="col-span-12 md:col-span-8 lg:col-span-6">
-      {/* <TextAnimation content={title} /> */}
+        <TextScramble content={['This','is','stupid']}/>
+      <TextAnimation content={title} size={TextSize.XLARGE} animationType={AnimationType.LINEAR}/>
         <TextTitle content={title}>
           {/* <TextScramble content={['Plan,Design & buid','wear many hats','like fart jokes']}/> */}
         </TextTitle>

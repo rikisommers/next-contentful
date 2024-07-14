@@ -82,7 +82,7 @@ const TextScramble = ({ content }) => {
   }, []);
 
   return (
-   <div className={`text ${isAnimating ? "animating" : ""} text-slate-50`}></div>
+   <div className={`font-mono text ${isAnimating ? "animating" : ""} text-slate-50`}></div>
   );
 };
 
