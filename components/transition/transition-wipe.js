@@ -7,12 +7,21 @@ import { RouteContext } from "../../components/routeContext";
 import { useTheme } from 'next-themes';
 import { themes } from "../../utils/theme";
 import { getThemeByKey } from '../../utils/theme';
+import { useAudioControls } from "../utils/audio";
+
+
+
+
+
 
 
 const HomeTransitionContent = () => {
 
   const {theme} = useTheme()
   const currentTheme = getThemeByKey(theme);
+  const {
+    playMarimba
+  } = useAudioControls();
 
   return (
     <motion.div
@@ -24,6 +33,8 @@ const HomeTransitionContent = () => {
       exit={{
         y: -40,
         zIndex:40,
+       // onComplete:playMarimba(), // Trigger playMarimba on exit
+
       }}
       transition={{
         ease: [0.33, 1, 0.68, 1],
@@ -47,6 +58,9 @@ const WorkTransitionContent = () => {
 
   const {theme} = useTheme()
   const currentTheme = getThemeByKey(theme);
+  const {
+    playMarimba
+  } = useAudioControls();
 
   return (
     <motion.div
@@ -59,6 +73,8 @@ const WorkTransitionContent = () => {
       exit={{
         y: -40,
         zIndex:40,
+        //onComplete:playMarimba(), // Trigger playMarimba on exit
+
       }}
       transition={{
         ease: [0.33, 1, 0.68, 1],
@@ -76,6 +92,9 @@ const BioTransitionContent = () => {
 
   const {theme} = useTheme()
   const currentTheme = getThemeByKey(theme);
+  const {
+    playMarimba
+  } = useAudioControls();
 
   return (
     <motion.div
@@ -88,6 +107,8 @@ const BioTransitionContent = () => {
       exit={{
         y: -40,
         zIndex:40,
+        onComplete: playMarimba(), // Trigger playMarimba on exit
+
       }}
       transition={{
         ease: [0.33, 1, 0.68, 1],
@@ -106,6 +127,9 @@ const ProjectTransitionContent = () => {
 
   const {theme} = useTheme()
   const currentTheme = getThemeByKey(theme);
+  const {
+    playMarimba
+  } = useAudioControls();
 
   return (
     <motion.div
@@ -118,6 +142,8 @@ const ProjectTransitionContent = () => {
       exit={{
         y: -40,
         zIndex:40,
+       // onComplete: playMarimba(), // Trigger playMarimba on exit
+
       }}
       transition={{
         ease: [0.33, 1, 0.68, 1],
@@ -135,7 +161,7 @@ const Overlay = () => {
 
   const {theme} = useTheme()
   const currentTheme = getThemeByKey(theme);
-  
+
   return (
     <motion.div
       id="overlay"
@@ -165,10 +191,15 @@ const TransitionWipe = ({ children }) => {
 
   const { routeInfo } = useContext(RouteContext);
   const [destRoute, setDestRoute] = useState('');
- 
-  // useEffect(() => {
-  //   setDestRoute(routeInfo.destRoute)
-  // }, [routeInfo]); // Include routeInfo in the dependency array if needed
+  const {
+    playMarimba
+  } = useAudioControls();
+
+  
+  useEffect(() => {
+    setDestRoute(routeInfo.destRoute)
+    //playMarimba()
+  }, [routeInfo]); // Include routeInfo in the dependency array if needed
 
 
   return (

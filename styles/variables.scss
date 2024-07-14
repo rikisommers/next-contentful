@@ -1,3 +1,12 @@
+:root {
+  --color-theme-primary: #9af9d9;
+  --color-theme-secondary: #4088A9;
+}
+​
+.dark {
+  --color-theme-primary: #16A34A;
+  --color-theme-secondary: white;
+}
 
 $bp-lg:960px;
 $header-height:80px;

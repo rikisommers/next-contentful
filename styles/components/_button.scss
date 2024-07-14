@@ -1,54 +1,62 @@
+@use '../variables' as *;
+
+$size:40px;
+$offset:$size/2;
+
 .scene{
-    perspective: 96px;
-    width: 48px;
-    height: 48px;
+    perspective: 240px;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+
 }
 
 
 .cube {
-  border-radius: 8px;
-background-color: red;
-    width: 24px;
-    height: 24px;
+    border-radius: 8px;
+    width: $offset;
+    height: $offset;
     border-radius: 8px;
     padding:0px;
     position: relative;
     transform-style: preserve-3d;
-    transform: translateZ(-24px);
+    transform: translateZ(- $offset);
     transition: transform 1s;
-    transform-origin: 24px 24px;
+    transform-origin: 20px 20px;
+
   }
 
   .cube__face {
     border-radius: 8px;
-
+    padding:8px;
     position: absolute;
-    width: 48px;
-    height: 48px;
-    border: 1px solid black;
-    line-height: 48px;
+    width:$size;
+    height:$size;
+    line-height: 4px;
     font-size: 10px;
     font-weight: bold;
     color: white;
     text-align: center;
+
+
   }
-  .cube.show-front  { transform: translateZ(-24px) rotateY(   0deg); }
-.cube.show-right  { transform: translateZ(-24px) rotateY( -90deg); }
-.cube.show-back   { transform: translateZ(-24px) rotateY(-180deg); }
-.cube.show-left   { transform: translateZ(-24px) rotateY(  90deg); }
-.cube.show-top    { transform: translateZ(-24px) rotateX( -90deg); }
-.cube.show-bottom { transform: translateZ(-24px) rotateX(  90deg); }
+  .cube.show-front  { transform: translateZ(-$offset) rotateY(   0deg); }
+.cube.show-right  { transform: translateZ(-$offset) rotateY( -90deg); }
+.cube.show-back   { transform: translateZ(-$offset) rotateY(-180deg); }
+.cube.show-left   { transform: translateZ(-$offset) rotateY(  90deg); }
+.cube.show-top    { transform: translateZ(-$offset) rotateX( -90deg); }
+.cube.show-bottom { transform: translateZ(-$offset) rotateX(  90deg); }
 
-.cube__face--front  { background: hsla(  0, 100%, 50%, 0.7); }
-.cube__face--right  { background: hsla( 60, 100%, 50%, 0.7); }
-.cube__face--back   { background: hsla(120, 100%, 50%, 0.7); }
-.cube__face--left   { background: hsla(180, 100%, 50%, 0.7); }
-.cube__face--top    { background: hsla(240, 100%, 50%, 0.7); }
-.cube__face--bottom { background: hsla(300, 100%, 50%, 0.7); }
+// .cube__face--front  { background: var(--color-theme-primary); }
+// .cube__face--right  { background-color: var(--color-theme-secondary); }
+// .cube__face--left   { background-color: var(--color-theme-primary); }
+// .cube__face--top    { background-color: var(--color-theme-secondary); }
+// .cube__face--bottom { background-color: var(--color-theme-primary); }
+// .cube__face--back   { background-color: var(--color-theme-secondary); }
 
-.cube__face--front  { transform: rotateY(  0deg) translateZ(24px); }
-.cube__face--right  { transform: rotateY( 90deg) translateZ(24px); }
-.cube__face--back   { transform: rotateY(180deg) translateZ(24px); }
-.cube__face--left   { transform: rotateY(-90deg) translateZ(24px); }
-.cube__face--top    { transform: rotateX( 90deg) translateZ(24px); }
-.cube__face--bottom { transform: rotateX(-90deg) translateZ(24px); }
+.cube__face--front  { transform: rotateY(  0deg) translateZ($offset); }
+.cube__face--right  { transform: rotateY( 90deg) translateZ($offset); }
+.cube__face--back   { transform: rotateY(180deg) translateZ($offset); }
+.cube__face--left   { transform: rotateY(-90deg) translateZ($offset); }
+.cube__face--top    { transform: rotateX( 90deg) translateZ($offset); }
+.cube__face--bottom { transform: rotateX(-90deg) translateZ($offset); }

@@ -19,6 +19,7 @@ import {
 import { useTheme } from 'next-themes';
 import { themes } from "../../utils/theme";
 import { getThemeByKey } from '../../utils/theme';
+import { useAudioControls } from "../utils/audio";
 
 
 export default function PostTileCs({ post, index }) {
@@ -29,6 +30,12 @@ export default function PostTileCs({ post, index }) {
   //console.log(currentTheme)
 
   const ref = useRef(null);
+
+  const {
+    playClick
+  } = useAudioControls();
+
+
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -41,6 +48,7 @@ export default function PostTileCs({ post, index }) {
   return (
     <Link
       scroll={false}
+      
       href={`/projects/${post.slug}`}
       style={{
         color:currentTheme?.backgroundColor

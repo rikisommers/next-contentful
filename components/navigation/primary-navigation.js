@@ -13,7 +13,8 @@ import { useTheme } from "next-themes";
 import { themes } from "../../utils/theme";
 import { getThemeByKey } from "../../utils/theme";
 import ThemeEditor from "./themeEditor";
-import Button from "../base/button";
+import Button,{ButtonType,ButtonSound} from "../base/button";
+
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(Draggable);
@@ -34,6 +35,9 @@ export default function Navigation() {
 
   const [isOpen, setIsOpen] = useState(false);
   const controls = useAnimation();
+
+
+
 
   const toggleTheme = () => {
     setIsOpen(!isOpen);
@@ -121,7 +125,7 @@ export default function Navigation() {
   // }
 
   return (
-    <div className="fixed z-50 flex justify-between w-full p-6">
+    <div className="fixed z-50 flex justify-between p-6 w-[80%]">
       {/* <audio ref={audioRef} play={false} src='/audio/test.mp3' /> */}
 
       {/* <motion.div className="audio">
@@ -134,29 +138,26 @@ export default function Navigation() {
               ? currentTheme?.textColorInv
               : currentTheme?.textColor,
         }}
-        className={`relative z-50 flex items-center rounded-xl bg-gray-600 bg-opacity-50 backdrop-blur-lg `}
+        className={`relative z-50 flex items-center rounded-xl bg-gray-600 `}
       >
-
-        <div className={`scene `}>
+        <div className={`scene bg-amber-500 bg-opacity-80 backdrop-blur-sm`}>
           <div
             style={{
               backgroundColor: isActive ? currentTheme?.accent : null,
             }}
-            className={`cube ${isActive ? 'show-right' : ''}`}
+            className={`cube ${isActive ? "show-right" : ""}`}
           >
-            <div className="cube__face cube__face--front"
-                  
-            >            
-            <img src="/logo3.svg" viewBox="0 0 32 32"></img>
-        </div>
-            <div className="cube__face cube__face--back">back</div>
-            <div className="cube__face cube__face--right"
-                
-            >right</div>
-            <div className="cube__face cube__face--left">left</div>
-            <div className="cube__face cube__face--top">top</div>
-            <div className="cube__face cube__face--bottom">bottom</div>
+            <div className="cube__face cube__face--front">
+              <img src="/logo3.svg" viewBox="0 0 32 32"></img>
+            </div>
+            <div className="cube__face cube__face--back "></div>
+            <div className="text-white cube__face cube__face--right ">
+             <img src="/back.svg" viewBox="0 0 32 32"></img>
 
+            </div>
+            <div className="cube__face cube__face--left "></div>
+            <div className="cube__face cube__face--top "></div>
+            <div className="cube__face cube__face--bottom "></div>
           </div>
         </div>
 
@@ -179,8 +180,7 @@ export default function Navigation() {
             easing: cubicBezier(0.35, 0.17, 0.3, 0.86),
           }}
         >
-                    {/* <TextTitle content={ isActive ? 'Back' : 'Riki Sommers'}/> */}
-
+          {/* <TextTitle content={ isActive ? 'Back' : 'Riki Sommers'}/> */}
           Riki Sommers
         </motion.span>
       </motion.div>
@@ -222,19 +222,20 @@ export default function Navigation() {
                 href={page.url}
                 scroll={false}
                 onClick={() => setActivePage(page.id)}
-                className="relative flex items-center px-3 py-3 text-sm text-white uppercase rounded-lg"
+                className="relative flex items-center text-sm text-white uppercase rounded-lg"
               >
-                <span
-                  style={{
-                    color:
-                      activePage === page.id
-                        ? currentTheme?.textAccent
-                        : currentTheme?.textColor,
-                  }}
-                  className={`relative z-10`}
-                >
-                  {page.title}
-                </span>
+                <Button label={page.title}/>
+                {/* // <span
+                //   style={{
+                //     color:
+                //       activePage === page.id
+                //         ? currentTheme?.textAccent
+                //         : currentTheme?.textColor,
+                //   }}
+                //   className={`relative z-10`}
+                // >
+                //   {page.title}
+                // </span> */}
                 {activePage === page.id && (
                   <motion.div
                     layoutId="indicator"
@@ -244,15 +245,8 @@ export default function Navigation() {
               </Link>
             ))}
 
-            <button
-              style={{
-                backgroundColor: currentTheme?.accent,
-                color: currentTheme?.textColor,
-              }}
-              className={`px-3 py-3 text-xs  uppercase rounded-lg`}
-            >
-              Contact
-            </button>
+            <Button label={'Contact'} sound={ButtonSound.ON}></Button>
+            
           </div>
         </div>
       </div>
@@ -270,18 +264,15 @@ export default function Navigation() {
             >
               Theme
             </button> */}
-            
+
             {/* TODO: Add audio */}
-                <Button 
-                click={toggleTheme}
-            label={'Theme'}/>
+            <Button click={toggleTheme} label={"Theme"} type={ButtonType.PRIMARY}/>
             {isOpen && (
               <div className="absolute right-0 w-[350px] mt-2 bg-white rounded shadow-lg top-full">
                 <ThemeEditor />
               </div>
             )}
           </div>
-      
 
           {/* <button
             style={{
@@ -292,7 +283,7 @@ export default function Navigation() {
           >
             Audio
           </button> */}
-          <Button label={'Audio'}/>
+          <Button label={"Audio"} />
         </div>
       </div>
     </div>

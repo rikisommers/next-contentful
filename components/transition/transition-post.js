@@ -16,9 +16,9 @@ const TransitionPost = ({ children }) => {
 
 
   return (
-    <div className="testp w-full h-full">
+    <div className="w-full h-full testp">
     <motion.div
-        className="w-screen h-screen z-10"
+        className="z-10 w-full h-screen"
         initial={{ 
           transform:"translateZ(0px)"
         //  transform :  [`

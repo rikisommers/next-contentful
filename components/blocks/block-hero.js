@@ -20,7 +20,7 @@ export default function BlockHero({
 
   return (
     <div
-      className={`relative transition ease-in-out w-screen h-screen`}
+      className={`relative transition ease-in-out w-full h-screen`}
       style={{ background: currentTheme?.bodyBackgroundColor }}
     >
       <div className="z-10 home">

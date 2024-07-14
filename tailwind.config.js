@@ -6,6 +6,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors:{
+        'primary': 'var(--color-theme-primary)',
+        'secondary': 'var(--color-theme-secondary)',
+      },
       screens:{
         'xxl':'1920px'
       },
