@@ -10,26 +10,26 @@ export const RichTextOptions = {
     [INLINES.HYPERLINK]: (node, children) => {
       const { uri } = node.data;
       return (
-        <a href={uri} className="text-sky-500 underline">
+        <a href={uri} className="underline text-sky-500">
           {children}
         </a>
       );
     },
     [BLOCKS.HEADING_2]: (node, children) => {
-      return <h2 className="text-2xl font-semibold mb-2">{children}</h2>;
+      return <h2 className="mb-2 text-2xl font-semibold">{children}</h2>;
     },
     [BLOCKS.HEADING_3]: (node, children) => {
-      return <h3 className="text-xl font-semibold	mb-2">{children}</h3>;
+      return <h3 className="mb-2 text-xl font-semibold">{children}</h3>;
     },
     [BLOCKS.HEADING_4]: (node, children) => {
-      return <h4 className="text-lg font-semibold	mb-2">{children}</h4>;
+      return <h4 className="mb-2 text-lg font-semibold">{children}</h4>;
     },
     [BLOCKS.HEADING_5]: (node, children) => {
-      return <h5 className="text-base font-semibold mb-2">{children}</h5>;
+      return <h5 className="mb-2 text-base font-semibold">{children}</h5>;
     },
 
     [BLOCKS.PARAGRAPH]: (node, children) => {
-      return <p className="text-base font-medium mb-4">{children}</p>;
+      return <p className="mb-4 text-base">{children}</p>;
     },
 
     // [BLOCKS.EMBEDDED_ASSET]: (node) => {

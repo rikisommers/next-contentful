@@ -1,8 +1,9 @@
 import React from "react";
 import { motion } from "framer-motion";
 import TextAnimation from "../utils/text-animation";
-import { TextTitle } from "../rich-text/text-title";
+import { TextAnimRandom } from "../rich-text/text-anim-random";
 import { TextSubtitle } from "../rich-text/text-subtitle";
+import { TextAnimLineUp } from "../rich-text/text-anim-line-up";
 import Audio from "../navigation/audio";
 import Link from "next/link";
 import { useTheme } from "next-themes";
@@ -26,7 +27,7 @@ export default function BlockHero({
     >
       <div className="z-10 home">
         <div className="flex items-end justify-start h-full px-32 py-32">
-          <div className="flex flex-col col-span-12 gap-6 md:col-span-6 ">
+          <div className="flex justify-between col-span-12 gap-6 md:col-span-6 ">
             {/* <h1 className="text-7xl">{backgroundColor}</h1> */}
 
             {/* <TextAnimation  
@@ -34,13 +35,24 @@ export default function BlockHero({
               color={"text-slate-400"}
             /> */}
 
-            <TextTitle content={titlealt}>
+              <h1 className="text-5xl">
+              {/* <TextAnimLineUp content={titlealt}/> */}
+
+            <TextAnimRandom content={titlealt}/>
+           
               {/* <TextScramble content={['Plan,Design & buid','wear many hats','like fart jokes']}/> */}
-            </TextTitle>
-            <TextSubtitle
+            </h1>
+            <div className="w-1/2 flex flex-col h-[400px] items-start">
+            <h2 className="text-xl">
+            <TextAnimLineUp  ignoreRichText={true} content={contentalt}/>
+
+            {/* <TextSubtitle
               content={contentalt}
               color={currentTheme?.textColor}
-            />
+            /> */}
+            </h2>
+            </div>
+            
           </div>
         </div>
         {date && (

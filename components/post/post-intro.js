@@ -2,11 +2,14 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 import { motion, cubicBezier } from "framer-motion";
 import Background from "../utils/background";
 import TextAnimationUp from "../utils/text-animation-up";
-import { TextTitle } from "../rich-text/text-title";
+import { TextAnimLineUp } from "../rich-text/text-anim-line-up";
 import { TextSubtitle } from "../rich-text/text-subtitle";
 import TextAnimation,{TextSize, AnimationType} from "../utils/text-animation";
+import { TextAnimLinear } from "../rich-text/text-anim-linear";
 import TextScramble from "../utils/text-scamble";
 import TextAnimationLineUp from "../utils/text-animation-line-up";
+import TextAnimCode from "../rich-text/text-anim-code";
+
 export default function PostIntro({ title, content }) {
 
 
@@ -48,10 +51,13 @@ export default function PostIntro({ title, content }) {
     >
       <div className="col-span-12 md:col-span-8 lg:col-span-6">
         <TextScramble content={['This','is','stupid']}/>
-      <TextAnimation content={title} size={TextSize.XLARGE} animationType={AnimationType.LINEAR}/>
-        <TextTitle content={title}>
+        <h1 className="text-5xl">
+          <TextAnimCode content={title}/>
+        </h1>
+        <TextAnimLineUp content={title} 
+          animateWhenInView={true}
+          repeatWhenInView={true}></TextAnimLineUp>
           {/* <TextScramble content={['Plan,Design & buid','wear many hats','like fart jokes']}/> */}
-        </TextTitle>
       </div>
       <div className="col-span-12 text-xl text-left md:col-span-8 lg:col-span-6 lg:text-right text-balance">
         <TextSubtitle content={content} />

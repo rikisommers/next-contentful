@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import TextAnimation from "../utils/text-animation";
-import { TextTitle } from "../rich-text/text-title";
+import { TextAnimRandom } from "../rich-text/text-anim-random";
 import Audio from "../navigation/audio";
 import Link from "next/link";
 import { useTheme } from 'next-themes';
@@ -24,10 +24,11 @@ export default function BlockHeader({ data }) {
           >sdfsdf</motion.p>
           {/* <TextAnimation content={content?.title} /> */}
           {data?.title && (
-            // <TextAnimation content={content?.title} color={'#000'}/>
-            <TextTitle content={data.title} color={"text-slate-400"} />
+            <h1 className="text-5xl">
+            <TextAnimRandom content={data.title} color={"text-slate-400"} />
+            </h1>
           )}
-                          <h1>sdsd</h1>
+                        
 
         </div>
         <h2 className="col-span-6 text-5xl font-light text-left md:col-span-6 md:text-right text-balance"

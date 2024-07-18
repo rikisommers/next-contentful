@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { useTheme } from 'next-themes';
 import { getThemeByKey } from '../../utils/theme';
 
-export const TextTitle = ({ content, children }) => {
+export const TextAnimRandom = ({ content }) => {
   const { theme } = useTheme();
   const currentTheme = getThemeByKey(theme);
 
@@ -57,13 +57,13 @@ export const TextTitle = ({ content, children }) => {
   };
 
   return (
-    <motion.h1
+    <motion.span
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       style={{
         color: currentTheme?.headingColor
       }}
-      className="text-5xl"
+     
     >
       {renderTextWithBoldAndLineBreaks(content)}
       <motion.span
@@ -71,8 +71,7 @@ export const TextTitle = ({ content, children }) => {
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2 }}
       >
-        {children}
       </motion.span>
-    </motion.h1>
+    </motion.span>
   );
 }

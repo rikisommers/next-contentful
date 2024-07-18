@@ -10,7 +10,6 @@ import { gsap } from "gsap";
 import * as THREE from "three";
 import { vertexShader } from "../shaders/water/vertex";
 import { fragmentShader } from "../shaders/water/fragment";
-import { TextTitle } from "../components/rich-text/text-title";
 import { TextSubtitle } from "../components/rich-text/text-subtitle";
 import ScrollContainer from "../components/utils/scroll-container";
 import CustomCursor from "../components/utils/cursor";

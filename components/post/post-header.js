@@ -8,8 +8,10 @@ import PostDetails from "./post-details";
 import BlendImage from "../image/blend-image";
 import PostTileImgAlt from "./post-tile-img-alt";
 import BlockQuote from "../blocks/block-quote";
-import { TextTitle } from "../rich-text/text-title";
+import { TextAnimRandom } from "../rich-text/text-anim-random";
 import { TextSubtitle } from "../rich-text/text-subtitle";
+import TextAnimationChar from "../rich-text/text-anim-char";
+import TextAnimCode from "../rich-text/text-anim-code";
 
 export default function PostHeader({ content }) {
   const { routeInfo } = useContext(RouteContext);
@@ -22,8 +24,10 @@ export default function PostHeader({ content }) {
       <div className="col-span-12 md:col-span-8 lg:col-span-6">
           {content?.title && (
             // <TextAnimation content={content?.title} color={'#000'}/>
-
-            <TextTitle content={content?.title} />
+              
+            <h1 className="text-5xl">
+            <TextAnimCode content={content?.title} />
+            </h1>
           )}
         </div>
         <div className="col-span-12 text-xl text-left md:col-span-8 lg:col-span-6 lg:text-right text-balance">

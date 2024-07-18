@@ -125,7 +125,7 @@ export default function Navigation() {
   // }
 
   return (
-    <div className="fixed z-50 flex justify-between p-6 w-[80%]">
+    <div className="fixed z-50 flex justify-between w-full p-6">
       {/* <audio ref={audioRef} play={false} src='/audio/test.mp3' /> */}
 
       {/* <motion.div className="audio">

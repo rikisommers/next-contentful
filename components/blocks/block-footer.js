@@ -1,6 +1,5 @@
 import React,{useState, useRef} from "react";
 import TextAnimation from "../utils/text-animation";
-import { TextTitle } from "../rich-text/text-title";
 import Audio from "../navigation/audio";
 import Link from "next/link";
 import { useTheme } from "next-themes";

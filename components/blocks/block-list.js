@@ -1,7 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 import TextAnimation from "../utils/text-animation";
-import { TextTitle } from "../rich-text/text-title";
 import Audio from "../navigation/audio";
 import Link from "next/link";
 import { useTheme } from "next-themes";

@@ -31,11 +31,15 @@ import PostTileCs from "../../components/post/post-tile-cs";
 import { useTheme } from 'next-themes';
 import { themes } from "../../utils/theme";
 import { getThemeByKey } from "../../utils/theme";
-
+import { useScrollPosition } from "../../components/scrollPosContext";
 
 export default function Post({ post, nextPost }) {
   const router = useRouter();
   console.log("post---------------------------", post);
+
+  ;
+  const { scrollPosition, setScrollPosition } = useScrollPosition();
+  const [scrollPercentage, setScrollPercentage] = useState(0);
 
   const { routeInfo } = useContext(RouteContext);
   const [destRoute, setDestRoute] = useState("");
@@ -45,6 +49,38 @@ export default function Post({ post, nextPost }) {
   const currentTheme = getThemeByKey(theme);
 
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      
+      // Calculate the maximum scrollable distance
+      const scrollableDistance = documentHeight - windowHeight;
+      
+      // Calculate the scroll percentage (0 to 100)
+      const percentage = Math.round((scrollTop / scrollableDistance) * 100);
+      
+      // Ensure the percentage is between 0 and 100
+      const clampedPercentage = Math.max(0, Math.min(100, percentage));
+      
+      setScrollPercentage(clampedPercentage);
+      setScrollPosition(clampedPercentage);
+    };
+
+    // Initial call to set the initial scroll position
+    handleScroll();
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+    };
+  }, [setScrollPosition]);
+
+  
   useEffect(() => {
     //  setSourceRoute(routeInfo.sourceRoute);
     setDestRoute(routeInfo.destRoute);
@@ -86,6 +122,8 @@ export default function Post({ post, nextPost }) {
     target: contentRef,
     offset: ["start start", "start -100px"],
   });
+
+
 
   const yv = useTransform(scrollContent, [0, 1], [8, 0.01]);
   const xv = useTransform(scrollContent, [0, 1], [1.5, 0.01]);
@@ -172,6 +210,10 @@ export default function Post({ post, nextPost }) {
                     return (
 <>                        {item.__typename === "BlockArticle" && (
                           <div className="relative flex items-center px-3 py-3 text-sm text-white uppercase rounded-lg pointer-events-auto">
+                                <motion.div className="absolute w-3 bg-red-400" style={{scaleY:scrollPosition}}>
+
+                                </motion.div>
+                                <h1>Current Scroll Position: {scrollPosition}px</h1>
 
                           <h1 key={index}>
                             {/* {item.title} */}
