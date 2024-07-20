@@ -128,16 +128,16 @@ export default function Navigation() {
       </motion.div> */}
       <motion.div
         style={{
-          backgroundColor: 'var(--background-color)',
+          backgroundColor: 'var(--accent',
           color:
             router.asPath === "/"
-              ? 'var(--text-color-inv)'
-              : 'var(--text-color)',
+              ? 'var(--text-color)'
+              : 'var(--heading-color)',
         }}
         className={`relative z-50 flex items-center rounded-xl`}
       >
         <div className={`scene bg-opacity-80 backdrop-blur-sm`} 
-          style={{backgroundColor:'var(--body-background-color)'}}
+          style={{backgroundColor:'var(--accent-pri)'}}
         >
           <div
             style={{
@@ -149,7 +149,7 @@ export default function Navigation() {
               <img src="/logo3.svg" viewBox="0 0 32 32"></img>
             </div>
             <div className="cube__face cube__face--back "></div>
-            <div className="text-white cube__face cube__face--right ">
+            <div className=" cube__face cube__face--right">
              <img src="/back.svg" viewBox="0 0 32 32"></img>
 
             </div>
@@ -160,8 +160,8 @@ export default function Navigation() {
         </div>
 
         <motion.span
-          className="self-center p-3 text-sm"
-          style={{ color: 'var(--text-accent)' }}
+          className="self-center p-3 text-sm font-aon"
+          style={{ color: 'var(--text-heading)' }}
           layoutId="title"
           initial={{
             opacity: 0,
@@ -190,7 +190,7 @@ export default function Navigation() {
             :
           </div> */}
           <div className="relative z-50 flex gap-1 bg-opacity-50 rounded-xl backdrop-blur-lg"
-            style={{backgroundColor: 'var(--background-color)'}}
+            style={{backgroundColor: 'var(--nav-bg)'}}
           >
             {/* <motion.div
               className="absolute right-0 z-10 overflow-hidden rounded-lg shadow-lg top-14 "
@@ -225,23 +225,24 @@ export default function Navigation() {
                 className="relative flex items-center text-sm uppercase rounded-lg"
                 style={{color: 'var(--text-color-inv)'}}
               >
-                <Button label={page.title}/>
-                {/* // <span
-                //   style={{
-                //     color:
-                //       activePage === page.id
-                //         ? currentTheme?.textAccent
-                //         : currentTheme?.textColor,
-                //   }}
-                //   className={`relative z-10`}
-                // >
-                //   {page.title}
-                // </span> */}
+                {/* <Button label={page.title}/> */}
+                  <span
+                 style={{
+                    color:
+                       activePage === page.id
+                         ? 'var(--text-color-inv)'
+                         : 'var(--text-color)',
+                   }}
+                   className={`z-10 relative flex items-center px-3 py-3 text-xs uppercase rounded-lg cursor-pointer`}
+                 >
+                   {page.title}
+                 </span>  
                 {activePage === page.id && (
                   <motion.div
                     layoutId="indicator"
-                    style={{backgroundColor: 'var(--body-background-color)'}}
-                    className="absolute top-0 left-0 flex w-full h-full rounded-xl"
+                    style={{
+                      backgroundColor: 'var(--subtext-color)'}}
+                    className="absolute top-0 left-0 z-0 flex w-full h-full rounded-xl"
                   ></motion.div>
                 )}
               </Link>
@@ -256,24 +257,17 @@ export default function Navigation() {
       <div className="flex items-center gap-1 rounded-lg">
         <div className="relative z-50 flex gap-1 bg-opacity-50 rounded-xl backdrop-blur-lg"
         style={{backgroundColor: 'var(--background-color)'}}>
+          <Button label={"Audio"} />
           <div className="relative">
-            {/* <button
-              style={{
-                backgroundColor: currentTheme?.backgroundColor,
-                color: currentTheme?.textColor,
-              }}
-              onClick={toggleTheme}
-              className="px-3 py-3 text-xs uppercase rounded-lg"
-            >
-              Theme
-            </button> */}
+          
+
 
             {/* TODO: Add audio */}
-            <Button click={toggleTheme} label={"Theme"} type={ButtonType.PRIMARY}/>
+            <Button click={toggleTheme} label={"Theme"} type={ButtonType.SECONDARY}/>
             {isOpen && (
               <div className="absolute right-0 w-[350px] mt-2 rounded shadow-lg top-full"
               style={{backgroundColor: 'var(--body-background-color)'}}>
-                <ThemeEditor />
+                {/* <ThemeEditor /> */}
               </div>
             )}
           </div>
@@ -287,7 +281,6 @@ export default function Navigation() {
           >
             Audio
           </button> */}
-          <Button label={"Audio"} />
         </div>
       </div>
     </div>

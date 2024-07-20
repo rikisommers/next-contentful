@@ -56,7 +56,6 @@ const Work = ({ data }) => {
               <PostIntro
                 title={data.titlealt}
                 content={data.contentalt}
-                theme={theme}
               />
 
             {/* {data.video && (

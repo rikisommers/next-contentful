@@ -37,7 +37,10 @@ export default function BlockHero({
               <TextAnimLineUp content={titlealt} clipText={true} />
               {/* <TextScramble content={['Plan,Design & buid','wear many hats','like fart jokes']}/> */}
             </h1>
-              <h2 className="text-xl text-center font-regular">
+              <h2 className="text-xl text-center font-regular"
+                   style={{
+                    color: 'var(--subtext-color)',
+                  }}>
                 {/* <TextAnimation content={contentalt}/> */}
                 <TextSubtitle
                   content={contentalt}

@@ -20,17 +20,31 @@ export default function ThemeEditor() {
     return themes.dark;
   };
 
-  const [isOpen, setIsOpen] = useState(false);
-  const toggleMenu = () => setIsOpen(!isOpen);
-
-  const initialTheme = loadInitialTheme();
-  const [currentTheme, setCurrentTheme] = useState(initialTheme);
+  const [currentTheme, setCurrentTheme] = useState(loadInitialTheme());
+  const [levaKey, setLevaKey] = useState(0);
 
   const mixBlendModes = [
     "normal", "multiply", "screen", "overlay", "darken", "lighten",
     "color-dodge", "color-burn", "hard-light", "soft-light",
     "difference", "exclusion", "hue", "saturation", "color", "luminosity"
   ];
+
+  const applyCurrentTheme = (updatedTheme) => {
+    setCurrentTheme(updatedTheme);
+    setTheme(updatedTheme.key);
+    updateTheme(updatedTheme.key, updatedTheme);
+    localStorage.setItem('currentTheme', JSON.stringify(updatedTheme));
+
+    // Update CSS variables
+    Object.entries(updatedTheme).forEach(([key, value]) => {
+      if (typeof value === 'string') {
+        document.documentElement.style.setProperty(`--${key}`, value);
+      }
+    });
+
+    // Force re-render of Leva controls
+    setLevaKey((prevKey) => prevKey + 1);
+  };
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('currentTheme');
@@ -45,30 +59,6 @@ export default function ThemeEditor() {
     }
   }, [setTheme]);
 
-  const applyCurrentTheme = (updatedTheme) => {
-    const applyCurrentTheme = (updatedTheme) => {
-      setCurrentTheme(updatedTheme);
-      setTheme(updatedTheme.key);
-      updateTheme(updatedTheme.key, updatedTheme);
-      localStorage.setItem('currentTheme', JSON.stringify(updatedTheme));
-    
-      // Update CSS variables
-      document.documentElement.style.setProperty('--body-background-color', updatedTheme.bodyBackgroundColor);
-      document.documentElement.style.setProperty('--background-color', updatedTheme.backgroundColor);
-      document.documentElement.style.setProperty('--surface1', updatedTheme.surface1);
-      document.documentElement.style.setProperty('--surface2', updatedTheme.surface2);
-      document.documentElement.style.setProperty('--background-color-inv', updatedTheme.backgroundColorInv);
-      document.documentElement.style.setProperty('--heading-color', updatedTheme.headingColor);
-      document.documentElement.style.setProperty('--text-color', updatedTheme.textColor);
-      document.documentElement.style.setProperty('--subtext-color', updatedTheme.subtextColor);
-      document.documentElement.style.setProperty('--text-color-inv', updatedTheme.textColorInv);
-      document.documentElement.style.setProperty('--accent', updatedTheme.accent);
-      document.documentElement.style.setProperty('--text-accent', updatedTheme.textAccent);
-      document.documentElement.style.setProperty('--mix-blend-mode', updatedTheme.mixBlendMode);
-      document.documentElement.style.setProperty('--state-success-background', updatedTheme.stateSuccessBackground);
-    };
-  };
-
   const controls = {
     Theme: {
       value: currentTheme.key,
@@ -78,17 +68,17 @@ export default function ThemeEditor() {
         applyCurrentTheme(updatedTheme);
       },
     },
-    "Background Color": {
-      value: currentTheme.backgroundColor,
-      onChange: (value) => {
-        const updatedTheme = { ...currentTheme, backgroundColor: value };
-        applyCurrentTheme(updatedTheme);
-      },
-    },
     "Body Background Color": {
       value: currentTheme.bodyBackgroundColor,
       onChange: (value) => {
         const updatedTheme = { ...currentTheme, bodyBackgroundColor: value };
+        applyCurrentTheme(updatedTheme);
+      },
+    },
+    "Background Color": {
+      value: currentTheme.backgroundColor,
+      onChange: (value) => {
+        const updatedTheme = { ...currentTheme, backgroundColor: value };
         applyCurrentTheme(updatedTheme);
       },
     },
@@ -110,6 +100,13 @@ export default function ThemeEditor() {
       value: currentTheme.surface2,
       onChange: (value) => {
         const updatedTheme = { ...currentTheme, surface2: value };
+        applyCurrentTheme(updatedTheme);
+      },
+    },
+    "Surface 3": {
+      value: currentTheme.surface3,
+      onChange: (value) => {
+        const updatedTheme = { ...currentTheme, surface3: value };
         applyCurrentTheme(updatedTheme);
       },
     },
@@ -148,10 +145,31 @@ export default function ThemeEditor() {
         applyCurrentTheme(updatedTheme);
       },
     },
+    'NavBg': {
+      value: currentTheme.navBg,
+      onChange: (value) => {
+        const updatedTheme = { ...currentTheme, navBg: value };
+        applyCurrentTheme(updatedTheme);
+      },
+    },
     Accent: {
       value: currentTheme.accent,
       onChange: (value) => {
         const updatedTheme = { ...currentTheme, accent: value };
+        applyCurrentTheme(updatedTheme);
+      },
+    },
+    AccentPri: {
+      value: currentTheme.accentPri,
+      onChange: (value) => {
+        const updatedTheme = { ...currentTheme, accentPri: value };
+        applyCurrentTheme(updatedTheme);
+      },
+    },
+    AccentSec: {
+      value: currentTheme.accentSec,
+      onChange: (value) => {
+        const updatedTheme = { ...currentTheme, accentSec: value };
         applyCurrentTheme(updatedTheme);
       },
     },
@@ -165,7 +183,7 @@ export default function ThemeEditor() {
     },
   };
 
-  useControls(() => controls);
+  useControls(() => controls, [levaKey]);
 
   return (
     <>

@@ -32,26 +32,22 @@ function MyApp({ Component, pageProps, router }) {
   return (
     <RouteProvider>
       <ScrollPositionProvider>
-        <ThemeProvider attribute="class">
-          <MousePosProvider>
+      <ThemeProvider attribute="data-theme">
+      <MousePosProvider>
             <ToastProvider>
               {/* {isLoading ? 
          <Preloader /> 
         :  } */}
               <>
-                {" "}
-
-                <div className="grid grid-cols-10">
-                  <div className="relative col-span-8">
+          
+            
                   <Navigation />
-                    <AnimatePresence mode="wait">
+                  <AnimatePresence mode="wait" initial={false}>
                       <Component {...pageProps} key={router.asPath} />
                     </AnimatePresence>
-                  </div>
-                  <div className="col-span-2">
+{/* 
                    <ThemeEditor />
-                  </div>
-                </div>
+          */}
               </>
 
               <svg

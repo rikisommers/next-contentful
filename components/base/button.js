@@ -7,23 +7,18 @@ import { useAudioControls } from "../utils/audio";
 
 // Define the ButtonType enum
 const ButtonType = {
+  DEFAULT: "default",
   PRIMARY: "primary",
   SECONDARY: "secondary",
-  SUCCESS: "success",
-  DANGER: "danger",
-  // Add other types as needed
 };
 
 const ButtonSound = {
   ON: "on",
   OFF: "off",
   CLICK: "click",
-
 };
 
-
-const Button = ({ label, click, type, sound }) => {
-
+const Button = ({ label, click, type = ButtonType.DEFAULT, sound }) => {
   const {
     playPlink,
     playClick,
@@ -32,18 +27,28 @@ const Button = ({ label, click, type, sound }) => {
   } = useAudioControls();
 
   // Determine button style based on type
-  const getButtonClass = (type) => {
+  const getButtonStyle = (type) => {
     switch (type) {
+      case ButtonType.DEFAULT:
+        return {
+          backgroundColor: 'var(--button-default-bg)',
+          color: 'var(--button-default-text)',
+        };
       case ButtonType.PRIMARY:
-        return "bg-red-400 text-slate-300";
+        return {
+          backgroundColor: 'var(--button-primary-bg)',
+          color: 'var(--button-primary-text)',
+        };
       case ButtonType.SECONDARY:
-        return "bg-red-200 text-slate-300";
-      case ButtonType.SUCCESS:
-        return "bg-success text-slate-300";
-      case ButtonType.DANGER:
-        return "bg-danger text-slate-300";
+        return {
+          backgroundColor: 'var(--button-secondary-bg)',
+          color: 'var(--button-secondary-text)',
+        };
       default:
-        return "bg-primary text-slate-300";
+        return {
+          backgroundColor: 'var(--button-default-bg)',
+          color: 'var(--button-default-text)',
+        };
     }
   };
 
@@ -67,11 +72,11 @@ const Button = ({ label, click, type, sound }) => {
     }
   };
 
-
   return (
     <motion.div
       onClick={handleClick}
-      className={`relative flex items-center px-3 py-3 text-xs uppercase rounded-lg cursor-pointer ${getButtonClass(type)}`}
+      className="relative flex items-center px-3 py-3 text-xs uppercase rounded-lg cursor-pointer"
+      style={getButtonStyle(type)}
     >
       {label}
     </motion.div>
@@ -85,7 +90,6 @@ Button.propTypes = {
   type: PropTypes.oneOf(Object.values(ButtonType)),
   sound: PropTypes.oneOf(Object.values(ButtonSound))
 };
-
 
 export default Button;
 export { ButtonType, ButtonSound };

@@ -141,7 +141,7 @@ const Index = ({ data }) => {
   const dateString = date.toLocaleDateString("en-US", options);
 
   return (
-    <div style={{ background:  'var(--body-background-color)', }}>
+    <div style={{ background:  'var(--background-color)', }}>
       <Layout>
         {/* <canvas 
         ref={canvasRef} 

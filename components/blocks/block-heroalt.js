@@ -6,8 +6,6 @@ import { TextSubtitle } from "../rich-text/text-subtitle";
 import { TextAnimLineUp } from "../rich-text/text-anim-line-up";
 import Audio from "../navigation/audio";
 import Link from "next/link";
-import { useTheme } from "next-themes";
-import { getThemeByKey } from "../../utils/theme";
 
 export default function BlockHeroAlt({
   title,
@@ -16,22 +14,21 @@ export default function BlockHeroAlt({
   contentalt,
   date,
 }) {
-  const { theme } = useTheme();
-  const currentTheme = getThemeByKey(theme);
+
 
   return (
     <div
       className={`relative transition ease-in-out w-screen`}
-      style={{ background: currentTheme?.bodyBackgroundColor }}
+      style={{ background: 'var(--body-background-color)' }}
     >
       <div className="z-10">
         <div className="grid items-end grid-cols-12 px-6 py-8 h-vhh">
-          <div className="flex col-span-12 gap-6 space-between gap-80">
+          <div className="flex col-span-12 space-between gap-80">
             {/* <h1 className="text-7xl">{backgroundColor}</h1> */}
 
             <div className="grid-cols-5">
               <h2 className="text-4xl font-normal font-aon">
-                <TextAnimLineUp content={contentalt} color={"text-slate-400"} />
+                <TextAnimLineUp content={contentalt} />
               </h2>
             </div>
 
@@ -41,7 +38,6 @@ export default function BlockHeroAlt({
               <h3 className="text-xl text-center font-regular">
                 <TextSubtitle
                   content={titlealt}
-                  color={currentTheme?.textColor}
                 />
               </h3>
             </div>

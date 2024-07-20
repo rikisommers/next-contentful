@@ -42,11 +42,12 @@ export default function BlockFooter({ content }) {
       <div className="z-20 grid w-full grid-cols-12 gap-3 px-16 py-16">
         <div className="flex flex-col col-span-12 gap-12 md:col-span-7">
           <div className="flex flex-col items-start gap-4">
-            <motion.p className="text-sm text-slate-400">sdfsdf</motion.p>
+            <motion.p className="text-sm" style={{color: 'var(--text-color-inv)'}}>sdfsdf</motion.p>
             {/* <TextAnimation content={content?.title} /> */}
             {content?.titlealt && (
               // <TextAnimation content={content?.title} color={'#000'}/>
-              <h2 className="grid-cols-5 text-2xl font-light text-left text-slate-600 text-balance">
+              <h2 style={{color: 'var(--text-accent)'}} 
+              className="grid-cols-5 text-2xl font-light text-left text-balance">
               {content?.intro}
             </h2>
               // <TextTitle
@@ -59,7 +60,9 @@ export default function BlockFooter({ content }) {
           </div>
         </div>
 
-        <h2 className="grid-cols-5 text-2xl font-light text-left text-slate-300 md:text-right text-balance">
+        <h2 className="grid-cols-5 text-2xl font-light text-left md:text-right text-balance"
+        style={{color: 'var(--text-color-inv)'}}
+        >
           {content?.intro}
         </h2>
       </div>
@@ -77,10 +80,13 @@ export default function BlockFooter({ content }) {
           </motion.div>
         </motion.div> */}
       <div className="z-20 flex items-center justify-between w-full px-16 py-8">
-        <h4 className="text-lg text-slate-300">Connect       
+        <h4 className="text-lg"
+        style={{color: 'var(--text-color-inv)'}}
+        >Connect       
           <Link
           href="mailto:test@test.com"
-          className="text-lg text-yellow-300 text-medium"
+          className="text-lg text-medium"
+          style={{color: 'var(--text-accent)'}}
         >
           test@test.com
         </Link></h4>
@@ -93,11 +99,11 @@ export default function BlockFooter({ content }) {
       </div>
 
       <motion.div 
-        className="absolute w-full h-full bg-yellow-200"
+        className="absolute w-full h-full"
         style={{
           y: yTransform,
           clipPath: "inset( 1rem round 1rem )",
-          backgroundColor:  'var(--background-color)',
+          backgroundColor:  'var(--accent)',
         }}
       />
     </motion.div>

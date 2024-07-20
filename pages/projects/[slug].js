@@ -210,12 +210,12 @@ export default function Post({ post, nextPost }) {
       )}
 
       <Layout>
-        <TransitionTilt active={true}>
-          {/* <h1 className="absolute p-8 m-8 left-8 top-8">{post && post.slug}</h1> */}
+      <TransitionTilt active={true} className="z-100">
+      {/* <h1 className="absolute p-8 m-8 left-8 top-8">{post && post.slug}</h1> */}
 
           <motion.div
             style={{
-              backgroundColor: currentTheme?.backgroundColor,
+              backgroundColor:  'var(--background-color)',
               clipPath: clipPathValue,
             }}
             className={`relative z-10 flex flex-col pb-20`}

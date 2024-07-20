@@ -4,22 +4,31 @@
   --background-color: #F7FCFE;
   --surface1: #F8FBF8;
   --surface2: #F7FCFE;
+  --surface3: #C0C6C9;
   --background-color-inv: #C0C6C9;
   --heading-color: #887F7A;
   --text-color: #887F7A;
   --subtext-color: #C0C6C9;
   --text-color-inv: #887F7A;
   --accent: #BED3CD;
+  --accent-pri: #EF7801;
+  --accent-sec: #FCD00A;
   --text-accent: #BED3CD;
   --mix-blend-mode: luminosity;
-  --state-success-background: #BED3CD;
-
+  --nav-bg: #C0C6C9;
+  --button-default-bg:var(--nav-bg);
+  --button-default-text:var(--text-color);
+  --button-primary-bg:var(--accent-pri);
+  --button-primary-text:var(--text-color-inv);
+  --button-secondary-bg:var(--accent-sec);
+  --button-secondary-text:var(--text-color-inv);
 }
 [data-theme='light'] {
   --body-background-color: #fafafa;
   --background-color: #f4f4f5;
   --surface1: #c1c1c1;
   --surface2: #6f6f6f;
+  --surface3: #C0C6C9;
   --background-color-inv: #6b7280;
   --heading-color: #52525b;
   --text-color: #09090b;
@@ -28,38 +37,63 @@
   --accent: #d946ef;
   --text-accent: #d946ef;
   --mix-blend-mode: color;
-  --state-success-background: #d946ef;
+  --button-default-bg:var(--surface3);
+  --button-default-text:var(--text-color);
+  --button-primary-bg:var(--accent-pri);
+  --button-primary-text:var(--text-color-inv);
+  --button-secondary-bg:var(--accent-sec);
+  --button-secondary-text:var(--text-color-inv);
 }
 [data-theme='dark'] {
-  --body-background-color: #1f2937;
-  --background-color: #6b7280;
+  --body-background-color: #E47362;
+  --background-color: #271C1B;
   --surface1: #c1c1c1;
   --surface2: #6f6f6f;
+  --surface3: #C0C6C9;
   --background-color-inv: #f4f4f5;
-  --heading-color: #e4e4e7;
+  --heading-color: #FE8500;
   --text-color: #fafafa;
-  --subtext-color: #a1a1aa;
+  --subtext-color: #A07F73;
   --text-color-inv: #09090b;
-  --accent: #99f6e4;
-  --text-accent: #99f6e4;
+  --accent: #FE8500;
+  --accent-pri: #EF7801;
+  --accent-sec: #FCD00A;
+  --text-accent: #FFB514;
   --mix-blend-mode: luminosity;
-  --state-success-background: #d946ef;
+  --nav-bg: #C0C6C9;
+  --button-default-bg:var(--nav-bg);
+  --button-default-text:var(--text-color);
+  --button-primary-bg:var(--accent-pri);
+  --button-primary-text:var(--text-color-inv);
+  --button-secondary-bg:var(--accent-sec);
+  --button-secondary-text:var(--text-color-inv);
 }
+
+
 
 [data-theme='tokyo'] {
   --body-background-color: #F8FBF8;
   --background-color: #F7FCFE;
   --surface1: #F8FBF8;
   --surface2: #F7FCFE;
+  --surface3: #C0C6C9;
   --background-color-inv: #C0C6C9;
   --heading-color: #887F7A;
   --text-color: #887F7A;
   --subtext-color: #C0C6C9;
-  --text-color-inv: #887F7A;
+  --text-color-inv: #F8FBF8;
   --accent: #BED3CD;
+  --accent-pri: #EF7801;
+  --accent-sec: #FCD00A;
   --text-accent: #BED3CD;
   --mix-blend-mode: luminosity;
-  --state-success-background: #BED3CD;
+  --nav-bg: #F8FBF8;
+  --button-default-bg:var(--nav-bg);
+  --button-default-text:var(--text-color);
+  --button-primary-bg:var(--accent-pri);
+  --button-primary-text:var(--text-color-inv);
+  --button-secondary-bg:var(--accent-sec);
+  --button-secondary-text:var(--text-color-inv);
 }
 
 ​

@@ -8,7 +8,6 @@ export default function PostDetails({ post }) {
     <div className="mb-36 ">
       <div className="grid grid-cols-12 gap-3 py-10"
       >
-        {/* style={{ backgroundColor: currentTheme?.bodyBackgroundColor }} */}
         <div className="flex flex-col self-start col-span-10 gap-3 rounded-lg md:col-span-7 lg:col-span-8">
           <div style={{ color: 'var(--text-color)' }}>
             <span

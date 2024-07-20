@@ -10,7 +10,7 @@ export const BlockArticles = ({ data }) => {
     <>
       {data.title && (
         <h3  className="py-2 font-mono text-xs"
-          style={{ color: 'var(-heading-color)', }}>
+          style={{ color: 'var(--heading-color)', }}>
           {data.title}
         </h3>
       )}

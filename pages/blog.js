@@ -44,7 +44,7 @@ export default function Posts({ intro, posts }) {
 
   return (
     <Layout>
-      <TransitionTilt active={true} className="z-100">
+        <TransitionTilt active={true} className="z-100">
         <ScrollContainer>
           <ClipPathContainer>
 

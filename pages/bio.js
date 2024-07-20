@@ -44,8 +44,8 @@ const Bio = ({ data }) => {
   return (
     <div style={{ background:  'var(--body-background-color)' }}>
       <Layout>
-        <TransitionTilt>
-          <ScrollContainer>
+      <TransitionTilt active={true} className="z-100">
+      <ScrollContainer>
 
               <BlockHeroAlt
                 titlealt={data.titlealt}

@@ -41,9 +41,6 @@ export const TextSubtitle = ({ content, children }) => {
     <motion.span
       key={index}
       variants={line}
-      style={{
-        color: 'var(-subtext-color)',
-      }}
       className={`inline`}
     >
       {text}
