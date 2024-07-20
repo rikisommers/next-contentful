@@ -3,8 +3,6 @@ import Layout from "../components/layout";
 import { getHome, getLandingPage } from "../lib/api";
 import TransitionWipe from "../components/transition/transition-wipe";
 import TransitionTilt from "../components/transition/transition-tilt";
-import { useTheme } from "next-themes";
-import { getThemeByKey } from "../utils/theme";
 import html2canvas from "html2canvas";
 import { gsap } from "gsap";
 import * as THREE from "three";
@@ -67,8 +65,7 @@ void main() {
 `;
 
 const Index = ({ data }) => {
-  const { theme } = useTheme();
-  const currentTheme = getThemeByKey(theme);
+
 
   const [footerOffsetValue, setFooterOffsetValue] = useState(0);
 
@@ -144,7 +141,7 @@ const Index = ({ data }) => {
   const dateString = date.toLocaleDateString("en-US", options);
 
   return (
-    <div style={{ background: currentTheme?.bodyBackgroundColor }}>
+    <div style={{ background:  'var(--body-background-color)', }}>
       <Layout>
         {/* <canvas 
         ref={canvasRef} 

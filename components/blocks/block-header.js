@@ -11,8 +11,6 @@ import { useTheme } from "next-themes";
 import { getThemeByKey } from "../../utils/theme";
 
 export default function BlockHeader({ data }) {
-  const { theme } = useTheme();
-  const currentTheme = getThemeByKey(theme);
 
   return (
     <div
@@ -30,12 +28,12 @@ export default function BlockHeader({ data }) {
             </h2>
           )}
         </div>
-        <p
+        {/* <p
           className="col-span-6 text-4xl font-medium text-right font-aon md:col-span-6"
-          style={{ color: currentTheme?.headingColor }}
+          style={{ color: 'var(--heading-color)' }}
         >
           <TextAnimLineUp content={data?.content} />
-        </p>
+        </p> */}
       </div>
     </div>
   );

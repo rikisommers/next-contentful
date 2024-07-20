@@ -9,7 +9,7 @@ const ThemeContext = createContext();
 export const ThemeProvider = ({ children }) => {
   // Manage the theme state
 
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState('tokyo');
 
   const currentTheme = getThemeByKey(theme);
 

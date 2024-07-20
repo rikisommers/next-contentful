@@ -2,11 +2,7 @@ import { useState, useContext, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import ErrorPage from "next/error";
 import Layout from "../../components/layout";
-import {
-  getAllCaseStudies,
-  getPost,
-  getNextPost,
-} from "../../lib/api";
+import { getAllCaseStudies, getPost, getNextPost } from "../../lib/api";
 import {
   motion,
   cubicBezier,
@@ -19,7 +15,7 @@ import {
 import PostIntro from "../../components/post/post-intro";
 import PostHeader from "../../components/post/post-header";
 import TransitionTilt from "../../components/transition/transition-tilt";
-import TransitionWipe from "../../components/transition/transition-wipe"
+import TransitionWipe from "../../components/transition/transition-wipe";
 import PostContent from "../../components/post/post-content";
 import Link from "next/link";
 import NextPost from "../../components/post/post-next";
@@ -28,42 +24,34 @@ import { RouteContext } from "../../components/routeContext";
 import Lenis from "@studio-freight/lenis";
 import BlockFooter from "../../components/blocks/block-footer";
 import PostTileCs from "../../components/post/post-tile-cs";
-import { useTheme } from 'next-themes';
-import { themes } from "../../utils/theme";
-import { getThemeByKey } from "../../utils/theme";
 import { useScrollPosition } from "../../components/scrollPosContext";
 
 export default function Post({ post, nextPost }) {
   const router = useRouter();
   console.log("post---------------------------", post);
 
-  ;
   const { scrollPosition, setScrollPosition } = useScrollPosition();
   const [scrollPercentage, setScrollPercentage] = useState(0);
 
   const { routeInfo } = useContext(RouteContext);
   const [destRoute, setDestRoute] = useState("");
 
-
-  const { theme } = useTheme()
-  const currentTheme = getThemeByKey(theme);
-
-
   useEffect(() => {
     const handleScroll = () => {
       const windowHeight = window.innerHeight;
       const documentHeight = document.documentElement.scrollHeight;
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      
+      const scrollTop =
+        window.pageYOffset || document.documentElement.scrollTop;
+
       // Calculate the maximum scrollable distance
       const scrollableDistance = documentHeight - windowHeight;
-      
+
       // Calculate the scroll percentage (0 to 100)
       const percentage = Math.round((scrollTop / scrollableDistance) * 100);
-      
+
       // Ensure the percentage is between 0 and 100
       const clampedPercentage = Math.max(0, Math.min(100, percentage));
-      
+
       setScrollPercentage(clampedPercentage);
       setScrollPosition(clampedPercentage);
     };
@@ -71,16 +59,15 @@ export default function Post({ post, nextPost }) {
     // Initial call to set the initial scroll position
     handleScroll();
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', handleScroll, { passive: true });
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll, { passive: true });
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
     };
   }, [setScrollPosition]);
 
-  
   useEffect(() => {
     //  setSourceRoute(routeInfo.sourceRoute);
     setDestRoute(routeInfo.destRoute);
@@ -122,8 +109,6 @@ export default function Post({ post, nextPost }) {
     target: contentRef,
     offset: ["start start", "start -100px"],
   });
-
-
 
   const yv = useTransform(scrollContent, [0, 1], [8, 0.01]);
   const xv = useTransform(scrollContent, [0, 1], [1.5, 0.01]);
@@ -196,110 +181,103 @@ export default function Post({ post, nextPost }) {
   };
 
   return (
-
     <>
-                  {post.csblocksCollection && (
-
-     <div className="fixed grid items-center w-10 h-full pl-8 pointer-events-none z-nav">
+      {post.csblocksCollection && (
+        <div className="fixed grid items-center w-10 h-full pl-8 pointer-events-none z-nav">
           <div className="relative z-50 flex flex-col gap-1 bg-gray-600 bg-opacity-50 rounded-xl backdrop-blur-lg">
-       
-        
-                {post.csblocksCollection.items &&
-                  post.csblocksCollection.items.length > 0 &&
-                  post.csblocksCollection.items.map((item, index) => {
-                    return (
-<>                        {item.__typename === "BlockArticle" && (
-                          <div className="relative flex items-center px-3 py-3 text-sm text-white uppercase rounded-lg pointer-events-auto">
-                                <motion.div className="absolute w-3 bg-red-400" style={{scaleY:scrollPosition}}>
+            {post.csblocksCollection.items &&
+              post.csblocksCollection.items.length > 0 &&
+              post.csblocksCollection.items.map((item, index) => {
+                return (
+                  <>
+                    {" "}
+                    {item.__typename === "BlockArticle" && (
+                      <div className="relative flex items-center px-3 py-3 text-sm text-white uppercase rounded-lg pointer-events-auto">
+                        <motion.div
+                          className="absolute w-3 bg-red-400"
+                          style={{ scaleY: scrollPosition }}
+                        ></motion.div>
+                        <h1>Current Scroll Position: {scrollPosition}px</h1>
 
-                                </motion.div>
-                                <h1>Current Scroll Position: {scrollPosition}px</h1>
-
-                          <h1 key={index}>
-                            {/* {item.title} */}
-                            P
-                            </h1>
-                          </div>
-
-                        )}
-                        </>
-
-                    );
-                  })}
+                        <h1 key={index}>{/* {item.title} */}P</h1>
+                      </div>
+                    )}
+                  </>
+                );
+              })}
           </div>
-     </div>
-                   )}
+        </div>
+      )}
 
-    <Layout>
-     
-      <TransitionTilt active={true}>
-        {/* <h1 className="absolute p-8 m-8 left-8 top-8">{post && post.slug}</h1> */}
-
-     
-    
-        <motion.div
-        style={{ backgroundColor:currentTheme?.backgroundColor,clipPath: clipPathValue}}
-          className={`relative z-10 flex flex-col pb-20`}
-          ref={contentRef}
-          exit={{
-            opacity: 0,
-            //  clipPath: clipPathValue
-          }}
-          transition={{
-            ease: [0.33, 1, 0.68, 1],
-            duration: 0.6, // custom duration for opacity property only
-          }}
-        >
-          {/* <h1>Map csblocks collectoion article</h1> */}
-
-          {/* xxl:grid grid-cols-3 */}
-          {/* className="xxl:col-span-2" */}
+      <Layout>
+        <TransitionTilt active={true}>
+          {/* <h1 className="absolute p-8 m-8 left-8 top-8">{post && post.slug}</h1> */}
 
           <motion.div
-            className="pt-32 md:px-24 xl:px-xlx o-content"
+            style={{
+              backgroundColor: currentTheme?.backgroundColor,
+              clipPath: clipPathValue,
+            }}
+            className={`relative z-10 flex flex-col pb-20`}
+            ref={contentRef}
             exit={{
               opacity: 0,
+              //  clipPath: clipPathValue
             }}
             transition={{
-              easing: cubicBezier(0.35, 0.17, 0.3, 0.86),
-              duration: 0.3,
-              delay: 0,
+              ease: [0.33, 1, 0.68, 1],
+              duration: 0.6, // custom duration for opacity property only
             }}
           >
-            {/* <h1> {shouldFadeIn && shouldFadeIn}
-                </h1> */}
-            {post && (
-              <>
-                {/* <PostIntro title={post.titlealt} content={post.contentalt} /> */}
-                <PostHeader content={post}/>
-                <PostContent content={post}/>
-              </>
-            )}
-          </motion.div>
-        </motion.div>
+            {/* <h1>Map csblocks collectoion article</h1> */}
 
-{/* 
+            {/* xxl:grid grid-cols-3 */}
+            {/* className="xxl:col-span-2" */}
+
+            <motion.div
+              className="pt-32 md:px-24 xl:px-xlx o-content"
+              exit={{
+                opacity: 0,
+              }}
+              transition={{
+                easing: cubicBezier(0.35, 0.17, 0.3, 0.86),
+                duration: 0.3,
+                delay: 0,
+              }}
+            >
+              {/* <h1> {shouldFadeIn && shouldFadeIn}
+                </h1> */}
+              {post && (
+                <>
+                  {/* <PostIntro title={post.titlealt} content={post.contentalt} /> */}
+                  <PostHeader content={post} />
+                  <PostContent content={post} />
+                </>
+              )}
+            </motion.div>
+          </motion.div>
+
+          {/* 
         {post.related && post.relatedCollection.items.map((post, index) => {
         <>
         <h1>dd</h1>
         <PostTileCs index={index} post={post} />
         </>
         })} */}
-                       
-        <motion.div ref={footerRef} className="relative z-10 testing123 h-vh">
-          <motion.div
-            initial={{ y: 0, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            // exit={{ y: -posT }}
-            style={{ y }}
-            transition={{
-              ease: [0.33, 1, 0.68, 1],
-              duration: 0.6, // custom duration for opacity property only
-              delay: 0.2,
-            }}
-          >
 
-    {/* {post.relatedCollection.items && (
+          <motion.div ref={footerRef} className="relative z-10 testing123 h-vh">
+            <motion.div
+              initial={{ y: 0, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              // exit={{ y: -posT }}
+              style={{ y }}
+              transition={{
+                ease: [0.33, 1, 0.68, 1],
+                duration: 0.6, // custom duration for opacity property only
+                delay: 0.2,
+              }}
+            >
+              {/* {post.relatedCollection.items && (
             post.relatedCollection.items.map((item,index) => {
               return (
                 <PostTileCs post={item} index={index} />
@@ -307,7 +285,7 @@ export default function Post({ post, nextPost }) {
             })
 
       )} */}
-            {/* {nextPost && (
+              {/* {nextPost && (
               <div className="test">
                 <Link
                   onClick={handleLinkClick}
@@ -319,13 +297,13 @@ export default function Post({ post, nextPost }) {
                 </Link>
               </div>
             )} */}
-            <BlockFooter/>
+              <BlockFooter />
+            </motion.div>
           </motion.div>
-        </motion.div>
-      </TransitionTilt>
-      <TransitionWipe />
-      {/* {shouldFadeIn && } */}
-    </Layout>
+        </TransitionTilt>
+        <TransitionWipe />
+        {/* {shouldFadeIn && } */}
+      </Layout>
     </>
   );
 }

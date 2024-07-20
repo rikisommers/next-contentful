@@ -136,8 +136,8 @@ const TextAnimation = ({
             >
               {word.split("").map((letter, letterIndex) => (
                 <motion.span
-                  style={{ color }}
-                  className={`text-anim-letter text-slate-500 ${size}`}
+                  style={{color:'var(--heading-color)' }}
+                  className={`text-anim-letter ${size}`}
                   variants={opacity}
                   key={letterIndex}
                 >
@@ -154,7 +154,6 @@ const TextAnimation = ({
 // Define prop types
 TextAnimation.propTypes = {
   content: PropTypes.string.isRequired,
-  color: PropTypes.string,
   size: PropTypes.oneOf(Object.values(TextSize)),
   animationType: PropTypes.oneOf(Object.values(AnimationType)),
 };

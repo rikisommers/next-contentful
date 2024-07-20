@@ -2,8 +2,6 @@
 
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { useTheme } from 'next-themes';
-import { getThemeByKey } from '../../utils/theme';
 
 export const TextAnimLineUp = ({ 
   content, 
@@ -11,8 +9,7 @@ export const TextAnimLineUp = ({
   animateWhenInView = false,
   repeatWhenInView = false
 }) => {
-  const { theme } = useTheme();
-  const currentTheme = getThemeByKey(theme);
+
   const ref = useRef(null);
   const isInView = useInView(ref, { 
     once: false, 
@@ -79,7 +76,7 @@ export const TextAnimLineUp = ({
                 <span
                   key={segmentIndex}
                   style={{
-                    color: currentTheme?.textAccent,
+                    color: 'var(--text-accent)',
                   }}
                 >
                   {segment}
@@ -109,7 +106,7 @@ export const TextAnimLineUp = ({
     >
       <span
         style={{
-          color: currentTheme?.headingColor,
+          color: 'var(--heading-color)',
           display: 'inline-block'
         }}
       >

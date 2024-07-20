@@ -14,16 +14,8 @@ import {
   useInView,
 } from "framer-motion";
 
-import { useTheme } from "next-themes";
-import { themes } from "../../utils/theme";
-import { getThemeByKey } from "../../utils/theme";
-
 export default function PostTileLg({ post, index ,size}) {
   //  console.log("ss", post);
-
-  const { theme } = useTheme();
-  const currentTheme = getThemeByKey(theme);
-  //console.log(currentTheme)
 
   const ref = useRef(null);
 
@@ -40,26 +32,30 @@ export default function PostTileLg({ post, index ,size}) {
       scroll={false}
       href={`/projects/${post.slug}`}
       style={{
-        color: currentTheme?.backgroundColor,
+        color: 'var(--background-color)',
       }}
       className={`relative flex flex-col w-full h-full overflow-hidden rounded-lg tile-lg img-${size}`}
     >
-      <div className="absolute flex flex-col gap-4 top-3 left-3">
+      <div className="absolute flex flex-col gap-4 top-3 left-3"
+            style={{
+              color: 'var(--text-color-inv)',
+            }}
+      >
         {/* <p>{post.type }</p> */}
         {post?.type[0] === "case study" && (
-          <span className="text-lg text-white material-icons">
+          <span className="text-lg material-icons">
             inventory_alt
           </span>
         )}
         {post?.type[0] === "blog post" && (
-          <span className="text-white material-icons">article</span>
+          <span className="material-icons">article</span>
         )}
 
         <div className="flex flex-col gap-1">
         <motion.p
             className="text-lg"
             style={{
-              color: currentTheme?.subtextColor,
+              color:'var(--subtext-color)',
             }}
           >
             {post?.subtitle}
@@ -67,7 +63,7 @@ export default function PostTileLg({ post, index ,size}) {
           <h2
             className="z-50 text-2xl"
             style={{
-              color: currentTheme?.textColor,
+              color: 'var(--text-color)',
             }}
           >
             {post?.title}
@@ -78,7 +74,10 @@ export default function PostTileLg({ post, index ,size}) {
 
       <div
         ref={ref}
-        className="absolute bottom-0 left-0 z-50 flex justify-between w-full gap-4 px-4 pb-4 text-white "
+        className="absolute bottom-0 left-0 z-50 flex justify-between w-full gap-4 px-4 pb-4"
+        style={{
+          color: 'var(--text-color-inv)',
+        }}
       >
         {post.tags && (
           <div className="flex gap-1">
@@ -87,9 +86,10 @@ export default function PostTileLg({ post, index ,size}) {
                 <div
                   key={index}
                   style={{
-                    color: currentTheme?.backgroundColor,
+                    backgroundColor: 'var(--background-color)',
+                    color: 'var(--text-color)',
                   }}
-                  className="px-3 py-2 text-xs bg-gray-600 bg-opacity-50 rounded-full text-slate-100 backdrop-blur-lg"
+                  className="px-3 py-2 text-xs bg-opacity-50 rounded-full backdrop-blur-lg"
                 >
                   {tag}
                 </div>
@@ -106,7 +106,7 @@ export default function PostTileLg({ post, index ,size}) {
           <motion.div style={{y}}>     
           </motion.div> */}
       {post.img && (
-        <FadeInWhenVisible color={currentTheme?.accent}>
+        <FadeInWhenVisible color={ 'var(--accent)'}>
           <BlendImage
             className="img-cover"
             alt={`Cover Image for ${post?.title}`}

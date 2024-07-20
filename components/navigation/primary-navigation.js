@@ -9,9 +9,6 @@ import Audio from "./audio";
 import { gsap } from "gsap";
 import { Draggable } from "gsap/dist/Draggable";
 import CtxMenu from "../base/ctx-menu";
-import { useTheme } from "next-themes";
-import { themes } from "../../utils/theme";
-import { getThemeByKey } from "../../utils/theme";
 import ThemeEditor from "./themeEditor";
 import Button,{ButtonType,ButtonSound} from "../base/button";
 
@@ -21,9 +18,7 @@ if (typeof window !== "undefined") {
 }
 
 export default function Navigation() {
-  const { theme } = useTheme();
-  const currentTheme = getThemeByKey(theme);
-  //console.log(currentTheme);
+
 
   const router = useRouter();
   const menuRef = useRef(null);
@@ -133,17 +128,20 @@ export default function Navigation() {
       </motion.div> */}
       <motion.div
         style={{
+          backgroundColor: 'var(--background-color)',
           color:
             router.asPath === "/"
-              ? currentTheme?.textColorInv
-              : currentTheme?.textColor,
+              ? 'var(--text-color-inv)'
+              : 'var(--text-color)',
         }}
-        className={`relative z-50 flex items-center rounded-xl bg-gray-600 `}
+        className={`relative z-50 flex items-center rounded-xl`}
       >
-        <div className={`scene bg-amber-500 bg-opacity-80 backdrop-blur-sm`}>
+        <div className={`scene bg-opacity-80 backdrop-blur-sm`} 
+          style={{backgroundColor:'var(--body-background-color)'}}
+        >
           <div
             style={{
-              backgroundColor: isActive ? currentTheme?.accent : null,
+              backgroundColor: isActive ? 'var(--accent)' : 'var(--text-accent)',
             }}
             className={`cube ${isActive ? "show-right" : ""}`}
           >
@@ -163,7 +161,7 @@ export default function Navigation() {
 
         <motion.span
           className="self-center p-3 text-sm"
-          style={{ color: currentTheme?.textAccent }}
+          style={{ color: 'var(--text-accent)' }}
           layoutId="title"
           initial={{
             opacity: 0,
@@ -191,7 +189,9 @@ export default function Navigation() {
           {/* <div className="px-3 text-white py-" ref={menuDragRef}>
             :
           </div> */}
-          <div className="relative z-50 flex gap-1 bg-gray-600 bg-opacity-50 rounded-xl backdrop-blur-lg">
+          <div className="relative z-50 flex gap-1 bg-opacity-50 rounded-xl backdrop-blur-lg"
+            style={{backgroundColor: 'var(--background-color)'}}
+          >
             {/* <motion.div
               className="absolute right-0 z-10 overflow-hidden rounded-lg shadow-lg top-14 "
               // popover="auto" id="context"
@@ -222,7 +222,8 @@ export default function Navigation() {
                 href={page.url}
                 scroll={false}
                 onClick={() => setActivePage(page.id)}
-                className="relative flex items-center text-sm text-white uppercase rounded-lg"
+                className="relative flex items-center text-sm uppercase rounded-lg"
+                style={{color: 'var(--text-color-inv)'}}
               >
                 <Button label={page.title}/>
                 {/* // <span
@@ -239,7 +240,8 @@ export default function Navigation() {
                 {activePage === page.id && (
                   <motion.div
                     layoutId="indicator"
-                    className="absolute top-0 left-0 flex w-full h-full rounded-xl bg-slate-800/50"
+                    style={{backgroundColor: 'var(--body-background-color)'}}
+                    className="absolute top-0 left-0 flex w-full h-full rounded-xl"
                   ></motion.div>
                 )}
               </Link>
@@ -252,7 +254,8 @@ export default function Navigation() {
       </div>
 
       <div className="flex items-center gap-1 rounded-lg">
-        <div className="relative z-50 flex gap-1 bg-gray-600 bg-opacity-50 rounded-xl backdrop-blur-lg">
+        <div className="relative z-50 flex gap-1 bg-opacity-50 rounded-xl backdrop-blur-lg"
+        style={{backgroundColor: 'var(--background-color)'}}>
           <div className="relative">
             {/* <button
               style={{
@@ -268,7 +271,8 @@ export default function Navigation() {
             {/* TODO: Add audio */}
             <Button click={toggleTheme} label={"Theme"} type={ButtonType.PRIMARY}/>
             {isOpen && (
-              <div className="absolute right-0 w-[350px] mt-2 bg-white rounded shadow-lg top-full">
+              <div className="absolute right-0 w-[350px] mt-2 rounded shadow-lg top-full"
+              style={{backgroundColor: 'var(--body-background-color)'}}>
                 <ThemeEditor />
               </div>
             )}

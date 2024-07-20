@@ -1,18 +1,10 @@
 import Image from 'next/image'
-import { useTheme } from 'next-themes';
-import { themes } from "../../utils/theme";
-import { getThemeByKey } from '../../utils/theme';
-
 
 const contentfulLoader = ({ src, width, quality }) => {
   return `${src}?w=${width}&q=${quality || 75}`
 }
 //priority eager
 const BlendImage = (props) => {
-
-
-  const {theme} = useTheme()
-  const currentTheme = getThemeByKey(theme);
 
 
   return <Image  
@@ -25,7 +17,7 @@ const BlendImage = (props) => {
    width={400}
    height={200}
    style={{
-    mixBlendMode:currentTheme?.mixBlendMode
+    mixBlendMode:'var(--mix-blend-mode)'
   }}
    className='object-cover w-full h-full greyscale'
    />

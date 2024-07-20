@@ -11,15 +11,10 @@ import {
   useMotionValueEvent,
 } from "framer-motion";
 import { Scroll } from "@react-three/drei";
-import { useTheme } from "next-themes";
-import { themes } from "../../utils/theme";
-import { getThemeByKey } from "../../utils/theme";
 import { useScrollPosition } from "../scrollPosContext";
 
 export default function ClipPathContainer({ children }) {
 
-    const { theme } = useTheme()
-    const currentTheme = getThemeByKey(theme);
 
     const contentRef = useRef(null);
     const { scrollYProgress, setScrollPosition } = useScrollPosition();
@@ -56,7 +51,7 @@ export default function ClipPathContainer({ children }) {
   return (
     <motion.div
       style={{
-        backgroundColor: currentTheme?.backgroundColor,
+        backgroundColor:  'var(--background-color)',
       }}
       animate={{
         clipPath: clipPathValue,

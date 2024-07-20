@@ -16,18 +16,13 @@ import {
   useInView,
 } from "framer-motion";
 
-import { useTheme } from 'next-themes';
-import { themes } from "../../utils/theme";
-import { getThemeByKey } from '../../utils/theme';
 import { useAudioControls } from "../utils/audio";
 
 
 export default function PostTileCs({ post, index }) {
   //  console.log("ss", post);
   
-  const {theme} = useTheme()
-  const currentTheme = getThemeByKey(theme);
-  //console.log(currentTheme)
+
 
   const ref = useRef(null);
 
@@ -51,21 +46,25 @@ export default function PostTileCs({ post, index }) {
       
       href={`/projects/${post.slug}`}
       style={{
-        color:currentTheme?.backgroundColor
+        color: 'var(--background-color)'
       }}
       className="relative flex flex-col w-full h-full rounded-lg tile overflow-hidde"
     >
       {post.img && (
         <div className="relative flex flex-col flex-grow overflow-hidden rounded-lg img-post">
-          <div className="absolute flex top-3 left-3">
+          <div className="absolute flex top-3 left-3"
+           style={{
+            color: 'var(--text-color-inv)'
+          }}
+          >
             {/* <p>{post.type }</p> */}
             {post?.type[0] === "case study" && (
-              <span className="text-lg text-white material-icons">
+              <span className="text-lg material-icons">
                 inventory_alt
               </span>
             )}
             {post?.type[0] === "blog post" && (
-              <span className="text-white material-icons">article</span>
+              <span className="material-icons">article</span>
             )}
           </div>
 
@@ -82,9 +81,9 @@ export default function PostTileCs({ post, index }) {
                     <div
                       key={index}
                       style={{
-                        color:currentTheme?.backgroundColor
+                        color:'var(--text-color)'
                       }}
-                      className="text-xs text-slate-400 uppercase py-0.5 px-1.5 rounded-md"
+                      className="text-xs uppercase py-0.5 px-1.5 rounded-md"
                     >
                       {tag}
                     </div>
@@ -101,7 +100,7 @@ export default function PostTileCs({ post, index }) {
           <motion.div style={{y}}>     
           </motion.div> */}
 
-          <FadeInWhenVisible color={currentTheme?.accent}>
+          <FadeInWhenVisible>
             <BlendImage
               className="img-cover"
               alt={`Cover Image for ${post?.title}`}
@@ -115,12 +114,12 @@ export default function PostTileCs({ post, index }) {
         <div className="flex flex-col gap-2">
           <h2 className="z-50 font-mono text-sm font-medium"
                style={{
-                color:currentTheme?.textColor
+                color:'var(--text-color)'
               }}
           >{post?.title}</h2>
-          <motion.p className="font-mono text-xs opacity-1 text-slate-400"
+          <motion.p className="font-mono text-xs opacity-1"
                 style={{
-                color:currentTheme?.subtextColor
+                color: 'var(--subtext-color)'
               }}
           >{post?.subtitle}</motion.p>
                         

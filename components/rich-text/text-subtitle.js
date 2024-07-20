@@ -3,15 +3,8 @@ import { motion } from "framer-motion";
 import RichTextAsset from "./rich-text-asset";
 import { RichTextOptions } from "./rich-text";
 import { INLINES, BLOCKS, MARKS } from "@contentful/rich-text-types";
-import { useTheme } from 'next-themes';
-import { themes } from "../../utils/theme";
-import { getThemeByKey } from '../../utils/theme';
-
 
 export const TextSubtitle = ({ content, children }) => {
-
-  const {theme} = useTheme()
-  const currentTheme = getThemeByKey(theme);
 
   const container = {
     initial: { opacity: 0.5 },
@@ -49,7 +42,7 @@ export const TextSubtitle = ({ content, children }) => {
       key={index}
       variants={line}
       style={{
-        color:currentTheme?.subtextColor
+        color: 'var(-subtext-color)',
       }}
       className={`inline`}
     >

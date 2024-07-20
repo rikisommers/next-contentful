@@ -1,13 +1,8 @@
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { RichTextOptions } from "../rich-text/rich-text";
 
-import { useTheme } from "next-themes";
-import { themes } from "../../utils/theme";
-import { getThemeByKey } from "../../utils/theme";
-
 export default function PostDetails({ post }) {
-  const { theme } = useTheme();
-  const currentTheme = getThemeByKey(theme);
+
 
   return (
     <div className="mb-36 ">
@@ -15,17 +10,17 @@ export default function PostDetails({ post }) {
       >
         {/* style={{ backgroundColor: currentTheme?.bodyBackgroundColor }} */}
         <div className="flex flex-col self-start col-span-10 gap-3 rounded-lg md:col-span-7 lg:col-span-8">
-          <div style={{ color: currentTheme?.textColor }}>
+          <div style={{ color: 'var(--text-color)' }}>
             <span
               className="inline mr-3 italic"
-              style={{ color: currentTheme?.accent }}
+              style={{ color: 'var(--accent)' }}
             >
               Overview
             </span>
             {post?.description && <>{post?.description}</>}
           </div>
 
-          <div style={{ color: currentTheme?.textColor }}>
+          <div style={{ color: 'var(--text-color)' }}>
             {post?.intro && (
               <>
                 {documentToReactComponents(post?.intro.json, RichTextOptions)}
@@ -35,10 +30,10 @@ export default function PostDetails({ post }) {
         </div>
 
         <div className="flex flex-col col-span-10 gap-8 text-sm md:col-span-4 lg:col-span-3">
-          <div style={{ color: currentTheme?.textColor }}>
+          <div style={{ color:'var(--text-color)'}}>
             <span
-              className="mr-2 italic text-slate-400"
-              style={{ color: currentTheme?.accent }}
+              className="mr-2 italic"
+              style={{ color:  'var(--accent)' }}
             >
               Duration
             </span>
@@ -46,20 +41,20 @@ export default function PostDetails({ post }) {
             {post?.duration && post?.duration}
           </div>
 
-          <div style={{ color: currentTheme?.textColor }}>
+          <div style={{ color: 'var(--text-color)' }}>
             <span
-              className="mr-2 italic text-slate-400"
-              style={{ color: currentTheme?.accent }}
+              className="mr-2 italic"
+              style={{ color: 'var(--accent)' }}
             >
               Client
             </span>
             {post?.client && post?.client}
           </div>
 
-          <div style={{ color: currentTheme?.textColor }}>
+          <div style={{ color:  'var(--text-color)' }}>
             <span
-              className="mr-2 italic text-slate-400"
-              style={{ color: currentTheme?.accent }}
+              className="mr-2 italic"
+              style={{ color:  'var(--accent)' }}
             >
               Role
             </span>

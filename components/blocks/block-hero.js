@@ -6,8 +6,6 @@ import { TextSubtitle } from "../rich-text/text-subtitle";
 import { TextAnimLineUp } from "../rich-text/text-anim-line-up";
 import Audio from "../navigation/audio";
 import Link from "next/link";
-import { useTheme } from "next-themes";
-import { getThemeByKey } from "../../utils/theme";
 import Background from "../utils/background";
 import TextAnimationLineUp from "../utils/text-animation-line-up";
 
@@ -20,13 +18,11 @@ export default function BlockHero({
   content,
   layout,
 }) {
-  const { theme } = useTheme();
-  const currentTheme = getThemeByKey(theme);
 
   return (
     <div
       className={`relative transition ease-in-out w-full h-screen`}
-      style={{ background: currentTheme?.bodyBackgroundColor }}
+      style={{ background: 'var(--boddy-background-color)' }}
     >
         <div className="flex flex-col items-center justify-center w-full h-full margin-auto ">
           <div className="grid max-w-xl gap-8">
@@ -45,7 +41,6 @@ export default function BlockHero({
                 {/* <TextAnimation content={contentalt}/> */}
                 <TextSubtitle
                   content={contentalt}
-                  color={currentTheme?.textColor}
                 />
               </h2>
           </div>
@@ -56,15 +51,16 @@ export default function BlockHero({
               <span className="uppercase">Location:</span>
               <a
                 href="https://www.google.com/maps/place/New+Brighton,+Christchurch/@-43.5093881,172.6992615,14z/data=!3m1!4b1!4m6!3m5!1s0x6d318891a20200c1:0x500ef8684799330!8m2!3d-43.5079076!4d172.7225969!16zL20vMDNfcHMz?entry=ttu"
-                className="text-slate-500"
+                stlye={{color:'var(--accent)'}}
               >
                 @-43.5093881,172.6992615
               </a>
             </div>
 
-            <div className="flex gap-1 p-2 text-xs">
+            <div className="flex gap-1 p-2 text-xs"
+             stlye={{color:'var(--accent)'}}>
               <span className="uppercase">Last Updated:</span>
-              <span className="text-slate-500">{date}</span>
+              <span>{date}</span>
             </div>
           </div>
         )}
@@ -75,7 +71,7 @@ export default function BlockHero({
         className="absolute flex items-center justify-end w-full h-full opacity-75"
         initial={{ clipPath: "inset(1.0rem 1.0rem 1.0rem round 0.5rem)" }}
         animate={{
-          backgroundColor: currentTheme?.backgroundColor,
+          backgroundColor: 'var(--background-color)',
           clipPath: "inset( 1rem round 1rem )",
         }}
         exit={{ clipPath: "inset( 1.5rem 1.5rem 1.5rem 1.5rem round 1rem )" }}

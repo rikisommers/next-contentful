@@ -1,17 +1,10 @@
 import React from "react";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-
 import { RichTextOptions } from "../rich-text/rich-text";
 import ContentfulImage from "../image/contentful-image";
-import { useTheme } from 'next-themes';
-import { themes } from "../../utils/theme";
-import { getThemeByKey } from '../../utils/theme';
-
 
 export const BlockArticle = ({ data }) => {
 
-  const {theme} = useTheme()
-  const currentTheme = getThemeByKey(theme);
 
   return (
 
@@ -21,14 +14,14 @@ export const BlockArticle = ({ data }) => {
       <div className="col-span-10 col-start-2 md:col-start-3 md:col-span-8">
         
         {data.title && 
-        <h2 className="mb-10 text-3xl" style={{color:currentTheme?.headingColor}}>{data.title}</h2>
+        <h2 className="mb-10 text-3xl" style={{color: 'var(--heading-color)',}}>{data.title}</h2>
         }
         {data.content && (
-          <p className="mb-8 text-base" style={{color:currentTheme?.subtitleColor}}>{data.content.content}</p>
+          <p className="mb-8 text-base" style={{color: 'var(--subtext-color)',}}>{data.content.content}</p>
         )}
 
         {data.contentRich && (
-          <div style={{color:currentTheme?.textColor}}>
+          <div style={{color:'var(--text-color)'}}>
             {documentToReactComponents(
               data.contentRich.json,
               RichTextOptions

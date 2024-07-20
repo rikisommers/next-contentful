@@ -2,8 +2,7 @@ import React,{useState, useRef} from "react";
 import TextAnimation from "../utils/text-animation";
 import Audio from "../navigation/audio";
 import Link from "next/link";
-import { useTheme } from "next-themes";
-import { getThemeByKey } from "../../utils/theme";
+
 import Button, { ButtonType } from "../base/button";
 import {
   motion,
@@ -16,8 +15,7 @@ import {
 } from "framer-motion";
 
 export default function BlockFooter({ content }) {
-  const { theme } = useTheme();
-  const currentTheme = getThemeByKey(theme);
+
   const [dimension, setDimension] = useState({ width: 0, height: 0 });
   const footerRef = useRef(null);
 
@@ -99,7 +97,7 @@ export default function BlockFooter({ content }) {
         style={{
           y: yTransform,
           clipPath: "inset( 1rem round 1rem )",
-          backgroundColor: currentTheme?.backgroundColor,
+          backgroundColor:  'var(--background-color)',
         }}
       />
     </motion.div>

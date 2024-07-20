@@ -2,12 +2,9 @@
 
 import React, { useEffect, Children } from "react";
 import { motion } from "framer-motion";
-import { useTheme } from 'next-themes';
-import { getThemeByKey } from '../../utils/theme';
 
 export const TextAnimRandom = ({ content }) => {
-  const { theme } = useTheme();
-  const currentTheme = getThemeByKey(theme);
+
 
   const renderCharacter = (char, index) => {
     const delay = Math.random() * 2; // Random delay between 0 and 2 seconds
@@ -27,7 +24,7 @@ export const TextAnimRandom = ({ content }) => {
   const renderColoredText = (text, index) => (
     <motion.span
       style={{
-        color: currentTheme?.textAccent
+        color:  'var(--text-accent)',
       }}
       key={index}
     >
@@ -61,7 +58,7 @@ export const TextAnimRandom = ({ content }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       style={{
-        color: currentTheme?.headingColor
+        color:  'var(--heading-color)',
       }}
      
     >

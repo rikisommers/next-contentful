@@ -31,16 +31,12 @@ import { gsap, ScrollTrigger } from "gsap";
 import Lenis from "@studio-freight/lenis";
 import { useScrollPosition } from "../components/scrollPosContext";
 
-import { useTheme } from "next-themes";
-import { themes } from "../utils/theme";
-import { getThemeByKey } from "../utils/theme";
 import ScrollContainer from "../components/utils/scroll-container";
 import ClipPathContainer from "../components/utils/clip-path-container";
 
 
 const Work = ({ data }) => {
-  const { theme } = useTheme();
-  const currentTheme = getThemeByKey(theme);
+
   const contentRef = useRef(null);
   const headerRef = useRef(null);
   const [scrollValue, setScrollValue] = useState(0);

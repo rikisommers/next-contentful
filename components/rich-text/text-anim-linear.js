@@ -2,12 +2,8 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { useTheme } from 'next-themes';
-import { getThemeByKey } from '../../utils/theme';
 
 export const TextAnimLinear = ({ content }) => {
-  const { theme } = useTheme();
-  const currentTheme = getThemeByKey(theme);
 
   const characterVariants = {
     hidden: { opacity: 0 },
@@ -55,7 +51,7 @@ export const TextAnimLinear = ({ content }) => {
   const renderColoredText = (text, index) => (
     <motion.span
       style={{
-        color: currentTheme?.textAccent,
+        color: 'var(--text-accent)',
       }}
       key={index}
       variants={lineVariants}
@@ -96,7 +92,7 @@ export const TextAnimLinear = ({ content }) => {
       animate="visible"
       variants={containerVariants}
       style={{
-        color: currentTheme?.headingColor,
+        color:  'var(--heading-accent)',
       }}
     >
       {renderTextWithBoldAndLineBreaks(content)}

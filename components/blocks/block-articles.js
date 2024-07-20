@@ -1,20 +1,16 @@
 import React from "react";
-import { useTheme } from "next-themes";
-import { getThemeByKey } from "../../utils/theme";
-
 import PostTile from "../post/post-tile";
 import PostTileCs from "../post/post-tile-cs";
 import PostTileLg from "../post/post-tile-lg";
 
 export const BlockArticles = ({ data }) => {
-  const { theme } = useTheme();
-  const currentTheme = getThemeByKey(theme);
+
 
   return (
     <>
       {data.title && (
         <h3  className="py-2 font-mono text-xs"
-          style={{ color: currentTheme?.headingColor }}>
+          style={{ color: 'var(-heading-color)', }}>
           {data.title}
         </h3>
       )}

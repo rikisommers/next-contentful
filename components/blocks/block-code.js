@@ -1,14 +1,9 @@
 "use client";
-
 import React, { useRef } from "react";
 import { useToast } from "../toastContext";
-import { useTheme } from "next-themes";
-import { themes } from "../../utils/theme";
-import { getThemeByKey } from "../../utils/theme";
 
 export const BlockCode = ({ data }) => {
-  const { theme } = useTheme();
-  const currentTheme = getThemeByKey(theme);
+
   const codeRef = useRef(null);
   const showToast = useToast();
 
@@ -28,10 +23,10 @@ export const BlockCode = ({ data }) => {
     <article className="grid grid-cols-12 gap-3 article-content">
       <div className="col-span-10 col-start-2 md:col-start-3 md:col-span-8">
         <div className="relative w-full">
-          <div className="p-4 text-white rounded-md" style={{ backgroundColor: currentTheme?.surface1 }}>
+          <div className="p-4 rounded-md" style={{ backgroundColor: 'var(--surface1)', color: 'var(--text-color)', }}>
             <div className="flex items-center justify-between mb-2">
               {data.title && (
-                <span className="text-gray-400" style={{ color: currentTheme?.subtitleColor }}>
+                <span style={{ color: 'var(--subtext-color)', }}>
                   {data.title}
                 </span>
               )}
@@ -39,8 +34,8 @@ export const BlockCode = ({ data }) => {
                 className="px-3 py-1 rounded-md code"
                 onClick={copyToClipboard}
                 style={{
-                  color: currentTheme?.accent,
-                  backgroundColor: currentTheme?.bodyBackgroundColor
+                  color: 'var(-accent)',
+                  backgroundColor: 'var(-body-background-color)',
                 }}
               >
                 Copy
@@ -48,7 +43,7 @@ export const BlockCode = ({ data }) => {
             </div>
             <div className="overflow-x-auto">
               {data.code && (
-                <pre ref={codeRef} className="text-gray-300" style={{ color: currentTheme?.textColor }}>
+                <pre ref={codeRef} style={{ color: 'var(--text-color)' }}>
                   <code>
                     {data.code}
                   </code>

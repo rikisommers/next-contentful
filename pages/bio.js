@@ -14,9 +14,7 @@ import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import { RichTextOptions } from "../components/rich-text/rich-text";
 import Link from "next/link";
 
-import { useTheme } from "next-themes";
-import { themes } from "../utils/theme";
-import { getThemeByKey } from "../utils/theme";
+
 import PostBody from "../components/post/post-body";
 import PostContent from "../components/post/post-content";
 import BlockHero from "../components/blocks/block-hero";
@@ -41,11 +39,10 @@ const Bio = ({ data }) => {
   const contentRef = useRef(null);
   const footerRef = useRef(null);
 
-  const { theme } = useTheme();
-  const currentTheme = getThemeByKey(theme);
+
 
   return (
-    <div style={{ background: currentTheme?.bodyBackgroundColor }}>
+    <div style={{ background:  'var(--body-background-color)' }}>
       <Layout>
         <TransitionTilt>
           <ScrollContainer>

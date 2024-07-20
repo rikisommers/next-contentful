@@ -46,10 +46,27 @@ export default function ThemeEditor() {
   }, [setTheme]);
 
   const applyCurrentTheme = (updatedTheme) => {
-    setCurrentTheme(updatedTheme);
-    setTheme(updatedTheme.key);
-    updateTheme(updatedTheme.key, updatedTheme);
-    localStorage.setItem('currentTheme', JSON.stringify(updatedTheme)); // Save the entire theme to localStorage
+    const applyCurrentTheme = (updatedTheme) => {
+      setCurrentTheme(updatedTheme);
+      setTheme(updatedTheme.key);
+      updateTheme(updatedTheme.key, updatedTheme);
+      localStorage.setItem('currentTheme', JSON.stringify(updatedTheme));
+    
+      // Update CSS variables
+      document.documentElement.style.setProperty('--body-background-color', updatedTheme.bodyBackgroundColor);
+      document.documentElement.style.setProperty('--background-color', updatedTheme.backgroundColor);
+      document.documentElement.style.setProperty('--surface1', updatedTheme.surface1);
+      document.documentElement.style.setProperty('--surface2', updatedTheme.surface2);
+      document.documentElement.style.setProperty('--background-color-inv', updatedTheme.backgroundColorInv);
+      document.documentElement.style.setProperty('--heading-color', updatedTheme.headingColor);
+      document.documentElement.style.setProperty('--text-color', updatedTheme.textColor);
+      document.documentElement.style.setProperty('--subtext-color', updatedTheme.subtextColor);
+      document.documentElement.style.setProperty('--text-color-inv', updatedTheme.textColorInv);
+      document.documentElement.style.setProperty('--accent', updatedTheme.accent);
+      document.documentElement.style.setProperty('--text-accent', updatedTheme.textAccent);
+      document.documentElement.style.setProperty('--mix-blend-mode', updatedTheme.mixBlendMode);
+      document.documentElement.style.setProperty('--state-success-background', updatedTheme.stateSuccessBackground);
+    };
   };
 
   const controls = {

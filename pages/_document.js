@@ -1,21 +1,14 @@
 import { Html, Head, Main, NextScript } from 'next/document'
 import Meta from '../components/meta'
 
-import { useTheme } from 'next-themes';
-import { themes } from '../utils/theme';
-import { getThemeByKey } from "../utils/theme";
-
-
 export default function Document() {
 
-  const { theme } = useTheme()
-  const currentTheme = getThemeByKey(theme);
 
 
   return (
     <Html lang="en">
       <Head />
-      <body className={currentTheme?.bodyBackgroundColor}>
+      <body style={{ bacgroundColor:'var(--text-accent)'}}>
 
         {/* <div id={'globalLoader'}>
               <div className="loader">
