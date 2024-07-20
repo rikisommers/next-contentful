@@ -1,4 +1,3 @@
-
 // Color themes
 const colorThemes = {
   light: {
@@ -30,6 +29,21 @@ const colorThemes = {
     textAccent:'#99f6e4',
     mixBlendMode:'luminosity',
     stateSuccessBackground:'#d946ef',
+  },
+  tokyo: {
+    bodyBackgroundColor: '#F8FBF8',
+    backgroundColor: '#F7FCFE',
+    surface1: '#F8FBF8',
+    surface2: '#F7FCFE',
+    backgroundColorInv: '#C0C6C9',
+    headingColor: '#887F7A',
+    textColor: '#887F7A',
+    subtextColor: 'C0C6C9',
+    textColorInv: '#887F7A',
+    accent:'#BED3CD',
+    textAccent:'#BED3CD',
+    mixBlendMode:'luminosity',
+    stateSuccessBackground:'#BED3CD',
   },
 };
 
@@ -65,7 +79,6 @@ const layoutThemes = {
   }
 };
 
-
 // Image themes
 const imageThemes = {
   wide: {
@@ -81,7 +94,6 @@ const imageThemes = {
     layout: 'column'
   }
 };
-
 
 const transitionThemes = {
   wide: {
@@ -112,7 +124,12 @@ export const themes = {
     ...animationThemes.fadedown,
     ...layoutThemes.narrow,
   },
-
+  tokyo: {
+    key: 'tokyo', // Key for the dark theme
+    ...colorThemes.tokyo,
+    ...animationThemes.fadedown,
+    ...layoutThemes.narrow,
+  },
 };
 
 // Function to get theme by key
@@ -121,7 +138,6 @@ export function getThemeByKey(themeKey) {
 }
 
 // Function to update theme
-
 export function updateTheme(themeKey, updates) {
   if (themes[themeKey]) {
     Object.assign(themes[themeKey], updates);

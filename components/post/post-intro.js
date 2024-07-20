@@ -50,13 +50,13 @@ export default function PostIntro({ title, content }) {
       className="grid items-end content-end grid-cols-12 pb-20 gap h-vh44 md:h-vh55"
     >
       <div className="col-span-12 md:col-span-8 lg:col-span-6">
-        <TextScramble content={['This','is','stupid']}/>
-        <h1 className="text-5xl">
-          <TextAnimCode content={title}/>
+        {/* <TextScramble content={['This','is','stupid']}/> */}
+        <h1 className="text-4xl font-medium font-aon">
+          <TextAnimLineUp content={title}/>
         </h1>
-        <TextAnimLineUp content={title} 
+        {/* <TextAnimLineUp content={title} 
           animateWhenInView={true}
-          repeatWhenInView={true}></TextAnimLineUp>
+          repeatWhenInView={true}></TextAnimLineUp> */}
           {/* <TextScramble content={['Plan,Design & buid','wear many hats','like fart jokes']}/> */}
       </div>
       <div className="col-span-12 text-xl text-left md:col-span-8 lg:col-span-6 lg:text-right text-balance">

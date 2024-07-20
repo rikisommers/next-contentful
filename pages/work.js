@@ -57,13 +57,11 @@ const Work = ({ data }) => {
         <ScrollContainer>
           <ClipPathContainer>
            
-            <div className="o-content" ref={headerRef}>
               <PostIntro
                 title={data.titlealt}
                 content={data.contentalt}
                 theme={theme}
               />
-            </div>
 
             {/* {data.video && (
               <div className="pb-24 o-content">

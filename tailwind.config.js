@@ -29,6 +29,11 @@ module.exports = {
       lineHeight: {
         tight: 1.2,
       },
+      fontFamily:{
+        "interp": "interphase, sans-serif",
+        "tron": "Tronica Mono, sans-serif",
+        "aon": "Aeonik Pro, sans-serif",
+      },
       fontSize: {
         '5xl': '2.5rem',
         '6xl': '2.75rem',

@@ -2,6 +2,8 @@ import React from "react";
 import { motion } from "framer-motion";
 import TextAnimation from "../utils/text-animation";
 import { TextSubtitle } from "../rich-text/text-subtitle";
+
+import { TextAnimLineUp } from "../rich-text/text-anim-line-up";
 import Audio from "../navigation/audio";
 import Link from "next/link";
 import { useTheme } from "next-themes";
@@ -27,25 +29,25 @@ export default function BlockHeroAlt({
           <div className="flex col-span-12 gap-6 space-between gap-80">
             {/* <h1 className="text-7xl">{backgroundColor}</h1> */}
 
-            <div className="grid-cols-3">
-            <TextAnimation  
-              content={titlealt}
-              color={"text-slate-400"}
-            />
+            <div className="grid-cols-5">
+              <h2 className="text-4xl font-normal font-aon">
+                <TextAnimLineUp content={contentalt} color={"text-slate-400"} />
+              </h2>
             </div>
 
             {/* <TextTitle content={titlealt}/> */}
-              {/* <TextScramble content={['Plan,Design & buid','wear many hats','like fart jokes']}/> */}
-              <div className="grid-cols-3">
-
-            <TextSubtitle
-              content={contentalt}
-              color={currentTheme?.textColor}
-            />
+            {/* <TextScramble content={['Plan,Design & buid','wear many hats','like fart jokes']}/> */}
+            <div className="grid-cols-3">
+              <h3 className="text-xl text-center font-regular">
+                <TextSubtitle
+                  content={titlealt}
+                  color={currentTheme?.textColor}
+                />
+              </h3>
             </div>
           </div>
         </div>
-        {date && (
+        {/* {date && (
           <div className="flex justify-between p-6">
             <div className="flex gap-1 p-2 text-xs rounded-lg bg-slate-600 ">
               <span className="uppercase text-slate-400">Location:</span>
@@ -62,9 +64,9 @@ export default function BlockHeroAlt({
               <span className="text-slate-500">{date}</span>
             </div>
           </div>
-        )}
+        )} */}
       </div>
-      <motion.div
+      {/* <motion.div
         className="flex items-center justify-end w-full opacity-75 h-vhh"
         initial={{ clipPath: "inset(1.0rem 1.0rem 1.0rem round 0.5rem)" }}
         animate={{
@@ -76,7 +78,7 @@ export default function BlockHeroAlt({
           duration: 0.6,
           ease: [0.33, 1, 0.68, 1],
         }}
-      />
+      /> */}
     </div>
   );
 }

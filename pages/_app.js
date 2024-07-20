@@ -32,7 +32,7 @@ function MyApp({ Component, pageProps, router }) {
   return (
     <RouteProvider>
       <ScrollPositionProvider>
-        <ThemeProvider defaultTheme={themes.light.key}>
+        <ThemeProvider attribute="class">
           <MousePosProvider>
             <ToastProvider>
               {/* {isLoading ? 

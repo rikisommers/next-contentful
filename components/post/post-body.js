@@ -10,6 +10,7 @@ import BlockCode from "../blocks/block-code"
 import BlockArticle from "../blocks/block-article"
 import BlockArticles from "../blocks/block-articles"
 import BlockHeader from "../blocks/block-header"
+import { motion, cubicBezier } from "framer-motion";
 
 const customMarkdownOptions = (content) => ({
   renderNode: {
@@ -27,7 +28,21 @@ export default function PostBody({ content }) {
 
 
   return (
-    <div className="flex flex-col px-4">
+    <motion.div className="flex flex-col"
+      initial={{
+        opacity:0,
+        y: 100,
+      }}
+      animate={{
+        opacity:1,
+        y: 0,
+      }}
+      transition={{
+        delay:0.6,
+      ease: [0.33, 1, 0.68, 1],
+      duration: 1.2,
+      }}
+    >
         {/* max-w-6xl gap-32 mx-auto */}
         {content.items &&
           content.items.map((item,index) => {
@@ -67,6 +82,6 @@ export default function PostBody({ content }) {
             );
           })}
   
-    </div>
+    </motion.div>
   );
 }

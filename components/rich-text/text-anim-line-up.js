@@ -15,15 +15,16 @@ export const TextAnimLineUp = ({
   const currentTheme = getThemeByKey(theme);
   const ref = useRef(null);
   const isInView = useInView(ref, { 
-    once: !repeatWhenInView, 
-    amount: 0.5 
+    once: false, 
+    amount: 0.5,
+    margin: "0px 100px -50px 0px"
   });
 
   const containerVariants = {
     hidden: {},
     visible: {
       transition: {
-        staggerChildren: 0.1
+        staggerChildren: 0.2
       }
     }
   };
@@ -40,92 +41,67 @@ export const TextAnimLineUp = ({
         }
       }
     : {
-        hidden: { opacity: 0, marginBottom: "1rem" },
+        hidden: { opacity: 0, y: 20 },
         visible: { 
           opacity: 1, 
-          marginBottom: 0,
+          y: 0,
           transition: {
-            opacity: {
-              ease: [0.33, 1, 0.68, 1],
-              duration: 2.4,
-            },
-            marginBottom: {
-              ease: [0.33, 1, 0.68, 1],
-              duration: 1.2,
-            }
+            ease: [0.33, 1, 0.68, 1],
+            duration: 1.2,
           }
         }
       };
 
   const renderLine = (line, lineIndex) => {
-    if (clipText) {
-      return (
-        <div
-          key={lineIndex}
+    const segments = line.split('__');
+    
+    return (
+      <div
+        key={lineIndex}
+        style={{ 
+          overflow: 'hidden',
+          position: 'relative',
+          marginBottom: '0.25em'
+        }}
+      >
+        <motion.div
+          variants={lineVariants}
           style={{ 
-            overflow: 'hidden',
             position: 'relative',
-            marginBottom: '0.25em'
+            display: 'inline-block'
           }}
         >
-          <motion.div
-            variants={lineVariants}
-            style={{ 
-              position: 'relative',
-              display: 'inline-block'
-            }}
-          >
-            {line}
-          </motion.div>
-        </div>
-      );
-    } else {
-      return (
-        <motion.div
-          key={lineIndex}
-          variants={lineVariants}
-          style={{ overflow: 'hidden' }}
-        >
-          {line}
+          {segments.map((segment, segmentIndex) => {
+            if (segmentIndex % 2 === 0) {
+              return <span key={segmentIndex}>{segment}</span>;
+            } else {
+              return (
+                <span
+                  key={segmentIndex}
+                  style={{
+                    color: currentTheme?.textAccent,
+                  }}
+                >
+                  {segment}
+                </span>
+              );
+            }
+          })}
         </motion.div>
-      );
-    }
-  };
-
-  const renderColoredText = (text, index) => {
-    const lines = text.split('\n');
-    return (
-      <span
-        style={{
-          color: currentTheme?.textAccent,
-          position: 'relative',
-          display: 'block'
-        }}
-        key={index}
-      >
-        {lines.map((line, lineIndex) => renderLine(line, lineIndex))}
-      </span>
+      </div>
     );
   };
 
-  const renderTextWithBoldAndLineBreaks = (text) => {
+  const renderContent = (text) => {
     if (text) {
-      const boldSegments = text.split("__");
-      return boldSegments.map((segment, index) => {
-        if (index % 2 === 0) {
-          const lines = segment.split('\n');
-          return lines.map((line, lineIndex) => renderLine(line, lineIndex));
-        } else {
-          return renderColoredText(segment, index);
-        }
-      });
+      const lines = text.split('\n');
+      return lines.map((line, lineIndex) => renderLine(line, lineIndex));
     }
   };
 
   return (
     <motion.div 
       ref={ref}
-      className="flex flex-col items-start"
       variants={containerVariants}
       initial="hidden"
       animate={animateWhenInView ? (isInView ? "visible" : "hidden") : "visible"}
@@ -137,7 +113,7 @@ export const TextAnimLineUp = ({
           display: 'inline-block'
         }}
       >
-        {renderTextWithBoldAndLineBreaks(content)}
+        {renderContent(content)}
       </span>
     </motion.div>
   );

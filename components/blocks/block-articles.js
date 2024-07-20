@@ -11,12 +11,12 @@ export const BlockArticles = ({ data }) => {
   const currentTheme = getThemeByKey(theme);
 
   return (
-    <section className="p-8">
+    <>
       {data.title && (
-        <h1 style={{ color: currentTheme?.headingColor }}>
+        <h3  className="py-2 font-mono text-xs"
+          style={{ color: currentTheme?.headingColor }}>
           {data.title}
-          {data.type}
-        </h1>
+        </h3>
       )}
 
       <div className="grid grid-cols-12 gap-4">
@@ -54,7 +54,7 @@ export const BlockArticles = ({ data }) => {
             }
           })()}
       </div>
-    </section>
+    </>
   );
 };
 

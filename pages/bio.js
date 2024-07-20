@@ -54,11 +54,28 @@ const Bio = ({ data }) => {
                 titlealt={data.titlealt}
                 contentalt={data.contentalt}
               />
-              <BlockHero
+
+               <motion.div className="flex flex-col"
+      initial={{
+        opacity:0,
+        y: 100,
+      }}
+      animate={{
+        opacity:1,
+        y: 0,
+      }}
+      transition={{
+        delay:0.6,
+      ease: [0.33, 1, 0.68, 1],
+      duration: 1.2,
+      }}
+    >
+                    {/* <BlockHero
                 titlealt={data.titlealt}
                 contentalt={data.contentalt}
-              />
+              /> */}
               <LandingPageContent data={data} />
+              </motion.div>
               <BlockFooter content={data.intro} />
  
           </ScrollContainer>

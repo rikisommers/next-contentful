@@ -73,10 +73,7 @@ export default function PostTileCs({ post, index }) {
             ref={ref}
             className="absolute top-0 left-0 z-50 flex items-end justify-between w-full h-full gap-4 px-4 pb-4 text-white "
           >
-            {/* <div className="flex flex-col gap-1">
-              <span className="text-xs uppercase">{post?.client}</span>
-              <p className="">{post?.subtitle}</p>
-            </div> */}
+
 
             {post.tags && (
               <div className="flex gap-1">
@@ -114,18 +111,21 @@ export default function PostTileCs({ post, index }) {
         </div>
       )}
 
-      <div className="flex items-start justify-between w-full py-6 asolute ">
+      <div className="flex items-start justify-between w-full py-3 asolute ">
         <div className="flex flex-col gap-2">
-          <h2 className="z-50 text-xl"
+          <h2 className="z-50 font-mono text-sm font-medium"
                style={{
                 color:currentTheme?.textColor
               }}
           >{post?.title}</h2>
-          <motion.p className="opacity-0 text-md"
+          <motion.p className="font-mono text-xs opacity-1 text-slate-400"
                 style={{
                 color:currentTheme?.subtextColor
               }}
           >{post?.subtitle}</motion.p>
+                        
+                     
+      
           {/* <button className="inline-flex mt-8 text-sm text-slate-400">
             View Case Study
           </button> */}

@@ -155,6 +155,7 @@ const Index = ({ data }) => {
         <TransitionTilt active={true} className="z-100">
           <ScrollContainer>
             <BlockHero
+              content={data.content}
               titlealt={data.titlealt}
               contentalt={data.contentalt}
               date={dateString}

@@ -5,7 +5,7 @@ import { themes, getThemeByKey, updateTheme } from "../../utils/theme";
 
 export default function ThemeEditor() {
   const { theme, setTheme } = useTheme();
-  
+
   // Function to load the initial theme from localStorage
   const loadInitialTheme = () => {
     if (typeof window !== "undefined") {
@@ -21,32 +21,15 @@ export default function ThemeEditor() {
   };
 
   const [isOpen, setIsOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
-
+  const toggleMenu = () => setIsOpen(!isOpen);
 
   const initialTheme = loadInitialTheme();
   const [currentTheme, setCurrentTheme] = useState(initialTheme);
 
   const mixBlendModes = [
-    "normal",
-    "multiply",
-    "screen",
-    "overlay",
-    "darken",
-    "lighten",
-    "color-dodge",
-    "color-burn",
-    "hard-light",
-    "soft-light",
-    "difference",
-    "exclusion",
-    "hue",
-    "saturation",
-    "color",
-    "luminosity",
+    "normal", "multiply", "screen", "overlay", "darken", "lighten",
+    "color-dodge", "color-burn", "hard-light", "soft-light",
+    "difference", "exclusion", "hue", "saturation", "color", "luminosity"
   ];
 
   useEffect(() => {
@@ -70,9 +53,8 @@ export default function ThemeEditor() {
   };
 
   const controls = {
-
     Theme: {
-        value: currentTheme.key,
+      value: currentTheme.key,
       options: Object.keys(themes),
       onChange: (value) => {
         const updatedTheme = getThemeByKey(value);
@@ -179,4 +161,5 @@ export default function ThemeEditor() {
         hidden={false} // GUI is visible by default
       />
     </>
-  );}
+  );
+}
