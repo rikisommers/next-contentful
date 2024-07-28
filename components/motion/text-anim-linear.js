@@ -92,7 +92,7 @@ export const TextAnimLinear = ({ content }) => {
       animate="visible"
       variants={containerVariants}
       style={{
-        color:  'var(--heading-accent)',
+        color: 'var(--heading-color)',
       }}
     >
       {renderTextWithBoldAndLineBreaks(content)}

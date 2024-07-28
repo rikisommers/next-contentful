@@ -1,5 +1,5 @@
-import { useControls } from "leva";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from 'react';
+import { useControls } from 'leva';
 
 export const useAudioControls = () => {
   const [audioRefs, setAudioRefs] = useState({
@@ -11,12 +11,12 @@ export const useAudioControls = () => {
     marimba: null,
   });
 
-  const audioControls = useControls({
-    volume: { value: 0.2, min: 0, max: 1, step: 0.01 },
+  const { volume } = useControls('Audio', {
+    volume: { value: 0.2, min: 0, max: 1, step: 0.01 }
   });
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
+    if (typeof window !== 'undefined') {
       setAudioRefs({
         click: new Audio('/audio/click_04.wav'),
         beepOn: new Audio('/audio/beep_short_on.wav'),
@@ -31,7 +31,7 @@ export const useAudioControls = () => {
   const playAudio = (audioRef) => {
     if (audioRef) {
       try {
-        audioRef.volume = audioControls.volume;
+        audioRef.volume = volume;
         audioRef.currentTime = 0;
         audioRef.play();
       } catch (error) {
@@ -40,18 +40,17 @@ export const useAudioControls = () => {
     }
   };
 
-  // Update audio volume when it changes
   useEffect(() => {
     const updateVolume = () => {
       Object.values(audioRefs).forEach(audio => {
         if (audio) {
-          audio.volume = audioControls.volume;
+          audio.volume = volume;
         }
       });
     };
 
     updateVolume();
-  }, [audioControls.volume, audioRefs]);
+  }, [volume, audioRefs]);
 
   return {
     playClick: () => playAudio(audioRefs.click),

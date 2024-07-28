@@ -7,12 +7,8 @@ import TransitionWipe from "../components/transition/transition-wipe";
 import TransitionTilt from "../components/transition/transition-tilt";
 import PostIntro from "../components/post/post-intro";
 import { getLandingPage } from "../lib/api";
-import TextRotating from "../components/utils/text-rotating";
 import { ScrollableBox } from "../components/utils/scrollable";
 import BlockFooter from "../components/blocks/block-footer";
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import { RichTextOptions } from "../components/rich-text/rich-text";
-import Link from "next/link";
 
 
 import PostBody from "../components/post/post-body";

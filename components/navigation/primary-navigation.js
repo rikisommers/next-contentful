@@ -5,7 +5,6 @@ import { useEffect, useState, useContext, useRef } from "react";
 import { useScrollPosition } from "../scrollPosContext";
 import { RouteContext } from "../routeContext";
 import useSound from "use-sound";
-import Audio from "./audio";
 import { gsap } from "gsap";
 import { Draggable } from "gsap/dist/Draggable";
 import CtxMenu from "../base/ctx-menu";
@@ -267,7 +266,7 @@ export default function Navigation() {
             {isOpen && (
               <div className="absolute right-0 w-[350px] mt-2 rounded shadow-lg top-full"
               style={{backgroundColor: 'var(--body-background-color)'}}>
-                {/* <ThemeEditor /> */}
+                <ThemeEditor />
               </div>
             )}
           </div>

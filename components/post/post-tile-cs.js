@@ -16,7 +16,7 @@ import {
   useInView,
 } from "framer-motion";
 
-import { useAudioControls } from "../utils/audio";
+import { useAudioControls } from "../../utils/audio";
 
 
 export default function PostTileCs({ post, index }) {

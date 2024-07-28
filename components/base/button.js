@@ -3,8 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import PropTypes from "prop-types";
-import { useAudioControls } from "../utils/audio";
-
+import { useAudioControls } from "../../utils/audio";
 // Define the ButtonType enum
 const ButtonType = {
   DEFAULT: "default",

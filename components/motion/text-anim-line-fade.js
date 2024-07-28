@@ -1,10 +1,7 @@
-import React, { Children } from "react";
+import React from "react";
 import { motion } from "framer-motion";
-import RichTextAsset from "./rich-text-asset";
-import { RichTextOptions } from "./rich-text";
-import { INLINES, BLOCKS, MARKS } from "@contentful/rich-text-types";
 
-export const TextSubtitle = ({ content, children }) => {
+export const TextAnimLineFadeIn = ({ content }) => {
 
   const container = {
     initial: { opacity: 0.5 },
@@ -59,11 +56,16 @@ export const TextSubtitle = ({ content, children }) => {
   return (
 
     <motion.span
+
          variants={container}
          initial="initial"
          animate="animate"
-         >{renderTextAsLines(content)}
-        {children}     
+         style={{
+          color: 'var(--subtext-color)',
+        }}
+
+         >
+          {renderTextAsLines(content)}
     </motion.span>
   );
 };

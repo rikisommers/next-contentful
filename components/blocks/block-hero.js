@@ -1,13 +1,11 @@
 import React from "react";
 import { motion } from "framer-motion";
-import TextAnimation from "../utils/text-animation";
-import { TextAnimRandom } from "../rich-text/text-anim-random";
-import { TextSubtitle } from "../rich-text/text-subtitle";
-import { TextAnimLineUp } from "../rich-text/text-anim-line-up";
 import Audio from "../navigation/audio";
 import Link from "next/link";
 import Background from "../utils/background";
-import TextAnimationLineUp from "../utils/text-animation-line-up";
+import AnimatedText,{AnimStyle} from "../motion/animated-text";
+import { TextAnimLineUp } from "../motion/text-anim-line-up";
+import TextAnimationUp from "../motion/text-animation-up";
 
 export default function BlockHero({
   title,
@@ -20,11 +18,16 @@ export default function BlockHero({
 }) {
 
   return (
-    <div
+    <div data-name="hero-container"
       className={`relative transition ease-in-out w-full h-screen`}
-      style={{ background: 'var(--boddy-background-color)' }}
+      // style={{ background: 'var(--body-background-color)' }}
     >
-        <div className="flex flex-col items-center justify-center w-full h-full margin-auto ">
+{/* 
+<div className="absolute w-full h-full z-1">
+       <Background />
+       </div>
+        */}
+        <div className="absolute z-50 flex flex-col items-center justify-center w-full h-full pointer-events-none margin-auto ">
           <div className="grid max-w-xl gap-8">
             {/* <h1 className="text-7xl">{backgroundColor}</h1> */}
 
@@ -34,7 +37,7 @@ export default function BlockHero({
             /> */}
              <p>{title}</p>
             <h1 className="text-4xl font-medium text-center font-aon">
-              <TextAnimLineUp content={titlealt} clipText={true} />
+              <AnimatedText type={AnimStyle.LINEPOSUP} content={titlealt}/>
               {/* <TextScramble content={['Plan,Design & buid','wear many hats','like fart jokes']}/> */}
             </h1>
               <h2 className="text-xl text-center font-regular"
@@ -42,10 +45,9 @@ export default function BlockHero({
                     color: 'var(--subtext-color)',
                   }}>
                 {/* <TextAnimation content={contentalt}/> */}
-                <TextSubtitle
-                  content={contentalt}
-                />
+                <AnimatedText type={AnimStyle.LINEFADEIN} content={contentalt}/>
               </h2>
+
           </div>
         </div>
         {date && (
@@ -71,7 +73,7 @@ export default function BlockHero({
 
       </div> */}
       <motion.div
-        className="absolute flex items-center justify-end w-full h-full opacity-75"
+        className="absolute z-0 flex items-center justify-end w-full h-full opacity-75 pointer-events-none"
         initial={{ clipPath: "inset(1.0rem 1.0rem 1.0rem round 0.5rem)" }}
         animate={{
           backgroundColor: 'var(--background-color)',
@@ -83,7 +85,7 @@ export default function BlockHero({
           ease: [0.33, 1, 0.68, 1],
         }}
       />
-      {/* <Background/> */}
+     
     </div>
   );
 }

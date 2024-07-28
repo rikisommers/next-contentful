@@ -1,5 +1,5 @@
 import React from "react";
-import TextAnimationUp from "../utils/text-animation-up";
+import TextAnimationUp from "../motion/text-animation-up";
 
 export const BlockQuote = ({ data }) => {
 

@@ -1,6 +1,5 @@
 import React from "react";
 import { motion } from "framer-motion";
-import TextAnimation from "../utils/text-animation";
 import Audio from "../navigation/audio";
 import Link from "next/link";
 

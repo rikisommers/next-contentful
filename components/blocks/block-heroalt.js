@@ -1,9 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
-import TextAnimation from "../utils/text-animation";
-import { TextSubtitle } from "../rich-text/text-subtitle";
 
-import { TextAnimLineUp } from "../rich-text/text-anim-line-up";
+import AnimatedText,{AnimStyle} from "../motion/animated-text";
 import Audio from "../navigation/audio";
 import Link from "next/link";
 
@@ -28,7 +26,7 @@ export default function BlockHeroAlt({
 
             <div className="grid-cols-5">
               <h2 className="text-4xl font-normal font-aon">
-                <TextAnimLineUp content={contentalt} />
+                <AnimatedText type={AnimStyle.LINEPOSUP} content={contentalt}/>
               </h2>
             </div>
 
@@ -36,9 +34,7 @@ export default function BlockHeroAlt({
             {/* <TextScramble content={['Plan,Design & buid','wear many hats','like fart jokes']}/> */}
             <div className="grid-cols-3">
               <h3 className="text-xl text-center font-regular">
-                <TextSubtitle
-                  content={titlealt}
-                />
+                <AnimatedText type={AnimStyle.LINEFADEIN} content={titlealt}/>
               </h3>
             </div>
           </div>

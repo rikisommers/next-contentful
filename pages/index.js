@@ -8,7 +8,6 @@ import { gsap } from "gsap";
 import * as THREE from "three";
 import { vertexShader } from "../shaders/water/vertex";
 import { fragmentShader } from "../shaders/water/fragment";
-import { TextSubtitle } from "../components/rich-text/text-subtitle";
 import ScrollContainer from "../components/utils/scroll-container";
 import CustomCursor from "../components/utils/cursor";
 import PostBody from "../components/post/post-body";
@@ -148,7 +147,7 @@ const Index = ({ data }) => {
         id="canvas"
       /> */}
 
-        {/* <CustomCursor/> */}
+        <CustomCursor/>
         <TransitionTilt active={true} className="z-100">
           <ScrollContainer>
             <BlockHero

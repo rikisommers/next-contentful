@@ -1,17 +1,10 @@
-import CoverImage from "../image/cover-image";
 import FadeInWhenVisible from "../utils/fade-in-visible";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState } from "react";
 import { RouteContext } from "../../components/routeContext";
-import TextAnimation from "../utils/text-animation";
-import { motion, cubicBezier } from "framer-motion";
+import { motion } from "framer-motion";
 import PostDetails from "./post-details";
-import BlendImage from "../image/blend-image";
 import PostTileImgAlt from "./post-tile-img-alt";
-import BlockQuote from "../blocks/block-quote";
-import { TextAnimRandom } from "../rich-text/text-anim-random";
-import { TextSubtitle } from "../rich-text/text-subtitle";
-import TextAnimationChar from "../rich-text/text-anim-char";
-import TextAnimCode from "../rich-text/text-anim-code";
+import AnimatedText,{AnimStyle} from "../motion/animated-text";
 
 export default function PostHeader({ content }) {
   const { routeInfo } = useContext(RouteContext);
@@ -26,17 +19,16 @@ export default function PostHeader({ content }) {
             // <TextAnimation content={content?.title} color={'#000'}/>
               
             <h1 className="text-5xl">
-            <TextAnimCode content={content?.title} />
+              <AnimatedText type={AnimStyle.CHARCODE} content={content.title}/>
             </h1>
           )}
         </div>
-        <div className="col-span-12 text-xl text-left md:col-span-8 lg:col-span-6 lg:text-right text-balance">
-        {content?.subtitle && (
-            <TextSubtitle
-              content={content.subtitle}
-            
-            />
-          )}
+        <div className="col-span-12 text-left md:col-span-8 lg:col-span-6 lg:text-right text-balance">
+          <h2 className="text-xl">
+            {content?.subtitle && (
+              <AnimatedText type={AnimStyle.LINEFADEIN} content={content.subtitle}/>
+            )}
+          </h2>
         </div>
       </div>
 

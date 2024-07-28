@@ -1,10 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
-import TextAnimation from "../utils/text-animation";
-import { TextAnimRandom } from "../rich-text/text-anim-random";
-import { TextAnimLineUp } from "../rich-text/text-anim-line-up";
-import { TextAnimLinear } from "../rich-text/text-anim-linear";
-import { TextSubtitle } from "../rich-text/text-subtitle";
+import TextAnimation from "../motion/text-animation";
+import { TextAnimLineUp } from "../motion/text-anim-line-up";
 import Audio from "../navigation/audio";
 import Link from "next/link";
 import { useTheme } from "next-themes";

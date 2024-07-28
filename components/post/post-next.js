@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import CoverImage from "../image/cover-image";
 import Link from "next/link";
 import { motion, cubicBezier } from "framer-motion";
-import TextAnimation from "../utils/text-animation";
+import TextAnimation from "../motion/text-animation";
 import FadeInWhenVisible from "../utils/fade-in-visible";
 import ContentfulImage from "../image/contentful-image";
 import BlendImage from "../image/blend-image";
@@ -47,21 +47,21 @@ export default function NextPost({ post }) {
 
   return (
     <motion.div
-      className="relative h-vhh flex flex-col o-content py-24"
+      className="relative flex flex-col py-24 h-vhh o-content"
       // ref={nextRef}
     >
       <span className="uppercase text-slate-400">Next</span>
 
       {/* style={{backgroundColor:post?.color}}  */}
 
-      <div className="grid grid-cols-12 w-full gap-6">
+      <div className="grid w-full grid-cols-12 gap-6">
       <Link href={`/projects/${post.slug}`} scroll={false} className="col-span-8">
         <div
-          className="grid grid-cols-12 w-full h-full gap-3 flex-grow z-20 bg-slate-200 rounded-xl"
+          className="z-20 grid flex-grow w-full h-full grid-cols-12 gap-3 bg-slate-200 rounded-xl"
           style={{ backgroundColor: post?.color }}
         >
-          <div className="col-span-12 md:col-span-6 flex flex-col gap-6 items-start p-8 z-50">
-            <h2 className="text-slate-50 font-light text-1xl text-balance">
+          <div className="z-50 flex flex-col items-start col-span-12 gap-6 p-8 md:col-span-6">
+            <h2 className="font-light text-slate-50 text-1xl text-balance">
               {post?.title && post?.title}
             </h2>
             <TextAnimation
@@ -80,7 +80,7 @@ export default function NextPost({ post }) {
 
         </div>
       </Link>
-      <div className="col-span-4 flex flex-col gap-6">
+      <div className="flex flex-col col-span-4 gap-6">
         <PostTileCs post={post}/>
         {/* <PostTileImg post={post}/> */}
       </div>

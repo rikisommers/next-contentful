@@ -5,13 +5,16 @@ import { MousePosProvider } from "../components/mousePosContext";
 import { ScrollPositionProvider } from "../components/scrollPosContext";
 import { RouteProvider } from "../components/routeContext";
 import { ToastProvider } from "../components/toastContext";
-
+import { ThemeProvider } from "next-themes";
+import { LevaProvider } from "../components/leva-context";
+import ThemeEditor from "../components/navigation/themeEditor";
 import Navigation from "../components/navigation/primary-navigation";
+import { Leva, LevaPanel, useControls } from "leva";
+
 import Preloader from "./preloader";
 import { getAllImages } from "../lib/api";
-import { ThemeProvider } from "next-themes";
-import { themes } from "../utils/theme";
-import ThemeEditor from "../components/navigation/themeEditor";
+
+
 
 import "../styles/index.scss";
 
@@ -31,6 +34,9 @@ function MyApp({ Component, pageProps, router }) {
 
   return (
     <RouteProvider>
+      <LevaProvider>
+
+
       <ScrollPositionProvider>
       <ThemeProvider attribute="data-theme">
       <MousePosProvider>
@@ -39,9 +45,12 @@ function MyApp({ Component, pageProps, router }) {
          <Preloader /> 
         :  } */}
               <>
+
           
-            
+                  <Leva/>
                   <Navigation />
+                
+
                   <AnimatePresence mode="wait" initial={false}>
                       <Component {...pageProps} key={router.asPath} />
                     </AnimatePresence>
@@ -76,6 +85,7 @@ function MyApp({ Component, pageProps, router }) {
           </MousePosProvider>
         </ThemeProvider>
       </ScrollPositionProvider>
+      </LevaProvider>
     </RouteProvider>
   );
 }

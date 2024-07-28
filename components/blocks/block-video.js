@@ -1,5 +1,4 @@
 import React, {useRef} from "react";
-import TextAnimation from "../utils/text-animation";
 import Audio from "../navigation/audio";
 import ContentfulImage from "../image/contentful-image";
 import FadeInWhenVisible from "../utils/fade-in-visible";
