@@ -3,7 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-export const TextAnimBlur = ({ content }) => {
+export const TextAnimBlur = ({ content, delay }) => {
   const characterVariants = {
     hidden: { 
       opacity: 0, 
@@ -38,6 +38,7 @@ export const TextAnimBlur = ({ content }) => {
       opacity: 1,
       transition: {
         staggerChildren: 0.2,
+        delay:delay
       },
     },
   };

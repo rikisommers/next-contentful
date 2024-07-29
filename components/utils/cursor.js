@@ -127,6 +127,7 @@ const CustomCursor = () => {
       ref={hostRef}
       className={cursorClasses()}
       style={{
+          zIndex: 9999,
          left: `${position.x}px`,
          top: `${position.y}px`,
         // opacity: cursorWithinViewport ? 0 : 1,

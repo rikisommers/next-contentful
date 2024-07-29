@@ -70,7 +70,7 @@ const ElementAnimFadeIn = ({ delay,children }) => {
     )
 }
 
-const AnimOrder = {
+const AnimElOrder = {
     1: "100ms",
     2: "200ms",
     3: "300ms",

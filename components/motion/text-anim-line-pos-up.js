@@ -4,6 +4,7 @@ import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 
 export const TextAnimLinePosUp = ({
+  delay,
   content,
   animateWhenInView = false,
   repeatWhenInView = false,
@@ -19,6 +20,7 @@ export const TextAnimLinePosUp = ({
     visible: {
       transition: {
         staggerChildren: 0.2,
+        delay: delay,
       },
     },
   };
@@ -60,7 +62,7 @@ export const TextAnimLinePosUp = ({
           }}
         >
           {segments.map((segment, segmentIndex) => {
-              return <span key={segmentIndex}>{segment}</span>;
+            return <span key={segmentIndex}>{segment}</span>;
           })}
         </motion.div>
       </div>
@@ -80,7 +82,9 @@ export const TextAnimLinePosUp = ({
       ref={ref}
       variants={containerVariants}
       initial="hidden"
-      animate={animateWhenInView ? (isInView ? "visible" : "hidden") : "visible"}
+      animate={
+        animateWhenInView ? (isInView ? "visible" : "hidden") : "visible"
+      }
     >
       <span
         style={{

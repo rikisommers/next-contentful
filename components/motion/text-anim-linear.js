@@ -3,7 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-export const TextAnimLinear = ({ content }) => {
+export const TextAnimLinear = ({ content ,delay}) => {
 
   const characterVariants = {
     hidden: { opacity: 0 },
@@ -32,6 +32,7 @@ export const TextAnimLinear = ({ content }) => {
       opacity: 1,
       transition: {
         staggerChildren: 0.5, // Delay between lines
+        delay:delay,
       },
     },
   };

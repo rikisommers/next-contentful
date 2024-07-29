@@ -20,31 +20,54 @@ const AnimStyle = {
     CHARCODE: "char-code",
 };
 
-const getAnimatedComponent = (type, content) => {
+const AnimTextOrder = {
+    1: "100ms",
+    2: "200ms",
+    3: "300ms",
+    4: "400ms",
+    5: "500ms",
+};
+
+
+
+const getAnimatedComponent = (type, content ,delay) => {
     if(content){
     switch (type) {
         case AnimStyle.LINESUP:
-            return <TextAnimLinePosUp content={content} 
+            return <TextAnimLinePosUp 
+            content={content} 
+            delay={delay}
             animateWhenInView={true}
             repeatWhenInView={true}
             />;
         case AnimStyle.LINEPOSUP:
-            return <TextAnimLineUp content={content}
+            return <TextAnimLineUp
+            content={content}
+            delay={delay}
             animateWhenInView={true}
             repeatWhenInView={true}
             />;
         case AnimStyle.LINEFADEIN:
-            return <TextAnimLineFadeIn content={content} />;
+            return <TextAnimLineFadeIn 
+            delay={delay}
+            content={content} />;
         case AnimStyle.CHARFADE:
-            return <TextAnimLinear content={content} />;
+            return <TextAnimLinear 
+            delay={delay}
+            content={content} />;
         case AnimStyle.CHARBLUR:
-            return <TextAnimBlur content={content} />;
+            return <TextAnimBlur 
+            delay={delay}
+            content={content} />;
         case AnimStyle.CHARRANDOM:
             return <TextAnimRandom content={content} />;
         case AnimStyle.CHARCODE:
             return <TextAnimCode content={content} />;
         default:
-            return <TextAnimLineUp content={content} clipText={false} />;
+            return <TextAnimLineUp 
+            content={content} 
+            delay={delay}
+            clipText={false} />;
     }
     }
 };
@@ -59,4 +82,4 @@ AnimatedText.propTypes = {
 };
 
 export default AnimatedText;
-export { AnimStyle };
+export { AnimStyle,AnimTextOrder };

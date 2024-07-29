@@ -147,7 +147,7 @@ const Index = ({ data }) => {
         id="canvas"
       /> */}
 
-        <CustomCursor/>
+        {/* <CustomCursor/> */}
         <TransitionTilt active={true} className="z-100">
           <ScrollContainer>
             <BlockHero

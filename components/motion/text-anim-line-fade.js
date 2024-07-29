@@ -1,14 +1,14 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-export const TextAnimLineFadeIn = ({ content }) => {
+export const TextAnimLineFadeIn = ({ content ,delay}) => {
 
   const container = {
     initial: { opacity: 0.5 },
     animate: {
       opacity: 1,
       transition: {
-        delay: 0, // Add a delay to the start of the animation
+        delay: delay, // Add a delay to the start of the animation
         staggerChildren: 0.123,
         duration: 0.3,
       },

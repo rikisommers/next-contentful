@@ -1,13 +1,13 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-const TextAnimationChar = ({ content }) => {
+const TextAnimationChar = ({ content, delay }) => {
   const container = {
     hidden: { opacity: 0.5 },
     show: {
       opacity: 1,
       transition: {
-        delay: 0, // Delay before starting the animation
+        delay: delay, // Delay before starting the animation
         staggerChildren: 0.1, // Delay between each character's animation
       },
     },

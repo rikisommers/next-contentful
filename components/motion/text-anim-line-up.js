@@ -4,6 +4,7 @@ import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 
 export const TextAnimLineUp = ({ 
+  delay,
   content, 
   animateWhenInView = false,
   repeatWhenInView = false
@@ -19,7 +20,8 @@ export const TextAnimLineUp = ({
     hidden: {},
     visible: {
       transition: {
-        staggerChildren: 0.2
+        staggerChildren: 0.2,
+        delay:delay,
       }
     }
   };
