@@ -158,7 +158,6 @@ const Index = ({ data }) => {
             />
 
             {data.csblocksCollection.items && (
-              // <PostContent content={data}/>
               <PostBody content={data.csblocksCollection} />
             )}
 

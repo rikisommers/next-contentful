@@ -28,20 +28,7 @@ export default function PostBody({ content }) {
 
 
   return (
-    <motion.div className="flex flex-col"
-      initial={{
-        opacity:0,
-        y: 100,
-      }}
-      animate={{
-        opacity:1,
-        y: 0,
-      }}
-      transition={{
-        delay:0.6,
-      ease: [0.33, 1, 0.68, 1],
-      duration: 1.2,
-      }}
+    <div className="flex flex-col gap-16 px-8"
     >
         {/* max-w-6xl gap-32 mx-auto */}
         {content.items &&
@@ -82,6 +69,6 @@ export default function PostBody({ content }) {
             );
           })}
   
-    </motion.div>
+    </div>
   );
 }

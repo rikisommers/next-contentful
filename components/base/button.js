@@ -9,6 +9,7 @@ const ButtonType = {
   DEFAULT: "default",
   PRIMARY: "primary",
   SECONDARY: "secondary",
+  TRANSPARENT: "transparent",
 };
 
 const ButtonSound = {
@@ -42,6 +43,11 @@ const Button = ({ label, click, type = ButtonType.DEFAULT, sound }) => {
         return {
           backgroundColor: 'var(--button-secondary-bg)',
           color: 'var(--button-secondary-text)',
+        };
+      case ButtonType.TRANSPARENT:
+        return {
+          backgroundColor: 'transparent',
+          color: 'var(--text-color)',
         };
       default:
         return {

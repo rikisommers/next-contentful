@@ -91,9 +91,6 @@ export const TextAnimLinear = ({ content }) => {
       initial="hidden"
       animate="visible"
       variants={containerVariants}
-      style={{
-        color: 'var(--heading-color)',
-      }}
     >
       {renderTextWithBoldAndLineBreaks(content)}
     </motion.div>

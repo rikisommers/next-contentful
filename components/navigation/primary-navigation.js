@@ -10,7 +10,7 @@ import { Draggable } from "gsap/dist/Draggable";
 import CtxMenu from "../base/ctx-menu";
 import ThemeEditor from "./themeEditor";
 import Button,{ButtonType,ButtonSound} from "../base/button";
-
+import AnimatedText, {AnimStyle} from "../motion/animated-text";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(Draggable);
@@ -158,28 +158,17 @@ export default function Navigation() {
           </div>
         </div>
 
-        <motion.span
-          className="self-center p-3 text-sm font-aon"
-          style={{ color: 'var(--text-heading)' }}
+        <span
+          className="self-center p-3 font-mono text-sm"
+          style={{ color: 'var(--text-color)' }}
           layoutId="title"
-          initial={{
-            opacity: 0,
-          }}
-          animate={{
-            opacity: 1,
-          }}
-          exit={{
-            opacity: 0,
-          }}
-          transition={{
-            duration: 1,
-            delay: 0,
-            easing: cubicBezier(0.35, 0.17, 0.3, 0.86),
-          }}
-        >
-          {/* <TextTitle content={ isActive ? 'Back' : 'Riki Sommers'}/> */}
-          Riki Sommers
-        </motion.span>
+      
+        > 
+
+          {/* TODO: ADD GLOBAL PAGE TITLE */}
+          <AnimatedText type={AnimStyle.CHARFADE} content="Riki Sommers"></AnimatedText>
+          
+        </span>
       </motion.div>
 
       <div className="flex gap-2">
@@ -188,8 +177,8 @@ export default function Navigation() {
           {/* <div className="px-3 text-white py-" ref={menuDragRef}>
             :
           </div> */}
-          <div className="relative z-50 flex gap-1 bg-opacity-50 rounded-xl backdrop-blur-lg"
-            style={{backgroundColor: 'var(--nav-bg)'}}
+          <div className="relative z-50 flex gap-1 bg-black bg-opacity-50 rounded-xl backdrop-blur-lg"
+          
           >
             {/* <motion.div
               className="absolute right-0 z-10 overflow-hidden rounded-lg shadow-lg top-14 "
@@ -224,8 +213,7 @@ export default function Navigation() {
                 className="relative flex items-center text-sm uppercase rounded-lg"
                 style={{color: 'var(--text-color-inv)'}}
               >
-                {/* <Button label={page.title}/> */}
-                  <span
+                  {/* <span
                  style={{
                     color:
                        activePage === page.id
@@ -235,19 +223,25 @@ export default function Navigation() {
                    className={`z-10 relative flex items-center px-3 py-3 text-xs uppercase rounded-lg cursor-pointer`}
                  >
                    {page.title}
-                 </span>  
+                 </span>   */}
                 {activePage === page.id && (
                   <motion.div
                     layoutId="indicator"
                     style={{
-                      backgroundColor: 'var(--subtext-color)'}}
-                    className="absolute top-0 left-0 z-0 flex w-full h-full rounded-xl"
+                      background: 'var(--accent-pri)',
+                    }}
+                     
+                    className="absolute top-0 left-0 flex w-full h-full bg-opacity-50 rounded-xl"
                   ></motion.div>
                 )}
+                <Button label={page.title} type={ButtonType.TRANSPARENT}/>
+
               </Link>
             ))}
 
-            <Button label={'Contact'} sound={ButtonSound.ON}></Button>
+            <Button label={'Contact'} sound={ButtonSound.ON}
+              type={ButtonType.TRANSPARENT}
+            ></Button>
             
           </div>
         </div>

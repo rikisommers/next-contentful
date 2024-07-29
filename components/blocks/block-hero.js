@@ -44,8 +44,7 @@ export default function BlockHero({
                    style={{
                     color: 'var(--subtext-color)',
                   }}>
-                {/* <TextAnimation content={contentalt}/> */}
-                <AnimatedText type={AnimStyle.LINEFADEIN} content={contentalt}/>
+                <AnimatedText type={AnimStyle.LINEFADEIN} content={titlealt}/>
               </h2>
 
           </div>
