@@ -21,7 +21,7 @@ export const TextAnimLineUp = ({
     visible: {
       transition: {
         staggerChildren: 0.2,
-        delay:delay,
+        delayChildren:delay,
       }
     }
   };

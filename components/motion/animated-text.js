@@ -21,11 +21,11 @@ const AnimStyle = {
 };
 
 const AnimTextOrder = {
-    1: "100ms",
-    2: "200ms",
-    3: "300ms",
-    4: "400ms",
-    5: "500ms",
+    ONE: 0,
+    TWO: 0.3,
+    THREE: 0.6,
+    FOUR: 0.9,
+    FIVE: 1.2,
 };
 
 
@@ -72,8 +72,8 @@ const getAnimatedComponent = (type, content ,delay) => {
     }
 };
 
-const AnimatedText = ({ type = AnimStyle.LINEPOSUP, content }) => {
-    return getAnimatedComponent(type, content);
+const AnimatedText = ({ type = AnimStyle.LINEPOSUP, content ,delay}) => {
+    return getAnimatedComponent(type, content, delay);
 };
 
 AnimatedText.propTypes = {

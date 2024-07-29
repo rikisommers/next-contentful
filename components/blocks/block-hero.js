@@ -37,14 +37,14 @@ export default function BlockHero({
             /> */}
              <p>{title}</p>
             <h1 className="text-4xl font-medium text-center font-aon">
-              <AnimatedText type={AnimStyle.LINEPOSUP} content={titlealt} delay={0}/>
+              <AnimatedText type={AnimStyle.LINEPOSUP} content={titlealt} delay={AnimTextOrder.ONE}/>
               {/* <TextScramble content={['Plan,Design & buid','wear many hats','like fart jokes']}/> */}
             </h1>
               <h2 className="text-xl text-center font-regular"
                    style={{
                     color: 'var(--subtext-color)',
                   }}>
-                <AnimatedText type={AnimStyle.LINEFADEIN} content={titlealt} delay={1}/>
+                <AnimatedText type={AnimStyle.LINEFADEIN} content={titlealt} delay={AnimTextOrder.THREE}/>
               </h2>
 
           </div>

@@ -20,7 +20,7 @@ export const TextAnimLinePosUp = ({
     visible: {
       transition: {
         staggerChildren: 0.2,
-        delay: delay,
+        delayChildren:delay,
       },
     },
   };

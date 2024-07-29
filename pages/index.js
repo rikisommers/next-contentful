@@ -13,16 +13,9 @@ import CustomCursor from "../components/utils/cursor";
 import PostBody from "../components/post/post-body";
 import BlockFooter from "../components/blocks/block-footer";
 import BlockHero from "../components/blocks/block-hero";
-
-import Lenis from "@studio-freight/lenis";
-import {
-  motion,
-  cubicBezier,
-  useMotionValue,
-  useTransform,
-  useScroll,
-  useMotionValueEvent,
-} from "framer-motion";
+import { ParalaxElement } from "../components/motion/paralax-element";
+import AnimatedText,{AnimStyle} from "../components/motion/animated-text";
+import { ClipPathElement } from "../components/motion/clippath-element";
 
 const vs = `
 varying vec2 v_texcoord;
@@ -157,6 +150,12 @@ const Index = ({ data }) => {
               date={dateString}
             />
 
+            <h1 className="text-3xl font-aon">
+              <AnimatedText type={AnimStyle.LINESUP} content={data.titlealt}></AnimatedText>
+            </h1>
+            <ParalaxElement offset={500}>
+
+          </ParalaxElement>
             {data.csblocksCollection.items && (
               <PostBody content={data.csblocksCollection} />
             )}

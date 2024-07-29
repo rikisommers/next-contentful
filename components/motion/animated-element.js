@@ -25,28 +25,6 @@ const ElementAnimPosUp = ({  delay,children }) => {
     )
 }
 
-const ElementAnimParUp = ({ delay,children }) => {
-    return(
-        <motion.div
-        initial={{
-            opacity:0,
-            y: 100,
-          }}
-          animate={{
-            opacity:1,
-            y: 0,
-          }}
-          transition={{
-            delay:0.6,
-          ease: [0.33, 1, 0.68, 1],
-          duration: 1.2,
-          }}
-        >
-            {children}
-        </motion.div>
-    )
-}
-
 
 const ElementAnimFadeIn = ({ delay,children }) => {
     return(
@@ -81,7 +59,6 @@ const AnimElOrder = {
 
 const AnimStyleEl = {
     POSUP: "pos-up",
-    PARALAXUP: "par-up",
     FADEIN: "fade-in",
 };
 
@@ -90,9 +67,6 @@ const getAnimatedElement = (type,children) => {
     switch (type) {
         case AnimStyleEl.POSUP:
             return <ElementAnimPosUp>{children}</ElementAnimPosUp>;
-        case AnimStyleEl.PARALAXUP:
-            return <ElementAnimParUp>{children}</ElementAnimParUp>;
-
         case AnimStyleEl.FADEIN:
             return <ElementAnimFadeIn>{children}</ElementAnimFadeIn>;
         default:
@@ -110,4 +84,4 @@ AnimatedElement.propTypes = {
 };
 
 export default AnimatedElement;
-export { AnimStyleEl };
+export { AnimStyleEl, AnimElOrder };

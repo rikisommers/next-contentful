@@ -38,7 +38,7 @@ export const TextAnimBlur = ({ content, delay }) => {
       opacity: 1,
       transition: {
         staggerChildren: 0.2,
-        delay:delay
+        delayChildren:delay,
       },
     },
   };

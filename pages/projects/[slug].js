@@ -197,7 +197,7 @@ export default function Post({ post, nextPost }) {
                           className="absolute w-3 bg-red-400"
                           style={{ scaleY: scrollPosition }}
                         ></motion.div>
-                        <h1>Current Scroll Position: {scrollPosition}px</h1>
+                        <h1> {scrollPosition}px</h1>
 
                         <h1 key={index}>{/* {item.title} */}P</h1>
                       </div>

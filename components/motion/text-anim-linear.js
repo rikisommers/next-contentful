@@ -32,7 +32,7 @@ export const TextAnimLinear = ({ content ,delay}) => {
       opacity: 1,
       transition: {
         staggerChildren: 0.5, // Delay between lines
-        delay:delay,
+        delayChildren:delay,
       },
     },
   };

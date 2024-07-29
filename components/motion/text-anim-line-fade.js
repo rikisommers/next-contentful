@@ -8,7 +8,7 @@ export const TextAnimLineFadeIn = ({ content ,delay}) => {
     animate: {
       opacity: 1,
       transition: {
-        delay: delay, // Add a delay to the start of the animation
+        delayChildren:delay,
         staggerChildren: 0.123,
         duration: 0.3,
       },
@@ -56,7 +56,6 @@ export const TextAnimLineFadeIn = ({ content ,delay}) => {
   return (
 
     <motion.span
-
          variants={container}
          initial="initial"
          animate="animate"
