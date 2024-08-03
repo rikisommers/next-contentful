@@ -49,16 +49,16 @@ export default function Navigation() {
   //   setIsOpen(false);
   // };
 
-  useEffect(() => {
-    if (menuRef.current && menuDragRef.current) {
-      // Initialize Draggable when both menuRef and menuDragRef are available
-      Draggable.create(menuRef.current, {
-        type: "x,y",
-        edgeResistance: 0.65,
-        trigger: menuDragRef.current, // Use menuDragRef.current instead of menuDragRef
-      });
-    }
-  }, [menuRef, menuDragRef]); // Include both refs in the dependency array to handle re-renders correctly
+  // useEffect(() => {
+  //   if (menuRef.current && menuDragRef.current) {
+  //     // Initialize Draggable when both menuRef and menuDragRef are available
+  //     Draggable.create(menuRef.current, {
+  //       type: "x,y",
+  //       edgeResistance: 0.65,
+  //       trigger: menuDragRef.current, // Use menuDragRef.current instead of menuDragRef
+  //     });
+  //   }
+  // }, [menuRef, menuDragRef]); // Include both refs in the dependency array to handle re-renders correctly
 
   useEffect(() => {
     if (router.asPath !== router.route) {
@@ -250,7 +250,9 @@ export default function Navigation() {
       <div className="flex items-center gap-1 rounded-lg">
         <div className="relative z-50 flex gap-1 bg-opacity-50 rounded-xl backdrop-blur-lg"
         style={{backgroundColor: 'var(--background-color)'}}>
+
           <Button label={"Audio"} />
+          
           <div className="relative">
           
 

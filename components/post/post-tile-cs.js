@@ -16,9 +16,6 @@ import {
   useInView,
 } from "framer-motion";
 
-import { useAudioControls } from "../../utils/audio";
-
-
 export default function PostTileCs({ post, index }) {
   //  console.log("ss", post);
   
@@ -26,9 +23,7 @@ export default function PostTileCs({ post, index }) {
 
   const ref = useRef(null);
 
-  const {
-    playClick
-  } = useAudioControls();
+
 
 
 

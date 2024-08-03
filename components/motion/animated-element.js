@@ -80,7 +80,6 @@ const AnimatedElement = ({ type = AnimStyleEl.POSUP, children }) => {
 
 AnimatedElement.propTypes = {
     type: PropTypes.oneOf(Object.values(AnimStyleEl)),
-    content: PropTypes.string.isRequired,
 };
 
 export default AnimatedElement;

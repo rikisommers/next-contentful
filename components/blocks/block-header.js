@@ -1,10 +1,4 @@
 import React from "react";
-import { motion } from "framer-motion";
-import { TextAnimLineUp } from "../motion/text-anim-line-up";
-import Audio from "../navigation/audio";
-import Link from "next/link";
-import { useTheme } from "next-themes";
-import { getThemeByKey } from "../../utils/theme";
 import AnimatedText,{AnimStyle} from "../motion/animated-text";
 export default function BlockHeader({ data }) {
 

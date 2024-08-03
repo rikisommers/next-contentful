@@ -11,6 +11,7 @@ import BlockArticle from "../blocks/block-article"
 import BlockArticles from "../blocks/block-articles"
 import BlockHeader from "../blocks/block-header"
 import { motion, cubicBezier } from "framer-motion";
+import AnimatedElement,{ AnimStyle } from "../motion/animated-element";
 
 const customMarkdownOptions = (content) => ({
   renderNode: {

@@ -1,6 +1,7 @@
 // Color themes
 const colorThemes = {
   light: {
+    audio:true,
     bodyBackgroundColor: '#fafafa',
     backgroundColor: '#f4f4f5',
     surface1: '#c1c1c1',
@@ -20,6 +21,7 @@ const colorThemes = {
     stateSuccessBackground:'#d946ef',
   },
   dark: {
+    audio:true,
     bodyBackgroundColor: '#271C1B',
     backgroundColor: '#47362E',
     surface1: '#c1c1c1',
@@ -39,6 +41,7 @@ const colorThemes = {
     stateSuccessBackground:'#d946ef',
   },
   tokyo: {
+    audio:true,
     bodyBackgroundColor: '#F8FBF8',
     backgroundColor: '#F7FCFE',
     surface1: '#F8FBF8',
@@ -74,6 +77,9 @@ const animationThemes = {
     animation: 'leaf-fall'
   }
 };
+
+
+
 
 // Layout themes
 const layoutThemes = {

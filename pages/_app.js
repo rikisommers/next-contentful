@@ -34,7 +34,7 @@ function MyApp({ Component, pageProps, router }) {
 
   return (
     <RouteProvider>
-      <LevaProvider>
+      {/* <LevaProvider> */}
 
 
       <ScrollPositionProvider>
@@ -47,7 +47,6 @@ function MyApp({ Component, pageProps, router }) {
               <>
 
           
-                  <Leva/>
                   <Navigation />
                 
 
@@ -85,7 +84,7 @@ function MyApp({ Component, pageProps, router }) {
           </MousePosProvider>
         </ThemeProvider>
       </ScrollPositionProvider>
-      </LevaProvider>
+      {/* </LevaProvider> */}
     </RouteProvider>
   );
 }

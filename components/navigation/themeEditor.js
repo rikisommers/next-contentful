@@ -1,27 +1,27 @@
-import React, { useEffect, useState } from "react";
-import { useControls, Leva } from "leva";
+import React, { useEffect, useState, useCallback } from "react";
+import { useControls, Leva, button } from "leva";
 import { useTheme } from "next-themes";
 import { themes, getThemeByKey, updateTheme } from "../../utils/theme";
 
+import { useAudioControls, toggleAudio, updateVolume } from "./audio-utils";
+
+
 export default function ThemeEditor() {
-  const { theme, setTheme } = useTheme();
-
-  // Function to load the initial theme from localStorage
-  const loadInitialTheme = () => {
-    if (typeof window !== "undefined") {
-      const savedTheme = localStorage.getItem('currentTheme');
-      try {
-        return savedTheme ? JSON.parse(savedTheme) : themes.dark;
-      } catch (e) {
-        console.error("Invalid JSON in localStorage:", e);
-        return themes.dark;
-      }
-    }
-    return themes.dark;
-  };
-
-  const [currentTheme, setCurrentTheme] = useState(loadInitialTheme());
+  const { setTheme } = useTheme();
+  const [currentTheme, setCurrentTheme] = useState(themes.dark);
   const [levaKey, setLevaKey] = useState(0);
+  const [volume, setVolume] = useState(0.2);
+  const { 
+    audioRefs, 
+    isAudioOn, 
+    setIsAudioOn, 
+    playClick, 
+    playBeepOn, 
+    playBeepOff, 
+    playPlink, 
+    playDrip, 
+    playMarimba 
+  } = useAudioControls();
 
   const mixBlendModes = [
     "normal", "multiply", "screen", "overlay", "darken", "lighten",
@@ -29,35 +29,38 @@ export default function ThemeEditor() {
     "difference", "exclusion", "hue", "saturation", "color", "luminosity"
   ];
 
-  const applyCurrentTheme = (updatedTheme) => {
+  const applyCurrentTheme = useCallback((updatedTheme) => {
     setCurrentTheme(updatedTheme);
     setTheme(updatedTheme.key);
     updateTheme(updatedTheme.key, updatedTheme);
-    localStorage.setItem('currentTheme', JSON.stringify(updatedTheme));
 
     // Update CSS variables
     Object.entries(updatedTheme).forEach(([key, value]) => {
       if (typeof value === 'string') {
+        console.log(`--${key}:`, value);
         document.documentElement.style.setProperty(`--${key}`, value);
       }
     });
 
+    localStorage.setItem('currentTheme', JSON.stringify(updatedTheme));
+
     // Force re-render of Leva controls
     setLevaKey((prevKey) => prevKey + 1);
-  };
+  }, [setTheme]);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('currentTheme');
-    try {
-      const parsedTheme = savedTheme ? JSON.parse(savedTheme) : null;
-      if (parsedTheme) {
+    if (savedTheme) {
+      try {
+        const parsedTheme = JSON.parse(savedTheme);
         setCurrentTheme(parsedTheme);
         setTheme(parsedTheme.key);
+      } catch (e) {
+        console.error("Failed to parse theme from localStorage:", e);
       }
-    } catch (e) {
-      console.error("Failed to parse theme from localStorage:", e);
     }
   }, [setTheme]);
+
 
   const controls = {
     Theme: {
@@ -181,9 +184,54 @@ export default function ThemeEditor() {
         applyCurrentTheme(updatedTheme);
       },
     },
+    'Audio On': {
+      value: isAudioOn,
+      onChange: (value) => {
+        setIsAudioOn(value);
+        toggleAudio(audioRefs, value);
+        console.log(`Audio ${value ? 'enabled' : 'disabled'}`);
+      },
+    },
+    'Audio Volume': { 
+      value: volume, 
+      min: 0, 
+      max: 1, 
+      step: 0.01,
+      onChange: (value) => {
+        setVolume(value);
+        updateVolume(audioRefs, value);
+        console.log(`Volume set to ${value}`);
+      },
+    },
+    'Audio Play Click': button(() => {
+      playClick()
+    }),
+    'Audio Play Beep On': button(() => {
+      playBeepOn()
+    }),
+    'Audio Play Beep Off': button(() => {
+      playBeepOff()
+    }),
+    'Audio Play Plink': button(() => {
+      playPlink()
+    }),
+    'Audio Play Drip': button(() => {
+      playDrip()
+    }),
+    'Audio Play Marimba': button(() => {
+      playMarimba()
+    }),
   };
 
-  useControls(() => controls, [levaKey]);
+  const values = useControls(() => controls, { key: levaKey });
+
+  useEffect(() => {
+    const updatedTheme = { ...currentTheme, ...values };
+    console.log("Updated theme values:", updatedTheme);
+    if (JSON.stringify(updatedTheme) !== JSON.stringify(currentTheme)) {
+      applyCurrentTheme(updatedTheme);
+    }
+  }, [values, currentTheme, applyCurrentTheme]);
 
   return (
     <>

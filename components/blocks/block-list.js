@@ -1,7 +1,4 @@
 import React from "react";
-import { motion } from "framer-motion";
-import Audio from "../navigation/audio";
-import Link from "next/link";
 
 export default function BlockList({ data }) {
 

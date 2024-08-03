@@ -3,7 +3,9 @@
 import React from "react";
 import { motion } from "framer-motion";
 import PropTypes from "prop-types";
-import { useAudioControls } from "../../utils/audio";
+import { useAudioControls } from "../navigation/audio-utils";
+
+
 // Define the ButtonType enum
 const ButtonType = {
   DEFAULT: "default",
@@ -18,12 +20,13 @@ const ButtonSound = {
   CLICK: "click",
 };
 
+
+
 const Button = ({ label, click, type = ButtonType.DEFAULT, sound }) => {
-  const {
-    playPlink,
-    playClick,
-    playBeepOn,
-    playBeepOff
+  const { 
+    playClick, 
+    playBeepOn, 
+    playBeepOff, 
   } = useAudioControls();
 
   // Determine button style based on type
