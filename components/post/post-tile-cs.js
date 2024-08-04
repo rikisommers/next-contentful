@@ -19,12 +19,7 @@ import {
 export default function PostTileCs({ post, index }) {
   //  console.log("ss", post);
   
-
-
   const ref = useRef(null);
-
-
-
 
 
   const { scrollYProgress } = useScroll({

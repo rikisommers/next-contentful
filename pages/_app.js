@@ -5,7 +5,8 @@ import { MousePosProvider } from "../components/mousePosContext";
 import { ScrollPositionProvider } from "../components/scrollPosContext";
 import { RouteProvider } from "../components/routeContext";
 import { ToastProvider } from "../components/toastContext";
-import { ThemeProvider } from "next-themes";
+import { ThemeProvider as NextThemesProvider } from 'next-themes';
+import { ThemeProvider as CustomThemeProvider } from '../components/themeContext';
 import { LevaProvider } from "../components/leva-context";
 import ThemeEditor from "../components/navigation/themeEditor";
 import Navigation from "../components/navigation/primary-navigation";
@@ -38,8 +39,9 @@ function MyApp({ Component, pageProps, router }) {
 
 
       <ScrollPositionProvider>
-      <ThemeProvider attribute="data-theme">
-      <MousePosProvider>
+      <NextThemesProvider attribute="data-theme">
+      <CustomThemeProvider>
+              <MousePosProvider>
             <ToastProvider>
               {/* {isLoading ? 
          <Preloader /> 
@@ -82,7 +84,8 @@ function MyApp({ Component, pageProps, router }) {
               </svg>
             </ToastProvider>
           </MousePosProvider>
-        </ThemeProvider>
+        </CustomThemeProvider>
+        </NextThemesProvider>
       </ScrollPositionProvider>
       {/* </LevaProvider> */}
     </RouteProvider>

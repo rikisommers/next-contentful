@@ -2,6 +2,7 @@
 const colorThemes = {
   light: {
     audio:true,
+    volume:0.5,
     bodyBackgroundColor: '#fafafa',
     backgroundColor: '#f4f4f5',
     surface1: '#c1c1c1',
@@ -22,6 +23,7 @@ const colorThemes = {
   },
   dark: {
     audio:true,
+    volume:0.5,
     bodyBackgroundColor: '#271C1B',
     backgroundColor: '#47362E',
     surface1: '#c1c1c1',
@@ -42,8 +44,30 @@ const colorThemes = {
   },
   tokyo: {
     audio:true,
+    volume:0.5,
     bodyBackgroundColor: '#F8FBF8',
     backgroundColor: '#F7FCFE',
+    surface1: '#F8FBF8',
+    surface2: '#F7FCFE',
+    surface3:'#C0C6C9',
+    backgroundColorInv: '#C0C6C9',
+    headingColor: '#887F7A',
+    textColor: '#887F7A',
+    subtextColor: '#C0C6C9',
+    textColorInv: '#887F7A',
+    accent:'#c0b89b',
+    navBg:"#C0C6C9",
+    accentPri: '#EF7801',
+    accentSec: '#FCD00A',
+    textAccent:'#BED3CD',
+    mixBlendMode:'luminosity',
+    stateSuccessBackground:'#BED3CD',
+  },
+  custom: {
+    audio:true,
+    volume:0.5,
+    bodyBackgroundColor: '#F8FBF8',
+    backgroundColor: '#4a484b',
     surface1: '#F8FBF8',
     surface2: '#F7FCFE',
     surface3:'#C0C6C9',
@@ -63,90 +87,88 @@ const colorThemes = {
 };
 
 // Animation themes
-const animationThemes = {
-  fadeup: {
-    animation: 'fadeup'
-  },
-  fadedown: {
-    animation: 'fadedown'
-  },
-  wave: {
-    animation: 'wave'
-  },
-  leafFall: {
-    animation: 'leaf-fall'
-  }
-};
+// const animationThemes = {
+//   fadeup: {
+//     animation: 'fadeup'
+//   },
+//   fadedown: {
+//     animation: 'fadedown'
+//   },
+//   wave: {
+//     animation: 'wave'
+//   },
+//   leafFall: {
+//     animation: 'leaf-fall'
+//   }
+// };
 
 
 
 
 // Layout themes
-const layoutThemes = {
-  wide: {
-    layout: 'wide'
-  },
-  narrow: {
-    layout: 'narrow'
-  },
-  grid: {
-    layout: 'grid'
-  },
-  column: {
-    layout: 'column'
-  }
-};
+// const layoutThemes = {
+//   wide: {
+//     layout: 'wide'
+//   },
+//   narrow: {
+//     layout: 'narrow'
+//   },
+//   grid: {
+//     layout: 'grid'
+//   },
+//   column: {
+//     layout: 'column'
+//   }
+// };
 
 // Image themes
-const imageThemes = {
-  wide: {
-    layout: 'wide'
-  },
-  narrow: {
-    layout: 'narrow'
-  },
-  grid: {
-    layout: 'grid'
-  },
-  column: {
-    layout: 'column'
-  }
-};
+// const imageThemes = {
+//   wide: {
+//     layout: 'wide'
+//   },
+//   narrow: {
+//     layout: 'narrow'
+//   },
+//   grid: {
+//     layout: 'grid'
+//   },
+//   column: {
+//     layout: 'column'
+//   }
+// };
 
-const transitionThemes = {
-  wide: {
-    layout: 'wide'
-  },
-  narrow: {
-    layout: 'narrow'
-  },
-  grid: {
-    layout: 'grid'
-  },
-  column: {
-    layout: 'column'
-  }
-};
+// const transitionThemes = {
+//   wide: {
+//     layout: 'wide'
+//   },
+//   narrow: {
+//     layout: 'narrow'
+//   },
+//   grid: {
+//     layout: 'grid'
+//   },
+//   column: {
+//     layout: 'column'
+//   }
+// };
 
 // Merge themes
 export const themes = {
   light: {
     key: 'light', // Key for the light theme
     ...colorThemes.light,
-    ...animationThemes.fadeup,
-    ...layoutThemes.wide,
   },
   dark: {
     key: 'dark', // Key for the dark theme
     ...colorThemes.dark,
-    ...animationThemes.fadedown,
-    ...layoutThemes.narrow,
   },
   tokyo: {
     key: 'tokyo', // Key for the dark theme
     ...colorThemes.tokyo,
-    ...animationThemes.fadedown,
-    ...layoutThemes.narrow,
+  },
+  custom: {
+    key: 'custom', // Key for the dark theme
+    ...colorThemes.custom,
   },
 };
 

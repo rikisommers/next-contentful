@@ -1,6 +1,6 @@
 // audio-utils.js
-import { useEffect, useState } from 'react';
-import { useControls } from 'leva';
+import { useEffect, useState, useCallback } from 'react';
+import { useThemeContext } from '../themeContext';
 
 // Initialize audio references
 const initializeAudioRefs = () => {
@@ -18,66 +18,57 @@ const initializeAudioRefs = () => {
 };
 
 // Play audio function
-const playAudio = (audioRef, volume) => {
-  if (audioRef) {
-    try {
-      audioRef.volume = volume;
-      audioRef.currentTime = 0;
-      audioRef.play();
-    } catch (error) {
-      console.error("Error playing audio:", error);
-    }
-  }
-};
+const playAudio = (audioRef, volume, isAudioOn) => {
 
-// Update volume function
-export const updateVolume = (audioRefs, volume) => {
-  Object.values(audioRefs).forEach((audio) => {
-    if (audio) {
-      audio.volume = volume;
+    console.log('play audio',volume, isAudioOn)
+
+    if (audioRef && isAudioOn) {
+      try {
+        audioRef.volume = volume;
+        audioRef.currentTime = 0;
+        audioRef.play();
+      } catch (error) {
+        console.error("Error playing audio:", error);
+      }
     }
-  });
-};
+  };
+  
+  // Update volume function
+  export const updateVolume = (audioRefs, volume) => {
+    
+    Object.values(audioRefs).forEach((audio) => {
+      if (audio) {
+        audio.volume = volume;
+      }
+    });
+    
+
+  };
+  
 
 // Toggle audio function
 export const toggleAudio = (audioRefs, isAudioOn) => {
-  Object.values(audioRefs).forEach((audio) => {
-    if (audio) {
-      audio.muted = !isAudioOn;
-    }
-  });
-};
+    Object.values(audioRefs).forEach((audio) => {
+      if (audio) {
+        audio.muted = !isAudioOn;
+      }
+    });
+  };
 
 // Custom hook to manage audio controls
 export const useAudioControls = () => {
-  const [audioRefs, setAudioRefs] = useState(initializeAudioRefs());
-  const [isAudioOn, setIsAudioOn] = useState(true);
-  const { volume } = useControls('Audio', {
-    volume: { value: 0.2, min: 0, max: 1, step: 0.01 },
-    'Audio On': {
-      value: isAudioOn,
-      onChange: (value) => {
-        setIsAudioOn(value);
-        toggleAudio(audioRefs, value);
-      },
-    },
-  });
+    const { currentTheme } = useThemeContext();
+    const [audioRefs, setAudioRefs] = useState(initializeAudioRefs());
+  //console.log('use  audio',currentTheme)
 
-  useEffect(() => {
-    updateVolume(audioRefs, volume);
-  }, [volume, audioRefs]);
-
+  
   return {
     audioRefs,
-    isAudioOn,
-    setIsAudioOn,
-    volume,
-    updateVolume,
-    playClick: () => playAudio(audioRefs.click, volume),
-    playBeepOn: () => playAudio(audioRefs.beepOn, volume),
-    playBeepOff: () => playAudio(audioRefs.beepOff, volume),
-    playPlink: () => playAudio(audioRefs.plink, volume),
-    playDrip: () => playAudio(audioRefs.drip, volume),
-    playMarimba: () => playAudio(audioRefs.marimba, volume),
+    playClick: () => playAudio(audioRefs.click, currentTheme.volume, currentTheme.audio),
+    playBeepOn: () => playAudio(audioRefs.beepOn, currentTheme.volume, currentTheme.audio),
+    playBeepOff: () => playAudio(audioRefs.beepOff, currentTheme.volume, currentTheme.audio),
+    playPlink: () => playAudio(audioRefs.plink, currentTheme.volume, currentTheme.audio),
+    playDrip: () => playAudio(audioRefs.drip, currentTheme.volume, currentTheme.audio),
+    playMarimba: () => playAudio(audioRefs.marimba, currentTheme.volume, currentTheme.audio),
   };
 };

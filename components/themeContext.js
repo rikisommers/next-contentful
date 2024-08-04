@@ -1,30 +1,51 @@
+
+
+
+
 // themeContext.js
-import React, { createContext, useState, useContext } from 'react';
-import { themes } from "./utils/theme";
-import { useTheme } from "next-themes";
-import { getThemeByKey } from "./utils/theme";
-// Define the shape of the context data
-const ThemeContext = createContext();
+import React, { createContext, useState, useContext, useEffect } from 'react';
+import { themes, getThemeByKey } from "../utils/theme";
+
+const ThemeContext = createContext(null);
 
 export const ThemeProvider = ({ children }) => {
-  // Manage the theme state
+  const [currentTheme, setCurrentTheme] = useState(() => {
+    // Initialize with default values if not present
+    return {
+      ...themes.custom,
+      volume: themes.custom.volume || 0.5,
+      audio: themes.custom.audio !== undefined ? themes.custom.audio : true,
+    };
+  });
 
-  const [theme, setTheme] = useState('tokyo');
-
-  const currentTheme = getThemeByKey(theme);
-
-  // Method to toggle the theme
-  const toggleTheme = (theme) => {
-    setTheme((theme) => (currentTheme === theme ? currentTheme : theme));
+  const updateTheme = (newTheme) => {
+    setCurrentTheme(newTheme);
+    localStorage.setItem('currentTheme', JSON.stringify(newTheme));
   };
 
-  // Provide the theme and the method to update it to the context
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('currentTheme');
+    if (savedTheme) {
+      try {
+        const parsedTheme = JSON.parse(savedTheme);
+        setCurrentTheme(parsedTheme);
+      } catch (e) {
+        console.error("Failed to parse theme from localStorage:", e);
+      }
+    }
+  }, []);
+
   return (
-    <ThemeContext.Provider value={{ theme, setTheme, toggleTheme }}>
+    <ThemeContext.Provider value={{ currentTheme, updateTheme }}>
       {children}
     </ThemeContext.Provider>
   );
 };
 
-// Custom hook to use the ThemeContext
-export const useTheme = () => useContext(ThemeContext);
+export const useThemeContext = () => {
+  const context = useContext(ThemeContext);
+  if (context === null) {
+    throw new Error('useThemeContext must be used within a ThemeProvider');
+  }
+  return context;
+};

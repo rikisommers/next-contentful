@@ -14,23 +14,10 @@ import {
 
 import TransitionWipe from "../components/transition/transition-wipe";
 import TransitionTilt from "../components/transition/transition-tilt";
-import { ScrollableBox } from "../components/utils/scrollable";
-import FadeInWhenVisible from "../components/utils/fade-in-visible";
 import PostIntro from "../components/post/post-intro";
-import PostContent from "../components/post/post-content";
-import PostTile from "../components/post/post-tile";
-import PostTileCs from "../components/post/post-tile-cs";
 import PostBody from "../components/post/post-body";
-import PostModal from "../components/post/post-modal";
-// import CustomCursor from "../components/utils/cursor";
-import NextPost from "../components/post/post-next";
-// const getWindowSize = () => [window.innerWidth, window.innerHeight];
 import BlockFooter from "../components/blocks/block-footer";
-import BlockVideo from "../components/blocks/block-video";
-import { gsap, ScrollTrigger } from "gsap";
-import Lenis from "@studio-freight/lenis";
 import { useScrollPosition } from "../components/scrollPosContext";
-
 import ScrollContainer from "../components/utils/scroll-container";
 import ClipPathContainer from "../components/utils/clip-path-container";
 
