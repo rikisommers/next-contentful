@@ -1,10 +1,11 @@
+
+
 import Link from "next/link";
 import { motion, cubicBezier, useAnimation } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useEffect, useState, useContext, useRef } from "react";
 import { useScrollPosition } from "../scrollPosContext";
-import { RouteContext } from "../routeContext";
-import useSound from "use-sound";
+
 import { gsap } from "gsap";
 import { Draggable } from "gsap/dist/Draggable";
 import CtxMenu from "../base/ctx-menu";
@@ -127,7 +128,7 @@ export default function Navigation() {
       </motion.div> */}
       <motion.div
         style={{
-          backgroundColor: 'var(--accent',
+          backgroundColor: 'var(--background-color)',
           color:
             router.asPath === "/"
               ? 'var(--text-color)'
@@ -140,7 +141,7 @@ export default function Navigation() {
         >
           <div
             style={{
-              backgroundColor: isActive ? 'var(--accent)' : 'var(--text-accent)',
+              backgroundColor: isActive ? 'var(--accent)' : 'var(--accent-sec)',
             }}
             className={`cube ${isActive ? "show-right" : ""}`}
           >
@@ -228,7 +229,7 @@ export default function Navigation() {
                   <motion.div
                     layoutId="indicator"
                     style={{
-                      background: 'var(--accent-pri)',
+                      backgroundColor: 'var(--accent-pri)',
                     }}
                      
                     className="absolute top-0 left-0 flex w-full h-full bg-opacity-50 rounded-xl"

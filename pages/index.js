@@ -133,8 +133,7 @@ const Index = ({ data }) => {
   const dateString = date.toLocaleDateString("en-US", options);
 
   return (
-    <div style={{ background:  'var(--background-color)', }}>
-      <Layout>
+       <Layout>
         {/* <canvas 
         ref={canvasRef} 
         id="canvas"
@@ -165,7 +164,6 @@ const Index = ({ data }) => {
         </TransitionTilt>
         <TransitionWipe />
       </Layout>
-    </div>
   );
 };
 

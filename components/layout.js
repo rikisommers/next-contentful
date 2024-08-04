@@ -7,9 +7,14 @@ export default function Layout({ children }) {
 
   // ${routeInfo.destRoute === "/" ? "bg-gray-800" :  "bg-slate-50"}
   return (
-      <>
+    <div 
+    style={{
+      backgroundColor:'var(--body-background-color)'
+    }}
+    >
+
         <SpeedInsights/>
         {children}
-      </>
+        </div>
   );
 }

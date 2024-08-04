@@ -86,6 +86,8 @@ export default function ThemeEditor() {
     document.documentElement.style.setProperty('--text-accent', updatedTheme.textAccent);
     document.documentElement.style.setProperty('--mix-blend-mode', updatedTheme.mixBlendMode);
     document.documentElement.style.setProperty('--state-success-background', updatedTheme.stateSuccessBackground);
+    document.documentElement.style.setProperty('--accent-pri', updatedTheme.accentPri);
+    document.documentElement.style.setProperty('--accent-sec', updatedTheme.accentSec);
 
     localStorage.setItem("currentTheme", JSON.stringify(updatedTheme));
       setLevaKey((prevKey) => prevKey + 1);
