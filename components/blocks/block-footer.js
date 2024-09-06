@@ -82,9 +82,9 @@ export default function BlockFooter({ data }) {
              */}
 
             {data?.content && (
-              <h2 className="text-2xl" style={{ color: "var(--text-color)" }}>
+              <div className="text-2xl" style={{ color: "var(--text-color)" }}>
                 {documentToReactComponents(data.content.json, RichTextOptions)}
-              </h2>
+              </div>
             )}
 
             {data?.ctalink && data?.cta && (

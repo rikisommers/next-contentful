@@ -8,10 +8,9 @@ import { useAudioControls, toggleAudio, updateVolume } from "./audio-utils";
 
 export default function ThemeEditor() {
   const { theme, setTheme } = useTheme();
-   const [levaKey, setLevaKey] = useState(0);
+  const [levaKey, setLevaKey] = useState(0);
 
-
-   const loadInitialTheme = () => {
+  const loadInitialTheme = () => {
     if (typeof window !== "undefined") {
       const savedTheme = localStorage.getItem("currentTheme");
       try {
@@ -57,8 +56,7 @@ export default function ThemeEditor() {
     "luminosity",
   ];
 
-
-  const applyCurrentTheme = useCallback( (updatedTheme) => {
+  const applyCurrentTheme = useCallback((updatedTheme) => {
     console.log('sss')
   
     if (JSON.stringify(updatedTheme) !== JSON.stringify(themes)) {
@@ -66,76 +64,27 @@ export default function ThemeEditor() {
       updateTheme(updatedTheme.key, updatedTheme);
       setCurrentTheme(updatedTheme);
 
-    // Object.entries(updatedTheme).forEach(([key, value]) => {
-    //   if (typeof value === "string") {
-    //     console.log(`--${key}:`, value);
-    //     document.documentElement.style.setProperty(`--${key}`, value);
-    //   }
-    // });
-        // Update CSS variables
-    document.documentElement.style.setProperty('--body-background-color', updatedTheme.bodyBackgroundColor);
-    document.documentElement.style.setProperty('--background-color', updatedTheme.backgroundColor);
-    document.documentElement.style.setProperty('--surface1', updatedTheme.surface1);
-    document.documentElement.style.setProperty('--surface2', updatedTheme.surface2);
-    document.documentElement.style.setProperty('--background-color-inv', updatedTheme.backgroundColorInv);
-    document.documentElement.style.setProperty('--heading-color', updatedTheme.headingColor);
-    document.documentElement.style.setProperty('--text-color', updatedTheme.textColor);
-    document.documentElement.style.setProperty('--subtext-color', updatedTheme.subtextColor);
-    document.documentElement.style.setProperty('--text-color-inv', updatedTheme.textColorInv);
-    document.documentElement.style.setProperty('--accent', updatedTheme.accent);
-    document.documentElement.style.setProperty('--text-accent', updatedTheme.textAccent);
-    document.documentElement.style.setProperty('--mix-blend-mode', updatedTheme.mixBlendMode);
-    document.documentElement.style.setProperty('--state-success-background', updatedTheme.stateSuccessBackground);
-    document.documentElement.style.setProperty('--accent-pri', updatedTheme.accentPri);
-    document.documentElement.style.setProperty('--accent-sec', updatedTheme.accentSec);
+      // Update CSS variables
+      document.documentElement.style.setProperty('--body-background-color', updatedTheme.bodyBackgroundColor);
+      document.documentElement.style.setProperty('--background-color', updatedTheme.backgroundColor);
+      document.documentElement.style.setProperty('--surface1', updatedTheme.surface1);
+      document.documentElement.style.setProperty('--surface2', updatedTheme.surface2);
+      document.documentElement.style.setProperty('--background-color-inv', updatedTheme.backgroundColorInv);
+      document.documentElement.style.setProperty('--heading-color', updatedTheme.headingColor);
+      document.documentElement.style.setProperty('--text-color', updatedTheme.textColor);
+      document.documentElement.style.setProperty('--subtext-color', updatedTheme.subtextColor);
+      document.documentElement.style.setProperty('--text-color-inv', updatedTheme.textColorInv);
+      document.documentElement.style.setProperty('--accent', updatedTheme.accent);
+      document.documentElement.style.setProperty('--text-accent', updatedTheme.textAccent);
+      document.documentElement.style.setProperty('--mix-blend-mode', updatedTheme.mixBlendMode);
+      document.documentElement.style.setProperty('--state-success-background', updatedTheme.stateSuccessBackground);
+      document.documentElement.style.setProperty('--accent-pri', updatedTheme.accentPri);
+      document.documentElement.style.setProperty('--accent-sec', updatedTheme.accentSec);
 
-    localStorage.setItem("currentTheme", JSON.stringify(updatedTheme));
+      localStorage.setItem("currentTheme", JSON.stringify(updatedTheme));
       setLevaKey((prevKey) => prevKey + 1);
-
     }
-  },
-  
-  [setTheme, updateTheme]
-);
-
-  // const applyCurrentTheme = useCallback(
-  //   (updatedTheme) => {
-  //     updateTheme(updatedTheme);
-  //     setTheme(updatedTheme.key);
-
-  //     // Update CSS variables
-  //     Object.entries(updatedTheme).forEach(([key, value]) => {
-  //       if (typeof value === "string") {
-  //         console.log(`--${key}:`, value);
-  //         document.documentElement.style.setProperty(`--${key}`, value);
-  //       }
-  //     });
-
-  //     // Apply audio settings
-  //     toggleAudio(audioRefs, updatedTheme.audio);
-  //     updateVolume(updatedTheme.volume, updatedTheme.audio);
-
-  //     localStorage.setItem("currentTheme", JSON.stringify(updatedTheme));
-
-  //     // Force re-render of Leva controls
-  //     setLevaKey((prevKey) => prevKey + 1);
-  //   }, [setTheme, audioRefs]);
-
-  // useEffect(() => {
-  //   const savedTheme = localStorage.getItem("currentTheme");
-  //   if (savedTheme) {
-  //     try {
-  //       const parsedTheme = JSON.parse(savedTheme);
-  //       setCurrentTheme(parsedTheme);
-  //       setTheme(parsedTheme.key);
-  //       // Apply saved audio settings
-  //       updateVolume(audioRefs, parsedTheme.volume, parsedTheme.audio);
-  //       toggleAudio(audioRefs, parsedTheme.audio);
-  //     } catch (e) {
-  //       console.error("Failed to parse theme from localStorage:", e);
-  //     }
-  //   }
-  // }, [setTheme, audioRefs]);
+  }, [setTheme, updateTheme]);
 
   const [, set] = useControls(() => ({
     Theme: {
@@ -149,181 +98,129 @@ export default function ThemeEditor() {
       },
     },
     "Body Background Color": {
-      value: themes.custom.bodyBackgroundColor,
+      value: currentTheme.bodyBackgroundColor,
       onChange: (value) => {
-        const updatedTheme = {  ...themes.custom, bodyBackgroundColor: value };
+        const updatedTheme = { ...currentTheme, bodyBackgroundColor: value };
         applyCurrentTheme(updatedTheme);
       },
     },
     "Background Color": {
-      value: themes.custom.backgroundColor,
+      value: currentTheme.backgroundColor,
       onChange: (value) => {
-        const updatedTheme = {  ...themes.custom, backgroundColor: value };
+        const updatedTheme = { ...currentTheme, backgroundColor: value };
         applyCurrentTheme(updatedTheme);
       },
     },
     "Inv Background Color": {
-      value: themes.custom.backgroundColorInv,
+      value: currentTheme.backgroundColorInv,
       onChange: (value) => {
-        const updatedTheme = {  ...themes.custom, backgroundColorInv: value };
+        const updatedTheme = { ...currentTheme, backgroundColorInv: value };
         applyCurrentTheme(updatedTheme);
       },
     },
     "Surface 1": {
-      value: themes.custom.surface1,
+      value: currentTheme.surface1,
       onChange: (value) => {
-        const updatedTheme = {  ...themes.custom, surface1: value };
+        const updatedTheme = { ...currentTheme, surface1: value };
         applyCurrentTheme(updatedTheme);
       },
     },
     "Surface 2": {
-      value: themes.custom.surface2,
+      value: currentTheme.surface2,
       onChange: (value) => {
-        const updatedTheme = {  ...themes.custom, surface2: value };
+        const updatedTheme = { ...currentTheme, surface2: value };
         applyCurrentTheme(updatedTheme);
       },
     },
     "Surface 3": {
-      value: themes.custom.surface3,
+      value: currentTheme.surface3,
       onChange: (value) => {
-        const updatedTheme = {  ...themes.custom, surface3: value };
+        const updatedTheme = { ...currentTheme, surface3: value };
         applyCurrentTheme(updatedTheme);
       },
     },
     "Heading Color": {
-      value: themes.custom.headingColor,
+      value: currentTheme.headingColor,
       onChange: (value) => {
-        const updatedTheme = {  ...themes.custom, headingColor: value };
+        const updatedTheme = { ...currentTheme, headingColor: value };
         applyCurrentTheme(updatedTheme);
       },
     },
     "Text Color": {
-      value: themes.custom.textColor,
+      value: currentTheme.textColor,
       onChange: (value) => {
-        const updatedTheme = { ...themes.custom, textColor: value };
+        const updatedTheme = { ...currentTheme, textColor: value };
         applyCurrentTheme(updatedTheme);
       },
     },
     "Subtext Color": {
-      value: themes.custom.subtextColor,
+      value: currentTheme.subtextColor,
       onChange: (value) => {
-        const updatedTheme = { ...themes.custom, subtextColor: value };
+        const updatedTheme = { ...currentTheme, subtextColor: value };
         applyCurrentTheme(updatedTheme);
       },
     },
     "Text Color Inv": {
-      value: themes.custom.textColorInv,
+      value: currentTheme.textColorInv,
       onChange: (value) => {
-        const updatedTheme = { ...themes.custom, textColorInv: value };
+        const updatedTheme = { ...currentTheme, textColorInv: value };
         applyCurrentTheme(updatedTheme);
       },
     },
     "Text Accent": {
-      value: themes.custom.textAccent,
+      value: currentTheme.textAccent,
       onChange: (value) => {
-        const updatedTheme = { ...themes.custom, textAccent: value };
+        const updatedTheme = { ...currentTheme, textAccent: value };
         applyCurrentTheme(updatedTheme);
       },
     },
     NavBg: {
-      value: themes.custom.navBg,
+      value: currentTheme.navBg,
       onChange: (value) => {
-        const updatedTheme = { ...themes.custom, navBg: value };
+        const updatedTheme = { ...currentTheme, navBg: value };
         applyCurrentTheme(updatedTheme);
       },
     },
     Accent: {
-      value: themes.custom.accent,
+      value: currentTheme.accent,
       onChange: (value) => {
-        const updatedTheme = { ...themes.custom, accent: value };
+        const updatedTheme = { ...currentTheme, accent: value };
         applyCurrentTheme(updatedTheme);
       },
     },
     AccentPri: {
-      value: themes.custom.accentPri,
+      value: currentTheme.accentPri,
       onChange: (value) => {
-        const updatedTheme = { ...themes.custom, accentPri: value };
+        const updatedTheme = { ...currentTheme, accentPri: value };
         applyCurrentTheme(updatedTheme);
       },
     },
     AccentSec: {
-      value: themes.custom.accentSec,
+      value: currentTheme.accentSec,
       onChange: (value) => {
-        const updatedTheme = { ...themes.custom, accentSec: value };
+        const updatedTheme = { ...currentTheme, accentSec: value };
         applyCurrentTheme(updatedTheme);
       },
     },
     MixBlendMode: {
-      value: themes.custom.mixBlendMode,
+      value: currentTheme.mixBlendMode,
       options: mixBlendModes,
       onChange: (value) => {
-        const updatedTheme = { ...themes.custom, mixBlendMode: value };
+        const updatedTheme = { ...currentTheme, mixBlendMode: value };
         applyCurrentTheme(updatedTheme);
       },
     },
-    // "Audio On": {
-    //   value: currentTheme.audio,
-    //   onChange: (value) => {
-    //     const updatedTheme = {...themes.custom, audio: value };
-    //     applyCurrentTheme(updatedTheme);
-    //     toggleAudio(audioRefs, value);
-    //     console.log(`Audio ${value ? "enabled" : "disabled"}`);
-    //   },
-    // },
-    // "Audio Volume": {
-    //   value: currentTheme.volume,
-    //   min: 0,
-    //   max: 1,
-    //   step: 0.01,
-    //   onChange: (value) => {
-    //     const updatedTheme = { ...themes.custom, volume: value };
-    //     applyCurrentTheme(updatedTheme);
-
-    //     updateVolume(audioRefs, value);
-    //     console.log(`Volume set to ${value}`);
-    //   },
-    // },
-    // "Audio Play Click": button(() => {
-    //   playClick();
-    // }),
-    // "Audio Play Beep On": button(() => {
-    //   playBeepOn();
-    // }),
-    // "Audio Play Beep Off": button(() => {
-    //   playBeepOff();
-    // }),
-    // "Audio Play Plink": button(() => {
-    //   playPlink();
-    // }),
-    // "Audio Play Drip": button(() => {
-    //   playDrip();
-    // }),
-    // "Audio Play Marimba": button(() => {
-    //   playMarimba();
-    // }),
   }));
-
-  // const values = useControls(() => controls);
-
-  // useEffect(() => {
-  //   const updatedTheme = { ...currentTheme, ...values };
-  //   console.log("Updated theme values:", updatedTheme);
-  //   if (JSON.stringify(updatedTheme) !== JSON.stringify(currentTheme)) {
-  //     applyCurrentTheme(updatedTheme);
-  //   }
-  // }, [values, currentTheme, applyCurrentTheme]);
-
-  // useControls(() => controls);
 
   return (
     <>
       <Leva
-        fill={true} // Make the pane fill the parent DOM node
-        flat // Remove border radius and shadow
-        oneLineLabels={false} // Alternative layout for labels
-        hideTitleBar={true} // Hide the GUI header
-        collapsed={false} // Start the GUI in collapsed state
-        hidden={false} // GUI is visible by default
+        fill={true}
+        flat
+        oneLineLabels={false}
+        hideTitleBar={true}
+        collapsed={false}
+        hidden={false}
       />
     </>
   );

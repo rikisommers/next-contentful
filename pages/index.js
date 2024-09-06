@@ -150,9 +150,9 @@ console.log('data',data)
               date={dateString}
             />
 
-            <h1 className="text-3xl font-aon">
+            {/* <h1 className="text-3xl font-aon">
             <AnimatedText type={AnimStyle.LINESUP} content={data.titlealt}></AnimatedText>
-            </h1>
+            </h1> */}
             {/* <ParalaxElement offset={500}>
 
             </ParalaxElement>

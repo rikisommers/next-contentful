@@ -42,25 +42,6 @@ export default function Navigation() {
     controls.start(isOpen ? "visible" : "hidden");
   }, [controls, isOpen]);
 
-  // const handleMouseEnter = () => {
-  //   setIsOpen(true);
-  // };
-
-  // const handleMouseLeave = () => {
-  //   setIsOpen(false);
-  // };
-
-  // useEffect(() => {
-  //   if (menuRef.current && menuDragRef.current) {
-  //     // Initialize Draggable when both menuRef and menuDragRef are available
-  //     Draggable.create(menuRef.current, {
-  //       type: "x,y",
-  //       edgeResistance: 0.65,
-  //       trigger: menuDragRef.current, // Use menuDragRef.current instead of menuDragRef
-  //     });
-  //   }
-  // }, [menuRef, menuDragRef]); // Include both refs in the dependency array to handle re-renders correctly
-
   useEffect(() => {
     if (router.asPath !== router.route) {
       if (router.asPath === "/") {
@@ -106,26 +87,8 @@ export default function Navigation() {
 
   const [activePage, setActivePage] = useState(pages[0].id);
 
-  // const audioRef = useRef();
-  // const [play] = useSound("/audio/test.mp3", { volume: 0.5 });
-  // const handleClick = () => {
-  //  // play();
-  // };
-  // const play = () => {
-  //   if (audioRef.current) {
-  //     audioRef.current.play()
-  //   } else {
-  //     // Throw error
-  //   }
-  // }
-
   return (
     <div className="fixed z-50 flex justify-between w-full p-6">
-      {/* <audio ref={audioRef} play={false} src='/audio/test.mp3' /> */}
-
-      {/* <motion.div className="audio">
-        <img src="/logo6.svg" viewBox="0 0 43 27"></img>
-      </motion.div> */}
       <motion.div
         style={{
           backgroundColor: 'var(--background-color)',
@@ -162,8 +125,6 @@ export default function Navigation() {
         <span
           className="self-center p-3 font-mono text-sm"
           style={{ color: 'var(--text-color)' }}
-          layoutId="title"
-      
         > 
 
           {/* TODO: ADD GLOBAL PAGE TITLE */}
@@ -173,38 +134,10 @@ export default function Navigation() {
       </motion.div>
 
       <div className="flex gap-2">
-        {/* absolute  top-6 left-[320px] */}
         <div ref={menuRef} className="flex items-center gap-1 rounded-lg">
-          {/* <div className="px-3 text-white py-" ref={menuDragRef}>
-            :
-          </div> */}
           <div className="relative z-50 flex gap-1 bg-black bg-opacity-50 rounded-xl backdrop-blur-lg"
           
           >
-            {/* <motion.div
-              className="absolute right-0 z-10 overflow-hidden rounded-lg shadow-lg top-14 "
-              // popover="auto" id="context"
-              // anchor="anchor"
-              initial="hidden"
-              animate={controls}
-              // whileHover={handleMouseEnter}
-              // onHoverEnd={handleMouseLeave}
-              variants={{
-                visible: { height: 100, opacity: 1, y: 0 },
-                hidden: { height: 0, opacity: 0, y: 0 },
-              }}
-              transition={{ duration: 0.2 }}
-            >
-              <div className="grid grid-cols-3 gap-2 p-1.5">
-                <div className="w-24 h-24 rounded-md bg-slate-400"></div>
-                <div className="w-24 h-24 rounded-md bg-slate-400"></div>
-                <div className="w-24 h-24 rounded-md bg-slate-400"></div>
-                <div className="w-24 h-24 rounded-md bg-slate-400"></div>
-                <div className="w-24 h-24 rounded-md bg-slate-400"></div>
-                <div className="w-24 h-24 rounded-md bg-slate-400"></div>
-              </div>
-            </motion.div> */}
-
             {pages.map((page) => (
               <Link
                 key={page.id}
@@ -214,17 +147,6 @@ export default function Navigation() {
                 className="relative flex items-center text-sm uppercase rounded-lg"
                 style={{color: 'var(--text-color-inv)'}}
               >
-                  {/* <span
-                 style={{
-                    color:
-                       activePage === page.id
-                         ? 'var(--text-color-inv)'
-                         : 'var(--text-color)',
-                   }}
-                   className={`z-10 relative flex items-center px-3 py-3 text-xs uppercase rounded-lg cursor-pointer`}
-                 >
-                   {page.title}
-                 </span>   */}
                 {activePage === page.id && (
                   <motion.div
                     layoutId="indicator"
@@ -268,15 +190,6 @@ export default function Navigation() {
             )}
           </div>
 
-          {/* <button
-            style={{
-              backgroundColor: currentTheme?.backgroundColor,
-              color: currentTheme?.textColor,
-            }}
-            className={`px-3 py-3 text-xs  uppercase rounded-lg`}
-          >
-            Audio
-          </button> */}
         </div>
       </div>
     </div>
