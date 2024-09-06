@@ -9,7 +9,7 @@ import { getThemeByKey } from '../../utils/theme';
 
 const TransitionContent = ({ currentTheme, onComplete }) => (
   <motion.div
-    className="transition-wipe--y rounded-2xl"
+    className="transition-wipe--y rounded-2xl pointer-events-none"
     style={{ backgroundColor:  'var(--background-color)', }}
     initial={{ y: "100%" }}
     exit={{ y: -40, zIndex: 40, onComplete }}
@@ -21,7 +21,7 @@ const TransitionContent = ({ currentTheme, onComplete }) => (
 
 const Overlay = ({ currentTheme }) => (
   <motion.div
-    className="fixed top-0 w-full h-full opacity-50"
+    className="fixed top-0 w-full h-full opacity-50 pointer-events-none"
     style={{ backgroundColor:  'var(--body-background-color)', }}
     initial={{ opacity: 0 }}
     animate={{ opacity: 0 }}

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import Layout from "../components/layout";
-import { getHome, getLandingPage } from "../lib/api";
+import { getHome, getLandingPage, getFooter} from "../lib/api";
 import TransitionWipe from "../components/transition/transition-wipe";
 import TransitionTilt from "../components/transition/transition-tilt";
 import html2canvas from "html2canvas";
@@ -56,10 +56,9 @@ void main() {
 }
 `;
 
-const Index = ({ data }) => {
+const Index = ({ data, footerData }) => {
 
 
-  const [footerOffsetValue, setFooterOffsetValue] = useState(0);
 
   // const canvasRef = useRef(null);
   // const renderer = useRef(null);
@@ -131,6 +130,8 @@ const Index = ({ data }) => {
   const date = new Date(data.sys.publishedAt);
   const options = { year: "numeric", month: "2-digit", day: "2-digit" };
   const dateString = date.toLocaleDateString("en-US", options);
+console.log('fffd',footerData)
+console.log('fffd',data)
 
   return (
        <Layout>
@@ -149,17 +150,17 @@ const Index = ({ data }) => {
               date={dateString}
             />
 
-            <h1 className="text-3xl font-aon">
-              <AnimatedText type={AnimStyle.LINESUP} content={data.titlealt}></AnimatedText>
-            </h1>
-            <ParalaxElement offset={500}>
+            {/* <h1 className="text-3xl font-aon">
+            <AnimatedText type={AnimStyle.LINESUP} content={data.titlealt}></AnimatedText>
+            </h1> */}
+            {/* <ParalaxElement offset={500}>
 
-          </ParalaxElement>
+            </ParalaxElement>
             {data.csblocksCollection.items && (
-              <PostBody content={data.csblocksCollection} />
-            )}
+            <PostBody content={data.csblocksCollection} />
+            )} */}
 
-            <BlockFooter content={data} />
+            <BlockFooter data={footerData} />
           </ScrollContainer>
         </TransitionTilt>
         <TransitionWipe />
@@ -168,11 +169,15 @@ const Index = ({ data }) => {
 };
 
 export async function getStaticProps({ preview = false }) {
-  const data = (await getLandingPage("home")) ?? [];
+  const [landingPageData, footerData] = await Promise.all([
+    getLandingPage("home"), // Fetch the landing page content
+    getFooter(preview), // Fetch the footer content
+  ]);
 
   return {
     props: {
-      data,
+      data: landingPageData || null, // Use null as fallback if data is undefined
+      footerData: footerData || null, // Use null as fallback if footerData is undefined
     },
   };
 }

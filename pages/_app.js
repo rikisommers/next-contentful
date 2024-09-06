@@ -39,52 +39,52 @@ function MyApp({ Component, pageProps, router }) {
 
 
       <ScrollPositionProvider>
-      <NextThemesProvider attribute="data-theme">
-      <CustomThemeProvider>
-              <MousePosProvider>
-            <ToastProvider>
-              {/* {isLoading ? 
+        <NextThemesProvider attribute="data-theme">
+          <CustomThemeProvider>
+            <MousePosProvider>
+              <ToastProvider>
+                {/* {isLoading ? 
          <Preloader /> 
         :  } */}
-              <>
+                <>
 
-          
+
                   <Navigation />
-                
+
 
                   <AnimatePresence mode="wait" initial={false}>
-                      <Component {...pageProps} key={router.asPath} />
-                    </AnimatePresence>
-{/* 
+                    <Component {...pageProps} key={router.asPath} />
+                  </AnimatePresence>
+                  {/* 
                    <ThemeEditor />
           */}
-              </>
+                </>
 
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                version="1.1"
-                id="svg-filter"
-              >
-                <defs>
-                  <filter id="goo">
-                    <feGaussianBlur
-                      in="SourceGraphic"
-                      stdDeviation="6"
-                      result="blur"
-                    />
-                    <feColorMatrix
-                      in="blur"
-                      mode="matrix"
-                      values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"
-                      result="goo"
-                    />
-                    <feComposite in="SourceGraphic" in2="goo" operator="atop" />
-                  </filter>
-                </defs>
-              </svg>
-            </ToastProvider>
-          </MousePosProvider>
-        </CustomThemeProvider>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  version="1.1"
+                  id="svg-filter"
+                >
+                  <defs>
+                    <filter id="goo">
+                      <feGaussianBlur
+                        in="SourceGraphic"
+                        stdDeviation="6"
+                        result="blur"
+                      />
+                      <feColorMatrix
+                        in="blur"
+                        mode="matrix"
+                        values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"
+                        result="goo"
+                      />
+                      <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+                    </filter>
+                  </defs>
+                </svg>
+              </ToastProvider>
+            </MousePosProvider>
+          </CustomThemeProvider>
         </NextThemesProvider>
       </ScrollPositionProvider>
       {/* </LevaProvider> */}

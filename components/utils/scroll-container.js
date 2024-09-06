@@ -43,8 +43,8 @@ export default function ScrollContainer({ children }) {
   }, []);
 
   return (
-   <>
+   <div className="flex flex-col relative">
     {children}
-   </>
+   </div>
   );
 };

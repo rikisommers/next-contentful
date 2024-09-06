@@ -27,8 +27,7 @@ export default function PostBody({ content }) {
 
 
   return (
-    <div className="flex flex-col gap-16 px-8"
-    >
+    <div className="flex flex-col">
         {/* max-w-6xl gap-32 mx-auto */}
         {content.items &&
           content.items.map((item,index) => {

@@ -29,7 +29,7 @@ export const RichTextOptions = {
     },
 
     [BLOCKS.PARAGRAPH]: (node, children) => {
-      return <p className="mb-4 text-base">{children}</p>;
+      return <p className="mb-4">{children}</p>;
     },
 
     // [BLOCKS.EMBEDDED_ASSET]: (node) => {

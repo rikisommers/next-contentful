@@ -22,6 +22,8 @@ module.exports = {
       },
       spacing: {
         28: '7rem',
+        'panel-xs':'300px',
+        'panel-sm':'400px',
       },
       letterSpacing: {
         tighter: '-.04em',
@@ -43,6 +45,10 @@ module.exports = {
       boxShadow: {
         small: '0 5px 10px rgba(0, 0, 0, 0.12)',
         medium: '0 8px 30px rgba(0, 0, 0, 0.12)',
+      },
+      width:{
+        'panel-xs':'300px',
+        'panel-sm':'400px',
       },
       height:{
         'vhr':'calc(100vh - 150px)',

@@ -181,6 +181,7 @@ export default function Post({ post, nextPost }) {
   };
 
   return (
+
     <>
       {post.csblocksCollection && (
         <div className="fixed grid items-center w-10 h-full pl-8 pointer-events-none z-nav">
@@ -199,7 +200,7 @@ export default function Post({ post, nextPost }) {
                         ></motion.div>
                         <h1> {scrollPosition}px</h1>
 
-                        <h1 key={index}>{/* {item.title} */}P</h1>
+                        <h1 key={index}>P</h1>
                       </div>
                     )}
                   </>
@@ -209,26 +210,12 @@ export default function Post({ post, nextPost }) {
         </div>
       )}
 
+
       <Layout>
       <TransitionTilt active={true} className="z-100">
       {/* <h1 className="absolute p-8 m-8 left-8 top-8">{post && post.slug}</h1> */}
 
-          <motion.div
-            style={{
-              backgroundColor:  'var(--background-color)',
-              clipPath: clipPathValue,
-            }}
-            className={`relative z-10 flex flex-col pb-20`}
-            ref={contentRef}
-            exit={{
-              opacity: 0,
-              //  clipPath: clipPathValue
-            }}
-            transition={{
-              ease: [0.33, 1, 0.68, 1],
-              duration: 0.6, // custom duration for opacity property only
-            }}
-          >
+     
             {/* <h1>Map csblocks collectoion article</h1> */}
 
             {/* xxl:grid grid-cols-3 */}
@@ -255,7 +242,6 @@ export default function Post({ post, nextPost }) {
                 </>
               )}
             </motion.div>
-          </motion.div>
 
           {/* 
         {post.related && post.relatedCollection.items.map((post, index) => {
@@ -285,7 +271,7 @@ export default function Post({ post, nextPost }) {
             })
 
       )} */}
-              {/* {nextPost && (
+             {/* {nextPost && (
               <div className="test">
                 <Link
                   onClick={handleLinkClick}

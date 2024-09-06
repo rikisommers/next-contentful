@@ -38,8 +38,9 @@ const Work = ({ data }) => {
     <Layout>
       <TransitionTilt active={true} className="z-100">
         <ScrollContainer>
-          <ClipPathContainer>
-           
+          {/* <ClipPathContainer>
+          </ClipPathContainer> */}
+  <div className="flex flex-col px-8">
               <PostIntro
                 title={data.titlealt}
                 content={data.contentalt}
@@ -55,8 +56,9 @@ const Work = ({ data }) => {
               <PostBody content={data.csblocksCollection} />
             )}
 
-          </ClipPathContainer>
+          </div>
           {data.titlealt && <BlockFooter content={data.titlealt} />}
+
         </ScrollContainer>
       </TransitionTilt>
       <TransitionWipe />

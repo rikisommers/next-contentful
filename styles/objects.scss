@@ -1,6 +1,14 @@
 
 @use 'variables' as *;
 
+.o-menu{
+  min-width:300px;
+  min-height: 100%;
+  padding-top:6rem;
+  padding-left:1.5rem;
+  padding-right:1.5rem;
+}
+
 .o-content{
     width:100%;
     padding:0 2rem;
