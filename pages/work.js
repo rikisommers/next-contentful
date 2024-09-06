@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Layout from "../components/layout";
-import { getLandingPage } from "../lib/api";
+import { getLandingPage, getFooter } from "../lib/api";
 import { getWork, getAllCaseStudiesIntro } from "../lib/api";
 import {
   motion,
@@ -22,7 +22,7 @@ import ScrollContainer from "../components/utils/scroll-container";
 import ClipPathContainer from "../components/utils/clip-path-container";
 
 
-const Work = ({ data }) => {
+const Work = ({ data, footerData }) => {
 
   const contentRef = useRef(null);
   const headerRef = useRef(null);
@@ -57,7 +57,7 @@ const Work = ({ data }) => {
             )}
 
           </div>
-          {data.titlealt && <BlockFooter content={data.titlealt} />}
+          {data.titlealt && <BlockFooter data={footerData} />}
 
         </ScrollContainer>
       </TransitionTilt>
@@ -67,11 +67,15 @@ const Work = ({ data }) => {
 }
 
 export async function getStaticProps({ preview = false }) {
-  const data = (await getLandingPage("work")) ?? [];
+  const [landingPageData, footerData] = await Promise.all([
+    getLandingPage("work"), // Fetch the landing page content
+    getFooter(), // Fetch the footer content
+  ]);
 
   return {
     props: {
-      data,
+      data: landingPageData || null, // Use null as fallback if data is undefined
+      footerData: footerData || null, // Use null as fallback if footerData is undefined
     },
   };
 }

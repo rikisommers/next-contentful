@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Layout from "../components/layout";
-import { getWork, getAllBlogPostsIntro, getAllBlogTags } from "../lib/api";
+import { getWork, getAllBlogPostsIntro, getAllBlogTags, getFooter } from "../lib/api";
 import {
   motion,
   useTransform,
@@ -35,7 +35,7 @@ import { useScrollPosition } from "../components/scrollPosContext";
 import ScrollContainer from "../components/utils/scroll-container";
 import ClipPathContainer from "../components/utils/clip-path-container";
 
-export default function Posts({ intro, posts, tags }) {
+export default function Posts({ intro, posts, tags, footerData }) {
 
 
   const headerRef = useRef(null);
@@ -70,10 +70,10 @@ export default function Posts({ intro, posts, tags }) {
 
 
         <div className="o-menu" style={{ backgroundColor: 'var(--body-background-color)' }}>
-          <ul className="flex flex-col gap-4 sticky top-0 self-start">
+          <ul className="sticky top-0 flex flex-col self-start gap-4">
 
             <li
-              className="cursor-pointer tag rounded-md py-1 px-2 text-sm"
+              className="px-2 py-1 text-sm rounded-md cursor-pointer tag"
               style={{
                 color: selectedTag === null ? 'var(--accent-pri)' : 'var(--subtext-color)',
                 backgroundColor: selectedTag === null ? 'var(--surface-2)' : '',
@@ -83,7 +83,7 @@ export default function Posts({ intro, posts, tags }) {
             {tags &&
               tags.map((tag, index) => (
                 <li key={index}
-              className="cursor-pointer tag rounded-md py-1 px-2 text-sm"
+              className="px-2 py-1 text-sm rounded-md cursor-pointer tag"
                   style={{
                     color: selectedTag === tag ? 'var(--accent-pri)' : 'var(--subtext-color)',
                     backgroundColor: selectedTag === tag ? 'var(--surface02)' : '',
@@ -171,7 +171,7 @@ export default function Posts({ intro, posts, tags }) {
           </motion.div>
         )}
 
-        {intro && <BlockFooter content={intro} />}
+        {footerData && <BlockFooter data={footerData} />}
 
       </div>
     </div>
@@ -184,16 +184,17 @@ export default function Posts({ intro, posts, tags }) {
 }
 
 export async function getStaticProps() {
-  // Fetch posts and tags in a single call
+  // Fetch posts, tags, and footer data
   const { posts, tags } = (await getAllBlogPostsIntro()) ?? { posts: [], tags: [] };
-
   const intro = (await getWork()) ?? [];
+  const footerData = await getFooter();
 
   return {
     props: {
       intro,
       posts,
       tags,
+      footerData: footerData || null, // Use null as fallback if footerData is undefined
     },
   };
 }

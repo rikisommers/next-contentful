@@ -130,8 +130,8 @@ const Index = ({ data, footerData }) => {
   const date = new Date(data.sys.publishedAt);
   const options = { year: "numeric", month: "2-digit", day: "2-digit" };
   const dateString = date.toLocaleDateString("en-US", options);
-console.log('fffd',footerData)
-console.log('fffd',data)
+console.log('footerData',footerData)
+console.log('data',data)
 
   return (
        <Layout>
@@ -150,9 +150,9 @@ console.log('fffd',data)
               date={dateString}
             />
 
-            {/* <h1 className="text-3xl font-aon">
+            <h1 className="text-3xl font-aon">
             <AnimatedText type={AnimStyle.LINESUP} content={data.titlealt}></AnimatedText>
-            </h1> */}
+            </h1>
             {/* <ParalaxElement offset={500}>
 
             </ParalaxElement>
@@ -171,7 +171,7 @@ console.log('fffd',data)
 export async function getStaticProps({ preview = false }) {
   const [landingPageData, footerData] = await Promise.all([
     getLandingPage("home"), // Fetch the landing page content
-    getFooter(preview), // Fetch the footer content
+    getFooter(), // Fetch the footer content
   ]);
 
   return {
