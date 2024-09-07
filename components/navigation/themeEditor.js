@@ -1,14 +1,12 @@
-import React, { useEffect, useState, useCallback } from "react";
-import { useControls, Leva, button } from "leva";
-import { useTheme } from "next-themes";
-import { themes, getThemeByKey, updateTheme } from "../../utils/theme";
-import { useThemeContext } from "../themeContext";
-
-import { useAudioControls, toggleAudio, updateVolume } from "./audio-utils";
+import React, { useState, useEffect, useCallback } from "react";
+import { themes } from "../../utils/theme";
+import { debounce } from "../utils/debounce";
 
 export default function ThemeEditor() {
   const [currentTheme, setCurrentTheme] = useState(themes.light);
   const [customTheme, setCustomTheme] = useState(null);
+  const [isSaving, setIsSaving] = useState(false);
+  const [saveError, setSaveError] = useState(null);
 
   const applyCurrentTheme = useCallback((updatedTheme) => {
     console.log('Applying theme:', updatedTheme);
@@ -33,31 +31,16 @@ export default function ThemeEditor() {
   }, []);
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem('currentTheme');
-    const savedCustomTheme = localStorage.getItem('customTheme');
-
-    if (savedTheme) {
-      try {
-        const parsedTheme = JSON.parse(savedTheme);
-        applyCurrentTheme(parsedTheme);
-      } catch (e) {
-        console.error('Error parsing saved theme:', e);
-        applyCurrentTheme(themes.light);
-      }
+    const storedTheme = localStorage.getItem('currentTheme');
+    if (storedTheme) {
+      applyCurrentTheme(JSON.parse(storedTheme));
     } else {
       applyCurrentTheme(themes.light);
     }
 
-    // Initialize custom theme
-    if (savedCustomTheme) {
-      try {
-        setCustomTheme(JSON.parse(savedCustomTheme));
-      } catch (e) {
-        console.error('Error parsing saved custom theme:', e);
-        setCustomTheme(themes.light);
-      }
-    } else {
-      setCustomTheme(themes.light);
+    const storedCustomTheme = localStorage.getItem('customTheme');
+    if (storedCustomTheme) {
+      setCustomTheme(JSON.parse(storedCustomTheme));
     }
   }, [applyCurrentTheme]);
 
@@ -77,15 +60,14 @@ export default function ThemeEditor() {
       setCustomTheme(updatedCustomTheme);
       applyCurrentTheme(updatedCustomTheme);
       localStorage.setItem('customTheme', JSON.stringify(updatedCustomTheme));
-      
-      // Save to Contentful
-      saveThemeToContentful(updatedCustomTheme);
     }
   };
 
-  async function saveThemeToContentful(theme) {
+  const saveThemeToContentful = async (theme) => {
+    setIsSaving(true);
+    setSaveError(null);
     try {
-      console.log('Attempting to save theme:', theme);
+      console.log('Saving theme to Contentful:', theme);
       const response = await fetch('/api/save-theme', {
         method: 'POST',
         headers: {
@@ -93,25 +75,25 @@ export default function ThemeEditor() {
         },
         body: JSON.stringify(theme),
       });
-
-      const contentType = response.headers.get("content-type");
-      if (contentType && contentType.indexOf("application/json") !== -1) {
-        const data = await response.json();
-        if (!response.ok) {
-          throw new Error(`Failed to save theme: ${data.message}`);
-        }
-        console.log('Theme saved to Contentful successfully');
-      } else {
-        const text = await response.text();
-        console.error('Received non-JSON response:', text);
-        throw new Error('Received non-JSON response from server');
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`Failed to save theme: ${errorData.message}`);
       }
+      console.log('Theme saved to Contentful successfully');
+      localStorage.setItem('currentTheme', JSON.stringify(theme));
+      localStorage.setItem('themeLastFetched', Date.now().toString());
     } catch (error) {
       console.error('Error saving theme to Contentful:', error.message);
-      // You might want to show an error message to the user here
+      setSaveError(error.message);
+    } finally {
+      setIsSaving(false);
     }
-  }
-  
+  };
+
+  const handleApply = () => {
+    saveThemeToContentful(currentTheme);
+  };
+
   return (
     <div className="theme-editor">
       <select value={currentTheme.key} onChange={handleThemeChange}>
@@ -139,6 +121,10 @@ export default function ThemeEditor() {
         }
         return null;
       })}
+      <button onClick={handleApply} disabled={isSaving}>
+        {isSaving ? 'Saving...' : 'Apply'}
+      </button>
+      {saveError && <p className="error">Error saving theme: {saveError}</p>}
     </div>
   );
 }

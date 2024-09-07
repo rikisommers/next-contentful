@@ -15,23 +15,65 @@ import { Leva, LevaPanel, useControls } from "leva";
 import Preloader from "./preloader";
 import { getAllImages } from "../lib/api";
 
-
-
 import "../styles/index.scss";
 
+const THEME_CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+
 function MyApp({ Component, pageProps, router }) {
-  const [isLoading, setIsLoading] = useState(true);
+  const [themeLoaded, setThemeLoaded] = useState(false);
 
   useEffect(() => {
-    window.addEventListener("load", () => {
-      setIsLoading(false);
-    });
-    const timeout = setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
+    const applyTheme = (theme) => {
+      const root = document.documentElement;
+      root.setAttribute('data-theme', theme.key);
 
-    return () => clearTimeout(timeout);
-  }, [isLoading]);
+      Object.entries(theme).forEach(([key, value]) => {
+        if (typeof value === 'string' && value.startsWith('#')) {
+          const cssVar = `--${key.replace(/([A-Z])/g, "-$1").toLowerCase()}`;
+          root.style.setProperty(cssVar, value);
+        }
+      });
+    };
+
+    const fetchAndApplyTheme = async () => {
+      try {
+        const response = await fetch('/api/get-current-theme');
+        if (response.ok) {
+          const data = await response.json();
+          if (data.currentTheme) {
+            applyTheme(data.currentTheme);
+            localStorage.setItem('currentTheme', JSON.stringify(data.currentTheme));
+            localStorage.setItem('themeLastFetched', Date.now().toString());
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching current theme:', error);
+      } finally {
+        setThemeLoaded(true);
+      }
+    };
+
+    const storedTheme = localStorage.getItem('currentTheme');
+    const themeLastFetched = localStorage.getItem('themeLastFetched');
+    const now = Date.now();
+
+    if (storedTheme) {
+      applyTheme(JSON.parse(storedTheme));
+      setThemeLoaded(true);
+
+      // Check if we need to fetch a fresh theme
+      if (!themeLastFetched || now - parseInt(themeLastFetched) > THEME_CACHE_DURATION) {
+        fetchAndApplyTheme();
+      }
+    } else {
+      // If no stored theme, fetch from Contentful
+      fetchAndApplyTheme();
+    }
+  }, []);
+
+  if (!themeLoaded) {
+    return <div>Loading...</div>; // Or any loading component you prefer
+  }
 
   return (
     <RouteProvider>

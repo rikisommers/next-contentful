@@ -6,17 +6,8 @@ export default async function handler(req, res) {
         const theme = req.body;
         console.log('Received theme data:', theme);
 
-        console.log('CONTENTFUL_MANAGEMENT_TOKEN:', process.env.CONTENTFUL_MANAGEMENT_TOKEN);
-        console.log('CONTENTFUL_SPACE_ID:', process.env.CONTENTFUL_SPACE_ID);
-        console.log('CONTENTFUL_ENVIRONMENT:', process.env.CONTENTFUL_ENVIRONMENT);
-
-        console.log('Attempting to get space...');
         const space = await getSpace();
-        console.log('Space retrieved successfully');
-
-        console.log('Attempting to get environment...');
         const environment = await getEnvironment(space);
-        console.log('Environment retrieved successfully');
 
         // Find the existing settings entry
         const entries = await environment.getEntries({
@@ -38,12 +29,12 @@ export default async function handler(req, res) {
           console.log('Created new settings entry:', entry.sys.id);
         }
   
-        // Update the entry with the new theme
-        if (!entry.fields.customTheme) {
-          entry.fields.customTheme = {};
+        // Update only the currentTheme field
+        if (!entry.fields.currentTheme) {
+          entry.fields.currentTheme = {};
         }
-        entry.fields.customTheme['en-US'] = theme;
-  
+        entry.fields.currentTheme['en-US'] = theme;
+
         // Save the updated entry
         const updatedEntry = await entry.update();
         console.log('Updated entry:', updatedEntry.sys.id);
