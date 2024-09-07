@@ -462,6 +462,304 @@ const colorThemes = {
     mixBlendMode: 'difference',
     stateSuccessBackground: '#66BB6A',
   },
+  spiritedAway: {
+    key: 'spiritedAway',
+    audio: true,
+    volume: 0.5,
+    bodyBackgroundColor: '#E6D7B9', // Light sand color from the bathhouse
+    backgroundColor: '#B9D7E6', // Soft sky blue from daytime scenes
+    surface1: '#D1E8E2', // Pale teal from Haku's dragon form
+    surface2: '#F1D4B3', // Warm light from lanterns
+    surface3: '#E6C2C2', // Soft pink from Chihiro's clothes
+    backgroundColorInv: '#1E434C', // Deep teal from night scenes
+    headingColor: '#9B1B30', // Rich red from Yubaba's dress
+    textColor: '#4A4737', // Earthy brown from wooden structures
+    subtextColor: '#7A8C85', // Muted green from forest scenes
+    textColorInv: '#F0EAD6', // Cream color from paper
+    accent: '#F0B77F', // Warm orange from sunset scenes
+    navBg: '#CDE6F5', // Light blue from sky scenes
+    accentPri: '#8A9A5B', // Moss green from forest spirits
+    accentSec: '#D4AF37', // Gold from the bathhouse details
+    textAccent: '#7B3F00', // Rich brown from Kamaji's skin
+    mixBlendMode: 'soft-light',
+    stateSuccessBackground: '#98D98E', // Soft green from grassy areas
+  },
+
+  myNeighborTotoro: {
+    key: 'myNeighborTotoro',
+    audio: true,
+    volume: 0.5,
+    bodyBackgroundColor: '#E8F3E8', // Soft green from forest scenes
+    backgroundColor: '#B5D8E6', // Light blue from sky scenes
+    surface1: '#F3E8E8', // Pale pink from Mei's dress
+    surface2: '#E6DFC8', // Light beige from Totoro's fur
+    surface3: '#D1E8D1', // Pastel green from leaves
+    backgroundColorInv: '#4C3228', // Dark brown from tree trunks
+    headingColor: '#7BA05B', // Leaf green from forest canopy
+    textColor: '#4F4A45', // Warm gray from house interiors
+    subtextColor: '#8E9B97', // Muted teal from rainy scenes
+    textColorInv: '#F4F1E0', // Cream color from clouds
+    accent: '#E88D67', // Warm orange from sunset scenes
+    navBg: '#D6E6F2', // Soft blue from rainy skies
+    accentPri: '#9ED2C6', // Teal from the Cat Bus
+    accentSec: '#FAE03C', // Bright yellow from Mei's hat
+    textAccent: '#A52A2A', // Reddish-brown from Satsuki's hair
+    mixBlendMode: 'multiply',
+    stateSuccessBackground: '#98FB98', // Pale green from grass
+  },
+
+  howlsMovingCastle: {
+    key: 'howlsMovingCastle',
+    audio: true,
+    volume: 0.5,
+    bodyBackgroundColor: '#F0E6D2', // Soft beige from castle exterior
+    backgroundColor: '#D6E6F2', // Light blue from sky scenes
+    surface1: '#E6D2D2', // Pale pink from Sophie's dress
+    surface2: '#D2E6D6', // Light green from meadow scenes
+    surface3: '#E6E6D2', // Pale yellow from Howl's hair
+    backgroundColorInv: '#4A4E69', // Deep blue-gray from night scenes
+    headingColor: '#8E6C88', // Muted purple from Howl's jacket
+    textColor: '#5D5C61', // Charcoal gray from castle interiors
+    subtextColor: '#7D8491', // Cool gray from cloudy scenes
+    textColorInv: '#F7F9F9', // Off-white from steam
+    accent: '#B7AD99', // Warm gray from castle metal parts
+    navBg: '#E6F2D6', // Pale green from countryside scenes
+    accentPri: '#7FB7BE', // Teal from Calcifer
+    accentSec: '#FDFD96', // Light yellow from magic spells
+    textAccent: '#D64161', // Pink-red from Howl's pendant
+    mixBlendMode: 'screen',
+    stateSuccessBackground: '#90EE90', // Light green from grassy hills
+  },
+
+  sakuraBreeze: {
+    key: 'sakuraBreeze',
+    audio: true,
+    volume: 0.5,
+    bodyBackgroundColor: '#FFF0F5', // Light pink
+    backgroundColor: '#FFE4E1', // Misty rose
+    surface1: '#FFF5EE', // Seashell
+    surface2: '#F0FFF0', // Honeydew
+    surface3: '#F0FFFF', // Azure
+    backgroundColorInv: '#4B0082', // Indigo
+    headingColor: '#DB7093', // Pale violet red
+    textColor: '#696969', // Dim gray
+    subtextColor: '#A9A9A9', // Dark gray
+    textColorInv: '#FFFFFF', // White
+    accent: '#FFB6C1', // Light pink
+    navBg: '#E6E6FA', // Lavender
+    accentPri: '#DDA0DD', // Plum
+    accentSec: '#98FB98', // Pale green
+    textAccent: '#20B2AA', // Light sea green
+    mixBlendMode: 'soft-light',
+    stateSuccessBackground: '#90EE90', // Light green
+  },
+
+  zenGarden: {
+    key: 'zenGarden',
+    audio: true,
+    volume: 0.5,
+    bodyBackgroundColor: '#F5F5F5', // White smoke
+    backgroundColor: '#E0F0E0', // Light mint
+    surface1: '#F0F8FF', // Alice blue
+    surface2: '#F5FFFA', // Mint cream
+    surface3: '#F0FFF0', // Honeydew
+    backgroundColorInv: '#2F4F4F', // Dark slate gray
+    headingColor: '#556B2F', // Dark olive green
+    textColor: '#696969', // Dim gray
+    subtextColor: '#808080', // Gray
+    textColorInv: '#FFFFFF', // White
+    accent: '#8FBC8F', // Dark sea green
+    navBg: '#E6E6FA', // Lavender
+    accentPri: '#6B8E23', // Olive drab
+    accentSec: '#7FFFD4', // Aquamarine
+    textAccent: '#4682B4', // Steel blue
+    mixBlendMode: 'multiply',
+    stateSuccessBackground: '#98FB98', // Pale green
+  },
+
+  pastelAnime: {
+    key: 'pastelAnime',
+    audio: true,
+    volume: 0.5,
+    bodyBackgroundColor: '#FAFAFA', // Near white
+    backgroundColor: '#FFE4E1', // Misty rose
+    surface1: '#E6E6FA', // Lavender
+    surface2: '#F0E6FF', // Light pastel purple
+    surface3: '#FFE4B5', // Moccasin
+    backgroundColorInv: '#4B0082', // Indigo
+    headingColor: '#DDA0DD', // Plum
+    textColor: '#708090', // Slate gray
+    subtextColor: '#A9A9A9', // Dark gray
+    textColorInv: '#FFFFFF', // White
+    accent: '#FFB6C1', // Light pink
+    navBg: '#F0FFF0', // Honeydew
+    accentPri: '#87CEFA', // Light sky blue
+    accentSec: '#98FB98', // Pale green
+    textAccent: '#FF69B4', // Hot pink
+    mixBlendMode: 'screen',
+    stateSuccessBackground: '#90EE90', // Light green
+  },
+
+  deathNote: {
+    key: 'deathNote',
+    audio: true,
+    volume: 0.5,
+    bodyBackgroundColor: '#1A1A1A', // Dark gray background
+    backgroundColor: '#2C2C2C', // Slightly lighter gray
+    surface1: '#3D3D3D', // Medium gray
+    surface2: '#4F4F4F', // Light gray
+    surface3: '#616161', // Lighter gray
+    backgroundColorInv: '#F0F0F0', // Off-white
+    headingColor: '#C41E3A', // Blood red for headings
+    textColor: '#D3D3D3', // Light gray text
+    subtextColor: '#A9A9A9', // Dark gray subtext
+    textColorInv: '#1A1A1A', // Dark gray on light background
+    accent: '#8B0000', // Dark red accent
+    navBg: '#2C2C2C', // Same as backgroundColor
+    accentPri: '#C41E3A', // Blood red primary accent
+    accentSec: '#4B0082', // Indigo secondary accent
+    textAccent: '#FFD700', // Gold for text accents
+    mixBlendMode: 'overlay',
+    stateSuccessBackground: '#006400', // Dark green for success states
+  },
+
+  attackOnTitan: {
+    key: 'attackOnTitan',
+    audio: true,
+    volume: 0.5,
+    bodyBackgroundColor: '#2B2B2B', // Dark gray background
+    backgroundColor: '#3C3C3C', // Slightly lighter gray
+    surface1: '#4D4D4D', // Medium gray
+    surface2: '#5E5E5E', // Light gray
+    surface3: '#6F6F6F', // Lighter gray
+    backgroundColorInv: '#E0E0E0', // Light gray
+    headingColor: '#8B4513', // Saddle brown for headings
+    textColor: '#D2B48C', // Tan text color
+    subtextColor: '#A0522D', // Sienna subtext
+    textColorInv: '#2B2B2B', // Dark gray on light background
+    accent: '#CD853F', // Peru accent
+    navBg: '#3C3C3C', // Same as backgroundColor
+    accentPri: '#8B4513', // Saddle brown primary accent
+    accentSec: '#D2691E', // Chocolate secondary accent
+    textAccent: '#F4A460', // Sandy brown for text accents
+    mixBlendMode: 'multiply',
+    stateSuccessBackground: '#556B2F', // Dark olive green for success states
+  },
+
+  tokyoGhoul: {
+    key: 'tokyoGhoul',
+    audio: true,
+    volume: 0.5,
+    bodyBackgroundColor: '#1C1C1C', // Very dark gray background
+    backgroundColor: '#2D2D2D', // Dark gray
+    surface1: '#3E3E3E', // Medium gray
+    surface2: '#4F4F4F', // Light gray
+    surface3: '#606060', // Lighter gray
+    backgroundColorInv: '#E6E6E6', // Very light gray
+    headingColor: '#DC143C', // Crimson for headings
+    textColor: '#C0C0C0', // Silver text color
+    subtextColor: '#A9A9A9', // Dark gray subtext
+    textColorInv: '#1C1C1C', // Very dark gray on light background
+    accent: '#B22222', // Firebrick accent
+    navBg: '#2D2D2D', // Same as backgroundColor
+    accentPri: '#DC143C', // Crimson primary accent
+    accentSec: '#8B0000', // Dark red secondary accent
+    textAccent: '#00CED1', // Dark turquoise for text accents
+    mixBlendMode: 'hard-light',
+    stateSuccessBackground: '#2E8B57', // Sea green for success states
+  },
+
+  akc12: {
+    key: 'akc12',
+    audio: true,
+    volume: 0.5,
+    bodyBackgroundColor: '#000000', // Black
+    backgroundColor: '#1A1A1A', // Dark gray
+    surface1: '#333333', // Medium gray
+    surface2: '#4D4D4D', // Light gray
+    surface3: '#666666', // Lighter gray
+    backgroundColorInv: '#FFFFFF', // White
+    headingColor: '#00FFFF', // Cyan
+    textColor: '#00FF00', // Green
+    subtextColor: '#008080', // Teal
+    textColorInv: '#000000', // Black
+    accent: '#FF00FF', // Magenta
+    navBg: '#333333', // Medium gray
+    accentPri: '#FF0000', // Red
+    accentSec: '#0000FF', // Blue
+    textAccent: '#FFFF00', // Yellow
+    mixBlendMode: 'screen',
+    stateSuccessBackground: '#008000', // Dark green
+  },
+
+  taikonColor24: {
+    key: 'taikonColor24',
+    audio: true,
+    volume: 0.5,
+    bodyBackgroundColor: '#1A1A1A', // Dark gray
+    backgroundColor: '#2D2D2D', // Medium gray
+    surface1: '#404040', // Light gray
+    surface2: '#535353', // Lighter gray
+    surface3: '#666666', // Even lighter gray
+    backgroundColorInv: '#F0F0F0', // Very light gray
+    headingColor: '#FF6B6B', // Soft red
+    textColor: '#4ECDC4', // Turquoise
+    subtextColor: '#45B7A0', // Dark turquoise
+    textColorInv: '#1A1A1A', // Dark gray
+    accent: '#FFD93D', // Yellow
+    navBg: '#404040', // Light gray
+    accentPri: '#FF6B6B', // Soft red
+    accentSec: '#4ECDC4', // Turquoise
+    textAccent: '#FF8C42', // Orange
+    mixBlendMode: 'soft-light',
+    stateSuccessBackground: '#6BFF74', // Light green
+  },
+
+  eightVision: {
+    key: 'eightVision',
+    audio: true,
+    volume: 0.5,
+    bodyBackgroundColor: '#000000', // Black
+    backgroundColor: '#21211F', // Very dark gray
+    surface1: '#3F3F3B', // Dark gray
+    surface2: '#5D5D57', // Medium gray
+    surface3: '#7B7B73', // Light gray
+    backgroundColorInv: '#FFFFFF', // White
+    headingColor: '#55FFFF', // Cyan
+    textColor: '#55FF55', // Green
+    subtextColor: '#FFFF55', // Yellow
+    textColorInv: '#000000', // Black
+    accent: '#FF5555', // Red
+    navBg: '#3F3F3B', // Dark gray
+    accentPri: '#FF55FF', // Magenta
+    accentSec: '#5555FF', // Blue
+    textAccent: '#FFFFFF', // White
+    mixBlendMode: 'screen',
+    stateSuccessBackground: '#00AA00', // Dark green
+  },
+
+  cgaPalette0Low: {
+    key: 'cgaPalette0Low',
+    audio: true,
+    volume: 0.5,
+    bodyBackgroundColor: '#000000', // Black
+    backgroundColor: '#0000AA', // Blue
+    surface1: '#00AA00', // Green
+    surface2: '#00AAAA', // Cyan
+    surface3: '#AA0000', // Red
+    backgroundColorInv: '#FFFFFF', // White
+    headingColor: '#AA00AA', // Magenta
+    textColor: '#AAAAAA', // Light gray
+    subtextColor: '#555555', // Dark gray
+    textColorInv: '#000000', // Black
+    accent: '#AAAA00', // Yellow
+    navBg: '#0000AA', // Blue
+    accentPri: '#AA0000', // Red
+    accentSec: '#00AA00', // Green
+    textAccent: '#AA00AA', // Magenta
+    mixBlendMode: 'screen',
+    stateSuccessBackground: '#00AA00', // Green
+  },
 };
 
 // Function to get theme by key
@@ -490,74 +788,6 @@ export function getThemeLevaControls(themeKey) {
 
   return controls;
 }
-
-
-
-// Animation themes
-// const animationThemes = {
-//   fadeup: {
-//     animation: 'fadeup'
-//   },
-//   fadedown: {
-//     animation: 'fadedown'
-//   },
-//   wave: {
-//     animation: 'wave'
-//   },
-//   leafFall: {
-//     animation: 'leaf-fall'
-//   }
-// };
-
-
-
-
-// Layout themes
-// const layoutThemes = {
-//   wide: {
-//     layout: 'wide'
-//   },
-//   narrow: {
-//     layout: 'narrow'
-//   },
-//   grid: {
-//     layout: 'grid'
-//   },
-//   column: {
-//     layout: 'column'
-//   }
-// };
-
-// Image themes
-// const imageThemes = {
-//   wide: {
-//     layout: 'wide'
-//   },
-//   narrow: {
-//     layout: 'narrow'
-//   },
-//   grid: {
-//     layout: 'grid'
-//   },
-//   column: {
-//     layout: 'column'
-//   }
-// };
-
-// const transitionThemes = {
-//   wide: {
-//     layout: 'wide'
-//   },
-//   narrow: {
-//     layout: 'narrow'
-//   },
-//   grid: {
-//     layout: 'grid'
-//   },
-//   column: {
-//     layout: 'column'
-//   }
-// };
 
 // Merge themes
 export const themes = {
@@ -609,8 +839,8 @@ export const themes = {
     key: 'msdos',
     ...colorThemes.msdos,
   },
-  amegaWorkbench: {
-    key: 'amegaWorkbench',
+  amigaWorkbench: {
+    key: 'amigaWorkbench',
     ...colorThemes.amigaWorkbench,
   },
   nes: {
@@ -645,28 +875,60 @@ export const themes = {
     key: 'audi80',
     ...colorThemes.audi80,
   },
-  audi80: {
-    key: 'audi80',
-    ...colorThemes.audi80,
-  },
-  audi80: {
-    key: 'audi80',
-    ...colorThemes.audi80,
-  },
   porsche911: {
     key: 'porsche911',
     ...colorThemes.porsche911,
   },
+  spiritedAway: {
+    key: 'spiritedAway',
+    ...colorThemes.spiritedAway,
+  },
+  myNeighborTotoro: {
+    key: 'myNeighborTotoro',
+    ...colorThemes.myNeighborTotoro,
+  },
+  howlsMovingCastle: {
+    key: 'howlsMovingCastle',
+    ...colorThemes.howlsMovingCastle,
+  },
+  sakuraBreeze: {
+    key: 'sakuraBreeze',
+    ...colorThemes.sakuraBreeze,
+  },
+  zenGarden: {
+    key: 'zenGarden',
+    ...colorThemes.zenGarden,
+  },
+  pastelAnime: {
+    key: 'pastelAnime',
+    ...colorThemes.pastelAnime,
+  },
+  deathNote: {
+    key: 'deathNote',
+    ...colorThemes.deathNote,
+  },
+  attackOnTitan: {
+    key: 'attackOnTitan',
+    ...colorThemes.attackOnTitan,
+  },
+  tokyoGhoul: {
+    key: 'tokyoGhoul',
+    ...colorThemes.tokyoGhoul,
+  },
+  akc12: {
+    key: 'akc12',
+    ...colorThemes.akc12,
+  },
+  taikonColor24: {
+    key: 'taikonColor24',
+    ...colorThemes.taikonColor24,
+  },
+  eightVision: {
+    key: 'eightVision',
+    ...colorThemes.eightVision,
+  },
+  cgaPalette0Low: {
+    key: 'cgaPalette0Low',
+    ...colorThemes.cgaPalette0Low,
+  },
 };
-
-// // Function to get theme by key
-// export function getThemeByKey(themeKey) {
-//   return themes[themeKey];
-// }
-
-// // Function to update theme
-// export function updateTheme(themeKey, updates) {
-//   if (themes[themeKey]) {
-//     Object.assign(themes[themeKey], updates);
-//   }
-// }
