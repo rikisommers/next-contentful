@@ -77,9 +77,41 @@ export default function ThemeEditor() {
       setCustomTheme(updatedCustomTheme);
       applyCurrentTheme(updatedCustomTheme);
       localStorage.setItem('customTheme', JSON.stringify(updatedCustomTheme));
+      
+      // Save to Contentful
+      saveThemeToContentful(updatedCustomTheme);
     }
   };
 
+  async function saveThemeToContentful(theme) {
+    try {
+      console.log('Attempting to save theme:', theme);
+      const response = await fetch('/api/save-theme', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(theme),
+      });
+
+      const contentType = response.headers.get("content-type");
+      if (contentType && contentType.indexOf("application/json") !== -1) {
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(`Failed to save theme: ${data.message}`);
+        }
+        console.log('Theme saved to Contentful successfully');
+      } else {
+        const text = await response.text();
+        console.error('Received non-JSON response:', text);
+        throw new Error('Received non-JSON response from server');
+      }
+    } catch (error) {
+      console.error('Error saving theme to Contentful:', error.message);
+      // You might want to show an error message to the user here
+    }
+  }
+  
   return (
     <div className="theme-editor">
       <select value={currentTheme.key} onChange={handleThemeChange}>
