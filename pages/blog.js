@@ -1,7 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Layout from "../components/layout";
-import { getWork, getAllBlogPostsIntro, getAllBlogTags, getFooter } from "../lib/api";
+import {
+  getWork,
+  getAllBlogPostsIntro,
+  getAllBlogTags,
+  getFooter,
+} from "../lib/api";
 import {
   motion,
   useTransform,
@@ -36,156 +41,185 @@ import ScrollContainer from "../components/utils/scroll-container";
 import ClipPathContainer from "../components/utils/clip-path-container";
 
 export default function Posts({ intro, posts, tags, footerData }) {
+  const [selectedTag, setSelectedTag] = useState(null);
+  const [filteredPosts, setFilteredPosts] = useState(posts);
+  const menuRef = useRef(null);
+  const footerRef = useRef(null);
+  const { scrollY } = useScroll();
+  const [menuHeight, setMenuHeight] = useState(0);
 
+  useEffect(() => {
+    if (menuRef.current) {
+      setMenuHeight(menuRef.current.offsetHeight);
+    }
+  }, []);
 
-  const headerRef = useRef(null);
-  const [selectedTag, setSelectedTag] = useState(null); // State for selected tag
-  const [filteredPosts, setFilteredPosts] = useState(posts); // State for filtered posts
+  useEffect(() => {
+    const handleScroll = () => {
+      if (menuRef.current && footerRef.current) {
+        const footerTop = footerRef.current.getBoundingClientRect().top;
+        const menuBottom = menuHeight;
+        
+        if (footerTop <= menuBottom) {
+          menuRef.current.style.position = 'absolute';
+          menuRef.current.style.top = `${footerTop - menuHeight}px`;
+        } else {
+          menuRef.current.style.position = 'sticky';
+          menuRef.current.style.top = '0';
+        }
+      }
+    };
 
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [menuHeight]);
 
   console.log("POSTS------------------------", posts);
   console.log("TAGS------------------------", tags);
   // console.log("TAGS------------------------", posts);
 
-
   // Function to handle tag click
   const handleTagClick = (tag) => {
     setSelectedTag(tag);
     if (tag) {
-      const filtered = posts.filter((post) => post.tags && post.tags.includes(tag));
+      const filtered = posts.filter(
+        (post) => post.tags && post.tags.includes(tag)
+      );
       setFilteredPosts(filtered);
     } else {
       setFilteredPosts(posts);
     }
   };
 
-
   return (
     <Layout>
-      {/* <TransitionTilt active={true} className="z-100"> */}
-      {/* <ClipPathContainer>
-          </ClipPathContainer> */}
-
+      
       <div className="flex">
-
-
-        <div className="o-menu" style={{ backgroundColor: 'var(--body-background-color)' }}>
-          <ul className="sticky top-0 flex flex-col self-start gap-4">
-
+        <div
+          ref={menuRef}
+          className="o-menu"
+          style={{ 
+            backgroundColor: "var(--body-background-color)",
+            position: 'sticky',
+            top: 0,
+            height: 'auto',
+            alignSelf: 'flex-start'
+          }}
+        >
+          <ul className="flex flex-col self-start gap-4">
             <li
-              className="px-2 py-1 text-sm rounded-md cursor-pointer tag"
-              style={{
-                color: selectedTag === null ? 'var(--accent-pri)' : 'var(--subtext-color)',
-                backgroundColor: selectedTag === null ? 'var(--surface-2)' : '',
-              }}
+              className={`px-2 py-1 text-sm rounded-md cursor-pointer tag ${
+                selectedTag === null
+                  ? "text-accent-pri bg-surface-2"
+                  : "text-subtext-color"
+              }`}
               onClick={() => handleTagClick(null)}
-            >All</li>
+            >
+              All
+            </li>
             {tags &&
               tags.map((tag, index) => (
-                <li key={index}
-              className="px-2 py-1 text-sm rounded-md cursor-pointer tag"
-                  style={{
-                    color: selectedTag === tag ? 'var(--accent-pri)' : 'var(--subtext-color)',
-                    backgroundColor: selectedTag === tag ? 'var(--surface02)' : '',
-                  }}
-
-                  onClick={() => handleTagClick(tag)} // Set the selected tag on click
+                <li
+                  key={index}
+                  className={`px-2 py-1 text-sm rounded-md cursor-pointer tag ${
+                    selectedTag === tag
+                      ? "text-accent-pri bg-surface-2"
+                      : "text-subtext-color"
+                  }`}
+                  onClick={() => handleTagClick(tag)}
                 >
-                  {tag} {/* Display the actual tag */}
+                  {tag}
                 </li>
-              ))
-            }
-
-        </ul>
-
-      </div>
-
-
-      <div className="flex flex-col flex-grow">
-
-        <div className="o-content" ref={headerRef}>
-          <PostIntro
-            title={intro.titlealt}
-            content={intro.contentalt}
-          />
+              ))}
+          </ul>
         </div>
 
-        {/* {intro.video && (
+        <div className="flex flex-col flex-grow">
+          <div className="o-content">
+            <PostIntro title={intro.titlealt} content={intro.contentalt} />
+          </div>
+
+          {/* {intro.video && (
                     <div className="pb-24 o-content">
                        <BlockVideo data={intro.video} />
                     </div>
         
               )} */}
 
-        {filteredPosts && (
-          <motion.div
-            className="px-24 o-content o-grid"
-            transition={{
-              staggerChildren: 0.3,
-              duration: 0.3,
-            }}
-          >
-            {filteredPosts.map((post, index) => {
-              return (
-                <motion.div
-                  key={index}
-                  layout
-                  initial={{
-                    y: 30,
-                    x: 0,
-                    opacity: 0,
-                  }}
-                  animate={{
-                    y: 0,
-                    x: 0,
-                    opacity: 1,
-                  }}
-                  // exit={{
-                  //   margin: 'auto',
-                  //   opacity : index === selectedIndex ? 1 : 0,
-                  //   width: index === selectedIndex ? 'calc(100vw - 12rem)': '100%',
-                  //   className:'h-vhh',
-                  //   y: index === selectedIndex ? finalPos : null
-                  // }}
-                  transition={{
-                    opacity: {
-                      easing: cubicBezier(0.35, 0.17, 0.3, 0.86),
-                      duration: 0.6,
-                      delay: index * 0.2,
-                    },
-                    y: {
-                      easing: cubicBezier(0.76, 0, 0.24, 1),
-                      duration: 0.6,
-                      delay: index * 0.2,
-                    },
-                  }}
-                  //onClick={() => openModal(post.slug)}
-                  // onClick={() => getPosition(index)}
-                  // style={isClicked ? () => getPositionStyles() : null}
-                  className="o-grid__item--cs"
-                >
-                  <PostTileCs index={index} post={post} />
-                </motion.div>
-              );
-            })}
-          </motion.div>
-        )}
-
-        {footerData && <BlockFooter data={footerData} />}
-
+          {filteredPosts && (
+            <motion.div
+              className="px-24 pb-16 o-content o-grid"
+              transition={{
+                staggerChildren: 0.3,
+                duration: 0.3,
+              }}
+            >
+              {filteredPosts.map((post, index) => {
+                return (
+                  <motion.div
+                    key={index}
+                    layout
+                    initial={{
+                      y: 30,
+                      x: 0,
+                      opacity: 0,
+                    }}
+                    animate={{
+                      y: 0,
+                      x: 0,
+                      opacity: 1,
+                    }}
+                    // exit={{
+                    //   margin: 'auto',
+                    //   opacity : index === selectedIndex ? 1 : 0,
+                    //   width: index === selectedIndex ? 'calc(100vw - 12rem)': '100%',
+                    //   className:'h-vhh',
+                    //   y: index === selectedIndex ? finalPos : null
+                    // }}
+                    transition={{
+                      opacity: {
+                        easing: cubicBezier(0.35, 0.17, 0.3, 0.86),
+                        duration: 0.6,
+                        delay: index * 0.2,
+                      },
+                      y: {
+                        easing: cubicBezier(0.76, 0, 0.24, 1),
+                        duration: 0.6,
+                        delay: index * 0.2,
+                      },
+                    }}
+                    //onClick={() => openModal(post.slug)}
+                    // onClick={() => getPosition(index)}
+                    // style={isClicked ? () => getPositionStyles() : null}
+                    className="o-grid__item--cs"
+                  >
+                    <PostTileCs index={index} post={post} />
+                  </motion.div>
+                );
+              })}
+            </motion.div>
+          )}
+        </div>
       </div>
-    </div>
 
+      {footerData && (
+        <div ref={footerRef} className="mt-16">
+          <BlockFooter data={footerData} />
+        </div>
+      )}
 
-      {/* </TransitionTilt> */ }
-  <TransitionWipe />
-    </Layout >
+      {/* </TransitionTilt> */}
+      <TransitionWipe />
+    </Layout>
   );
 }
 
 export async function getStaticProps() {
   // Fetch posts, tags, and footer data
-  const { posts, tags } = (await getAllBlogPostsIntro()) ?? { posts: [], tags: [] };
+  const { posts, tags } = (await getAllBlogPostsIntro()) ?? {
+    posts: [],
+    tags: [],
+  };
   const intro = (await getWork()) ?? [];
   const footerData = await getFooter();
 
