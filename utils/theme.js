@@ -760,6 +760,396 @@ const colorThemes = {
     mixBlendMode: 'screen',
     stateSuccessBackground: '#00AA00', // Green
   },
+  metallicChic: {
+    key: 'metallicChic',
+    audio: true,
+    volume: 0.5,
+    bodyBackgroundColor: '#607D8B', // Blue gradient
+    backgroundColor: '#D1C4E9', // Metallic touches
+    surface1: '#7891A1', // Lighter blue gradient
+    surface2: '#E0D6F2', // Lighter metallic
+    surface3: '#4E6875', // Darker blue gradient
+    backgroundColorInv: '#FFFFFF', // White
+    headingColor: '#455A64', // Darker blue
+    textColor: '#212121', // Almost black
+    subtextColor: '#757575', // Gray
+    textColorInv: '#FFFFFF', // White
+    accent: '#9575CD', // Purple accent
+    navBg: '#D1C4E9', // Metallic touches
+    accentPri: '#3F51B5', // Indigo
+    accentSec: '#7986CB', // Lighter indigo
+    textAccent: '#5C6BC0', // Mid indigo
+    mixBlendMode: 'multiply',
+    stateSuccessBackground: '#81C784', // Light green
+  },
+
+  deepVintageMood: {
+    key: 'deepVintageMood',
+    audio: true,
+    volume: 0.5,
+    bodyBackgroundColor: '#173F5F', // Deep blue gradient
+    backgroundColor: '#D98E5D', // Earthy terracotta
+    surface1: '#1D4E75', // Lighter deep blue
+    surface2: '#E0A575', // Lighter terracotta
+    surface3: '#B0A19D', // Metallic touches
+    backgroundColorInv: '#FFFFFF', // White
+    headingColor: '#000000', // Black
+    textColor: '#FFFFFF', // White
+    subtextColor: '#B0A19D', // Metallic touches
+    textColorInv: '#000000', // Black
+    accent: '#B0A19D', // Metallic touches
+    navBg: '#173F5F', // Deep blue gradient
+    accentPri: '#D98E5D', // Earthy terracotta
+    accentSec: '#B0A19D', // Metallic touches
+    textAccent: '#E0A575', // Lighter terracotta
+    mixBlendMode: 'overlay',
+    stateSuccessBackground: '#4CAF50', // Green
+  },
+
+  coolAndCollected: {
+    key: 'coolAndCollected',
+    audio: true,
+    volume: 0.5,
+    bodyBackgroundColor: '#004D4D', // Deep teal
+    backgroundColor: '#C5CAE9', // Bright metallics
+    surface1: '#006666', // Lighter deep teal
+    surface2: '#D0D4F0', // Lighter bright metallics
+    surface3: '#003333', // Darker deep teal
+    backgroundColorInv: '#FFFFFF', // White
+    headingColor: '#001F1F', // Darkest teal
+    textColor: '#FFFFFF', // White
+    subtextColor: '#A4A8C7', // Darker bright metallics
+    textColorInv: '#004D4D', // Deep teal
+    accent: '#7986CB', // Indigo accent
+    navBg: '#004D4D', // Deep teal
+    accentPri: '#3F51B5', // Indigo
+    accentSec: '#5C6BC0', // Lighter indigo
+    textAccent: '#9FA8DA', // Light indigo
+    mixBlendMode: 'screen',
+    stateSuccessBackground: '#4CAF50', // Green
+  },
+
+  earthyAndSerene: {
+    key: 'earthyAndSerene',
+    audio: true,
+    volume: 0.5,
+    bodyBackgroundColor: '#E0C097', // Sandy tones
+    backgroundColor: '#6B6B6B', // Slate gray
+    surface1: '#B37445', // Clay
+    surface2: '#7EC8E3', // Sky blue
+    surface3: '#3B7A57', // Fern green
+    backgroundColorInv: '#FFFFFF', // White
+    headingColor: '#4A4A4A', // Darker slate gray
+    textColor: '#333333', // Dark gray
+    subtextColor: '#555555', // Medium gray
+    textColorInv: '#FFFFFF', // White
+    accent: '#7EC8E3', // Sky blue
+    navBg: '#6B6B6B', // Slate gray
+    accentPri: '#B37445', // Clay
+    accentSec: '#3B7A57', // Fern green
+    textAccent: '#E0C097', // Sandy tones
+    mixBlendMode: 'soft-light',
+    stateSuccessBackground: '#4CAF50', // Green
+  },
+
+  textureAndContrast: {
+    key: 'textureAndContrast',
+    audio: true,
+    volume: 0.5,
+    bodyBackgroundColor: '#212121', // Dark gray
+    backgroundColor: '#FFFFFF', // White
+    surface1: '#D81B60', // Raspberry
+    surface2: '#388E3C', // Green
+    surface3: '#009688', // Teal
+    backgroundColorInv: '#000000', // Black
+    headingColor: '#E91E63', // Pink
+    textColor: '#212121', // Dark gray
+    subtextColor: '#607D8B', // Blue-gray
+    textColorInv: '#FFFFFF', // White
+    accent: '#FF5722', // Orange
+    navBg: '#FFFFFF', // White
+    accentPri: '#556B2F', // Olive green
+    accentSec: '#FFA726', // Light orange
+    textAccent: '#009688', // Teal
+    mixBlendMode: 'difference',
+    stateSuccessBackground: '#4CAF50', // Green
+  },
+
+  mechanicalAndFloaty: {
+    key: 'mechanicalAndFloaty',
+    audio: true,
+    volume: 0.5,
+    bodyBackgroundColor: '#F5F5F5', // Light gray
+    backgroundColor: '#212121', // Almost black
+    surface1: '#E0E0E0', // Lighter gray
+    surface2: '#424242', // Dark gray
+    surface3: '#BDBDBD', // Medium gray
+    backgroundColorInv: '#FFFFFF', // White
+    headingColor: '#2979FF', // Bright blue accents
+    textColor: '#F5F5F5', // Light gray
+    subtextColor: '#9E9E9E', // Gray
+    textColorInv: '#212121', // Almost black
+    accent: '#2979FF', // Bright blue accents
+    navBg: '#212121', // Almost black
+    accentPri: '#448AFF', // Light blue
+    accentSec: '#82B1FF', // Lighter blue
+    textAccent: '#40C4FF', // Light blue
+    mixBlendMode: 'exclusion',
+    stateSuccessBackground: '#4CAF50', // Green
+  },
+
+  pixelIntensity: {
+    key: 'pixelIntensity',
+    audio: true,
+    volume: 0.5,
+    bodyBackgroundColor: '#000000', // Black
+    backgroundColor: '#FF0000', // Red
+    surface1: '#0D47A1', // Blue
+    surface2: '#8B0000', // Dark red
+    surface3: '#B71C1C', // Darker red
+    backgroundColorInv: '#FFFFFF', // White
+    headingColor: '#FFFFFF', // White
+    textColor: '#FFFFFF', // White
+    subtextColor: '#BDBDBD', // Light gray
+    textColorInv: '#000000', // Black
+    accent: '#0D47A1', // Blue
+    navBg: '#000000', // Black
+    accentPri: '#FF0000', // Red
+    accentSec: '#0D47A1', // Blue
+    textAccent: '#FFC107', // Amber
+    mixBlendMode: 'hard-light',
+    stateSuccessBackground: '#4CAF50', // Green
+  },
+
+  gradientPop: {
+    key: 'gradientPop',
+    audio: true,
+    volume: 0.5,
+    bodyBackgroundColor: '#87CEEB', // Sky blue
+    backgroundColor: '#FF8A80', // Salmon-pink
+    surface1: '#FF9800', // Bright orange
+    surface2: '#000000', // Black
+    surface3: '#39FF14', // Neon green
+    backgroundColorInv: '#FFFFFF', // White
+    headingColor: '#000000', // Black
+    textColor: '#FFFFFF', // White
+    subtextColor: '#BDBDBD', // Light gray
+    textColorInv: '#000000', // Black
+    accent: '#39FF14', // Neon green
+    navBg: '#87CEEB', // Sky blue
+    accentPri: '#FF8A80', // Salmon-pink
+    accentSec: '#FF9800', // Bright orange
+    textAccent: '#FFC107', // Amber
+    mixBlendMode: 'color-dodge',
+    stateSuccessBackground: '#4CAF50', // Green
+  },
+
+  cosmicArtistry: {
+    key: 'cosmicArtistry',
+    audio: true,
+    volume: 0.5,
+    bodyBackgroundColor: '#F5F5F5', // Gray-washed white
+    backgroundColor: '#0D3B66', // Space blue
+    surface1: '#708090', // Slate gray
+    surface2: '#EAEAEA', // Soft gradients
+    surface3: '#1A5F7A', // Darker space blue
+    backgroundColorInv: '#FFFFFF', // White
+    headingColor: '#0D3B66', // Space blue
+    textColor: '#333333', // Dark gray
+    subtextColor: '#708090', // Slate gray
+    textColorInv: '#FFFFFF', // White
+    accent: '#FFA500', // Orange
+    navBg: '#F5F5F5', // Gray-washed white
+    accentPri: '#0D3B66', // Space blue
+    accentSec: '#708090', // Slate gray
+    textAccent: '#4A90E2', // Light blue
+    mixBlendMode: 'overlay',
+    stateSuccessBackground: '#4CAF50', // Green
+  },
+
+  vibrantButCalm: {
+    key: 'vibrantButCalm',
+    audio: true,
+    volume: 0.5,
+    bodyBackgroundColor: '#E0E0E0', // Creamy-gray
+    backgroundColor: '#B71C1C', // Muted red
+    surface1: '#FFC0CB', // Pink
+    surface2: '#F5F5F5', // Off-white
+    surface3: '#D32F2F', // Lighter muted red
+    backgroundColorInv: '#FFFFFF', // White
+    headingColor: '#B71C1C', // Muted red
+    textColor: '#212121', // Almost black
+    subtextColor: '#757575', // Gray
+    textColorInv: '#FFFFFF', // White
+    accent: '#FFC0CB', // Pink
+    navBg: '#E0E0E0', // Creamy-gray
+    accentPri: '#B71C1C', // Muted red
+    accentSec: '#FFC0CB', // Pink
+    textAccent: '#FF5252', // Light red
+    mixBlendMode: 'soft-light',
+    stateSuccessBackground: '#4CAF50', // Green
+  },
+
+  livelyAndInviting: {
+    key: 'livelyAndInviting',
+    audio: true,
+    volume: 0.5,
+    bodyBackgroundColor: '#FF69B4', // Candy pink
+    backgroundColor: '#ADFF2F', // Green-yellow
+    surface1: '#C8A2C8', // Lavender gray
+    surface2: '#D2B48C', // Pastel brown
+    surface3: '#FF1493', // Deep pink
+    backgroundColorInv: '#FFFFFF', // White
+    headingColor: '#8B4513', // Saddle brown
+    textColor: '#333333', // Dark gray
+    subtextColor: '#696969', // Dim gray
+    textColorInv: '#FFFFFF', // White
+    accent: '#FF69B4', // Candy pink
+    navBg: '#ADFF2F', // Green-yellow
+    accentPri: '#C8A2C8', // Lavender gray
+    accentSec: '#D2B48C', // Pastel brown
+    textAccent: '#FF1493', // Deep pink
+    mixBlendMode: 'color',
+    stateSuccessBackground: '#4CAF50', // Green
+  },
+
+  strikingAndSimple: {
+    key: 'strikingAndSimple',
+    audio: true,
+    volume: 0.5,
+    bodyBackgroundColor: '#2F2F2F', // Smoky black
+    backgroundColor: '#2979FF', // Electric blue
+    surface1: '#424242', // Dark gray
+    surface2: '#82B1FF', // Light blue
+    surface3: '#1565C0', // Darker blue
+    backgroundColorInv: '#FFFFFF', // White
+    headingColor: '#FFFFFF', // White
+    textColor: '#FFFFFF', // White
+    subtextColor: '#BDBDBD', // Light gray
+    textColorInv: '#2F2F2F', // Smoky black
+    accent: '#82B1FF', // Light blue
+    navBg: '#2F2F2F', // Smoky black
+    accentPri: '#2979FF', // Electric blue
+    accentSec: '#82B1FF', // Light blue
+    textAccent: '#40C4FF', // Light blue
+    mixBlendMode: 'screen',
+    stateSuccessBackground: '#4CAF50', // Green
+  },
+
+  redAndLively: {
+    key: 'redAndLively',
+    audio: true,
+    volume: 0.5,
+    bodyBackgroundColor: '#8B0000', // Dark scarlet red
+    backgroundColor: '#FF1493', // Dark pink
+    surface1: '#D3D3D3', // Light gray
+    surface2: '#FF69B4', // Hot pink
+    surface3: '#DC143C', // Crimson
+    backgroundColorInv: '#FFFFFF', // White
+    headingColor: '#FFFFFF', // White
+    textColor: '#FFFFFF', // White
+    subtextColor: '#D3D3D3', // Light gray
+    textColorInv: '#8B0000', // Dark scarlet red
+    accent: '#FF69B4', // Hot pink
+    navBg: '#8B0000', // Dark scarlet red
+    accentPri: '#FF1493', // Dark pink
+    accentSec: '#FF69B4', // Hot pink
+    textAccent: '#FFC0CB', // Pink
+    mixBlendMode: 'hard-light',
+    stateSuccessBackground: '#4CAF50', // Green
+  },
+
+  artsyAndCreative: {
+    key: 'artsyAndCreative',
+    audio: true,
+    volume: 0.5,
+    bodyBackgroundColor: '#EFDFBB', // Dutch white
+    backgroundColor: '#DAA520', // Goldenrod
+    surface1: '#E34234', // Vermillion
+    surface2: '#00008B', // Dark blue
+    surface3: '#CD853F', // Peru
+    backgroundColorInv: '#FFFFFF', // White
+    headingColor: '#00008B', // Dark blue
+    textColor: '#333333', // Dark gray
+    subtextColor: '#8B4513', // Saddle brown
+    textColorInv: '#FFFFFF', // White
+    accent: '#E34234', // Vermillion
+    navBg: '#EFDFBB', // Dutch white
+    accentPri: '#DAA520', // Goldenrod
+    accentSec: '#E34234', // Vermillion
+    textAccent: '#00008B', // Dark blue
+    mixBlendMode: 'multiply',
+    stateSuccessBackground: '#4CAF50', // Green
+  },
+
+  elegantYetApproachable: {
+    key: 'elegantYetApproachable',
+    audio: true,
+    volume: 0.5,
+    bodyBackgroundColor: '#FFDAB9', // Skin tones
+    backgroundColor: '#1C1C3B', // Dark imperial blue
+    surface1: '#9B111E', // Ruby
+    surface2: '#E6BE8A', // Lighter skin tone
+    surface3: '#2E2E5F', // Lighter imperial blue
+    backgroundColorInv: '#FFFFFF', // White
+    headingColor: '#9B111E', // Ruby
+    textColor: '#FFFFFF', // White
+    subtextColor: '#D2B48C', // Tan
+    textColorInv: '#1C1C3B', // Dark imperial blue
+    accent: '#E6BE8A', // Lighter skin tone
+    navBg: '#1C1C3B', // Dark imperial blue
+    accentPri: '#9B111E', // Ruby
+    accentSec: '#FFDAB9', // Skin tones
+    textAccent: '#FFB6C1', // Light pink
+    mixBlendMode: 'soft-light',
+    stateSuccessBackground: '#4CAF50', // Green
+  },
+
+  sleekAndFuturistic: {
+    key: 'sleekAndFuturistic',
+    audio: true,
+    volume: 0.5,
+    bodyBackgroundColor: '#0F4C81', // Blue sapphire
+    backgroundColor: '#2F4F4F', // Gunmetal gray
+    surface1: '#E5E4E2', // Platinum
+    surface2: '#FFDAB9', // Peach-orange
+    surface3: '#D2B48C', // Tan
+    backgroundColorInv: '#FFFFFF', // White
+    headingColor: '#E5E4E2', // Platinum
+    textColor: '#FFFFFF', // White
+    subtextColor: '#D2B48C', // Tan
+    textColorInv: '#0F4C81', // Blue sapphire
+    accent: '#FFDAB9', // Peach-orange
+    navBg: '#2F4F4F', // Gunmetal gray
+    accentPri: '#0F4C81', // Blue sapphire
+    accentSec: '#E5E4E2', // Platinum
+    textAccent: '#87CEEB', // Sky blue
+    mixBlendMode: 'screen',
+    stateSuccessBackground: '#4CAF50', // Green
+  },
+
+  innovativeAndAudacious: {
+    key: 'innovativeAndAudacious',
+    audio: true,
+    volume: 0.5,
+    bodyBackgroundColor: '#1C1C1C', // Dark gray, almost black
+    backgroundColor: '#FF5A36', // Portland Orange
+    surface1: '#FFEB3B', // Vivid yellow
+    surface2: '#00A86B', // Jade
+    surface3: '#FF8C69', // Salmon
+    backgroundColorInv: '#FFFFFF', // White
+    headingColor: '#FFEB3B', // Vivid yellow
+    textColor: '#FFFFFF', // White
+    subtextColor: '#BDBDBD', // Light gray
+    textColorInv: '#1C1C1C', // Dark gray, almost black
+    accent: '#00A86B', // Jade
+    navBg: '#1C1C1C', // Dark gray, almost black
+    accentPri: '#FF5A36', // Portland Orange
+    accentSec: '#FFEB3B', // Vivid yellow
+    textAccent: '#FF8C69', // Salmon
+    mixBlendMode: 'hard-light',
+    stateSuccessBackground: '#4CAF50', // Green
+  },
 };
 
 // Function to get theme by key
@@ -930,5 +1320,73 @@ export const themes = {
   cgaPalette0Low: {
     key: 'cgaPalette0Low',
     ...colorThemes.cgaPalette0Low,
+  },
+  metallicChic: {
+    key: 'metallicChic',
+    ...colorThemes.metallicChic,
+  },
+  deepVintageMood: {
+    key: 'deepVintageMood',
+    ...colorThemes.deepVintageMood,
+  },
+  coolAndCollected: {
+    key: 'coolAndCollected',
+    ...colorThemes.coolAndCollected,
+  },
+  earthyAndSerene: {
+    key: 'earthyAndSerene',
+    ...colorThemes.earthyAndSerene,
+  },
+  textureAndContrast: {
+    key: 'textureAndContrast',
+    ...colorThemes.textureAndContrast,
+  },
+  mechanicalAndFloaty: {
+    key: 'mechanicalAndFloaty',
+    ...colorThemes.mechanicalAndFloaty,
+  },
+  pixelIntensity: {
+    key: 'pixelIntensity',
+    ...colorThemes.pixelIntensity,
+  },
+  gradientPop: {
+    key: 'gradientPop',
+    ...colorThemes.gradientPop,
+  },
+  cosmicArtistry: {
+    key: 'cosmicArtistry',
+    ...colorThemes.cosmicArtistry,
+  },
+  vibrantButCalm: {
+    key: 'vibrantButCalm',
+    ...colorThemes.vibrantButCalm,
+  },
+  livelyAndInviting: {
+    key: 'livelyAndInviting',
+    ...colorThemes.livelyAndInviting,
+  },
+  strikingAndSimple: {
+    key: 'strikingAndSimple',
+    ...colorThemes.strikingAndSimple,
+  },
+  redAndLively: {
+    key: 'redAndLively',
+    ...colorThemes.redAndLively,
+  },
+  artsyAndCreative: {
+    key: 'artsyAndCreative',
+    ...colorThemes.artsyAndCreative,
+  },
+  elegantYetApproachable: {
+    key: 'elegantYetApproachable',
+    ...colorThemes.elegantYetApproachable,
+  },
+  sleekAndFuturistic: {
+    key: 'sleekAndFuturistic',
+    ...colorThemes.sleekAndFuturistic,
+  },
+  innovativeAndAudacious: {
+    key: 'innovativeAndAudacious',
+    ...colorThemes.innovativeAndAudacious,
   },
 };
