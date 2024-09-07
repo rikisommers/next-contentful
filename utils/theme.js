@@ -464,6 +464,34 @@ const colorThemes = {
   },
 };
 
+// Function to get theme by key
+export function getThemeByKey(themeKey) {
+  return themes[themeKey];
+}
+
+// Function to update theme
+export function updateTheme(themeKey, updates) {
+  if (themes[themeKey]) {
+    Object.assign(themes[themeKey], updates);
+  }
+}
+
+// Function to get Leva controls for a theme
+export function getThemeLevaControls(themeKey) {
+  const theme = getThemeByKey(themeKey);
+  if (!theme) return {};
+
+  const controls = {};
+  Object.keys(theme).forEach(key => {
+    if (typeof theme[key] === 'string' && theme[key].startsWith('#')) {
+      controls[key] = { value: theme[key], onChange: (value) => updateTheme(themeKey, { [key]: value }) };
+    }
+  });
+
+  return controls;
+}
+
+
 
 // Animation themes
 // const animationThemes = {
@@ -581,8 +609,8 @@ export const themes = {
     key: 'msdos',
     ...colorThemes.msdos,
   },
-  amigaWorkbench: {
-    key: 'amigaWorkbench',
+  amegaWorkbench: {
+    key: 'amegaWorkbench',
     ...colorThemes.amigaWorkbench,
   },
   nes: {
@@ -631,14 +659,14 @@ export const themes = {
   },
 };
 
-// Function to get theme by key
-export function getThemeByKey(themeKey) {
-  return themes[themeKey];
-}
+// // Function to get theme by key
+// export function getThemeByKey(themeKey) {
+//   return themes[themeKey];
+// }
 
-// Function to update theme
-export function updateTheme(themeKey, updates) {
-  if (themes[themeKey]) {
-    Object.assign(themes[themeKey], updates);
-  }
-}
+// // Function to update theme
+// export function updateTheme(themeKey, updates) {
+//   if (themes[themeKey]) {
+//     Object.assign(themes[themeKey], updates);
+//   }
+// }
