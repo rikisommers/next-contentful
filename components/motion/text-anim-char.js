@@ -1,14 +1,20 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 
-const TextAnimationChar = ({ content, delay }) => {
+const TextAnimationChar = ({ content, delay = 0 }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, {
+    once: true,
+    amount: 0.2,
+  });
+
   const container = {
-    hidden: { opacity: 0.5 },
+    hidden: { opacity: 0 },
     show: {
       opacity: 1,
       transition: {
-        delay: delay, // Delay before starting the animation
-        staggerChildren: 0.1, // Delay between each character's animation
+        delay: delay,
+        staggerChildren: 0.1,
       },
     },
   };
@@ -20,22 +26,24 @@ const TextAnimationChar = ({ content, delay }) => {
     show: {
       opacity: 1,
       transition: {
-        duration: 0.6, // Duration for each character's opacity transition
-        ease: [0.33, 1, 0.68, 1], // Custom easing function for the opacity transition
+        duration: 0.6,
+        ease: [0.33, 1, 0.68, 1],
       },
-    },
-    exit: {
-      opacity: 0,
     },
   };
 
   return (
-    <motion.span variants={container} initial="hidden" animate="show" exit="exit">
+    <motion.span
+      ref={ref}
+      variants={container}
+      initial="hidden"
+      animate={isInView ? "show" : "hidden"}
+    >
       {content &&
         content.split(" ").map((word, index) => (
-          <motion.span key={index}>
+          <motion.span key={index} style={{ display: "inline-block" }}>
             {word.split("").map((letter, letterIndex) => (
-              <motion.span variants={character} key={letterIndex}>
+              <motion.span variants={character} key={letterIndex} style={{ display: "inline-block" }}>
                 {letter}
               </motion.span>
             ))}

@@ -21,9 +21,7 @@ import { useScrollPosition } from "../components/scrollPosContext";
 import ScrollContainer from "../components/utils/scroll-container";
 import ClipPathContainer from "../components/utils/clip-path-container";
 
-
 const Work = ({ data, footerData }) => {
-
   const contentRef = useRef(null);
   const headerRef = useRef(null);
   const [scrollValue, setScrollValue] = useState(0);
@@ -31,40 +29,33 @@ const Work = ({ data, footerData }) => {
 
   console.log("Data------------------------", data);
 
-
-  
-
   return (
     <Layout>
       <TransitionTilt active={true} className="z-100">
         {/* <ScrollContainer> */}
-          {/* <ClipPathContainer>
+        {/* <ClipPathContainer>
           </ClipPathContainer> */}
-  <div className="flex flex-col px-8">
-              <PostIntro
-                title={data.titlealt}
-                content={data.contentalt}
-              />
+        <div className="flex flex-col px-8">
+          <PostIntro title={data.titlealt} content={data.contentalt} />
 
-            {data.video && (
-              <div className="pb-24 o-content">
-                <BlockVideo data={data.video} />
-              </div>
-            )}
+          {data.video && (
+            <div className="pb-24 o-content">
+              <BlockVideo data={data.video} />
+            </div>
+          )}
 
-            {data.csblocksCollection.items && (
-              <PostBody content={data.csblocksCollection} />
-            )}
-
-          </div>
-          {data.titlealt && <BlockFooter data={footerData} />}
+          {data.csblocksCollection.items && (
+            <PostBody content={data.csblocksCollection} />
+          )}
+        </div>
+        {data.titlealt && <BlockFooter data={footerData} />}
 
         {/* </ScrollContainer> */}
       </TransitionTilt>
       <TransitionWipe />
     </Layout>
   );
-}
+};
 
 export async function getStaticProps({ preview = false }) {
   const [landingPageData, footerData] = await Promise.all([

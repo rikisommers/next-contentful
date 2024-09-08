@@ -35,9 +35,7 @@ export default function PostBody({ content }) {
             return (
               <section key={index}>
                  {item.__typename === "BlockHeader" && (
-                  <AnimatedElement type={AnimStyleEl.FADEIN}>
                   <BlockHeader key={item.id} data={item} ></BlockHeader>
-                  </AnimatedElement>
                 )}
                 {item.__typename === "BlockArticle" && (
                   <AnimatedElement type={AnimStyleEl.FADEIN}>
@@ -45,9 +43,7 @@ export default function PostBody({ content }) {
                   </AnimatedElement>
                 )}
                 {item.__typename === "BlockArticles" && (
-                  <AnimatedElement type={AnimStyleEl.FADEIN}>
                     <BlockArticles key={item.id} data={item} />
-                  </AnimatedElement>
                 )}
                 {item.__typename === "BlockImage" && (
                   <AnimatedElement type={AnimStyleEl.FADEIN}>
@@ -65,8 +61,8 @@ export default function PostBody({ content }) {
                   </AnimatedElement>
                 )}
                 {item.__typename === "BlockQuote" && (
-                  <AnimatedElement type={AnimStyleEl.FADEIN}>
-                    <BlockQuote key={item.id} data={item} />
+                 <AnimatedElement type={AnimStyleEl.FADEIN}>
+                  <BlockQuote key={item.id} data={item} />
                   </AnimatedElement>
                 )}
                 {item.__typename === "BlockEmbed" && (

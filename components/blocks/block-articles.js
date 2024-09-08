@@ -37,8 +37,8 @@ export const BlockArticles = ({ data }) => {
                       : "col-span-12 md:col-span-6";
                   return (
                     <div key={i} className={isFullWidth}>
-                    <AnimatedElement type={AnimStyleEl.FADEIN}>
-                    <PostTileLg
+                      <AnimatedElement type={AnimStyleEl.FADEIN}>
+                        <PostTileLg
                           post={item}
                           size={isFullWidth === "col-span-12" ? "rect" : "sq"}
                         />
@@ -50,7 +50,7 @@ export const BlockArticles = ({ data }) => {
                 return data.articlesCollection.items.map((item, i) => (
                   <div key={i} className="col-span-12 md:col-span-6">
                     <AnimatedElement type={ElAnimStyle.FADEIN}>
-                    <PostTile post={item} />
+                      <PostTile post={item} />
                     </AnimatedElement>
                   </div>
                 ));
@@ -59,7 +59,7 @@ export const BlockArticles = ({ data }) => {
                 return data.articlesCollection.items.map((item, i) => (
                   <div key={i} className="col-span-12 md:col-span-6">
                     <AnimatedElement type={AnimStyleEl.FADEIN}>
-                    <PostTileCs post={item} />
+                      <PostTileCs post={item} />
                     </AnimatedElement>
                   </div>
                 ));
