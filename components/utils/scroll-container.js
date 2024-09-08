@@ -1,50 +1,43 @@
 "use client"
 
 import React, { useEffect, useState } from "react";
-import Lenis from "@studio-freight/lenis";
-import {
-    motion,
-    cubicBezier,
-    useMotionValue,
-    useTransform,
-    useScroll,
-    useMotionValueEvent,
-  } from "framer-motion";
-import { Scroll } from "@react-three/drei";
+import { getLenisInstance, destroyLenisInstance} from "./lenisInstance";
+import { useScrollPosition } from "../scrollPosContext";
 
 export default function ScrollContainer({ children }) {
-
-
-  const [dimension, setDimension] = useState({ width: 0, height: 0 });
+  const { setScrollPosition } = useScrollPosition();
+  const [lenis, setLenis] = useState(null);
 
   useEffect(() => {
-    const lenis = new Lenis();
+    const lenisInstance = getLenisInstance();
+    setLenis(lenisInstance);
 
-    const raf = (time) => {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
+    const updateScroll = () => {
+      setScrollPosition(lenisInstance.scroll);
     };
 
-    requestAnimationFrame(raf);
-
-    const resize = () => {
-      setDimension({ width: window.innerWidth, height: window.innerHeight });
-    };
-
-    window.addEventListener("resize", resize);
-
-    requestAnimationFrame(raf);
-
-    resize();
+    lenisInstance.on('scroll', updateScroll);
 
     return () => {
-      window.removeEventListener("resize", resize);
+      lenisInstance.off('scroll', updateScroll);
+      // Note: We're not destroying the instance here
     };
   }, []);
 
+  useEffect(() => {
+    const resize = () => {
+      if (lenis) lenis.resize();
+    };
+
+    window.addEventListener("resize", resize);
+    return () => {
+      window.removeEventListener("resize", resize);
+    };
+  }, [lenis]);
+
   return (
-   <div className="flex flex-col relative">
+   <div className="relative flex flex-col">
     {children}
    </div>
   );
-};
+}

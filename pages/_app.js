@@ -11,11 +11,11 @@ import { LevaProvider } from "../components/leva-context";
 import ThemeEditor from "../components/navigation/themeEditor";
 import Navigation from "../components/navigation/primary-navigation";
 import { Leva, LevaPanel, useControls } from "leva";
-
 import Preloader from "./preloader";
 import { getAllImages } from "../lib/api";
 
 import "../styles/index.scss";
+import ScrollContainer from "../components/utils/scroll-container";
 
 const THEME_CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
@@ -95,6 +95,9 @@ function MyApp({ Component, pageProps, router }) {
 
 
                   <AnimatePresence mode="wait" initial={false}>
+
+
+
                     <Component {...pageProps} key={router.asPath} />
                   </AnimatePresence>
                   {/* 
