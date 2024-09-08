@@ -142,7 +142,7 @@ console.log('data',data)
 
         {/* <CustomCursor/> */}
         <TransitionTilt active={true} className="z-100">
-          <ScrollContainer>
+          {/* <ScrollContainer> */}
             <BlockHero
               content={data.content}
               titlealt={data.titlealt}
@@ -161,7 +161,7 @@ console.log('data',data)
             )} */}
 
             <BlockFooter data={footerData} />
-          </ScrollContainer>
+          {/* </ScrollContainer> */}
         </TransitionTilt>
         <TransitionWipe />
       </Layout>

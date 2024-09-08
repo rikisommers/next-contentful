@@ -43,7 +43,7 @@ export default function Posts({ intro, posts, tags, footerData }) {
 
   return (
     <Layout>
-      <ScrollContainer>
+      {/* <ScrollContainer> */}
         <div className="flex">
 
           <div className="o-menu">
@@ -123,7 +123,7 @@ export default function Posts({ intro, posts, tags, footerData }) {
             <BlockFooter data={footerData} />
           </div>
         )}
-      </ScrollContainer>
+      {/* </ScrollContainer> */}
     </Layout>
   );
 }

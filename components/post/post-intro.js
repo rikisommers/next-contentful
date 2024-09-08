@@ -6,11 +6,7 @@ import AnimatedText, { AnimStyle, AnimTextOrder } from "../motion/animated-text"
 
 export default function PostIntro({ title, content }) {
   return (
-    <div
-      exit={{
-        opacity: 0,
-      }}
-      className="grid items-end content-end grid-cols-12 pb-20 gap h-vh44 md:h-vh55"
+    <div className="grid items-end content-end grid-cols-12 pb-20 gap h-vh44 md:h-vh55"
     >
       <div className="col-span-12 md:col-span-8 lg:col-span-8">
         <h1 className="text-4xl font-medium font-aon"> 

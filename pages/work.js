@@ -37,7 +37,7 @@ const Work = ({ data, footerData }) => {
   return (
     <Layout>
       <TransitionTilt active={true} className="z-100">
-        <ScrollContainer>
+        {/* <ScrollContainer> */}
           {/* <ClipPathContainer>
           </ClipPathContainer> */}
   <div className="flex flex-col px-8">
@@ -46,11 +46,11 @@ const Work = ({ data, footerData }) => {
                 content={data.contentalt}
               />
 
-            {/* {data.video && (
+            {data.video && (
               <div className="pb-24 o-content">
                 <BlockVideo data={data.video} />
               </div>
-            )} */}
+            )}
 
             {data.csblocksCollection.items && (
               <PostBody content={data.csblocksCollection} />
@@ -59,7 +59,7 @@ const Work = ({ data, footerData }) => {
           </div>
           {data.titlealt && <BlockFooter data={footerData} />}
 
-        </ScrollContainer>
+        {/* </ScrollContainer> */}
       </TransitionTilt>
       <TransitionWipe />
     </Layout>

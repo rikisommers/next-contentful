@@ -1,52 +1,63 @@
-import React,{children} from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { motion, cubicBezier } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 
+const useViewportHeight = () => {
+    const [height, setHeight] = useState(0);
 
-const ElementAnimPosUp = ({  delay,children }) => {
-    return(
+    useEffect(() => {
+        const updateHeight = () => setHeight(window.innerHeight);
+        updateHeight();
+        window.addEventListener('resize', updateHeight);
+        return () => window.removeEventListener('resize', updateHeight);
+    }, []);
+
+    return height;
+};
+
+const ElementAnimPosUp = ({ delay, offset, children }) => {
+    const ref = React.useRef(null);
+    const viewportHeight = useViewportHeight();
+    const margin = `0px 0px -${viewportHeight * offset}px 0px`;
+    const isInView = useInView(ref, { once: true, margin });
+
+    return (
         <motion.div
-        initial={{
-            opacity:0,
-            y: 100,
-          }}
-          animate={{
-            opacity:1,
-            y: 0,
-          }}
-          transition={{
-            delay:0.6,
-          ease: [0.33, 1, 0.68, 1],
-          duration: 1.2,
-          }}
+            ref={ref}
+            initial={{ opacity: 0, y: 100 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 100 }}
+            transition={{
+                delay: delay,
+                ease: [0.33, 1, 0.68, 1],
+                duration: 1.2,
+            }}
         >
             {children}
         </motion.div>
-    )
-}
+    );
+};
 
+const ElementAnimFadeIn = ({ delay, offset, children }) => {
+    const ref = React.useRef(null);
+    const viewportHeight = useViewportHeight();
+    const margin = `0px 0px -${viewportHeight * offset}px 0px`;
+    const isInView = useInView(ref, { once: true, margin });
 
-const ElementAnimFadeIn = ({ delay,children }) => {
-    return(
+    return (
         <motion.div
-        initial={{
-            opacity:0,
-            y: 10,
-          }}
-          animate={{
-            opacity:1,
-            y: 0,
-          }}
-          transition={{
-            delay:0.6,
-          ease: [0.33, 1, 0.68, 1],
-          duration: 1.2,
-          }}
+            ref={ref}
+            initial={{ opacity: 0, y: 10 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+            transition={{
+                delay: delay,
+                ease: [0.33, 1, 0.68, 1],
+                duration: 1.2,
+            }}
         >
             {children}
         </motion.div>
-    )
-}
+    );
+};
 
 const AnimElOrder = {
     1: "100ms",
@@ -56,30 +67,35 @@ const AnimElOrder = {
     5: "500ms",
 };
 
-
 const AnimStyleEl = {
     POSUP: "pos-up",
     FADEIN: "fade-in",
 };
 
-const getAnimatedElement = (type,children) => {
-
+const getAnimatedElement = (type, children, delay, offset) => {
     switch (type) {
         case AnimStyleEl.POSUP:
-            return <ElementAnimPosUp>{children}</ElementAnimPosUp>;
+            return <ElementAnimPosUp delay={delay} offset={offset}>{children}</ElementAnimPosUp>;
         case AnimStyleEl.FADEIN:
-            return <ElementAnimFadeIn>{children}</ElementAnimFadeIn>;
+            return <ElementAnimFadeIn delay={delay} offset={offset}>{children}</ElementAnimFadeIn>;
         default:
-            return <ElementAnimFadeIn>{children}</ElementAnimFadeIn>;
+            return <ElementAnimFadeIn delay={delay} offset={offset}>{children}</ElementAnimFadeIn>;
     }
-}
+};
 
-const AnimatedElement = ({ type = AnimStyleEl.POSUP, children }) => {
-    return getAnimatedElement(type, children);
+const AnimatedElement = ({ 
+    type = AnimStyleEl.POSUP, 
+    children, 
+    delay = 0.1, 
+    offset = 0.1 
+}) => {
+    return getAnimatedElement(type, children, delay, offset);
 };
 
 AnimatedElement.propTypes = {
     type: PropTypes.oneOf(Object.values(AnimStyleEl)),
+    delay: PropTypes.number,
+    offset: PropTypes.number,
 };
 
 export default AnimatedElement;

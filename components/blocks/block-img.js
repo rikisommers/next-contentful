@@ -7,15 +7,18 @@ export const BlockImg = ({ data }) => {
     <figure>
       {data.image && data.title && (
         <>
-          <h2 className="py-4 text-sm" style={{ color: "var(--text-color)" }}>
-            {data.title}
-          </h2>
-
           <ContentfulImage
             className="img-cover"
             alt={`${data.image?.title}`}
             src={data.image.url}
           />
+
+          <figcaption
+            className="py-4 text-sm"
+            style={{ color: "var(--text-color)" }}
+          >
+            {data.title}
+          </figcaption>
         </>
       )}
     </figure>
