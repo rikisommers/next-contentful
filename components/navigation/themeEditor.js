@@ -2,6 +2,23 @@ import React, { useState, useEffect, useCallback } from "react";
 import { themes } from "../../utils/theme";
 import { debounce } from "../utils/debounce";
 
+// Fallback values
+const defaultTypographyThemes = {
+  sans: 'Sans-serif',
+  serif: 'Serif',
+  mono: 'Monospace',
+};
+
+const defaultTransitionThemes = {
+  wide: 'Wide',
+  narrow: 'Narrow',
+  fade: 'Fade',
+};
+
+console.log('Imported themes:', themes);
+console.log('Imported typographyThemes:', defaultTypographyThemes);
+console.log('Imported transitionThemes:', defaultTransitionThemes);
+
 export default function ThemeEditor() {
   const [currentTheme, setCurrentTheme] = useState(themes.light);
   const [customTheme, setCustomTheme] = useState(null);
@@ -26,6 +43,10 @@ export default function ThemeEditor() {
         root.style.setProperty(cssVar, value);
       }
     });
+
+    // Apply global options
+    root.style.setProperty('--mix-blend-mode', updatedTheme.mixBlendMode);
+    // You might want to handle audio and volume differently, perhaps through a separate audio context
 
     localStorage.setItem("currentTheme", JSON.stringify(updatedTheme));
   }, []);
@@ -63,6 +84,15 @@ export default function ThemeEditor() {
     }
   };
 
+  const handleGlobalOptionChange = (key, value) => {
+    const updatedTheme = { ...currentTheme, [key]: value };
+    applyCurrentTheme(updatedTheme);
+    if (currentTheme.key === 'custom') {
+      setCustomTheme(updatedTheme);
+      localStorage.setItem('customTheme', JSON.stringify(updatedTheme));
+    }
+  };
+
   const saveThemeToContentful = async (theme) => {
     setIsSaving(true);
     setSaveError(null);
@@ -94,6 +124,9 @@ export default function ThemeEditor() {
     saveThemeToContentful(currentTheme);
   };
 
+  const typographyOptions = currentTheme.typographyThemes || defaultTypographyThemes;
+  const transitionOptions = currentTheme.transitionThemes || defaultTransitionThemes;
+
   return (
     <div className="theme-editor">
       <select value={currentTheme.key} onChange={handleThemeChange}>
@@ -104,6 +137,71 @@ export default function ThemeEditor() {
         ))}
         <option value="custom">Custom</option>
       </select>
+
+      {/* Global options */}
+      <div>
+        <label htmlFor="audio">Audio</label>
+        <input
+          type="checkbox"
+          id="audio"
+          checked={currentTheme.audio}
+          onChange={(e) => handleGlobalOptionChange('audio', e.target.checked)}
+        />
+      </div>
+      <div>
+        <label htmlFor="volume">Volume</label>
+        <input
+          type="range"
+          id="volume"
+          min="0"
+          max="1"
+          step="0.1"
+          value={currentTheme.volume}
+          onChange={(e) => handleGlobalOptionChange('volume', parseFloat(e.target.value))}
+        />
+      </div>
+      <div>
+        <label htmlFor="mixBlendMode">Mix Blend Mode</label>
+        <select
+          id="mixBlendMode"
+          value={currentTheme.mixBlendMode}
+          onChange={(e) => handleGlobalOptionChange('mixBlendMode', e.target.value)}
+        >
+          {['normal', 'multiply', 'screen', 'overlay', 'darken', 'lighten', 'color-dodge', 'color-burn', 'hard-light', 'soft-light', 'difference', 'exclusion', 'hue', 'saturation', 'color', 'luminosity'].map((mode) => (
+            <option key={mode} value={mode}>{mode}</option>
+          ))}
+        </select>
+      </div>
+
+      {/* Typography option */}
+      <div>
+        <label htmlFor="typography">Typography</label>
+        <select
+          id="typography"
+          value={currentTheme.typography || 'sans'}
+          onChange={(e) => handleGlobalOptionChange('typography', e.target.value)}
+        >
+          {Object.entries(typographyOptions).map(([key, value]) => (
+            <option key={key} value={key}>{value}</option>
+          ))}
+        </select>
+      </div>
+
+      {/* Transition option */}
+      <div>
+        <label htmlFor="transition">Transition</label>
+        <select
+          id="transition"
+          value={currentTheme.transition || 'wide'}
+          onChange={(e) => handleGlobalOptionChange('transition', e.target.value)}
+        >
+          {Object.entries(transitionOptions).map(([key, value]) => (
+            <option key={key} value={key}>{value}</option>
+          ))}
+        </select>
+      </div>
+
+      {/* Existing color options */}
       {Object.entries(currentTheme).map(([key, value]) => {
         if (typeof value === 'string' && value.startsWith('#')) {
           return (

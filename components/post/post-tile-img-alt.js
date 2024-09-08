@@ -53,13 +53,11 @@ export default function PostTileImgAlt({ post }) {
 </motion.div> */}
 
       {post?.img &&
-      <FadeInWhenVisible>
         <BlendImage
           className="img-cover"
           alt={`Cover Image for ${post?.title}`}
           src={post?.img.url}
         />
-      </FadeInWhenVisible>
       }
     </div>
   );

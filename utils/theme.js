@@ -1152,6 +1152,54 @@ const colorThemes = {
   },
 };
 
+
+// Text Animation themes
+const textAnimationThemes = {
+  fadeup: {
+    title: 'fadeup',
+    subtitle: 'fadeup'
+  },
+  fadein: {
+    title: 'fadeup',
+    subtitle: 'fadeup'
+  },
+  fadecharsin: {
+    title: 'fadechars',
+    subtitle: 'fadecahars'
+  },
+};
+
+
+
+// Type Themes
+const typeopgaphyThemes = {
+  sans: {
+    font: 'sans'
+  },
+  serif: {
+    font: 'serif'
+  },
+  mono: {
+    font: 'mono'
+  },
+};
+
+const transitionThemes = {
+  wide: {
+    layout: 'none'
+  },
+  narrow: {
+    layout: 'narrow'
+  },
+  grid: {
+    layout: 'grid'
+  },
+  column: {
+    layout: 'column'
+  }
+};
+
+
 // Function to get theme by key
 export function getThemeByKey(themeKey) {
   return themes[themeKey];
