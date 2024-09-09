@@ -20,7 +20,7 @@ export default function BlockHero({
   return (
     <div data-name="hero-container"
       className={`relative transition ease-in-out w-full h-screen`}
-      // style={{ background: 'var(--body-background-color)' }}
+      style={{ background: 'var(--body-background-color)' }}
     >
 {/* 
 <div className="absolute w-full h-full z-1">

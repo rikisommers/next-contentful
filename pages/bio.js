@@ -6,10 +6,9 @@ import Head from "next/head";
 import TransitionWipe from "../components/transition/transition-wipe";
 import TransitionTilt from "../components/transition/transition-tilt";
 import PostIntro from "../components/post/post-intro";
-import { getLandingPage } from "../lib/api";
+import { getLandingPage, getFooter } from "../lib/api";
 import { ScrollableBox } from "../components/utils/scrollable";
 import BlockFooter from "../components/blocks/block-footer";
-
 
 import PostBody from "../components/post/post-body";
 import PostContent from "../components/post/post-content";
@@ -30,61 +29,34 @@ import {
 } from "framer-motion";
 import BlockHeader from "../components/blocks/block-header";
 
-const Bio = ({ data }) => {
+const Bio = ({ data, footerData }) => {
   console.log("-------------------------------", data);
   const contentRef = useRef(null);
   const footerRef = useRef(null);
 
-
-
   return (
-    <div style={{ background:  'var(--body-background-color)' }}>
-      <Layout>
+    <Layout>
       <TransitionTilt active={true} className="z-100">
-      <ScrollContainer>
+      <div className="flex flex-col px-8">
+          <PostIntro title={data.titlealt} content={data.contentalt} />
 
-              <BlockHeroAlt
-                titlealt={data.titlealt}
-                contentalt={data.contentalt}
-              />
-
-               <motion.div className="flex flex-col"
-      initial={{
-        opacity:0,
-        y: 100,
-      }}
-      animate={{
-        opacity:1,
-        y: 0,
-      }}
-      transition={{
-        delay:0.6,
-      ease: [0.33, 1, 0.68, 1],
-      duration: 1.2,
-      }}
-    >
-                    {/* <BlockHero
-                titlealt={data.titlealt}
-                contentalt={data.contentalt}
-              /> */}
-              <LandingPageContent data={data} />
-              </motion.div>
-              <BlockFooter content={data.intro} />
- 
-          </ScrollContainer>
-        </TransitionTilt>
-        <TransitionWipe />
-      </Layout>
-    </div>
+          <LandingPageContent data={data} />
+          <BlockFooter content={footerData} />
+        </div>
+      </TransitionTilt>
+      <TransitionWipe />
+    </Layout>
   );
 };
 
 export async function getStaticProps({ preview = false }) {
   const data = (await getLandingPage("bio")) ?? [];
+  const footerData = (await getFooter()) ?? {};
 
   return {
     props: {
       data,
+      footerData,
     },
   };
 }

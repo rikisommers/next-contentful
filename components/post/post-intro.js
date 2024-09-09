@@ -9,7 +9,7 @@ export default function PostIntro({ title, content }) {
     <div className="grid items-end content-end grid-cols-12 pb-20 gap h-vh44 md:h-vh55"
     >
       <div className="col-span-12 md:col-span-8 lg:col-span-8">
-        <h1 className="text-4xl font-medium font-aon"> 
+        <h1 className="text-4xl font-medium font-aon balance-text"> 
           <AnimatedText type={AnimStyle.LINEPOSUP} content={title} delay={AnimTextOrder.ONE}/>
         </h1>
       </div>
