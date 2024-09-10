@@ -1,38 +1,30 @@
-
-
 import Link from "next/link";
 import { motion, cubicBezier, useAnimation } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useEffect, useState, useContext, useRef } from "react";
 import { useScrollPosition } from "../scrollPosContext";
-
 import { gsap } from "gsap";
 import { Draggable } from "gsap/dist/Draggable";
 import CtxMenu from "../base/ctx-menu";
 import ThemeEditor from "./themeEditor";
-import Button,{ButtonType,ButtonSound} from "../base/button";
-import AnimatedText, {AnimStyle} from "../motion/animated-text";
+import Button, { ButtonType, ButtonSound } from "../base/button";
+import AnimatedText, { AnimStyle } from "../motion/animated-text";
+import Modal, { ModalDirection } from "../base/modal"; // Import Modal and ModalDirection
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(Draggable);
 }
 
 export default function Navigation() {
-
-
   const router = useRouter();
   const menuRef = useRef(null);
   const menuDragRef = useRef("menuDragRef");
-
   const { scrollPosition } = useScrollPosition();
   const [isActive, setIsActive] = useState(false);
   const [offset, setOffset] = useState(0);
-
   const [isOpen, setIsOpen] = useState(false);
   const controls = useAnimation();
-
-
-
+  const [isModalOpen, setIsModalOpen] = useState(false); // State for modal
 
   const toggleTheme = () => {
     setIsOpen(!isOpen);
@@ -88,21 +80,31 @@ export default function Navigation() {
   const [activePage, setActivePage] = useState(pages[0].id);
 
   return (
-    <div className="fixed z-50 flex justify-between w-full p-6">
+    <div className="fixed z-50 flex justify-between w-full p-6 rounded-full">
       <motion.div
         style={{
-          backgroundColor: 'var(--background-color)',
+          backgroundColor: 'var(--accent-pri)',
           color:
             router.asPath === "/"
               ? 'var(--text-color)'
               : 'var(--heading-color)',
         }}
-        className={`relative z-50 flex items-center rounded-xl`}
+        whileHover={{
+          style: {
+            backgroundColor: 'var(--accent-pri)',
+          }
+        }}
+        className={`relative z-50 flex items-center rounded-xl px-4`}
       >
-        <div className={`scene bg-opacity-80 backdrop-blur-sm`} 
+
+        <div className="w-4 h-4 rounded-full" style={{backgroundColor:'var(--accent-sec)'}}>
+        </div>
+        {/* <div className={`scene bg-opacity-80 backdrop-blur-sm`} 
           style={{backgroundColor:'var(--accent-pri)'}}
-        >
-          <div
+        > */}
+
+          
+          {/* <div
             style={{
               backgroundColor: isActive ? 'var(--accent)' : 'var(--accent-sec)',
             }}
@@ -120,16 +122,14 @@ export default function Navigation() {
             <div className="cube__face cube__face--top "></div>
             <div className="cube__face cube__face--bottom "></div>
           </div>
-        </div>
+        </div> */}
 
         <span
-          className="self-center p-3 font-mono text-sm"
+          className="self-center p-3 font-mono text-sm cursor-pointer page-title"
           style={{ color: 'var(--text-color)' }}
+          onClick={() => setIsModalOpen(true)} // Open modal on click
         > 
-
-          {/* TODO: ADD GLOBAL PAGE TITLE */}
-          <AnimatedText type={AnimStyle.CHARFADE} content="Riki Sommers"></AnimatedText>
-          
+          'Available for work'
         </span>
       </motion.div>
 
@@ -192,6 +192,21 @@ export default function Navigation() {
 
         </div>
       </div>
+
+      {/* Modal component */}
+      <Modal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)}
+        direction={ModalDirection.RIGHT} // Use the constant here
+      >
+        <div className="p-8 h-vh66"
+             style={{backgroundColor: 'var(--accent-pri)'}}>
+
+          <h2>Hello, I'm available for work!</h2>
+          <p>This is some sample content for the modal. You can customize this as needed.</p>
+          <button onClick={() => setIsModalOpen(false)}>Close</button>
+        </div>
+      </Modal>
     </div>
   );
 }

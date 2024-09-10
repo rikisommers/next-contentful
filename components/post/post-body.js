@@ -38,32 +38,32 @@ export default function PostBody({ content }) {
                   <BlockHeader key={item.id} data={item} ></BlockHeader>
                 )}
                 {item.__typename === "BlockArticle" && (
-                  <AnimatedElement type={AnimStyleEl.FADEIN}>
+                  // <AnimatedElement type={AnimStyleEl.FADEIN}>
                     <BlockArticle key={item.id} data={item} />
-                  </AnimatedElement>
+                  // </AnimatedElement>
                 )}
                 {item.__typename === "BlockArticles" && (
                     <BlockArticles key={item.id} data={item} />
                 )}
                 {item.__typename === "BlockImage" && (
-                  <AnimatedElement type={AnimStyleEl.FADEIN}>
+                  // <AnimatedElement type={AnimStyleEl.FADEIN}>
                     <BlockImg key={item.id} data={item} />
-                  </AnimatedElement>
+                  // </AnimatedElement>
                 )}
                 {item.__typename === "BlockHotspotImage" && (
-                  <AnimatedElement type={AnimStyleEl.FADEIN}>
+                  // <AnimatedElement type={AnimStyleEl.FADEIN}>
                     <BlockHotspotImg key={item.id} data={item} />
-                  </AnimatedElement>
+                  // </AnimatedElement>
                 )}
                 {item.__typename === "BlockIg" && (
-                  <AnimatedElement type={AnimStyleEl.FADEIN}>
+                  // <AnimatedElement type={AnimStyleEl.FADEIN}>
                     <BlockImages key={item.id} data={item} />
-                  </AnimatedElement>
+                  // </AnimatedElement>
                 )}
                 {item.__typename === "BlockQuote" && (
-                 <AnimatedElement type={AnimStyleEl.FADEIN}>
+                //  <AnimatedElement type={AnimStyleEl.FADEIN}>
                   <BlockQuote key={item.id} data={item} />
-                  </AnimatedElement>
+                  // </AnimatedElement>
                 )}
                 {item.__typename === "BlockEmbed" && (
                   <AnimatedElement type={AnimStyleEl.FADEIN}>

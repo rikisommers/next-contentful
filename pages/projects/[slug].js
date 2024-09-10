@@ -84,9 +84,9 @@ export default function Post({ post, nextPost, footerData }) {
             </div>
           )}
 
-          {/* {footerData && (
+          {footerData && (
             <BlockFooter data={footerData} />
-          )} */}
+          )}
         {/* </ScrollContainer> */}
       </TransitionTilt>
       <TransitionWipe />

@@ -1,187 +1,101 @@
-import { useEffect, useState, useRef } from "react";
-import {
-  motion,
-  useTransform,
-  useMotionValue,
-  cubicBezier,
-} from "framer-motion";
-import { useRouter } from "next/navigation";
-import { ScrollableBox } from "../utils/scrollable";
-import NextPost from "./post-next";
+import React from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Close from "../base/close";
 
+export const ModalDirection = {
+  LEFT: "left",
+  RIGHT: "right",
+  TOP: "top",
+  BOTTOM: "bottom",
+};
+
+export const ModalWidth = {
+  FULL: "full",
+  HALF: "1/2",
+  THIRD: "1/3",
+  QUARTER: "1/4",
+  PANEL_SM: "panel-sm",
+};
+
+export const ModalPosition = {
+  TOP_LEFT: "top-left",
+  TOP_RIGHT: "top-right",
+  BOTTOM_LEFT: "bottom-left",
+  BOTTOM_RIGHT: "bottom-right",
+  CENTER: "center",
+};
 
 const Modal = ({
   isOpen,
   onClose,
   children,
-  nextPost,
-  reset,
-  name,
-  setName,
-  slug
+  direction = ModalDirection.RIGHT,
+  width = ModalWidth.PANEL_SM,  // Default changed to PANEL_SM
+  position = ModalPosition.BOTTOM_RIGHT,  // Default changed to BOTTOM_RIGHT
 }) => {
-  const [isClosing, setIsClosing] = useState(false);
-  const [isActive, setIsActive] = useState(false);
-  const [cpv, setCpv] = useState(null);
-
-  const [isHovered, setIsHovered] = useState(false);
-
-  const handleHoverStart = () => {
-    setIsHovered(true);
-  };
-
-  const handleHoverEnd = () => {
-    setIsHovered(false);
-  };
-
-
-  const router = useRouter();
-  const post = router.query.post;
-
-  const [scrollValue, setScrollValue] = useState(0);
-
-  const handleScrollChange = (value) => {
-    setScrollValue(value);
-
-    if (value <= 1000) {
-      x.set(value);
-
-      if (value <= 200) {
-        setIsActive(false);
-      }
-
-      if (value > 200) {
-        setScrollValue(0);
-        setScrollValue(0);
-        setIsActive(true);
-      }
-    }
-  };
-
-  useEffect(() => {
-    if (isClosing === true) {
-      setIsActive(true);
-    }
-  }, [isClosing]);
-  useEffect(() => {
-    if (isClosing === true) {
-      setIsActive(true);
-    }
-  }, [isClosing]);
-
-  const easing = cubicBezier(0.33, 1, 0.68, 1);
-  const x = useMotionValue(0);
-
-  const input = [0, 200];
-  const cpyo = [8, 0.01];
-  const cpxo = [1.5, 0.01];
-  const ro = [1, 0];
-
-  const yv = useTransform(x, input, cpyo, { easing });
-  const xv = useTransform(x, input, cpxo, { easing });
-  const rv = useTransform(x, input, ro, { easing });
-
-  let clipPathValue = `inset(${yv.current}rem ${xv.current}rem 0px round ${rv.current}rem ${rv.current}rem 0px 0px)`;
-//  const clipPathValueInitial = `inset(90vh 0px 0px round 8rem 8rem 0rem 0rem)`;
-  const clipPathValueExit = `inset(0px 0px 100vh round 8rem 8rem 8rem 8rem)`;
-
-
-
-
-
-  const scrollRef = useRef(null);
-
-  const closeModal = () => {
-    setScrollValue(0);
-    onClose();
-    handleResetLenis;
-    console.log("closing from modal onCLose");
-
-    clipPathValue = clipPathValueExit;
-  };
-
-  const modalRef = useRef(null);
-
-  useEffect(() => {
-    setCpv(clipPathValue);
-  }, [isOpen]);
-
-
-  const bgVariants = {
-    active: { opacity: 1 },
-    inactive: { opacity: 0 },
-    transition: {
-      duration: 0.3,
+  const directionVariants = {
+    [ModalDirection.LEFT]: {
+      initial: { x: "-100%", opacity: 1 },
+      animate: { x: 0, opacity: 1 },
+      exit: { x: "-100%", opacity: 1 },
+    },
+    [ModalDirection.RIGHT]: {
+      initial: { x: "100%", opacity: 1 },
+      animate: { x: 0, opacity: 1 },
+      exit: { x: "100%", opacity: 1 },
+    },
+    [ModalDirection.TOP]: {
+      initial: { y: "-100%", opacity: 1 },
+      animate: { y: 0, opacity: 1 },
+      exit: { y: "-100%", opacity: 1 },
+    },
+    [ModalDirection.BOTTOM]: {
+      initial: { y: "100%", opacity: 1 },
+      animate: { y: 0, opacity: 1 },
+      exit: { y: "100%", opacity: 1 },
     },
   };
-  const wrapperVariants = {
-    active: {
-      y: 0,
-    },
-    inactive: {
-      y: "100vh",
-    },
-  };
-  
 
-  const handleResetLenis = () => {
-    if (scrollRef.current) {
-      scrollRef.current.resetLenis();
-    }
+  const selectedVariant = directionVariants[direction] || directionVariants[ModalDirection.RIGHT];
+
+  const widthClasses = {
+    [ModalWidth.FULL]: "w-full",
+    [ModalWidth.PANEL_SM]: "w-panel-sm",
   };
+
+  const positionClasses = {
+    [ModalPosition.TOP_LEFT]: "top-0 left-0",
+    [ModalPosition.TOP_RIGHT]: "top-0 right-0",
+    [ModalPosition.BOTTOM_LEFT]: "bottom-0 left-0",
+    [ModalPosition.BOTTOM_RIGHT]: "bottom-0 right-0",
+    [ModalPosition.CENTER]: "top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2",
+  };
+
+  const modalClasses = `fixed h-vh66 shadow-2xl z-80 ${widthClasses[width]} ${positionClasses[position]}`;
 
   return (
-    <>
-      <motion.div
-        ref={modalRef}
-        initial={"inactive"}
-        animate={isOpen ? "active" : "inactive"}
-        variants={wrapperVariants}
-        transition={{
-          duration: 0.6,
-          ease: [0.33, 1, 0.68, 1],
-        }}
-        style={{ clipPath: clipPathValue }}
-        className="fixed w-full h-full top-0 z-80 flex inset shadow-2xl"
-      >
-  
-        <Close isActive={isActive} onClick={() => closeModal()}/>
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          variants={selectedVariant}
+          transition={{
+            duration: 0.6,
+            ease: [0.33, 1, 0.68, 1],
+          }}
+          className={modalClasses}
+        >
+          <Close onClick={onClose} />
 
-        <motion.div className="bg-white z-10 flex flex-grow">
-          <ScrollableBox
-            ref={scrollRef}
-            onScrollChange={handleScrollChange}
-            onClose={closeModal}
-            orientation={"vertical"}
-            name={name}
-            setName={setName}
-          >
-            <motion.article
-              className="py-32  relative z-10 overflow-hidden mb-vhh bg-white rounded-xl"
-              initial={{
-                y: "100vh",
-              }}
-              animate={{
-                opacity: 1,
-                y: 0,
-              }}
-              exit={{
-                y: router.pathname === "/posts/[slug]" ? "-36vh" : 0,
-              }}
-              transition={{
-                ease: [0.33, 1, 0.68, 1],
-                duration: 0.6,
-              }}
-            >
+          <motion.div className="relative z-10 overflow-hidden rounded-xl">
+           
               {children}
-            </motion.article>
-          </ScrollableBox>
+          </motion.div>
         </motion.div>
-      </motion.div>
-
-
-    </>
+      )}
+    </AnimatePresence>
   );
 };
 

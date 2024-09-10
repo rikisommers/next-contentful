@@ -26,10 +26,9 @@ export default function PostHeader({ content }) {
 
         <PostTileImgAlt post={content} />
       </AnimatedElement>
-      <AnimatedElement type={AnimStyle.FADEIN}>
-
-      <PostDetails post={content}></PostDetails>
-      </AnimatedElement>
+      {/* <AnimatedElement type={AnimStyle.FADEIN}> */}
+        <PostDetails post={content}></PostDetails>
+      {/* </AnimatedElement> */}
     </>
   );
 }
