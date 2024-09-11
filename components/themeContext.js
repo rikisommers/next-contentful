@@ -1,8 +1,3 @@
-
-
-
-
-// themeContext.js
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { themes, getThemeByKey } from "../utils/theme";
 
@@ -17,6 +12,7 @@ export const ThemeProvider = ({ children }) => {
       audio: themes.custom.audio !== undefined ? themes.custom.audio : true,
     };
   });
+  const [isThemeDialogOpen, setIsThemeDialogOpen] = useState(false);
 
   const updateTheme = (newTheme) => {
     setCurrentTheme(newTheme);
@@ -36,7 +32,12 @@ export const ThemeProvider = ({ children }) => {
   }, []);
 
   return (
-    <ThemeContext.Provider value={{ currentTheme, updateTheme }}>
+    <ThemeContext.Provider value={{ 
+      currentTheme, 
+      updateTheme, 
+      isThemeDialogOpen, 
+      setIsThemeDialogOpen 
+    }}>
       {children}
     </ThemeContext.Provider>
   );

@@ -1,7 +1,8 @@
-import Link from "next/link";
-import { motion, cubicBezier, useAnimation } from "framer-motion";
+import React, { useRef } from "react";
+import { useThemeContext } from '../themeContext';
+import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { useEffect, useState, useContext, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useScrollPosition } from "../scrollPosContext";
 import { gsap } from "gsap";
 import { Draggable } from "gsap/dist/Draggable";
@@ -9,7 +10,8 @@ import CtxMenu from "../base/ctx-menu";
 import ThemeEditor from "./themeEditor";
 import Button, { ButtonType, ButtonSound } from "../base/button";
 import AnimatedText, { AnimStyle } from "../motion/animated-text";
-import Modal, { ModalDirection } from "../base/modal"; // Import Modal and ModalDirection
+import Modal, { ModalDirection, ModalWidth, ModalPosition } from "../base/modal";
+import Link from "next/link";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(Draggable);
@@ -22,17 +24,14 @@ export default function Navigation() {
   const { scrollPosition } = useScrollPosition();
   const [isActive, setIsActive] = useState(false);
   const [offset, setOffset] = useState(0);
-  const [isOpen, setIsOpen] = useState(false);
-  const controls = useAnimation();
-  const [isModalOpen, setIsModalOpen] = useState(false); // State for modal
+  const [isThemeEditorOpen, setIsThemeEditorOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { isThemeDialogOpen, setIsThemeDialogOpen } = useThemeContext();
 
-  const toggleTheme = () => {
-    setIsOpen(!isOpen);
+  // Function to toggle the ThemeEditor modal
+  const toggleThemeEditor = () => {
+    setIsThemeDialogOpen(prev => !prev);
   };
-
-  useEffect(() => {
-    controls.start(isOpen ? "visible" : "hidden");
-  }, [controls, isOpen]);
 
   useEffect(() => {
     if (router.asPath !== router.route) {
@@ -50,44 +49,32 @@ export default function Navigation() {
     } else {
       setIsActive(false);
     }
-
-    console.log("sc", scrollPosition);
   }, [scrollPosition]);
 
   const pages = [
-    {
-      id: "home",
-      title: "Home",
-      url: "/",
-    },
-    {
-      id: "work",
-      title: "Work",
-      url: "/work",
-    },
-    {
-      id: "blog",
-      title: "Blog",
-      url: "/blog",
-    },
-    {
-      id: "about",
-      title: "About",
-      url: "/bio",
-    },
+    { id: "home", title: "Home", url: "/" },
+    { id: "work", title: "Work", url: "/work" },
+    { id: "blog", title: "Blog", url: "/blog" },
+    { id: "about", title: "About", url: "/bio" },
   ];
 
   const [activePage, setActivePage] = useState(pages[0].id);
 
   return (
-    <div className="fixed z-50 flex justify-between w-full p-6 rounded-full">
+    <motion.div 
+      className="fixed z-50 flex justify-between p-6 rounded-full"
+      animate={{ 
+        width: isThemeDialogOpen ? 'calc(100% - 400px)' : '100%' 
+      }}
+      transition={{
+        duration: 0.6,
+        ease: [0.33, 1, 0.68, 1],
+      }}
+          >
       <motion.div
         style={{
           backgroundColor: 'var(--accent-pri)',
-          color:
-            router.asPath === "/"
-              ? 'var(--text-color)'
-              : 'var(--heading-color)',
+          color: router.asPath === "/" ? 'var(--text-color)' : 'var(--heading-color)',
         }}
         whileHover={{
           style: {
@@ -96,117 +83,98 @@ export default function Navigation() {
         }}
         className={`relative z-50 flex items-center rounded-xl px-4`}
       >
-
-        <div className="w-4 h-4 rounded-full" style={{backgroundColor:'var(--accent-sec)'}}>
-        </div>
-        {/* <div className={`scene bg-opacity-80 backdrop-blur-sm`} 
-          style={{backgroundColor:'var(--accent-pri)'}}
-        > */}
-
-          
-          {/* <div
-            style={{
-              backgroundColor: isActive ? 'var(--accent)' : 'var(--accent-sec)',
-            }}
-            className={`cube ${isActive ? "show-right" : ""}`}
-          >
-            <div className="cube__face cube__face--front">
-              <img src="/logo3.svg" viewBox="0 0 32 32"></img>
-            </div>
-            <div className="cube__face cube__face--back "></div>
-            <div className=" cube__face cube__face--right">
-             <img src="/back.svg" viewBox="0 0 32 32"></img>
-
-            </div>
-            <div className="cube__face cube__face--left "></div>
-            <div className="cube__face cube__face--top "></div>
-            <div className="cube__face cube__face--bottom "></div>
-          </div>
-        </div> */}
-
+        <div className="w-4 h-4 rounded-full" style={{backgroundColor:'var(--accent-sec)'}}></div>
         <span
           className="self-center p-3 font-mono text-sm cursor-pointer page-title"
           style={{ color: 'var(--text-color)' }}
-          onClick={() => setIsModalOpen(true)} // Open modal on click
+          onClick={() => setIsModalOpen(true)}
         > 
           'Available for work'
         </span>
       </motion.div>
 
-      <div className="flex gap-2">
-        <div ref={menuRef} className="flex items-center gap-1 rounded-lg">
-          <div className="relative z-50 flex gap-1 bg-black bg-opacity-50 rounded-xl backdrop-blur-lg"
-          
-          >
-            {pages.map((page) => (
-              <Link
-                key={page.id}
-                href={page.url}
-                scroll={false}
-                onClick={() => setActivePage(page.id)}
-                className="relative flex items-center text-sm uppercase rounded-lg"
-                style={{color: 'var(--text-color-inv)'}}
-              >
-                {activePage === page.id && (
-                  <motion.div
-                    layoutId="indicator"
-                    style={{
-                      backgroundColor: 'var(--accent-pri)',
-                    }}
-                     
-                    className="absolute top-0 left-0 flex w-full h-full bg-opacity-50 rounded-xl"
-                  ></motion.div>
-                )}
-                <Button label={page.title} type={ButtonType.TRANSPARENT}/>
-
-              </Link>
-            ))}
-
-            <Button label={'Contact'} sound={ButtonSound.ON}
-              type={ButtonType.TRANSPARENT}
-            ></Button>
-            
-          </div>
+      <motion.div 
+        ref={menuRef} 
+        className="flex items-center gap-1 rounded-lg"
+        animate={{ 
+          x: isThemeDialogOpen ? '-200px' : 0 // Adjust this value as needed
+        }}
+        transition={{ duration: 0.3 }}
+      >
+        <div className="relative z-50 flex gap-1 bg-black bg-opacity-50 rounded-xl backdrop-blur-lg">
+          {pages.map((page) => (
+            <Link
+              key={page.id}
+              href={page.url}
+              scroll={false}
+              onClick={() => setActivePage(page.id)}
+              className="relative flex items-center text-sm uppercase rounded-lg"
+              style={{color: 'var(--text-color-inv)'}}
+            >
+              {activePage === page.id && (
+                <motion.div
+                  layoutId="indicator"
+                  style={{
+                    backgroundColor: 'var(--accent-pri)',
+                  }}
+                  className="absolute top-0 left-0 flex w-full h-full bg-opacity-50 rounded-xl"
+                ></motion.div>
+              )}
+              <Button label={page.title} type={ButtonType.TRANSPARENT}/>
+            </Link>
+          ))}
+          <Button label={'Contact'} sound={ButtonSound.ON} type={ButtonType.TRANSPARENT}></Button>
         </div>
-      </div>
+      </motion.div>
 
-      <div className="flex items-center gap-1 rounded-lg">
+      <motion.div 
+        className="flex items-center gap-1 rounded-lg"
+      >
         <div className="relative z-50 flex gap-1 bg-opacity-50 rounded-xl backdrop-blur-lg"
         style={{backgroundColor: 'var(--background-color)'}}>
-
           <Button label={"Audio"} />
-          
           <div className="relative">
-          
-
-
-            {/* TODO: Add audio */}
-            <Button click={toggleTheme} label={"Theme"} type={ButtonType.SECONDARY}/>
-            {isOpen && (
-              <div className="absolute right-0 w-[350px] mt-2 rounded shadow-lg top-full"
-              style={{backgroundColor: 'var(--body-background-color)'}}>
-                <ThemeEditor />
-              </div>
-            )}
+            <Button 
+              click={toggleThemeEditor}
+              label={"Theme"} 
+              type={ButtonType.SECONDARY}
+            />
           </div>
-
         </div>
-      </div>
+      </motion.div>
 
-      {/* Modal component */}
+      {/* Modal for "Available for work" */}
       <Modal 
         isOpen={isModalOpen} 
         onClose={() => setIsModalOpen(false)}
-        direction={ModalDirection.RIGHT} // Use the constant here
+        direction={ModalDirection.RIGHT}
+        width={ModalWidth.PANEL_SM}
+        position={ModalPosition.BOTTOM_RIGHT}
       >
         <div className="p-8 h-vh66"
              style={{backgroundColor: 'var(--accent-pri)'}}>
-
           <h2>Hello, I'm available for work!</h2>
           <p>This is some sample content for the modal. You can customize this as needed.</p>
           <button onClick={() => setIsModalOpen(false)}>Close</button>
         </div>
       </Modal>
-    </div>
+
+      {/* Modal for ThemeEditor */}
+      <Modal 
+        isOpen={isThemeDialogOpen} 
+        onClose={toggleThemeEditor}
+        direction={ModalDirection.RIGHT}
+        width={ModalWidth.PANEL_SM}
+        position={ModalPosition.BOTTOM_RIGHT}
+        bodyClass="theme-dialog-open"
+      >
+        <div className="w-full h-screen p-8 overflow-y-auto"
+             >
+          <h2>Theme Editor</h2>
+          <ThemeEditor />
+          <button onClick={toggleThemeEditor}>Close</button>
+        </div>
+      </Modal>
+    </motion.div>
   );
 }

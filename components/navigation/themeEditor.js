@@ -128,28 +128,39 @@ export default function ThemeEditor() {
   const transitionOptions = currentTheme.transitionThemes || defaultTransitionThemes;
 
   return (
-    <div className="theme-editor">
-      <select value={currentTheme.key} onChange={handleThemeChange}>
-        {Object.keys(themes).map((themeKey) => (
-          <option key={themeKey} value={themeKey}>
-            {themeKey}
-          </option>
-        ))}
-        <option value="custom">Custom</option>
-      </select>
+    <div className="p-4 theme-editor">
+      <div className="mb-4">
+        <label htmlFor="themeSelect" className="block mb-2 text-sm font-medium">Select Theme</label>
+        <select
+          id="themeSelect"
+          value={currentTheme.key}
+          onChange={handleThemeChange}
+          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          {Object.keys(themes).map((themeKey) => (
+            <option key={themeKey} value={themeKey}>
+              {themeKey}
+            </option>
+          ))}
+          <option value="custom">Custom</option>
+        </select>
+      </div>
 
       {/* Global options */}
-      <div>
-        <label htmlFor="audio">Audio</label>
-        <input
-          type="checkbox"
-          id="audio"
-          checked={currentTheme.audio}
-          onChange={(e) => handleGlobalOptionChange('audio', e.target.checked)}
-        />
+      <div className="mb-4">
+        <label htmlFor="audio" className="flex items-center">
+          <input
+            type="checkbox"
+            id="audio"
+            checked={currentTheme.audio}
+            onChange={(e) => handleGlobalOptionChange('audio', e.target.checked)}
+            className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+          />
+          <span className="ml-2 text-sm font-medium">Audio</span>
+        </label>
       </div>
-      <div>
-        <label htmlFor="volume">Volume</label>
+      <div className="mb-4">
+        <label htmlFor="volume" className="block mb-2 text-sm font-medium">Volume</label>
         <input
           type="range"
           id="volume"
@@ -158,14 +169,16 @@ export default function ThemeEditor() {
           step="0.1"
           value={currentTheme.volume}
           onChange={(e) => handleGlobalOptionChange('volume', parseFloat(e.target.value))}
+          className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
         />
       </div>
-      <div>
-        <label htmlFor="mixBlendMode">Mix Blend Mode</label>
+      <div className="mb-4">
+        <label htmlFor="mixBlendMode" className="block mb-2 text-sm font-medium">Mix Blend Mode</label>
         <select
           id="mixBlendMode"
           value={currentTheme.mixBlendMode}
           onChange={(e) => handleGlobalOptionChange('mixBlendMode', e.target.value)}
+          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           {['normal', 'multiply', 'screen', 'overlay', 'darken', 'lighten', 'color-dodge', 'color-burn', 'hard-light', 'soft-light', 'difference', 'exclusion', 'hue', 'saturation', 'color', 'luminosity'].map((mode) => (
             <option key={mode} value={mode}>{mode}</option>
@@ -174,12 +187,13 @@ export default function ThemeEditor() {
       </div>
 
       {/* Typography option */}
-      <div>
-        <label htmlFor="typography">Typography</label>
+      <div className="mb-4">
+        <label htmlFor="typography" className="block mb-2 text-sm font-medium">Typography</label>
         <select
           id="typography"
           value={currentTheme.typography || 'sans'}
           onChange={(e) => handleGlobalOptionChange('typography', e.target.value)}
+          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           {Object.entries(typographyOptions).map(([key, value]) => (
             <option key={key} value={key}>{value}</option>
@@ -188,12 +202,13 @@ export default function ThemeEditor() {
       </div>
 
       {/* Transition option */}
-      <div>
-        <label htmlFor="transition">Transition</label>
+      <div className="mb-4">
+        <label htmlFor="transition" className="block mb-2 text-sm font-medium">Transition</label>
         <select
           id="transition"
           value={currentTheme.transition || 'wide'}
           onChange={(e) => handleGlobalOptionChange('transition', e.target.value)}
+          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           {Object.entries(transitionOptions).map(([key, value]) => (
             <option key={key} value={key}>{value}</option>
@@ -201,28 +216,33 @@ export default function ThemeEditor() {
         </select>
       </div>
 
-      {/* Existing color options */}
+      {/* Color options */}
       {Object.entries(currentTheme).map(([key, value]) => {
         if (typeof value === 'string' && value.startsWith('#')) {
           return (
-            <div key={key}>
-              <label htmlFor={key}>{key}</label>
+            <div key={key} className="flex items-center mb-4">
               <input
                 type="color"
                 id={key}
                 value={value}
                 onChange={(e) => handleColorChange(key, e.target.value)}
                 disabled={currentTheme.key !== 'custom'}
+                className={`w-8 h-8 rounded-md mr-2 ${currentTheme.key === 'custom' ? 'border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500' : ''}`}
               />
+              <label htmlFor={key} className="text-sm font-medium">{key}</label>
             </div>
           );
         }
         return null;
       })}
-      <button onClick={handleApply} disabled={isSaving}>
+      <button
+        onClick={handleApply}
+        disabled={isSaving}
+        className="w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 disabled:opacity-50"
+      >
         {isSaving ? 'Saving...' : 'Apply'}
       </button>
-      {saveError && <p className="error">Error saving theme: {saveError}</p>}
+      {saveError && <p className="mt-2 text-red-500">Error saving theme: {saveError}</p>}
     </div>
   );
 }

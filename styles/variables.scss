@@ -15,13 +15,15 @@
   --accent-sec: #FCD00A;
   --text-accent: #BED3CD;
   --mix-blend-mode: luminosity;
-  --nav-bg: #C0C6C9;
+  --nav-bg: #F8FBF8;
   --button-default-bg:var(--nav-bg);
   --button-default-text:var(--text-color);
   --button-primary-bg:var(--accent-pri);
   --button-primary-text:var(--text-color-inv);
   --button-secondary-bg:var(--accent-sec);
   --button-secondary-text:var(--text-color-inv);
+  --font-family-primary: 'Arial', sans-serif;
+  --font-family-secondary: 'Georgia', serif;
 }
 [data-theme='light'] {
   --body-background-color: #fafafa;
@@ -43,6 +45,8 @@
   --button-primary-text:var(--text-color-inv);
   --button-secondary-bg:var(--accent-sec);
   --button-secondary-text:var(--text-color-inv);
+  --font-family-primary: 'Arial', sans-serif;
+  --font-family-secondary: 'Georgia', serif;
 }
 [data-theme='dark'] {
   --body-background-color: #E47362;
@@ -68,6 +72,8 @@
   --button-primary-text:var(--text-color-inv);
   --button-secondary-bg:var(--accent-sec);
   --button-secondary-text:var(--text-color-inv);
+  --font-family-primary: 'Arial', sans-serif;
+  --font-family-secondary: 'Georgia', serif;
 }
 
 
@@ -95,6 +101,8 @@
   --button-primary-text:var(--text-color-inv);
   --button-secondary-bg:var(--accent-sec);
   --button-secondary-text:var(--text-color-inv);
+  --font-family-primary: 'Arial', sans-serif;
+  --font-family-secondary: 'Georgia', serif;
 }
 
 ​

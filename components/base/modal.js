@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Close from "../base/close";
 
@@ -30,9 +30,21 @@ const Modal = ({
   onClose,
   children,
   direction = ModalDirection.RIGHT,
-  width = ModalWidth.PANEL_SM,  // Default changed to PANEL_SM
-  position = ModalPosition.BOTTOM_RIGHT,  // Default changed to BOTTOM_RIGHT
+  width = ModalWidth.PANEL_SM,
+  position = ModalPosition.BOTTOM_RIGHT,
+  bodyClass = "", // New prop for body class
 }) => {
+  useEffect(() => {
+    if (isOpen && bodyClass) {
+      document.body.classList.add(bodyClass);
+    }
+    return () => {
+      if (bodyClass) {
+        document.body.classList.remove(bodyClass);
+      }
+    };
+  }, [isOpen, bodyClass]);
+
   const directionVariants = {
     [ModalDirection.LEFT]: {
       initial: { x: "-100%", opacity: 1 },
@@ -71,7 +83,7 @@ const Modal = ({
     [ModalPosition.CENTER]: "top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2",
   };
 
-  const modalClasses = `fixed h-vh66 shadow-2xl z-80 ${widthClasses[width]} ${positionClasses[position]}`;
+  const modalClasses = `fixed shadow-2xl z-80 ${widthClasses[width]} ${positionClasses[position]}`;
 
   return (
     <AnimatePresence>
@@ -89,8 +101,7 @@ const Modal = ({
         >
           <Close onClick={onClose} />
 
-          <motion.div className="relative z-10 overflow-hidden rounded-xl">
-           
+          <motion.div className="z-10 flex flex-grow bg-white">
               {children}
           </motion.div>
         </motion.div>

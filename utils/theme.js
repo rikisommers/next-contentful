@@ -804,6 +804,8 @@ const colorThemes = {
     textAccent: '#E0A575', // Lighter terracotta
     mixBlendMode: 'overlay',
     stateSuccessBackground: '#4CAF50', // Green
+    fontFamilyPrimary: "'Helvetica Neue', Arial, sans-serif",
+    fontFamilySecondary: "'Arial', sans-serif",
   },
 
   coolAndCollected: {
@@ -827,6 +829,8 @@ const colorThemes = {
     textAccent: '#9FA8DA', // Light indigo
     mixBlendMode: 'screen',
     stateSuccessBackground: '#4CAF50', // Green
+    fontFamilyPrimary: "'Georgia', serif",
+    fontFamilySecondary: "'Times New Roman', serif",
   },
 
   earthyAndSerene: {
@@ -850,6 +854,8 @@ const colorThemes = {
     textAccent: '#E0C097', // Sandy tones
     mixBlendMode: 'soft-light',
     stateSuccessBackground: '#4CAF50', // Green
+    fontFamilyPrimary: "'Courier New', monospace",
+    fontFamilySecondary: "'Lucida Console', monospace",
   },
 
   textureAndContrast: {
@@ -857,7 +863,7 @@ const colorThemes = {
     audio: true,
     volume: 0.5,
     bodyBackgroundColor: '#212121', // Dark gray
-    backgroundColor: '#FFFFFF', // White
+    backgroundColor:'#212121', // White
     surface1: '#D81B60', // Raspberry
     surface2: '#388E3C', // Green
     surface3: '#009688', // Teal
@@ -873,6 +879,8 @@ const colorThemes = {
     textAccent: '#009688', // Teal
     mixBlendMode: 'difference',
     stateSuccessBackground: '#4CAF50', // Green
+    fontFamilyPrimary: "'Roboto', sans-serif",
+    fontFamilySecondary: "'Open Sans', sans-serif",
   },
 
   mechanicalAndFloaty: {
@@ -896,6 +904,8 @@ const colorThemes = {
     textAccent: '#40C4FF', // Light blue
     mixBlendMode: 'exclusion',
     stateSuccessBackground: '#4CAF50', // Green
+    fontFamilyPrimary: "'Playfair Display', serif",
+    fontFamilySecondary: "'Merriweather', serif",
   },
 
   pixelIntensity: {
@@ -919,6 +929,8 @@ const colorThemes = {
     textAccent: '#FFC107', // Amber
     mixBlendMode: 'hard-light',
     stateSuccessBackground: '#4CAF50', // Green
+    fontFamilyPrimary: "'Helvetica Neue', Arial, sans-serif",
+    fontFamilySecondary: "'Arial', sans-serif",
   },
 
   gradientPop: {
@@ -942,6 +954,8 @@ const colorThemes = {
     textAccent: '#FFC107', // Amber
     mixBlendMode: 'color-dodge',
     stateSuccessBackground: '#4CAF50', // Green
+    fontFamilyPrimary: "'Georgia', serif",
+    fontFamilySecondary: "'Times New Roman', serif",
   },
 
   cosmicArtistry: {
@@ -965,6 +979,8 @@ const colorThemes = {
     textAccent: '#4A90E2', // Light blue
     mixBlendMode: 'overlay',
     stateSuccessBackground: '#4CAF50', // Green
+    fontFamilyPrimary: "'Courier New', monospace",
+    fontFamilySecondary: "'Lucida Console', monospace",
   },
 
   vibrantButCalm: {
@@ -988,6 +1004,8 @@ const colorThemes = {
     textAccent: '#FF5252', // Light red
     mixBlendMode: 'soft-light',
     stateSuccessBackground: '#4CAF50', // Green
+    fontFamilyPrimary: "'Roboto', sans-serif",
+    fontFamilySecondary: "'Open Sans', sans-serif",
   },
 
   livelyAndInviting: {
@@ -1011,6 +1029,8 @@ const colorThemes = {
     textAccent: '#FF1493', // Deep pink
     mixBlendMode: 'color',
     stateSuccessBackground: '#4CAF50', // Green
+    fontFamilyPrimary: "'Playfair Display', serif",
+    fontFamilySecondary: "'Merriweather', serif",
   },
 
   strikingAndSimple: {
@@ -1034,6 +1054,8 @@ const colorThemes = {
     textAccent: '#40C4FF', // Light blue
     mixBlendMode: 'screen',
     stateSuccessBackground: '#4CAF50', // Green
+    fontFamilyPrimary: "'Helvetica Neue', Arial, sans-serif",
+    fontFamilySecondary: "'Arial', sans-serif",
   },
 
   redAndLively: {
@@ -1057,6 +1079,8 @@ const colorThemes = {
     textAccent: '#FFC0CB', // Pink
     mixBlendMode: 'hard-light',
     stateSuccessBackground: '#4CAF50', // Green
+    fontFamilyPrimary: "'Georgia', serif",
+    fontFamilySecondary: "'Times New Roman', serif",
   },
 
   artsyAndCreative: {
@@ -1080,6 +1104,8 @@ const colorThemes = {
     textAccent: '#00008B', // Dark blue
     mixBlendMode: 'multiply',
     stateSuccessBackground: '#4CAF50', // Green
+    fontFamilyPrimary: "'Courier New', monospace",
+    fontFamilySecondary: "'Lucida Console', monospace",
   },
 
   elegantYetApproachable: {
@@ -1103,6 +1129,8 @@ const colorThemes = {
     textAccent: '#FFB6C1', // Light pink
     mixBlendMode: 'soft-light',
     stateSuccessBackground: '#4CAF50', // Green
+    fontFamilyPrimary: "'Roboto', sans-serif",
+    fontFamilySecondary: "'Open Sans', sans-serif",
   },
 
   sleekAndFuturistic: {
@@ -1126,6 +1154,8 @@ const colorThemes = {
     textAccent: '#87CEEB', // Sky blue
     mixBlendMode: 'screen',
     stateSuccessBackground: '#4CAF50', // Green
+    fontFamilyPrimary: "'Playfair Display', serif",
+    fontFamilySecondary: "'Merriweather', serif",
   },
 
   innovativeAndAudacious: {
@@ -1149,9 +1179,10 @@ const colorThemes = {
     textAccent: '#FF8C69', // Salmon
     mixBlendMode: 'hard-light',
     stateSuccessBackground: '#4CAF50', // Green
+    fontFamilyPrimary: "'Helvetica Neue', Arial, sans-serif",
+    fontFamilySecondary: "'Arial', sans-serif",
   },
 };
-
 
 // Text Animation themes
 const textAnimationThemes = {
@@ -1172,15 +1203,31 @@ const textAnimationThemes = {
 
 
 // Type Themes
-const typeopgaphyThemes = {
+const typographyThemes = {
   sans: {
-    font: 'sans'
+    font: 'sans',
+    fontFamilyPrimary: "'Helvetica Neue', Arial, sans-serif",
+    fontFamilySecondary: "'Arial', sans-serif",
   },
   serif: {
-    font: 'serif'
+    font: 'serif',
+    fontFamilyPrimary: "'Georgia', serif",
+    fontFamilySecondary: "'Times New Roman', serif",
   },
   mono: {
-    font: 'mono'
+    font: 'mono',
+    fontFamilyPrimary: "'Courier New', monospace",
+    fontFamilySecondary: "'Lucida Console', monospace",
+  },
+  modern: {
+    font: 'modern',
+    fontFamilyPrimary: "'Roboto', sans-serif",
+    fontFamilySecondary: "'Open Sans', sans-serif",
+  },
+  classic: {
+    font: 'classic',
+    fontFamilyPrimary: "'Playfair Display', serif",
+    fontFamilySecondary: "'Merriweather', serif",
   },
 };
 
@@ -1232,209 +1279,261 @@ export const themes = {
   light: {
     key: 'light', // Key for the light theme
     ...colorThemes.light,
+    ...typographyThemes.sans, // Default to sans
   },
   dark: {
     key: 'dark', // Key for the dark theme
     ...colorThemes.dark,
+    ...typographyThemes.sans, // Default to sans
   },
   tokyo: {
     key: 'tokyo', // Key for the tokyo theme
     ...colorThemes.tokyo,
+    ...typographyThemes.sans, // Default to sans
   },
   custom: {
     key: 'custom', // Key for the custom theme
     ...colorThemes.custom,
+    ...typographyThemes.sans, // Default to sans
   },
   amberMonochrome: {
     key: 'amberMonochrome', // Key for the amber monochrome theme
     ...colorThemes.amberMonochrome,
+    ...typographyThemes.sans, // Default to sans
   },
   greenPhosphor: {
     key: 'greenPhosphor', // Key for the green phosphor theme
     ...colorThemes.greenPhosphor,
+    ...typographyThemes.sans, // Default to sans
   },
   ibmPcXt: {
     key: 'ibmPcXt', // Key for the IBM PC XT theme
     ...colorThemes.ibmPcXt,
+    ...typographyThemes.sans, // Default to sans
   },
   commodore64: {
     key: 'commodore64',
     ...colorThemes.commodore64,
+    ...typographyThemes.sans, // Default to sans
   },
   appleII: {
     key: 'appleII',
     ...colorThemes.appleII,
+    ...typographyThemes.sans, // Default to sans
   },
   zxSpectrum: {
     key: 'zxSpectrum',
     ...colorThemes.zxSpectrum,
+    ...typographyThemes.sans, // Default to sans
   },
   atari8bit: {
     key: 'atari8bit',
     ...colorThemes.atari8bit,
+    ...typographyThemes.sans, // Default to sans
   },
   msdos: {
     key: 'msdos',
     ...colorThemes.msdos,
+    ...typographyThemes.sans, // Default to sans
   },
   amigaWorkbench: {
     key: 'amigaWorkbench',
     ...colorThemes.amigaWorkbench,
+    ...typographyThemes.sans, // Default to sans
   },
   nes: {
     key: 'nes',
     ...colorThemes.nes,
+    ...typographyThemes.sans, // Default to sans
   },
   gameboy: {
     key: 'gameboy',
     ...colorThemes.gameboy,
+    ...typographyThemes.sans, // Default to sans
   },
   sega: {
     key: 'sega',
     ...colorThemes.sega,
+    ...typographyThemes.sans, // Default to sans
   },
   mustang69: {
     key: 'mustang69',
     ...colorThemes.mustang69,
+    ...typographyThemes.sans, // Default to sans
   },
   camaro69: {
     key: 'camaro69',
     ...colorThemes.camaro69,
+    ...typographyThemes.sans, // Default to sans
   },
   corvette72: {
     key: 'corvette72',
     ...colorThemes.corvette72,
+    ...typographyThemes.sans, // Default to sans
   },
   beetle68: {
     key: 'beetle68',
     ...colorThemes.beetle68,
+    ...typographyThemes.sans, // Default to sans
   },
   audi80: {
     key: 'audi80',
     ...colorThemes.audi80,
+    ...typographyThemes.sans, // Default to sans
   },
   porsche911: {
     key: 'porsche911',
     ...colorThemes.porsche911,
+    ...typographyThemes.sans, // Default to sans
   },
   spiritedAway: {
     key: 'spiritedAway',
     ...colorThemes.spiritedAway,
+    ...typographyThemes.sans, // Default to sans
   },
   myNeighborTotoro: {
     key: 'myNeighborTotoro',
     ...colorThemes.myNeighborTotoro,
+    ...typographyThemes.sans, // Default to sans
   },
   howlsMovingCastle: {
     key: 'howlsMovingCastle',
     ...colorThemes.howlsMovingCastle,
+    ...typographyThemes.sans, // Default to sans
   },
   sakuraBreeze: {
     key: 'sakuraBreeze',
     ...colorThemes.sakuraBreeze,
+    ...typographyThemes.sans, // Default to sans
   },
   zenGarden: {
     key: 'zenGarden',
     ...colorThemes.zenGarden,
+    ...typographyThemes.sans, // Default to sans
   },
   pastelAnime: {
     key: 'pastelAnime',
     ...colorThemes.pastelAnime,
+    ...typographyThemes.sans, // Default to sans
   },
   deathNote: {
     key: 'deathNote',
     ...colorThemes.deathNote,
+    ...typographyThemes.sans, // Default to sans
   },
   attackOnTitan: {
     key: 'attackOnTitan',
     ...colorThemes.attackOnTitan,
+    ...typographyThemes.sans, // Default to sans
   },
   tokyoGhoul: {
     key: 'tokyoGhoul',
     ...colorThemes.tokyoGhoul,
+    ...typographyThemes.sans, // Default to sans
   },
   akc12: {
     key: 'akc12',
     ...colorThemes.akc12,
+    ...typographyThemes.sans, // Default to sans
   },
   taikonColor24: {
     key: 'taikonColor24',
     ...colorThemes.taikonColor24,
+    ...typographyThemes.sans, // Default to sans
   },
   eightVision: {
     key: 'eightVision',
     ...colorThemes.eightVision,
+    ...typographyThemes.sans, // Default to sans
   },
   cgaPalette0Low: {
     key: 'cgaPalette0Low',
     ...colorThemes.cgaPalette0Low,
+    ...typographyThemes.sans, // Default to sans
   },
   metallicChic: {
     key: 'metallicChic',
     ...colorThemes.metallicChic,
+    ...typographyThemes.sans, // Default to sans
   },
   deepVintageMood: {
     key: 'deepVintageMood',
     ...colorThemes.deepVintageMood,
+    ...typographyThemes.sans, // Default to sans
   },
   coolAndCollected: {
     key: 'coolAndCollected',
     ...colorThemes.coolAndCollected,
+    ...typographyThemes.sans, // Default to sans
   },
   earthyAndSerene: {
     key: 'earthyAndSerene',
     ...colorThemes.earthyAndSerene,
+    ...typographyThemes.sans, // Default to sans
   },
   textureAndContrast: {
     key: 'textureAndContrast',
     ...colorThemes.textureAndContrast,
+    ...typographyThemes.sans, // Default to sans
   },
   mechanicalAndFloaty: {
     key: 'mechanicalAndFloaty',
     ...colorThemes.mechanicalAndFloaty,
+    ...typographyThemes.sans, // Default to sans
   },
   pixelIntensity: {
     key: 'pixelIntensity',
     ...colorThemes.pixelIntensity,
+    ...typographyThemes.sans, // Default to sans
   },
   gradientPop: {
     key: 'gradientPop',
     ...colorThemes.gradientPop,
+    ...typographyThemes.sans, // Default to sans
   },
   cosmicArtistry: {
     key: 'cosmicArtistry',
     ...colorThemes.cosmicArtistry,
+    ...typographyThemes.sans, // Default to sans
   },
   vibrantButCalm: {
     key: 'vibrantButCalm',
     ...colorThemes.vibrantButCalm,
+    ...typographyThemes.sans, // Default to sans
   },
   livelyAndInviting: {
     key: 'livelyAndInviting',
     ...colorThemes.livelyAndInviting,
+    ...typographyThemes.sans, // Default to sans
   },
   strikingAndSimple: {
     key: 'strikingAndSimple',
     ...colorThemes.strikingAndSimple,
+    ...typographyThemes.sans, // Default to sans
   },
   redAndLively: {
     key: 'redAndLively',
     ...colorThemes.redAndLively,
+    ...typographyThemes.sans, // Default to sans
   },
   artsyAndCreative: {
     key: 'artsyAndCreative',
     ...colorThemes.artsyAndCreative,
+    ...typographyThemes.sans, // Default to sans
   },
   elegantYetApproachable: {
     key: 'elegantYetApproachable',
     ...colorThemes.elegantYetApproachable,
+    ...typographyThemes.sans, // Default to sans
   },
   sleekAndFuturistic: {
     key: 'sleekAndFuturistic',
     ...colorThemes.sleekAndFuturistic,
+    ...typographyThemes.sans, // Default to sans
   },
   innovativeAndAudacious: {
     key: 'innovativeAndAudacious',
     ...colorThemes.innovativeAndAudacious,
+    ...typographyThemes.sans, // Default to sans
   },
 };
