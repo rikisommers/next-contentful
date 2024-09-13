@@ -7,7 +7,8 @@ export const TextAnimLineUp = ({
   delay,
   content, 
   animateWhenInView = false,
-  repeatWhenInView = false
+  repeatWhenInView = false,
+  type = 'text'
 }) => {
 
   const ref = useRef(null);
@@ -64,7 +65,9 @@ export const TextAnimLineUp = ({
                 <span
                   key={segmentIndex}
                   style={{
-                    color: 'var(--text-accent)',
+                    backgroundColor: 'var(--text-accent)',
+                    //textDecoration: 'underline',
+                    //color: 'var(--text-accent)',
                   }}
                 >
                   {segment}

@@ -135,6 +135,7 @@ console.log('data',data)
 
   return (
        <Layout>
+        {/* <div className="noise"></div> */}
         {/* <canvas 
         ref={canvasRef} 
         id="canvas"

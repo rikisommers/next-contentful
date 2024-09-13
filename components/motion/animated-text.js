@@ -10,6 +10,16 @@ import TextAnimCode from "../motion/text-anim-code";
 
 // import TextAnimCharBlur from "./text-anim-char-blur";  // Uncomment when implemented
 
+const HighlightStyle = {
+    NONE: "none",
+    TEXT: "text",
+    BACKGROUND: "background",
+    HIGHLIGHT: "highlight",
+    UNDERLINE: "underline",
+};
+
+
+
 const AnimStyle = {
     LINESUP: "lines-up",
     LINEPOSUP: "line-pos-up",
@@ -30,13 +40,14 @@ const AnimTextOrder = {
 
 
 
-const getAnimatedComponent = (type, content ,delay) => {
+const getAnimatedComponent = (type,  highlight,content,  delay) => {
     if(content){
     switch (type) {
         case AnimStyle.LINESUP:
             return <TextAnimLinePosUp 
             content={content} 
             delay={delay}
+            highlight={highlight}
             animateWhenInView={true}
             repeatWhenInView={true}
             />;
@@ -44,20 +55,24 @@ const getAnimatedComponent = (type, content ,delay) => {
             return <TextAnimLineUp
             content={content}
             delay={delay}
+            highlight={highlight}
             animateWhenInView={true}
             repeatWhenInView={true}
             />;
         case AnimStyle.LINEFADEIN:
             return <TextAnimLineFadeIn 
             delay={delay}
+            highlight={highlight}
             content={content} />;
         case AnimStyle.CHARFADE:
             return <TextAnimLinear 
             delay={delay}
+            highlight={highlight}
             content={content} />;
         case AnimStyle.CHARBLUR:
             return <TextAnimBlur 
             delay={delay}
+            highlight={highlight}
             content={content} />;
         case AnimStyle.CHARRANDOM:
             return <TextAnimRandom content={content} />;
@@ -67,13 +82,14 @@ const getAnimatedComponent = (type, content ,delay) => {
             return <TextAnimLineUp 
             content={content} 
             delay={delay}
+            highlight={highlight}
             clipText={false} />;
     }
     }
 };
 
-const AnimatedText = ({ type = AnimStyle.LINEPOSUP, content ,delay}) => {
-    return getAnimatedComponent(type, content, delay);
+const AnimatedText = ({ type = AnimStyle.LINEPOSUP, highlight = HighlightStyle.TEXT, content ,delay}) => {
+    return getAnimatedComponent(type, highlight, content, delay);
 };
 
 AnimatedText.propTypes = {
@@ -82,4 +98,4 @@ AnimatedText.propTypes = {
 };
 
 export default AnimatedText;
-export { AnimStyle,AnimTextOrder };
+export { AnimStyle,HighlightStyle,AnimTextOrder };

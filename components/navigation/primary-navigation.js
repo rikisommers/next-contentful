@@ -62,28 +62,20 @@ export default function Navigation() {
 
   return (
     <motion.div 
-      className="fixed z-50 flex justify-between p-6 rounded-full"
-      animate={{ 
-        width: isThemeDialogOpen ? 'calc(100% - 400px)' : '100%' 
-      }}
-      transition={{
-        duration: 0.6,
-        ease: [0.33, 1, 0.68, 1],
-      }}
-          >
+      className="fixed z-50 flex justify-between w-full p-6 rounded-full">
       <motion.div
         style={{
-          backgroundColor: 'var(--accent-pri)',
+          backgroundColor: 'var(--accent)',
           color: router.asPath === "/" ? 'var(--text-color)' : 'var(--heading-color)',
         }}
         whileHover={{
           style: {
-            backgroundColor: 'var(--accent-pri)',
+            backgroundColor: 'var(--accent)',
           }
         }}
         className={`relative z-50 flex items-center rounded-xl px-4`}
       >
-        <div className="w-4 h-4 rounded-full" style={{backgroundColor:'var(--accent-sec)'}}></div>
+        <div className="w-4 h-4 rounded-full" style={{backgroundColor:'var(--accent-pri)'}}></div>
         <span
           className="self-center p-3 font-mono text-sm cursor-pointer page-title"
           style={{ color: 'var(--text-color)' }}
@@ -96,10 +88,7 @@ export default function Navigation() {
       <motion.div 
         ref={menuRef} 
         className="flex items-center gap-1 rounded-lg"
-        animate={{ 
-          x: isThemeDialogOpen ? '-200px' : 0 // Adjust this value as needed
-        }}
-        transition={{ duration: 0.3 }}
+  
       >
         <div className="relative z-50 flex gap-1 bg-black bg-opacity-50 rounded-xl backdrop-blur-lg">
           {pages.map((page) => (
@@ -109,7 +98,7 @@ export default function Navigation() {
               scroll={false}
               onClick={() => setActivePage(page.id)}
               className="relative flex items-center text-sm uppercase rounded-lg"
-              style={{color: 'var(--text-color-inv)'}}
+              style={{color: 'var(--heading-color)'}}
             >
               {activePage === page.id && (
                 <motion.div
@@ -128,19 +117,14 @@ export default function Navigation() {
       </motion.div>
 
       <motion.div 
-        className="flex items-center gap-1 rounded-lg"
-      >
-        <div className="relative z-50 flex gap-1 bg-opacity-50 rounded-xl backdrop-blur-lg"
-        style={{backgroundColor: 'var(--background-color)'}}>
-          <Button label={"Audio"} />
-          <div className="relative">
+        className="flex items-center gap-1 rounded-lg">
+
             <Button 
               click={toggleThemeEditor}
               label={"Theme"} 
               type={ButtonType.SECONDARY}
             />
-          </div>
-        </div>
+   
       </motion.div>
 
       {/* Modal for "Available for work" */}

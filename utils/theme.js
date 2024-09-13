@@ -868,15 +868,15 @@ const colorThemes = {
     surface2: '#388E3C', // Green
     surface3: '#009688', // Teal
     backgroundColorInv: '#000000', // Black
-    headingColor: '#E91E63', // Pink
+    headingColor:  '#C0C6C9', // Pink
     textColor: '#212121', // Dark gray
-    subtextColor: '#607D8B', // Blue-gray
+    subtextColor: '#887F74', // Blue-gray
     textColorInv: '#FFFFFF', // White
-    accent: '#FF5722', // Orange
+    accent: '#887F74', // Orange
     navBg: '#FFFFFF', // White
     accentPri: '#556B2F', // Olive green
-    accentSec: '#FFA726', // Light orange
-    textAccent: '#009688', // Teal
+    accentSec: '#556B2F', // Light orange
+    textAccent: '#556B2F', // Teal
     mixBlendMode: 'difference',
     stateSuccessBackground: '#4CAF50', // Green
     fontFamilyPrimary: "'Roboto', sans-serif",

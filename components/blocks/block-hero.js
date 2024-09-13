@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import Audio from "../navigation/audio";
 import Link from "next/link";
 import Background from "../utils/background";
-import AnimatedText,{AnimStyle, AnimTextOrder} from "../motion/animated-text";
+import AnimatedText,{AnimStyle, HighlightStyle, AnimTextOrder} from "../motion/animated-text";
 import { TextAnimLineUp } from "../motion/text-anim-line-up";
 import TextAnimationUp from "../motion/text-animation-up";
 
@@ -19,7 +19,7 @@ export default function BlockHero({
 
   return (
     <div data-name="hero-container"
-      className={`relative transition ease-in-out w-full h-screen`}
+      className={`relative transition ease-in-out w-full h-screen noisy`}
       style={{ background: 'var(--body-background-color)' }}
     >
 {/* 
@@ -37,7 +37,9 @@ export default function BlockHero({
             /> */}
              <p>{title}</p>
             <h1 className="text-4xl font-medium text-center font-aon">
-              <AnimatedText type={AnimStyle.LINEPOSUP} content={titlealt} delay={AnimTextOrder.ONE}/>
+              <AnimatedText type={AnimStyle.LINEPOSUP} 
+               highlight={HighlightStyle.TEXT}
+               content={titlealt} delay={AnimTextOrder.ONE}/>
               {/* <TextScramble content={['Plan,Design & buid','wear many hats','like fart jokes']}/> */}
             </h1>
               <h2 className="text-xl text-center font-regular"

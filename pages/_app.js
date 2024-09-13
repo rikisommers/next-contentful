@@ -25,6 +25,9 @@ function MainContent({ Component, pageProps, router }) {
   };
 
   return (
+    <>
+          <Navigation />
+        
     <motion.div 
       className="push-content"
       animate={{ 
@@ -35,11 +38,11 @@ function MainContent({ Component, pageProps, router }) {
         ease: [0.33, 1, 0.68, 1],
       }}
     >
-      <Navigation />
       <AnimatePresence mode="wait" initial={false}>
         <Component {...pageProps} key={router.asPath} />
       </AnimatePresence>
     </motion.div>
+    </>
   );
 }
 
