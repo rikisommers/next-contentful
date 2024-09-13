@@ -2,8 +2,9 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import { HighlightedSegment } from "./text-anim-highlighted-segment";
 
-export const TextAnimBlur = ({ content, delay }) => {
+export const TextAnimBlur = ({ content, delay, highlight }) => {
   const characterVariants = {
     hidden: { 
       opacity: 0, 
@@ -55,17 +56,18 @@ export const TextAnimBlur = ({ content, delay }) => {
     </motion.span>
   );
 
+
   const renderColoredText = (text, index) => (
     <motion.span
-      style={{
-        color: 'var(--text-accent)',
-      }}
       key={index}
       variants={lineVariants}
       initial="hidden"
       animate="visible"
     >
-      {text.split("").map(renderCharacter)}
+      <HighlightedSegment
+        segment={text}
+        highlight={highlight}
+      />
     </motion.span>
   );
 

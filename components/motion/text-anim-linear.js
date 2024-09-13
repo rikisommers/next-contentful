@@ -2,8 +2,9 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import { HighlightedSegment } from "./text-anim-highlighted-segment";
 
-export const TextAnimLinear = ({ content ,delay}) => {
+export const TextAnimLinear = ({ content ,delay, highlight}) => {
 
   const characterVariants = {
     hidden: { opacity: 0 },
@@ -81,7 +82,18 @@ export const TextAnimLinear = ({ content ,delay}) => {
             </motion.div>
           ));
         } else {
-          return renderColoredText(segment, index);
+          return (
+            <motion.span
+              key={index}
+              variants={lineVariants}
+              initial="hidden"
+              animate="visible"
+            >
+              <HighlightedSegment highlight={highlight}>
+                {segment.split("").map(renderCharacter)}
+              </HighlightedSegment>
+            </motion.span>
+          );
         }
       });
     }

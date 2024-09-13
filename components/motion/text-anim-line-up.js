@@ -2,10 +2,12 @@
 
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { HighlightedSegment } from "./text-anim-highlighted-segment";
 
 export const TextAnimLineUp = ({ 
   delay,
   content, 
+  highlight,
   animateWhenInView = false,
   repeatWhenInView = false,
   type = 'text'
@@ -62,16 +64,11 @@ export const TextAnimLineUp = ({
               return <span key={segmentIndex}>{segment}</span>;
             } else {
               return (
-                <span
+                <HighlightedSegment
                   key={segmentIndex}
-                  style={{
-                    backgroundColor: 'var(--text-accent)',
-                    //textDecoration: 'underline',
-                    //color: 'var(--text-accent)',
-                  }}
-                >
-                  {segment}
-                </span>
+                  segment={segment}
+                  highlight={highlight}
+                />
               );
             }
           })}

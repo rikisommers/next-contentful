@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-export const TextAnimLineFadeIn = ({ content ,delay}) => {
+export const TextAnimLineFadeIn = ({ content ,delay, highlight}) => {
 
   const container = {
     initial: { opacity: 0.5 },

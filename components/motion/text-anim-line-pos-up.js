@@ -6,6 +6,7 @@ import { motion, useInView } from "framer-motion";
 export const TextAnimLinePosUp = ({
   delay,
   content,
+  highlight,
   animateWhenInView = false,
   repeatWhenInView = false,
 }) => {
