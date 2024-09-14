@@ -1224,21 +1224,13 @@ const colorThemes = {
 };
 
 // Text Animation themes
-const textAnimationThemes = {
-  fadeup: {
-    title: 'fadeup',
-    subtitle: 'fadeup'
-  },
-  fadein: {
-    title: 'fadeup',
-    subtitle: 'fadeup'
-  },
-  fadecharsin: {
-    title: 'fadechars',
-    subtitle: 'fadecahars'
-  },
+export const textAnimationThemes = {
+  none: "none",
+  linesfadeup:'fadeup',
+  linesmoveup:'fadeup',
+  charsfadein:'fadechars',
+  charsblurin: 'blurchars',
 };
-
 
 
 const textHighlightThemes = {
@@ -1251,7 +1243,7 @@ const textHighlightThemes = {
 
 
 // Type Themes
-const typographyThemes = {
+export const typographyThemes = {
   sans: {
     font: 'sans',
     fontFamilyPrimary: "'Helvetica Neue', Arial, sans-serif",
@@ -1279,19 +1271,16 @@ const typographyThemes = {
   },
 };
 
-const transitionThemes = {
-  wide: {
-    layout: 'none'
-  },
-  narrow: {
-    layout: 'narrow'
-  },
-  grid: {
-    layout: 'grid'
-  },
-  column: {
-    layout: 'column'
-  }
+export const pageTransitionThemes = {
+  fade:'fade',
+  wipe:'wipe',
+  none:'none'
+};
+
+export const pageWidthThemes = {
+  small:'small',
+  large: 'large',
+  fluid: 'fluid'
 };
 
 
@@ -1329,288 +1318,384 @@ export const themes = {
     ...colorThemes.light,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   dark: {
     key: 'dark', // Key for the dark theme
     ...colorThemes.dark,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   tokyo: {
     key: 'tokyo', // Key for the tokyo theme
     ...colorThemes.tokyo,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   custom: {
     key: 'custom', // Key for the custom theme
     ...colorThemes.custom,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   amberMonochrome: {
     key: 'amberMonochrome', // Key for the amber monochrome theme
     ...colorThemes.amberMonochrome,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   greenPhosphor: {
     key: 'greenPhosphor', // Key for the green phosphor theme
     ...colorThemes.greenPhosphor,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   ibmPcXt: {
     key: 'ibmPcXt', // Key for the IBM PC XT theme
     ...colorThemes.ibmPcXt,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   commodore64: {
     key: 'commodore64',
     ...colorThemes.commodore64,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   appleII: {
     key: 'appleII',
     ...colorThemes.appleII,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   zxSpectrum: {
     key: 'zxSpectrum',
     ...colorThemes.zxSpectrum,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   atari8bit: {
     key: 'atari8bit',
     ...colorThemes.atari8bit,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   msdos: {
     key: 'msdos',
     ...colorThemes.msdos,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   amigaWorkbench: {
     key: 'amigaWorkbench',
     ...colorThemes.amigaWorkbench,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   nes: {
     key: 'nes',
     ...colorThemes.nes,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   gameboy: {
     key: 'gameboy',
     ...colorThemes.gameboy,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   sega: {
     key: 'sega',
     ...colorThemes.sega,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   mustang69: {
     key: 'mustang69',
     ...colorThemes.mustang69,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   camaro69: {
     key: 'camaro69',
     ...colorThemes.camaro69,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   corvette72: {
     key: 'corvette72',
     ...colorThemes.corvette72,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   beetle68: {
     key: 'beetle68',
     ...colorThemes.beetle68,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   audi80: {
     key: 'audi80',
     ...colorThemes.audi80,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   porsche911: {
     key: 'porsche911',
     ...colorThemes.porsche911,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   spiritedAway: {
     key: 'spiritedAway',
     ...colorThemes.spiritedAway,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   myNeighborTotoro: {
     key: 'myNeighborTotoro',
     ...colorThemes.myNeighborTotoro,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   howlsMovingCastle: {
     key: 'howlsMovingCastle',
     ...colorThemes.howlsMovingCastle,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   sakuraBreeze: {
     key: 'sakuraBreeze',
     ...colorThemes.sakuraBreeze,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   zenGarden: {
     key: 'zenGarden',
     ...colorThemes.zenGarden,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   pastelAnime: {
     key: 'pastelAnime',
     ...colorThemes.pastelAnime,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   deathNote: {
     key: 'deathNote',
     ...colorThemes.deathNote,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   attackOnTitan: {
     key: 'attackOnTitan',
     ...colorThemes.attackOnTitan,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   tokyoGhoul: {
     key: 'tokyoGhoul',
     ...colorThemes.tokyoGhoul,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   akc12: {
     key: 'akc12',
     ...colorThemes.akc12,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   taikonColor24: {
     key: 'taikonColor24',
     ...colorThemes.taikonColor24,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   eightVision: {
     key: 'eightVision',
     ...colorThemes.eightVision,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   cgaPalette0Low: {
     key: 'cgaPalette0Low',
     ...colorThemes.cgaPalette0Low,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   metallicChic: {
     key: 'metallicChic',
     ...colorThemes.metallicChic,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   deepVintageMood: {
     key: 'deepVintageMood',
     ...colorThemes.deepVintageMood,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   coolAndCollected: {
     key: 'coolAndCollected',
     ...colorThemes.coolAndCollected,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   earthyAndSerene: {
     key: 'earthyAndSerene',
     ...colorThemes.earthyAndSerene,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   textureAndContrast: {
     key: 'textureAndContrast',
     ...colorThemes.textureAndContrast,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   mechanicalAndFloaty: {
     key: 'mechanicalAndFloaty',
     ...colorThemes.mechanicalAndFloaty,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   pixelIntensity: {
     key: 'pixelIntensity',
     ...colorThemes.pixelIntensity,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   gradientPop: {
     key: 'gradientPop',
     ...colorThemes.gradientPop,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   cosmicArtistry: {
     key: 'cosmicArtistry',
     ...colorThemes.cosmicArtistry,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   vibrantButCalm: {
     key: 'vibrantButCalm',
     ...colorThemes.vibrantButCalm,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   livelyAndInviting: {
     key: 'livelyAndInviting',
     ...colorThemes.livelyAndInviting,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   strikingAndSimple: {
     key: 'strikingAndSimple',
     ...colorThemes.strikingAndSimple,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   redAndLively: {
     key: 'redAndLively',
     ...colorThemes.redAndLively,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   artsyAndCreative: {
     key: 'artsyAndCreative',
@@ -1623,17 +1708,23 @@ export const themes = {
     ...colorThemes.elegantYetApproachable,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   sleekAndFuturistic: {
     key: 'sleekAndFuturistic',
     ...colorThemes.sleekAndFuturistic,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
   innovativeAndAudacious: {
     key: 'innovativeAndAudacious',
     ...colorThemes.innovativeAndAudacious,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
   },
 };

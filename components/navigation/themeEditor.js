@@ -1,5 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { themes, textHighlightThemes } from "../../utils/theme";
+import { 
+  themes,
+   typographyThemes,
+   textAnimationThemes,
+   textHighlightThemes, 
+   pageTransitionThemes, 
+   pageWidthThemes } from "../../utils/theme";
 import { debounce } from "../utils/debounce";
 
 // Fallback values
@@ -10,22 +16,36 @@ const defaultTypographyThemes = {
 };
 
 const defaultTextHighlightThemes = {
-  text: 'text',
-  background: 'background',
-  highlight: 'highlight',
-  underline: 'underline',
-  none: 'none',
+  text: "text",
+  background: "background",
+  underline: "underline",
+  highlight: "highlight",
+  none: "none"
 };
 
-const defaultTransitionThemes = {
-  wide: 'Wide',
-  narrow: 'Narrow',
-  fade: 'Fade',
+const defaultPageTransitionThemes = {
+  fade: 'fade',
+  wipe: 'wipe',
+  none: 'none'
+};
+
+const defaultPageWidthThemes = {
+  small: 'small',
+  large: 'large',
+  fluid: 'fluid'
+};
+
+const defaultTextAnimationThemes = {
+  none: "none",
+  linesfadeup: 'fadeup',
+  linesmoveup: 'fadeup',
+  charsfadein: 'fadechars',
+  charsblurin: 'blurchars'
 };
 
 console.log('Imported themes:', themes);
 console.log('Imported typographyThemes:', defaultTypographyThemes);
-console.log('Imported transitionThemes:', defaultTransitionThemes);
+console.log('Imported transitionThemes:', defaultPageTransitionThemes);
 console.log('Imported textHighlightThemes:', defaultTextHighlightThemes);
 
 export default function ThemeEditor() {
@@ -56,8 +76,11 @@ export default function ThemeEditor() {
     // Apply global options
     root.style.setProperty('--mix-blend-mode', updatedTheme.mixBlendMode || 'normal');
     root.style.setProperty('--text-highlight', updatedTheme.textHighlight || 'text');
-    // You might want to handle audio and volume differently, perhaps through a separate audio context
-
+    root.style.setProperty('--text-animation', updatedTheme.textAnimation || 'linesup');
+    root.style.setProperty('--page-transition', updatedTheme.pageTransition || 'fade');
+    root.style.setProperty('--page-width', updatedTheme.pageWidth || 'fluid');
+    
+    
     localStorage.setItem("currentTheme", JSON.stringify(updatedTheme));
   }, []);
 
@@ -136,9 +159,10 @@ export default function ThemeEditor() {
 
   const typographyOptions = currentTheme.typographyThemes || defaultTypographyThemes;
   const textHighlightOptions = currentTheme.textHighlightThemes || defaultTextHighlightThemes;
-
-  const transitionOptions = currentTheme.transitionThemes || defaultTransitionThemes;
-
+  const pageTransitionOptions = currentTheme.transitionThemes || defaultPageTransitionThemes;
+  const pageWidthOptions = currentTheme.pageWidthThemes || defaultPageWidthThemes;
+  const textAnimationOptions = currentTheme.textAnimationThemes || defaultTextAnimationThemes;
+  
   return (
     <div className="p-4 theme-editor">
       <div className="mb-4">
@@ -217,12 +241,12 @@ export default function ThemeEditor() {
       <div className="mb-4">
         <label htmlFor="transition" className="block mb-2 text-sm font-medium">Transition</label>
         <select
-          id="transition"
-          value={currentTheme.transition || 'wide'}
-          onChange={(e) => handleGlobalOptionChange('transition', e.target.value)}
+          id="pageTransition"
+          value={currentTheme.pageTransition || 'wide'}
+          onChange={(e) => handleGlobalOptionChange('pageTransition', e.target.value)}
           className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
-          {Object.entries(transitionOptions).map(([key, value]) => (
+          {Object.entries(pageTransitionOptions).map(([key, value]) => (
             <option key={key} value={key}>{value}</option>
           ))}
         </select>
@@ -238,6 +262,36 @@ export default function ThemeEditor() {
           className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           {Object.entries(textHighlightOptions).map(([key, value]) => (
+            <option key={key} value={key}>{value}</option>
+          ))}
+        </select>
+      </div>
+
+      {/* Page Width option */}
+      <div className="mb-4">
+        <label htmlFor="pageWidth" className="block mb-2 text-sm font-medium">Page Width</label>
+        <select
+          id="pageWidth"
+          value={currentTheme.pageWidth || 'fluid'}
+          onChange={(e) => handleGlobalOptionChange('pageWidth', e.target.value)}
+          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          {Object.entries(pageWidthOptions).map(([key, value]) => (
+            <option key={key} value={key}>{value}</option>
+          ))}
+        </select>
+      </div>
+
+      {/* Text Animation option */}
+      <div className="mb-4">
+        <label htmlFor="textAnimation" className="block mb-2 text-sm font-medium">Text Animation</label>
+        <select
+          id="textAnimation"
+          value={currentTheme.textAnimation || 'none'}
+          onChange={(e) => handleGlobalOptionChange('textAnimation', e.target.value)}
+          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          {Object.entries(textAnimationOptions).map(([key, value]) => (
             <option key={key} value={key}>{value}</option>
           ))}
         </select>
