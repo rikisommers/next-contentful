@@ -1,5 +1,8 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+
 import {TextAnimLineUp} from "./text-anim-line-up";
 import { TextAnimLinePosUp } from "./text-anim-line-pos-up";
 import {TextAnimLinear} from "./text-anim-linear";
@@ -7,7 +10,8 @@ import {TextAnimRandom} from "./text-anim-random";
 import { TextAnimBlur } from "./text-anim-blur";
 import { TextAnimLineFadeIn } from "./text-anim-line-fade";
 import TextAnimCode from "../motion/text-anim-code";
-
+import { useTheme } from 'next-themes';
+import { getThemeByKey } from '../../utils/theme';
 // import TextAnimCharBlur from "./text-anim-char-blur";  // Uncomment when implemented
 
 const HighlightStyle = {
@@ -88,7 +92,34 @@ const getAnimatedComponent = (type,  highlight,content,  delay) => {
     }
 };
 
-const AnimatedText = ({ type = AnimStyle.LINEPOSUP, highlight = HighlightStyle.TEXT, content ,delay}) => {
+const AnimatedText = ({ type = AnimStyle.LINEPOSUP, content ,delay}) => {
+
+    const [highlight, setHighlight] = useState('text'); // Default value
+
+  useEffect(() => {
+    const getTextHighlight = () => {
+      const root = document.documentElement;
+      const computedStyle = getComputedStyle(root);
+      return computedStyle.getPropertyValue('--text-highlight').trim() || 'text';
+    };
+
+    setHighlight(getTextHighlight());
+
+    // Optional: Add a MutationObserver to watch for changes in the data-theme attribute
+    const observer = new MutationObserver(() => {
+      setHighlight(getTextHighlight());
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme']
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+
+
     return getAnimatedComponent(type, highlight, content, delay);
 };
 

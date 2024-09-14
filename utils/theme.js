@@ -20,6 +20,7 @@ const colorThemes = {
     textAccent:'#d946ef',
     mixBlendMode:'color',
     stateSuccessBackground:'#d946ef',
+    textHighlight: 'text',
   },
   dark: {
     audio:true,
@@ -41,6 +42,7 @@ const colorThemes = {
     textAccent:'#99f6e4',
     mixBlendMode:'luminosity',
     stateSuccessBackground:'#d946ef',
+    textHighlight: 'text',
   },
   tokyo: {
     audio:true,
@@ -62,6 +64,7 @@ const colorThemes = {
     textAccent:'#BED3CD',
     mixBlendMode:'luminosity',
     stateSuccessBackground:'#BED3CD',
+    textHighlight: 'text',
   },
   amberMonochrome: {
     audio:true,
@@ -83,6 +86,7 @@ const colorThemes = {
     textAccent:'#FFEA00',
     mixBlendMode:'screen',
     stateSuccessBackground:'#4D3D00',
+    textHighlight: 'text',
   },
   greenPhosphor: {
     audio:true,
@@ -104,6 +108,7 @@ const colorThemes = {
     textAccent:'#33FF33',
     mixBlendMode:'screen',
     stateSuccessBackground:'#004400',
+    textHighlight: 'text',
   },
   ibmPcXt: {
     audio:true,
@@ -125,6 +130,7 @@ const colorThemes = {
     textAccent:'#FF5555',
     mixBlendMode:'screen',
     stateSuccessBackground:'#55FF55',
+    textHighlight: 'text',
   },
   commodore64: {
     audio:true,
@@ -146,6 +152,7 @@ const colorThemes = {
     textAccent:'#FFFFFF',
     mixBlendMode:'screen',
     stateSuccessBackground:'#A59FE6',
+    textHighlight: 'text',
   },
   appleII: {
     audio:true,
@@ -167,6 +174,7 @@ const colorThemes = {
     textAccent:'#66FFFF',
     mixBlendMode:'screen',
     stateSuccessBackground:'#555555',
+    textHighlight: 'text',
   },
   zxSpectrum: {
     audio:true,
@@ -188,6 +196,7 @@ const colorThemes = {
     textAccent:'#00FF00',
     mixBlendMode:'screen',
     stateSuccessBackground:'#00D8FF',
+    textHighlight: 'text',
   },
   atari8bit: {
     audio:true,
@@ -209,6 +218,7 @@ const colorThemes = {
     textAccent:'#E0E050',
     mixBlendMode:'screen',
     stateSuccessBackground:'#909090',
+    textHighlight: 'text',
   },
   msdos: {
     audio:true,
@@ -230,6 +240,7 @@ const colorThemes = {
     textAccent:'#FF00FF',
     mixBlendMode:'screen',
     stateSuccessBackground:'#0000F8',
+    textHighlight: 'text',
   },
   amigaWorkbench: {
     audio:true,
@@ -251,6 +262,7 @@ const colorThemes = {
     textAccent:'#00FFFF',
     mixBlendMode:'screen',
     stateSuccessBackground:'#00BBAA',
+    textHighlight: 'text',
   },
   custom: {
     audio:true,
@@ -272,6 +284,7 @@ const colorThemes = {
     textAccent:'#BED3CD',
     mixBlendMode:'luminosity',
     stateSuccessBackground:'#BED3CD',
+    textHighlight: 'text',
   },
   nes: {
     audio:true,
@@ -293,6 +306,7 @@ const colorThemes = {
     textAccent:'#00B800',
     mixBlendMode:'screen',
     stateSuccessBackground:'#00B800',
+    textHighlight: 'text',
   },
   gameboy: {
     audio:true,
@@ -314,6 +328,7 @@ const colorThemes = {
     textAccent:'#0F380F',
     mixBlendMode:'screen',
     stateSuccessBackground:'#8BAC0F',
+    textHighlight: 'text',
   },
   sega: {
     audio:true,
@@ -335,6 +350,7 @@ const colorThemes = {
     textAccent:'#FF00FF',
     mixBlendMode:'screen',
     stateSuccessBackground:'#00FF00',
+    textHighlight: 'text',
   },
   mustang69: {
     audio: true,
@@ -356,6 +372,7 @@ const colorThemes = {
     textAccent: '#D4AF37',
     mixBlendMode: 'overlay',
     stateSuccessBackground: '#006400',
+    textHighlight: 'text',
   },
   camaro69: {
     audio: true,
@@ -398,6 +415,7 @@ const colorThemes = {
     textAccent: '#C41E3A',
     mixBlendMode: 'multiply',
     stateSuccessBackground: '#2E8B57',
+    textHighlight: 'text',
   },
   beetle68: {
     audio: true,
@@ -419,6 +437,7 @@ const colorThemes = {
     textAccent: '#4D7EA8',
     mixBlendMode: 'normal',
     stateSuccessBackground: '#5CB85C',
+    textHighlight: 'text',
   },
   audi80: {
     audio: true,
@@ -440,6 +459,7 @@ const colorThemes = {
     textAccent: '#B30000',
     mixBlendMode: 'overlay',
     stateSuccessBackground: '#4CAF50',
+    textHighlight: 'text',
   },
   porsche911: {
     audio: true,
@@ -461,6 +481,7 @@ const colorThemes = {
     textAccent: '#FF5722',
     mixBlendMode: 'difference',
     stateSuccessBackground: '#66BB6A',
+    textHighlight: 'text',
   },
   spiritedAway: {
     key: 'spiritedAway',
@@ -483,6 +504,7 @@ const colorThemes = {
     textAccent: '#7B3F00', // Rich brown from Kamaji's skin
     mixBlendMode: 'soft-light',
     stateSuccessBackground: '#98D98E', // Soft green from grassy areas
+    textHighlight: 'text',
   },
 
   myNeighborTotoro: {
@@ -506,6 +528,7 @@ const colorThemes = {
     textAccent: '#A52A2A', // Reddish-brown from Satsuki's hair
     mixBlendMode: 'multiply',
     stateSuccessBackground: '#98FB98', // Pale green from grass
+    textHighlight: 'text',
   },
 
   howlsMovingCastle: {
@@ -529,6 +552,7 @@ const colorThemes = {
     textAccent: '#D64161', // Pink-red from Howl's pendant
     mixBlendMode: 'screen',
     stateSuccessBackground: '#90EE90', // Light green from grassy hills
+    textHighlight: 'text',
   },
 
   sakuraBreeze: {
@@ -552,6 +576,7 @@ const colorThemes = {
     textAccent: '#20B2AA', // Light sea green
     mixBlendMode: 'soft-light',
     stateSuccessBackground: '#90EE90', // Light green
+    textHighlight: 'text',
   },
 
   zenGarden: {
@@ -575,6 +600,7 @@ const colorThemes = {
     textAccent: '#4682B4', // Steel blue
     mixBlendMode: 'multiply',
     stateSuccessBackground: '#98FB98', // Pale green
+    textHighlight: 'text',
   },
 
   pastelAnime: {
@@ -598,6 +624,7 @@ const colorThemes = {
     textAccent: '#FF69B4', // Hot pink
     mixBlendMode: 'screen',
     stateSuccessBackground: '#90EE90', // Light green
+    textHighlight: 'text',
   },
 
   deathNote: {
@@ -621,6 +648,7 @@ const colorThemes = {
     textAccent: '#FFD700', // Gold for text accents
     mixBlendMode: 'overlay',
     stateSuccessBackground: '#006400', // Dark green for success states
+    textHighlight: 'text',  
   },
 
   attackOnTitan: {
@@ -644,6 +672,7 @@ const colorThemes = {
     textAccent: '#F4A460', // Sandy brown for text accents
     mixBlendMode: 'multiply',
     stateSuccessBackground: '#556B2F', // Dark olive green for success states
+    textHighlight: 'text',
   },
 
   tokyoGhoul: {
@@ -667,6 +696,7 @@ const colorThemes = {
     textAccent: '#00CED1', // Dark turquoise for text accents
     mixBlendMode: 'hard-light',
     stateSuccessBackground: '#2E8B57', // Sea green for success states
+    textHighlight: 'text',
   },
 
   akc12: {
@@ -690,6 +720,7 @@ const colorThemes = {
     textAccent: '#FFFF00', // Yellow
     mixBlendMode: 'screen',
     stateSuccessBackground: '#008000', // Dark green
+    textHighlight: 'text',
   },
 
   taikonColor24: {
@@ -713,6 +744,7 @@ const colorThemes = {
     textAccent: '#FF8C42', // Orange
     mixBlendMode: 'soft-light',
     stateSuccessBackground: '#6BFF74', // Light green
+    textHighlight: 'text',
   },
 
   eightVision: {
@@ -736,6 +768,7 @@ const colorThemes = {
     textAccent: '#FFFFFF', // White
     mixBlendMode: 'screen',
     stateSuccessBackground: '#00AA00', // Dark green
+    textHighlight: 'text',
   },
 
   cgaPalette0Low: {
@@ -759,6 +792,7 @@ const colorThemes = {
     textAccent: '#AA00AA', // Magenta
     mixBlendMode: 'screen',
     stateSuccessBackground: '#00AA00', // Green
+    textHighlight: 'text',
   },
   metallicChic: {
     key: 'metallicChic',
@@ -781,6 +815,7 @@ const colorThemes = {
     textAccent: '#5C6BC0', // Mid indigo
     mixBlendMode: 'multiply',
     stateSuccessBackground: '#81C784', // Light green
+    textHighlight: 'text',
   },
 
   deepVintageMood: {
@@ -804,8 +839,7 @@ const colorThemes = {
     textAccent: '#E0A575', // Lighter terracotta
     mixBlendMode: 'overlay',
     stateSuccessBackground: '#4CAF50', // Green
-    fontFamilyPrimary: "'Helvetica Neue', Arial, sans-serif",
-    fontFamilySecondary: "'Arial', sans-serif",
+    textHighlight: 'text',
   },
 
   coolAndCollected: {
@@ -829,8 +863,7 @@ const colorThemes = {
     textAccent: '#9FA8DA', // Light indigo
     mixBlendMode: 'screen',
     stateSuccessBackground: '#4CAF50', // Green
-    fontFamilyPrimary: "'Georgia', serif",
-    fontFamilySecondary: "'Times New Roman', serif",
+    textHighlight: 'text',
   },
 
   earthyAndSerene: {
@@ -854,8 +887,7 @@ const colorThemes = {
     textAccent: '#E0C097', // Sandy tones
     mixBlendMode: 'soft-light',
     stateSuccessBackground: '#4CAF50', // Green
-    fontFamilyPrimary: "'Courier New', monospace",
-    fontFamilySecondary: "'Lucida Console', monospace",
+    textHighlight: 'text',
   },
 
   textureAndContrast: {
@@ -879,8 +911,7 @@ const colorThemes = {
     textAccent: '#556B2F', // Teal
     mixBlendMode: 'difference',
     stateSuccessBackground: '#4CAF50', // Green
-    fontFamilyPrimary: "'Roboto', sans-serif",
-    fontFamilySecondary: "'Open Sans', sans-serif",
+    textHighlight: 'text',
   },
 
   mechanicalAndFloaty: {
@@ -904,8 +935,7 @@ const colorThemes = {
     textAccent: '#40C4FF', // Light blue
     mixBlendMode: 'exclusion',
     stateSuccessBackground: '#4CAF50', // Green
-    fontFamilyPrimary: "'Playfair Display', serif",
-    fontFamilySecondary: "'Merriweather', serif",
+    textHighlight: 'text',
   },
 
   pixelIntensity: {
@@ -913,7 +943,7 @@ const colorThemes = {
     audio: true,
     volume: 0.5,
     bodyBackgroundColor: '#000000', // Black
-    backgroundColor: '#FF0000', // Red
+    backgroundColor: '#000000', // Red
     surface1: '#0D47A1', // Blue
     surface2: '#8B0000', // Dark red
     surface3: '#B71C1C', // Darker red
@@ -929,8 +959,7 @@ const colorThemes = {
     textAccent: '#FFC107', // Amber
     mixBlendMode: 'hard-light',
     stateSuccessBackground: '#4CAF50', // Green
-    fontFamilyPrimary: "'Helvetica Neue', Arial, sans-serif",
-    fontFamilySecondary: "'Arial', sans-serif",
+    textHighlight: 'text',
   },
 
   gradientPop: {
@@ -956,6 +985,7 @@ const colorThemes = {
     stateSuccessBackground: '#4CAF50', // Green
     fontFamilyPrimary: "'Georgia', serif",
     fontFamilySecondary: "'Times New Roman', serif",
+    textHighlight: 'text',
   },
 
   cosmicArtistry: {
@@ -981,6 +1011,7 @@ const colorThemes = {
     stateSuccessBackground: '#4CAF50', // Green
     fontFamilyPrimary: "'Courier New', monospace",
     fontFamilySecondary: "'Lucida Console', monospace",
+    textHighlight: 'text',
   },
 
   vibrantButCalm: {
@@ -1006,6 +1037,7 @@ const colorThemes = {
     stateSuccessBackground: '#4CAF50', // Green
     fontFamilyPrimary: "'Roboto', sans-serif",
     fontFamilySecondary: "'Open Sans', sans-serif",
+    textHighlight: 'text',
   },
 
   livelyAndInviting: {
@@ -1031,6 +1063,7 @@ const colorThemes = {
     stateSuccessBackground: '#4CAF50', // Green
     fontFamilyPrimary: "'Playfair Display', serif",
     fontFamilySecondary: "'Merriweather', serif",
+    textHighlight: 'text',
   },
 
   strikingAndSimple: {
@@ -1056,6 +1089,7 @@ const colorThemes = {
     stateSuccessBackground: '#4CAF50', // Green
     fontFamilyPrimary: "'Helvetica Neue', Arial, sans-serif",
     fontFamilySecondary: "'Arial', sans-serif",
+    textHighlight: 'text',
   },
 
   redAndLively: {
@@ -1081,6 +1115,7 @@ const colorThemes = {
     stateSuccessBackground: '#4CAF50', // Green
     fontFamilyPrimary: "'Georgia', serif",
     fontFamilySecondary: "'Times New Roman', serif",
+    textHighlight: 'text',
   },
 
   artsyAndCreative: {
@@ -1106,6 +1141,7 @@ const colorThemes = {
     stateSuccessBackground: '#4CAF50', // Green
     fontFamilyPrimary: "'Courier New', monospace",
     fontFamilySecondary: "'Lucida Console', monospace",
+    textHighlight: 'text',
   },
 
   elegantYetApproachable: {
@@ -1131,6 +1167,7 @@ const colorThemes = {
     stateSuccessBackground: '#4CAF50', // Green
     fontFamilyPrimary: "'Roboto', sans-serif",
     fontFamilySecondary: "'Open Sans', sans-serif",
+    textHighlight: 'text',
   },
 
   sleekAndFuturistic: {
@@ -1156,6 +1193,7 @@ const colorThemes = {
     stateSuccessBackground: '#4CAF50', // Green
     fontFamilyPrimary: "'Playfair Display', serif",
     fontFamilySecondary: "'Merriweather', serif",
+    textHighlight: 'text',
   },
 
   innovativeAndAudacious: {
@@ -1181,6 +1219,7 @@ const colorThemes = {
     stateSuccessBackground: '#4CAF50', // Green
     fontFamilyPrimary: "'Helvetica Neue', Arial, sans-serif",
     fontFamilySecondary: "'Arial', sans-serif",
+    textHighlight: 'text',
   },
 };
 
@@ -1200,6 +1239,15 @@ const textAnimationThemes = {
   },
 };
 
+
+
+const textHighlightThemes = {
+  text: "text",
+  background: "background",
+  underline: "underline",
+  highlight: "highlight",
+  none: "none"
+};
 
 
 // Type Themes
@@ -1280,260 +1328,312 @@ export const themes = {
     key: 'light', // Key for the light theme
     ...colorThemes.light,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   dark: {
     key: 'dark', // Key for the dark theme
     ...colorThemes.dark,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   tokyo: {
     key: 'tokyo', // Key for the tokyo theme
     ...colorThemes.tokyo,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   custom: {
     key: 'custom', // Key for the custom theme
     ...colorThemes.custom,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   amberMonochrome: {
     key: 'amberMonochrome', // Key for the amber monochrome theme
     ...colorThemes.amberMonochrome,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   greenPhosphor: {
     key: 'greenPhosphor', // Key for the green phosphor theme
     ...colorThemes.greenPhosphor,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   ibmPcXt: {
     key: 'ibmPcXt', // Key for the IBM PC XT theme
     ...colorThemes.ibmPcXt,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   commodore64: {
     key: 'commodore64',
     ...colorThemes.commodore64,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   appleII: {
     key: 'appleII',
     ...colorThemes.appleII,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   zxSpectrum: {
     key: 'zxSpectrum',
     ...colorThemes.zxSpectrum,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   atari8bit: {
     key: 'atari8bit',
     ...colorThemes.atari8bit,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   msdos: {
     key: 'msdos',
     ...colorThemes.msdos,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   amigaWorkbench: {
     key: 'amigaWorkbench',
     ...colorThemes.amigaWorkbench,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   nes: {
     key: 'nes',
     ...colorThemes.nes,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   gameboy: {
     key: 'gameboy',
     ...colorThemes.gameboy,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   sega: {
     key: 'sega',
     ...colorThemes.sega,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   mustang69: {
     key: 'mustang69',
     ...colorThemes.mustang69,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   camaro69: {
     key: 'camaro69',
     ...colorThemes.camaro69,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   corvette72: {
     key: 'corvette72',
     ...colorThemes.corvette72,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   beetle68: {
     key: 'beetle68',
     ...colorThemes.beetle68,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   audi80: {
     key: 'audi80',
     ...colorThemes.audi80,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   porsche911: {
     key: 'porsche911',
     ...colorThemes.porsche911,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   spiritedAway: {
     key: 'spiritedAway',
     ...colorThemes.spiritedAway,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   myNeighborTotoro: {
     key: 'myNeighborTotoro',
     ...colorThemes.myNeighborTotoro,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   howlsMovingCastle: {
     key: 'howlsMovingCastle',
     ...colorThemes.howlsMovingCastle,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   sakuraBreeze: {
     key: 'sakuraBreeze',
     ...colorThemes.sakuraBreeze,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   zenGarden: {
     key: 'zenGarden',
     ...colorThemes.zenGarden,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   pastelAnime: {
     key: 'pastelAnime',
     ...colorThemes.pastelAnime,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   deathNote: {
     key: 'deathNote',
     ...colorThemes.deathNote,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   attackOnTitan: {
     key: 'attackOnTitan',
     ...colorThemes.attackOnTitan,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   tokyoGhoul: {
     key: 'tokyoGhoul',
     ...colorThemes.tokyoGhoul,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   akc12: {
     key: 'akc12',
     ...colorThemes.akc12,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   taikonColor24: {
     key: 'taikonColor24',
     ...colorThemes.taikonColor24,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   eightVision: {
     key: 'eightVision',
     ...colorThemes.eightVision,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   cgaPalette0Low: {
     key: 'cgaPalette0Low',
     ...colorThemes.cgaPalette0Low,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   metallicChic: {
     key: 'metallicChic',
     ...colorThemes.metallicChic,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   deepVintageMood: {
     key: 'deepVintageMood',
     ...colorThemes.deepVintageMood,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   coolAndCollected: {
     key: 'coolAndCollected',
     ...colorThemes.coolAndCollected,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   earthyAndSerene: {
     key: 'earthyAndSerene',
     ...colorThemes.earthyAndSerene,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   textureAndContrast: {
     key: 'textureAndContrast',
     ...colorThemes.textureAndContrast,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   mechanicalAndFloaty: {
     key: 'mechanicalAndFloaty',
     ...colorThemes.mechanicalAndFloaty,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   pixelIntensity: {
     key: 'pixelIntensity',
     ...colorThemes.pixelIntensity,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   gradientPop: {
     key: 'gradientPop',
     ...colorThemes.gradientPop,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   cosmicArtistry: {
     key: 'cosmicArtistry',
     ...colorThemes.cosmicArtistry,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   vibrantButCalm: {
     key: 'vibrantButCalm',
     ...colorThemes.vibrantButCalm,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   livelyAndInviting: {
     key: 'livelyAndInviting',
     ...colorThemes.livelyAndInviting,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   strikingAndSimple: {
     key: 'strikingAndSimple',
     ...colorThemes.strikingAndSimple,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   redAndLively: {
     key: 'redAndLively',
     ...colorThemes.redAndLively,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   artsyAndCreative: {
     key: 'artsyAndCreative',
     ...colorThemes.artsyAndCreative,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   elegantYetApproachable: {
     key: 'elegantYetApproachable',
     ...colorThemes.elegantYetApproachable,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   sleekAndFuturistic: {
     key: 'sleekAndFuturistic',
     ...colorThemes.sleekAndFuturistic,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
   innovativeAndAudacious: {
     key: 'innovativeAndAudacious',
     ...colorThemes.innovativeAndAudacious,
     ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
   },
 };

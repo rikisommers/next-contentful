@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { themes } from "../../utils/theme";
+import { themes, textHighlightThemes } from "../../utils/theme";
 import { debounce } from "../utils/debounce";
 
 // Fallback values
@@ -7,6 +7,14 @@ const defaultTypographyThemes = {
   sans: 'Sans-serif',
   serif: 'Serif',
   mono: 'Monospace',
+};
+
+const defaultTextHighlightThemes = {
+  text: 'text',
+  background: 'background',
+  highlight: 'highlight',
+  underline: 'underline',
+  none: 'none',
 };
 
 const defaultTransitionThemes = {
@@ -18,6 +26,7 @@ const defaultTransitionThemes = {
 console.log('Imported themes:', themes);
 console.log('Imported typographyThemes:', defaultTypographyThemes);
 console.log('Imported transitionThemes:', defaultTransitionThemes);
+console.log('Imported textHighlightThemes:', defaultTextHighlightThemes);
 
 export default function ThemeEditor() {
   const [currentTheme, setCurrentTheme] = useState(themes.light);
@@ -45,7 +54,8 @@ export default function ThemeEditor() {
     });
 
     // Apply global options
-    root.style.setProperty('--mix-blend-mode', updatedTheme.mixBlendMode);
+    root.style.setProperty('--mix-blend-mode', updatedTheme.mixBlendMode || 'normal');
+    root.style.setProperty('--text-highlight', updatedTheme.textHighlight || 'text');
     // You might want to handle audio and volume differently, perhaps through a separate audio context
 
     localStorage.setItem("currentTheme", JSON.stringify(updatedTheme));
@@ -125,6 +135,8 @@ export default function ThemeEditor() {
   };
 
   const typographyOptions = currentTheme.typographyThemes || defaultTypographyThemes;
+  const textHighlightOptions = currentTheme.textHighlightThemes || defaultTextHighlightThemes;
+
   const transitionOptions = currentTheme.transitionThemes || defaultTransitionThemes;
 
   return (
@@ -211,6 +223,21 @@ export default function ThemeEditor() {
           className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           {Object.entries(transitionOptions).map(([key, value]) => (
+            <option key={key} value={key}>{value}</option>
+          ))}
+        </select>
+      </div>
+
+      {/* Text Highlight option */}
+      <div className="mb-4">
+        <label htmlFor="textHighlight" className="block mb-2 text-sm font-medium">Text Highlight</label>
+        <select
+          id="textHighlight"
+          value={currentTheme.textHighlight || 'text'}
+          onChange={(e) => handleGlobalOptionChange('textHighlight', e.target.value)}
+          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          {Object.entries(textHighlightOptions).map(([key, value]) => (
             <option key={key} value={key}>{value}</option>
           ))}
         </select>

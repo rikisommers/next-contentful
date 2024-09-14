@@ -37,9 +37,11 @@ export default function BlockHero({
             /> */}
              <p>{title}</p>
             <h1 className="text-4xl font-medium text-center font-aon">
-              <AnimatedText type={AnimStyle.LINEPOSUP} 
+              <AnimatedText 
+               type={AnimStyle.LINEPOSUP} 
                highlight={HighlightStyle.TEXT}
-               content={titlealt} delay={AnimTextOrder.ONE}/>
+               content={titlealt} 
+               delay={AnimTextOrder.ONE}/>
               {/* <TextScramble content={['Plan,Design & buid','wear many hats','like fart jokes']}/> */}
             </h1>
               <h2 className="text-xl text-center font-regular"

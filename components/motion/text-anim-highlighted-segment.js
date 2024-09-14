@@ -7,7 +7,7 @@ export const HighlightedSegment = ({ segment, highlight }) => {
         case 'text':
           return { color: 'var(--accent)' };
         case 'background':
-          return { backgroundColor: 'var(--accent-primary)' };
+          return { backgroundColor: 'var(--accent)' };
         case 'underline':
           return { textDecoration: 'underline', textDecorationColor: 'var(--accent)' };
         case 'highlight':
