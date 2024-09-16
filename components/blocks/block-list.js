@@ -51,7 +51,7 @@ export default function BlockList({ data }) {
         return (
           <article className="flex flex-col gap-3 article-content">
             <div className="flex flex-col gap-3 p-8 justfy-between">
-              <div className="flex flex-col w-full gap-3 p-4 rounded">
+              <div className="flex flex-col w-full gap-2 p-4 rounded">
                 {data.title && (
                   <h2
                     className="mb-4"
@@ -64,22 +64,34 @@ export default function BlockList({ data }) {
                   data.itemsCollection.items.map((item, index) => (
                     <div
                       key={index}
-                      className="relative flex justify-between gap-3 pl-8"
-                      style={{ backgroundColor: "var(--surface1)" }}
+                      className="relative flex pl-16"
                     >
-                      <span className="absolute bg-white w-[1px] h-full left-0"></span>
+         
+                      <div className="absolute left-0 flex flex-col flex-1 h-full">
+                      {item.number && (
+                          <span className="pb-2" style={{ color: "var(--text-accent)" }}>
+                            {item.number}
+                          </span>
+                        )}
+                        {index !== data.itemsCollection.items.length - 1 && (
+                          <span className="h-full ml-3 w-[1px]"
+                          style={{ backgroundColor: "var(--subtext-color)" }}
+                          ></span>
+                        )}
+                      </div>
 
-                      <div className="gap-2">
+
+                      <div className="flex flex-col gap-1">
                         {item.title && (
                           <h3
-                            className="col-span-4 mb-2 text-h2"
+                            className="font-medium text-md"
                             style={{ color: "var(--text-color)" }}
                           >
                             {item.title}
                           </h3>
                         )}
                         {item.content && (
-                          <p style={{ color: "var(--subtext-color)" }}>
+                          <p className="pb-8 text-sm" style={{ color: "var(--text-color)" }}>
                             {item.content}
                           </p>
                         )}

@@ -901,7 +901,7 @@ const colorThemes = {
     surface3: '#009688', // Teal
     backgroundColorInv: '#000000', // Black
     headingColor:  '#C0C6C9', // Pink
-    textColor: '#212121', // Dark gray
+    textColor: '#FFFFFF', // Dark gray
     subtextColor: '#887F74', // Blue-gray
     textColorInv: '#FFFFFF', // White
     accent: '#887F74', // Orange
