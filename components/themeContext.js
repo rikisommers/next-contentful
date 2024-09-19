@@ -1,35 +1,31 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useState, useContext, useEffect, useCallback } from 'react';
 import { themes, getThemeByKey } from "../utils/theme";
 
 const ThemeContext = createContext(null);
 
 export const ThemeProvider = ({ children }) => {
   const [currentTheme, setCurrentTheme] = useState(() => {
-    // Initialize with default values if not present
-    return {
-      ...themes.custom,
-      volume: themes.custom.volume || 0.5,
-      audio: themes.custom.audio !== undefined ? themes.custom.audio : true,
-    };
+    if (typeof window !== 'undefined') {
+      const savedTheme = localStorage.getItem('currentTheme');
+      return savedTheme ? JSON.parse(savedTheme) : themes.custom;
+    }
+    return themes.custom;
   });
   const [isThemeDialogOpen, setIsThemeDialogOpen] = useState(false);
 
-  const updateTheme = (newTheme) => {
-    setCurrentTheme(newTheme);
-    localStorage.setItem('currentTheme', JSON.stringify(newTheme));
-  };
+  const updateTheme = useCallback((newTheme) => {
+    setCurrentTheme(prevTheme => {
+      const updatedTheme = { ...prevTheme, ...newTheme };
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('currentTheme', JSON.stringify(updatedTheme));
+      }
+      return updatedTheme;
+    });
+  }, []);
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem('currentTheme');
-    if (savedTheme) {
-      try {
-        const parsedTheme = JSON.parse(savedTheme);
-        setCurrentTheme(parsedTheme);
-      } catch (e) {
-        console.error("Failed to parse theme from localStorage:", e);
-      }
-    }
-  }, []);
+    console.log('Theme updated in provider:', currentTheme);
+  }, [currentTheme]);
 
   return (
     <ThemeContext.Provider value={{ 

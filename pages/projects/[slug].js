@@ -77,6 +77,30 @@ export default function Post({ post, nextPost, footerData }) {
     <Layout>
       <TransitionTilt active={true} className="z-100">
         {/* <ScrollContainer> */}
+
+
+        {post.csblocksCollection && (
+        <nav className="fixed bottom-0 z-50 flex justify-center w-full rounded-full translate-y-2/4 ">
+          <ul className="flex bg-slate-100 ml-50">
+          {post.csblocksCollection.items &&
+            post.csblocksCollection.items.length > 0 &&
+            post.csblocksCollection.items.map((item, index) => {
+              return (
+                <div key={index}>
+                  {item.__typename === "BlockArticle" && (
+                    <div className="flex p-4 text-red-400 bg-slate-500">
+                      <a href={`#${item.title}`} key={index} className="text-xs">
+                          {item.title}
+                      </a>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+            </ul>
+        </nav>
+      )}
+      
           {post && (
             <div className="flex flex-col px-8">
               <PostHeader content={post} />

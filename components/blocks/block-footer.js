@@ -15,7 +15,7 @@ import {
 } from "framer-motion";
 
 export default function BlockFooter({ data }) {
-  console.log("foot d", data);
+  // console.log("foot d", data);
   const [dimension, setDimension] = useState({ width: 0, height: 0 });
   const footerRef = useRef(null);
 

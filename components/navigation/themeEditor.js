@@ -7,12 +7,13 @@ import {
    pageTransitionThemes, 
    pageWidthThemes } from "../../utils/theme";
 import { debounce } from "../utils/debounce";
+import { useThemeContext } from '../themeContext';
 
 // Fallback values
 const defaultTypographyThemes = {
-  sans: 'Sans-serif',
-  serif: 'Serif',
-  mono: 'Monospace',
+  sans: 'sans-serif',
+  serif: 'serif',
+  mono: 'monospace',
 };
 
 const defaultTextHighlightThemes = {
@@ -49,20 +50,20 @@ console.log('Imported transitionThemes:', defaultPageTransitionThemes);
 console.log('Imported textHighlightThemes:', defaultTextHighlightThemes);
 
 export default function ThemeEditor() {
-  const [currentTheme, setCurrentTheme] = useState(themes.light);
+  const { currentTheme, updateTheme } = useThemeContext();
   const [customTheme, setCustomTheme] = useState(null);
   const [isSaving, setIsSaving] = useState(false);
   const [saveError, setSaveError] = useState(null);
 
   const applyCurrentTheme = useCallback((updatedTheme) => {
-    console.log('Applying theme:', updatedTheme);
+    //console.log('Applying theme:', updatedTheme);
 
     if (!updatedTheme || typeof updatedTheme !== 'object') {
       console.error('Invalid theme object:', updatedTheme);
       return;
     }
 
-    setCurrentTheme(updatedTheme);
+    updateTheme(updatedTheme);
     const root = document.documentElement;
     root.setAttribute('data-theme', updatedTheme.key);
 
@@ -79,10 +80,12 @@ export default function ThemeEditor() {
     root.style.setProperty('--text-animation', updatedTheme.textAnimation || 'linesup');
     root.style.setProperty('--page-transition', updatedTheme.pageTransition || 'fade');
     root.style.setProperty('--page-width', updatedTheme.pageWidth || 'fluid');
-    
+    root.style.setProperty('--font-family-primary', updatedTheme.fontFamilyPrimary || 'sans');
+    root.style.setProperty('--font-family-secondary', updatedTheme.fontFamilySecondary || 'sans');
+
     
     localStorage.setItem("currentTheme", JSON.stringify(updatedTheme));
-  }, []);
+  }, [updateTheme]);
 
   useEffect(() => {
     const storedTheme = localStorage.getItem('currentTheme');
@@ -118,12 +121,7 @@ export default function ThemeEditor() {
   };
 
   const handleGlobalOptionChange = (key, value) => {
-    const updatedTheme = { ...currentTheme, [key]: value };
-    applyCurrentTheme(updatedTheme);
-    if (currentTheme.key === 'custom') {
-      setCustomTheme(updatedTheme);
-      localStorage.setItem('customTheme', JSON.stringify(updatedTheme));
-    }
+    updateTheme({ [key]: value });
   };
 
   const saveThemeToContentful = async (theme) => {
@@ -224,11 +222,26 @@ export default function ThemeEditor() {
 
       {/* Typography option */}
       <div className="mb-4">
-        <label htmlFor="typography" className="block mb-2 text-sm font-medium">Typography</label>
+        <label htmlFor="fontFamilyPrimary" className="block mb-2 text-sm font-medium">Font Family Primary</label>
         <select
-          id="typography"
-          value={currentTheme.typography || 'sans'}
-          onChange={(e) => handleGlobalOptionChange('typography', e.target.value)}
+          id="fontFamilyPrimary"
+          value={currentTheme.fontFamilyPrimary || 'sans'}
+          onChange={(e) => handleGlobalOptionChange('fontFamilyPrimary', e.target.value)}
+          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          {Object.entries(typographyOptions).map(([key, value]) => (
+            <option key={key} value={key}>{value}</option>
+          ))}
+        </select>
+      </div>
+
+      {/* Typography option */}
+      <div className="mb-4">
+        <label htmlFor="fontFamilySecondary" className="block mb-2 text-sm font-medium">Font Family Secondary</label>
+        <select
+          id="fontFamilySecondary"
+          value={currentTheme.fontFamilySecondary || 'sans'}
+          onChange={(e) => handleGlobalOptionChange('fontFamilySecondary', e.target.value)}
           className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           {Object.entries(typographyOptions).map(([key, value]) => (

@@ -8,10 +8,9 @@ import { MousePosProvider } from "./mousePosContext";
 import { ScrollPositionProvider } from "./scrollPosContext";
 import { RouteProvider } from "./routeContext";
 import { ToastProvider } from "./toastContext";
-import { ThemeProvider } from 'next-themes';
 import { themes } from "../utils/theme";
 import Navigation from "./navigation/primary-navigation";
-import Preloader from "../pages/preloader";
+import Preloader from "./utils/preloader";
 
 const Providers = ({ children, router }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -29,7 +28,6 @@ const Providers = ({ children, router }) => {
 
   return (
       <ScrollPositionProvider>
-        <ThemeProvider defaultTheme={themes.light.key}>
           <MousePosProvider>
             <ToastProvider>
               {isLoading ? (
@@ -53,7 +51,6 @@ const Providers = ({ children, router }) => {
               </svg>
             </ToastProvider>
           </MousePosProvider>
-        </ThemeProvider>
       </ScrollPositionProvider>
   );
 };

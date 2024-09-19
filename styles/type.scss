@@ -1,9 +1,9 @@
 
 @use 'variables' as *;
-$font-family-body: "interphase", sans-serif;
-$font-family-heading: "interphase", sans-serif;
-$font-family-mono: "Tronica Mono", sans-serif;
-$font-family-aeo: "Aeonik Pro", sans-serif;
+// $font-family-body: "interphase", sans-serif;
+// $font-family-heading: "interphase", sans-serif;
+// $font-family-mono: "Tronica Mono", sans-serif;
+// $font-family-aeo: "Aeonik Pro", sans-serif;
 
 
 body {
@@ -11,11 +11,11 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--fontFamilyPrimary);
+  font-family: var(--font-family-primary);
 }
 
 p, span, div {
-  font-family: var(--fontFamilySecondary);
+  font-family: var(--font-family-secondary);
 }
 
 body{
