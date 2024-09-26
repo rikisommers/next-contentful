@@ -83,15 +83,17 @@ export default function ThemeEditor() {
     // State for slider values
     const [colorWeight, setColorWeight] = useState(5);
     const [typographyWeight, setTypographyWeight] = useState(5);
+    const [vibranceWeight, setVibrancyWeight] = useState(5);
+    const [funkynessWeight, setFunkynessWeight] = useState(5);
 
       // Function to update the current theme based on slider values
   const updateCurrentTheme = useCallback(() => {
-    const bestTheme = getBestTheme(colorWeight, typographyWeight);
+    const bestTheme = getBestTheme(colorWeight, typographyWeight, vibranceWeight, funkynessWeight);
     if (bestTheme) {
       updateTheme(bestTheme); // Update the theme with the best match
       applyCurrentTheme(bestTheme)
     }
-  }, [colorWeight, typographyWeight, updateTheme]);
+  }, [colorWeight, typographyWeight, , vibranceWeight, funkynessWeight, updateTheme]);
   
     
   const applyCurrentTheme = useCallback((updatedTheme) => {
@@ -204,19 +206,27 @@ export default function ThemeEditor() {
   const pageWidthOptions = currentTheme.pageWidthThemes || defaultPageWidthThemes;
   const textAnimationOptions = currentTheme.textAnimationThemes || defaultTextAnimationThemes;
   
-  const handleColorWeightChange = (value) => {
-    setColorWeight(value); // Update the slider state
-    const bestTheme = getBestTheme('color', value); // Get the best theme based on color weight
-    if (bestTheme) {
-      updateTheme(bestTheme); // Update the theme with the best match
+  const handleWeightChange = (metricType, value) => {
+    switch (metricType) {
+      case 'color':
+        setColorWeight(value);
+        break;
+      case 'typography':
+        setTypographyWeight(value);
+        break;
+      case 'vibrance':
+        setVibrancyWeight(value); // Ensure this updates the state
+        break;
+      case 'funkyness':
+        setFunkynessWeight(value); // Ensure this updates the state
+        break;
+      default:
+        console.warn(`Unknown metric type: ${metricType}`);
     }
-  };
-
-  const handleTypographyWeightChange = (value) => {
-    setTypographyWeight(value); // Update the slider state
-    const bestTheme = getBestTheme('typography', value); // Get the best theme based on typography weight
+  
+    const bestTheme = getBestTheme(metricType, value);
     if (bestTheme) {
-      updateTheme(bestTheme); // Update the theme with the best match
+      updateTheme(bestTheme); // Ensure this is called for vibrancy and funkyness
     }
   };
 
@@ -232,7 +242,7 @@ export default function ThemeEditor() {
           min="1"
           max="10"
           value={colorWeight}
-          onChange={(e) => handleColorWeightChange(parseInt(e.target.value))}
+          onChange={(e) => handleWeightChange('color', parseInt(e.target.value))}
           className="w-full"
         />
         <span>{colorWeight}</span>
@@ -246,11 +256,40 @@ export default function ThemeEditor() {
           min="1"
           max="10"
           value={typographyWeight}
-          onChange={(e) => handleTypographyWeightChange(parseInt(e.target.value))}
+          onChange={(e) => handleWeightChange('typography', parseInt(e.target.value))}
           className="w-full"
         />
         <span>{typographyWeight}</span>
       </div>
+      
+      <div className="mb-4">
+        <label htmlFor="vibranceWeight" className="block mb-2 text-sm font-medium">Vibrance Weight (1-10)</label>
+        <input
+          type="range"
+          id="vibranceWeight"
+          min="1"
+          max="10"
+          value={vibranceWeight}
+          onChange={(e) => handleWeightChange('vibrance', parseInt(e.target.value))}
+          className="w-full"
+        />
+        <span>{vibranceWeight}</span>
+      </div>
+
+      <div className="mb-4">
+        <label htmlFor="funkynessWeight" className="block mb-2 text-sm font-medium">Funkyness Weight (1-10)</label>
+        <input
+          type="range"
+          id="funkynessWeight"
+          min="1"
+          max="10"
+          value={funkynessWeight}
+          onChange={(e) => handleWeightChange('funkyness', parseInt(e.target.value))}
+          className="w-full"
+        />
+        <span>{funkynessWeight}</span>
+      </div>
+
 
       
       <div className="mb-4">

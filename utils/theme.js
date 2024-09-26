@@ -168,6 +168,8 @@ export const themes = {
     weights: {
       color: 1,
       typography: 1,
+      vibrance:1,
+      funkyness:1,
     },
   },
   dark: {
@@ -180,6 +182,8 @@ export const themes = {
     weights: {
       color: 9,
       typography: 9,
+      vibrance:9,
+      funkyness:9,
     },
   },
   tokyo: {
@@ -192,6 +196,8 @@ export const themes = {
     weights: {
       color: 5,
       typography: 5,
+      vibrance:5,
+      funkyness:5,
     },
   },
 };
