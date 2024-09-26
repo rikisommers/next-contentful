@@ -7,10 +7,10 @@ import { useThemeContext } from './themeContext';
 export default function Layout({ children }) {
   const { currentTheme } = useThemeContext();
 
-  useEffect(() => {
-    console.log('Theme updated in Layout:', currentTheme);
-    // You can add any additional logic here that should run when the theme changes
-  }, [currentTheme]);
+  // useEffect(() => {
+  //   console.log('Theme updated in Layout:', currentTheme);
+  //   // You can add any additional logic here that should run when the theme changes
+  // }, [currentTheme]);
 
   return (
     <div 

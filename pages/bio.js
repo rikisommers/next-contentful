@@ -28,6 +28,7 @@ import {
   useMotionValueEvent,
 } from "framer-motion";
 import BlockHeader from "../components/blocks/block-header";
+import TransitionPage from "../components/transition/pageTransition";
 
 const Bio = ({ data, footerData }) => {
   console.log("-------------------------------", data);
@@ -36,14 +37,14 @@ const Bio = ({ data, footerData }) => {
 
   return (
     <Layout>
-      <TransitionTilt active={true} className="z-100">
+      <TransitionPage>
       <div className="flex flex-col px-8">
           <PostIntro title={data.titlealt} content={data.contentalt} />
 
           <LandingPageContent data={data} />
           <BlockFooter content={footerData} />
         </div>
-      </TransitionTilt>
+      </TransitionPage>
       <TransitionWipe />
     </Layout>
   );

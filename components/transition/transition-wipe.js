@@ -9,7 +9,7 @@ import { getThemeByKey } from '../../utils/theme';
 
 const TransitionContent = ({ currentTheme, onComplete }) => (
   <motion.div
-    className="transition-wipe--y rounded-2xl pointer-events-none"
+    className="pointer-events-none transition-wipe--y rounded-2xl"
     style={{ backgroundColor:  'var(--background-color)', }}
     initial={{ y: "100%" }}
     exit={{ y: -40, zIndex: 40, onComplete }}

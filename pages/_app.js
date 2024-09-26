@@ -12,9 +12,9 @@ import "../styles/index.scss";
 function MainContent({ Component, pageProps, router }) {
   const { currentTheme, isThemeDialogOpen } = useThemeContext();
 
-  useEffect(() => {
-   console.log('currentTheme', currentTheme)
-  }, [currentTheme]);
+  // useEffect(() => {
+  //  console.log('currentTheme', currentTheme)
+  // }, [currentTheme]);
 
   return (
     <>

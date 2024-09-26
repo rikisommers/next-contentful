@@ -20,6 +20,7 @@ import BlockFooter from "../components/blocks/block-footer";
 import { useScrollPosition } from "../components/scrollPosContext";
 import ScrollContainer from "../components/utils/scroll-container";
 import ClipPathContainer from "../components/utils/clip-path-container";
+import TransitionPage from "../components/transition/pageTransition";
 
 const Work = ({ data, footerData }) => {
   const contentRef = useRef(null);
@@ -31,7 +32,7 @@ const Work = ({ data, footerData }) => {
 
   return (
     <Layout>
-      <TransitionTilt active={true} className="z-100">
+      <TransitionPage>
         {/* <ScrollContainer> */}
         {/* <ClipPathContainer>
           </ClipPathContainer> */}
@@ -51,8 +52,7 @@ const Work = ({ data, footerData }) => {
         {data.titlealt && <BlockFooter data={footerData} />}
 
         {/* </ScrollContainer> */}
-      </TransitionTilt>
-      <TransitionWipe />
+        </TransitionPage>
     </Layout>
   );
 };

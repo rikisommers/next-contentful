@@ -6,6 +6,7 @@ import PostIntro from "../components/post/post-intro";
 import PostTileCs from "../components/post/post-tile-cs";
 import BlockFooter from "../components/blocks/block-footer";
 import ScrollContainer from "../components/utils/scroll-container";
+import TransitionPage from "../components/transition/pageTransition";
 
 export default function Posts({ intro, posts, tags, footerData }) {
   const [selectedTag, setSelectedTag] = useState(null);
@@ -43,6 +44,7 @@ export default function Posts({ intro, posts, tags, footerData }) {
 
   return (
     <Layout>
+      <TransitionPage>
       {/* <ScrollContainer> */}
         <div className="flex">
 
@@ -124,6 +126,7 @@ export default function Posts({ intro, posts, tags, footerData }) {
           </div>
         )}
       {/* </ScrollContainer> */}
+      </TransitionPage>
     </Layout>
   );
 }

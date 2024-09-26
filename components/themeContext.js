@@ -23,9 +23,9 @@ export const ThemeProvider = ({ children }) => {
     });
   }, []);
 
-  useEffect(() => {
-    console.log('Theme updated in provider:', currentTheme);
-  }, [currentTheme]);
+  // useEffect(() => {
+  //   console.log('Theme updated in provider:', currentTheme);
+  // }, [currentTheme]);
 
   return (
     <ThemeContext.Provider value={{ 

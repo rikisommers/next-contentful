@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { 
   themes,
-   typographyThemes,
-   textAnimationThemes,
-   textHighlightThemes, 
-   pageTransitionThemes, 
-   pageWidthThemes } from "../../utils/theme";
+  typographyThemes,
+  textAnimationThemes,
+  textHighlightThemes, 
+  pageTransitionThemes, 
+  pageWidthThemes } from "../../utils/theme";
 import { debounce } from "../utils/debounce";
 import { useThemeContext } from '../themeContext';
 
@@ -44,10 +44,35 @@ const defaultTextAnimationThemes = {
   charsblurin: 'blurchars'
 };
 
-console.log('Imported themes:', themes);
-console.log('Imported typographyThemes:', defaultTypographyThemes);
-console.log('Imported transitionThemes:', defaultPageTransitionThemes);
-console.log('Imported textHighlightThemes:', defaultTextHighlightThemes);
+
+// console.log('Imported themes:', themes);
+// console.log('Imported typographyThemes:', defaultTypographyThemes);
+// console.log('Imported transitionThemes:', defaultPageTransitionThemes);
+// console.log('Imported textHighlightThemes:', defaultTextHighlightThemes);
+
+
+const getBestTheme = (weightType, sliderValue) => {
+  let bestTheme = null;
+  let closestScoreDiff = Infinity; // Start with a large difference
+
+  for (const [themeName, metrics] of Object.entries(themes)) {
+    // Get the weight based on the specified type
+    const themeWeight = metrics.weights[weightType];
+
+    // Calculate the difference between the theme weight and the slider value
+    const scoreDiff = Math.abs(themeWeight - sliderValue);
+
+    // Check if this theme is closer to the slider value than the previous best
+    if (scoreDiff < closestScoreDiff) {
+      closestScoreDiff = scoreDiff;
+      bestTheme = themeName;
+      console.log('Best theme found:', bestTheme); // Log the best theme
+    }
+  }
+
+  return bestTheme ? themes[bestTheme] : null; // Return the theme object instead of just the name
+};
+
 
 export default function ThemeEditor() {
   const { currentTheme, updateTheme } = useThemeContext();
@@ -55,6 +80,20 @@ export default function ThemeEditor() {
   const [isSaving, setIsSaving] = useState(false);
   const [saveError, setSaveError] = useState(null);
 
+    // State for slider values
+    const [colorWeight, setColorWeight] = useState(5);
+    const [typographyWeight, setTypographyWeight] = useState(5);
+
+      // Function to update the current theme based on slider values
+  const updateCurrentTheme = useCallback(() => {
+    const bestTheme = getBestTheme(colorWeight, typographyWeight);
+    if (bestTheme) {
+      updateTheme(bestTheme); // Update the theme with the best match
+      applyCurrentTheme(bestTheme)
+    }
+  }, [colorWeight, typographyWeight, updateTheme]);
+  
+    
   const applyCurrentTheme = useCallback((updatedTheme) => {
     //console.log('Applying theme:', updatedTheme);
 
@@ -99,7 +138,11 @@ export default function ThemeEditor() {
     if (storedCustomTheme) {
       setCustomTheme(JSON.parse(storedCustomTheme));
     }
-  }, [applyCurrentTheme]);
+    
+    // Call updateCurrentTheme only when sliders change
+    updateCurrentTheme();
+  }, [colorWeight, typographyWeight, updateCurrentTheme]);
+
 
   const handleThemeChange = (e) => {
     const selectedThemeKey = e.target.value;
@@ -161,8 +204,55 @@ export default function ThemeEditor() {
   const pageWidthOptions = currentTheme.pageWidthThemes || defaultPageWidthThemes;
   const textAnimationOptions = currentTheme.textAnimationThemes || defaultTextAnimationThemes;
   
+  const handleColorWeightChange = (value) => {
+    setColorWeight(value); // Update the slider state
+    const bestTheme = getBestTheme('color', value); // Get the best theme based on color weight
+    if (bestTheme) {
+      updateTheme(bestTheme); // Update the theme with the best match
+    }
+  };
+
+  const handleTypographyWeightChange = (value) => {
+    setTypographyWeight(value); // Update the slider state
+    const bestTheme = getBestTheme('typography', value); // Get the best theme based on typography weight
+    if (bestTheme) {
+      updateTheme(bestTheme); // Update the theme with the best match
+    }
+  };
+
   return (
     <div className="p-4 theme-editor">
+
+       {/* Sliders for Age and Mood */}
+       <div className="mb-4">
+        <label htmlFor="colorWeight" className="block mb-2 text-sm font-medium">Color Weight (1-10)</label>
+        <input
+          type="range"
+          id="colorWeight"
+          min="1"
+          max="10"
+          value={colorWeight}
+          onChange={(e) => handleColorWeightChange(parseInt(e.target.value))}
+          className="w-full"
+        />
+        <span>{colorWeight}</span>
+      </div>
+
+      <div className="mb-4">
+        <label htmlFor="typographyWeight" className="block mb-2 text-sm font-medium">Typography Weight (1-10)</label>
+        <input
+          type="range"
+          id="typographyWeight"
+          min="1"
+          max="10"
+          value={typographyWeight}
+          onChange={(e) => handleTypographyWeightChange(parseInt(e.target.value))}
+          className="w-full"
+        />
+        <span>{typographyWeight}</span>
+      </div>
+
+      
       <div className="mb-4">
         <label htmlFor="themeSelect" className="block mb-2 text-sm font-medium">Select Theme</label>
         <select

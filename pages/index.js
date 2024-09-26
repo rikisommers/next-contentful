@@ -16,7 +16,7 @@ import BlockHero from "../components/blocks/block-hero";
 import { ParalaxElement } from "../components/motion/paralax-element";
 import AnimatedText,{AnimStyle} from "../components/motion/animated-text";
 import { ClipPathElement } from "../components/motion/clippath-element";
-
+import TransitionPage from "../components/transition/pageTransition";
 
 
 
@@ -32,10 +32,9 @@ const Index = ({ data, footerData }) => {
 
   return (
        <Layout>
- 
+        <TransitionPage>
 
         {/* <CustomCursor/> */}
-        <TransitionTilt active={true} className="z-100">
           <ScrollContainer>
             <BlockHero
               content={data.content}
@@ -48,8 +47,7 @@ const Index = ({ data, footerData }) => {
 
             <BlockFooter data={footerData} />
           </ScrollContainer>
-        </TransitionTilt>
-        <TransitionWipe />
+        </TransitionPage>
       </Layout>
   );
 };
