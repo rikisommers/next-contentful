@@ -75,13 +75,9 @@ export default function Post({ post, nextPost, footerData }) {
 
   return (
     <Layout>
-      <TransitionTilt active={true} className="z-100">
-        {/* <ScrollContainer> */}
-
-
-        {post.csblocksCollection && (
-        <nav className="fixed bottom-0 z-50 flex justify-center w-full rounded-full translate-y-2/4 ">
-          <ul className="flex bg-slate-100 ml-50">
+          {post.csblocksCollection && (
+        <nav className="fixed top-0 right-0 z-50 flex flex-col justify-center rounded-full h-vh ">
+          <ul className="flex flex-col bg-slate-100 ml-50">
           {post.csblocksCollection.items &&
             post.csblocksCollection.items.length > 0 &&
             post.csblocksCollection.items.map((item, index) => {
@@ -100,6 +96,12 @@ export default function Post({ post, nextPost, footerData }) {
             </ul>
         </nav>
       )}
+      
+      <TransitionTilt active={true} className="z-100">
+        {/* <ScrollContainer> */}
+
+
+    
       
           {post && (
             <div className="flex flex-col px-8">

@@ -45,7 +45,44 @@ export default function BlockList({ data }) {
         );
 
       case "feature":
-      // ... (feature block code)
+        return (
+          <article className="grid grid-cols-12 gap-3 article-content">
+            <div className="col-span-10 col-start-2 md:col-start-3 md:col-span-8">
+              <div
+                className="flex flex-col w-full gap-3 p-4 rounded"
+                style={{ backgroundColor: "var(--surface1)" }}
+              >
+                {data.title && (
+                  <h2
+                    className="mb-4"
+                    style={{ color: "var(--heading-color)" }}
+                  >
+                    {data.title}
+                  </h2>
+                )}
+                {data.itemsCollection &&
+                  data.itemsCollection.items.map((item, index) => (
+                    <div key={index} className="mb-3">
+                      {item.title && (
+                        <h3
+                          className="mb-2 text-h4"
+                          style={{ color: "var(--text-color)" }}
+                        >
+                          {item.title}
+                        </h3>
+                      )}
+                      {item.content && (
+                        <p style={{ color: "var(--subtext-color)" }}>
+                          {item.content}
+                        </p>
+                      )}
+                    </div>
+                  ))}
+              </div>
+            </div>
+          </article>
+        );
+
 
       case "timeline":
         return (

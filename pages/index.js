@@ -35,8 +35,7 @@ const Index = ({ data, footerData }) => {
         <TransitionPage>
 
         {/* <CustomCursor/> */}
-          <ScrollContainer>
-            <BlockHero
+=            <BlockHero
               content={data.content}
               titlealt={data.titlealt}
               contentalt={data.contentalt}
@@ -46,8 +45,7 @@ const Index = ({ data, footerData }) => {
    
 
             <BlockFooter data={footerData} />
-          </ScrollContainer>
-        </TransitionPage>
+=        </TransitionPage>
       </Layout>
   );
 };

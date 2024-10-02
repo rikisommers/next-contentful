@@ -8,6 +8,7 @@ import {
   pageWidthThemes } from "../../utils/theme";
 import { debounce } from "../utils/debounce";
 import { useThemeContext } from '../themeContext';
+import { FloatType } from "three";
 
 // Fallback values
 const defaultTypographyThemes = {
@@ -99,7 +100,7 @@ export default function ThemeEditor() {
   
     
   const applyCurrentTheme = useCallback((updatedTheme) => {
-    //console.log('Applying theme:', updatedTheme);
+    console.log('Applying theme:', updatedTheme);
 
     if (!updatedTheme || typeof updatedTheme !== 'object') {
       console.error('Invalid theme object:', updatedTheme);
@@ -168,7 +169,14 @@ export default function ThemeEditor() {
   };
 
   const handleGlobalOptionChange = (key, value) => {
-    updateTheme({ [key]: value });
+    const updatedTheme = {
+      ...currentTheme,
+      [key]: value,
+    };
+
+  
+    updateTheme(updatedTheme); // Update the theme with the new values
+    applyCurrentTheme(updatedTheme); // Ensure the theme is applied to the DOM
   };
 
   const saveThemeToContentful = async (theme) => {
@@ -361,7 +369,7 @@ export default function ThemeEditor() {
           className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           {Object.entries(typographyOptions).map(([key, value]) => (
-            <option key={key} value={key}>{value}</option>
+            <option key={key} value={value}>{value}</option>
           ))}
         </select>
       </div>
@@ -376,7 +384,7 @@ export default function ThemeEditor() {
           className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           {Object.entries(typographyOptions).map(([key, value]) => (
-            <option key={key} value={key}>{value}</option>
+            <option key={key} value={value}>{value}</option>
           ))}
         </select>
       </div>

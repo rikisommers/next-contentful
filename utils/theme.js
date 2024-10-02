@@ -42,7 +42,7 @@ const colorThemes = {
     textAccent:'#99f6e4',
     mixBlendMode:'luminosity',
     stateSuccessBackground:'#d946ef',
-    textHighlight: 'text',
+    textHighlight: 'underline',
   },
   tokyo: {
     audio:true,
@@ -64,7 +64,7 @@ const colorThemes = {
     textAccent:'#BED3CD',
     mixBlendMode:'luminosity',
     stateSuccessBackground:'#BED3CD',
-    textHighlight: 'text',
+    textHighlight: 'background',
   },
   textureAndContrast: {
     key: 'textureAndContrast',
@@ -112,31 +112,9 @@ const textHighlightThemes = {
 
 // Type Themes
 export const typographyThemes = {
-  sans: {
-    font: 'sans',
-    fontFamilyPrimary: "'Helvetica Neue', Arial, sans-serif",
-    fontFamilySecondary: "'Arial', sans-serif",
-  },
-  serif: {
-    font: 'serif',
-    fontFamilyPrimary: "'Georgia', serif",
-    fontFamilySecondary: "'Times New Roman', serif",
-  },
-  mono: {
-    font: 'mono',
-    fontFamilyPrimary: "'Courier New', monospace",
-    fontFamilySecondary: "'Lucida Console', monospace",
-  },
-  modern: {
-    font: 'modern',
-    fontFamilyPrimary: "'Roboto', sans-serif",
-    fontFamilySecondary: "'Open Sans', sans-serif",
-  },
-  classic: {
-    font: 'classic',
-    fontFamilyPrimary: "'Playfair Display', serif",
-    fontFamilySecondary: "'Merriweather', serif",
-  },
+  sans: 'sans-serif',
+  serif: 'serif',
+  mono: 'monospace',
 };
 
 export const pageTransitionThemes = {
@@ -199,7 +177,7 @@ export const themes = {
   },
   dark: {
     key: 'dark', // Key for the dark theme
-    ...colorThemes.dark,
+    ...colorThemes.serif,
     ...typographyThemes.sans, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
     ...pageTransitionThemes.wipe,
@@ -228,7 +206,7 @@ export const themes = {
   textureAndContrast: {
     key: 'textureAndContrast',
     ...colorThemes.textureAndContrast,
-    ...typographyThemes.sans, // Default to sans
+    ...typographyThemes.mono, // Default to sans
     ...textHighlightThemes.text, // Add text highlight theme
     ...pageTransitionThemes.wipe,
     ...pageWidthThemes.fluid,

@@ -25,7 +25,7 @@ export default function Layout({ children }) {
       
     }}
     >
-      <h1 className="fixed p-3 text-3xl font-bold top-16 left-16 z-nav">PageWidth: {currentTheme.pageWidth} </h1>
+      {/* <h1 className="fixed p-3 text-3xl font-bold top-16 left-16 z-nav">PageWidth: {currentTheme.pageWidth} </h1> */}
         <SpeedInsights/>
         {children}
         </div>
