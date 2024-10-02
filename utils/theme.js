@@ -66,6 +66,29 @@ const colorThemes = {
     stateSuccessBackground:'#BED3CD',
     textHighlight: 'text',
   },
+  textureAndContrast: {
+    key: 'textureAndContrast',
+    audio: true,
+    volume: 0.5,
+    bodyBackgroundColor: '#212121', // Dark gray
+    backgroundColor:'#212121', // White
+    surface1: '#D81B60', // Raspberry
+    surface2: '#388E3C', // Green
+    surface3: '#009688', // Teal
+    backgroundColorInv: '#000000', // Black
+    headingColor:  '#C0C6C9', // Pink
+    textColor: '#FFFFFF', // Dark gray
+    subtextColor: '#887F74', // Blue-gray
+    textColorInv: '#FFFFFF', // White
+    accent: '#887F74', // Orange
+    navBg: '#FFFFFF', // White
+    accentPri: '#556B2F', // Olive green
+    accentSec: '#556B2F', // Light orange
+    textAccent: '#556B2F', // Teal
+    mixBlendMode: 'difference',
+    stateSuccessBackground: '#4CAF50', // Green
+    textHighlight: 'text',
+  },
 };
 
 // Text Animation themes
@@ -117,6 +140,8 @@ export const typographyThemes = {
 };
 
 export const pageTransitionThemes = {
+  tiltandwipe:'tilt and wipe',
+  tilt:'tilt',
   fade:'fade',
   wipe:'wipe',
   none:'none'
@@ -198,6 +223,20 @@ export const themes = {
       typography: 5,
       vibrance:5,
       funkyness:5,
+    },
+  },
+  textureAndContrast: {
+    key: 'textureAndContrast',
+    ...colorThemes.textureAndContrast,
+    ...typographyThemes.sans, // Default to sans
+    ...textHighlightThemes.text, // Add text highlight theme
+    ...pageTransitionThemes.wipe,
+    ...pageWidthThemes.fluid,
+    weights: {
+      color: 2,
+      typography: 7,
+      vibrance:5,
+      funkyness:8,
     },
   },
 };

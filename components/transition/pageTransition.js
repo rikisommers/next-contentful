@@ -2,7 +2,8 @@ import React, {useEffect} from "react";
 import { useThemeContext } from '../themeContext';
 import TransitionTilt from "./transition-tilt";
 import TransitionFade from "./transition-fade";
-import TransitionWipe from "./transition-wipe";
+import TransitionWipeWithChild from "./transition-wipewithchild";
+import TransitionTiltAndWipe from "./transition-tiltandwipe";
 
 const TransitionContainer = ({children}) => {
     const { currentTheme } = useThemeContext();
@@ -17,10 +18,12 @@ const TransitionContainer = ({children}) => {
     <>
     {(() => {
         switch (currentTheme.pageTransition) {
+            case 'tiltandwipe':
+                return <TransitionTiltAndWipe>{children}</TransitionTiltAndWipe>;
             case 'tilt':
                 return <TransitionTilt active={true} className="z-100">{children}</TransitionTilt>;
             case 'wipe':
-                return <TransitionWipe>{children}</TransitionWipe>;
+                return <TransitionWipeWithChild>{children}</TransitionWipeWithChild>;
             case 'fade':
                 return <TransitionFade>{children}</TransitionFade>;
             case 'none':

@@ -25,6 +25,8 @@ const defaultTextHighlightThemes = {
 };
 
 const defaultPageTransitionThemes = {
+  tiltandwipe:'tilt and wipe',
+  tilt:'tilt',
   fade: 'fade',
   wipe: 'wipe',
   none: 'none'

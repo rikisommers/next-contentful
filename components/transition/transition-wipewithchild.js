@@ -22,7 +22,7 @@ const TransitionContent = ({ currentTheme, onComplete }) => (
 const Overlay = ({ currentTheme }) => (
   <motion.div
     className="fixed top-0 w-full h-full opacity-50 pointer-events-none"
-    style={{ backgroundColor:  'var(--background-color-inv)', }}
+    style={{ backgroundColor:  'var(--body-background-color)', }}
     initial={{ opacity: 0 }}
     animate={{ opacity: 0 }}
     exit={{ zIndex: 10, opacity: 0.5 }}
@@ -30,7 +30,7 @@ const Overlay = ({ currentTheme }) => (
   ></motion.div>
 );
 
-const TransitionWipe = () => {
+const TransitionWipeWithChild = ({ children }) => {
   const { theme } = useTheme();
   const currentTheme = getThemeByKey(theme);
   const { routeInfo } = useContext(RouteContext);
@@ -47,8 +47,9 @@ const TransitionWipe = () => {
           <TransitionContent currentTheme={currentTheme} />
           <Overlay currentTheme={currentTheme} />
         </>
+        {children}
     </LayoutGroup>
   );
 };
 
-export default TransitionWipe;
+export default TransitionWipeWithChild;
