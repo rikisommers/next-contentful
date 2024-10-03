@@ -8,6 +8,8 @@ import { ThemeProvider, useThemeContext } from '../components/themeContext';
 import Navigation from "../components/navigation/primary-navigation";
 import Preloader from "../components/utils/preloader";
 import "../styles/index.scss";
+import CustomCursor from '../components/utils/cursor';
+
 
 function MainContent({ Component, pageProps, router }) {
   const { currentTheme, isThemeDialogOpen } = useThemeContext();
@@ -35,6 +37,10 @@ function MainContent({ Component, pageProps, router }) {
       >
         
           <AnimatePresence mode="wait" initial={false}>
+            {currentTheme.cursor === 'dot' &&
+            <CustomCursor/>
+          }
+
             <Component {...pageProps} key={router.asPath} />
           </AnimatePresence>
  
@@ -53,7 +59,7 @@ function MyApp({ Component, pageProps, router }) {
     });
     const timeout = setTimeout(() => {
       setIsLoading(false);
-    }, 3000);
+    }, 1000);
 
     return () => clearTimeout(timeout);
   }, [isLoading]);

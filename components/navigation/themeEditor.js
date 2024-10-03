@@ -48,6 +48,12 @@ const defaultTextAnimationThemes = {
 };
 
 
+const defaultCursorThemes = {
+  none: 'none',
+  dot: 'dot',
+};
+
+
 // console.log('Imported themes:', themes);
 // console.log('Imported typographyThemes:', defaultTypographyThemes);
 // console.log('Imported transitionThemes:', defaultPageTransitionThemes);
@@ -126,6 +132,7 @@ export default function ThemeEditor() {
     root.style.setProperty('--page-width', updatedTheme.pageWidth || 'fluid');
     root.style.setProperty('--font-family-primary', updatedTheme.fontFamilyPrimary || 'sans');
     root.style.setProperty('--font-family-secondary', updatedTheme.fontFamilySecondary || 'sans');
+    root.style.setProperty('--cursor', updatedTheme.cursor || 'dot');
 
     
     localStorage.setItem("currentTheme", JSON.stringify(updatedTheme));
@@ -215,7 +222,9 @@ export default function ThemeEditor() {
   const pageTransitionOptions = currentTheme.transitionThemes || defaultPageTransitionThemes;
   const pageWidthOptions = currentTheme.pageWidthThemes || defaultPageWidthThemes;
   const textAnimationOptions = currentTheme.textAnimationThemes || defaultTextAnimationThemes;
-  
+  const cursorOptions = currentTheme.cursorThemes || defaultCursorThemes;
+
+
   const handleWeightChange = (metricType, value) => {
     switch (metricType) {
       case 'color':
@@ -359,7 +368,21 @@ export default function ThemeEditor() {
         </select>
       </div>
 
-      {/* Typography option */}
+      
+      <div className="mb-4">
+        <label htmlFor="fontFamilyPrimary" className="block mb-2 text-sm font-medium">Cursor</label>
+        <select
+          id="fontFamilyPrimary"
+          value={currentTheme.cursor || 'dot'}
+          onChange={(e) => handleGlobalOptionChange('cursor', e.target.value)}
+          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          {Object.entries(cursorOptions).map(([key, value]) => (
+            <option key={key} value={value}>{value}</option>
+          ))}
+        </select>
+      </div>
+
       <div className="mb-4">
         <label htmlFor="fontFamilyPrimary" className="block mb-2 text-sm font-medium">Font Family Primary</label>
         <select

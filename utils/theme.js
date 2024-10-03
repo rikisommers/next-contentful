@@ -67,7 +67,6 @@ const colorThemes = {
     textHighlight: 'background',
   },
   textureAndContrast: {
-    key: 'textureAndContrast',
     audio: true,
     volume: 0.5,
     bodyBackgroundColor: '#212121', // Dark gray
@@ -131,6 +130,12 @@ export const pageWidthThemes = {
   fluid: 'fluid'
 };
 
+export const cursorThemes = {
+  none: 'none',
+  dot: 'dot',
+};
+
+
 
 // Function to get theme by key
 export function getThemeByKey(themeKey) {
@@ -168,6 +173,7 @@ export const themes = {
     ...textHighlightThemes.text, // Add text highlight theme
     ...pageTransitionThemes.wipe,
     ...pageWidthThemes.fluid,
+    ...cursorThemes.dot,
     weights: {
       color: 1,
       typography: 1,
@@ -182,6 +188,7 @@ export const themes = {
     ...textHighlightThemes.text, // Add text highlight theme
     ...pageTransitionThemes.wipe,
     ...pageWidthThemes.fluid,
+    ...cursorThemes.dot,
     weights: {
       color: 9,
       typography: 9,
@@ -196,6 +203,7 @@ export const themes = {
     ...textHighlightThemes.text, // Add text highlight theme
     ...pageTransitionThemes.wipe,
     ...pageWidthThemes.fluid,
+    ...cursorThemes.dot,
     weights: {
       color: 5,
       typography: 5,
@@ -210,6 +218,7 @@ export const themes = {
     ...textHighlightThemes.text, // Add text highlight theme
     ...pageTransitionThemes.wipe,
     ...pageWidthThemes.fluid,
+    ...cursorThemes.dot,
     weights: {
       color: 2,
       typography: 7,
