@@ -25,6 +25,18 @@ const defaultTextHighlightThemes = {
   none: "none"
 };
 
+const defaultTextAnimationThemes = {
+  none: "none",
+  linesup: "linesup",
+  lineposup: "lineposup",
+  linefadein: "linefadein",
+  charfade: "charfade",
+  charblur: "charblur",
+  charrandom: "charrandom",
+  charcode: "charcode",
+};
+
+
 const defaultPageTransitionThemes = {
   tiltandwipe:'tilt and wipe',
   tilt:'tilt',
@@ -39,13 +51,6 @@ const defaultPageWidthThemes = {
   fluid: 'fluid'
 };
 
-const defaultTextAnimationThemes = {
-  none: "none",
-  linesfadeup: 'fadeup',
-  linesmoveup: 'fadeup',
-  charsfadein: 'fadechars',
-  charsblurin: 'blurchars'
-};
 
 
 const defaultCursorThemes = {
@@ -442,6 +447,21 @@ export default function ThemeEditor() {
         </select>
       </div>
 
+      {/* Text Animation option */}
+      <div className="mb-4">
+        <label htmlFor="textAnimation" className="block mb-2 text-sm font-medium">Text Animation</label>
+        <select
+          id="textAnimation"
+          value={currentTheme.textAnimation || 'none'}
+          onChange={(e) => handleGlobalOptionChange('textAnimation', e.target.value)}
+          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          {Object.entries(textAnimationOptions).map(([key, value]) => (
+            <option key={key} value={key}>{value}</option>
+          ))}
+        </select>
+      </div>
+
       {/* Page Width option */}
       <div className="mb-4">
         <label htmlFor="pageWidth" className="block mb-2 text-sm font-medium">Page Width</label>
@@ -457,20 +477,7 @@ export default function ThemeEditor() {
         </select>
       </div>
 
-      {/* Text Animation option */}
-      <div className="mb-4">
-        <label htmlFor="textAnimation" className="block mb-2 text-sm font-medium">Text Animation</label>
-        <select
-          id="textAnimation"
-          value={currentTheme.textAnimation || 'none'}
-          onChange={(e) => handleGlobalOptionChange('textAnimation', e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          {Object.entries(textAnimationOptions).map(([key, value]) => (
-            <option key={key} value={key}>{value}</option>
-          ))}
-        </select>
-      </div>
+
 
       {/* Color options */}
       {Object.entries(currentTheme).map(([key, value]) => {

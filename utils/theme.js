@@ -93,10 +93,13 @@ const colorThemes = {
 // Text Animation themes
 export const textAnimationThemes = {
   none: "none",
-  linesfadeup:'fadeup',
-  linesmoveup:'fadeup',
-  charsfadein:'fadechars',
-  charsblurin: 'blurchars',
+  linesup: "linesup",
+  lineposup: "lineposup",
+  linefadein: "linefadein",
+  charfade: "charfade",
+  charblur: "charblur",
+  charrandom: "charrandom",
+  charcode: "charcode",
 };
 
 

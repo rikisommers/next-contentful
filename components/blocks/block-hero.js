@@ -17,6 +17,9 @@ export default function BlockHero({
   layout,
 }) {
 
+
+
+
   return (
     <div data-name="hero-container"
       className={`relative transition ease-in-out w-full h-screen noisy`}
