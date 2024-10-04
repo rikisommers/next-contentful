@@ -17,6 +17,9 @@ const colorThemes = {
     navBg:"#C0C6C9",
     accentPri: '#EF7801',
     accentSec: '#FCD00A',
+    gradStart: '#EF7801',
+    gradStop: '#FCD00A',
+    gradMidPoint: 0.5,
     textAccent:'#d946ef',
     mixBlendMode:'color',
     stateSuccessBackground:'#d946ef',
@@ -39,6 +42,9 @@ const colorThemes = {
     navBg:"#C0C6C9",
     accentPri: '#EF7801',
     accentSec: '#FCD00A',
+    gradStart: '#EF7801',
+    gradStop: '#FCD00A',
+    gradMidPoint: 0.5,
     textAccent:'#99f6e4',
     mixBlendMode:'luminosity',
     stateSuccessBackground:'#d946ef',
@@ -61,6 +67,9 @@ const colorThemes = {
     navBg:"#C0C6C9",
     accentPri: '#EF7801',
     accentSec: '#FCD00A',
+    gradStart: '#EF7801',
+    gradStop: '#FCD00A',
+    gradMidPoint: 0.5,
     textAccent:'#BED3CD',
     mixBlendMode:'luminosity',
     stateSuccessBackground:'#BED3CD',
@@ -83,6 +92,9 @@ const colorThemes = {
     navBg: '#FFFFFF', // White
     accentPri: '#556B2F', // Olive green
     accentSec: '#556B2F', // Light orange
+    gradStart: '#556B2F', // Olive green
+    gradStop: '#556B2F', // Light orange
+    gradMidPoint: 0.5,
     textAccent: '#556B2F', // Teal
     mixBlendMode: 'difference',
     stateSuccessBackground: '#4CAF50', // Green

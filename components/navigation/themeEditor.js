@@ -359,6 +359,22 @@ export default function ThemeEditor() {
           className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
         />
       </div>
+
+      <div className="mb-4">
+        <label htmlFor="volume" className="block mb-2 text-sm font-medium">Gradient Mid Point</label>
+        <input
+          type="range"
+          id="gradMidPoint"
+          min="0"
+          max="1"
+          step="0.1"
+          value={currentTheme.gradMidPoint}
+          onChange={(e) => handleGlobalOptionChange('gradMidPoint', parseFloat(e.target.value))}
+          className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+        />
+      </div>
+
+
       <div className="mb-4">
         <label htmlFor="mixBlendMode" className="block mb-2 text-sm font-medium">Mix Blend Mode</label>
         <select

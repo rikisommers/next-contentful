@@ -114,6 +114,9 @@ const getAnimatedComponent = (type, highlight, content,  delay) => {
 
 const AnimatedText = ({type, highlight, content ,delay}) => {
     
+
+//TODO: Support primary and secondary
+
 //TODO: make this a util
 //     const [highlight, setHighlight] = useState('text'); // Default value
 

@@ -22,7 +22,7 @@ export default function Background() {
     >
       <ambientLight color={0x00ff00} intensity={0.5} />
       <directionalLight color={0x00ff00} intensity={1} position={[10, 10, 10]} />
-      <Experience />
+      <Experience2 />
     </Canvas>
   );
 }

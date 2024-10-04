@@ -6,6 +6,7 @@ import Background from "../utils/background";
 import AnimatedText,{AnimStyle, HighlightStyle, AnimTextOrder} from "../motion/animated-text";
 import { TextAnimLineUp } from "../motion/text-anim-line-up";
 import TextAnimationUp from "../motion/text-animation-up";
+import CanvasBackground from "../utils/canvasBackground";
 
 export default function BlockHero({
   title,
@@ -25,11 +26,11 @@ export default function BlockHero({
       className={`relative transition ease-in-out w-full h-screen noisy`}
       style={{ background: 'var(--body-background-color)' }}
     >
-{/* 
+
 <div className="absolute w-full h-full z-1">
-       <Background />
+
        </div>
-        */}
+       
         <div className="absolute z-50 flex flex-col items-center justify-center w-full h-full pointer-events-none margin-auto ">
           <div className="grid max-w-xl gap-8">
             {/* <h1 className="text-7xl">{backgroundColor}</h1> */}
@@ -79,7 +80,7 @@ export default function BlockHero({
 
       </div> */}
       <motion.div
-        className="absolute z-0 flex items-center justify-end w-full h-full opacity-75 pointer-events-none"
+        className="absolute flex items-center justify-end w-full h-full opacity-75 pointer-events-none z-1"
         initial={{ clipPath: "inset(1.0rem 1.0rem 1.0rem round 0.5rem)" }}
         animate={{
           backgroundColor: 'var(--background-color)',
@@ -90,7 +91,11 @@ export default function BlockHero({
           duration: 0.6,
           ease: [0.33, 1, 0.68, 1],
         }}
-      />
+      >
+
+               {/* <Background /> */}
+       <CanvasBackground/>
+      </motion.div>
      
     </div>
   );
