@@ -44,7 +44,7 @@ export const TextAnimLineUp = ({
     const segments = line.split('__');
     
     return (
-      <div
+      <span
         key={lineIndex}
         style={{ 
           overflow: 'hidden',
@@ -60,6 +60,21 @@ export const TextAnimLineUp = ({
           }}
         >
           {segments.map((segment, segmentIndex) => {
+
+const imageMatch = segment.match(/!\[([^\]]*)\]\((.*?)\)/);
+if (imageMatch) {
+  const altText = imageMatch[1]; // Get alt text
+  const imageUrl = imageMatch[2].startsWith('//') ? `https:${imageMatch[2]}` : imageMatch[2]; // Ensure the URL is complete
+  return (
+    <img
+      key={segmentIndex}
+      src={imageUrl}
+      alt={altText}
+      style={{ maxWidth: "40px", height: "auto", display: "inline-block" }} // Adjust styles as needed
+    />
+  );
+}
+
             if (segmentIndex % 2 === 0) {
               return <span key={segmentIndex}>{segment}</span>;
             } else {
@@ -73,7 +88,7 @@ export const TextAnimLineUp = ({
             }
           })}
         </motion.div>
-      </div>
+      </span>
     );
   };
 

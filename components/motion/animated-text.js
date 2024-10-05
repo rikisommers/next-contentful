@@ -157,6 +157,7 @@ if(content){
 switch (type2) {
     case AnimStyle.NONE:
         return <>{content}</>;
+        
     case AnimStyle.LINESUP:
         return <TextAnimLinePosUp 
         content={content} 

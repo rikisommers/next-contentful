@@ -10,6 +10,7 @@ export const TextAnimLinePosUp = ({
   animateWhenInView = false,
   repeatWhenInView = false,
 }) => {
+
   const ref = useRef(null);
   const isInView = useInView(ref, {
     once: !repeatWhenInView,
@@ -48,7 +49,7 @@ export const TextAnimLinePosUp = ({
     const segments = line.split("__");
 
     return (
-      <div
+      <span
         key={lineIndex}
         style={{
           position: "relative",
@@ -63,10 +64,25 @@ export const TextAnimLinePosUp = ({
           }}
         >
           {segments.map((segment, segmentIndex) => {
+
+const imageMatch = segment.match(/!\[([^\]]*)\]\((.*?)\)/);
+if (imageMatch) {
+  const altText = imageMatch[1]; // Get alt text
+  const imageUrl = imageMatch[2].startsWith('//') ? `https:${imageMatch[2]}` : imageMatch[2]; // Ensure the URL is complete
+  return (
+    <img
+      key={segmentIndex}
+      src={imageUrl}
+      alt={altText}
+      style={{ maxWidth: "40px", height: "auto", display: "inline-block" }} // Adjust styles as needed
+    />
+  );
+}
+
             return <span key={segmentIndex}>{segment}</span>;
           })}
         </motion.div>
-      </div>
+      </span>
     );
   };
 
