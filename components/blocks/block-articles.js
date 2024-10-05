@@ -4,8 +4,12 @@ import PostTileCs from "../post/post-tile-cs";
 import PostTileLg from "../post/post-tile-lg";
 import AnimatedElement, { AnimStyleEl } from "../motion/animated-element";
 import AnimatedText, { AnimStyle } from "../motion/animated-text";
+import { useThemeContext } from '../themeContext';
 
 export const BlockArticles = ({ data }) => {
+  
+  const { currentTheme } = useThemeContext();
+
   return (
     <>
       {data.title && (
@@ -25,7 +29,13 @@ export const BlockArticles = ({ data }) => {
                 return data.articlesCollection.items.map((item, i) => (
                   <div key={i} className="col-span-12 md:col-span-6">
                     <AnimatedElement type={AnimStyleEl.FADEIN}>
-                      <PostTileCs post={item} />
+
+                          { currentTheme.cardStyle === 'formal' && 
+                             <PostTileCs post={item} />
+                            }
+                         { currentTheme.cardStyle === 'funky' && 
+                             <PostTileLg post={item} />
+                            }
                     </AnimatedElement>
                   </div>
                 ));

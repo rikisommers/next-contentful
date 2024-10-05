@@ -28,7 +28,6 @@ const Work = ({ data, footerData }) => {
   const [scrollValue, setScrollValue] = useState(0);
   const { setScrollPosition } = useScrollPosition();
 
-  console.log("Data------------------------", data);
 
   return (
     <Layout>
@@ -50,8 +49,8 @@ const Work = ({ data, footerData }) => {
           )}
         </div>
         {data.titlealt && <BlockFooter data={footerData} />}
-
-        {/* </ScrollContainer> */}
+{/* 
+        </ScrollContainer> */}
         </TransitionPage>
     </Layout>
   );

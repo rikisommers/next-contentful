@@ -1,7 +1,8 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 import ContentfulImage from "../image/contentful-image";
 import BlendImage from "../image/blend-image";
+import BlendImageFill from  "../image/blend-image-fill";
 import Link from "next/link";
 import FadeInWhenVisible from "../utils/fade-in-visible";
 import RollUpWhenVisible from "../utils/roll-up-visible";
@@ -15,71 +16,54 @@ import {
 } from "framer-motion";
 
 export default function PostTileLg({ post, index ,size}) {
-  //  console.log("ss", post);
 
-  const ref = useRef(null);
+  const [isHovered, setIsHovered] = useState(false); // State to track hover
 
-  const { scrollYProgress } = useScroll({
-    target: ref,
-
-    offset: ["start end", "end start"],
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], [-50, 0]);
 
   return (
     <Link
-      scroll={false}
       href={`/projects/${post.slug}`}
       style={{
-        color: 'var(--background-color)',
+        backgroundColor: post.color || "--accent-pri" 
       }}
-      className={`relative flex flex-col w-full h-full overflow-hidden rounded-lg tile-lg img-${size}`}
+      className="relative flex flex-col w-full overflow-hidden rounded-2xl aspect-square group"
+      onMouseEnter={() => setIsHovered(true)} // Set hover state to true on mouse enter
+      onMouseLeave={() => setIsHovered(false)} // Set hover state to false on mouse leave
     >
       <div className="absolute flex flex-col gap-4 top-3 left-3"
             style={{
               color: 'var(--text-color-inv)',
+              backgroundColor: post.color
             }}
+     
       >
-        {/* <p>{post.type }</p> */}
-        {post?.type[0] === "case study" && (
-          <span className="text-lg material-icons">
-            inventory_alt
-          </span>
-        )}
-        {post?.type[0] === "blog post" && (
-          <span className="material-icons">article</span>
-        )}
 
-        <div className="flex flex-col gap-1">
-        <motion.p
-            className="text-lg"
-            style={{
-              color:'var(--subtext-color)',
-            }}
-          >
-            {post?.subtitle}
-          </motion.p>
+      </div>
+
+      <div
+        className="absolute bottom-0 left-0 flex flex-col w-full h-[33%] p-4 itesm-start"
+        style={{
+          color: 'var(--text-color-inv)',
+        }}
+      >
+              
           <h2
-            className="z-50 text-2xl"
+            className="text-lg"
             style={{
               color: 'var(--text-color)',
             }}
           >
             {post?.title}
           </h2>
-         
-        </div>
-      </div>
-
-      <div
-        ref={ref}
-        className="absolute bottom-0 left-0 z-50 flex justify-between w-full gap-4 px-4 pb-4"
-        style={{
-          color: 'var(--text-color-inv)',
-        }}
-      >
-        {post.tags && (
+          <h3
+            className="text-sm"
+            style={{
+              color:'var(--subtext-color)',
+            }}
+          >
+            {post?.subtitle}
+          </h3>
+        {/* {post.tags && (
           <div className="flex gap-1">
             {post.tags.slice(0, 2).map((tag, index) => {
               return (
@@ -96,23 +80,37 @@ export default function PostTileLg({ post, index ,size}) {
               );
             })}
           </div>
-        )}
+        )} */}
 
-        <div className="flex gap-4 text-xs">
+        {/* <div className="flex gap-4 text-xs">
           <span>DATE</span>
-        </div>
+        </div> */}
       </div>
       {/* 
           <motion.div style={{y}}>     
           </motion.div> */}
       {post.img && (
-        <FadeInWhenVisible color={ 'var(--accent)'}>
+        <motion.div 
+        className="w-full h-full"
+        style={{
+          clipPath: isHovered ? "inset(1rem 1rem 33% 1rem round 1rem)" : "inset(0rem 0rem 0rem 0rem round 1rem)", // Change clipPath based on hover state
+          transition: "clip-path 0.2s ease-in-out", // Custom transition for clipPath
+        }}
+        // whileHover={{
+        //   clipPath: "inset( 1rem 1rem 33% 1rem round 1rem )",
+        // }}
+   
+        >
+
+
+        {/* <FadeInWhenVisible color={ 'var(--accent)'}> */}
           <BlendImage
-            className="img-cover"
             alt={`Cover Image for ${post?.title}`}
             src={post.img.url}
           />
-        </FadeInWhenVisible>
+        {/* </FadeInWhenVisible> */}
+        </motion.div>
+
       )}
     </Link>
   );

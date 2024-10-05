@@ -5,7 +5,9 @@ import {
   textAnimationThemes,
   textHighlightThemes, 
   pageTransitionThemes, 
-  pageWidthThemes } from "../../utils/theme";
+  pageWidthThemes, 
+  cardThemes,
+  mixBlendThemes} from "../../utils/theme";
 import { debounce } from "../utils/debounce";
 import { useThemeContext } from '../themeContext';
 import { FloatType } from "three";
@@ -56,7 +58,34 @@ const defaultPageWidthThemes = {
 const defaultCursorThemes = {
   none: 'none',
   dot: 'dot',
+  cta: 'cta'
 };
+
+
+const defaultCardThemes = {
+  formal: 'formal',
+  funky: 'funky',
+};
+
+const defaultMixBlendThemes = {
+  normal: 'normal',
+  multiply: 'multiply',
+  screen: 'screen',
+  overlay: 'overlay',
+  darken: 'darken',
+  lighten: 'lighten',
+  colordodge: 'color-dodge',
+  colorburn: 'color-burn',
+  hardlight: 'hard-light',
+  softlight: 'soft-light',
+  difference: 'difference',
+  exclusion: 'exclusion',
+  hue: 'hue',
+  saturation: 'saturation',
+  color: 'color',
+  luminosity: 'luminosity',
+};
+
 
 
 // console.log('Imported themes:', themes);
@@ -96,18 +125,17 @@ export default function ThemeEditor() {
 
     // State for slider values
     const [colorWeight, setColorWeight] = useState(5);
-    const [typographyWeight, setTypographyWeight] = useState(5);
     const [vibranceWeight, setVibrancyWeight] = useState(5);
     const [funkynessWeight, setFunkynessWeight] = useState(5);
 
       // Function to update the current theme based on slider values
   const updateCurrentTheme = useCallback(() => {
-    const bestTheme = getBestTheme(colorWeight, typographyWeight, vibranceWeight, funkynessWeight);
+    const bestTheme = getBestTheme(colorWeight, vibranceWeight, funkynessWeight);
     if (bestTheme) {
       updateTheme(bestTheme); // Update the theme with the best match
       applyCurrentTheme(bestTheme)
     }
-  }, [colorWeight, typographyWeight, , vibranceWeight, funkynessWeight, updateTheme]);
+  }, [colorWeight, vibranceWeight, funkynessWeight, updateTheme]);
   
     
   const applyCurrentTheme = useCallback((updatedTheme) => {
@@ -158,7 +186,7 @@ export default function ThemeEditor() {
     
     // Call updateCurrentTheme only when sliders change
     updateCurrentTheme();
-  }, [colorWeight, typographyWeight, updateCurrentTheme]);
+  }, [colorWeight, vibranceWeight, funkynessWeight, updateCurrentTheme]);
 
 
   const handleThemeChange = (e) => {
@@ -235,9 +263,6 @@ export default function ThemeEditor() {
       case 'color':
         setColorWeight(value);
         break;
-      case 'typography':
-        setTypographyWeight(value);
-        break;
       case 'vibrance':
         setVibrancyWeight(value); // Ensure this updates the state
         break;
@@ -272,19 +297,6 @@ export default function ThemeEditor() {
         <span>{colorWeight}</span>
       </div>
 
-      <div className="mb-4">
-        <label htmlFor="typographyWeight" className="block mb-2 text-sm font-medium">Typography Weight (1-10)</label>
-        <input
-          type="range"
-          id="typographyWeight"
-          min="1"
-          max="10"
-          value={typographyWeight}
-          onChange={(e) => handleWeightChange('typography', parseInt(e.target.value))}
-          className="w-full"
-        />
-        <span>{typographyWeight}</span>
-      </div>
       
       <div className="mb-4">
         <label htmlFor="vibranceWeight" className="block mb-2 text-sm font-medium">Vibrance Weight (1-10)</label>
@@ -375,6 +387,23 @@ export default function ThemeEditor() {
       </div>
 
 
+
+
+      
+      <div className="mb-4">
+        <label htmlFor="cardStylr" className="block mb-2 text-sm font-medium">Card Style</label>
+        <select
+          id="cardStyle"
+          value={currentTheme.cardStyle || 'formal'}
+          onChange={(e) => handleGlobalOptionChange('cardStyle', e.target.value)}
+          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          {Object.entries(cardThemes).map(([key, value]) => (
+            <option key={key} value={value}>{value}</option>
+          ))}
+        </select>
+      </div>
+
       <div className="mb-4">
         <label htmlFor="mixBlendMode" className="block mb-2 text-sm font-medium">Mix Blend Mode</label>
         <select
@@ -383,8 +412,8 @@ export default function ThemeEditor() {
           onChange={(e) => handleGlobalOptionChange('mixBlendMode', e.target.value)}
           className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
-          {['normal', 'multiply', 'screen', 'overlay', 'darken', 'lighten', 'color-dodge', 'color-burn', 'hard-light', 'soft-light', 'difference', 'exclusion', 'hue', 'saturation', 'color', 'luminosity'].map((mode) => (
-            <option key={mode} value={mode}>{mode}</option>
+          {Object.entries(mixBlendThemes).map(([key, value]) => (
+            <option key={key} value={value}>{value}</option>
           ))}
         </select>
       </div>

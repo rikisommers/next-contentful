@@ -21,9 +21,7 @@ const colorThemes = {
     gradStop: '#FCD00A',
     gradMidPoint: 0.5,
     textAccent:'#d946ef',
-    mixBlendMode:'color',
     stateSuccessBackground:'#d946ef',
-    textHighlight: 'text',
   },
   dark: {
     audio:true,
@@ -46,9 +44,7 @@ const colorThemes = {
     gradStop: '#FCD00A',
     gradMidPoint: 0.5,
     textAccent:'#99f6e4',
-    mixBlendMode:'luminosity',
     stateSuccessBackground:'#d946ef',
-    textHighlight: 'underline',
   },
   tokyo: {
     audio:true,
@@ -71,9 +67,7 @@ const colorThemes = {
     gradStop: '#FCD00A',
     gradMidPoint: 0.5,
     textAccent:'#BED3CD',
-    mixBlendMode:'luminosity',
     stateSuccessBackground:'#BED3CD',
-    textHighlight: 'background',
   },
   textureAndContrast: {
     audio: true,
@@ -92,13 +86,11 @@ const colorThemes = {
     navBg: '#FFFFFF', // White
     accentPri: '#556B2F', // Olive green
     accentSec: '#556B2F', // Light orange
-    gradStart: '#556B2F', // Olive green
-    gradStop: '#556B2F', // Light orange
+    gradStart: '#47585C', // Olive green
+    gradStop: '#C8D5BB', // Light orange
     gradMidPoint: 0.5,
     textAccent: '#556B2F', // Teal
-    mixBlendMode: 'difference',
     stateSuccessBackground: '#4CAF50', // Green
-    textHighlight: 'text',
   },
 };
 
@@ -148,7 +140,33 @@ export const pageWidthThemes = {
 export const cursorThemes = {
   none: 'none',
   dot: 'dot',
+  cta:'cta'
 };
+
+export const cardThemes = {
+  formal: 'formal',
+  funky: 'funky',
+};
+
+export const mixBlendThemes = {
+  normal: 'normal',
+  multiply: 'multiply',
+  screen: 'screen',
+  overlay: 'overlay',
+  darken: 'darken',
+  lighten: 'lighten',
+  colordodge: 'color-dodge',
+  colorburn: 'color-burn',
+  hardlight: 'hard-light',
+  softlight: 'soft-light',
+  difference: 'difference',
+  exclusion: 'exclusion',
+  hue: 'hue',
+  saturation: 'saturation',
+  color: 'color',
+  luminosity: 'luminosity',
+};
+
 
 
 
@@ -182,46 +200,55 @@ export function getThemeLevaControls(themeKey) {
 // Merge themes
 export const themes = {
   light: {
-    key: 'light', // Key for the light theme
+    key: 'light',
     ...colorThemes.light,
-    ...typographyThemes.sans, // Default to sans
-    ...textHighlightThemes.text, // Add text highlight theme
-    ...pageTransitionThemes.wipe,
-    ...pageWidthThemes.fluid,
-    ...cursorThemes.dot,
+    typography:typographyThemes.sans,
+    textHighlight:textHighlightThemes.text,
+    textAnimation:textAnimationThemes.none,
+    pageTransition:pageTransitionThemes.fade,
+    pageWidth:pageWidthThemes.fluid,
+    cursor:cursorThemes.none,
+    cardStyle:cardThemes.formal,
+    // ...typographyThemes.sans, // Default to sans
+    // ...textHighlightThemes.text, // Add text highlight theme
+    // ...pageTransitionThemes.wipe,
+    // ...pageWidthThemes.fluid,
+    // ...cursorThemes.dot,
+    // ...cardThemes.cardStyle.formal,
     weights: {
       color: 1,
-      typography: 1,
       vibrance:1,
       funkyness:1,
     },
   },
   dark: {
-    key: 'dark', // Key for the dark theme
-    ...colorThemes.serif,
-    ...typographyThemes.sans, // Default to sans
-    ...textHighlightThemes.text, // Add text highlight theme
-    ...pageTransitionThemes.wipe,
-    ...pageWidthThemes.fluid,
-    ...cursorThemes.dot,
+    key: 'dark',
+    ...colorThemes.dark,
+    typography:typographyThemes.sans,
+    textHighlight:textHighlightThemes.text,
+    textAnimation:textAnimationThemes.none,
+    pageTransition:pageTransitionThemes.fade,
+    pageWidth:pageWidthThemes.fluid,
+    cursor:cursorThemes.none,
+    cardStyle:cardThemes.formal,
     weights: {
       color: 9,
-      typography: 9,
       vibrance:9,
       funkyness:9,
     },
   },
   tokyo: {
-    key: 'tokyo', // Key for the tokyo theme
+    key: 'tokyo',
     ...colorThemes.tokyo,
-    ...typographyThemes.sans, // Default to sans
-    ...textHighlightThemes.text, // Add text highlight theme
-    ...pageTransitionThemes.wipe,
-    ...pageWidthThemes.fluid,
-    ...cursorThemes.dot,
+    typography:typographyThemes.sans,
+    textHighlight:textHighlightThemes.text,
+    textAnimation:textAnimationThemes.none,
+    pageTransition:pageTransitionThemes.fade,
+    pageWidth:pageWidthThemes.fluid,
+    cursor:cursorThemes.none,
+    cardStyle:cardThemes.formal,
     weights: {
       color: 5,
-      typography: 5,
       vibrance:5,
       funkyness:5,
     },
@@ -229,14 +256,15 @@ export const themes = {
   textureAndContrast: {
     key: 'textureAndContrast',
     ...colorThemes.textureAndContrast,
-    ...typographyThemes.mono, // Default to sans
-    ...textHighlightThemes.text, // Add text highlight theme
-    ...pageTransitionThemes.wipe,
-    ...pageWidthThemes.fluid,
-    ...cursorThemes.dot,
+    typography:typographyThemes.sans,
+    textHighlight:textHighlightThemes.text,
+    textAnimation:textAnimationThemes.none,
+    pageTransition:pageTransitionThemes.fade,
+    pageWidth:pageWidthThemes.fluid,
+    cursor:cursorThemes.none,
+    cardStyle:cardThemes.formal,
     weights: {
       color: 2,
-      typography: 7,
       vibrance:5,
       funkyness:8,
     },

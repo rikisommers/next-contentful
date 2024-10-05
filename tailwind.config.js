@@ -6,6 +6,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      clipPath: {
+        'inset-1': 'inset(1rem 1rem 33% 1rem round 1rem)',
+        'inset-0': 'inset(0rem 0rem 0rem 0rem round 1rem)',
+      },
       colors:{
         'primary': 'var(--color-theme-primary)',
         'secondary': 'var(--color-theme-secondary)',

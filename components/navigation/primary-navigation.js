@@ -87,7 +87,7 @@ export default function Navigation() {
 
       <motion.div 
         ref={menuRef} 
-        className="flex items-center gap-1 rounded-lg"
+        className="fixed flex items-center gap-1 rounded-lg left-1/2"
   
       >
         <div className="relative z-50 flex gap-1 bg-black bg-opacity-50 rounded-xl backdrop-blur-lg">
