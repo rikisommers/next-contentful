@@ -67,6 +67,7 @@ function MyApp({ Component, pageProps, router }) {
   return (
     <RouteProvider>
       <ScrollPositionProvider>
+        <MousePosProvider>
           <ThemeProvider>
                 <Preloader show={isLoading} /> 
                 {!isLoading && (  
@@ -74,6 +75,7 @@ function MyApp({ Component, pageProps, router }) {
                 <MainContent Component={Component} pageProps={pageProps} router={router} />
                 )}
           </ThemeProvider>
+          </MousePosProvider>
       </ScrollPositionProvider>
     </RouteProvider>
   );

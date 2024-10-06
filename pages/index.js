@@ -39,6 +39,7 @@ const Index = ({ data, footerData }) => {
               titlealt={data.titlealt}
               contentalt={data.contentalt}
               date={dateString}
+              image={data.image}
             />
 
    

@@ -57,7 +57,6 @@ export default function PostTileCs({ post, index }) {
               <span className="material-icons">article</span>
             )}
           </div>
-<h1>as</h1>
           <div
             ref={ref}
             className="absolute top-0 left-0 z-50 flex items-end justify-between w-full h-full gap-4 px-4 pb-4 text-white "

@@ -67,6 +67,7 @@ if (imageMatch) {
   const imageUrl = imageMatch[2].startsWith('//') ? `https:${imageMatch[2]}` : imageMatch[2]; // Ensure the URL is complete
   return (
     <img
+      className="absolute w-[40px] h-0"
       key={segmentIndex}
       src={imageUrl}
       alt={altText}

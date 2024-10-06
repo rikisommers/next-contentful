@@ -107,7 +107,7 @@ export const textAnimationThemes = {
 };
 
 
-const textHighlightThemes = {
+export const textHighlightThemes = {
   text: "text",
   background: "background",
   underline: "underline",
@@ -147,6 +147,15 @@ export const cardThemes = {
   formal: 'formal',
   funky: 'funky',
 };
+
+
+export const heroBackgroundThemes = {
+  video: 'video',
+  image: 'image',
+  gradient: 'gradient',
+  animatedGradient: 'animated-gradient',
+};
+
 
 export const mixBlendThemes = {
   normal: 'normal',
@@ -209,6 +218,7 @@ export const themes = {
     pageWidth:pageWidthThemes.fluid,
     cursor:cursorThemes.none,
     cardStyle:cardThemes.formal,
+    heroBackgroundStyle:heroBackgroundThemes.gradient,
     // ...typographyThemes.sans, // Default to sans
     // ...textHighlightThemes.text, // Add text highlight theme
     // ...pageTransitionThemes.wipe,
@@ -231,6 +241,7 @@ export const themes = {
     pageWidth:pageWidthThemes.fluid,
     cursor:cursorThemes.none,
     cardStyle:cardThemes.formal,
+    heroBackgroundStyle:heroBackgroundThemes.gradient,
     weights: {
       color: 9,
       vibrance:9,
@@ -247,6 +258,7 @@ export const themes = {
     pageWidth:pageWidthThemes.fluid,
     cursor:cursorThemes.none,
     cardStyle:cardThemes.formal,
+    heroBackgroundStyle:heroBackgroundThemes.gradient,
     weights: {
       color: 5,
       vibrance:5,
@@ -263,6 +275,7 @@ export const themes = {
     pageWidth:pageWidthThemes.fluid,
     cursor:cursorThemes.none,
     cardStyle:cardThemes.formal,
+    heroBackgroundStyle:heroBackgroundThemes.gradient,
     weights: {
       color: 2,
       vibrance:5,

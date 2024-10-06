@@ -2,11 +2,14 @@ import React from "react";
 import { motion } from "framer-motion";
 import Audio from "../navigation/audio";
 import Link from "next/link";
-import Background from "../utils/background";
+import Background from "../background/background";
 import AnimatedText,{AnimStyle, HighlightStyle, AnimTextOrder} from "../motion/animated-text";
 import { TextAnimLineUp } from "../motion/text-anim-line-up";
 import TextAnimationUp from "../motion/text-animation-up";
-import CanvasBackground from "../utils/canvasBackground";
+import CanvasGradientBackground from "../background/canvasGradientBackground";
+import CanvasAnimatedGradient from "../background/canvasAnimatedGradient";
+import { ThemeProvider, useThemeContext } from "../themeContext";
+import BlendImage from "../image/blend-image";
 
 export default function BlockHero({
   title,
@@ -16,8 +19,10 @@ export default function BlockHero({
   date,
   content,
   layout,
+  image
 }) {
 
+  const { currentTheme } = useThemeContext();
 
 
 
@@ -27,9 +32,6 @@ export default function BlockHero({
       style={{ background: 'var(--body-background-color)' }}
     >
 
-<div className="absolute w-full h-full z-1">
-
-       </div>
        
         <div className="absolute z-50 flex flex-col items-center justify-center w-full h-full pointer-events-none margin-auto ">
           <div className="grid max-w-xl gap-8">
@@ -39,7 +41,6 @@ export default function BlockHero({
               content={home.title}
               color={"text-slate-400"}
             /> */}
-             <p>{title}</p>
             <h1 className="text-4xl font-medium text-center font-aon">
               <AnimatedText 
                type={AnimStyle.LINEPOSUP} 
@@ -76,9 +77,7 @@ export default function BlockHero({
             </div>
           </div>
         )}
-              {/* <div className="absolute z-10 flex flex-col w-full h-full">
 
-      </div> */}
       <motion.div
         className="absolute flex items-center justify-end w-full h-full opacity-75 pointer-events-none z-1"
         initial={{ clipPath: "inset(1.0rem 1.0rem 1.0rem round 0.5rem)" }}
@@ -93,8 +92,18 @@ export default function BlockHero({
         }}
       >
 
-               {/* <Background /> */}
-       <CanvasBackground/>
+          {currentTheme.heroBackgroundStyle === 'gradient' && 
+       <CanvasGradientBackground />}
+
+{currentTheme.heroBackgroundStyle === 'video' && 
+       <Background />}
+
+{currentTheme.heroBackgroundStyle === 'image' && 
+       <BlendImage
+       className="img-cover"
+       alt={`Cover Image for ${image?.title}`}
+       src={image.url} />}
+
       </motion.div>
      
     </div>

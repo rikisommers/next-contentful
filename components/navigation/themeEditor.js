@@ -7,84 +7,13 @@ import {
   pageTransitionThemes, 
   pageWidthThemes, 
   cardThemes,
+  heroBackgroundThemes,
+  cursorThemes,
   mixBlendThemes} from "../../utils/theme";
 import { debounce } from "../utils/debounce";
 import { useThemeContext } from '../themeContext';
 import { FloatType } from "three";
 
-// Fallback values
-const defaultTypographyThemes = {
-  sans: 'sans-serif',
-  serif: 'serif',
-  mono: 'monospace',
-};
-
-const defaultTextHighlightThemes = {
-  text: "text",
-  background: "background",
-  underline: "underline",
-  highlight: "highlight",
-  none: "none"
-};
-
-const defaultTextAnimationThemes = {
-  none: "none",
-  linesup: "linesup",
-  lineposup: "lineposup",
-  linefadein: "linefadein",
-  charfade: "charfade",
-  charblur: "charblur",
-  charrandom: "charrandom",
-  charcode: "charcode",
-};
-
-
-const defaultPageTransitionThemes = {
-  tiltandwipe:'tilt and wipe',
-  tilt:'tilt',
-  fade: 'fade',
-  wipe: 'wipe',
-  none: 'none'
-};
-
-const defaultPageWidthThemes = {
-  small: 'small',
-  large: 'large',
-  fluid: 'fluid'
-};
-
-
-
-const defaultCursorThemes = {
-  none: 'none',
-  dot: 'dot',
-  cta: 'cta'
-};
-
-
-const defaultCardThemes = {
-  formal: 'formal',
-  funky: 'funky',
-};
-
-const defaultMixBlendThemes = {
-  normal: 'normal',
-  multiply: 'multiply',
-  screen: 'screen',
-  overlay: 'overlay',
-  darken: 'darken',
-  lighten: 'lighten',
-  colordodge: 'color-dodge',
-  colorburn: 'color-burn',
-  hardlight: 'hard-light',
-  softlight: 'soft-light',
-  difference: 'difference',
-  exclusion: 'exclusion',
-  hue: 'hue',
-  saturation: 'saturation',
-  color: 'color',
-  luminosity: 'luminosity',
-};
 
 
 
@@ -250,13 +179,6 @@ export default function ThemeEditor() {
     saveThemeToContentful(currentTheme);
   };
 
-  const typographyOptions = currentTheme.typographyThemes || defaultTypographyThemes;
-  const textHighlightOptions = currentTheme.textHighlightThemes || defaultTextHighlightThemes;
-  const pageTransitionOptions = currentTheme.transitionThemes || defaultPageTransitionThemes;
-  const pageWidthOptions = currentTheme.pageWidthThemes || defaultPageWidthThemes;
-  const textAnimationOptions = currentTheme.textAnimationThemes || defaultTextAnimationThemes;
-  const cursorOptions = currentTheme.cursorThemes || defaultCursorThemes;
-
 
   const handleWeightChange = (metricType, value) => {
     switch (metricType) {
@@ -387,11 +309,9 @@ export default function ThemeEditor() {
       </div>
 
 
-
-
       
       <div className="mb-4">
-        <label htmlFor="cardStylr" className="block mb-2 text-sm font-medium">Card Style</label>
+        <label htmlFor="cardStyle" className="block mb-2 text-sm font-medium">Card Style</label>
         <select
           id="cardStyle"
           value={currentTheme.cardStyle || 'formal'}
@@ -399,6 +319,21 @@ export default function ThemeEditor() {
           className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           {Object.entries(cardThemes).map(([key, value]) => (
+            <option key={key} value={value}>{value}</option>
+          ))}
+        </select>
+      </div>
+
+      
+      <div className="mb-4">
+        <label htmlFor="heroBackgroundStyle" className="block mb-2 text-sm font-medium">Hero Background Style</label>
+        <select
+          id="heroBackgroundStyle"
+          value={currentTheme.heroBackgroundStyle || 'gradient'}
+          onChange={(e) => handleGlobalOptionChange('heroBackgroundStyle', e.target.value)}
+          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          {Object.entries(heroBackgroundThemes).map(([key, value]) => (
             <option key={key} value={value}>{value}</option>
           ))}
         </select>
@@ -427,7 +362,7 @@ export default function ThemeEditor() {
           onChange={(e) => handleGlobalOptionChange('cursor', e.target.value)}
           className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
-          {Object.entries(cursorOptions).map(([key, value]) => (
+          {Object.entries(cursorThemes).map(([key, value]) => (
             <option key={key} value={value}>{value}</option>
           ))}
         </select>
@@ -441,7 +376,7 @@ export default function ThemeEditor() {
           onChange={(e) => handleGlobalOptionChange('fontFamilyPrimary', e.target.value)}
           className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
-          {Object.entries(typographyOptions).map(([key, value]) => (
+          {Object.entries(typographyThemes).map(([key, value]) => (
             <option key={key} value={value}>{value}</option>
           ))}
         </select>
@@ -456,7 +391,7 @@ export default function ThemeEditor() {
           onChange={(e) => handleGlobalOptionChange('fontFamilySecondary', e.target.value)}
           className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
-          {Object.entries(typographyOptions).map(([key, value]) => (
+          {Object.entries(typographyThemes).map(([key, value]) => (
             <option key={key} value={value}>{value}</option>
           ))}
         </select>
@@ -471,7 +406,7 @@ export default function ThemeEditor() {
           onChange={(e) => handleGlobalOptionChange('pageTransition', e.target.value)}
           className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
-          {Object.entries(pageTransitionOptions).map(([key, value]) => (
+          {Object.entries(pageTransitionThemes).map(([key, value]) => (
             <option key={key} value={key}>{value}</option>
           ))}
         </select>
@@ -486,8 +421,8 @@ export default function ThemeEditor() {
           onChange={(e) => handleGlobalOptionChange('textHighlight', e.target.value)}
           className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
-          {Object.entries(textHighlightOptions).map(([key, value]) => (
-            <option key={key} value={key}>{value}</option>
+          {Object.entries(textHighlightThemes).map(([key, value]) => (
+            <option key={key} value={value}>{value}</option>
           ))}
         </select>
       </div>
@@ -501,7 +436,7 @@ export default function ThemeEditor() {
           onChange={(e) => handleGlobalOptionChange('textAnimation', e.target.value)}
           className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
-          {Object.entries(textAnimationOptions).map(([key, value]) => (
+          {Object.entries(textAnimationThemes).map(([key, value]) => (
             <option key={key} value={key}>{value}</option>
           ))}
         </select>
@@ -516,7 +451,7 @@ export default function ThemeEditor() {
           onChange={(e) => handleGlobalOptionChange('pageWidth', e.target.value)}
           className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
-          {Object.entries(pageWidthOptions).map(([key, value]) => (
+          {Object.entries(pageWidthThemes).map(([key, value]) => (
             <option key={key} value={key}>{value}</option>
           ))}
         </select>

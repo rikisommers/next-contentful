@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useThemeContext } from '../themeContext';
 
-export default function CanvasBackground() {
+export default function CanvasGradientBackground() {
   const canvasRef = useRef(null);
   const { currentTheme } = useThemeContext();
 

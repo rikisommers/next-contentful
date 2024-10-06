@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { motion, cubicBezier } from "framer-motion";
-import Background from "../utils/background";
 import AnimatedText, { AnimStyle, AnimTextOrder } from "../motion/animated-text";
 
 

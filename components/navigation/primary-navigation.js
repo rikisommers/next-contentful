@@ -9,6 +9,7 @@ import { Draggable } from "gsap/dist/Draggable";
 import CtxMenu from "../base/ctx-menu";
 import ThemeEditor from "./themeEditor";
 import Button, { ButtonType, ButtonSound } from "../base/button";
+import ButtonAlt from "../base/button-alt";
 import AnimatedText, { AnimStyle } from "../motion/animated-text";
 import Modal, { ModalDirection, ModalWidth, ModalPosition } from "../base/modal";
 import Link from "next/link";
@@ -125,6 +126,14 @@ export default function Navigation() {
               type={ButtonType.SECONDARY}
             />
    
+
+             <ButtonAlt
+              click={toggleThemeEditor}
+              type={ButtonType.PRIMARY}
+              label={"Theme"} 
+  
+            />
+
       </motion.div>
 
       {/* Modal for "Available for work" */}
