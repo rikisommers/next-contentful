@@ -128,6 +128,7 @@ export const pageTransitionThemes = {
   tilt:'tilt',
   fade:'fade',
   wipe:'wipe',
+  pixel:'pixel',
   none:'none'
 };
 
@@ -148,13 +149,30 @@ export const cardThemes = {
   funky: 'funky',
 };
 
+export const cardImageScrollThemes = {
+  none: 'none',
+  parallax: 'parallax',
+};
+
+export const cardImageHoverThemes = {
+  none: 'none',
+  zoom: 'zoom',
+};
 
 export const heroBackgroundThemes = {
   video: 'video',
   image: 'image',
   gradient: 'gradient',
   animatedGradient: 'animated-gradient',
+  blob:'blob',
 };
+
+export const heroTextImageThemes = {
+  none: 'none',
+  inline: 'inline',
+  hover: 'hover',
+};
+
 
 
 export const mixBlendThemes = {
@@ -177,6 +195,10 @@ export const mixBlendThemes = {
 };
 
 
+export const helpers = {
+    mousepos:false,
+    grid:false,
+};
 
 
 // Function to get theme by key
@@ -218,13 +240,11 @@ export const themes = {
     pageWidth:pageWidthThemes.fluid,
     cursor:cursorThemes.none,
     cardStyle:cardThemes.formal,
+    cardImageScrollStyle:cardImageScrollThemes.none,
+    cardImageHoverThemes:cardImageHoverThemes.none,
     heroBackgroundStyle:heroBackgroundThemes.gradient,
-    // ...typographyThemes.sans, // Default to sans
-    // ...textHighlightThemes.text, // Add text highlight theme
-    // ...pageTransitionThemes.wipe,
-    // ...pageWidthThemes.fluid,
-    // ...cursorThemes.dot,
-    // ...cardThemes.cardStyle.formal,
+    heroTextImageStyle:heroTextImageThemes.none,
+    helpers:helpers,
     weights: {
       color: 1,
       vibrance:1,
@@ -241,7 +261,11 @@ export const themes = {
     pageWidth:pageWidthThemes.fluid,
     cursor:cursorThemes.none,
     cardStyle:cardThemes.formal,
+    cardImageScrollStyle:cardImageScrollThemes.none,
+    cardImageHoverThemes:cardImageHoverThemes.none,
     heroBackgroundStyle:heroBackgroundThemes.gradient,
+    heroTextImageStyle:heroTextImageThemes.none,
+    helpers:helpers,
     weights: {
       color: 9,
       vibrance:9,
@@ -257,8 +281,11 @@ export const themes = {
     pageTransition:pageTransitionThemes.fade,
     pageWidth:pageWidthThemes.fluid,
     cursor:cursorThemes.none,
-    cardStyle:cardThemes.formal,
+    cardImageScrollStyle:cardImageScrollThemes.none,
+    cardImageHoverThemes:cardImageHoverThemes.none,
     heroBackgroundStyle:heroBackgroundThemes.gradient,
+    heroTextImageStyle:heroTextImageThemes.none,
+    helpers:helpers,
     weights: {
       color: 5,
       vibrance:5,
@@ -274,8 +301,11 @@ export const themes = {
     pageTransition:pageTransitionThemes.fade,
     pageWidth:pageWidthThemes.fluid,
     cursor:cursorThemes.none,
-    cardStyle:cardThemes.formal,
+    cardImageScrollStyle:cardImageScrollThemes.none,
+    cardImageHoverThemes:cardImageHoverThemes.none,
     heroBackgroundStyle:heroBackgroundThemes.gradient,
+    heroTextImageStyle:heroTextImageThemes.none,
+    helpers:helpers,
     weights: {
       color: 2,
       vibrance:5,

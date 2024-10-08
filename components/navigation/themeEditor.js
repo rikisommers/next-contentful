@@ -7,8 +7,12 @@ import {
   pageTransitionThemes, 
   pageWidthThemes, 
   cardThemes,
+  cardImageHoverThemes,
+  cardImageScrollThemes,
   heroBackgroundThemes,
+  heroTextImageThemes,
   cursorThemes,
+  helpers,
   mixBlendThemes} from "../../utils/theme";
 import { debounce } from "../utils/debounce";
 import { useThemeContext } from '../themeContext';
@@ -323,6 +327,34 @@ export default function ThemeEditor() {
           ))}
         </select>
       </div>
+      
+      <div className="mb-4">
+        <label htmlFor="cardImageScrollStyle" className="block mb-2 text-sm font-medium">Card Image Scroll Style</label>
+        <select
+          id="cardImageScrollStyle"
+          value={currentTheme.cardImageScrollStyle || 'none'}
+          onChange={(e) => handleGlobalOptionChange('cardImageScrollStyle', e.target.value)}
+          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          {Object.entries(cardImageScrollThemes).map(([key, value]) => (
+            <option key={key} value={value}>{value}</option>
+          ))}
+        </select>
+      </div>
+
+      <div className="mb-4">
+        <label htmlFor="cardImageHoverStyle" className="block mb-2 text-sm font-medium">Card Image Hover Style</label>
+        <select
+          id="cardImageHoverStyle"
+          value={currentTheme.cardImageHoverThemes || 'none'}
+          onChange={(e) => handleGlobalOptionChange('cardImageHoverThemes', e.target.value)}
+          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          {Object.entries(cardImageHoverThemes).map(([key, value]) => (
+            <option key={key} value={value}>{value}</option>
+          ))}
+        </select>
+      </div>
 
       
       <div className="mb-4">
@@ -338,6 +370,24 @@ export default function ThemeEditor() {
           ))}
         </select>
       </div>
+
+
+
+    
+      <div className="mb-4">
+        <label htmlFor="heroTextImageStyle" className="block mb-2 text-sm font-medium">Hero Text Image Style</label>
+        <select
+          id="heroTextImageStyle"
+          value={currentTheme.heroTextImageStyle || 'gradient'}
+          onChange={(e) => handleGlobalOptionChange('heroTextImageStyle', e.target.value)}
+          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          {Object.entries(heroTextImageThemes).map(([key, value]) => (
+            <option key={key} value={value}>{value}</option>
+          ))}
+        </select>
+      </div>
+
 
       <div className="mb-4">
         <label htmlFor="mixBlendMode" className="block mb-2 text-sm font-medium">Mix Blend Mode</label>
@@ -456,6 +506,23 @@ export default function ThemeEditor() {
           ))}
         </select>
       </div>
+
+      {/* Helper Themes option */}
+      {/* <div className="mb-4">
+        <label htmlFor="helpers" className="block mb-2 text-sm font-medium">Helpers</label>
+        {Object.entries(helpers).map(([key, value]) => (
+          <label key={key} className="flex items-center">
+            <input
+              type="checkbox"
+              id={key}
+              checked={currentTheme.helpers.includes(key)}
+              onChange={(e) => handleGlobalOptionChange('helpers', e.target.checked ? [...currentTheme.helpers, key] : currentTheme.helpers.filter(theme => theme !== key))}
+              className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+            />
+            <span className="ml-2 text-sm font-medium">{value}</span>
+          </label>
+        ))}
+      </div> */}
 
 
 
