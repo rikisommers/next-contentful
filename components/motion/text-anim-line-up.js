@@ -44,7 +44,7 @@ export const TextAnimLineUp = ({
     const segments = line.split('__');
     
     return (
-      <span
+      <div
         key={lineIndex}
         style={{ 
           overflow: 'hidden',
@@ -89,7 +89,7 @@ if (imageMatch) {
             }
           })}
         </motion.div>
-      </span>
+      </div>
     );
   };
 

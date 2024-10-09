@@ -57,6 +57,7 @@ export const TextAnimLinePosUp = ({
         }}
       >
         <motion.div
+
           variants={lineVariants}
           style={{
             position: "relative",

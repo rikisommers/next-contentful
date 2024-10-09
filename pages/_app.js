@@ -38,8 +38,8 @@ function MainContent({ Component, pageProps, router }) {
         
           <AnimatePresence mode="wait" initial={false}>
             {/* {currentTheme.cursor === 'dot' && <></> } */}
-            <CursorDot key={router.asPath}/>
-            <CursorCta content={'testing123'} key={router.asPath}/>
+            {/* <CursorDot key={router.asPath}/>
+            <CursorCta content={'testing123'} key={router.asPath + '2'}/> */}
             <Component {...pageProps} key={router.asPath} />
           </AnimatePresence>
  
