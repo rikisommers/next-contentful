@@ -4,7 +4,7 @@ export default function BlockList({ data }) {
   console.log(data);
 
   const renderBlock = () => {
-    switch (data.type[0].trim()) {
+    switch (data?.type[0].trim()) {
       case "content":
         return (
           <article className="grid grid-cols-12 gap-3 article-content">

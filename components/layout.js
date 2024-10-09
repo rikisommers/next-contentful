@@ -3,6 +3,7 @@
 import React, { useEffect } from "react";
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { useThemeContext } from './themeContext';
+import TransitionPage from "../components/transition/pageTransition";
 
 export default function Layout({ children }) {
   const { currentTheme } = useThemeContext();

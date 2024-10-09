@@ -9,7 +9,6 @@ import * as THREE from "three";
 import { vertexShader } from "../shaders/water/vertex";
 import { fragmentShader } from "../shaders/water/fragment";
 import ScrollContainer from "../components/utils/scroll-container";
-import CustomCursor from "../components/utils/cursor";
 import PostBody from "../components/post/post-body";
 import BlockFooter from "../components/blocks/block-footer";
 import BlockHero from "../components/blocks/block-hero";

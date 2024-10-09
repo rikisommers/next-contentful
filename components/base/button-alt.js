@@ -149,7 +149,7 @@ const ButtonAlt = ({ label, click, type = ButtonType.DEFAULT, sound }) => {
       className="relative flex items-center px-3 py-3 overflow-hidden text-xs uppercase rounded-lg cursor-pointer"
       style={getButtonStyle(type)}
     >
-        <span class="z-20">
+        <span className="z-20">
         {label}
 
         </span>

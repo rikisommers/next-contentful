@@ -19,8 +19,7 @@ import {
 
 import PostIntro from "../../components/post/post-intro";
 import PostHeader from "../../components/post/post-header";
-import TransitionTilt from "../../components/transition/transition-tilt";
-import TransitionWipe from "../../components/transition/transition-wipe";
+
 import PostContent from "../../components/post/post-content";
 import Link from "next/link";
 import NextPost from "../../components/post/post-next";
@@ -30,6 +29,8 @@ import BlockFooter from "../../components/blocks/block-footer";
 import PostTileCs from "../../components/post/post-tile-cs";
 import { useScrollPosition } from "../../components/scrollPosContext";
 import ScrollContainer from "../../components/utils/scroll-container";
+import TransitionPage from "../../components/transition/pageTransition";
+import PageNav from "../../components/base/page-nav";
 
 export default function Post({ post, nextPost, footerData }) {
   const router = useRouter();
@@ -74,48 +75,72 @@ export default function Post({ post, nextPost, footerData }) {
   };
 
   return (
-    <Layout>
-          {post.csblocksCollection && (
-        <nav className="fixed top-0 right-0 z-50 flex flex-col justify-center rounded-full h-vh ">
-          <ul className="flex flex-col bg-slate-100 ml-50">
-          {post.csblocksCollection.items &&
-            post.csblocksCollection.items.length > 0 &&
-            post.csblocksCollection.items.map((item, index) => {
-              return (
-                <div key={index}>
-                  {item.__typename === "BlockArticle" && (
-                    <div className="flex p-4 text-red-400 bg-slate-500">
-                      <a href={`#${item.title}`} key={index} className="text-xs">
-                          {item.title}
-                      </a>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-            </ul>
-        </nav>
-      )}
-      
-      <TransitionTilt active={true} className="z-100">
-        {/* <ScrollContainer> */}
 
+
+      
 
     
       
+      <Layout>
+      <TransitionPage>
+
+
+
+   
+    {/* <div className="grid col-span-1">ddd</div>
+    <div className="grid col-span-1">dddd</div> */}
+{/* {post.csblocksCollection && (
+          <PageNav content={post.csblocksCollection.items}></PageNav>
+              // <nav className="sticky right-0 z-50 flex flex-col self-start justify-center rounded-full top">
+              //   <ul className="flex flex-col bg-slate-100 ml-50">
+              //   {post.csblocksCollection.items &&
+              //     post.csblocksCollection.items.length > 0 &&
+              //     post.csblocksCollection.items.map((item, index) => {
+              //       return (
+              //         <div key={index}>
+              //           {item.__typename === "BlockArticle" && (
+              //             <div className="flex p-4 text-red-400 bg-slate-500">
+              //               <a href={`#${item.title}`} key={index} className="text-xs">
+              //                   {item.title}
+              //               </a>
+              //             </div>
+              //           )}
+              //         </div>
+              //       );
+              //     })}
+              //     </ul>
+              // </nav>
+            )} */}
           {post && (
-            <div className="flex flex-col px-8">
-              <PostHeader content={post} />
-              <PostContent content={post} />
+
+            <div className="grid w-full grid-cols-12 gap-4 p-8 grid-rows-auto">
+                <div className="col-span-12">
+                <PostHeader content={post} />
+                
+                </div>
+  
+                <div className="row-start-2 page__content">
+                  <PostContent content={post} />
+                </div>
+                <div className="col-start-11 row-start-2">
+                <PageNav content={post.csblocksCollection.items}></PageNav>
+
+                </div>
             </div>
+
+        
+              
+             
           )}
+
+
+            
 
           {footerData && (
             <BlockFooter data={footerData} />
           )}
         {/* </ScrollContainer> */}
-      </TransitionTilt>
-      <TransitionWipe />
+        </TransitionPage>
     </Layout>
   );
 }

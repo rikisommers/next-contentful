@@ -8,8 +8,8 @@ import { ThemeProvider, useThemeContext } from '../components/themeContext';
 import Navigation from "../components/navigation/primary-navigation";
 import Preloader from "../components/utils/preloader";
 import "../styles/index.scss";
-import CustomCursor from '../components/utils/cursor';
-
+import CursorDot from '../components/utils/cursor-dot';
+import CursorCta from '../components/utils/cursor-cta';
 
 function MainContent({ Component, pageProps, router }) {
   const { currentTheme, isThemeDialogOpen } = useThemeContext();
@@ -21,7 +21,7 @@ function MainContent({ Component, pageProps, router }) {
   return (
     <>
       <Navigation />
-      <motion.div 
+      {/* <motion.div 
           style={{
             backgroundColor:'var(--body-background-color)'
             
@@ -34,17 +34,16 @@ function MainContent({ Component, pageProps, router }) {
           duration: 0.6,
           ease: [0.33, 1, 0.68, 1],
         }}
-      >
+      > */}
         
           <AnimatePresence mode="wait" initial={false}>
-            {currentTheme.cursor === 'dot' &&
-            <CustomCursor/>
-          }
-
+            {/* {currentTheme.cursor === 'dot' && <></> } */}
+            <CursorDot key={router.asPath}/>
+            <CursorCta content={'testing123'} key={router.asPath}/>
             <Component {...pageProps} key={router.asPath} />
           </AnimatePresence>
  
-      </motion.div>
+      {/* </motion.div> */}
     </>
   );
 }

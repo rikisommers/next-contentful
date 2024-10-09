@@ -33,7 +33,7 @@ export default function PostTileCs({ post, index }) {
   return (
     <Link
       scroll={false}
-      
+      data-name="show-cursor"
       href={`/projects/${post.slug}`}
       style={{
         color: 'var(--background-color)'

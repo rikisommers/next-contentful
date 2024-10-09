@@ -11,6 +11,17 @@ $phi: 1.6180339887498948482;
     gap:2rem;
   }
 
+.page__header{
+ 
+}
+
+.page__content{
+  grid-column-start: 1;
+  grid-column-end: 12;
+}
+
+.page__nav{}
+
 
 
   .o-grid__item{

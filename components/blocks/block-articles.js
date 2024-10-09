@@ -5,13 +5,30 @@ import PostTileLg from "../post/post-tile-lg";
 import AnimatedElement, { AnimStyleEl } from "../motion/animated-element";
 import AnimatedText, { AnimStyle } from "../motion/animated-text";
 import { useThemeContext } from '../themeContext';
+import { useMousePos } from "../mousePosContext"
 
 export const BlockArticles = ({ data }) => {
-  
+  const { setVisible, setContent } = useMousePos();
+
+  const handleShowCursor = ({content}) => {
+    setVisible(true);
+    setContent(content); // Set content based on the article index or any other logic
+
+  };
+
+  const handleHideCursor = ({content}) => {
+    setVisible(false);
+    setContent(''); // Set content based on the article index or any other logic
+
+  };
+
+
   const { currentTheme } = useThemeContext();
 
   return (
     <>
+
+    
       {data.title && (
         <h3
           className="py-2 font-mono text-xs"
@@ -27,7 +44,10 @@ export const BlockArticles = ({ data }) => {
             switch (data.type[0]) {
               case "titledCardGrid":
                 return data.articlesCollection.items.map((item, i) => (
-                  <div key={i} className="col-span-12 md:col-span-6">
+                  <div key={i} 
+                       className="col-span-12 md:col-span-6"
+                       onMouseEnter={handleShowCursor(item.title)} 
+                       onMouseLeave={handleHideCursor(item.title)} >
                     <AnimatedElement type={AnimStyleEl.FADEIN}>
 
                           { currentTheme.cardStyle === 'formal' && 

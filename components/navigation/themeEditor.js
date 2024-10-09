@@ -55,6 +55,7 @@ export default function ThemeEditor() {
   const [customTheme, setCustomTheme] = useState(null);
   const [isSaving, setIsSaving] = useState(false);
   const [saveError, setSaveError] = useState(null);
+  const [selectedCursors, setSelectedCursors] = useState(currentTheme.cursor || []); // Initialize with current theme cursor
 
     // State for slider values
     const [colorWeight, setColorWeight] = useState(5);
@@ -151,6 +152,20 @@ export default function ThemeEditor() {
     updateTheme(updatedTheme); // Update the theme with the new values
     applyCurrentTheme(updatedTheme); // Ensure the theme is applied to the DOM
   };
+
+
+  const handleCheckboxChange = (cursor) => {
+    setSelectedCursors((prev) => {
+      if (prev.includes(cursor)) {
+        // If already selected, remove it
+        return prev.filter((c) => c !== cursor);
+      } else {
+        // Otherwise, add it
+        return [...prev, cursor];
+      }
+    });
+  };
+
 
   const saveThemeToContentful = async (theme) => {
     setIsSaving(true);

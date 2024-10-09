@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect ,useRef } from "react";
+import { createContext, useContext, useState, useEffect ,useRef } from "react";
 
 export const MousePosContext = createContext();
 
@@ -6,6 +6,9 @@ export const MousePosProvider = ({ children }) => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [direction, setDirection] = useState('');
   const [velocity, setVelocity] = useState(0);
+  const [visible, setVisible] = useState(false);
+  const [content, setContent] = useState(''); // Initialize content state
+
   //const [rotationAngle, setRotationAngle] = useState(0);
   const [lastTimestamp, setLastTimestamp] = useState(0);
   const [lastMousePosition, setLastMousePosition] = useState({ x: 0, y: 0 });
@@ -68,8 +71,10 @@ export const MousePosProvider = ({ children }) => {
   }, [lastMousePosition]);
 
   return (
-    <MousePosContext.Provider value={{ mousePosition, direction, velocity}}>
+    <MousePosContext.Provider value={{ mousePosition, direction, velocity, visible, setVisible, content, setContent}}>
       {children}
     </MousePosContext.Provider>
   );
 };
+
+export const useMousePos = () => useContext(MousePosContext);
