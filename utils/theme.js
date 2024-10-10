@@ -160,11 +160,17 @@ export const cardImageHoverThemes = {
 };
 
 export const heroBackgroundThemes = {
+  none: 'none',
   video: 'video',
   image: 'image',
   gradient: 'gradient',
   animatedGradient: 'animated-gradient',
   blob:'blob',
+};
+
+export const heroLayoutThemes = {
+  center: 'center',
+  left: 'left',
 };
 
 export const heroTextImageThemes = {
@@ -244,6 +250,7 @@ export const themes = {
     cardImageHoverThemes:cardImageHoverThemes.none,
     heroBackgroundStyle:heroBackgroundThemes.gradient,
     heroTextImageStyle:heroTextImageThemes.none,
+    heroTextImageStyle:heroLayoutThemes.none,
     helpers:helpers,
     weights: {
       color: 1,
@@ -265,6 +272,7 @@ export const themes = {
     cardImageHoverThemes:cardImageHoverThemes.none,
     heroBackgroundStyle:heroBackgroundThemes.gradient,
     heroTextImageStyle:heroTextImageThemes.none,
+    heroTextImageStyle:heroLayoutThemes.none,
     helpers:helpers,
     weights: {
       color: 9,
@@ -285,6 +293,7 @@ export const themes = {
     cardImageHoverThemes:cardImageHoverThemes.none,
     heroBackgroundStyle:heroBackgroundThemes.gradient,
     heroTextImageStyle:heroTextImageThemes.none,
+    heroTextImageStyle:heroLayoutThemes.none,
     helpers:helpers,
     weights: {
       color: 5,
@@ -305,6 +314,7 @@ export const themes = {
     cardImageHoverThemes:cardImageHoverThemes.none,
     heroBackgroundStyle:heroBackgroundThemes.gradient,
     heroTextImageStyle:heroTextImageThemes.none,
+    heroTextImageStyle:heroLayoutThemes.none,
     helpers:helpers,
     weights: {
       color: 2,

@@ -31,8 +31,8 @@ const Index = ({ data, footerData }) => {
 
   return (
        <Layout>
-        <TransitionPage>
 
+        <TransitionPage>
             <BlockHero
               content={data.content}
               titlealt={data.titlealt}
@@ -45,6 +45,7 @@ const Index = ({ data, footerData }) => {
 
             <BlockFooter data={footerData} />
         </TransitionPage>
+
       </Layout>
   );
 };

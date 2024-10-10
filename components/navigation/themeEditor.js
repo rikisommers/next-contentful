@@ -11,6 +11,7 @@ import {
   cardImageScrollThemes,
   heroBackgroundThemes,
   heroTextImageThemes,
+  heroLayoutThemes,
   cursorThemes,
   helpers,
   mixBlendThemes} from "../../utils/theme";
@@ -387,17 +388,29 @@ export default function ThemeEditor() {
       </div>
 
 
-
-    
       <div className="mb-4">
         <label htmlFor="heroTextImageStyle" className="block mb-2 text-sm font-medium">Hero Text Image Style</label>
         <select
           id="heroTextImageStyle"
-          value={currentTheme.heroTextImageStyle || 'gradient'}
+          value={currentTheme.heroTextImageStyle || 'none'}
           onChange={(e) => handleGlobalOptionChange('heroTextImageStyle', e.target.value)}
           className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           {Object.entries(heroTextImageThemes).map(([key, value]) => (
+            <option key={key} value={value}>{value}</option>
+          ))}
+        </select>
+      </div>
+
+      <div className="mb-4">
+        <label htmlFor="heroLayoutStyle" className="block mb-2 text-sm font-medium">Hero Layout Style</label>
+        <select
+          id="heroLayoutStyle"
+          value={currentTheme.heroLayoutStyle || 'center'}
+          onChange={(e) => handleGlobalOptionChange('heroLayoutStyle', e.target.value)}
+          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          {Object.entries(heroLayoutThemes).map(([key, value]) => (
             <option key={key} value={value}>{value}</option>
           ))}
         </select>

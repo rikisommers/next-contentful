@@ -104,7 +104,8 @@ switch (type2) {
         highlight={highlight2}
         />
     case AnimStyle.LINESUP:
-        return <TextAnimLinePosUp 
+        return <TextAnimLinePosUp
+        theme={currentTheme} 
         content={content} 
         delay={delay}
         highlight={highlight2}

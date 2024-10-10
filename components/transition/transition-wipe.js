@@ -10,7 +10,7 @@ import { getThemeByKey } from '../../utils/theme';
 const TransitionContent = ({ currentTheme, onComplete }) => (
   <motion.div
     className="pointer-events-none transition-wipe--y rounded-2xl"
-    style={{ backgroundColor:  'var(--background-color)', }}
+    style={{ backgroundColor:  'var(--body-background-color)', }}
     initial={{ y: "100%" }}
     exit={{ y: -40, zIndex: 40, onComplete }}
     transition={{ ease: [0.33, 1, 0.68, 1], duration: 0.6, delay: 0.3 }}
@@ -42,11 +42,8 @@ const TransitionWipe = () => {
 
   return (
     <LayoutGroup>
-      
-        <>
-          <TransitionContent currentTheme={currentTheme} />
-          <Overlay currentTheme={currentTheme} />
-        </>
+        <TransitionContent currentTheme={currentTheme} />
+        <Overlay currentTheme={currentTheme} />
     </LayoutGroup>
   );
 };

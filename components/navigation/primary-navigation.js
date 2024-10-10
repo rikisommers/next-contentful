@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { useThemeContext } from '../themeContext';
-import { motion } from "framer-motion";
+import { motion, cubicBezier } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useScrollPosition } from "../scrollPosContext";
@@ -34,6 +34,18 @@ export default function Navigation() {
     setIsThemeDialogOpen(prev => !prev);
   };
 
+
+  useEffect(() => {
+    if (menuRef.current && menuDragRef.current) {
+      // Initialize Draggable when both menuRef and menuDragRef are available
+      Draggable.create(menuRef.current, {
+        type: "x,y",
+        edgeResistance: 0.65,
+        trigger: menuDragRef.current, // Use menuDragRef.current instead of menuDragRef
+      });
+    }
+  }, [menuRef, menuDragRef]); // Include both refs in the dependency array to handle re-renders correctly
+  
   useEffect(() => {
     if (router.asPath !== router.route) {
       if (router.asPath === "/") {
@@ -62,9 +74,11 @@ export default function Navigation() {
   const [activePage, setActivePage] = useState(pages[0].id);
 
   return (
+
+    
     <motion.div 
       className="fixed z-50 flex justify-between w-full p-6 rounded-full">
-      <motion.div
+      {/* <motion.div
         style={{
           backgroundColor: 'var(--accent)',
           color: router.asPath === "/" ? 'var(--text-color)' : 'var(--heading-color)',
@@ -84,14 +98,77 @@ export default function Navigation() {
         > 
           'Available for work'
         </span>
+      </motion.div> */}
+
+<motion.div
+        style={{
+          backgroundColor: 'var(--accent',
+          color:
+            router.asPath === "/"
+              ? 'var(--text-color)'
+              : 'var(--heading-color)',
+        }}
+        className={`relative z-50 flex items-center rounded-xl`}
+      >
+        <div className={`scene bg-opacity-80 backdrop-blur-sm`} 
+          style={{backgroundColor:'var(--accent-pri)'}}
+        >
+          <div
+            style={{
+              backgroundColor: isActive ? 'var(--accent)' : 'var(--text-accent)',
+            }}
+            className={`cube ${isActive ? "show-right" : ""}`}
+          >
+            <div className="cube__face cube__face--front">
+              <img src="/logo3.svg" viewBox="0 0 32 32"></img>
+            </div>
+            <div className="cube__face cube__face--back "></div>
+            <div className=" cube__face cube__face--right">
+             <img src="/back.svg" viewBox="0 0 32 32"></img>
+
+            </div>
+            <div className="cube__face cube__face--left "></div>
+            <div className="cube__face cube__face--top "></div>
+            <div className="cube__face cube__face--bottom "></div>
+          </div>
+        </div>
+
+        <motion.span
+          className="self-center p-3 text-sm font-aon"
+          style={{ color: 'var(--text-heading)' }}
+          layoutId="title"
+          initial={{
+            opacity: 0,
+          }}
+          animate={{
+            opacity: 1,
+          }}
+          exit={{
+            opacity: 0,
+          }}
+          transition={{
+            duration: 1,
+            delay: 0,
+            easing: cubicBezier(0.35, 0.17, 0.3, 0.86),
+          }}
+        >
+          {/* <TextTitle content={ isActive ? 'Back' : 'Riki Sommers'}/> */}
+          Riki Sommers
+        </motion.span>
       </motion.div>
 
+      
       <motion.div 
         ref={menuRef} 
-        className="fixed flex items-center gap-1 rounded-lg left-1/2"
+        className="absolute flex gap-1 mx-auto rounded-lg left-1/2"
   
       >
+
+  
         <div className="relative z-50 flex gap-1 bg-black bg-opacity-50 rounded-xl backdrop-blur-lg">
+
+        <div ref={menuDragRef}>DD</div>
+
           {pages.map((page) => (
             <Link
               key={page.id}
