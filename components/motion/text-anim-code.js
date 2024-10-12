@@ -65,10 +65,13 @@ const TextAnimCode = ({ content }) => {
 
   return (
     <motion.div 
-      className="flex flex-col items-start font-mono text-slate-50"
+      className="flex flex-col items-start"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
+      style={{
+        color: "var(--heading-color)",
+      }}
     >
       {lines.map((line, lineIndex) => (
         <motion.div key={lineIndex} className="flex items-center" variants={lineVariants}>

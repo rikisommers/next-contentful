@@ -32,6 +32,32 @@ const TextAnimationChar = ({ content, delay = 0 }) => {
     },
   };
 
+  const imageMatch = content.match(/!\[([^\]]*)\]\((.*?)\)/); // Check for image syntax
+  if (imageMatch) {
+    const altText = imageMatch[1]; // Get alt text
+    const imageUrl = imageMatch[2].startsWith("//")
+      ? `https:${imageMatch[2]}`
+      : imageMatch[2]; // Ensure the URL is complete
+    return (
+      <motion.div
+        variants={container}
+        initial="hidden"
+        animate={isInView ? "show" : "hidden"}
+        className="relative inline-block rounded-full w-[30px] h-[30px] overflow-hidden mx-1 leading-normal bg-slate-300"
+      >
+        <img
+          src={imageUrl}
+          alt={altText}
+          style={{
+            maxWidth: "60px",
+            height: "auto",
+            display: "inline-block",
+          }} // Adjust styles as needed
+        />
+      </motion.div>
+    );
+  }
+
   return (
     <motion.span
       ref={ref}
@@ -39,11 +65,20 @@ const TextAnimationChar = ({ content, delay = 0 }) => {
       initial="hidden"
       animate={isInView ? "show" : "hidden"}
     >
+      JJ
       {content &&
         content.split(" ").map((word, index) => (
-          <motion.span key={index} style={{ display: "inline-block" }}>
+          <motion.span key={index} 
+          style={{
+            color: "var(--heading-color)",
+            display: "inline-block",
+          }}
+          >
             {word.split("").map((letter, letterIndex) => (
-              <motion.span variants={character} key={letterIndex} style={{ display: "inline-block" }}>
+              <motion.span
+               variants={character} 
+               key={letterIndex} 
+               style={{ display: "inline-block" }}>
                 {letter}
               </motion.span>
             ))}

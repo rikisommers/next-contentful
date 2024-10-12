@@ -75,7 +75,32 @@ export const TextAnimBlur = ({ content, delay, highlight }) => {
     if (text) {
       const boldSegments = text.split("__");
       return boldSegments.map((segment, index) => {
-        if (index % 2 === 0) {
+        const imageMatch = segment.match(/!\[([^\]]*)\]\((.*?)\)/); // Check for image syntax
+        if (imageMatch) {
+          const altText = imageMatch[1]; // Get alt text
+          const imageUrl = imageMatch[2].startsWith("//")
+            ? `https:${imageMatch[2]}`
+            : imageMatch[2]; // Ensure the URL is complete
+          return (
+            <motion.div
+              key={index}
+              variants={lineVariants}
+              initial="hidden"
+              animate="visible"
+              className="relative inline-block rounded-full w-[30px] h-[30px] overflow-hidden mx-1 leading-normal bg-slate-300"
+            >
+              <img
+                src={imageUrl}
+                alt={altText}
+                style={{
+                  maxWidth: "60px",
+                  height: "auto",
+                  display: "inline-block",
+                }} // Adjust styles as needed
+              />
+            </motion.div>
+          );
+        } else {
           const lines = segment.split("\n");
           return lines.map((line, lineIndex) => (
             <motion.div
@@ -88,8 +113,6 @@ export const TextAnimBlur = ({ content, delay, highlight }) => {
               {line.split("").map(renderCharacter)}
             </motion.div>
           ));
-        } else {
-          return renderColoredText(segment, index);
         }
       });
     }
