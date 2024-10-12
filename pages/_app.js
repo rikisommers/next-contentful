@@ -10,6 +10,7 @@ import Preloader from "../components/utils/preloader";
 import "../styles/index.scss";
 import CursorDot from '../components/utils/cursor-dot';
 import CursorCta from '../components/utils/cursor-cta';
+import ThemeEditor from '../components/navigation/themeEditor';
 
 function MainContent({ Component, pageProps, router }) {
   const { currentTheme, isThemeDialogOpen } = useThemeContext();
@@ -35,11 +36,11 @@ function MainContent({ Component, pageProps, router }) {
           ease: [0.33, 1, 0.68, 1],
         }}
       > */}
-        
+        {/* <ThemeEditor/> */}
           <AnimatePresence mode="wait" initial={false}>
             {/* {currentTheme.cursor === 'dot' && <></> } */}
-            {/* <CursorDot key={router.asPath}/>
-            <CursorCta content={'testing123'} key={router.asPath + '2'}/> */}
+            <CursorDot key={router.asPath + 'dot'}/>
+            <CursorCta content={'testing123'} key={router.asPath + 'cta'}/>
             <Component {...pageProps} key={router.asPath} />
           </AnimatePresence>
  

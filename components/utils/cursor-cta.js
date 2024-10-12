@@ -33,8 +33,8 @@ const CursorCta = ({content}) => {
          style={{
           opacity: visible ? 1 : 0.5, // Set opacity based on the provider's visible value
           rotate: rotation, // Apply rotation based on the calculated angle
-          x: mousePosition?.x,
-          y: mousePosition?.y,
+          x: mousePosition?.x + 20,
+          y: mousePosition?.y - 20,
         }}
         transition={{
           ease: [0.33, 1, 0.68, 1],

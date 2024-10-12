@@ -8,7 +8,7 @@ import BlendImage from "../image/blend-image";
 export default function PostTileImgAlt({ post }) {
   return (
     <div className="relative flex flex-col flex-grow overflow-hidden rounded-lg img-post">
-        <div className="absolute top-0 left-0 z-50 flex items-start justify-between w-full h-full gap-4 px-4 py-4 text-white ">
+        <div className="absolute top-0 left-0 z-10 flex items-start justify-between w-full h-full gap-4 px-4 py-4 text-white ">
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-4">
                 {post?.type[0] === "case study" && (

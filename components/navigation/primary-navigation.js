@@ -75,10 +75,47 @@ export default function Navigation() {
 
   return (
 
+    <>
     
     <motion.div 
-      className="fixed z-50 flex justify-between w-full p-6 rounded-full">
-      {/* <motion.div
+        ref={menuRef} 
+        className="fixed z-50 flex gap-1 rounded-lg top-3 h-[45px]"
+  
+      >
+
+  
+        <div className="relative flex gap-1 bg-black bg-opacity-50 rounded-xl backdrop-blur-lg">
+
+        <div ref={menuDragRef}>DD</div>
+
+          {pages.map((page) => (
+            <Link
+              key={page.id}
+              href={page.url}
+              scroll={false}
+              onClick={() => setActivePage(page.id)}
+              className="relative flex items-center text-sm uppercase rounded-lg"
+              style={{color: 'var(--heading-color)'}}
+            >
+              {activePage === page.id && (
+                <motion.div
+                  layoutId="indicator"
+                  style={{
+                    backgroundColor: 'var(--accent-pri)',
+                  }}
+                  className="absolute top-0 left-0 flex w-full h-full bg-opacity-50 rounded-xl"
+                ></motion.div>
+              )}
+              <Button label={page.title} type={ButtonType.TRANSPARENT}/>
+            </Link>
+          ))}
+          <Button label={'Contact'} sound={ButtonSound.ON} type={ButtonType.TRANSPARENT}></Button>
+        </div>
+      </motion.div>
+
+
+   
+      <motion.div
         style={{
           backgroundColor: 'var(--accent)',
           color: router.asPath === "/" ? 'var(--text-color)' : 'var(--heading-color)',
@@ -88,7 +125,7 @@ export default function Navigation() {
             backgroundColor: 'var(--accent)',
           }
         }}
-        className={`relative z-50 flex items-center rounded-xl px-4`}
+        className={`fixed top-3 left-3 z-50 flex items-center rounded-xl px-4`}
       >
         <div className="w-4 h-4 rounded-full" style={{backgroundColor:'var(--accent-pri)'}}></div>
         <span
@@ -98,9 +135,9 @@ export default function Navigation() {
         > 
           'Available for work'
         </span>
-      </motion.div> */}
+      </motion.div>
 
-<motion.div
+{/* <motion.div
         style={{
           backgroundColor: 'var(--accent',
           color:
@@ -152,50 +189,16 @@ export default function Navigation() {
             easing: cubicBezier(0.35, 0.17, 0.3, 0.86),
           }}
         >
-          {/* <TextTitle content={ isActive ? 'Back' : 'Riki Sommers'}/> */}
+           <TextTitle content={ isActive ? 'Back' : 'Riki Sommers'}/> 
           Riki Sommers
         </motion.span>
-      </motion.div>
+      </motion.div> */}
 
       
-      <motion.div 
-        ref={menuRef} 
-        className="absolute flex gap-1 mx-auto rounded-lg left-1/2"
-  
-      >
 
-  
-        <div className="relative z-50 flex gap-1 bg-black bg-opacity-50 rounded-xl backdrop-blur-lg">
-
-        <div ref={menuDragRef}>DD</div>
-
-          {pages.map((page) => (
-            <Link
-              key={page.id}
-              href={page.url}
-              scroll={false}
-              onClick={() => setActivePage(page.id)}
-              className="relative flex items-center text-sm uppercase rounded-lg"
-              style={{color: 'var(--heading-color)'}}
-            >
-              {activePage === page.id && (
-                <motion.div
-                  layoutId="indicator"
-                  style={{
-                    backgroundColor: 'var(--accent-pri)',
-                  }}
-                  className="absolute top-0 left-0 flex w-full h-full bg-opacity-50 rounded-xl"
-                ></motion.div>
-              )}
-              <Button label={page.title} type={ButtonType.TRANSPARENT}/>
-            </Link>
-          ))}
-          <Button label={'Contact'} sound={ButtonSound.ON} type={ButtonType.TRANSPARENT}></Button>
-        </div>
-      </motion.div>
 
       <motion.div 
-        className="flex items-center gap-1 rounded-lg">
+        className="fixed z-50 flex items-center gap-1 rounded-lg top-3 right-3">
 
             <Button 
               click={toggleThemeEditor}
@@ -212,6 +215,9 @@ export default function Navigation() {
             />
 
       </motion.div>
+
+
+
 
       {/* Modal for "Available for work" */}
       <Modal 
@@ -245,6 +251,9 @@ export default function Navigation() {
           <button onClick={toggleThemeEditor}>Close</button>
         </div>
       </Modal>
-    </motion.div>
+
+      
+    </>
+
   );
 }

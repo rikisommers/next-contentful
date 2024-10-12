@@ -69,6 +69,7 @@ export default function TextAnimationLineUp({
               className={`text-anim-word overflow-hidden ${color}`}
               key={index}
             >
+              KK
               {line}
             </motion.span>
           );

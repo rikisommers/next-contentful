@@ -105,6 +105,7 @@ export const TextAnimLinear = ({ content ,delay, highlight}) => {
       animate="visible"
       variants={containerVariants}
     >
+      FF
       {renderTextWithBoldAndLineBreaks(content)}
     </motion.div>
   );

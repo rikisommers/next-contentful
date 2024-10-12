@@ -72,9 +72,7 @@ const BackgroundElements = () => {
 
 const HeroCenter = ({ children }) => {
   return (
-    <div
-      className="relative z-10 flex flex-col items-center justify-center w-full h-screen transition ease-in-out"
-    >
+    <div className="relative z-10 flex flex-col items-center justify-center w-full h-screen transition ease-in-out">
       <div className="grid max-w-xl gap-8 text-center">{children}</div>
     </div>
   );
@@ -83,9 +81,7 @@ const HeroCenter = ({ children }) => {
 const HeroLeft = ({ children }) => {
   return (
     <div className="relative z-10 flex flex-col items-center justify-center w-full h-screen transition ease-in-out">
-      <div
-        className="grid items-end content-end w-full grid-cols-12 px-16 pb-20 gap h-vh44 md:h-vh55"
-      >
+      <div className="grid items-end content-end w-full grid-cols-12 px-16 pb-20 gap h-vh44 md:h-vh55">
         <div className="col-span-12 md:col-span-8 lg:col-span-8">
           {children}
         </div>
@@ -108,9 +104,39 @@ export default function BlockHero({
 
   return (
     <>
+      <motion.div
+        className="absolute top-0 flex items-center justify-end w-full h-full opacity-75 pointer-events-none z-1"
+        // initial={{ clipPath: "inset(1.0rem 1.0rem 1.0rem round 0.5rem)" }}
+        // animate={{
+        //   backgroundColor: "var(--background-color)",
+        //   clipPath: "inset( 1rem round 1rem )",
+        // }}
+        // exit={{ clipPath: "inset( 1.5rem 1.5rem 1.5rem 1.5rem round 1rem )" }}
+        // transition={{
+        //   duration: 0.6,
+        //   ease: [0.33, 1, 0.68, 1],
+        // }}
+      >
+        {currentTheme.heroBackgroundStyle === "gradient" && (
+          <CanvasGradientBackground />
+        )}
+
+        {currentTheme.heroBackgroundStyle === "video" && <Background />}
+
+        {currentTheme.heroBackgroundStyle === "image" && (
+          <BlendImage
+            className="img-cover"
+            alt={`Cover Image for ${image?.title}`}
+            src={image.url}
+          />
+        )}
+      </motion.div>
+
+      {date && <DateAndLocation date={date} />}
+
       {currentTheme.heroLayoutStyle === "left" && (
         <HeroLeft>
-          <h1 className="text-4xl font-medium font-aon">
+          <h1 className="font-medium font-aon">
             <AnimatedText
               type={currentTheme.textAnimation}
               highlight={currentTheme.textHighlight}
@@ -159,36 +185,6 @@ export default function BlockHero({
           </h2>
         </HeroCenter>
       )}
-
-      <motion.div
-        className="absolute top-0 flex items-center justify-end w-full h-full opacity-75 pointer-events-none z-1"
-        // initial={{ clipPath: "inset(1.0rem 1.0rem 1.0rem round 0.5rem)" }}
-        // animate={{
-        //   backgroundColor: "var(--background-color)",
-        //   clipPath: "inset( 1rem round 1rem )",
-        // }}
-        // exit={{ clipPath: "inset( 1.5rem 1.5rem 1.5rem 1.5rem round 1rem )" }}
-        // transition={{
-        //   duration: 0.6,
-        //   ease: [0.33, 1, 0.68, 1],
-        // }}
-      >
-        {currentTheme.heroBackgroundStyle === "gradient" && (
-          <CanvasGradientBackground />
-        )}
-
-        {currentTheme.heroBackgroundStyle === "video" && <Background />}
-
-        {currentTheme.heroBackgroundStyle === "image" && (
-          <BlendImage
-            className="img-cover"
-            alt={`Cover Image for ${image?.title}`}
-            src={image.url}
-          />
-        )}
-      </motion.div>
-
-      {date && <DateAndLocation date={date} />}
     </>
   );
 }

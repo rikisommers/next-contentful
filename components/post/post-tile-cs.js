@@ -59,7 +59,7 @@ export default function PostTileCs({ post, index }) {
           </div>
           <div
             ref={ref}
-            className="absolute top-0 left-0 z-50 flex items-end justify-between w-full h-full gap-4 px-4 pb-4 text-white "
+            className="absolute top-0 left-0 z-10 flex items-end justify-between w-full h-full gap-4 px-4 pb-4 text-white "
           >
 
 
@@ -101,7 +101,7 @@ export default function PostTileCs({ post, index }) {
 
       <div className="flex items-start justify-between w-full py-3 asolute ">
         <div className="flex flex-col gap-2">
-          <h2 className="z-50 font-mono text-sm font-medium"
+          <h2 className="font-mono text-sm font-medium "
                style={{
                 color:'var(--text-color)'
               }}

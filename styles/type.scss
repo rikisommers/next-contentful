@@ -6,6 +6,62 @@
 // $font-family-aeo: "Aeonik Pro", sans-serif;
 
 
+
+// Define variables as SCSS variables
+$font-size-min: 16;
+$font-size-max: 24;
+$font-ratio-min: 1.2;
+$font-ratio-max: 1.25;
+$font-width-min: 320;
+$font-width-max: 1200;
+$variable-unit: 1vw;
+
+// Define initial values as SCSS variables
+$font-size-min: 16;
+$font-size-max: 24;
+$font-ratio-min: 1.2;
+$font-ratio-max: 1.25;
+$font-width-min: 320;
+$font-width-max: 1200;
+$variable-unit: 1vw;
+
+// Define CSS custom properties for runtime updates
+:root {
+  --font-size-min: #{$font-size-min};
+  --font-size-max: #{$font-size-max};
+  --font-ratio-min: #{$font-ratio-min};
+  --font-ratio-max: #{$font-ratio-max};
+  --font-width-min: #{$font-width-min};
+  --font-width-max: #{$font-width-max};
+  --variable-unit: #{$variable-unit};
+}
+
+// Fluid type mixin
+@mixin fluid-type($level) {
+  font-size: calc(var(--font-size-min) * pow(var(--font-ratio-min), #{$level}));
+  font-size: clamp(
+    calc(var(--font-size-min) * pow(var(--font-ratio-min), #{$level})) * 1px,
+    calc(var(--font-size-min) * pow(var(--font-ratio-min), #{$level})) * 1px + (calc(var(--font-size-max) * pow(var(--font-ratio-max), #{$level})) - calc(var(--font-size-min) * pow(var(--font-ratio-min), #{$level}))) * ((100vw - var(--font-width-min) * 1px) / (var(--font-width-max) - var(--font-width-min))),
+    calc(var(--font-size-max) * pow(var(--font-ratio-max), #{$level})) * 1px
+  );
+}
+
+// Generate heading styles
+@for $i from 1 through 6 {
+  h#{$i}, .u-fs--h#{$i}, .u-t--h#{$i} {
+    @include fluid-type(7 - $i);
+  }
+}
+
+// Additional classes for title and subtitle
+.u-fs--title, .u-t--title {
+  @include fluid-type(6);
+}
+
+.u-fs--subtitle, .u-t--subtitle {
+  @include fluid-type(5);
+}
+
 body {
   color: var(--textColor);
 }
@@ -15,7 +71,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 p, span, div {
-  font-family: var(--font-family-secondary)!important;
+  font-family: var(--font-family-primary)!important;
 }
 
 body{
@@ -27,7 +83,7 @@ body{
 
 h1{
   margin:0 0 2rem;
-  font-size: 3rem;
+  //font-size: 3rem;
   line-height: 1.39;
   font-weight: 400!important;
 //   @media only screen and (min-width: $tablet-p-max) {

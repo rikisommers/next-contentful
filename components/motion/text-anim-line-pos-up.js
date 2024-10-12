@@ -135,8 +135,10 @@ export const TextAnimLinePosUp = ({
         animateWhenInView ? (isInView ? "visible" : "hidden") : "visible"
       }
     >
+      KK
       <span
         style={{
+          color: "var(--heading-color)",
           display: "inline-block",
         }}
       >

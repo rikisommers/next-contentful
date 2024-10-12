@@ -121,7 +121,29 @@ export const typographyThemes = {
   sans: 'sans-serif',
   serif: 'serif',
   mono: 'monospace',
+  interp: "interphase, sans-serif",
+  tron: "Tronica Mono, sans-serif",
+  aon: "Aeonik Pro, sans-serif",
 };
+
+
+// Type Themes
+export const fontSizeThemes = {
+  fontFixed: 'fixed',
+  fontFluid: 'fluid',
+};
+
+
+export const fluidFontSizeThemes = {
+fontSizeMin: '16',
+fontSizeMax: '24',
+fontRatioMin: 1.2,
+fontRatioMax: 1.25,
+fontWidthMin: '320',
+fontWidthMax: '1200',
+variableUnit: '1vw',
+};
+
 
 export const pageTransitionThemes = {
   tiltandwipe:'tilt and wipe',
@@ -206,6 +228,35 @@ export const helpers = {
     grid:false,
 };
 
+const themeContent = {
+  typography:typographyThemes.sans,
+  fontScale:fontSizeThemes.fluid,
+  fluidFontSizeMin: fluidFontSizeThemes.fontSizeMin,
+  fluidFontSizeMax: fluidFontSizeThemes.fontSizeMax,
+  fluidFontRatioMin: fluidFontSizeThemes.fontRatioMin,
+  fluidFontRatioMax: fluidFontSizeThemes.fontRatioMax,
+  fluidFontWidthMin: fluidFontSizeThemes.fontWidthMin,
+  fluidFontWidthMax: fluidFontSizeThemes.fontWidthMax,
+  fluidVariableUnit: fluidFontSizeThemes.variableUnit,
+  textHighlight:textHighlightThemes.text,
+  textAnimation:textAnimationThemes.none,
+  pageTransition:pageTransitionThemes.fade,
+  pageWidth:pageWidthThemes.fluid,
+  cursor:cursorThemes.none,
+  cardStyle:cardThemes.formal,
+  cardImageScrollStyle:cardImageScrollThemes.none,
+  cardImageHoverThemes:cardImageHoverThemes.none,
+  heroBackgroundStyle:heroBackgroundThemes.gradient,
+  heroTextImageStyle:heroTextImageThemes.none,
+  heroTextImageStyle:heroLayoutThemes.none,
+  
+  helpers:helpers,
+  weights: {
+    color: 1,
+    vibrance:1,
+    funkyness:1,
+  },
+}
 
 // Function to get theme by key
 export function getThemeByKey(themeKey) {
@@ -239,87 +290,21 @@ export const themes = {
   light: {
     key: 'light',
     ...colorThemes.light,
-    typography:typographyThemes.sans,
-    textHighlight:textHighlightThemes.text,
-    textAnimation:textAnimationThemes.none,
-    pageTransition:pageTransitionThemes.fade,
-    pageWidth:pageWidthThemes.fluid,
-    cursor:cursorThemes.none,
-    cardStyle:cardThemes.formal,
-    cardImageScrollStyle:cardImageScrollThemes.none,
-    cardImageHoverThemes:cardImageHoverThemes.none,
-    heroBackgroundStyle:heroBackgroundThemes.gradient,
-    heroTextImageStyle:heroTextImageThemes.none,
-    heroTextImageStyle:heroLayoutThemes.none,
-    helpers:helpers,
-    weights: {
-      color: 1,
-      vibrance:1,
-      funkyness:1,
-    },
+    ...themeContent
   },
   dark: {
     key: 'dark',
     ...colorThemes.dark,
-    typography:typographyThemes.sans,
-    textHighlight:textHighlightThemes.text,
-    textAnimation:textAnimationThemes.none,
-    pageTransition:pageTransitionThemes.fade,
-    pageWidth:pageWidthThemes.fluid,
-    cursor:cursorThemes.none,
-    cardStyle:cardThemes.formal,
-    cardImageScrollStyle:cardImageScrollThemes.none,
-    cardImageHoverThemes:cardImageHoverThemes.none,
-    heroBackgroundStyle:heroBackgroundThemes.gradient,
-    heroTextImageStyle:heroTextImageThemes.none,
-    heroTextImageStyle:heroLayoutThemes.none,
-    helpers:helpers,
-    weights: {
-      color: 9,
-      vibrance:9,
-      funkyness:9,
-    },
+    ...themeContent
   },
   tokyo: {
     key: 'tokyo',
     ...colorThemes.tokyo,
-    typography:typographyThemes.sans,
-    textHighlight:textHighlightThemes.text,
-    textAnimation:textAnimationThemes.none,
-    pageTransition:pageTransitionThemes.fade,
-    pageWidth:pageWidthThemes.fluid,
-    cursor:cursorThemes.none,
-    cardImageScrollStyle:cardImageScrollThemes.none,
-    cardImageHoverThemes:cardImageHoverThemes.none,
-    heroBackgroundStyle:heroBackgroundThemes.gradient,
-    heroTextImageStyle:heroTextImageThemes.none,
-    heroTextImageStyle:heroLayoutThemes.none,
-    helpers:helpers,
-    weights: {
-      color: 5,
-      vibrance:5,
-      funkyness:5,
-    },
+    ...themeContent
   },
   textureAndContrast: {
     key: 'textureAndContrast',
     ...colorThemes.textureAndContrast,
-    typography:typographyThemes.sans,
-    textHighlight:textHighlightThemes.text,
-    textAnimation:textAnimationThemes.none,
-    pageTransition:pageTransitionThemes.fade,
-    pageWidth:pageWidthThemes.fluid,
-    cursor:cursorThemes.none,
-    cardImageScrollStyle:cardImageScrollThemes.none,
-    cardImageHoverThemes:cardImageHoverThemes.none,
-    heroBackgroundStyle:heroBackgroundThemes.gradient,
-    heroTextImageStyle:heroTextImageThemes.none,
-    heroTextImageStyle:heroLayoutThemes.none,
-    helpers:helpers,
-    weights: {
-      color: 2,
-      vibrance:5,
-      funkyness:8,
-    },
+    ...themeContent
   },
 };

@@ -114,6 +114,7 @@ switch (type2) {
         />;
     case AnimStyle.LINEPOSUP:
         return <TextAnimLineUp
+        theme={currentTheme} 
         content={content}
         delay={delay}
         highlight={highlight2}
@@ -122,6 +123,7 @@ switch (type2) {
         />;
     case AnimStyle.LINEFADEIN:
         return <TextAnimLineFadeIn 
+        theme={currentTheme} 
         delay={delay}
         highlight={highlight2}
         content={content} />;
