@@ -1,5 +1,5 @@
-import React from "react";
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll } from "framer-motion";
 import Audio from "../navigation/audio";
 import Link from "next/link";
 import Background from "../background/background";
@@ -14,6 +14,7 @@ import CanvasGradientBackground from "../background/canvasGradientBackground";
 import CanvasAnimatedGradient from "../background/canvasAnimatedGradient";
 import { ThemeProvider, useThemeContext } from "../themeContext";
 import BlendImage from "../image/blend-image";
+import { ClipContainer } from "../motion/clippath-container";
 
 const DateAndLocation = ({ date }) => {
   return (
@@ -103,9 +104,12 @@ export default function BlockHero({
   const { currentTheme } = useThemeContext();
 
   return (
-    <>
+    <ClipContainer>
+         
+    <div className="relative w-full h-screen">
+
       <motion.div
-        className="absolute top-0 flex items-center justify-end w-full h-full opacity-75 pointer-events-none z-1"
+        className="absolute top-0 flex items-center justify-end w-full h-full pointer-events-none z-1"
         // initial={{ clipPath: "inset(1.0rem 1.0rem 1.0rem round 0.5rem)" }}
         // animate={{
         //   backgroundColor: "var(--background-color)",
@@ -185,6 +189,7 @@ export default function BlockHero({
           </h2>
         </HeroCenter>
       )}
-    </>
+    </div>
+    </ClipContainer>
   );
 }

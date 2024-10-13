@@ -16,9 +16,7 @@ import { ParalaxElement } from "../components/motion/paralax-element";
 import AnimatedText,{AnimStyle} from "../components/motion/animated-text";
 import { ClipPathElement } from "../components/motion/clippath-element";
 import TransitionPage from "../components/transition/pageTransition";
-
-
-
+import { ClipContainer } from "../components/motion/clippath-container";
 const Index = ({ data, footerData }) => {
 
 
@@ -31,8 +29,8 @@ const Index = ({ data, footerData }) => {
 
   return (
        <Layout>
-
         <TransitionPage>
+           <ScrollContainer>
             <BlockHero
               content={data.content}
               titlealt={data.titlealt}
@@ -41,11 +39,14 @@ const Index = ({ data, footerData }) => {
               image={data.image}
             />
 
-   
+    
+          
+              {/* <BlockHero/> */}
 
             <BlockFooter data={footerData} />
-        </TransitionPage>
 
+            </ScrollContainer>
+        </TransitionPage>
       </Layout>
   );
 };

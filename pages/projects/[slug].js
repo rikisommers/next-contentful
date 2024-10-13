@@ -58,6 +58,10 @@ export default function Post({ post, nextPost, footerData }) {
 
   const [posT, setPosT] = useState(0);
 
+
+
+
+
   // useEffect(() => {
   //   if (router.pathname.startsWith("/posts/")) {
   //     // Select the title wrapper

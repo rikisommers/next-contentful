@@ -6,7 +6,6 @@ export default function CanvasGradientBackground() {
   const { currentTheme } = useThemeContext();
 
   // Log the current theme for debugging
-  console.log('Current Theme:', currentTheme);
 
   // Define external color variables as hex
   const [colorTopHex, setColorTopHex] = useState(currentTheme?.gradStart || '#ffffff'); // Default to white if undefined

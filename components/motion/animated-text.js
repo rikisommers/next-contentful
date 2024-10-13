@@ -92,8 +92,7 @@ const { currentTheme } = useThemeContext();
 const type2 = currentTheme.textAnimation
 const highlight2 = currentTheme.textHighlight
 
-console.log('----',type2)
-console.log('---',highlight2)
+
 //    console.log('------',currentTheme);
 
 if(content){

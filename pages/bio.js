@@ -14,7 +14,6 @@ import PostBody from "../components/post/post-body";
 import PostContent from "../components/post/post-content";
 import BlockHero from "../components/blocks/block-hero";
 import LandingPageContent from "../components/landing-page-content";
-import BlockHeroAlt from "../components/blocks/block-heroalt";
 import ScrollContainer from "../components/utils/scroll-container";
 import ClipPathContainer from "../components/utils/clip-path-container";
 
@@ -30,17 +29,19 @@ import {
 import BlockHeader from "../components/blocks/block-header";
 import TransitionPage from "../components/transition/pageTransition";
 
+
 const Bio = ({ data, footerData }) => {
+  
   console.log("-------------------------------", data);
+
   const contentRef = useRef(null);
   const footerRef = useRef(null);
 
   return (
     <Layout>
       <TransitionPage>
-      <div className="flex flex-col px-8">
+        <div className="flex flex-col px-8">
           <PostIntro title={data.titlealt} content={data.contentalt} />
-
           <LandingPageContent data={data} />
           <BlockFooter content={footerData} />
         </div>
