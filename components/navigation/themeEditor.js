@@ -13,8 +13,12 @@ import {
   cardImageScrollThemes,
   heroBackgroundThemes,
   heroTextImageThemes,
-  heroLayoutThemes,
+  heroTextCompositionThemes,
+  heroTextPositionThemes,
+  navigationPositionThemes,
+  navigationStyleThemes,
   cursorThemes,
+  bodyTextThemes,
   helpers,
   
   mixBlendThemes} from "../../utils/theme";
@@ -239,6 +243,7 @@ export default function ThemeEditor() {
       }
     },
     'Theme Selection': folder({
+      collapsed: true,
       colorWeight: { 
         value: colorWeight, 
         min: 1, 
@@ -271,6 +276,7 @@ export default function ThemeEditor() {
       },
     }),
     'Audio': folder({
+      collapsed: true,
       audio: { 
         value: currentTheme.audio, 
         label: 'Audio',
@@ -286,6 +292,7 @@ export default function ThemeEditor() {
       },
     }),
     'Globals': folder({
+      collapsed: true,
       pageWidth: { 
         options: Object.keys(pageWidthThemes), 
         value: currentTheme.pageWidth || 'fluid', 
@@ -300,6 +307,7 @@ export default function ThemeEditor() {
       },
     }),
     'Animation': folder({
+      collapsed: true,
       pageTransition: { 
         options: Object.keys(pageTransitionThemes), 
         value: currentTheme.pageTransition || 'fade', 
@@ -332,25 +340,46 @@ export default function ThemeEditor() {
         label: 'Text Highlight',
         onChange: (value) => handleGlobalOptionChange('textHighlight', value) // Call existing handler
       },
+      'Body Text': folder({
+        dropCap: { 
+          value: currentTheme.bodyTextStyle?.dropCap || false, // Default to false
+          label: 'Drop Cap',
+          onChange: (value) => handleGlobalOptionChange('bodyTextStyle', { ...currentTheme.bodyTextStyle, dropCap: value }) // Update handler
+        },
+        indent: { 
+          value: currentTheme.bodyTextStyle?.indent || false, // Default to false
+          label: 'Indent',
+          onChange: (value) => handleGlobalOptionChange('bodyTextStyle', { ...currentTheme.bodyTextStyle, indent: value }) // Update handler
+        },
+        highlight: { 
+          value: currentTheme.bodyTextStyle?.highlight || false, // Default to false
+          label: 'Highlight',
+          onChange: (value) => handleGlobalOptionChange('bodyTextStyle', { ...currentTheme.bodyTextStyle, highlight: value }) // Update handler
+        },
+      }),
+
     }),
+    'Navigation': folder({
+      navigationPosition: { 
+        options: Object.keys(navigationPositionThemes), 
+        value: currentTheme.navigationPosition || 'gradient', 
+        label: 'Nav Position',
+        onChange: (value) => handleGlobalOptionChange('navigationPosition', value) // Call existing handler
+      },
+      navigationStyle: { 
+        options: Object.keys(navigationStyleThemes), 
+        value: currentTheme.navigationStyle || 'gradient', 
+        label: 'Nav Style',
+        onChange: (value) => handleGlobalOptionChange('heroBackgroundStyle', value) // Call existing handler
+      },
+    }),
+
     'Hero': folder({
         heroBackgroundStyle: { 
           options: Object.keys(heroBackgroundThemes), 
           value: currentTheme.heroBackgroundStyle || 'gradient', 
           label: 'Hero Background Style',
           onChange: (value) => handleGlobalOptionChange('heroBackgroundStyle', value) // Call existing handler
-        },
-        heroTextImageStyle: { 
-          options: Object.keys(heroTextImageThemes), 
-          value: currentTheme.heroTextImageStyle || 'none', 
-          label: 'Hero Text Image Style',
-          onChange: (value) => handleGlobalOptionChange('heroTextImageStyle', value) // Call existing handler
-        },
-        heroLayoutStyle: { 
-          options: Object.keys(heroLayoutThemes), 
-          value: currentTheme.heroLayoutStyle || 'center', 
-          label: 'Hero Layout Style',
-          onChange: (value) => handleGlobalOptionChange('heroLayoutStyle', value) // Call existing handler
         },
         gradMidPoint: { 
           value: currentTheme.gradMidPoint, 
@@ -360,6 +389,25 @@ export default function ThemeEditor() {
           label: 'Gradient Mid Point',
           onChange: (value) => handleGlobalOptionChange('gradMidPoint', value) // Call existing handler
         },
+        heroTextImageStyle: { 
+          options: Object.keys(heroTextImageThemes), 
+          value: currentTheme.heroTextImageStyle || 'none', 
+          label: 'Hero Text Image Style',
+          onChange: (value) => handleGlobalOptionChange('heroTextImageStyle', value) // Call existing handler
+        },
+        heroTextLayoutStyle: { 
+          options: Object.keys(heroTextPositionThemes), 
+          value: currentTheme.heroTextPosition || 'center', 
+          label: 'Hero Text Layout Style',
+          onChange: (value) => handleGlobalOptionChange('heroTextPosition', value) // Call existing handler
+        },
+        heroTextCompStyle: { 
+          options: Object.keys(heroTextCompositionThemes), 
+          value: currentTheme.heroTextComposition || 'foo', 
+          label: 'Hero Text Comp Style',
+          onChange: (value) => handleGlobalOptionChange('heroTextPosition', value) // Call existing handler
+        },
+
     }),
     'Cards': folder({
       cardStyle: { 

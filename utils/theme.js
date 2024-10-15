@@ -1308,7 +1308,6 @@ export const textAnimationThemes = {
   charcode: "charcode",
 };
 
-
 export const textHighlightThemes = {
   text: "text",
   background: "background",
@@ -1316,7 +1315,6 @@ export const textHighlightThemes = {
   highlight: "highlight",
   none: "none"
 };
-
 
 // Type Themes
 export const typographyThemes = {
@@ -1328,13 +1326,11 @@ export const typographyThemes = {
   aon: "Aeonik Pro, sans-serif",
 };
 
-
 // Type Themes
 export const fontSizeThemes = {
   fontFixed: 'fixed',
   fontFluid: 'fluid',
 };
-
 
 export const fluidFontSizeThemes = {
 fontSizeMin: '16',
@@ -1345,7 +1341,6 @@ fontWidthMin: '320',
 fontWidthMax: '1200',
 variableUnit: '1vw',
 };
-
 
 export const pageTransitionThemes = {
   tiltandwipe:'tilt and wipe',
@@ -1383,6 +1378,21 @@ export const cardImageHoverThemes = {
   zoom: 'zoom',
 };
 
+export const navigationStyleThemes = {
+  text: 'text',
+  bar: 'video',
+  dock: 'image',
+  icons: false,
+};
+
+export const navigationPositionThemes = {
+  topLeft: 'left',
+  topCenter: 'video',
+  topRight: 'image',
+  bottomCenter: 'gradient',
+  floating:'floating',
+};
+
 export const heroBackgroundThemes = {
   none: 'none',
   video: 'video',
@@ -1392,15 +1402,30 @@ export const heroBackgroundThemes = {
   blob:'blob',
 };
 
-export const heroLayoutThemes = {
+export const heroTextPositionThemes = {
   center: 'center',
   left: 'left',
+  topLeft:'top-left',
+  bottomLeft:'bottom-left',
+  topRight:'top-right',
+  bottomRight:'bottom-right',
+};
+
+export const heroTextCompositionThemes = {
+  foo: 'foo',
+  foo: 'bar',
 };
 
 export const heroTextImageThemes = {
   none: 'none',
   inline: 'inline',
   hover: 'hover',
+};
+
+export const bodyTextThemes = {
+  dropCap: false,
+  indent: false,
+  hightlight: false,
 };
 
 export const animationThemes = {
@@ -1452,9 +1477,18 @@ const themeContent = {
   cardImageHoverThemes:cardImageHoverThemes.none,
   heroBackgroundStyle:heroBackgroundThemes.gradient,
   heroTextImageStyle:heroTextImageThemes.none,
-  heroTextImageStyle:heroLayoutThemes.none,
+  heroTextPosition:heroTextPositionThemes.center,
+  heroTextComposition:heroTextCompositionThemes.foo,
+  heroTextImageStyle:heroTextImageThemes.none,
+  navigationPosition:navigationPositionThemes.topCenter,
+  navigationStyle:navigationStyleThemes.bar,
   animation:animationThemes,
   helpers:helpers,
+  bodyTextStyle:{
+    dropCap: bodyTextThemes.dropCap,
+    indent: bodyTextThemes.indent,
+    hightlight: bodyTextThemes.hightlight,
+  },
   weights: {
     color: 1,
     vibrance:1,
