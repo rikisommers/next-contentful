@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext, useEffect, useCallback } from 'react';
 import { themes, getThemeByKey } from "../utils/theme";
-
+import ThemeEditor from './navigation/themeEditor'; 
 const ThemeContext = createContext(null);
 
 export const ThemeProvider = ({ children }) => {
@@ -34,6 +34,7 @@ export const ThemeProvider = ({ children }) => {
       isThemeDialogOpen, 
       setIsThemeDialogOpen 
     }}>
+      <ThemeEditor/>
       {children}
     </ThemeContext.Provider>
   );

@@ -21,7 +21,7 @@ import {
 import { debounce } from "../utils/debounce";
 import { useThemeContext } from '../themeContext';
 import { FloatType } from "three";
-import { Leva, useControls ,button} from "leva";
+import { Leva, useControls ,button, folder} from "leva";
 
 
 
@@ -228,79 +228,202 @@ export default function ThemeEditor() {
     }
   };
 
-  // const values = useControls(() => controls);
+  // Define controls before using it in useControls
+  const controls = {
+    currentTheme: { 
+      options: Object.keys(themes), 
+      value: currentTheme.key, 
+      label: 'Current Theme',
+      onChange: (value) => {
+        handleThemeChange({ target: { value } }); // Call existing handler
+      }
+    },
+    'Theme Selection': folder({
+      colorWeight: { 
+        value: colorWeight, 
+        min: 1, 
+        max: 10, 
+        label: 'Color Weight',
+        onChange: (value) => {
+          handleWeightChange(value)
+         // updateCurrentTheme(); // Call to update the theme based on new weight
+        }
+      },
+      vibranceWeight: { 
+        value: vibranceWeight, 
+        min: 1, 
+        max: 10, 
+        label: 'Vibrance Weight',
+        onChange: (value) => {
+          handleWeightChange(value)
+         // updateCurrentTheme(); // Call to update the theme based on new weight
+        }
+      },
+      funkynessWeight: { 
+        value: funkynessWeight, 
+        min: 1, 
+        max: 10, 
+        label: 'Funkyness Weight',
+        onChange: (value) => {
+          handleWeightChange(value)
+       //   updateCurrentTheme(); // Call to update the theme based on new weight
+        }
+      },
+    }),
+    'Audio': folder({
+      audio: { 
+        value: currentTheme.audio, 
+        label: 'Audio',
+        onChange: (value) => handleGlobalOptionChange('audio', value) // Call existing handler
+      },
+      volume: { 
+        value: currentTheme.volume, 
+        min: 0, 
+        max: 1, 
+        step: 0.1, 
+        label: 'Volume',
+        onChange: (value) => handleGlobalOptionChange('volume', value) // Call existing handler
+      },
+    }),
+    'Globals': folder({
+      pageWidth: { 
+        options: Object.keys(pageWidthThemes), 
+        value: currentTheme.pageWidth || 'fluid', 
+        label: 'Page Width',
+        onChange: (value) => handleGlobalOptionChange('pageWidth', value) // Call existing handler
+      },
+      cursor: { 
+        options: Object.keys(cursorThemes), 
+        value: currentTheme.cursor || 'dot', 
+        label: 'Cursor',
+        onChange: (value) => handleGlobalOptionChange('cursor', value) // Call existing handler
+      },
+    }),
+    'Animation': folder({
+      pageTransition: { 
+        options: Object.keys(pageTransitionThemes), 
+        value: currentTheme.pageTransition || 'fade', 
+        label: 'Page Transition',
+        onChange: (value) => handleGlobalOptionChange('pageTransition', value) // Call existing handler
+      },
+      textAnimation: { 
+        options: Object.keys(textAnimationThemes), 
+        value: currentTheme.textAnimation || 'none', 
+        label: 'Text Animation',
+        onChange: (value) => handleGlobalOptionChange('textAnimation', value) // Call existing handler
+      },
+    }),
+    'Typography': folder({
+      fontFamilyPrimary: { 
+        options: Object.keys(typographyThemes), 
+        value: currentTheme.fontFamilyPrimary || 'sans', 
+        label: 'Font Family Primary',
+        onChange: (value) => handleGlobalOptionChange('fontFamilyPrimary', value) // Call existing handler
+      },
+      fontFamilySecondary: { 
+        options: Object.keys(typographyThemes), 
+        value: currentTheme.fontFamilySecondary || 'sans', 
+        label: 'Font Family Secondary',
+        onChange: (value) => handleGlobalOptionChange('fontFamilySecondary', value) // Call existing handler
+      },
+      textHighlight: { 
+        options: Object.keys(textHighlightThemes), 
+        value: currentTheme.textHighlight || 'text', 
+        label: 'Text Highlight',
+        onChange: (value) => handleGlobalOptionChange('textHighlight', value) // Call existing handler
+      },
+    }),
+    'Hero': folder({
+        heroBackgroundStyle: { 
+          options: Object.keys(heroBackgroundThemes), 
+          value: currentTheme.heroBackgroundStyle || 'gradient', 
+          label: 'Hero Background Style',
+          onChange: (value) => handleGlobalOptionChange('heroBackgroundStyle', value) // Call existing handler
+        },
+        heroTextImageStyle: { 
+          options: Object.keys(heroTextImageThemes), 
+          value: currentTheme.heroTextImageStyle || 'none', 
+          label: 'Hero Text Image Style',
+          onChange: (value) => handleGlobalOptionChange('heroTextImageStyle', value) // Call existing handler
+        },
+        heroLayoutStyle: { 
+          options: Object.keys(heroLayoutThemes), 
+          value: currentTheme.heroLayoutStyle || 'center', 
+          label: 'Hero Layout Style',
+          onChange: (value) => handleGlobalOptionChange('heroLayoutStyle', value) // Call existing handler
+        },
+        gradMidPoint: { 
+          value: currentTheme.gradMidPoint, 
+          min: 0, 
+          max: 1, 
+          step: 0.1, 
+          label: 'Gradient Mid Point',
+          onChange: (value) => handleGlobalOptionChange('gradMidPoint', value) // Call existing handler
+        },
+    }),
+    'Cards': folder({
+      cardStyle: { 
+        options: Object.keys(cardThemes), 
+        value: currentTheme.cardStyle || 'formal', 
+        label: 'Card Style',
+        onChange: (value) => handleGlobalOptionChange('cardStyle', value) // Call existing handler
+      },
+      cardImageScrollStyle: { 
+        options: Object.keys(cardThemes), 
+        value: currentTheme.cardImageScrollStyle || 'none', 
+        label: 'Card Image Scroll Style',
+        onChange: (value) => handleGlobalOptionChange('cardImageScrollStyle', value) // Call existing handler
+      },
+      cardImageHoverThemes: { 
+        options: Object.keys(cardThemes), 
+        value: currentTheme.cardImageHoverThemes || 'none', 
+        label: 'Card Image Hover Style',
+        onChange: (value) => handleGlobalOptionChange('cardImageHoverThemes', value) // Call existing handler
+      },
+      mixBlendMode: { 
+        options: Object.keys(mixBlendThemes), 
+        value: currentTheme.mixBlendMode, 
+        label: 'Mix Blend Mode',
+        onChange: (value) => handleGlobalOptionChange('mixBlendMode', value) // Call existing handler
+      },
+    }),
+    resetButton: button(() => {
+      handleApply()
+    }, {
+      label: 'Save Theme to Custom?'
+    })
+  };
 
-  // useEffect(() => {
-  //   const updatedTheme = { ...currentTheme, ...values };
-  //   console.log("Updated theme values:", updatedTheme);
-  //   if (JSON.stringify(updatedTheme) !== JSON.stringify(currentTheme)) {
-  //     applyCurrentTheme(updatedTheme);
-  //   }
-  // }, [values, currentTheme, applyCurrentTheme]);
+  // Now use controls in useControls
+  const values = useControls(() => controls);
 
-  // useControls(() => controls);
+  useEffect(() => {
+    const updatedTheme = { ...currentTheme, ...values };
+    console.log("Updated theme values:", updatedTheme);
+    if (JSON.stringify(updatedTheme) !== JSON.stringify(currentTheme)) {
+      applyCurrentTheme(updatedTheme);
+    }
+  }, [values, currentTheme, applyCurrentTheme]);
 
-
-
-  // const {
-  //   colorWeight2,
-  //   vibranceWeight2,
-  //   funkynessWeight2,
-  //   audio,
-  //   volume,
-  //   gradMidPoint,
-  //   cursor,
-  //   mixBlendMode,
-  //   textHighlight,
-  //   textAnimation,
-  //   pageTransition,
-  //   pageWidth,
-  //   fontFamilyPrimary,
-  //   fontFamilySecondary,
-  //   heroBackgroundStyle,
-  //   heroTextImageStyle,
-  //   heroLayoutStyle,
-  //   cardStyle,
-  //   cardImageScrollStyle, // Added card image scroll style control
-  //   cardImageHoverThemes, // Added card image hover themes control
-  //   applyTheme,
-  // } = useControls({
-  //   colorWeight: { value: 5, min: 1, max: 10, label: 'Color Weight' },
-  //   vibranceWeight: { value: 5, min: 1, max: 10, label: 'Vibrance Weight' },
-  //   funkynessWeight: { value: 5, min: 1, max: 10, label: 'Funkyness Weight' },
-  //   audio: { value: currentTheme.audio, label: 'Audio' },
-  //   volume: { value: currentTheme.volume, min: 0, max: 1, step: 0.1, label: 'Volume' },
-  //   gradMidPoint: { value: currentTheme.gradMidPoint, min: 0, max: 1, step: 0.1, label: 'Gradient Mid Point' },
-  //   cursor: { options: Object.keys(cursorThemes), value: currentTheme.cursor || 'dot', label: 'Cursor' },
-  //   mixBlendMode: {options: Object.keys(mixBlendThemes), value: currentTheme.mixBlendMode, label: 'Mix Blend Mode' },
-  //   textHighlight: {options: Object.keys(textHighlightThemes), value: currentTheme.textHighlight || 'text', label: 'Text Highlight' },
-  //   textAnimation: {options: Object.keys(textAnimationThemes), value: currentTheme.textAnimation || 'none', label: 'Text Animation' },
-  //   pageTransition: {options: Object.keys(pageTransitionThemes), value: currentTheme.pageTransition || 'fade', label: 'Page Transition' },
-  //   pageWidth: {options: Object.keys(pageWidthThemes), value: currentTheme.pageWidth || 'fluid', label: 'Page Width' },
-  //   fontFamilyPrimary: {options: Object.keys(typographyThemes), value: currentTheme.fontFamilyPrimary || 'sans', label: 'Font Family Primary' },
-  //   fontFamilySecondary: {options: Object.keys(typographyThemes), value: currentTheme.fontFamilySecondary || 'sans', label: 'Font Family Secondary' },
-  //   heroBackgroundStyle: {options: Object.keys(heroBackgroundThemes), value: currentTheme.heroBackgroundStyle || 'gradient', label: 'Hero Background Style' },
-  //   heroTextImageStyle: {options: Object.keys(heroTextImageThemes), value: currentTheme.heroTextImageStyle || 'none', label: 'Hero Text Image Style' },
-  //   heroLayoutStyle: {options: Object.keys(heroLayoutThemes), value: currentTheme.heroLayoutStyle || 'center', label: 'Hero Layout Style' },
-  //   cardStyle: { options: Object.keys(cardThemes), value: currentTheme.cardStyle || 'formal', label: 'Card Style' },
-  //   cardImageScrollStyle: { options: Object.keys(cardThemes), value: currentTheme.cardImageScrollStyle || 'none', label: 'Card Image Scroll Style' }, // Added card image scroll style control
-  //   cardImageHoverThemes: { options: Object.keys(cardThemes), value: currentTheme.cardImageHoverThemes || 'none', label: 'Card Image Hover Style' }, // Added card image hover themes control
-  //   applyTheme: button(() => handleApply()), // Button to apply theme
-  // });
+  useEffect(() => {
+    if (saveError) {
+      console.error('Error saving theme:', saveError);
+    }
+  }, [saveError]);
 
 
-  // return (
-  //   <>
-  //     <Leva
-  //       fill={true} // Make the pane fill the parent DOM node
-  //       flat // Remove border radius and shadow
-  //       oneLineLabels={false} // Alternative layout for labels
-  //       hideTitleBar={true} // Hide the GUI header
-  //       collapsed={false} // Start the GUI in collapsed state
-  //       hidden={false} // GUI is visible by default
-  //     />
-  //   </>
-  // );
+  return (
+    <>
+      <Leva
+        fill={false} // Make the pane fill the parent DOM node
+        flat // Remove border radius and shadow
+        oneLineLabels={false} // Alternative layout for labels
+        hideTitleBar={true} // Hide the GUI header
+        collapsed={false} // Start the GUI in collapsed state
+        hidden={false} // GUI is visible by default
+      />
+    </>
+  );
 
   
   return (

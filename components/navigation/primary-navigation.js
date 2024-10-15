@@ -3,7 +3,7 @@ import { useThemeContext } from '../themeContext';
 import { motion, cubicBezier } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useScrollPosition } from "../scrollPosContext";
+//import { useScrollPosition } from "../scrollPosContext";
 import { gsap } from "gsap";
 import { Draggable } from "gsap/dist/Draggable";
 import CtxMenu from "../base/ctx-menu";
@@ -22,7 +22,7 @@ export default function Navigation() {
   const router = useRouter();
   const menuRef = useRef(null);
   const menuDragRef = useRef("menuDragRef");
-  const { scrollPosition } = useScrollPosition();
+  //const { scrollPosition } = useScrollPosition();
   const [isActive, setIsActive] = useState(false);
   const [offset, setOffset] = useState(0);
   const [isThemeEditorOpen, setIsThemeEditorOpen] = useState(false);
@@ -56,13 +56,13 @@ export default function Navigation() {
     }
   }, [router.asPath, router.route]);
 
-  useEffect(() => {
-    if (scrollPosition < 7) {
-      setIsActive(true);
-    } else {
-      setIsActive(false);
-    }
-  }, [scrollPosition]);
+  // useEffect(() => {
+  //   if (scrollPosition < 7) {
+  //     setIsActive(true);
+  //   } else {
+  //     setIsActive(false);
+  //   }
+  // }, [scrollPosition]);
 
   const pages = [
     { id: "home", title: "Home", url: "/" },
