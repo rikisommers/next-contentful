@@ -1,17 +1,20 @@
 import React, { useRef } from "react";
-import { useThemeContext } from '../themeContext';
+import { useThemeContext } from "../themeContext";
 import { motion, cubicBezier } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 //import { useScrollPosition } from "../scrollPosContext";
-import { gsap } from "gsap";
-import { Draggable } from "gsap/dist/Draggable";
+
 import CtxMenu from "../base/ctx-menu";
 import ThemeEditor from "./themeEditor";
 import Button, { ButtonType, ButtonSound } from "../base/button";
 import ButtonAlt from "../base/button-alt";
 import AnimatedText, { AnimStyle } from "../motion/animated-text";
-import Modal, { ModalDirection, ModalWidth, ModalPosition } from "../base/modal";
+import Modal, {
+  ModalDirection,
+  ModalWidth,
+  ModalPosition,
+} from "../base/modal";
 import Link from "next/link";
 
 if (typeof window !== "undefined") {
@@ -21,6 +24,8 @@ if (typeof window !== "undefined") {
 export default function Navigation() {
   const router = useRouter();
   const menuRef = useRef(null);
+  const containerRef = useRef(null);
+
   const menuDragRef = useRef("menuDragRef");
   //const { scrollPosition } = useScrollPosition();
   const [isActive, setIsActive] = useState(false);
@@ -29,23 +34,47 @@ export default function Navigation() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { isThemeDialogOpen, setIsThemeDialogOpen } = useThemeContext();
 
+  const [edges, setEdges] = useState({
+    left: false,
+    right: false,
+    top: false,
+    bottom: false,
+  });
+  const [orientation, setOrientation] = useState("");
+
   // Function to toggle the ThemeEditor modal
   const toggleThemeEditor = () => {
-    setIsThemeDialogOpen(prev => !prev);
+    setIsThemeDialogOpen((prev) => !prev);
   };
 
+  // useEffect(() => {
+  //   if (menuRef.current && menuDragRef.current) {
+  //     // Initialize Draggable when both menuRef and menuDragRef are available
+  //     Draggable.create(menuRef.current, {
+  //       type: "x,y",
+  //       edgeResistance: 0.65,
+  //       trigger: menuDragRef.current, // Use menuDragRef.current instead of menuDragRef
+  //     });
+  //   }
+  // }, [menuRef, menuDragRef]); // Include both refs in the dependency array to handle re-renders correctly
 
-  useEffect(() => {
-    if (menuRef.current && menuDragRef.current) {
-      // Initialize Draggable when both menuRef and menuDragRef are available
-      Draggable.create(menuRef.current, {
-        type: "x,y",
-        edgeResistance: 0.65,
-        trigger: menuDragRef.current, // Use menuDragRef.current instead of menuDragRef
-      });
-    }
-  }, [menuRef, menuDragRef]); // Include both refs in the dependency array to handle re-renders correctly
-  
+  // useEffect(() => {
+  //   if (menuRef.current && menuDragRef.current) {
+
+  //       const navRect = menuRef.current.getBoundingClientRect();
+  //       const navSize = navRect.width;
+  //       const threshold = navSize / 2; // Use half of the nav width as threshold
+
+  //       // Update orientation based on drag position
+  //       setOrientation(
+  //         navRect.left <= threshold || navRect.right >= window.innerWidth - threshold
+  //           ? "flex-col"
+  //           : ""
+  //       );
+
+  //   }
+  // }, [menuRef, menuDragRef]);
+
   useEffect(() => {
     if (router.asPath !== router.route) {
       if (router.asPath === "/") {
@@ -74,19 +103,47 @@ export default function Navigation() {
   const [activePage, setActivePage] = useState(pages[0].id);
 
   return (
-
     <>
-    
-    <motion.div 
-        ref={menuRef} 
-        className="fixed z-50 flex gap-1 rounded-lg top-3 h-[45px]"
-  
-      >
+      <div ref={containerRef} className="fixed left-0 top-0 w-screen h-screen z-50 grid grid-rows-[48px_1fr_48px] grid-cols-[1fr_1fr_1fr] grid-ro">
+       
+      <motion.div
+          style={{
+            backgroundColor: "var(--accent)",
+            color:
+              router.asPath === "/"
+                ? "var(--text-color)"
+                : "var(--heading-color)",
+          }}
+          whileHover={{
+            style: {
+              backgroundColor: "var(--accent)",
+            },
+          }}
+          className={`col-start-1  col-span-1 row-span-1 row-start-1 z-50 flex items-center rounded-xl px-4`}
+        >
+          <div
+            className="w-4 h-4 rounded-full"
+            style={{ backgroundColor: "var(--accent-pri)" }}
+          ></div>
+          <span
+            className="self-center p-3 font-mono text-sm cursor-pointer page-title"
+            style={{ color: "var(--text-color)" }}
+            onClick={() => setIsModalOpen(true)}
+          >
+            'Available for work'
+          </span>
+        </motion.div>
+        
+        <motion.div
+          drag
+          ref={menuRef}
+          dragMomentum={0}
+          dragConstraints={containerRef}
+          dragSnapToOrigin={false}
 
-  
-        <div className="relative flex gap-1 bg-black bg-opacity-50 rounded-xl backdrop-blur-lg">
-
-        <div ref={menuDragRef}>DD</div>
+          className={`col-start-2 col-span-1 row-span-1 row-start-1 z-50 flex ${orientation} gap-1 bg-black bg-opacity-50 rounded-xl backdrop-blur-lg`}
+        >
+          <div ref={menuDragRef}>DD</div>
 
           {pages.map((page) => (
             <Link
@@ -95,49 +152,29 @@ export default function Navigation() {
               scroll={false}
               onClick={() => setActivePage(page.id)}
               className="relative flex items-center text-sm uppercase rounded-lg"
-              style={{color: 'var(--heading-color)'}}
+              style={{ color: "var(--heading-color)" }}
             >
               {activePage === page.id && (
                 <motion.div
                   layoutId="indicator"
                   style={{
-                    backgroundColor: 'var(--accent-pri)',
+                    backgroundColor: "var(--accent-pri)",
                   }}
                   className="absolute top-0 left-0 flex w-full h-full bg-opacity-50 rounded-xl"
                 ></motion.div>
               )}
-              <Button label={page.title} type={ButtonType.TRANSPARENT}/>
+              <Button label={page.title} type={ButtonType.TRANSPARENT} />
             </Link>
           ))}
-          <Button label={'Contact'} sound={ButtonSound.ON} type={ButtonType.TRANSPARENT}></Button>
-        </div>
-      </motion.div>
+          <Button
+            label={"Contact"}
+            sound={ButtonSound.ON}
+            type={ButtonType.TRANSPARENT}
+          ></Button>
+        </motion.div>
+       
 
-
-   
-      <motion.div
-        style={{
-          backgroundColor: 'var(--accent)',
-          color: router.asPath === "/" ? 'var(--text-color)' : 'var(--heading-color)',
-        }}
-        whileHover={{
-          style: {
-            backgroundColor: 'var(--accent)',
-          }
-        }}
-        className={`fixed top-3 left-3 z-50 flex items-center rounded-xl px-4`}
-      >
-        <div className="w-4 h-4 rounded-full" style={{backgroundColor:'var(--accent-pri)'}}></div>
-        <span
-          className="self-center p-3 font-mono text-sm cursor-pointer page-title"
-          style={{ color: 'var(--text-color)' }}
-          onClick={() => setIsModalOpen(true)}
-        > 
-          'Available for work'
-        </span>
-      </motion.div>
-
-{/* <motion.div
+        {/* <motion.div
         style={{
           backgroundColor: 'var(--accent',
           color:
@@ -194,66 +231,57 @@ export default function Navigation() {
         </motion.span>
       </motion.div> */}
 
-      
+        <motion.div className="fixed z-50 flex items-center gap-1 rounded-lg top-3 right-3">
+          <Button
+            click={toggleThemeEditor}
+            label={"Theme"}
+            type={ButtonType.SECONDARY}
+          />
 
-
-      <motion.div 
-        className="fixed z-50 flex items-center gap-1 rounded-lg top-3 right-3">
-
-            <Button 
-              click={toggleThemeEditor}
-              label={"Theme"} 
-              type={ButtonType.SECONDARY}
-            />
-   
-
-             <ButtonAlt
-              click={toggleThemeEditor}
-              type={ButtonType.PRIMARY}
-              label={"Theme"} 
-  
-            />
-
-      </motion.div>
-
-
-
+          <ButtonAlt
+            click={toggleThemeEditor}
+            type={ButtonType.PRIMARY}
+            label={"Theme"}
+          />
+        </motion.div>
+      </div>
 
       {/* Modal for "Available for work" */}
-      <Modal 
-        isOpen={isModalOpen} 
+      <Modal
+        isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         direction={ModalDirection.RIGHT}
         width={ModalWidth.PANEL_SM}
         position={ModalPosition.BOTTOM_RIGHT}
       >
-        <div className="p-8 h-vh66"
-             style={{backgroundColor: 'var(--accent-pri)'}}>
+        <div
+          className="p-8 h-vh66"
+          style={{ backgroundColor: "var(--accent-pri)" }}
+        >
           <h2>Hello, I'm available for work!</h2>
-          <p>This is some sample content for the modal. You can customize this as needed.</p>
+          <p>
+            This is some sample content for the modal. You can customize this as
+            needed.
+          </p>
           <button onClick={() => setIsModalOpen(false)}>Close</button>
         </div>
       </Modal>
 
       {/* Modal for ThemeEditor */}
-      <Modal 
-        isOpen={isThemeDialogOpen} 
+      <Modal
+        isOpen={isThemeDialogOpen}
         onClose={toggleThemeEditor}
         direction={ModalDirection.RIGHT}
         width={ModalWidth.PANEL_SM}
         position={ModalPosition.BOTTOM_RIGHT}
         bodyClass="theme-dialog-open"
       >
-        <div className="w-full h-screen p-8 overflow-y-auto"
-             >
+        <div className="w-full h-screen p-8 overflow-y-auto">
           <h2>Theme Editor</h2>
           <ThemeEditor />
           <button onClick={toggleThemeEditor}>Close</button>
         </div>
       </Modal>
-
-      
     </>
-
   );
 }

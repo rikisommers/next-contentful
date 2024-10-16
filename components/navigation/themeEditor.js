@@ -243,7 +243,6 @@ export default function ThemeEditor() {
       }
     },
     'Theme Selection': folder({
-      collapsed: true,
       colorWeight: { 
         value: colorWeight, 
         min: 1, 
@@ -276,7 +275,6 @@ export default function ThemeEditor() {
       },
     }),
     'Audio': folder({
-      collapsed: true,
       audio: { 
         value: currentTheme.audio, 
         label: 'Audio',
@@ -292,7 +290,6 @@ export default function ThemeEditor() {
       },
     }),
     'Globals': folder({
-      collapsed: true,
       pageWidth: { 
         options: Object.keys(pageWidthThemes), 
         value: currentTheme.pageWidth || 'fluid', 
@@ -307,7 +304,6 @@ export default function ThemeEditor() {
       },
     }),
     'Animation': folder({
-      collapsed: true,
       pageTransition: { 
         options: Object.keys(pageTransitionThemes), 
         value: currentTheme.pageTransition || 'fade', 
