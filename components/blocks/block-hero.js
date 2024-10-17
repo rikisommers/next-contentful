@@ -85,14 +85,9 @@ const HeroLeft = ({ children }) => {
 };
 
 export default function BlockHero({
-  title,
   intro,
   titlealt,
-  contentalt,
   date,
-  content,
-  layout,
-  image,
 }) {
   const { currentTheme } = useThemeContext();
 
@@ -120,13 +115,13 @@ export default function BlockHero({
 
         {currentTheme.heroBackgroundStyle === "video" && <Background />}
 
-        {currentTheme.heroBackgroundStyle === "image" && (
+        {/* {currentTheme.heroBackgroundStyle === "image" && (
           <BlendImage
             className="img-cover"
             alt={`Cover Image for ${image?.title}`}
             src={image.url}
           />
-        )}
+        )} */}
       </motion.div>
 
       {date && <DateAndLocation date={date} />}

@@ -1,5 +1,5 @@
 import Layout from "../components/layout";
-import { getLandingPage, getFooter} from "../lib/api";
+import { getHomePage, getFooter} from "../lib/api";
 import ScrollContainer from "../components/utils/scroll-container";
 import BlockFooter from "../components/blocks/block-footer";
 import BlockHero from "../components/blocks/block-hero";
@@ -41,7 +41,7 @@ const Index = ({ data, footerData }) => {
 
 export async function getStaticProps({ preview = false }) {
   const [landingPageData, footerData] = await Promise.all([
-    getLandingPage("home"), // Fetch the landing page content
+    getHomePage("home"), // Fetch the landing page content
     getFooter(), // Fetch the footer content
   ]);
 
