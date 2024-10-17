@@ -1,18 +1,8 @@
-import { useRef, useState } from "react";
-
-import ContentfulImage from "../image/contentful-image";
+import React, { useState } from "react";
 import BlendImage from "../image/blend-image";
-import BlendImageFill from  "../image/blend-image-fill";
 import Link from "next/link";
-import FadeInWhenVisible from "../utils/fade-in-visible";
-import RollUpWhenVisible from "../utils/roll-up-visible";
 import {
   motion,
-  useTransform,
-  useMotionValue,
-  cubicBezier,
-  useScroll,
-  useInView,
 } from "framer-motion";
 
 export default function PostTileLg({ post, index ,size}) {

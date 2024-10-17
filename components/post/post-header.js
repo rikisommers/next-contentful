@@ -1,12 +1,9 @@
-import FadeInWhenVisible from "../utils/fade-in-visible";
 import { useContext, useState } from "react";
 import { RouteContext } from "../../components/routeContext";
-import { motion } from "framer-motion";
 import PostDetails from "./post-details";
 import PostTileImgAlt from "./post-tile-img-alt";
-import AnimatedText, {
+import {
   AnimStyle,
-  AnimTextOrder,
 } from "../motion/animated-text";
 import AnimatedElement, { AnimStyleEl } from "../motion/animated-element";
 import PostIntro from "./post-intro";

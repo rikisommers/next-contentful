@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect, useContext } from "react";
-import { useRouter } from "next/navigation";
 import { motion, LayoutGroup } from "framer-motion";
 import { RouteContext } from "../routeContext";
 import { useTheme } from 'next-themes';

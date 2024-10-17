@@ -1,13 +1,10 @@
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { getGlobal } from "../../lib/api";
 import "../../styles/preloader.scss";
 
 
-const Preloader = ({ data,show }) => {
-
-  console.log('-----------__GGGLOOOBAL',data)
-
+const Preloader = ({ show }) => {
   return (
     <div className={`${show ? 'show' : 'hide'} fixed left-0 flex items-center content-center w-full h-full bg-gray-700 test top-0`}>
      

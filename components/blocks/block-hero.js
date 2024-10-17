@@ -1,18 +1,11 @@
-import { useRef } from "react";
-import { motion, useScroll } from "framer-motion";
-import Audio from "../navigation/audio";
-import Link from "next/link";
+import React from "react";
+import { motion} from "framer-motion";
 import Background from "../background/background";
 import AnimatedText, {
-  AnimStyle,
-  HighlightStyle,
   AnimTextOrder,
 } from "../motion/animated-text";
-import { TextAnimLineUp } from "../motion/text-anim-line-up";
-import TextAnimationUp from "../motion/text-animation-up";
 import CanvasGradientBackground from "../background/canvasGradientBackground";
-import CanvasAnimatedGradient from "../background/canvasAnimatedGradient";
-import { ThemeProvider, useThemeContext } from "../themeContext";
+import { useThemeContext } from "../themeContext";
 import BlendImage from "../image/blend-image";
 import { ClipContainer } from "../motion/clippath-container";
 

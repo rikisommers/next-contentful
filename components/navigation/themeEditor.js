@@ -15,6 +15,7 @@ import {
   heroTextImageThemes,
   heroTextCompositionThemes,
   heroTextPositionThemes,
+  heroGradThemes,
   navigationPositionThemes,
   navigationStyleThemes,
   cursorThemes,
@@ -377,13 +378,13 @@ export default function ThemeEditor() {
           label: 'Hero Background Style',
           onChange: (value) => handleGlobalOptionChange('heroBackgroundStyle', value) // Call existing handler
         },
-        gradMidPoint: { 
-          value: currentTheme.gradMidPoint, 
+        heroGradMidPoint: { 
+          value: currentTheme.heroGradMidPoint, 
           min: 0, 
           max: 1, 
           step: 0.1, 
           label: 'Gradient Mid Point',
-          onChange: (value) => handleGlobalOptionChange('gradMidPoint', value) // Call existing handler
+          onChange: (value) => handleGlobalOptionChange('heroGradMidPoint', value) // Call existing handler
         },
         heroTextImageStyle: { 
           options: Object.keys(heroTextImageThemes), 

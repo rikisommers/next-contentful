@@ -1,32 +1,11 @@
-import React from "react";
-import { useState, useContext, useEffect, useRef } from "react";
-
+import React, { useRef } from "react";
 import Layout from "../components/layout";
-import Head from "next/head";
 import TransitionWipe from "../components/transition/transition-wipe";
-import TransitionTilt from "../components/transition/transition-tilt";
 import PostIntro from "../components/post/post-intro";
 import { getLandingPage, getFooter } from "../lib/api";
-import { ScrollableBox } from "../components/utils/scrollable";
 import BlockFooter from "../components/blocks/block-footer";
-
-import PostBody from "../components/post/post-body";
-import PostContent from "../components/post/post-content";
-import BlockHero from "../components/blocks/block-hero";
 import LandingPageContent from "../components/landing-page-content";
-import ScrollContainer from "../components/utils/scroll-container";
-import ClipPathContainer from "../components/utils/clip-path-container";
 
-import Lenis from "@studio-freight/lenis";
-import {
-  motion,
-  cubicBezier,
-  useMotionValue,
-  useTransform,
-  useScroll,
-  useMotionValueEvent,
-} from "framer-motion";
-import BlockHeader from "../components/blocks/block-header";
 import TransitionPage from "../components/transition/pageTransition";
 
 

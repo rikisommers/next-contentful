@@ -1,12 +1,11 @@
 import React, { useRef, useState } from "react";
-import AnimatedText, { AnimStyle } from "./animated-text";
 import {
   motion,
   useTransform,
   useScroll,
   useMotionValueEvent,
 } from "framer-motion";
-import { ThemeProvider, useThemeContext } from "../themeContext";
+import { useThemeContext } from "../themeContext";
 
 export const ClipContainer = ({ children }) => {
   const heroRef = useRef(null);

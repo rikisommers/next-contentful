@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
 import {TextAnimLineUp} from "./text-anim-line-up";
@@ -11,10 +11,7 @@ import { TextAnimBlur } from "./text-anim-blur";
 import { TextAnimLineFadeIn } from "./text-anim-line-fade";
 import { TextAnimNone } from "./text-anim-none";
 import TextAnimCode from "../motion/text-anim-code";
-import { useTheme } from 'next-themes';
-import { getThemeByKey } from '../../utils/theme';
-// import TextAnimCharBlur from "./text-anim-char-blur";  // Uncomment when implemented
-import { ThemeProvider, useThemeContext } from "../themeContext";
+import { useThemeContext } from "../themeContext";
 
 
 const HighlightStyle = {

@@ -1,5 +1,5 @@
 // audio-utils.js
-import { useEffect, useState, useCallback } from 'react';
+import { useState} from 'react';
 import { useThemeContext } from '../themeContext';
 
 // Initialize audio references

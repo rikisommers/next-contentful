@@ -5,12 +5,8 @@ import ContentfulImage from "./contentful-image";
 import {
   motion,
   useTransform,
-  useMotionValue,
-  cubicBezier,
   useScroll,
-  useInView,
 } from "framer-motion";
-import RollUpWhenVisible from "../utils/roll-up-visible";
 
 export default function CoverImage({ title, url, slug, layout }) {
   const ref = useRef(null);

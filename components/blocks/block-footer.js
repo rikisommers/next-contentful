@@ -7,11 +7,7 @@ import Button, { ButtonType } from "../base/button";
 import {
   motion,
   useTransform,
-  useMotionValue,
-  cubicBezier,
   useScroll,
-  useInView,
-  useMotionValueEvent,
 } from "framer-motion";
 
 export default function BlockFooter({ data }) {

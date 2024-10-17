@@ -1,15 +1,13 @@
 import React, { useRef } from "react";
 import { useThemeContext } from "../themeContext";
-import { motion, cubicBezier } from "framer-motion";
+import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 //import { useScrollPosition } from "../scrollPosContext";
 
-import CtxMenu from "../base/ctx-menu";
 import ThemeEditor from "./themeEditor";
 import Button, { ButtonType, ButtonSound } from "../base/button";
 import ButtonAlt from "../base/button-alt";
-import AnimatedText, { AnimStyle } from "../motion/animated-text";
 import Modal, {
   ModalDirection,
   ModalWidth,

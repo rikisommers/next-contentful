@@ -1,8 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
-
-import Link from "next/link";
-import { motion, cubicBezier } from "framer-motion";
-import FadeInWhenVisible from "../utils/fade-in-visible";
+import React from "react";
 import BlendImage from "../image/blend-image";
 
 export default function PostTileImgAlt({ post }) {

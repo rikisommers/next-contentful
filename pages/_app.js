@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import { MousePosProvider } from "../components/mousePosContext";
 import { ScrollPositionProvider } from "../components/scrollPosContext";
 import { RouteProvider } from "../components/routeContext";
-import { ToastProvider } from "../components/toastContext";
 import { ThemeProvider, useThemeContext } from '../components/themeContext';
 import Navigation from "../components/navigation/primary-navigation";
 import Preloader from "../components/utils/preloader";
 import "../styles/index.scss";
 import CursorDot from '../components/utils/cursor-dot';
 import CursorCta from '../components/utils/cursor-cta';
-import ThemeEditor from '../components/navigation/themeEditor';
 
 function MainContent({ Component, pageProps, router }) {
   const { currentTheme, isThemeDialogOpen } = useThemeContext();
@@ -59,7 +57,7 @@ function MyApp({ Component, pageProps, router }) {
     });
     const timeout = setTimeout(() => {
       setIsLoading(false);
-    }, 1000);
+    }, 0);
 
     return () => clearTimeout(timeout);
   }, [isLoading]);

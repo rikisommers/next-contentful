@@ -8,27 +8,12 @@ import {
   getNextPost,
   getFooter,
 } from "../../lib/api";
-import {
-  motion,
-  cubicBezier,
-  useMotionValue,
-  useTransform,
-  useScroll,
-  useMotionValueEvent,
-} from "framer-motion";
 
-import PostIntro from "../../components/post/post-intro";
 import PostHeader from "../../components/post/post-header";
 
 import PostContent from "../../components/post/post-content";
-import Link from "next/link";
-import NextPost from "../../components/post/post-next";
-
 import { RouteContext } from "../../components/routeContext";
 import BlockFooter from "../../components/blocks/block-footer";
-import PostTileCs from "../../components/post/post-tile-cs";
-import { useScrollPosition } from "../../components/scrollPosContext";
-import ScrollContainer from "../../components/utils/scroll-container";
 import TransitionPage from "../../components/transition/pageTransition";
 import PageNav from "../../components/base/page-nav";
 

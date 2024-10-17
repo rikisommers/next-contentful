@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext, useEffect, useCallback } from 'react';
-import { themes, getThemeByKey } from "../utils/theme";
+import { themes } from "../utils/theme";
 import ThemeEditor from './navigation/themeEditor'; 
 const ThemeContext = createContext(null);
 

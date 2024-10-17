@@ -1,5 +1,4 @@
 import React from "react";
-import CoverImage from "../image/cover-image";
 import ContentfulImage from "../image/contentful-image";
 
 export const BlockImg = ({ data }) => {

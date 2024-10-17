@@ -1,10 +1,6 @@
 "use client";
 
 import React from "react";
-import AnimatedText, {
-  AnimStyle,
-  AnimTextOrder,
-} from "../motion/animated-text";
 
 export const BlockQuote = ({ data }) => {
 

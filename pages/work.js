@@ -1,25 +1,11 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import Layout from "../components/layout";
 import { getLandingPage, getFooter } from "../lib/api";
-import { getWork, getAllCaseStudiesIntro } from "../lib/api";
-import {
-  motion,
-  useTransform,
-  useMotionValue,
-  cubicBezier,
-  useScroll,
-  useInView,
-  useMotionValueEvent,
-} from "framer-motion";
 
-import TransitionWipe from "../components/transition/transition-wipe";
-import TransitionTilt from "../components/transition/transition-tilt";
 import PostIntro from "../components/post/post-intro";
 import PostBody from "../components/post/post-body";
 import BlockFooter from "../components/blocks/block-footer";
 import { useScrollPosition } from "../components/scrollPosContext";
-import ScrollContainer from "../components/utils/scroll-container";
-import ClipPathContainer from "../components/utils/clip-path-container";
 import TransitionPage from "../components/transition/pageTransition";
 
 const Work = ({ data, footerData }) => {

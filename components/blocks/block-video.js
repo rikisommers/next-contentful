@@ -6,10 +6,8 @@ import RollUpWhenVisible from "../utils/roll-up-visible";
 import {
   motion,
   useTransform,
-  useMotionValue,
   cubicBezier,
   useScroll,
-  useInView,
 } from "framer-motion";
 
 

@@ -19,7 +19,6 @@ const colorThemes = {
     accentSec: '#FCD00A',
     gradStart: '#EF7801',
     gradStop: '#fafafa',
-    gradMidPoint: 0.5,
     textAccent:'#d946ef',
     stateSuccessBackground:'#d946ef',
   },
@@ -42,7 +41,6 @@ const colorThemes = {
     accentSec: '#FCD00A',
     gradStart: '#EF7801',
     gradStop: '#271C1B',
-    gradMidPoint: 0.5,
     textAccent:'#99f6e4',
     stateSuccessBackground:'#d946ef',
   },
@@ -65,7 +63,6 @@ const colorThemes = {
     accentSec: '#FCD00A',
     gradStart: '#EF7801',
     gradStop: '#F8FBF8',
-    gradMidPoint: 0.5,
     textAccent:'#BED3CD',
     stateSuccessBackground:'#BED3CD',
   },
@@ -1411,6 +1408,10 @@ export const heroTextPositionThemes = {
   bottomRight:'bottom-right',
 };
 
+export const heroGradThemes = {
+  gradMidPoint: 0.5
+};
+
 export const heroTextCompositionThemes = {
   foo: 'foo',
   foo: 'bar',
@@ -1478,6 +1479,7 @@ const themeContent = {
   heroBackgroundStyle:heroBackgroundThemes.gradient,
   heroTextImageStyle:heroTextImageThemes.none,
   heroTextPosition:heroTextPositionThemes.center,
+  heroGradMidPoint:heroGradThemes.gradMidPoint,
   heroTextComposition:heroTextCompositionThemes.foo,
   heroTextImageStyle:heroTextImageThemes.none,
   navigationPosition:navigationPositionThemes.topCenter,

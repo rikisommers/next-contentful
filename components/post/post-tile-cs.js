@@ -1,19 +1,13 @@
 "use client";
 
 import { useRef } from "react";
-
-import ContentfulImage from "../image/contentful-image";
 import BlendImage from "../image/blend-image";
 import Link from "next/link";
 import FadeInWhenVisible from "../utils/fade-in-visible";
-import RollUpWhenVisible from "../utils/roll-up-visible";
 import {
   motion,
   useTransform,
-  useMotionValue,
-  cubicBezier,
   useScroll,
-  useInView,
 } from "framer-motion";
 
 export default function PostTileCs({ post, index }) {

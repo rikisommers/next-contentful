@@ -1,16 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
-
-import CoverImage from "../image/cover-image";
-import Link from "next/link";
-import { motion, cubicBezier } from "framer-motion";
+import React, { useState, useRef } from "react";
+import { motion } from "framer-motion";
 import TextAnimation from "../utils/text-animation";
-import FadeInWhenVisible from "../utils/fade-in-visible";
-import ContentfulImage from "../image/contentful-image";
-import BlendImage from "../image/blend-image";
-import PostTileImg from "./post-tile-img";
-import PostTileCs from "./post-tile-cs";
-import Audio from "../navigation/audio";
-import PostTile from "./post-tile";
 import PostTileImgAlt from "./post-tile-img-alt";
 export default function NextPostAlt({ post }) {
   const [finalPos, setFinalPos] = useState(null);
