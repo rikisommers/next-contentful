@@ -3,7 +3,7 @@ import { AnimatePresence } from "framer-motion";
 import { MousePosProvider } from "../components/mousePosContext";
 import { ScrollPositionProvider } from "../components/scrollPosContext";
 import { RouteProvider } from "../components/routeContext";
-import { ThemeProvider, useThemeContext } from '../components/themeContext';
+import { ThemeProvider } from '../components/themeContext';
 import Navigation from "../components/navigation/primary-navigation";
 import Preloader from "../components/utils/preloader";
 import "../styles/index.scss";
@@ -11,7 +11,6 @@ import CursorDot from '../components/utils/cursor-dot';
 import CursorCta from '../components/utils/cursor-cta';
 
 function MainContent({ Component, pageProps, router }) {
-  const { currentTheme, isThemeDialogOpen } = useThemeContext();
 
   // useEffect(() => {
   //  console.log('currentTheme', currentTheme)
@@ -67,11 +66,11 @@ function MyApp({ Component, pageProps, router }) {
       <ScrollPositionProvider>
         <MousePosProvider>
           <ThemeProvider>
-                <Preloader show={isLoading} /> 
+                {/* <Preloader show={isLoading} /> 
                 {!isLoading && (  
-
+   )} */}
                 <MainContent Component={Component} pageProps={pageProps} router={router} />
-                )}
+             
           </ThemeProvider>
           </MousePosProvider>
       </ScrollPositionProvider>
