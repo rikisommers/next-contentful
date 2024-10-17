@@ -15,9 +15,6 @@ import Modal, {
 } from "../base/modal";
 import Link from "next/link";
 
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(Draggable);
-}
 
 export default function Navigation() {
   const router = useRouter();
