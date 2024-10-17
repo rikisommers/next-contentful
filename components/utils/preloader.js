@@ -1,8 +1,6 @@
 
 import React from "react";
-import { getGlobal } from "../../lib/api";
 import "../../styles/preloader.scss";
-
 
 const Preloader = ({ show }) => {
   return (
@@ -13,15 +11,5 @@ const Preloader = ({ show }) => {
     </div>
   );
 };
-export async function getStaticProps({ preview = false }) {
-  const [globalData] = await Promise.all([
-    getGlobal(), // Fetch the footer content
-  ]);
 
-  return {
-    props: {
-      data: globalData || null, // Use null as fallback if data is undefined
-    },
-  };
-}
 export default Preloader;
