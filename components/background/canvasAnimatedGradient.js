@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react';
-import * as twgl from 'twgl.js'; // Ensure you have twgl.js installed
 
 const CanvasAnimatedGradient = () => {
   const canvasRef = useRef(null);
