@@ -1,11 +1,10 @@
 import React, { useRef } from "react";
-import { useThemeContext } from "../themeContext";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 //import { useScrollPosition } from "../scrollPosContext";
 
-import ThemeEditor from "./themeEditor";
+import ThemeEditor from "../../utils/themeEditor";
 import Button, { ButtonType, ButtonSound } from "../base/button";
 import ButtonAlt from "../base/button-alt";
 import Modal, {
@@ -14,6 +13,7 @@ import Modal, {
   ModalPosition,
 } from "../base/modal";
 import Link from "next/link";
+import { useThemeContext } from "../themeContext";
 
 
 export default function Navigation() {
@@ -28,6 +28,10 @@ export default function Navigation() {
   const [isThemeEditorOpen, setIsThemeEditorOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { isThemeDialogOpen, setIsThemeDialogOpen } = useThemeContext();
+
+  const { currentTheme } = useThemeContext();
+
+
 
   const [edges, setEdges] = useState({
     left: false,
@@ -95,11 +99,60 @@ export default function Navigation() {
     { id: "about", title: "About", url: "/bio" },
   ];
 
+
+  const getNavigationStyle = (navigationStyle) => {
+    switch (navigationStyle) {
+      case 'solid':
+        return currentTheme.navBg;
+      case 'transparent':
+        return hexToRgba(currentTheme.navBg, 0.5);
+      default:
+        return ''; // Return an empty string if no match
+    }
+  };
+
+ const hexToRgba = (hex, alpha) => {
+    // Remove the hash at the start if it's there
+    hex = hex.replace(/^#/, '');
+  
+    // Parse r, g, b values
+    let r, g, b;
+    if (hex.length === 3) {
+      r = parseInt(hex[0] + hex[0], 16);
+      g = parseInt(hex[1] + hex[1], 16);
+      b = parseInt(hex[2] + hex[2], 16);
+    } else if (hex.length === 6) {
+      r = parseInt(hex.substring(0, 2), 16);
+      g = parseInt(hex.substring(2, 4), 16);
+      b = parseInt(hex.substring(4, 6), 16);
+    } else {
+      throw new Error('Invalid HEX color format');
+    }
+  
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  };
+
+
+  const getNavigationPositionClass = (navigationPosition) => {
+    switch (navigationPosition) {
+      case 'topLeft':
+        return '(col-start-1 col-span-1 row-span-1 row-start-1)';
+      case 'topCenter':
+        return 'col-start-2 col-span-1 row-span-1 row-start-1';
+      case 'topRight':
+        return 'col-start-3 col-span-1 row-span-1 row-start-1';
+      case 'bottomCenter':
+        return 'col-start-2 col-span-1 row-span-1 row-start-3';
+      default:
+        return ''; // Return an empty string if no match
+    }
+  };
+  
   const [activePage, setActivePage] = useState(pages[0].id);
 
   return (
     <>
-      <div ref={containerRef} className="fixed pointer-events-none left-0 top-0 w-screen h-screen z-50 grid grid-rows-[48px_1fr_48px] grid-cols-[1fr_1fr_1fr] grid-ro">
+      <div ref={containerRef} className="fixed pointer-events-none left-0 top-0 w-screen h-screen z-50 px-3 pt-3 pb-16 grid grid-rows-[48px_1fr_48px] grid-cols-[1fr_1fr_1fr] ">
        
       <motion.div
           style={{
@@ -111,10 +164,10 @@ export default function Navigation() {
           }}
           whileHover={{
             style: {
-              backgroundColor: "var(--accent)",
+              backgroundColor: "var(--heading-color)",
             },
           }}
-          className={`pointer-events-auto col-start-1  col-span-1 row-span-1 row-start-1 z-50 flex items-center rounded-xl px-4`}
+          className={` pointer-events-auto col-start-1  col-span-1 row-span-1 row-start-1 z-50 flex items-center rounded-xl px-4`}
         >
           <div
             className="w-4 h-4 rounded-full"
@@ -135,11 +188,14 @@ export default function Navigation() {
           dragMomentum={0}
           dragConstraints={containerRef}
           dragSnapToOrigin={false}
-
-          className={`pointer-events-auto col-start-2 col-span-1 row-span-1 row-start-1 z-50 flex ${orientation} gap-1 bg-black bg-opacity-50 rounded-xl backdrop-blur-lg`}
+          style={{
+            backgroundColor:getNavigationStyle(currentTheme.navigationStyle),
+            boxShadow: `0 10px 15px -3px ${currentTheme.navShadow}, 0 4px 49px -4px ${currentTheme.navShadow}`,
+          }}
+          className={`${getNavigationPositionClass(currentTheme.navigationPosition)} shadow-lg backdrop-opacity-95 opacity(0.95); backdrop-blur-lg pointer-events-auto  z-50 flex ${orientation} gap-1 rounded-xl`}
         >
           <div ref={menuDragRef}>DD</div>
-
+          <h1 className="text-xs text-white">{currentTheme.navigationPosition}</h1>
           {pages.map((page) => (
             <Link
               key={page.id}

@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext, useEffect, useCallback } from 'react';
 import { themes } from "../utils/theme";
-import ThemeEditor from './navigation/themeEditor'; 
+import ThemeEditor from '../utils/themeEditor'; 
 const ThemeContext = createContext(null);
 
 export const ThemeProvider = ({ children }) => {

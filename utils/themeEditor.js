@@ -13,10 +13,12 @@ import {
   heroTextCompositionThemes,
   heroTextPositionThemes,
   navigationPositionThemes,
+  navigationDragThemes,
+  fontSizeThemes,
   navigationStyleThemes,
   cursorThemes,
-  mixBlendThemes} from "../../utils/theme";
-import { useThemeContext } from '../themeContext';
+  mixBlendThemes} from "./theme";
+import { useThemeContext } from '../components/themeContext';
 import { Leva, useControls ,button, folder} from "leva";
 
 
@@ -336,6 +338,16 @@ export default function ThemeEditor() {
         label: 'Font Family Secondary',
         onChange: (value) => handleGlobalOptionChange('fontFamilySecondary', value) // Call existing handler
       },
+      fontSizeMax:{
+
+          value: currentTheme.fluidFontRatioMax, 
+          min: 0, 
+          max: 2, 
+          step: 0.1, 
+          label: 'Fluid Max',
+          onChange: (value) => handleGlobalOptionChange('fluidFontRatioMax', value) // Call existing handler
+       
+      },
       textHighlight: { 
         options: Object.values(textHighlightThemes), 
         value: currentTheme.textHighlight, 
@@ -365,14 +377,14 @@ export default function ThemeEditor() {
       navigationPosition: { 
         options: Object.keys(navigationPositionThemes), 
         value: currentTheme.navigationPosition, 
-        label: 'Nav Position',
-        onChange: (value) => handleGlobalOptionChange('navigationPosition', value) // Call existing handler
+        label: 'Position',
+        onChange: (value) => handleGlobalOptionChange('navigationPosition',  value) // Call existing handler
       },
       navigationStyle: { 
         options: Object.keys(navigationStyleThemes), 
-        value: currentTheme.navigationStyle, 
-        label: 'Nav Style',
-        onChange: (value) => handleGlobalOptionChange('heroBackgroundStyle', value) // Call existing handler
+        value: currentTheme.navigationStyle,
+        label: 'Style',
+        onChange: (value) => handleGlobalOptionChange('navigationStyle',  value) // Call existing handler
       },
     }),
 
