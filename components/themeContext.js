@@ -15,7 +15,7 @@ export const ThemeProvider = ({ children }) => {
 
   const updateTheme = useCallback((newTheme) => {
     setCurrentTheme(prevTheme => {
-      const updatedTheme = { ...prevTheme, ...newTheme };
+      const updatedTheme = { ...prevTheme, ...newTheme }; // Merge existing theme with new values
       if (typeof window !== 'undefined') {
         localStorage.setItem('currentTheme', JSON.stringify(updatedTheme));
       }

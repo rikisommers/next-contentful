@@ -53,7 +53,9 @@ export const TextAnimLineUp = ({
       >
         <motion.div
           variants={lineVariants}
+
           style={{
+            fontFamily:"var(--font-family-primary)",
             position: "relative",
             display: "inline-block",
           }}

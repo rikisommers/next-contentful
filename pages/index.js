@@ -39,7 +39,7 @@ const Index = ({ data, footerData }) => {
   );
 };
 
-export async function getStaticProps({ preview = false }) {
+export async function getStaticProps() {
   const [landingPageData, footerData] = await Promise.all([
     getHomePage("home"), // Fetch the landing page content
     getFooter(), // Fetch the footer content

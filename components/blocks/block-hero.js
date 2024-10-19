@@ -126,9 +126,11 @@ export default function BlockHero({
 
       {date && <DateAndLocation date={date} />}
 
-      {currentTheme.heroLayoutStyle === "left" && (
+      {currentTheme.heroTextPosition === "bottomLeft" && (
         <HeroLeft>
-          <h1 className="font-medium font-aon">
+          <h1 className="font-medium"
+           style={{fontFamily:"var(--font-family-primary)"}}
+          >
             <AnimatedText
               type={currentTheme.textAnimation}
               highlight={currentTheme.textHighlight}
@@ -152,9 +154,11 @@ export default function BlockHero({
         </HeroLeft>
       )}
 
-      {currentTheme.heroLayoutStyle === "center" && (
+      {currentTheme.heroTextPosition === "center" && (
         <HeroCenter>
-          <h1 className="text-4xl font-medium font-aon">
+          <h1 className="text-4xl font-medium"
+                     style={{fontFamily:"var(--font-family-primary)"}}
+>
             <AnimatedText
               type={currentTheme.textAnimation}
               highlight={currentTheme.textHighlight}

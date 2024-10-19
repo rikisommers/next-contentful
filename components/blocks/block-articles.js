@@ -53,10 +53,10 @@ export const BlockArticles = ({ data }) => {
 onMouseLeave={handleHideCursor(item.title)}  */}
                     <AnimatedElement type={AnimStyleEl.FADEIN}>
 
-                          { currentTheme.cardStyle === 'formal' && 
+                          { currentTheme.cardLayout === 'formal' && 
                              <PostTileCs post={item} />
                             }
-                         { currentTheme.cardStyle === 'funky' && 
+                         { currentTheme.cardLayout === 'funky' && 
                              <PostTileLg post={item} />
                             }
                     </AnimatedElement>

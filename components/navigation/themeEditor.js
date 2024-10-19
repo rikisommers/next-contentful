@@ -2,30 +2,21 @@ import React, { useState, useEffect, useCallback } from "react";
 import { 
   themes,
   typographyThemes,
-  fluidFontSizeThemes,
-  fontSizeThemes,
   textAnimationThemes,
   textHighlightThemes, 
   pageTransitionThemes, 
   pageWidthThemes, 
   cardThemes,
-  cardImageHoverThemes,
-  cardImageScrollThemes,
+  cardHoverThemes,
   heroBackgroundThemes,
   heroTextImageThemes,
   heroTextCompositionThemes,
   heroTextPositionThemes,
-  heroGradThemes,
   navigationPositionThemes,
   navigationStyleThemes,
   cursorThemes,
-  bodyTextThemes,
-  helpers,
-  
   mixBlendThemes} from "../../utils/theme";
-import { debounce } from "../utils/debounce";
 import { useThemeContext } from '../themeContext';
-import { FloatType } from "three";
 import { Leva, useControls ,button, folder} from "leva";
 
 
@@ -89,11 +80,14 @@ export default function ThemeEditor() {
       return;
     }
 
-    updateTheme(updatedTheme);
-    const root = document.documentElement;
-    root.setAttribute('data-theme', updatedTheme.key);
+    // Merge the updated theme with the current theme to retain existing values
+    const mergedTheme = { ...currentTheme, ...updatedTheme };
+    updateTheme(mergedTheme); // Update the theme with the merged values
 
-    Object.entries(updatedTheme).forEach(([key, value]) => {
+    const root = document.documentElement;
+    root.setAttribute('data-theme', mergedTheme.key);
+
+    Object.entries(mergedTheme).forEach(([key, value]) => {
       if (typeof value === 'string' && value.startsWith('#')) {
         const cssVar = `--${key.replace(/([A-Z])/g, "-$1").toLowerCase()}`;
         root.style.setProperty(cssVar, value);
@@ -101,33 +95,36 @@ export default function ThemeEditor() {
     });
 
     // Apply global options
-    root.style.setProperty('--mix-blend-mode', updatedTheme.mixBlendMode || 'normal');
-    root.style.setProperty('--text-highlight', updatedTheme.textHighlight || 'text');
-    root.style.setProperty('--text-animation', updatedTheme.textAnimation || 'linesup');
-    root.style.setProperty('--page-transition', updatedTheme.pageTransition || 'fade');
-    root.style.setProperty('--page-width', updatedTheme.pageWidth || 'fluid');
-    root.style.setProperty('--font-family-primary', updatedTheme.fontFamilyPrimary || 'sans-serif');
-    root.style.setProperty('--font-family-secondary', updatedTheme.fontFamilySecondary || 'sans-serif');
-    root.style.setProperty('--cursor', updatedTheme.cursor || 'dot');
-    root.style.setProperty('--font-ratio-min', updatedTheme.fluidFontRatioMin || 1.2);
-    root.style.setProperty('--font-ratio-max', updatedTheme.fluidFontRatioMax || 1.25);
+    root.style.setProperty('--mix-blend-mode', mergedTheme.imageMixBlendMode || 'normal');
+    root.style.setProperty('--text-highlight', mergedTheme.textHighlight || 'text');
+    root.style.setProperty('--text-animation', mergedTheme.textAnimation || 'linesup');
+    root.style.setProperty('--page-transition', mergedTheme.pageTransition || 'fade');
+    root.style.setProperty('--page-width', mergedTheme.pageWidth || 'fluid');
+    
+    root.style.setProperty('--font-family-primary', mergedTheme.fontFamilyPrimary || 'sans-serif');
+    root.style.setProperty('--font-family-secondary', mergedTheme.fontFamilySecondary || 'sans-serif');
+    
+    
+    root.style.setProperty('--cursor', mergedTheme.cursor || 'dot');
+    root.style.setProperty('--font-ratio-min', mergedTheme.fluidFontRatioMin || 1.2);
+    root.style.setProperty('--font-ratio-max', mergedTheme.fluidFontRatioMax || 1.25);
 
     
-    localStorage.setItem("currentTheme", JSON.stringify(updatedTheme));
-  }, [updateTheme]);
+    localStorage.setItem("currentTheme", JSON.stringify(mergedTheme));
+  }, [updateTheme, currentTheme]);
 
   useEffect(() => {
-    const storedTheme = localStorage.getItem('currentTheme');
-    if (storedTheme) {
-      applyCurrentTheme(JSON.parse(storedTheme));
-    } else {
-      applyCurrentTheme(themes.light);
-    }
+    // const storedTheme = localStorage.getItem('currentTheme');
+    // if (storedTheme) {
+    //   applyCurrentTheme(JSON.parse(storedTheme));
+    // } else {
+    //   applyCurrentTheme(themes.light);
+    // }
 
-    const storedCustomTheme = localStorage.getItem('customTheme');
-    if (storedCustomTheme) {
-      setCustomTheme(JSON.parse(storedCustomTheme));
-    }
+    // const storedCustomTheme = localStorage.getItem('customTheme');
+    // if (storedCustomTheme) {
+    //   setCustomTheme(JSON.parse(storedCustomTheme));
+    // }
     
     // Call updateCurrentTheme only when sliders change
     updateCurrentTheme();
@@ -136,12 +133,17 @@ export default function ThemeEditor() {
 
   const handleThemeChange = (e) => {
     const selectedThemeKey = e.target.value;
+    let newTheme;
+
     if (selectedThemeKey === 'custom') {
-      applyCurrentTheme({...customTheme, key: 'custom'});
+        newTheme = { ...customTheme, key: 'custom' }; // Ensure the key is set to 'custom'
     } else {
-      const selectedTheme = themes[selectedThemeKey];
-      applyCurrentTheme(selectedTheme);
+        newTheme = { ...themes[selectedThemeKey], key: selectedThemeKey }; // Set the key to the selected theme key
     }
+
+    // Update the current theme with the selected theme
+    updateTheme(newTheme); // Set the selected theme as the current theme
+    applyCurrentTheme(newTheme); // Apply the selected theme to the DOM
   };
 
   const handleColorChange = (key, value) => {
@@ -154,16 +156,19 @@ export default function ThemeEditor() {
   };
 
   const handleGlobalOptionChange = (key, value) => {
-
-    console.log('global',key,value)
+    console.log('global', key, value);
+    
+    // Create a new theme object that retains all current values except for the updated key
     const updatedTheme = {
-      ...currentTheme,
-      [key]: value,
+        ...currentTheme,
+        [key]: value, // Update only the specified key
     };
 
-  
-    updateTheme(updatedTheme); // Update the theme with the new values
-    applyCurrentTheme(updatedTheme); // Ensure the theme is applied to the DOM
+    console.log('Updated Theme:', updatedTheme);
+
+    // Update the theme context with the new value for the specified key
+    updateTheme(updatedTheme); // This will retain all other properties
+    applyCurrentTheme(updatedTheme); // Apply the updated theme to the DOM
   };
 
 
@@ -293,13 +298,13 @@ export default function ThemeEditor() {
     'Globals': folder({
       pageWidth: { 
         options: Object.keys(pageWidthThemes), 
-        value: currentTheme.pageWidth || 'fluid', 
+        value: currentTheme.pageWidth, 
         label: 'Page Width',
         onChange: (value) => handleGlobalOptionChange('pageWidth', value) // Call existing handler
       },
       cursor: { 
         options: Object.keys(cursorThemes), 
-        value: currentTheme.cursor || 'dot', 
+        value: currentTheme.cursor, 
         label: 'Cursor',
         onChange: (value) => handleGlobalOptionChange('cursor', value) // Call existing handler
       },
@@ -307,49 +312,49 @@ export default function ThemeEditor() {
     'Animation': folder({
       pageTransition: { 
         options: Object.keys(pageTransitionThemes), 
-        value: currentTheme.pageTransition || 'fade', 
+        value: currentTheme.pageTransition, 
         label: 'Page Transition',
         onChange: (value) => handleGlobalOptionChange('pageTransition', value) // Call existing handler
       },
       textAnimation: { 
         options: Object.keys(textAnimationThemes), 
-        value: currentTheme.textAnimation || 'none', 
+        value: currentTheme.textAnimation, 
         label: 'Text Animation',
         onChange: (value) => handleGlobalOptionChange('textAnimation', value) // Call existing handler
       },
     }),
     'Typography': folder({
       fontFamilyPrimary: { 
-        options: Object.keys(typographyThemes), 
-        value: currentTheme.fontFamilyPrimary || 'sans', 
+        options: Object.values(typographyThemes), 
+        value: currentTheme.fontFamilyPrimary, 
         label: 'Font Family Primary',
         onChange: (value) => handleGlobalOptionChange('fontFamilyPrimary', value) // Call existing handler
       },
       fontFamilySecondary: { 
-        options: Object.keys(typographyThemes), 
-        value: currentTheme.fontFamilySecondary || 'sans', 
+        options: Object.values(typographyThemes), 
+        value: currentTheme.fontFamilySecondary, 
         label: 'Font Family Secondary',
         onChange: (value) => handleGlobalOptionChange('fontFamilySecondary', value) // Call existing handler
       },
       textHighlight: { 
-        options: Object.keys(textHighlightThemes), 
-        value: currentTheme.textHighlight || 'text', 
+        options: Object.values(textHighlightThemes), 
+        value: currentTheme.textHighlight, 
         label: 'Text Highlight',
         onChange: (value) => handleGlobalOptionChange('textHighlight', value) // Call existing handler
       },
       'Body Text': folder({
         dropCap: { 
-          value: currentTheme.bodyTextStyle?.dropCap || false, // Default to false
+          value: currentTheme.bodyTextStyle?.dropCap, // Default to false
           label: 'Drop Cap',
           onChange: (value) => handleGlobalOptionChange('bodyTextStyle', { ...currentTheme.bodyTextStyle, dropCap: value }) // Update handler
         },
         indent: { 
-          value: currentTheme.bodyTextStyle?.indent || false, // Default to false
+          value: currentTheme.bodyTextStyle?.indent, // Default to false
           label: 'Indent',
           onChange: (value) => handleGlobalOptionChange('bodyTextStyle', { ...currentTheme.bodyTextStyle, indent: value }) // Update handler
         },
         highlight: { 
-          value: currentTheme.bodyTextStyle?.highlight || false, // Default to false
+          value: currentTheme.bodyTextStyle?.highlight, // Default to false
           label: 'Highlight',
           onChange: (value) => handleGlobalOptionChange('bodyTextStyle', { ...currentTheme.bodyTextStyle, highlight: value }) // Update handler
         },
@@ -359,13 +364,13 @@ export default function ThemeEditor() {
     'Navigation': folder({
       navigationPosition: { 
         options: Object.keys(navigationPositionThemes), 
-        value: currentTheme.navigationPosition || 'gradient', 
+        value: currentTheme.navigationPosition, 
         label: 'Nav Position',
         onChange: (value) => handleGlobalOptionChange('navigationPosition', value) // Call existing handler
       },
       navigationStyle: { 
         options: Object.keys(navigationStyleThemes), 
-        value: currentTheme.navigationStyle || 'gradient', 
+        value: currentTheme.navigationStyle, 
         label: 'Nav Style',
         onChange: (value) => handleGlobalOptionChange('heroBackgroundStyle', value) // Call existing handler
       },
@@ -374,7 +379,7 @@ export default function ThemeEditor() {
     'Hero': folder({
         heroBackgroundStyle: { 
           options: Object.keys(heroBackgroundThemes), 
-          value: currentTheme.heroBackgroundStyle || 'gradient', 
+          value: currentTheme.heroBackgroundStyle, 
           label: 'Hero Background Style',
           onChange: (value) => handleGlobalOptionChange('heroBackgroundStyle', value) // Call existing handler
         },
@@ -388,51 +393,52 @@ export default function ThemeEditor() {
         },
         heroTextImageStyle: { 
           options: Object.keys(heroTextImageThemes), 
-          value: currentTheme.heroTextImageStyle || 'none', 
+          value: currentTheme.heroTextImageStyle, 
           label: 'Hero Text Image Style',
           onChange: (value) => handleGlobalOptionChange('heroTextImageStyle', value) // Call existing handler
         },
         heroTextLayoutStyle: { 
           options: Object.keys(heroTextPositionThemes), 
-          value: currentTheme.heroTextPosition || 'center', 
+          value: currentTheme.heroTextPosition, 
           label: 'Hero Text Layout Style',
           onChange: (value) => handleGlobalOptionChange('heroTextPosition', value) // Call existing handler
         },
         heroTextCompStyle: { 
           options: Object.keys(heroTextCompositionThemes), 
-          value: currentTheme.heroTextComposition || 'foo', 
+          value: currentTheme.heroTextComposition, 
           label: 'Hero Text Comp Style',
           onChange: (value) => handleGlobalOptionChange('heroTextPosition', value) // Call existing handler
         },
 
     }),
     'Cards': folder({
-      cardStyle: { 
+      layout: { 
         options: Object.keys(cardThemes), 
-        value: currentTheme.cardStyle || 'formal', 
-        label: 'Card Style',
-        onChange: (value) => handleGlobalOptionChange('cardStyle', value) // Call existing handler
+        value: currentTheme.cardLayout, 
+        label: 'layout',
+        onChange: (value) => handleGlobalOptionChange('cardLayout', value) // Call existing handler
       },
-      cardImageScrollStyle: { 
-        options: Object.keys(cardThemes), 
-        value: currentTheme.cardImageScrollStyle || 'none', 
-        label: 'Card Image Scroll Style',
-        onChange: (value) => handleGlobalOptionChange('cardImageScrollStyle', value) // Call existing handler
+      hover: { 
+        options: Object.keys(cardHoverThemes), 
+        value: currentTheme.cardHover, 
+        label: 'hover',
+        onChange: (value) => handleGlobalOptionChange('cardHover', value) // Call existing handler
       },
-      cardImageHoverThemes: { 
-        options: Object.keys(cardThemes), 
-        value: currentTheme.cardImageHoverThemes || 'none', 
-        label: 'Card Image Hover Style',
-        onChange: (value) => handleGlobalOptionChange('cardImageHoverThemes', value) // Call existing handler
+    }),
+    'Iamges': folder({
+      parallax: { 
+        value: currentTheme.imageParallax, 
+        label: 'parallax',
+        onChange: (value) => handleGlobalOptionChange('imageParallax', value) // Call existing handler
       },
       mixBlendMode: { 
         options: Object.keys(mixBlendThemes), 
-        value: currentTheme.mixBlendMode, 
-        label: 'Mix Blend Mode',
-        onChange: (value) => handleGlobalOptionChange('mixBlendMode', value) // Call existing handler
+        value: currentTheme.imageMixBlendMode, 
+        label: 'Blend Mode',
+        onChange: (value) => handleGlobalOptionChange('imageMixBlendMode', value) // Call existing handler
       },
     }),
-    resetButton: button(() => {
+    save: button(() => {
       handleApply()
     }, {
       label: 'Save Theme to Custom?'
@@ -471,425 +477,4 @@ export default function ThemeEditor() {
   );
 
   
-  return (
-    <div className="p-4 theme-editor">
-
-
-       {/* Sliders for Age and Mood */}
-       <div className="mb-4">
-        <label htmlFor="colorWeight" className="block mb-2 text-sm font-medium">Color Weight (1-10)</label>
-        <input
-          type="range"
-          id="colorWeight"
-          min="1"
-          max="10"
-          value={colorWeight}
-          onChange={(e) => handleWeightChange('color', parseInt(e.target.value))}
-          className="w-full"
-        />
-        <span>{colorWeight}</span>
-      </div>
-
-      
-      <div className="mb-4">
-        <label htmlFor="vibranceWeight" className="block mb-2 text-sm font-medium">Vibrance Weight (1-10)</label>
-        <input
-          type="range"
-          id="vibranceWeight"
-          min="1"
-          max="10"
-          value={vibranceWeight}
-          onChange={(e) => handleWeightChange('vibrance', parseInt(e.target.value))}
-          className="w-full"
-        />
-        <span>{vibranceWeight}</span>
-      </div>
-
-      <div className="mb-4">
-        <label htmlFor="funkynessWeight" className="block mb-2 text-sm font-medium">Funkyness Weight (1-10)</label>
-        <input
-          type="range"
-          id="funkynessWeight"
-          min="1"
-          max="10"
-          value={funkynessWeight}
-          onChange={(e) => handleWeightChange('funkyness', parseInt(e.target.value))}
-          className="w-full"
-        />
-        <span>{funkynessWeight}</span>
-      </div>
-
-
-      
-      <div className="mb-4">
-        <label htmlFor="themeSelect" className="block mb-2 text-sm font-medium">Select Theme</label>
-        <select
-          id="themeSelect"
-          value={currentTheme.key}
-          onChange={handleThemeChange}
-          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          {Object.keys(themes).map((themeKey) => (
-            <option key={themeKey} value={themeKey}>
-              {themeKey}
-            </option>
-          ))}
-          <option value="custom">Custom</option>
-        </select>
-      </div>
-
-      {/* Global options */}
-      <div className="mb-4">
-        <label htmlFor="audio" className="flex items-center">
-          <input
-            type="checkbox"
-            id="audio"
-            checked={currentTheme.audio}
-            onChange={(e) => handleGlobalOptionChange('audio', e.target.checked)}
-            className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-          />
-          <span className="ml-2 text-sm font-medium">Audio</span>
-        </label>
-      </div>
-      <div className="mb-4">
-        <label htmlFor="volume" className="block mb-2 text-sm font-medium">Volume</label>
-        <input
-          type="range"
-          id="volume"
-          min="0"
-          max="1"
-          step="0.1"
-          value={currentTheme.volume}
-          onChange={(e) => handleGlobalOptionChange('volume', parseFloat(e.target.value))}
-          className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-        />
-      </div>
-
-      <div className="mb-4">
-        <label htmlFor="volume" className="block mb-2 text-sm font-medium">Gradient Mid Point</label>
-        <input
-          type="range"
-          id="gradMidPoint"
-          min="0"
-          max="1"
-          step="0.1"
-          value={currentTheme.gradMidPoint}
-          onChange={(e) => handleGlobalOptionChange('gradMidPoint', parseFloat(e.target.value))}
-          className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-        />
-      </div>
-
-
-      
-      <div className="mb-4">
-        <label htmlFor="cardStyle" className="block mb-2 text-sm font-medium">Card Style</label>
-        <select
-          id="cardStyle"
-          value={currentTheme.cardStyle || 'formal'}
-          onChange={(e) => handleGlobalOptionChange('cardStyle', e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          {Object.entries(cardThemes).map(([key, value]) => (
-            <option key={key} value={value}>{value}</option>
-          ))}
-        </select>
-      </div>
-      
-      <div className="mb-4">
-        <label htmlFor="cardImageScrollStyle" className="block mb-2 text-sm font-medium">Card Image Scroll Style</label>
-        <select
-          id="cardImageScrollStyle"
-          value={currentTheme.cardImageScrollStyle || 'none'}
-          onChange={(e) => handleGlobalOptionChange('cardImageScrollStyle', e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          {Object.entries(cardImageScrollThemes).map(([key, value]) => (
-            <option key={key} value={value}>{value}</option>
-          ))}
-        </select>
-      </div>
-
-      <div className="mb-4">
-        <label htmlFor="cardImageHoverStyle" className="block mb-2 text-sm font-medium">Card Image Hover Style</label>
-        <select
-          id="cardImageHoverStyle"
-          value={currentTheme.cardImageHoverThemes || 'none'}
-          onChange={(e) => handleGlobalOptionChange('cardImageHoverThemes', e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          {Object.entries(cardImageHoverThemes).map(([key, value]) => (
-            <option key={key} value={value}>{value}</option>
-          ))}
-        </select>
-      </div>
-
-      
-      <div className="mb-4">
-        <label htmlFor="heroBackgroundStyle" className="block mb-2 text-sm font-medium">Hero Background Style</label>
-        <select
-          id="heroBackgroundStyle"
-          value={currentTheme.heroBackgroundStyle || 'gradient'}
-          onChange={(e) => handleGlobalOptionChange('heroBackgroundStyle', e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          {Object.entries(heroBackgroundThemes).map(([key, value]) => (
-            <option key={key} value={value}>{value}</option>
-          ))}
-        </select>
-      </div>
-
-
-      <div className="mb-4">
-        <label htmlFor="heroTextImageStyle" className="block mb-2 text-sm font-medium">Hero Text Image Style</label>
-        <select
-          id="heroTextImageStyle"
-          value={currentTheme.heroTextImageStyle || 'none'}
-          onChange={(e) => handleGlobalOptionChange('heroTextImageStyle', e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          {Object.entries(heroTextImageThemes).map(([key, value]) => (
-            <option key={key} value={value}>{value}</option>
-          ))}
-        </select>
-      </div>
-
-      <div className="mb-4">
-        <label htmlFor="heroLayoutStyle" className="block mb-2 text-sm font-medium">Hero Layout Style</label>
-        <select
-          id="heroLayoutStyle"
-          value={currentTheme.heroLayoutStyle || 'center'}
-          onChange={(e) => handleGlobalOptionChange('heroLayoutStyle', e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          {Object.entries(heroLayoutThemes).map(([key, value]) => (
-            <option key={key} value={value}>{value}</option>
-          ))}
-        </select>
-      </div>
-
-
-      <div className="mb-4">
-        <label htmlFor="mixBlendMode" className="block mb-2 text-sm font-medium">Mix Blend Mode</label>
-        <select
-          id="mixBlendMode"
-          value={currentTheme.mixBlendMode}
-          onChange={(e) => handleGlobalOptionChange('mixBlendMode', e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          {Object.entries(mixBlendThemes).map(([key, value]) => (
-            <option key={key} value={value}>{value}</option>
-          ))}
-        </select>
-      </div>
-
-      
-      <div className="mb-4">
-        <label htmlFor="fontFamilyPrimary" className="block mb-2 text-sm font-medium">Cursor</label>
-        <select
-          id="fontFamilyPrimary"
-          value={currentTheme.cursor || 'dot'}
-          onChange={(e) => handleGlobalOptionChange('cursor', e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          {Object.entries(cursorThemes).map(([key, value]) => (
-            <option key={key} value={value}>{value}</option>
-          ))}
-        </select>
-      </div>
-
-      <div className="mb-4">
-        <label htmlFor="fontFamilyPrimary" className="block mb-2 text-sm font-medium">Font Family Primary</label>
-        <select
-          id="fontFamilyPrimary"
-          value={currentTheme.fontFamilyPrimary || 'sans'}
-          onChange={(e) => handleGlobalOptionChange('fontFamilyPrimary', e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          {Object.entries(typographyThemes).map(([key, value]) => (
-            <option key={key} value={value}>{value}</option>
-          ))}
-        </select>
-      </div>
-
-      {/* Typography option */}
-      <div className="mb-4">
-        <label htmlFor="fontFamilySecondary" className="block mb-2 text-sm font-medium">Font Family Secondary</label>
-        <select
-          id="fontFamilySecondary"
-          value={currentTheme.fontFamilySecondary || 'sans'}
-          onChange={(e) => handleGlobalOptionChange('fontFamilySecondary', e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          {Object.entries(typographyThemes).map(([key, value]) => (
-            <option key={key} value={value}>{value}</option>
-          ))}
-        </select>
-      </div>
-
-
-      {/* fontScale:fontSizeThemes.fluid,
-    fluidFontScale:{
-      fontSizeMin: fluidFontSizeThemes.fontSizeMin,
-      fontSizeMax: fluidFontSizeThemes.fontSizeMax,
-      fontRatioMin: fluidFontSizeThemes.fontRatioMin,
-      fontRatioMax: fluidFontSizeThemes.fontRatioMax,
-      fontWidthMin: fluidFontSizeThemes.fontWidthMin,
-      fontWidthMax: fluidFontSizeThemes.fontWidthMax,
-      variableUnit: fluidFontSizeThemes.variableUnit
-    }, */}
-
-      <div className="mb-4">
-        <label htmlFor="fontScale" className="block mb-2 text-sm font-medium">Font Scale</label>
-        <select
-          id="fontScale"
-          value={currentTheme.fontScale || 'fluid'}
-          onChange={(e) => handleGlobalOptionChange('fontScale', e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          {Object.entries(fontSizeThemes).map(([key, value]) => (
-            <option key={key} value={value}>{value}</option>
-          ))}
-        </select>
-      </div>
-
-
-      <div className="mb-4">
-        <label htmlFor="fontRatioMin" className="block mb-2 text-sm font-medium">Font Ratio Min</label>
-        <input
-          type="range"
-          id="fontRatioMin"
-          min="0"
-          max="5"
-          step="0.01"
-          value={currentTheme.fluidFontRatioMin}
-          onChange={(e) => handleGlobalOptionChange('fluidFontRatioMin', parseFloat(e.target.value))}
-          className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-        />
-      </div>
-
-      <div className="mb-4">
-        <label htmlFor="fontRatioMax" className="block mb-2 text-sm font-medium">Font Ratio Max</label>
-        <input
-          type="range"
-          id="fontRatioMax"
-          min="0"
-          max="5"
-          step="0.01"
-          value={currentTheme.fluidFontRatioMax}
-          onChange={(e) => handleGlobalOptionChange('fluidFontRatioMax', parseFloat(e.target.value))}
-          className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-        />
-      </div>
-
-
-
-
-      {/* Transition option */}
-      <div className="mb-4">
-        <label htmlFor="transition" className="block mb-2 text-sm font-medium">Transition</label>
-        <select
-          id="pageTransition"
-          value={currentTheme.pageTransition || 'wide'}
-          onChange={(e) => handleGlobalOptionChange('pageTransition', e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          {Object.entries(pageTransitionThemes).map(([key, value]) => (
-            <option key={key} value={key}>{value}</option>
-          ))}
-        </select>
-      </div>
-
-      {/* Text Highlight option */}
-      <div className="mb-4">
-        <label htmlFor="textHighlight" className="block mb-2 text-sm font-medium">Text Highlight</label>
-        <select
-          id="textHighlight"
-          value={currentTheme.textHighlight || 'text'}
-          onChange={(e) => handleGlobalOptionChange('textHighlight', e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          {Object.entries(textHighlightThemes).map(([key, value]) => (
-            <option key={key} value={value}>{value}</option>
-          ))}
-        </select>
-      </div>
-
-      {/* Text Animation option */}
-      <div className="mb-4">
-        <label htmlFor="textAnimation" className="block mb-2 text-sm font-medium">Text Animation</label>
-        <select
-          id="textAnimation"
-          value={currentTheme.textAnimation || 'none'}
-          onChange={(e) => handleGlobalOptionChange('textAnimation', e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          {Object.entries(textAnimationThemes).map(([key, value]) => (
-            <option key={key} value={key}>{value}</option>
-          ))}
-        </select>
-      </div>
-
-      {/* Page Width option */}
-      <div className="mb-4">
-        <label htmlFor="pageWidth" className="block mb-2 text-sm font-medium">Page Width</label>
-        <select
-          id="pageWidth"
-          value={currentTheme.pageWidth || 'fluid'}
-          onChange={(e) => handleGlobalOptionChange('pageWidth', e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          {Object.entries(pageWidthThemes).map(([key, value]) => (
-            <option key={key} value={key}>{value}</option>
-          ))}
-        </select>
-      </div>
-
-      {/* Helper Themes option */}
-      {/* <div className="mb-4">
-        <label htmlFor="helpers" className="block mb-2 text-sm font-medium">Helpers</label>
-        {Object.entries(helpers).map(([key, value]) => (
-          <label key={key} className="flex items-center">
-            <input
-              type="checkbox"
-              id={key}
-              checked={currentTheme.helpers.includes(key)}
-              onChange={(e) => handleGlobalOptionChange('helpers', e.target.checked ? [...currentTheme.helpers, key] : currentTheme.helpers.filter(theme => theme !== key))}
-              className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-            />
-            <span className="ml-2 text-sm font-medium">{value}</span>
-          </label>
-        ))}
-      </div> */}
-
-
-
-      {/* Color options */}
-      {Object.entries(currentTheme).map(([key, value]) => {
-        if (typeof value === 'string' && value.startsWith('#')) {
-          return (
-            <div key={key} className="flex items-center mb-4">
-              <input
-                type="color"
-                id={key}
-                value={value}
-                onChange={(e) => handleColorChange(key, e.target.value)}
-                disabled={currentTheme.key !== 'custom'}
-                className={`w-8 h-8 rounded-md mr-2 ${currentTheme.key === 'custom' ? 'border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500' : ''}`}
-              />
-              <label htmlFor={key} className="text-sm font-medium">{key}</label>
-            </div>
-          );
-        }
-        return null;
-      })}
-      <button
-        onClick={handleApply}
-        disabled={isSaving}
-        className="w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 disabled:opacity-50"
-      >
-        {isSaving ? 'Saving...' : 'Apply'}
-      </button>
-      {saveError && <p className="mt-2 text-red-500">Error saving theme: {saveError}</p>}
-    </div>
-  );
 }

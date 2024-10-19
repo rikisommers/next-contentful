@@ -99,7 +99,7 @@ export default function Navigation() {
 
   return (
     <>
-      <div ref={containerRef} className="fixed left-0 top-0 w-screen h-screen z-50 grid grid-rows-[48px_1fr_48px] grid-cols-[1fr_1fr_1fr] grid-ro">
+      <div ref={containerRef} className="fixed pointer-events-none left-0 top-0 w-screen h-screen z-50 grid grid-rows-[48px_1fr_48px] grid-cols-[1fr_1fr_1fr] grid-ro">
        
       <motion.div
           style={{
@@ -114,7 +114,7 @@ export default function Navigation() {
               backgroundColor: "var(--accent)",
             },
           }}
-          className={`col-start-1  col-span-1 row-span-1 row-start-1 z-50 flex items-center rounded-xl px-4`}
+          className={`pointer-events-auto col-start-1  col-span-1 row-span-1 row-start-1 z-50 flex items-center rounded-xl px-4`}
         >
           <div
             className="w-4 h-4 rounded-full"
@@ -136,7 +136,7 @@ export default function Navigation() {
           dragConstraints={containerRef}
           dragSnapToOrigin={false}
 
-          className={`col-start-2 col-span-1 row-span-1 row-start-1 z-50 flex ${orientation} gap-1 bg-black bg-opacity-50 rounded-xl backdrop-blur-lg`}
+          className={`pointer-events-auto col-start-2 col-span-1 row-span-1 row-start-1 z-50 flex ${orientation} gap-1 bg-black bg-opacity-50 rounded-xl backdrop-blur-lg`}
         >
           <div ref={menuDragRef}>DD</div>
 
