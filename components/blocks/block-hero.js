@@ -28,29 +28,7 @@ const getPositionClass = (position) => {
   }
 };
 
-const DateAndLocation = ({ date }) => {
-  return (
-    <div className="absolute flex justify-between py-6 bottom-1">
-      <div className="flex gap-1 p-2 text-xs ">
-        <span className="uppercase">Location:</span>
-        <a
-          href="https://www.google.com/maps/place/New+Brighton,+Christchurch/@-43.5093881,172.6992615,14z/data=!3m1!4b1!4m6!3m5!1s0x6d318891a20200c1:0x500ef8684799330!8m2!3d-43.5079076!4d172.7225969!16zL20vMDNfcHMz?entry=ttu"
-          stlye={{ color: "var(--accent)" }}
-        >
-          @-43.5093881,172.6992615
-        </a>
-      </div>
 
-      <div
-        className="flex gap-1 p-2 text-xs"
-        stlye={{ color: "var(--accent)" }}
-      >
-        <span className="uppercase">Last Updated:</span>
-        <span>{date}</span>
-      </div>
-    </div>
-  );
-};
 const BackgroundElements = () => {
   return (
     <motion.div
@@ -88,7 +66,7 @@ export default function BlockHero({ intro, titlealt, date }) {
 
   return (
     <ClipContainer>
-      <div className="relative left-0 top-0 w-screen h-screen z-50 px-3 pt-3 pb-16 grid grid-rows-[48px_48px_1fr_1fr_1fr_48px_48px] grid-cols-12">
+      <div className="relative left-0 top-0 w-screen h-screen z-50 p-3 grid grid-rows-[48px_48px_1fr_1fr_1fr_48px_48px] grid-cols-12">
          <motion.div
         className="absolute top-0 flex items-center justify-end w-full h-full pointer-events-none z-1"
         // initial={{ clipPath: "inset(1.0rem 1.0rem 1.0rem round 0.5rem)" }}
@@ -113,7 +91,7 @@ export default function BlockHero({ intro, titlealt, date }) {
 
 
 
-      {date && <DateAndLocation date={date} />}
+ 
         {/* {currentTheme.heroBackgroundStyle === "image" && (
           <BlendImage
             className="img-cover"
@@ -153,6 +131,30 @@ export default function BlockHero({ intro, titlealt, date }) {
             </h2>
           </motion.div>
        
+
+          {date && 
+      
+      <div className="z-50 flex justify-between col-span-12 col-start-1 row-span-1 row-start-7 py-6 bottom-1">
+      <div className="flex gap-1 p-2 text-xs ">
+        <span className="uppercase">Location:</span>
+        <a
+          href="https://www.google.com/maps/place/New+Brighton,+Christchurch/@-43.5093881,172.6992615,14z/data=!3m1!4b1!4m6!3m5!1s0x6d318891a20200c1:0x500ef8684799330!8m2!3d-43.5079076!4d172.7225969!16zL20vMDNfcHMz?entry=ttu"
+          stlye={{ color: "var(--accent)" }}
+        >
+          @-43.5093881,172.6992615
+        </a>
+      </div>
+
+      <div
+        className="flex gap-1 p-2 text-xs"
+        stlye={{ color: "var(--accent)" }}
+      >
+        <span className="uppercase">Last Updated:</span>
+        <span>{date}</span>
+      </div>
+    </div>
+      }
+
       </div>
     </ClipContainer>
   );

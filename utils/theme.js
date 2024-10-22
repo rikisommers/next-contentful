@@ -17,7 +17,7 @@ const colorThemes = {
     accentPri: '#EF7801',
     accentSec: '#FCD00A',
     gradStart: '#EF7801',
-    gradStop: '#fafafa',
+    gradStop: '#f4f4f5',
     textAccent:'#d946ef',
     stateSuccessBackground:'#d946ef',
   },
@@ -37,7 +37,7 @@ const colorThemes = {
     accentPri: '#EF7801',
     accentSec: '#FCD00A',
     gradStart: '#EF7801',
-    gradStop: '#271C1B',
+    gradStop: '#47362E',
     textAccent:'#99f6e4',
     stateSuccessBackground:'#d946ef',
   },
@@ -57,7 +57,7 @@ const colorThemes = {
     accentPri: '#EF7801',
     accentSec: '#FCD00A',
     gradStart: '#EF7801',
-    gradStop: '#F8FBF8',
+    gradStop: '#F7FCFE',
     textAccent:'#BED3CD',
     stateSuccessBackground:'#BED3CD',
   },
@@ -80,7 +80,7 @@ const colorThemes = {
     textAccent:'#FFEA00',
     stateSuccessBackground:'#4D3D00',
     gradStart: '#FFB000', // Using accentPri as gradStart
-    gradStop: '#000000',  // Using bodyBackgroundColor as gradStop
+    gradStop: '#1A1A00',  // Using bodyBackgroundColor as gradStop
   },
   greenPhosphor: {
     key: 'greenPhosphor', // Key for the green phosphor theme
@@ -101,7 +101,7 @@ const colorThemes = {
     textAccent:'#33FF33',
     stateSuccessBackground:'#004400',
     gradStart: '#00FF00', // Using accentPri as gradStart
-    gradStop: '#001100',  // Using bodyBackgroundColor as gradStop
+    gradStop: '#002200',  // Using bodyBackgroundColor as gradStop
   },
   ibmPcXt: {
     bodyBackgroundColor: '#000000',
@@ -121,7 +121,7 @@ const colorThemes = {
     textAccent:'#FF5555',
     stateSuccessBackground:'#55FF55',
     gradStart: '#FFFF55', // Using accentPri as gradStart
-    gradStop: '#000000',  // Using bodyBackgroundColor as gradStop
+    gradStop: '#0000AA',  // Using bodyBackgroundColor as gradStop
   },
   commodore64: {
     bodyBackgroundColor: '#40318D',
@@ -141,7 +141,7 @@ const colorThemes = {
     textAccent:'#FFFFFF',
     stateSuccessBackground:'#A59FE6',
     gradStart: '#A59FE6', // Using accentPri as gradStart
-    gradStop: '#40318D',  // Using bodyBackgroundColor as gradStop
+    gradStop: '#7869C4',  // Using bodyBackgroundColor as gradStop
   },
   appleII: {
     bodyBackgroundColor: '#000000',
@@ -161,7 +161,7 @@ const colorThemes = {
     textAccent:'#66FFFF',
     stateSuccessBackground:'#555555',
     gradStart: '#66FF66', // Using accentPri as gradStart
-    gradStop: '#000000',  // Using bodyBackgroundColor as gradStop
+    gradStop: '#1B1B1B',  // Using bodyBackgroundColor as gradStop
   },
   zxSpectrum: {
     bodyBackgroundColor: '#000000',
@@ -181,7 +181,7 @@ const colorThemes = {
     textAccent:'#00FF00',
     stateSuccessBackground:'#00D8FF',
     gradStart: '#FFFF00', // Using accentPri as gradStart
-    gradStop: '#000000',  // Using bodyBackgroundColor as gradStop
+    gradStop: '#0000D8',  // Using bodyBackgroundColor as gradStop
   },
   atari8bit: {
     bodyBackgroundColor: '#000000',
@@ -201,7 +201,7 @@ const colorThemes = {
     textAccent:'#E0E050',
     stateSuccessBackground:'#909090',
     gradStart: '#50E080', // Using accentPri as gradStart
-    gradStop: '#000000',  // Using bodyBackgroundColor as gradStop
+    gradStop: '#404040',  // Using bodyBackgroundColor as gradStop
   },
   msdos: {
     bodyBackgroundColor: '#000000',
@@ -221,7 +221,7 @@ const colorThemes = {
     textAccent:'#FF00FF',
     stateSuccessBackground:'#0000F8',
     gradStart: '#FFFF00', // Using accentPri as gradStart
-    gradStop: '#000000',  // Using bodyBackgroundColor as gradStop
+    gradStop: '#0000A8',  // Using bodyBackgroundColor as gradStop
   },
   amigaWorkbench: {
     bodyBackgroundColor: '#0055AA',
@@ -241,7 +241,7 @@ const colorThemes = {
     textAccent:'#00FFFF',
     stateSuccessBackground:'#00BBAA',
     gradStart: '#FF8800', // Using accentPri as gradStart
-    gradStop: '#0055AA',  // Using bodyBackgroundColor as gradStop
+    gradStop: '#0077AA',  // Using bodyBackgroundColor as gradStop
   },
   custom: {
     bodyBackgroundColor: '#F8FBF8',
@@ -281,7 +281,7 @@ const colorThemes = {
     textAccent:'#00B800',
     stateSuccessBackground:'#00B800',
     gradStart: '#FC9838', // Using accentPri as gradStart
-    gradStop: '#000000',  // Using bodyBackgroundColor as gradStop
+    gradStop: '#7C7C7C',  // Using bodyBackgroundColor as gradStop
   },
   gameboy: {
     bodyBackgroundColor: '#0F380F',
@@ -301,7 +301,7 @@ const colorThemes = {
     textAccent:'#0F380F',
     stateSuccessBackground:'#8BAC0F',
     gradStart: '#9BBC0F', // Using accentPri as gradStart
-    gradStop: '#0F380F',  // Using bodyBackgroundColor as gradStop
+    gradStop: '#306230',  // Using bodyBackgroundColor as gradStop
   },
   sega: {
     bodyBackgroundColor: '#000000',
@@ -321,7 +321,7 @@ const colorThemes = {
     textAccent:'#FF00FF',
     stateSuccessBackground:'#00FF00',
     gradStart: '#FFFF00', // Using accentPri as gradStart
-    gradStop: '#000000',  // Using bodyBackgroundColor as gradStop
+    gradStop: '#0000FF',  // Using bodyBackgroundColor as gradStop
   },
   mustang69: {
     bodyBackgroundColor: '#1C1C1C',
@@ -341,7 +341,7 @@ const colorThemes = {
     textAccent: '#D4AF37',
     stateSuccessBackground: '#006400',
     gradStart: '#D4AF37', // Using accentPri as gradStart
-    gradStop: '#1C1C1C',  // Using bodyBackgroundColor as gradStop
+    gradStop: '#2E2E2E',  // Using bodyBackgroundColor as gradStop
   },
   camaro69: {
     bodyBackgroundColor: '#0F0F0F',
@@ -361,7 +361,7 @@ const colorThemes = {
     textAccent: '#FFA500',
     stateSuccessBackground: '#228B22',
     gradStart: '#FFA500', // Using accentPri as gradStart
-    gradStop: '#0F0F0F',  // Using bodyBackgroundColor as gradStop
+    gradStop: '#1E1E1E',  // Using bodyBackgroundColor as gradStop
   },
   corvette72: {
     bodyBackgroundColor: '#141414',
@@ -381,7 +381,7 @@ const colorThemes = {
     textAccent: '#C41E3A',
     stateSuccessBackground: '#2E8B57',
     gradStart: '#C41E3A', // Using accentPri as gradStart
-    gradStop: '#141414',  // Using bodyBackgroundColor as gradStop
+    gradStop: '#232323',  // Using bodyBackgroundColor as gradStop
   },
   beetle68: {
     bodyBackgroundColor: '#F2F2F2',
@@ -401,7 +401,7 @@ const colorThemes = {
     textAccent: '#4D7EA8',
     stateSuccessBackground: '#5CB85C',
     gradStart: '#4D7EA8', // Using accentPri as gradStart
-    gradStop: '#F2F2F2',  // Using bodyBackgroundColor as gradStop
+    gradStop: '#E0E0E0',  // Using bodyBackgroundColor as gradStop
   },
   audi80: {
     bodyBackgroundColor: '#1A1A1A',
@@ -421,7 +421,7 @@ const colorThemes = {
     textAccent: '#B30000',
     stateSuccessBackground: '#4CAF50',
     gradStart: '#B30000', // Using accentPri as gradStart
-    gradStop: '#1A1A1A',  // Using bodyBackgroundColor as gradStop
+    gradStop: '#2B2B2B',  // Using bodyBackgroundColor as gradStop
   },
   porsche911: {
     bodyBackgroundColor: '#F0F0F0',
@@ -441,7 +441,7 @@ const colorThemes = {
     textAccent: '#FF5722',
     stateSuccessBackground: '#66BB6A',
     gradStart: '#FF5722', // Using accentPri as gradStart
-    gradStop: '#F0F0F0',  // Using bodyBackgroundColor as gradStop
+    gradStop: '#E6E6E6',  // Using bodyBackgroundColor as gradStop
   },
   spiritedAway: {
     bodyBackgroundColor: '#E6D7B9', // Light sand color from the bathhouse
@@ -461,7 +461,7 @@ const colorThemes = {
     textAccent: '#7B3F00', // Rich brown from Kamaji's skin
     stateSuccessBackground: '#98D98E', // Soft green from grassy areas
     gradStart: '#D4AF37', // Using accentSec as gradStart
-    gradStop: '#E6D7B9',  // Using bodyBackgroundColor as gradStop
+    gradStop: '#B9D7E6',  // Using bodyBackgroundColor as gradStop
   },
 
   myNeighborTotoro: {
@@ -482,7 +482,7 @@ const colorThemes = {
     textAccent: '#A52A2A', // Reddish-brown from Satsuki's hair
     stateSuccessBackground: '#98FB98', // Pale green from grass
     gradStart: '#FAE03C', // Using accentSec as gradStart
-    gradStop: '#E8F3E8',  // Using bodyBackgroundColor as gradStop
+    gradStop: '#B5D8E6',  // Using bodyBackgroundColor as gradStop
   },
 
   howlsMovingCastle: {
@@ -503,7 +503,7 @@ const colorThemes = {
     textAccent: '#D64161', // Pink-red from Howl's pendant
     stateSuccessBackground: '#90EE90', // Light green from grassy hills
     gradStart: '#FDFD96', // Using accentSec as gradStart
-    gradStop: '#F0E6D2',  // Using bodyBackgroundColor as gradStop
+    gradStop: '#D6E6F2',  // Using bodyBackgroundColor as gradStop
   },
 
   sakuraBreeze: {
@@ -524,7 +524,7 @@ const colorThemes = {
     textAccent: '#20B2AA', // Light sea green
     stateSuccessBackground: '#90EE90', // Light green
     gradStart: '#DDA0DD', // Using accentPri as gradStart
-    gradStop: '#FFF0F5',  // Using bodyBackgroundColor as gradStop
+    gradStop: '#FFE4E1',  // Using bodyBackgroundColor as gradStop
   },
 
   zenGarden: {
@@ -545,7 +545,7 @@ const colorThemes = {
     textAccent: '#4682B4', // Steel blue
     stateSuccessBackground: '#98FB98', // Pale green
     gradStart: '#6B8E23', // Using accentPri as gradStart
-    gradStop: '#F5F5F5',  // Using bodyBackgroundColor as gradStop
+    gradStop: '#E0F0E0',  // Using bodyBackgroundColor as gradStop
   },
 
   pastelAnime: {
@@ -566,7 +566,7 @@ const colorThemes = {
     textAccent: '#FF69B4', // Hot pink
     stateSuccessBackground: '#90EE90', // Light green
     gradStart: '#87CEFA', // Using accentPri as gradStart
-    gradStop: '#FAFAFA',  // Using bodyBackgroundColor as gradStop
+    gradStop: '#FFE4E1',  // Using bodyBackgroundColor as gradStop
   },
 
   deathNote: {
@@ -587,7 +587,7 @@ const colorThemes = {
     textAccent: '#FFD700', // Gold for text accents
     stateSuccessBackground: '#006400', // Dark green for success states
     gradStart: '#C41E3A', // Using accentPri as gradStart
-    gradStop: '#1A1A1A',  // Using bodyBackgroundColor as gradStop
+    gradStop: '#2C2C2C',  // Using bodyBackgroundColor as gradStop
   },
 
   attackOnTitan: {
@@ -608,7 +608,7 @@ const colorThemes = {
     textAccent: '#F4A460', // Sandy brown for text accents
     stateSuccessBackground: '#556B2F', // Dark olive green for success states
     gradStart: '#8B4513', // Using accentPri as gradStart
-    gradStop: '#2B2B2B',  // Using bodyBackgroundColor as gradStop
+    gradStop: '#3C3C3C',  // Using bodyBackgroundColor as gradStop
   },
   tokyoGhoul: {
     bodyBackgroundColor: '#1C1C1C', // Very dark gray background
@@ -628,7 +628,7 @@ const colorThemes = {
     textAccent: '#00CED1', // Dark turquoise for text accents
     stateSuccessBackground: '#2E8B57', // Sea green for success states
     gradStart: '#DC143C', // Using accentPri as gradStart
-    gradStop: '#1C1C1C',  // Using bodyBackgroundColor as gradStop
+    gradStop: '#2D2D2D',  // Using bodyBackgroundColor as gradStop
   },
 
   akc12: {
@@ -649,7 +649,7 @@ const colorThemes = {
     textAccent: '#FFFF00', // Yellow
     stateSuccessBackground: '#008000', // Dark green
     gradStart: '#FF0000', // Using accentPri as gradStart
-    gradStop: '#000000',  // Using bodyBackgroundColor as gradStop
+    gradStop: '#1A1A1A',  // Using bodyBackgroundColor as gradStop
   },
 
   taikonColor24: {
@@ -670,7 +670,7 @@ const colorThemes = {
     textAccent: '#FF8C42', // Orange
     stateSuccessBackground: '#6BFF74', // Light green
     gradStart: '#FF6B6B', // Using accentPri as gradStart
-    gradStop: '#1A1A1A',  // Using bodyBackgroundColor as gradStop
+    gradStop: '#2D2D2D',  // Using bodyBackgroundColor as gradStop
   },
 
   eightVision: {
@@ -691,7 +691,7 @@ const colorThemes = {
     textAccent: '#FFFFFF', // White
     stateSuccessBackground: '#00AA00', // Dark green
     gradStart: '#FF55FF', // Using accentPri as gradStart
-    gradStop: '#000000',  // Using bodyBackgroundColor as gradStop
+    gradStop: '#21211F',  // Using bodyBackgroundColor as gradStop
   },
 
   cgaPalette0Low: {
@@ -712,7 +712,7 @@ const colorThemes = {
     textAccent: '#AA00AA', // Magenta
     stateSuccessBackground: '#00AA00', // Green
     gradStart: '#AA0000', // Using accentPri as gradStart
-    gradStop: '#000000',  // Using bodyBackgroundColor as gradStop
+    gradStop: '#0000AA',  // Using bodyBackgroundColor as gradStop
   },
   metallicChic: {
     bodyBackgroundColor: '#607D8B', // Blue gradient
@@ -732,7 +732,7 @@ const colorThemes = {
     textAccent: '#5C6BC0', // Mid indigo
     stateSuccessBackground: '#81C784', // Light green
     gradStart: '#3F51B5', // Using accentPri as gradStart
-    gradStop: '#607D8B',  // Using bodyBackgroundColor as gradStop
+    gradStop: '#D1C4E9',  // Using bodyBackgroundColor as gradStop
   },
 
   deepVintageMood: {
@@ -753,7 +753,7 @@ const colorThemes = {
     textAccent: '#E0A575', // Lighter terracotta
     stateSuccessBackground: '#4CAF50', // Green
     gradStart: '#D98E5D', // Using accentPri as gradStart
-    gradStop: '#173F5F',  // Using bodyBackgroundColor as gradStop
+    gradStop: '#D98E5D',  // Using bodyBackgroundColor as gradStop
   },
 
   coolAndCollected: {
@@ -774,7 +774,7 @@ const colorThemes = {
     textAccent: '#9FA8DA', // Light indigo
     stateSuccessBackground: '#4CAF50', // Green
     gradStart: '#3F51B5', // Using accentPri as gradStart
-    gradStop: '#004D4D',  // Using bodyBackgroundColor as gradStop
+    gradStop: '#C5CAE9',  // Using bodyBackgroundColor as gradStop
   },
 
   earthyAndSerene: {
@@ -795,7 +795,7 @@ const colorThemes = {
     textAccent: '#E0C097', // Sandy tones
     stateSuccessBackground: '#4CAF50', // Green
     gradStart: '#B37445', // Using accentPri as gradStart
-    gradStop: '#7EC8E3',  // Using bodyBackgroundColor as gradStop
+    gradStop: '#6B6B6B',  // Using bodyBackgroundColor as gradStop
   },
 
   textureAndContrast: {
@@ -816,7 +816,7 @@ const colorThemes = {
     textAccent: '#556B2F', // Teal
     stateSuccessBackground: '#4CAF50', // Green
     gradStart: '#556B2F', // Using accentPri as gradStart
-    gradStop: '#388E3C',  // Using bodyBackgroundColor as gradStop
+    gradStop: '#212121',  // Using bodyBackgroundColor as gradStop
   },
 
   mechanicalAndFloaty: {
@@ -842,7 +842,7 @@ const colorThemes = {
 
   pixelIntensity: {
     bodyBackgroundColor: '#000000', // Black
-    backgroundColor: '#000000', // Red
+    backgroundColor: '#0D47A1', // Red
     surface1: '#0D47A1', // Blue
     surface2: '#8B0000', // Dark red
     surface3: '#B71C1C', // Darker red
@@ -857,7 +857,7 @@ const colorThemes = {
     accentSec: '#0D47A1', // Blue
     textAccent: '#FFC107', // Amber
     stateSuccessBackground: '#4CAF50', // Green
-    gradStart: '#FF0000', // Using accentPri as gradStart
+    gradStart: '#0D47A1', // Using accentPri as gradStart
     gradStop: '#000000',  // Using bodyBackgroundColor as gradStop
   },
 
@@ -964,7 +964,7 @@ const colorThemes = {
     textAccent: '#40C4FF', // Light blue
     stateSuccessBackground: '#4CAF50', // Green
     gradStart: '#2979FF', // Using accentPri as gradStart
-    gradStop: '#2F2F2F',  // Using bodyBackgroundColor as gradStop
+    gradStop: '#2979FF',  // Using bodyBackgroundColor as gradStop
   },
 
   redAndLively: {
@@ -985,7 +985,7 @@ const colorThemes = {
     textAccent: '#FFC0CB', // Pink
     stateSuccessBackground: '#4CAF50', // Green
     gradStart: '#FF1493', // Using accentPri as gradStart
-    gradStop: '#8B0000',  // Using bodyBackgroundColor as gradStop
+    gradStop: '#FF1493',  // Using bodyBackgroundColor as gradStop
   },
 
   artsyAndCreative: {
@@ -1006,7 +1006,7 @@ const colorThemes = {
     textAccent: '#00008B', // Dark blue
     stateSuccessBackground: '#4CAF50', // Green
     gradStart: '#DAA520', // Using accentPri as gradStart
-    gradStop: '#EFDFBB',  // Using bodyBackgroundColor as gradStop
+    gradStop: '#DAA520',  // Using bodyBackgroundColor as gradStop
   },
 
   elegantYetApproachable: {
@@ -1185,7 +1185,22 @@ export const navigationStyleThemes = {
   transparent: 'transparent',
   text: 'text',
   icons: 'icons',
+
 };
+
+export const navigationOptions = {
+  floating: true,
+  shadow: true,
+  shadowColor: {
+    default: 'default',
+    accent: 'accent',
+  },
+  shadowSize:{
+    sm:'sm',
+    md:'md',
+    lg:'lg',
+  }
+}
 
 export const navigationPositionThemes = {
   topLeft: 'top-left',
@@ -1194,11 +1209,9 @@ export const navigationPositionThemes = {
   bottomCenter: 'bottom-center',
 };
 
-export const navigationOptions = {
-  floating: true,
-  fixedFooter: true,
+export const footerOptions = {
+  fixed: true,
 };
-
 
 export const heroBackgroundThemes = {
   none: 'none',
@@ -1281,9 +1294,12 @@ const themeContent = {
   heroTextImage:heroTextImageThemes.none,
   navigationPposition:navigationPositionThemes.topCenter,
   navigationStyle:navigationStyleThemes.solid,
-  navigationOptions:{
-    floating:navigationOptions.floating,
-    fixedFooter:navigationOptions.fixedFooter,
+  navFloating: navigationOptions.floating,
+  navShadow: navigationOptions.shadow,
+  navShadowColor:navigationOptions.shadowColor.none,
+  navShadowSize:navigationOptions.shadowSize.sm,
+  footerOptions:{
+    fixed: footerOptions.fixed,
   },
   helpers:helpers,
   bodyText:{

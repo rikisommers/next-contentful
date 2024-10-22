@@ -19,14 +19,15 @@ const Index = ({ data, footerData }) => {
        <Layout>
         <TransitionPage>
            <ScrollContainer>
-            <BlockHero
+            <div className="relative z-10">
+            <BlockHero 
               content={data.content}
               titlealt={data.titlealt}
               contentalt={data.contentalt}
               date={dateString}
               image={data.image}
             />
-
+</div>
     
           
               {/* <BlockHero/> */}

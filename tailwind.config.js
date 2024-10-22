@@ -28,6 +28,8 @@ module.exports = {
         28: '7rem',
         'panel-xs':'300px',
         'panel-sm':'400px',
+        'header':'20rem',
+        'footer':'20rem'
       },
       letterSpacing: {
         tighter: '-.04em',
@@ -62,7 +64,8 @@ module.exports = {
         'vh44':'44vh',
         'vh55':'55vh',
         'vh66':'66vh',
-        'header':'20rem'
+        'header':'20rem',
+        'footer':'20rem'
       },
       padding:{
         'vhh':'64vh',

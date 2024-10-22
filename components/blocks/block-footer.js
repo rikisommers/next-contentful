@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import Link from "next/link";
 import { RichTextOptions } from "../rich-text/rich-text";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import { useThemeContext } from "../themeContext";
 
 import Button, { ButtonType } from "../base/button";
 import {
@@ -11,7 +12,8 @@ import {
 } from "framer-motion";
 
 export default function BlockFooter({ data }) {
-  // console.log("foot d", data);
+
+  const { currentTheme } = useThemeContext();
   const [dimension, setDimension] = useState({ width: 0, height: 0 });
   const footerRef = useRef(null);
 
@@ -25,7 +27,7 @@ export default function BlockFooter({ data }) {
     },
   });
 
-  const yTransform = useTransform(scrollYProgress, [0, 1], [100, 0]);
+  const yTransform = useTransform(scrollYProgress, [0, 1], [-600, 0]);
 
   const pages = [
     {
@@ -53,7 +55,13 @@ export default function BlockFooter({ data }) {
   return (
     <motion.div
       ref={footerRef}
-      className="relative flex flex-col justify-between overflow-clip h-vh44"
+      style={{
+        y: yTransform,
+        clipPath: "inset( 1rem round 1rem )",
+        backgroundColor: "var(--body-background-color)",
+      }}
+      
+      className="absolute flex flex-col justify-between overflow-clip h-vh44"
     >
       {/* pt-32 pb-16 */}
 
@@ -186,9 +194,10 @@ export default function BlockFooter({ data }) {
         style={{
           y: yTransform,
           clipPath: "inset( 1rem round 1rem )",
-          backgroundColor: "var(--accent)",
+          backgroundColor: "var(--body-background-color)",
         }}
       />
     </motion.div>
+ 
   );
 }

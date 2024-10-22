@@ -15,7 +15,9 @@ import {
   navigationPositionThemes,
   navigationDragThemes,
   fontSizeThemes,
+  footerOptions,
   navigationStyleThemes,
+  navigationOptions,
   cursorThemes,
   mixBlendThemes} from "./theme";
 import { useThemeContext } from '../components/themeContext';
@@ -378,22 +380,50 @@ export default function ThemeEditor() {
         options: Object.keys(navigationPositionThemes), 
         value: currentTheme.navigationPosition, 
         label: 'Position',
-        onChange: (value) => handleGlobalOptionChange('navigationPosition',  value) // Call existing handler
+        onChange: (value) => handleGlobalOptionChange('navPosition',  value) 
       },
       navigationStyle: { 
         options: Object.keys(navigationStyleThemes), 
         value: currentTheme.navigationStyle,
         label: 'Style',
-        onChange: (value) => handleGlobalOptionChange('navigationStyle',  value) // Call existing handler
+        onChange: (value) => handleGlobalOptionChange('navStyle',  value) 
+      },
+      floating: { 
+        value: currentTheme.navigationOptions?.floating, 
+        label: 'floating',
+        onChange: (value) => handleGlobalOptionChange('navFloating',  value) 
+      },
+      shadow: { 
+        value: currentTheme.navShadow,
+        label: 'shadow',
+        onChange: (value) => handleGlobalOptionChange('navShadow', value ) 
+      },
+      shadowColor: { 
+        options: Object.keys(navigationOptions?.shadowColor), 
+        value: currentTheme.navShadowColor,
+        label: 'color',
+        onChange: (value) => handleGlobalOptionChange('navShadowColor', value ) 
+      },
+      shadowSize: { 
+        options: Object.keys(navigationOptions?.shadowSize), 
+        value: currentTheme.navShadowSize,
+        label: 'size',
+        onChange: (value) => handleGlobalOptionChange('navShadowSize', value ) 
       },
     }),
-
+    'Footer': folder({
+      fixed: { 
+        value: currentTheme.footerOptions?.fixed, 
+        label: 'fixed',
+        onChange: (value) => handleGlobalOptionChange('footerPosition', { ...currentTheme.footerOptions, fixed: value }) 
+      },
+    }),
     'Hero': folder({
         heroBackgroundStyle: { 
           options: Object.keys(heroBackgroundThemes), 
           value: currentTheme.heroBackgroundStyle, 
           label: 'Hero Background Style',
-          onChange: (value) => handleGlobalOptionChange('heroBackgroundStyle', value) // Call existing handler
+          onChange: (value) => handleGlobalOptionChange('heroBackgroundStyle', value) 
         },
         heroGradMidPoint: { 
           value: currentTheme.heroGradMidPoint, 
