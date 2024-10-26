@@ -76,17 +76,68 @@ export default function ThemeEditor() {
   }, [colorWeight, vibranceWeight, funkynessWeight, updateTheme]);
   
     
-  const applyCurrentTheme = useCallback((updatedTheme) => {
-    console.log('Applying theme:', updatedTheme);
 
-    if (!updatedTheme || typeof updatedTheme !== 'object') {
-      console.error('Invalid theme object:', updatedTheme);
-      return;
-    }
 
-    // Merge the updated theme with the current theme to retain existing values
-    const mergedTheme = { ...currentTheme, ...updatedTheme };
-    updateTheme(mergedTheme); // Update the theme with the merged values
+
+  const setStyleProerties = (theme) => {
+
+    const root = document.documentElement;
+     root.setAttribute('data-theme', theme.key);
+     
+
+    Object.entries(theme).forEach(([key, value]) => {
+      if (typeof value === 'string' && value.startsWith('#')) {
+        const cssVar = `--${key.replace(/([A-Z])/g, "-$1").toLowerCase()}`;
+        root.style.setProperty(cssVar, value);
+      }
+    });
+
+    root.style.setProperty('--mix-blend-mode', theme.imageMixBlendMode || 'normal');
+    root.style.setProperty('--text-highlight', theme.textHighlight || 'text');
+    root.style.setProperty('--text-animation', theme.textAnimation || 'linesup');
+    root.style.setProperty('--page-transition', theme.pageTransition || 'fade');
+    root.style.setProperty('--page-width', theme.pageWidth || 'fluid');
+    
+    root.style.setProperty('--font-family-primary', theme.fontFamilyPrimary || 'sans-serif');
+    root.style.setProperty('--font-family-secondary', theme.fontFamilySecondary || 'sans-serif');
+    
+    
+    root.style.setProperty('--cursor', theme.cursor || 'dot');
+    root.style.setProperty('--font-ratio-min', theme.fluidFontRatioMin || 1.2);
+    root.style.setProperty('--font-ratio-max', theme.fluidFontRatioMax || 1.25);
+
+  }
+
+
+
+
+  const applyCurrentTheme2 = useCallback((key, value) => {
+    const mergedTheme = { ...customTheme, [key]: value };
+    updateTheme(mergedTheme); 
+    setStyleProerties(mergedTheme);
+    localStorage.setItem("currentTheme", JSON.stringify(mergedTheme));
+  }, [ currentTheme]);
+
+
+
+
+  const applyCurrentTheme = useCallback((key, value) => {
+    console.log('apply current:', key);
+
+    // if (!updatedTheme || typeof updatedTheme !== 'object') {
+    //   console.error('Invalid theme object:', updatedTheme);
+    //   return;
+    // }
+
+    // // Merge the updated theme with the current theme to retain existing values
+    // const mergedTheme = { ...currentTheme, ...updatedTheme };
+    // updateTheme(mergedTheme); // Update the theme with the merged values
+
+
+    const mergedTheme = { ...currentTheme, [key]: value };
+    //updateTheme(mergedTheme); // Update the theme with the new values
+
+    
 
     const root = document.documentElement;
     root.setAttribute('data-theme', mergedTheme.key);
@@ -99,23 +150,27 @@ export default function ThemeEditor() {
     });
 
     // Apply global options
-    root.style.setProperty('--mix-blend-mode', mergedTheme.imageMixBlendMode || 'normal');
-    root.style.setProperty('--text-highlight', mergedTheme.textHighlight || 'text');
-    root.style.setProperty('--text-animation', mergedTheme.textAnimation || 'linesup');
-    root.style.setProperty('--page-transition', mergedTheme.pageTransition || 'fade');
-    root.style.setProperty('--page-width', mergedTheme.pageWidth || 'fluid');
+    // root.style.setProperty('--mix-blend-mode', mergedTheme.imageMixBlendMode || 'normal');
+    // root.style.setProperty('--text-highlight', mergedTheme.textHighlight || 'text');
+    // root.style.setProperty('--text-animation', mergedTheme.textAnimation || 'linesup');
+    // root.style.setProperty('--page-transition', mergedTheme.pageTransition || 'fade');
+    // root.style.setProperty('--page-width', mergedTheme.pageWidth || 'fluid');
     
-    root.style.setProperty('--font-family-primary', mergedTheme.fontFamilyPrimary || 'sans-serif');
-    root.style.setProperty('--font-family-secondary', mergedTheme.fontFamilySecondary || 'sans-serif');
+    // root.style.setProperty('--font-family-primary', mergedTheme.fontFamilyPrimary || 'sans-serif');
+    // root.style.setProperty('--font-family-secondary', mergedTheme.fontFamilySecondary || 'sans-serif');
     
     
-    root.style.setProperty('--cursor', mergedTheme.cursor || 'dot');
-    root.style.setProperty('--font-ratio-min', mergedTheme.fluidFontRatioMin || 1.2);
-    root.style.setProperty('--font-ratio-max', mergedTheme.fluidFontRatioMax || 1.25);
+    // root.style.setProperty('--cursor', mergedTheme.cursor || 'dot');
+    // root.style.setProperty('--font-ratio-min', mergedTheme.fluidFontRatioMin || 1.2);
+    // root.style.setProperty('--font-ratio-max', mergedTheme.fluidFontRatioMax || 1.25);
 
     
     localStorage.setItem("currentTheme", JSON.stringify(mergedTheme));
   }, [updateTheme, currentTheme]);
+
+
+
+
 
   useEffect(() => {
     // const storedTheme = localStorage.getItem('currentTheme');
@@ -133,6 +188,12 @@ export default function ThemeEditor() {
     // Call updateCurrentTheme only when sliders change
     updateCurrentTheme();
   }, [colorWeight, vibranceWeight, funkynessWeight, updateCurrentTheme]);
+
+
+
+
+
+
 
 
   const handleThemeChange = (e) => {
@@ -160,19 +221,19 @@ export default function ThemeEditor() {
   };
 
   const handleGlobalOptionChange = (key, value) => {
-    console.log('global', key, value);
+    console.log('handlegOption', key, value);
     
     // Create a new theme object that retains all current values except for the updated key
-    const updatedTheme = {
-        ...currentTheme,
-        [key]: value, // Update only the specified key
-    };
+    // const updatedTheme = {
+    //     ...currentTheme,
+    //     [key]: value, // Update only the specified key
+    // };
 
-    console.log('Updated Theme:', updatedTheme);
+   // console.log('Updated Theme:', updatedTheme);
 
     // Update the theme context with the new value for the specified key
-    updateTheme(updatedTheme); // This will retain all other properties
-    applyCurrentTheme(updatedTheme); // Apply the updated theme to the DOM
+   // updateTheme(updatedTheme); // This will retain all other properties
+    applyCurrentTheme2(key,value); // Apply the updated theme to the DOM
   };
 
 
@@ -288,7 +349,7 @@ export default function ThemeEditor() {
       audio: { 
         value: currentTheme.audio, 
         label: 'Audio',
-        onChange: (value) => handleGlobalOptionChange('audio', value) // Call existing handler
+        onChange: (value) => applyCurrentTheme2('audio', value) // Call existing handler
       },
       volume: { 
         value: currentTheme.volume, 
@@ -296,7 +357,7 @@ export default function ThemeEditor() {
         max: 1, 
         step: 0.1, 
         label: 'Volume',
-        onChange: (value) => handleGlobalOptionChange('volume', value) // Call existing handler
+        onChange: (value) => applyCurrentTheme2('volume', value) // Call existing handler
       },
     }),
     'Globals': folder({
@@ -304,13 +365,13 @@ export default function ThemeEditor() {
         options: Object.keys(pageWidthThemes), 
         value: currentTheme.pageWidth, 
         label: 'Page Width',
-        onChange: (value) => handleGlobalOptionChange('pageWidth', value) // Call existing handler
+        onChange: (value) => applyCurrentTheme2('pageWidth', value) // Call existing handler
       },
       cursor: { 
         options: Object.keys(cursorThemes), 
         value: currentTheme.cursor, 
         label: 'Cursor',
-        onChange: (value) => handleGlobalOptionChange('cursor', value) // Call existing handler
+        onChange: (value) => applyCurrentTheme2('cursor', value) // Call existing handler
       },
     }),
     'Animation': folder({
@@ -318,7 +379,7 @@ export default function ThemeEditor() {
         options: Object.keys(pageTransitionThemes), 
         value: currentTheme.pageTransition, 
         label: 'Page Transition',
-        onChange: (value) => handleGlobalOptionChange('pageTransition', value) // Call existing handler
+        onChange: (value) => applyCurrentTheme2('pageTransition', value) // Call existing handler
       },
     }),
     'Typography': folder({
@@ -326,19 +387,19 @@ export default function ThemeEditor() {
         options: Object.keys(textAnimationThemes), 
         value: currentTheme.textAnimation, 
         label: 'Text Animation',
-        onChange: (value) => handleGlobalOptionChange('textAnimation', value) // Call existing handler
+        onChange: (value) => applyCurrentTheme2('textAnimation', value) // Call existing handler
       },
       fontFamilyPrimary: { 
         options: Object.values(typographyThemes), 
         value: currentTheme.fontFamilyPrimary, 
         label: 'Font Family Primary',
-        onChange: (value) => handleGlobalOptionChange('fontFamilyPrimary', value) // Call existing handler
+        onChange: (value) => applyCurrentTheme2('fontFamilyPrimary', value) // Call existing handler
       },
       fontFamilySecondary: { 
         options: Object.values(typographyThemes), 
         value: currentTheme.fontFamilySecondary, 
         label: 'Font Family Secondary',
-        onChange: (value) => handleGlobalOptionChange('fontFamilySecondary', value) // Call existing handler
+        onChange: (value) => applyCurrentTheme2('fontFamilySecondary', value) // Call existing handler
       },
       fontSizeMax:{
           value: currentTheme.fluidFontRatioMax, 
@@ -346,30 +407,30 @@ export default function ThemeEditor() {
           max: 2, 
           step: 0.1, 
           label: 'Fluid Max',
-          onChange: (value) => handleGlobalOptionChange('fluidFontRatioMax', value) // Call existing handler
+          onChange: (value) => applyCurrentTheme2('fluidFontRatioMax', value) // Call existing handler
        
       },
       textHighlight: { 
         options: Object.values(textHighlightThemes), 
         value: currentTheme.textHighlight, 
         label: 'Text Highlight',
-        onChange: (value) => handleGlobalOptionChange('textHighlight', value) // Call existing handler
+        onChange: (value) => applyCurrentTheme2('textHighlight', value) // Call existing handler
       },
       'Body Text': folder({
         dropCap: { 
           value: currentTheme.bodyTextStyle?.dropCap, // Default to false
           label: 'Drop Cap',
-          onChange: (value) => handleGlobalOptionChange('bodyTextStyle', { ...currentTheme.bodyTextStyle, dropCap: value }) // Update handler
+          onChange: (value) => applyCurrentTheme2('bodyTextStyle', { ...currentTheme.bodyTextStyle, dropCap: value }) // Update handler
         },
         indent: { 
           value: currentTheme.bodyTextStyle?.indent, // Default to false
           label: 'Indent',
-          onChange: (value) => handleGlobalOptionChange('bodyTextStyle', { ...currentTheme.bodyTextStyle, indent: value }) // Update handler
+          onChange: (value) => applyCurrentTheme2('bodyTextStyle', { ...currentTheme.bodyTextStyle, indent: value }) // Update handler
         },
         highlight: { 
           value: currentTheme.bodyTextStyle?.highlight, // Default to false
           label: 'Highlight',
-          onChange: (value) => handleGlobalOptionChange('bodyTextStyle', { ...currentTheme.bodyTextStyle, highlight: value }) // Update handler
+          onChange: (value) => applyCurrentTheme2('bodyTextStyle', { ...currentTheme.bodyTextStyle, highlight: value }) // Update handler
         },
       }),
 
@@ -379,42 +440,42 @@ export default function ThemeEditor() {
         options: Object.keys(navigationPositionThemes), 
         value: currentTheme.navigationPosition, 
         label: 'Position',
-        onChange: (value) => handleGlobalOptionChange('navPosition',  value) 
+        onChange: (value) => applyCurrentTheme2('navPosition',  value) 
       },
       navigationStyle: { 
         options: Object.keys(navigationStyleThemes), 
         value: currentTheme.navigationStyle,
         label: 'Style',
-        onChange: (value) => handleGlobalOptionChange('navStyle',  value) 
+        onChange: (value) => applyCurrentTheme2('navStyle',  value) 
       },
       floating: { 
         value: currentTheme.navigationOptions?.floating, 
         label: 'floating',
-        onChange: (value) => handleGlobalOptionChange('navFloating',  value) 
+        onChange: (value) => applyCurrentTheme2('navFloating',  value) 
       },
       shadow: { 
         value: currentTheme.navShadow,
         label: 'shadow',
-        onChange: (value) => handleGlobalOptionChange('navShadow', value ) 
+        onChange: (value) => applyCurrentTheme2('navShadow', value ) 
       },
       shadowColor: { 
         options: Object.keys(navigationOptions?.shadowColor), 
         value: currentTheme.navShadowColor,
         label: 'color',
-        onChange: (value) => handleGlobalOptionChange('navShadowColor', value ) 
+        onChange: (value) => applyCurrentTheme2('navShadowColor', value ) 
       },
       shadowSize: { 
         options: Object.keys(navigationOptions?.shadowSize), 
         value: currentTheme.navShadowSize,
         label: 'size',
-        onChange: (value) => handleGlobalOptionChange('navShadowSize', value ) 
+        onChange: (value) => applyCurrentTheme2('navShadowSize', value ) 
       },
     }),
     'Footer': folder({
       fixed: { 
         value: currentTheme.footerOptions?.fixed, 
         label: 'fixed',
-        onChange: (value) => handleGlobalOptionChange('footerPosition', { ...currentTheme.footerOptions, fixed: value }) 
+        onChange: (value) => applyCurrentTheme2('footerPosition', { ...currentTheme.footerOptions, fixed: value }) 
       },
     }),
     'Hero': folder({
@@ -422,7 +483,7 @@ export default function ThemeEditor() {
           options: Object.keys(heroBackgroundThemes), 
           value: currentTheme.heroBackgroundStyle, 
           label: 'Hero Background Style',
-          onChange: (value) => handleGlobalOptionChange('heroBackgroundStyle', value) 
+          onChange: (value) => applyCurrentTheme2('heroBackgroundStyle', value) 
         },
         heroGradMidPoint: { 
           value: currentTheme.heroGradMidPoint, 
@@ -430,25 +491,25 @@ export default function ThemeEditor() {
           max: 1, 
           step: 0.1, 
           label: 'Gradient Mid Point',
-          onChange: (value) => handleGlobalOptionChange('heroGradMidPoint', value) // Call existing handler
+          onChange: (value) => applyCurrentTheme2('heroGradMidPoint', value) // Call existing handler
         },
         heroTextImageStyle: { 
           options: Object.keys(heroTextImageThemes), 
           value: currentTheme.heroTextImageStyle, 
           label: 'Hero Text Image Style',
-          onChange: (value) => handleGlobalOptionChange('heroTextImageStyle', value) // Call existing handler
+          onChange: (value) => applyCurrentTheme2('heroTextImageStyle', value) // Call existing handler
         },
         heroTextLayoutStyle: { 
           options: Object.keys(heroTextPositionThemes), 
           value: currentTheme.heroTextPosition, 
           label: 'Hero Text Layout Style',
-          onChange: (value) => handleGlobalOptionChange('heroTextPosition', value) // Call existing handler
+          onChange: (value) => applyCurrentTheme2('heroTextPosition', value) // Call existing handler
         },
         heroTextCompStyle: { 
           options: Object.keys(heroTextCompositionThemes), 
           value: currentTheme.heroTextComposition, 
           label: 'Hero Text Comp Style',
-          onChange: (value) => handleGlobalOptionChange('heroTextPosition', value) // Call existing handler
+          onChange: (value) => applyCurrentTheme2('heroTextPosition', value) // Call existing handler
         },
 
     }),
@@ -457,26 +518,26 @@ export default function ThemeEditor() {
         options: Object.keys(cardThemes), 
         value: currentTheme.cardLayout, 
         label: 'layout',
-        onChange: (value) => handleGlobalOptionChange('cardLayout', value) // Call existing handler
+        onChange: (value) => applyCurrentTheme2('cardLayout', value) // Call existing handler
       },
       hover: { 
         options: Object.keys(cardHoverThemes), 
         value: currentTheme.cardHover, 
         label: 'hover',
-        onChange: (value) => handleGlobalOptionChange('cardHover', value) // Call existing handler
+        onChange: (value) => applyCurrentTheme2('cardHover', value) // Call existing handler
       },
     }),
     'Iamges': folder({
       parallax: { 
         value: currentTheme.imageParallax, 
         label: 'parallax',
-        onChange: (value) => handleGlobalOptionChange('imageParallax', value) // Call existing handler
+        onChange: (value) => applyCurrentTheme2('imageParallax', value) // Call existing handler
       },
       mixBlendMode: { 
         options: Object.keys(mixBlendThemes), 
         value: currentTheme.imageMixBlendMode, 
         label: 'Blend Mode',
-        onChange: (value) => handleGlobalOptionChange('imageMixBlendMode', value) // Call existing handler
+        onChange: (value) => applyCurrentTheme2('imageMixBlendMode', value) // Call existing handler
       },
     }),
     save: button(() => {
