@@ -41,31 +41,6 @@ export default function Navigation() {
   };
 
 
-
- 
-
-
-  const hexToRgba = (hex, alpha) => {
-    // Remove the hash at the start if it's there
-    hex = hex.replace(/^#/, "");
-
-    // Parse r, g, b values
-    let r, g, b;
-    if (hex.length === 3) {
-      r = parseInt(hex[0] + hex[0], 16);
-      g = parseInt(hex[1] + hex[1], 16);
-      b = parseInt(hex[2] + hex[2], 16);
-    } else if (hex.length === 6) {
-      r = parseInt(hex.substring(0, 2), 16);
-      g = parseInt(hex.substring(2, 4), 16);
-      b = parseInt(hex.substring(4, 6), 16);
-    } else {
-      throw new Error("Invalid HEX color format");
-    }
-
-    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-  };
-
  
 
   return (
@@ -76,101 +51,101 @@ export default function Navigation() {
       >
 
         <div className="flex col-span-1 col-start-1 row-span-1 row-start-1">
-        <motion.div
-          style={{
-            backgroundColor: "var(--accent)",
-            color:
-              router.asPath === "/"
-                ? "var(--text-color)"
-                : "var(--heading-color)",
-          }}
-          whileHover={{
-            style: {
-              backgroundColor: "var(--heading-color)",
-            },
-          }}
-          className={` pointer-events-auto z-50 flex items-center rounded-xl px-4`}
-        >
-          <div
-            className="w-4 h-4 rounded-full"
-            style={{ backgroundColor: "var(--accent-pri)" }}
-          ></div>
-          <span
-            className="self-center p-3 font-mono text-sm cursor-pointer page-title"
-            style={{ color: "var(--text-color)" }}
-            onClick={() => setIsModalOpen(true)}
-          >
-            'Available for work'
-          </span>
-        </motion.div>
-
-
-        <motion.div
-          style={{
-            backgroundColor: "var(--accent",
-            color:
-              router.asPath === "/"
-                ? "var(--text-color)"
-                : "var(--heading-color)",
-          }}
-          className={`relative z-50 flex items-center rounded-xl`}
-        >
-          <div
-            className={`scene bg-opacity-80 backdrop-blur-sm`}
-            // style={{ backgroundColor: "var(--accent-pri)" }}
+          <motion.div
+            style={{
+              backgroundColor: "var(--accent)",
+              color:
+                router.asPath === "/"
+                  ? "var(--text-color)"
+                  : "var(--heading-color)",
+            }}
+            whileHover={{
+              style: {
+                backgroundColor: "var(--heading-color)",
+              },
+            }}
+            className={` pointer-events-auto z-50 flex items-center rounded-xl px-4`}
           >
             <div
-              style={{
-                backgroundColor: isActive
-                  ? "var(--accent)"
-                  : "var(--text-accent)",
-              }}
-              className={`cube ${isActive ? "show-right" : ""}`}
+              className="w-4 h-4 rounded-full"
+              style={{ backgroundColor: "var(--accent-pri)" }}
+            ></div>
+            <span
+              className="self-center p-3 font-mono text-sm cursor-pointer page-title"
+              style={{ color: "var(--text-color)" }}
+              onClick={() => setIsModalOpen(true)}
             >
-              <div className="cube__face cube__face--front">
-                <div className="h-[32px] relative">
-                <img src="/shapes/star.svg" viewBox="0 0 32 32" className="h-full"></img>
-                </div>
-              </div>
-              <div className="cube__face cube__face--back "></div>
-              <div className=" cube__face cube__face--right">
-              <div className="h-[32px] relative">
-              <img src="/shapes/tri.svg" viewBox="0 0 32 32" className="h-full"></img>
-                </div>
-              </div>
-              <div className="cube__face cube__face--left "></div>
-              <div className="cube__face cube__face--top "></div>
-              <div className="cube__face cube__face--bottom "></div>
-            </div>
-          </div>
+              'Available for work'
+            </span>
+          </motion.div>
 
-          <motion.span
-            className="self-center p-3 text-sm font-aon"
-            style={{ color: "var(--text-heading)" }}
-            layoutId="title"
-            initial={{
-              opacity: 0,
+
+          <motion.div
+            style={{
+              backgroundColor: "var(--accent",
+              color:
+                router.asPath === "/"
+                  ? "var(--text-color)"
+                  : "var(--heading-color)",
             }}
-            animate={{
-              opacity: 1,
-            }}
-            exit={{
-              opacity: 0,
-            }}
-            transition={{
-              duration: 1,
-              delay: 0,
-              easing: cubicBezier(0.35, 0.17, 0.3, 0.86),
-            }}
+            className={`relative z-50 flex items-center rounded-xl`}
           >
-           
-            Riki Sommers
-          </motion.span>
-        </motion.div>
+            <div
+              className={`scene bg-opacity-80 backdrop-blur-sm`}
+              // style={{ backgroundColor: "var(--accent-pri)" }}
+            >
+              <div
+                style={{
+                  backgroundColor: isActive
+                    ? "var(--accent)"
+                    : "var(--text-accent)",
+                }}
+                className={`cube ${isActive ? "show-right" : ""}`}
+              >
+                <div className="cube__face cube__face--front">
+                  <div className="h-[32px] relative">
+                  <img src="/shapes/star.svg" viewBox="0 0 32 32" className="h-full"></img>
+                  </div>
+                </div>
+                <div className="cube__face cube__face--back "></div>
+                <div className=" cube__face cube__face--right">
+                <div className="h-[32px] relative">
+                <img src="/shapes/tri.svg" viewBox="0 0 32 32" className="h-full"></img>
+                  </div>
+                </div>
+                <div className="cube__face cube__face--left "></div>
+                <div className="cube__face cube__face--top "></div>
+                <div className="cube__face cube__face--bottom "></div>
+              </div>
+            </div>
 
-
-            <NavBar containerRef={containerRef}/>
+            <motion.span
+              className="self-center p-3 text-sm font-aon"
+              style={{ color: "var(--text-heading)" }}
+              layoutId="title"
+              initial={{
+                opacity: 0,
+              }}
+              animate={{
+                opacity: 1,
+              }}
+              exit={{
+                opacity: 0,
+              }}
+              transition={{
+                duration: 1,
+                delay: 0,
+                easing: cubicBezier(0.35, 0.17, 0.3, 0.86),
+              }}
+            >
             
+              Riki Sommers
+            </motion.span>
+          </motion.div>
+              
+</div>
+   
+{/*             
         <motion.div className="fixed z-50 flex items-center gap-1 rounded-lg top-3 right-3">
           <Button
             click={toggleThemeEditor}
@@ -183,14 +158,16 @@ export default function Navigation() {
             type={ButtonType.PRIMARY}
             label={"Theme"}
           />
-        </motion.div>
-      </div>
+        </motion.div> */}
 
+        <NavBar containerRef={containerRef}/>
+
+
+      </div>
 
 
   
       
-</div>
 
       {/* Modal for "Available for work" */}
       <Modal

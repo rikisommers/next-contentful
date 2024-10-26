@@ -35,14 +35,41 @@ export default function NavBar({ containerRef }) {
   });
   const [orientation, setOrientation] = useState("");
 
+  const hexToRgba = (hex, alpha) => {
+    // Remove the h ash at the start if it's there
+    if(hex){
+    hex = hex.replace(/^#/, "");
+
+    // Parse r, g, b values
+    let r, g, b;
+    if (hex.length === 3) {
+      r = parseInt(hex[0] + hex[0], 16);
+      g = parseInt(hex[1] + hex[1], 16);
+      b = parseInt(hex[2] + hex[2], 16);
+    } else if (hex.length === 6) {
+      r = parseInt(hex.substring(0, 2), 16);
+      g = parseInt(hex.substring(2, 4), 16);
+      b = parseInt(hex.substring(4, 6), 16);
+    } else {
+      throw new Error("Invalid HEX color format");
+    }
+
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  }
+  return
+  };
+
+ 
+
+  
   const getNavigationStyle = (navigationStyle) => {
     switch (navigationStyle) {
       case "solid":
-        return currentTheme.navBg;
+        return currentTheme.accentPri;
       case "transparent":
-        return hexToRgba(currentTheme.navBg, 0.5);
+        return currentTheme.navBg;
       default:
-        return ""; 
+        return "solid"
     }
   };
 
@@ -139,12 +166,12 @@ export default function NavBar({ containerRef }) {
       dragConstraints={containerRef}
       dragSnapToOrigin={false}
       style={{
-        backgroundColor: getNavigationStyle(currentTheme.navigationStyle),
+        backgroundColor: 'var(--nav-bg)',
        // boxShadow: `0 10px 15px -3px ${currentTheme.navShadow}, 0 4px 49px -4px ${currentTheme.navShadow}`,
       }}
       className={`
         ${getShadowSizeClass(currentTheme.navShadowSize)}
-        ${getNavigationPositionClass(currentTheme.navigationPosition)} 
+        ${getNavigationPositionClass(currentTheme.navPosition)} 
          backdrop-blur-lg pointer-events-auto  z-50 flex ${orientation} gap-1 rounded-xl`}
     >
       <div ref={menuDragRef} className="flex items-center px-2 text-lg text-white"><DotsSixVertical/></div>

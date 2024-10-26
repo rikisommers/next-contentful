@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { useThemeContext } from '../themeContext';
 
 const contentfulLoader = ({ src, width, quality }) => {
   return `${src}?w=${width}&q=${quality || 75}`
@@ -6,6 +7,7 @@ const contentfulLoader = ({ src, width, quality }) => {
 //priority eager
 const BlendImage = (props) => {
 
+  const { currentTheme } = useThemeContext();
 
   return <Image  
       loading='lazy'   
@@ -17,7 +19,7 @@ const BlendImage = (props) => {
    width={400}
    height={200}
    style={{
-    mixBlendMode:'var(--mix-blend-mode)'
+    mixBlendMode:currentTheme.imageMixBlendMode
   }}
    className='object-cover w-full h-full greyscale'
    />

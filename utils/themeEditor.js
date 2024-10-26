@@ -92,7 +92,7 @@ export default function ThemeEditor() {
       }
     });
 
-    root.style.setProperty('--mix-blend-mode', theme.imageMixBlendMode || 'normal');
+    //root.style.setProperty('--mix-blend-mode', theme.imageMixBlendMode || 'normal');
     root.style.setProperty('--text-highlight', theme.textHighlight || 'text');
     root.style.setProperty('--text-animation', theme.textAnimation || 'linesup');
     root.style.setProperty('--page-transition', theme.pageTransition || 'fade');
@@ -408,8 +408,16 @@ export default function ThemeEditor() {
           step: 0.1, 
           label: 'Fluid Max',
           onChange: (value) => applyCurrentTheme2('fluidFontRatioMax', value) // Call existing handler
-       
       },
+      fontSizeMin:{
+        value: currentTheme.fluidFontRatioMin, 
+        min: 0, 
+        max: 2, 
+        step: 0.1, 
+        label: 'Fluid Min',
+        onChange: (value) => applyCurrentTheme2('fluidFontRatioMin', value) // Call existing handler
+     
+    },
       textHighlight: { 
         options: Object.values(textHighlightThemes), 
         value: currentTheme.textHighlight, 
@@ -435,16 +443,31 @@ export default function ThemeEditor() {
       }),
 
     }),
+
+    // export const navigationOptions = {
+    //   floating: true,
+    //   shadow: true,
+    //   shadowColor: {
+    //     default: 'default',
+    //     accent: 'accent',
+    //   },
+    //   shadowSize:{
+    //     sm:'sm',
+    //     md:'md',
+    //     lg:'lg',
+    //   }
+    // }
+    
     'Navigation': folder({
       navigationPosition: { 
         options: Object.keys(navigationPositionThemes), 
-        value: currentTheme.navigationPosition, 
+        value: currentTheme.navPosition, 
         label: 'Position',
         onChange: (value) => applyCurrentTheme2('navPosition',  value) 
       },
       navigationStyle: { 
         options: Object.keys(navigationStyleThemes), 
-        value: currentTheme.navigationStyle,
+        value: currentTheme.navStyle,
         label: 'Style',
         onChange: (value) => applyCurrentTheme2('navStyle',  value) 
       },
