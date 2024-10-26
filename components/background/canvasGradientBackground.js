@@ -8,8 +8,8 @@ export default function CanvasGradientBackground() {
   // Log the current theme for debugging
 
   // Define external color variables as hex
-  const [colorTopHex, setColorTopHex] = useState(currentTheme?.gradStart || '#ffffff'); // Default to white if undefined
-  const [colorBottomHex, setColorBottomHex] = useState(currentTheme?.gradStop || '#333333'); // Default to dark gray if undefined
+  const [colorTopHex, setColorTopHex] = useState(currentTheme?.gradStart || currentTheme.gradStart); // Default to white if undefined
+  const [colorBottomHex, setColorBottomHex] = useState(currentTheme?.gradStop || currentTheme.gradStop); // Default to dark gray if undefined
   const [midPoint, setMidPoint] = useState(currentTheme?.gradMidPoint || 0.5); // Midpoint of the gradient (0 = bottom, 1 = top)
 
   // Convert hex to RGB

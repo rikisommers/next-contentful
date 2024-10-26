@@ -5,17 +5,17 @@ import AnimatedText, { AnimStyle, AnimTextOrder } from "../motion/animated-text"
 
 export default function PostIntro({ title, content }) {
   return (
-    <div className="grid items-end content-end grid-cols-12 pb-20 gap h-vh44 md:h-vh55"
+    <div className="grid items-end content-end grid-cols-12 pt-[16rem] pb-8"
     >
       <div className="col-span-12 md:col-span-8 lg:col-span-8">
-        <h1 className="text-4xl font-medium font-aon balance-text"> 
+        <h1 className="leading-normal  text-balance"> 
           <AnimatedText content={title} delay={AnimTextOrder.ONE}/>
         </h1>
       </div>
-      <div className="col-span-12text-left md:col-span-8 lg:col-span-4 text-balance">
-        <h2 className="text-xl">
+      <div className="col-span-12 text-left md:col-span-8 lg:col-span-4 text-balance">
+        <h4 className="text-sm font-normal">
           <AnimatedText type={AnimStyle.LINEFADEIN} content={content} delay={AnimTextOrder.THREE}/>
-        </h2>
+        </h4>
       </div>
     </div>
   );

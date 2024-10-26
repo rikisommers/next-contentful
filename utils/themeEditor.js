@@ -320,14 +320,14 @@ export default function ThemeEditor() {
         label: 'Page Transition',
         onChange: (value) => handleGlobalOptionChange('pageTransition', value) // Call existing handler
       },
+    }),
+    'Typography': folder({
       textAnimation: { 
         options: Object.keys(textAnimationThemes), 
         value: currentTheme.textAnimation, 
         label: 'Text Animation',
         onChange: (value) => handleGlobalOptionChange('textAnimation', value) // Call existing handler
       },
-    }),
-    'Typography': folder({
       fontFamilyPrimary: { 
         options: Object.values(typographyThemes), 
         value: currentTheme.fontFamilyPrimary, 
@@ -341,7 +341,6 @@ export default function ThemeEditor() {
         onChange: (value) => handleGlobalOptionChange('fontFamilySecondary', value) // Call existing handler
       },
       fontSizeMax:{
-
           value: currentTheme.fluidFontRatioMax, 
           min: 0, 
           max: 2, 

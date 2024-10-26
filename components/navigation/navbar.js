@@ -148,8 +148,8 @@ export default function NavBar({ containerRef }) {
          backdrop-blur-lg pointer-events-auto  z-50 flex ${orientation} gap-1 rounded-xl`}
     >
       <div ref={menuDragRef} className="flex items-center px-2 text-lg text-white"><DotsSixVertical/></div>
-      <p>{currentTheme.navigationOptions?.floating === true ? 'true' : 'false'}</p>
-      <p>{currentTheme.navigationOptions?.shadow === true ? 'true' : 'false'}</p>
+      {/* <p>{currentTheme.navigationOptions?.floating === true ? 'true' : 'false'}</p>
+      <p>{currentTheme.navigationOptions?.shadow === true ? 'true' : 'false'}</p> */}
 
       {pages.map((page) => (
         <Link

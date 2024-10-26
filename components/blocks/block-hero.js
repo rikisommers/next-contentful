@@ -14,15 +14,15 @@ import { ClipContainer } from "../motion/clippath-container";
 const getPositionClass = (position) => {
   switch (position) {
     case "center":
-      return "text-center col-start-5 col-span-4 row-span-1 row-start-4";
+      return "text-center col-start-3 col-span-8 row-span-1 row-start-4";
     case "topLeft":
-      return "col-start-2 col-span-4 row-span-1 row-start-2";
+      return "col-start-2 col-span-8 row-span-1 row-start-2";
     case "bottomLeft":
-      return "col-start-2 col-span-4 row-span-1 row-start-4";
+      return "col-start-2 col-span-8 row-span-1 row-start-4";
     case "topRight":
-      return "col-start-8 col-span-3 row-span-1 row-start-2";
+      return "col-start-6 col-span-5 row-span-1 row-start-2";
     case "bottomRight":
-      return "col-start-8 col-span-8 row-span-1 row-start-4";
+      return "col-start-6 col-span-6 row-span-1 row-start-4";
     default:
       return ""; // Return an empty string if no match
   }
@@ -106,7 +106,6 @@ export default function BlockHero({ intro, titlealt, date }) {
             )} `}
           >
             <h1
-              className="text-3xl font-medium"
               style={{ fontFamily: "var(--font-family-primary)" }}
             >
               <AnimatedText
@@ -118,7 +117,7 @@ export default function BlockHero({ intro, titlealt, date }) {
               {/* <TextScramble content={['Plan,Design & buid','wear many hats','like fart jokes']}/> */}
             </h1>
             <h2
-              className="text-xl font-regular"
+     
               style={{
                 color: "var(--subtext-color)",
               }}
