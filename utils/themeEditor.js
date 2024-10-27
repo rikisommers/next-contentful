@@ -303,8 +303,25 @@ export default function ThemeEditor() {
     }
   };
 
+  console.log('current theme',currentTheme)
+
+
+  // const colorControls = Object.entries(currentTheme).reduce((acc, [key, value]) => {
+  //   if (typeof value === 'string' && value.startsWith('#')) {
+  //     acc[key] = {
+  //       value: value,
+  //       label: key,
+  //       type: 'color',
+  //       disabled: currentTheme.key !== 'custom',
+  //       onChange: (newValue) => handleColorChange(key, newValue),
+  //     };
+  //   }
+  //   return acc;
+  // }, {});
+
   // Define controls before using it in useControls
   const controls = {
+   
     currentTheme: { 
       options: Object.keys(themes), 
       value: currentTheme.key, 
@@ -443,21 +460,6 @@ export default function ThemeEditor() {
       }),
 
     }),
-
-    // export const navigationOptions = {
-    //   floating: true,
-    //   shadow: true,
-    //   shadowColor: {
-    //     default: 'default',
-    //     accent: 'accent',
-    //   },
-    //   shadowSize:{
-    //     sm:'sm',
-    //     md:'md',
-    //     lg:'lg',
-    //   }
-    // }
-    
     'Navigation': folder({
       navigationPosition: { 
         options: Object.keys(navigationPositionThemes), 
@@ -563,12 +565,114 @@ export default function ThemeEditor() {
         onChange: (value) => applyCurrentTheme2('imageMixBlendMode', value) // Call existing handler
       },
     }),
+
+
+    'Color333': folder({
+      accent: { 
+        value: currentTheme.accent,
+        label: 'accent',
+        onChange: (value) => applyCurrentTheme2('accent', value ) 
+      },
+      accentPri: {
+        value: currentTheme.accentPri,
+        label: 'Accent Primary',
+        onChange: (newValue) => applyCurrentTheme2('accentPri', newValue),
+      },
+      accentSec: {
+        value: currentTheme.accentSec,
+        label: 'Accent Secondary',
+        onChange: (newValue) => applyCurrentTheme2('accentSec', newValue),
+      },
+      backgroundColor: {
+        value: currentTheme.backgroundColor,
+        label: 'Background Color',
+        onChange: (newValue) => applyCurrentTheme2('backgroundColor', newValue),
+      },
+      backgroundColorInv: {
+        value: currentTheme.backgroundColorInv,
+        label: 'Background Color Inverted',
+        onChange: (newValue) => applyCurrentTheme2('backgroundColorInv', newValue),
+      },
+      bodyBackgroundColor: {
+        value: currentTheme.bodyBackgroundColor,
+        label: 'Body Background Color',
+        onChange: (newValue) => applyCurrentTheme2('bodyBackgroundColor', newValue),
+      },
+            gradStart: {
+        value: currentTheme.gradStart,
+        label: 'Gradient Start',
+        onChange: (newValue) => applyCurrentTheme2('gradStart', newValue),
+      },
+      gradStop: {
+        value: currentTheme.gradStop,
+        label: 'Gradient Stop',
+        onChange: (newValue) => applyCurrentTheme2('gradStop', newValue),
+      },
+      headingColor: {
+        value: currentTheme.headingColor,
+        label: 'Heading Color',
+        onChange: (newValue) => applyCurrentTheme2('headingColor', newValue),
+      },
+      navBg: {
+        value: currentTheme.navBg,
+        label: 'Navigation Background',
+        onChange: (newValue) => applyCurrentTheme2('navBg', newValue),
+      },
+      navShadow: {
+        value: currentTheme.navShadow,
+        label: 'Navigation Shadow',
+        onChange: (newValue) => applyCurrentTheme2('navShadow', newValue),
+      },
+      subtextColor: {
+        value: currentTheme.subtextColor,
+        label: 'Subtext Color',
+        onChange: (newValue) => applyCurrentTheme2('subtextColor', newValue),
+      },
+      surface1: {
+        value: currentTheme.surface1,
+        label: 'Surface 1',
+        onChange: (newValue) => applyCurrentTheme2('surface1', newValue),
+      },
+      surface2: {
+        value: currentTheme.surface2,
+        label: 'Surface 2',
+        onChange: (newValue) => applyCurrentTheme2('surface2', newValue),
+      },
+      surface3: {
+        value: currentTheme.surface3,
+        label: 'Surface 3',
+        onChange: (newValue) => applyCurrentTheme2('surface3', newValue),
+      },
+      textAccent: {
+        value: currentTheme.textAccent,
+        label: 'Text Accent',
+        onChange: (newValue) => applyCurrentTheme2('textAccent', newValue),
+      },
+      textColor: {
+        value: currentTheme.textColor,
+        label: 'Text Color',
+        onChange: (newValue) => applyCurrentTheme2('textColor', newValue),
+      },
+      textColorInv: {
+        value: currentTheme.textColorInv,
+        label: 'Text Color Inverted',
+        onChange: (newValue) => applyCurrentTheme2('textColorInv', newValue),
+      },
+ 
+    }),
+
+    
     save: button(() => {
       handleApply()
     }, {
       label: 'Save Theme to Custom?'
     })
   };
+
+
+
+
+
 
   // Now use controls in useControls
   const values = useControls(() => controls);
@@ -603,3 +707,5 @@ export default function ThemeEditor() {
 
   
 }
+
+
