@@ -1074,6 +1074,16 @@ const colorThemes = {
 
 };
 
+
+// Text Animation themes
+export const gridThemes = {
+  bento1: "bento1",
+  bento2: "bento2",
+  grid: "grid",
+  list: "list",
+};
+
+
 // Text Animation themes
 export const textAnimationThemes = {
   none: "none",
@@ -1111,10 +1121,10 @@ export const fontSizeThemes = {
 };
 
 export const fluidFontSizeThemes = {
-fontSizeMin: '16',
-fontSizeMax: '24',
-fontRatioMin: 1.2,
-fontRatioMax: 1.25,
+fontSizeMin: '8',
+fontSizeMax: '16',
+fontRatioMin: 0.2,
+fontRatioMax: 1.1,
 fontWidthMin: '320',
 fontWidthMax: '1200',
 variableUnit: '1vw',
@@ -1213,6 +1223,13 @@ export const footerOptions = {
   fixed: true,
 };
 
+
+export const heroStyleThemes = {
+  full: 'full',
+  half: 'half',
+};
+
+
 export const heroBackgroundThemes = {
   none: 'none',
   video: 'video',
@@ -1284,8 +1301,10 @@ const themeContent = {
   cursor:cursorThemes.none,
   cardLayout:cardThemes.formal,
   cardHover:cardHoverThemes.none,
+  cardGrid:gridThemes.bento1,
   imageparallax:imageThemes.parallax,
   imageMixBlendMode:imageThemes.mixBlendMode,
+  heroStyle:heroStyleThemes.half,
   heroBackground:heroBackgroundThemes.gradient,
   heroTextImage:heroTextImageThemes.none,
   heroTextPosition:heroTextPositionThemes.center,

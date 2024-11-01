@@ -8,7 +8,8 @@ export default function PostIntro({ title, content }) {
     <div className="grid items-end content-end grid-cols-12 pt-[16rem] pb-8"
     >
       <div className="col-span-12 md:col-span-8 lg:col-span-8">
-        <h1 className="leading-normal  text-balance"> 
+        <h1 className="text-4xl leading-normal text-balance"
+        > 
           <AnimatedText content={title} delay={AnimTextOrder.ONE}/>
         </h1>
       </div>

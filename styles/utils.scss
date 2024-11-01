@@ -3,20 +3,20 @@
 
 
 .u-fs--title {
-   @extend h1;
+ //  @extend h1;
 }
 
 .u-t--title{
-  @extend h1;
+//  @extend h1;
 }
 
 .u-t--subtitle{
-  @extend h2;
+//  @extend h2;
   color:$primary4;
 }
 
 .u-t--link{
-  @extend h3;
+// @extend h3;
   color:$action;
   text-decoration: none;
 }

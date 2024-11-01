@@ -9,6 +9,7 @@ import {
   cardThemes,
   cardHoverThemes,
   heroBackgroundThemes,
+  heroStyleThemes,
   heroTextImageThemes,
   heroTextCompositionThemes,
   heroTextPositionThemes,
@@ -19,6 +20,7 @@ import {
   navigationStyleThemes,
   navigationOptions,
   cursorThemes,
+  gridThemes,
   mixBlendThemes} from "./theme";
 import { useThemeContext } from '../components/themeContext';
 import { Leva, useControls ,button, folder} from "leva";
@@ -96,7 +98,7 @@ export default function ThemeEditor() {
     root.style.setProperty('--text-highlight', theme.textHighlight || 'text');
     root.style.setProperty('--text-animation', theme.textAnimation || 'linesup');
     root.style.setProperty('--page-transition', theme.pageTransition || 'fade');
-    root.style.setProperty('--page-width', theme.pageWidth || 'fluid');
+    root.style.setProperty('--page-width', theme.pageWidth || 'large');
     
     root.style.setProperty('--font-family-primary', theme.fontFamilyPrimary || 'sans-serif');
     root.style.setProperty('--font-family-secondary', theme.fontFamilySecondary || 'sans-serif');
@@ -191,6 +193,24 @@ export default function ThemeEditor() {
 
 
 
+
+
+  useEffect(() => {
+    // const storedTheme = localStorage.getItem('currentTheme');
+    // if (storedTheme) {
+    //   applyCurrentTheme(JSON.parse(storedTheme));
+    // } else {
+    //   applyCurrentTheme(themes.light);
+    // }
+
+    // const storedCustomTheme = localStorage.getItem('customTheme');
+    // if (storedCustomTheme) {
+    //   setCustomTheme(JSON.parse(storedCustomTheme));
+    // }
+    
+    // Call updateCurrentTheme only when sliders change
+    applyCurrentTheme();
+  }, []);
 
 
 
@@ -421,16 +441,16 @@ export default function ThemeEditor() {
       fontSizeMax:{
           value: currentTheme.fluidFontRatioMax, 
           min: 0, 
-          max: 2, 
-          step: 0.1, 
+          max: 1.3, 
+          step: 0.01, 
           label: 'Fluid Max',
           onChange: (value) => applyCurrentTheme2('fluidFontRatioMax', value) // Call existing handler
       },
       fontSizeMin:{
         value: currentTheme.fluidFontRatioMin, 
         min: 0, 
-        max: 2, 
-        step: 0.1, 
+        max: 1.3, 
+        step: 0.01, 
         label: 'Fluid Min',
         onChange: (value) => applyCurrentTheme2('fluidFontRatioMin', value) // Call existing handler
      
@@ -504,10 +524,16 @@ export default function ThemeEditor() {
       },
     }),
     'Hero': folder({
+      heroLayout: { 
+        options: Object.keys(heroStyleThemes), 
+        value: currentTheme.heroStyle, 
+        label: 'Layout',
+        onChange: (value) => applyCurrentTheme2('heroStyle', value) 
+      },
         heroBackgroundStyle: { 
           options: Object.keys(heroBackgroundThemes), 
           value: currentTheme.heroBackgroundStyle, 
-          label: 'Hero Background Style',
+          label: 'Bg',
           onChange: (value) => applyCurrentTheme2('heroBackgroundStyle', value) 
         },
         heroGradMidPoint: { 
@@ -516,25 +542,25 @@ export default function ThemeEditor() {
           max: 1, 
           step: 0.1, 
           label: 'Gradient Mid Point',
-          onChange: (value) => applyCurrentTheme2('heroGradMidPoint', value) // Call existing handler
+          onChange: (value) => applyCurrentTheme2('heroGradMidPoint', value)
         },
         heroTextImageStyle: { 
           options: Object.keys(heroTextImageThemes), 
           value: currentTheme.heroTextImageStyle, 
-          label: 'Hero Text Image Style',
-          onChange: (value) => applyCurrentTheme2('heroTextImageStyle', value) // Call existing handler
+          label: 'Images',
+          onChange: (value) => applyCurrentTheme2('heroTextImageStyle', value)
         },
         heroTextLayoutStyle: { 
           options: Object.keys(heroTextPositionThemes), 
-          value: currentTheme.heroTextPosition, 
-          label: 'Hero Text Layout Style',
-          onChange: (value) => applyCurrentTheme2('heroTextPosition', value) // Call existing handler
+          value: currentTheme.heroTextPosition || 'bottom-left', 
+          label: 'TextLayout',
+          onChange: (value) => applyCurrentTheme2('heroTextPosition', value)
         },
         heroTextCompStyle: { 
           options: Object.keys(heroTextCompositionThemes), 
           value: currentTheme.heroTextComposition, 
-          label: 'Hero Text Comp Style',
-          onChange: (value) => applyCurrentTheme2('heroTextPosition', value) // Call existing handler
+          label: 'Compo',
+          onChange: (value) => applyCurrentTheme2('heroTextPosition', value)
         },
 
     }),
@@ -543,26 +569,32 @@ export default function ThemeEditor() {
         options: Object.keys(cardThemes), 
         value: currentTheme.cardLayout, 
         label: 'layout',
-        onChange: (value) => applyCurrentTheme2('cardLayout', value) // Call existing handler
+        onChange: (value) => applyCurrentTheme2('cardLayout', value)
       },
       hover: { 
         options: Object.keys(cardHoverThemes), 
         value: currentTheme.cardHover, 
         label: 'hover',
-        onChange: (value) => applyCurrentTheme2('cardHover', value) // Call existing handler
+        onChange: (value) => applyCurrentTheme2('cardHover', value)
+      },
+      grid: { 
+        options: Object.keys(gridThemes), 
+        value: currentTheme.cardGrid || 'bento1', 
+        label: 'grid',
+        onChange: (value) => applyCurrentTheme2('cardGrid', value)
       },
     }),
     'Iamges': folder({
       parallax: { 
         value: currentTheme.imageParallax, 
         label: 'parallax',
-        onChange: (value) => applyCurrentTheme2('imageParallax', value) // Call existing handler
+        onChange: (value) => applyCurrentTheme2('imageParallax', value)
       },
       mixBlendMode: { 
         options: Object.keys(mixBlendThemes), 
         value: currentTheme.imageMixBlendMode, 
         label: 'Blend Mode',
-        onChange: (value) => applyCurrentTheme2('imageMixBlendMode', value) // Call existing handler
+        onChange: (value) => applyCurrentTheme2('imageMixBlendMode', value)
       },
     }),
 
@@ -661,7 +693,7 @@ export default function ThemeEditor() {
  
     }),
 
-    
+
     save: button(() => {
       handleApply()
     }, {

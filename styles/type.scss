@@ -7,33 +7,18 @@
 
 
 
-// Define variables as SCSS variables
-$font-size-min: 16;
-$font-size-max: 24;
-$font-ratio-min: 1.2;
-$font-ratio-max: 1.25;
-$font-width-min: 320;
-$font-width-max: 1200;
-$variable-unit: 1vw;
 
-// Define initial values as SCSS variables
-$font-size-min: 16;
-$font-size-max: 24;
-$font-ratio-min: 1.2;
-$font-ratio-max: 1.25;
-$font-width-min: 320;
-$font-width-max: 1200;
-$variable-unit: 1vw;
+
 
 // Define CSS custom properties for runtime updates
 :root {
-  --font-size-min: #{$font-size-min};
-  --font-size-max: #{$font-size-max};
-  --font-ratio-min: #{$font-ratio-min};
-  --font-ratio-max: #{$font-ratio-max};
-  --font-width-min: #{$font-width-min};
-  --font-width-max: #{$font-width-max};
-  --variable-unit: #{$variable-unit};
+  --font-size-min: 16;
+  --font-size-max: 24;
+  --font-ratio-min: 0.6;
+  --font-ratio-max: 1.9;
+  --font-width-min: 320;
+  --font-width-max: 1200;
+  --variable-unit: 1vw;
 }
 
 // Fluid type mixin
@@ -46,21 +31,28 @@ $variable-unit: 1vw;
   );
 }
 
-// Generate heading styles
-@for $i from 1 through 6 {
-  h#{$i}, .u-fs--h#{$i}, .u-t--h#{$i} {
-    @include fluid-type(7 - $i);
-  }
-}
+// ".display-1": "text-[calc(1.625rem+4.5vw)] lg:text-[5rem] leading-[1.2] font-light",
+// ".display-2": "text-[calc(1.575rem+3.9vw)] lg:text-[4.5rem] leading-[1.2] font-light",
+// ".display-3": "text-[calc(1.525rem+3.3vw)] lg:text-[4rem] leading-[1.2] font-light",
+// ".display-4": "text-[calc(1.475rem+2.7vw)] lg:text-[3.5rem] leading-[1.2] font-light",
+// ".display-5": "text-[calc(1.425rem+2.1vw)] lg:text-[3rem] leading-[1.2] font-light",
+// ".display-6": "text-[calc(1.375rem+1.6vw)] lg:text-[2.5rem] leading-[1.2] font-light",
+
+
+// @for $i from 1 through 6 {
+//   h#{$i}, .u-fs--h#{$i}, .u-t--h#{$i} {
+//     @include fluid-type(7 - $i);
+//   }
+// }
 
 // Additional classes for title and subtitle
-.u-fs--title, .u-t--title {
-  @include fluid-type(6);
-}
+// .u-fs--title, .u-t--title {
+//   @include fluid-type(6);
+// }
 
-.u-fs--subtitle, .u-t--subtitle {
-  @include fluid-type(5);
-}
+// .u-fs--subtitle, .u-t--subtitle {
+//   @include fluid-type(5);
+// }
 
 body {
   color: var(--textColor);

@@ -28,12 +28,12 @@ export default function PostBody({ content }) {
 
 
   return (
-    <div className="flex flex-col gap-24 pb-16">
+    <div className="flex flex-col w-full gap-24 pb-16">
         {/* max-w-6xl gap-32 mx-auto */}
         {content.items &&
           content.items.map((item,index) => {
             return (
-              <section key={index}>
+              <section key={index} className="w-full">
                  {item.__typename === "BlockHeader" && (
                   <BlockHeader key={item.id} data={item} ></BlockHeader>
                 )}

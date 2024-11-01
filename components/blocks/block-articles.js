@@ -4,6 +4,7 @@ import PostTileCs from "../post/post-tile-cs";
 import PostTileLg from "../post/post-tile-lg";
 import AnimatedElement, { AnimStyleEl } from "../motion/animated-element";
 import AnimatedText, { AnimStyle } from "../motion/animated-text";
+import PostTileRe from "../post/post-tile-reone";
 import { useThemeContext } from '../themeContext';
 // import { useMousePos } from "../mousePosContext"
 
@@ -24,7 +25,9 @@ export const BlockArticles = ({ data }) => {
 
 
   const { currentTheme } = useThemeContext();
+  console.log('data',data.articlesCollection?.items)
 
+  
   return (
     <>
 
@@ -34,69 +37,61 @@ export const BlockArticles = ({ data }) => {
           className="py-2 font-mono text-xs"
           style={{ color: "var(--heading-color)" }}
         >
+
           <AnimatedText type={AnimStyle.CHARFADE} content={data.title} />
         </h3>
+
       )}
+                  <p className="text-red-500">{currentTheme.cardGrid}</p>
 
-      <div className="grid grid-cols-12 gap-4">
+      <div className="flex flex-col w-full gap-6">
         {data.articlesCollection?.items &&
+
+
           (() => {
-            switch (data.type[0]) {
-              case "titledCardGrid":
-                return data.articlesCollection.items.map((item, i) => (
-                  <div key={i} 
-                       className="col-span-12 md:col-span-6"
-                  
-                       >
-
-{/* onMouseEnter={handleShowCursor(item.title)} 
-onMouseLeave={handleHideCursor(item.title)}  */}
-                    <AnimatedElement type={AnimStyleEl.FADEIN}>
-
-                          { currentTheme.cardLayout === 'formal' && 
-                             <PostTileCs post={item} />
-                            }
-                         { currentTheme.cardLayout === 'funky' && 
-                             <PostTileLg post={item} />
-                            }
-                    </AnimatedElement>
-                  </div>
-                ));
-              case "tileGrid":
-                return data.articlesCollection.items.map((item, i) => {
-                  const isFullWidth =
-                    i > 0 && i % 2 === 0
-                      ? "col-span-12"
-                      : "col-span-12 md:col-span-6";
+            
+              
+                const GridGroup = ({ items, templateSize, startIndex }) => {
+                  if (items.length === 0) return null;
+                
+                  const groupItems = items.slice(0, templateSize);
+                  const remainingItems = items.slice(templateSize);
+                
+                  let nextTemplateSize;
+                  if (templateSize === 6) nextTemplateSize = 4;
+                  else if (templateSize === 4) nextTemplateSize = 2;
+                  else nextTemplateSize = 6;
+                
                   return (
-                    <div key={i} className={isFullWidth}>
-                      <AnimatedElement type={AnimStyleEl.FADEIN}>
-                        <PostTileLg
-                          post={item}
-                          size={isFullWidth === "col-span-12" ? "rect" : "sq"}
-                        />
-                      </AnimatedElement>
-                    </div>
+                    <>
+                      <div className={`grid-template-${templateSize}`}>
+                        {groupItems.map((item, i) => (
+                          <div key={startIndex + i} className={`my--${i + 1}`}>
+                            <AnimatedElement type={AnimStyleEl.FADEIN}>
+                              {currentTheme.cardLayout === 'formal' && <PostTileCs post={item} />}
+                              {currentTheme.cardLayout === 'funky' && <PostTileRe post={item} />}
+                            </AnimatedElement>
+                          </div>
+                        ))}
+                      </div>
+                      <GridGroup 
+                        items={remainingItems} 
+                        templateSize={nextTemplateSize} 
+                        startIndex={startIndex + templateSize} 
+                      />
+                    </>
                   );
-                });
-              case "list":
-                return data.articlesCollection.items.map((item, i) => (
-                  <div key={i} className="col-span-12 md:col-span-6">
-                    <AnimatedElement type={ElAnimStyle.FADEIN}>
-                      <PostTile post={item} />
-                    </AnimatedElement>
-                  </div>
-                ));
-              default:
-                // Add a default case to handle unexpected data.type values
-                return data.articlesCollection.items.map((item, i) => (
-                  <div key={i} className="col-span-12 md:col-span-6">
-                    <AnimatedElement type={AnimStyleEl.FADEIN}>
-                      <PostTileCs post={item} />
-                    </AnimatedElement>
-                  </div>
-                ));
-            }
+                };
+                return (
+                  <GridGroup 
+                    items={data.articlesCollection.items} 
+                    templateSize={6} 
+                    startIndex={0} 
+                  />
+                );
+                
+             
+           
           })()}
       </div>
     </>

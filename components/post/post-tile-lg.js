@@ -16,7 +16,7 @@ export default function PostTileLg({ post, index ,size}) {
       style={{
         backgroundColor: post.color || "--accent-pri" 
       }}
-      className="relative flex flex-col w-full overflow-hidden rounded-2xl aspect-square group"
+      className="relative flex flex-col w-full h-full overflow-hidden rounded-2xl group"
       onMouseEnter={() => setIsHovered(true)} // Set hover state to true on mouse enter
       onMouseLeave={() => setIsHovered(false)} // Set hover state to false on mouse leave
     >
@@ -31,7 +31,7 @@ export default function PostTileLg({ post, index ,size}) {
       </div>
 
       <div
-        className="absolute bottom-0 left-0 flex flex-col w-full h-[33%] p-4 itesm-start"
+        className="absolute bottom-0 left-0 flex flex-col w-full h-[33%] p-4 items-start"
         style={{
           color: 'var(--text-color-inv)',
         }}

@@ -16,11 +16,13 @@ const Work = ({ data, footerData }) => {
 
 
   return (
-    <Layout>
+
+  
       <TransitionPage>
         {/* <ScrollContainer> */}
         {/* <ClipPathContainer>
           </ClipPathContainer> */}
+            <Layout>
         <div className="flex flex-col px-8">
           <PostIntro title={data.titlealt} content={data.contentalt} />
 
@@ -34,11 +36,14 @@ const Work = ({ data, footerData }) => {
             <PostBody content={data.csblocksCollection} />
           )}
         </div>
-        {data.titlealt && <BlockFooter data={footerData} />}
+        </Layout>
+        {footerData && <BlockFooter data={footerData} />}
 {/* 
         </ScrollContainer> */}
         </TransitionPage>
-    </Layout>
+
+           
+      
   );
 };
 

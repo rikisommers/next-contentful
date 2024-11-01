@@ -48,7 +48,6 @@ export const TextAnimLineUp = ({
         style={{
           overflow: "hidden",
           position: "relative",
-          marginBottom: "0.25em",
         }}
       >
         <motion.div
@@ -115,7 +114,6 @@ export const TextAnimLineUp = ({
         animateWhenInView ? (isInView ? "visible" : "hidden") : "visible"
       }
     >
-      DD
       <span
         style={{
           color: "var(--heading-color)",

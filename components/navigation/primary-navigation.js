@@ -51,7 +51,7 @@ export default function Navigation() {
       >
 
         <div className="flex col-span-1 col-start-1 row-span-1 row-start-1">
-          <motion.div
+          {/* <motion.div
             style={{
               backgroundColor: "var(--accent)",
               color:
@@ -77,7 +77,7 @@ export default function Navigation() {
             >
               'Available for work'
             </span>
-          </motion.div>
+          </motion.div> */}
 
 
           <motion.div
@@ -102,21 +102,10 @@ export default function Navigation() {
                 }}
                 className={`cube ${isActive ? "show-right" : ""}`}
               >
-                <div className="cube__face cube__face--front">
-                  <div className="h-[32px] relative">
+               
                   <img src="/shapes/star.svg" viewBox="0 0 32 32" className="h-full"></img>
-                  </div>
-                </div>
-                <div className="cube__face cube__face--back "></div>
-                <div className=" cube__face cube__face--right">
-                <div className="h-[32px] relative">
-                <img src="/shapes/tri.svg" viewBox="0 0 32 32" className="h-full"></img>
-                  </div>
-                </div>
-                <div className="cube__face cube__face--left "></div>
-                <div className="cube__face cube__face--top "></div>
-                <div className="cube__face cube__face--bottom "></div>
-              </div>
+                
+            </div>
             </div>
 
             <motion.span
@@ -145,20 +134,16 @@ export default function Navigation() {
               
 </div>
    
-{/*             
+            
         <motion.div className="fixed z-50 flex items-center gap-1 rounded-lg top-3 right-3">
-          <Button
-            click={toggleThemeEditor}
-            label={"Theme"}
-            type={ButtonType.SECONDARY}
-          />
+
 
           <ButtonAlt
             click={toggleThemeEditor}
             type={ButtonType.PRIMARY}
             label={"Theme"}
           />
-        </motion.div> */}
+        </motion.div>
 
         <NavBar containerRef={containerRef}/>
 

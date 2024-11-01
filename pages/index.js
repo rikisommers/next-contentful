@@ -4,7 +4,7 @@ import ScrollContainer from "../components/utils/scroll-container";
 import BlockFooter from "../components/blocks/block-footer";
 import BlockHero from "../components/blocks/block-hero";
 import TransitionPage from "../components/transition/pageTransition";
-
+import { ClipContainer } from "../components/motion/clippath-container";
 const Index = ({ data, footerData }) => {
 
 
@@ -16,27 +16,31 @@ const Index = ({ data, footerData }) => {
 // console.log('data',data)
 
   return (
-       <Layout>
+    <ScrollContainer>    
+      <Layout>
         <TransitionPage>
-           <ScrollContainer>
-            <div className="relative z-10">
-            <BlockHero 
-              content={data.content}
-              titlealt={data.titlealt}
-              contentalt={data.contentalt}
-              date={dateString}
-              image={data.image}
-            />
-</div>
-    
+  
+              <BlockHero 
+                intro={data.intro}
+                content={data.content}
+                titlealt={data.titlealt}
+                contentalt={data.contentalt}
+                date={dateString}
+                image={data.image}
+              />
+         
+
           
               {/* <BlockHero/> */}
 
-            <BlockFooter data={footerData} />
 
-            </ScrollContainer>
         </TransitionPage>
       </Layout>
+      <BlockFooter data={footerData} />
+
+      </ScrollContainer>
+
+
   );
 };
 

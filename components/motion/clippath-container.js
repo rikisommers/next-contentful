@@ -10,9 +10,9 @@ import { useThemeContext } from "../themeContext";
 export const ClipContainer = ({ children }) => {
   const heroRef = useRef(null);
   const { currentTheme } = useThemeContext();
-console.log(currentTheme)
+
   const [clipPathValue, setClipPathValue] = useState(
-    "inset( 8rem 1.5rem 0px round 1.5rem 1.5rem 1.5rem 1.5rem)"
+    "inset( 0rem 0rem 0rem round 0rem 0rem 0rem 0rem)"
   );
 
   const { scrollYProgress: scrollContent } = useScroll({
@@ -25,8 +25,8 @@ console.log(currentTheme)
     },
   });
 
-  const insetValue = currentTheme?.animation?.inset || 8;
-  const borderRadiusValue = currentTheme?.animation?.borderRadius || 8;
+  const insetValue = currentTheme?.animation?.inset || 1.5;
+  const borderRadiusValue = currentTheme?.animation?.borderRadius || 1.5;
 
   const yv = useTransform(scrollContent, [0, 1], [0, insetValue]);
   const xv = useTransform(scrollContent, [0, 1], [0, insetValue]);
@@ -43,9 +43,9 @@ console.log(currentTheme)
       ref={heroRef}
       style={{ 
         clipPath: clipPathValue,
-        backgroundColor: 'var(--background-color)',
+        backgroundColor: 'var(--body-background-color)',
        }}
-      className={`relative min-w-screen min-h-screen overflow`}
+      className={`relative min-w-screen min-h-screen overflow-hidden`}
     >
 
         
