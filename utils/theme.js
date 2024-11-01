@@ -1154,6 +1154,8 @@ export const cursorThemes = {
 export const cardThemes = {
   formal: 'formal',
   funky: 'funky',
+  reone: 'reone',
+  img: 'img',
 };
 
 export const mixBlendThemes = {

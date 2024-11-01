@@ -567,7 +567,7 @@ export default function ThemeEditor() {
     'Cards': folder({
       layout: { 
         options: Object.keys(cardThemes), 
-        value: currentTheme.cardLayout, 
+        value: currentTheme.cardLayout || 'reone', 
         label: 'layout',
         onChange: (value) => applyCurrentTheme2('cardLayout', value)
       },

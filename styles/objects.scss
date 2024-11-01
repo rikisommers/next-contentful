@@ -227,7 +227,7 @@
     height: 100%;
   }
 
-     :nth-child(1){
+    > :nth-child(1){
       ---col: 1;
       ---row: 1;
       ---width: 1;
@@ -242,7 +242,7 @@
 
      }
 
-     :nth-child(2){
+   >  :nth-child(2){
       ---col: 2;
       ---row: 1;
       ---width: 2;
@@ -278,7 +278,7 @@
     height: 100%;
   }
 
-  :nth-child(1){
+ > :nth-child(1){
     ---col: 1;
     ---row: 1;
     ---width: 1;
@@ -290,7 +290,7 @@
      }
   }
 
-  :nth-child(2){
+ > :nth-child(2){
     ---col: 2;
     ---row: 1;
     ---width: 1;
@@ -303,7 +303,7 @@
   }
 
 
-  :nth-child(3){
+ > :nth-child(3){
     ---col: 3;
     ---row: 1;
     ---width: 1;
@@ -315,7 +315,7 @@
      }
   }
 
-  :nth-child(4){
+ > :nth-child(4){
     ---col: 1;
     ---row: 3;
     ---width: 1;
@@ -327,8 +327,7 @@
      }
   }
 
-  :nth-child(5){
-    background:red;
+ > :nth-child(5){
     ---col: 2;
     ---row: 2;
     ---width: 1;
@@ -340,7 +339,7 @@
      }
   }
 
-  :nth-child(6){
+ > :nth-child(6){
     ---col: 3;
     ---row: 3;
     ---width: 1;

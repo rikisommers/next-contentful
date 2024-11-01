@@ -3,6 +3,7 @@ import BlendImage from "../image/blend-image";
 import Link from "next/link";
 import {
   motion,
+  cubicBezier
 } from "framer-motion";
 
 export default function PostTileLg({ post, index ,size}) {
@@ -23,13 +24,54 @@ export default function PostTileLg({ post, index ,size}) {
       <div className="absolute flex flex-col gap-4 top-3 left-3"
             style={{
               color: 'var(--text-color-inv)',
-              backgroundColor: post.color
+              backgroundColor: post.color || 'var(--accent)'
             }}
      
       >
 
       </div>
 
+      <div className="absolute flex justify-end gap-2 top-4 right-4"
+      >
+           <motion.div className="z-10 px-4 py-2 text-sm rounded-full"
+             animate={{
+              x: isHovered
+                ? 0
+                : -20,
+                opacity: isHovered
+                ? 1
+                : 0
+            }}
+            transition={{
+              duration: 0.55,
+              ease: [0.16, 1, 0.3, 1], // direct array syntax
+            }}
+
+            style={{
+              color: "var(--text-color)",
+              backgroundColor: "var(--background-color)",
+            }}>
+              Open Link
+            </motion.div>
+
+            <motion.div className="z-10 px-4 py-2 text-sm rounded-full"
+                     animate={{
+                      scale: isHovered
+                        ? 1
+                        : 1.2
+                    }}
+                    transition={{
+                      duration: 0.55,
+                      ease: [0.16, 1, 0.3, 1], // direct array syntax
+                    }}
+
+            style={{
+              color: "var(--text-color)",
+              backgroundColor: "var(--background-color)",
+            }}>
+              --
+            </motion.div>
+      </div>
       <div
         className="absolute bottom-0 left-0 flex flex-col w-full h-[33%] p-4 items-start"
         style={{
@@ -80,18 +122,18 @@ export default function PostTileLg({ post, index ,size}) {
           <motion.div style={{y}}>     
           </motion.div> */}
       {post.img && (
-        <motion.div 
-        className="w-full h-full"
-        style={{
-          clipPath: isHovered ? "inset(1rem 1rem 33% 1rem round 1rem)" : "inset(0rem 0rem 0rem 0rem round 1rem)", // Change clipPath based on hover state
-          transition: "clip-path 0.2s ease-in-out", // Custom transition for clipPath
-        }}
-        // whileHover={{
-        //   clipPath: "inset( 1rem 1rem 33% 1rem round 1rem )",
-        // }}
-   
-        >
-
+  <motion.div 
+  className="w-full h-full"
+  animate={{
+    clipPath: isHovered
+      ? "inset(0.5rem 0.5rem 33% 0.5rem round 0.5rem)"
+      : "inset(0rem 0rem 0rem 0rem round 1rem)"
+  }}
+  transition={{
+    duration: 0.55,
+    ease: [0.16, 1, 0.3, 1], // direct array syntax
+  }}
+>
 
         {/* <FadeInWhenVisible color={ 'var(--accent)'}> */}
           <BlendImage

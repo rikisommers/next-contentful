@@ -5,6 +5,7 @@ import PostTileLg from "../post/post-tile-lg";
 import AnimatedElement, { AnimStyleEl } from "../motion/animated-element";
 import AnimatedText, { AnimStyle } from "../motion/animated-text";
 import PostTileRe from "../post/post-tile-reone";
+import PostTileImg from "../post/post-tile-img";
 import { useThemeContext } from '../themeContext';
 // import { useMousePos } from "../mousePosContext"
 
@@ -69,7 +70,11 @@ export const BlockArticles = ({ data }) => {
                           <div key={startIndex + i} className={`my--${i + 1}`}>
                             <AnimatedElement type={AnimStyleEl.FADEIN}>
                               {currentTheme.cardLayout === 'formal' && <PostTileCs post={item} />}
-                              {currentTheme.cardLayout === 'funky' && <PostTileRe post={item} />}
+                              {currentTheme.cardLayout === 'funky' && <PostTileLg post={item} />}
+                              {currentTheme.cardLayout === 'reone' && <PostTileRe post={item} />}
+                              {currentTheme.cardLayout === 'img' && <PostTileImg post={item} />}
+
+
                             </AnimatedElement>
                           </div>
                         ))}
