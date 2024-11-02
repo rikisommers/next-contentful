@@ -9,6 +9,15 @@ import PostTileImg from "../post/post-tile-img";
 import { useThemeContext } from '../themeContext';
 // import { useMousePos } from "../mousePosContext"
 
+
+
+
+
+
+
+
+
+
 export const BlockArticles = ({ data }) => {
   // const { setVisible, setContent } = useMousePos();
 
@@ -33,7 +42,7 @@ export const BlockArticles = ({ data }) => {
     <>
 
     
-      {data.title && (
+      {/* {data.title && (
         <h3
           className="py-2 font-mono text-xs"
           style={{ color: "var(--heading-color)" }}
@@ -42,7 +51,7 @@ export const BlockArticles = ({ data }) => {
           <AnimatedText type={AnimStyle.CHARFADE} content={data.title} />
         </h3>
 
-      )}
+      )} */}
                   <p className="text-red-500">{currentTheme.cardGrid}</p>
 
       <div className="flex flex-col w-full gap-6">
@@ -73,8 +82,6 @@ export const BlockArticles = ({ data }) => {
                               {currentTheme.cardLayout === 'funky' && <PostTileLg post={item} />}
                               {currentTheme.cardLayout === 'reone' && <PostTileRe post={item} />}
                               {currentTheme.cardLayout === 'img' && <PostTileImg post={item} />}
-
-
                             </AnimatedElement>
                           </div>
                         ))}

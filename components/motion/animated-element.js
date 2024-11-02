@@ -59,6 +59,29 @@ const ElementAnimFadeIn = ({ delay, offset, children }) => {
     );
 };
 
+const ElementAnimFadeInLeft = ({ delay, offset, children }) => {
+    const ref = React.useRef(null);
+    const viewportHeight = useViewportHeight();
+    const margin = `0px 0px -${viewportHeight * offset}px 0px`;
+    const isInView = useInView(ref, { once: true, margin });
+
+    return (
+        <motion.div
+            ref={ref}
+            initial={{ opacity: 0, x: 15 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 10 }}
+            transition={{
+                delay: delay,
+                ease: [0.33, 1, 0.68, 1],
+                duration: 1.2,
+            }}
+        >
+            {children}
+        </motion.div>
+    );
+};
+
+
 const AnimElOrder = {
     1: "100ms",
     2: "200ms",
@@ -70,6 +93,7 @@ const AnimElOrder = {
 const AnimStyleEl = {
     POSUP: "pos-up",
     FADEIN: "fade-in",
+    FADEINLEFT: "fade-in-left",
 };
 
 const getAnimatedElement = (type, children, delay, offset) => {
@@ -78,6 +102,8 @@ const getAnimatedElement = (type, children, delay, offset) => {
             return <ElementAnimPosUp delay={delay} offset={offset}>{children}</ElementAnimPosUp>;
         case AnimStyleEl.FADEIN:
             return <ElementAnimFadeIn delay={delay} offset={offset}>{children}</ElementAnimFadeIn>;
+        case AnimStyleEl.FADEINLEFT:
+            return <ElementAnimFadeInLeft delay={delay} offset={offset}>{children}</ElementAnimFadeInLeft>;
         default:
             return <ElementAnimFadeIn delay={delay} offset={offset}>{children}</ElementAnimFadeIn>;
     }

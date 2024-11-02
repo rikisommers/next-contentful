@@ -17,16 +17,17 @@ const Bio = ({ data, footerData }) => {
   const footerRef = useRef(null);
 
   return (
+    <TransitionPage>
+
     <Layout>
-      <TransitionPage>
         <div className="flex flex-col px-8">
           <PostIntro title={data.titlealt} content={data.contentalt} />
           <LandingPageContent data={data} />
           <BlockFooter content={footerData} />
         </div>
-      </TransitionPage>
-      <TransitionWipe />
     </Layout>
+    </TransitionPage>
+
   );
 };
 

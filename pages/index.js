@@ -16,9 +16,10 @@ const Index = ({ data, footerData }) => {
 // console.log('data',data)
 
   return (
+    <TransitionPage>
+
     <ScrollContainer>    
       <Layout>
-        <TransitionPage>
   
               <BlockHero 
                 intro={data.intro}
@@ -34,12 +35,12 @@ const Index = ({ data, footerData }) => {
               {/* <BlockHero/> */}
 
 
-        </TransitionPage>
       </Layout>
       <BlockFooter data={footerData} />
 
       </ScrollContainer>
 
+      </TransitionPage>
 
   );
 };

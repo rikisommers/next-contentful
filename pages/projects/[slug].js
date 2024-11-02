@@ -66,12 +66,12 @@ export default function Post({ post, nextPost, footerData }) {
   return (
 
 
-      
+    <TransitionPage>
+
 
     
       
       <Layout>
-      <TransitionPage>
 
 
 
@@ -129,8 +129,9 @@ export default function Post({ post, nextPost, footerData }) {
             <BlockFooter data={footerData} />
           )}
         {/* </ScrollContainer> */}
-        </TransitionPage>
     </Layout>
+    </TransitionPage>
+
   );
 }
 
