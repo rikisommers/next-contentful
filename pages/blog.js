@@ -43,7 +43,6 @@ export default function Posts({ intro, posts, tags, footerData }) {
 
   return (
     <Layout>
-      <TransitionPage>
       {/* <ScrollContainer> */}
         <div className="flex">
 
@@ -125,7 +124,6 @@ export default function Posts({ intro, posts, tags, footerData }) {
           </div>
         )}
       {/* </ScrollContainer> */}
-      </TransitionPage>
     </Layout>
   );
 }

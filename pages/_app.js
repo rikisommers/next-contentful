@@ -9,6 +9,7 @@ import Preloader from "../components/utils/preloader";
 import "../styles/index.scss";
 import CursorDot from "../components/utils/cursor-dot";
 import CursorCta from "../components/utils/cursor-cta";
+import TransitionPage from "../components/transition/pageTransition";
 
 function MyApp({ Component, pageProps, router }) {
   const [isLoading, setIsLoading] = useState(true);
@@ -42,6 +43,9 @@ function MyApp({ Component, pageProps, router }) {
                     content={"testing123"}
                     key={router.asPath + "cta"}
                   /> */}
+
+
+
                   <Component {...pageProps} key={router.asPath} />
                 </AnimatePresence>
               </ThemeProvider>

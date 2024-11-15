@@ -174,11 +174,12 @@ export default function NavBar({ containerRef }) {
         }`,
         // boxShadow: `0 10px 15px -3px ${currentTheme.navShadow}, 0 4px 49px -4px ${currentTheme.navShadow}`,
       }}
+       //add orientation if floating  ${orientation} 
       className={`
         ${getNavigationPositionClass(currentTheme.navPosition)} 
         ${getShadowSizeClass(currentTheme.navShadowSize)}
-        
-         flex backdrop-blur-lg pointer-events-auto  z-50  ${orientation} gap-1 rounded-xl`}
+       
+         flex backdrop-blur-lg pointer-events-auto  z-50 gap-1 rounded-xl`}
     >
       {currentTheme.navFloating && (
         <div

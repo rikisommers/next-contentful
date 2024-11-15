@@ -14,6 +14,7 @@ export default function Layout({ children }) {
   // }, [currentTheme]);
 
   return (
+    <TransitionPage>
     <div
       className="relative"
       style={{
@@ -37,5 +38,6 @@ export default function Layout({ children }) {
         {children}
       </div>
     </div>
+    </TransitionPage>
   );
 }

@@ -63,14 +63,7 @@ export default function Post({ post, nextPost, footerData }) {
     setPosT(Math.round(next.getBoundingClientRect().y) - 90);
   };
 
-  return (
-
-
-    <TransitionPage>
-
-
-    
-      
+  return (      
       <Layout>
 
 
@@ -130,7 +123,6 @@ export default function Post({ post, nextPost, footerData }) {
           )}
         {/* </ScrollContainer> */}
     </Layout>
-    </TransitionPage>
 
   );
 }

@@ -21,7 +21,7 @@ const TransitionContent = ({ currentTheme, onComplete }) => (
 const Overlay = ({ currentTheme }) => (
   <motion.div
     className="fixed top-0 w-full h-full opacity-50 pointer-events-none"
-    style={{ backgroundColor:  'var(--background-color-inv)', }}
+    style={{ backgroundColor:  'var(--background-color)', }}
     initial={{ opacity: 0 }}
     animate={{ opacity: 0 }}
     exit={{ zIndex: 10, opacity: 0.5 }}

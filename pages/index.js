@@ -16,7 +16,6 @@ const Index = ({ data, footerData }) => {
 // console.log('data',data)
 
   return (
-    <TransitionPage>
 
     <ScrollContainer>    
       <Layout>
@@ -40,7 +39,6 @@ const Index = ({ data, footerData }) => {
 
       </ScrollContainer>
 
-      </TransitionPage>
 
   );
 };

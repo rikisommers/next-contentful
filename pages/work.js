@@ -16,9 +16,8 @@ const Work = ({ data, footerData }) => {
 
 
   return (
-
+<>
   
-      <TransitionPage>
         {/* <ScrollContainer> */}
         {/* <ClipPathContainer>
           </ClipPathContainer> */}
@@ -36,12 +35,15 @@ const Work = ({ data, footerData }) => {
             <PostBody content={data.csblocksCollection} />
           )}
         </div>
-        </Layout>
         {footerData && <BlockFooter data={footerData} />}
+
+        </Layout>
 {/* 
         </ScrollContainer> */}
-        </TransitionPage>
-
+          
+      {/* <TransitionPage></TransitionPage>
+  */}
+</>
            
       
   );

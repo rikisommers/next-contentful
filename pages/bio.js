@@ -17,7 +17,6 @@ const Bio = ({ data, footerData }) => {
   const footerRef = useRef(null);
 
   return (
-    <TransitionPage>
 
     <Layout>
         <div className="flex flex-col px-8">
@@ -26,7 +25,6 @@ const Bio = ({ data, footerData }) => {
           <BlockFooter content={footerData} />
         </div>
     </Layout>
-    </TransitionPage>
 
   );
 };
