@@ -9,7 +9,6 @@ import Link from "next/link";
 import { DotsSixVertical } from "@phosphor-icons/react";
 
 export default function NavBar({ containerRef }) {
-  
   const { currentTheme } = useThemeContext();
   const menuRef = useRef(null);
   const menuDragRef = useRef("menuDragRef");
@@ -23,9 +22,8 @@ export default function NavBar({ containerRef }) {
     { id: "blog", title: "Blog", url: "/blog" },
     { id: "about", title: "About", url: "/bio" },
   ];
-  
-  const [activePage, setActivePage] = useState(pages[0].id);
 
+  const [activePage, setActivePage] = useState(pages[0].id);
 
   const [edges, setEdges] = useState({
     left: false,
@@ -37,31 +35,28 @@ export default function NavBar({ containerRef }) {
 
   const hexToRgba = (hex, alpha) => {
     // Remove the h ash at the start if it's there
-    if(hex){
-    hex = hex.replace(/^#/, "");
+    if (hex) {
+      hex = hex.replace(/^#/, "");
 
-    // Parse r, g, b values
-    let r, g, b;
-    if (hex.length === 3) {
-      r = parseInt(hex[0] + hex[0], 16);
-      g = parseInt(hex[1] + hex[1], 16);
-      b = parseInt(hex[2] + hex[2], 16);
-    } else if (hex.length === 6) {
-      r = parseInt(hex.substring(0, 2), 16);
-      g = parseInt(hex.substring(2, 4), 16);
-      b = parseInt(hex.substring(4, 6), 16);
-    } else {
-      throw new Error("Invalid HEX color format");
+      // Parse r, g, b values
+      let r, g, b;
+      if (hex.length === 3) {
+        r = parseInt(hex[0] + hex[0], 16);
+        g = parseInt(hex[1] + hex[1], 16);
+        b = parseInt(hex[2] + hex[2], 16);
+      } else if (hex.length === 6) {
+        r = parseInt(hex.substring(0, 2), 16);
+        g = parseInt(hex.substring(2, 4), 16);
+        b = parseInt(hex.substring(4, 6), 16);
+      } else {
+        throw new Error("Invalid HEX color format");
+      }
+
+      return `rgba(${r}, ${g}, ${b}, ${alpha})`;
     }
-
-    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-  }
-  return
+    return;
   };
 
- 
-
-  
   const getNavigationStyle = (navigationStyle) => {
     switch (navigationStyle) {
       case "solid":
@@ -69,7 +64,7 @@ export default function NavBar({ containerRef }) {
       case "transparent":
         return currentTheme.navBg;
       default:
-        return "solid"
+        return "solid";
     }
   };
 
@@ -82,27 +77,25 @@ export default function NavBar({ containerRef }) {
       case "topRight":
         return "col-start-3 col-span-1 row-span-1 row-start-1";
       case "bottomCenter":
-        return "col-start-2 col-span-1 row-span-1 row-start-3";
+        return "fixed bottom-6 mx-auto";
       default:
         return ""; // Return an empty string if no match
     }
   };
 
-
-// export const navigationOptions = {
-//     floating: true,
-//     shadow: true,
-//     shadowColor: {
-//       default: 'default',
-//       accent: 'accent',
-//     },
-//     shadowSize:{
-//       sm:'sm',
-//       md:'md',
-//       lg:'lg',
-//     }
-//   }
-
+  // export const navigationOptions = {
+  //     floating: true,
+  //     shadow: true,
+  //     shadowColor: {
+  //       default: 'default',
+  //       accent: 'accent',
+  //     },
+  //     shadowSize:{
+  //       sm:'sm',
+  //       md:'md',
+  //       lg:'lg',
+  //     }
+  //   }
 
   const getShadowColorClass = (color) => {
     switch (color) {
@@ -128,6 +121,16 @@ export default function NavBar({ containerRef }) {
     }
   };
 
+  const getBgClass = (style) => {
+    switch (style) {
+      case "solid":
+        return "shadow-sm";
+      case "tranparent":
+        return "shadow-lg";
+      default:
+        return ""; // Return an empty string if no match
+    }
+  };
 
   // useEffect(() => {
   //   if (menuRef.current && menuDragRef.current) {
@@ -141,22 +144,22 @@ export default function NavBar({ containerRef }) {
   // }, [menuRef, menuDragRef]); // Include both refs in the dependency array to handle re-renders correctly
 
   useEffect(() => {
-    if (menuRef.current && menuDragRef.current) {
+    if (menuRef.current && menuDragRef.current && currentTheme.navFloating) {
+      const navRect = menuRef.current.getBoundingClientRect();
+      const navSize = navRect.width;
+      const threshold = navSize / 2; // Use half of the nav width as threshold
 
-        const navRect = menuRef.current.getBoundingClientRect();
-        const navSize = navRect.width;
-        const threshold = navSize / 2; // Use half of the nav width as threshold
-
-        // Update orientation based on drag position
-        setOrientation(
-          navRect.left <= threshold || navRect.right >= window.innerWidth - threshold
-            ? "flex-col"
-            : ""
-        );
-
+      // Update orientation based on drag position
+      setOrientation(
+        navRect.left <= threshold ||
+          navRect.right >= window.innerWidth - threshold
+          ? "flex-col"
+          : ""
+      );
     }
   }, [menuRef, menuDragRef]);
-  
+  //  ${getShadowSizeClass(currentTheme.navShadowSize)}
+  // boxShadow: `0 10px 15px -3px ${currentTheme.navShadow}, 0 4px 49px -4px ${currentTheme.navShadow}`,
 
   return (
     <motion.div
@@ -166,15 +169,25 @@ export default function NavBar({ containerRef }) {
       dragConstraints={containerRef}
       dragSnapToOrigin={false}
       style={{
-        backgroundColor: 'var(--nav-bg)',
-       // boxShadow: `0 10px 15px -3px ${currentTheme.navShadow}, 0 4px 49px -4px ${currentTheme.navShadow}`,
+        backgroundColor: `${
+          currentTheme.navStyle === "solid" ? currentTheme.navBg : "transparent"
+        }`,
+        // boxShadow: `0 10px 15px -3px ${currentTheme.navShadow}, 0 4px 49px -4px ${currentTheme.navShadow}`,
       }}
       className={`
-        ${getShadowSizeClass(currentTheme.navShadowSize)}
         ${getNavigationPositionClass(currentTheme.navPosition)} 
-         backdrop-blur-lg pointer-events-auto  z-50 flex ${orientation} gap-1 rounded-xl`}
+        ${getShadowSizeClass(currentTheme.navShadowSize)}
+        
+         flex backdrop-blur-lg pointer-events-auto  z-50  ${orientation} gap-1 rounded-xl`}
     >
-      <div ref={menuDragRef} className="flex items-center px-2 text-lg text-white"><DotsSixVertical/></div>
+      {currentTheme.navFloating && (
+        <div
+          ref={menuDragRef}
+          className="flex items-center px-2 text-lg text-white"
+        >
+          <DotsSixVertical />
+        </div>
+      )}
       {/* <p>{currentTheme.navigationOptions?.floating === true ? 'true' : 'false'}</p>
       <p>{currentTheme.navigationOptions?.shadow === true ? 'true' : 'false'}</p> */}
 
@@ -184,14 +197,20 @@ export default function NavBar({ containerRef }) {
           href={page.url}
           scroll={false}
           onClick={() => setActivePage(page.id)}
-          className="relative flex items-center text-sm uppercase rounded-lg"
-          style={{ color: "var(--heading-color)" }}
+          className="relative flex items-center text-sm no-underline uppercase rounded-lg"
+          style={{ color: activePage === page.id ? "var(--text-color)" : "var(--text-accent)" }}
         >
           {activePage === page.id && (
             <motion.div
               layoutId="indicator"
               style={{
-                backgroundColor: "var(--accent-pri)",
+                backgroundColor: `${
+                  currentTheme.navStyle === "solid"
+                    ? currentTheme.accentPri
+                    : "transparent"
+                }`,
+
+                // boxShadow: `0 10px 15px -3px ${currentTheme.navShadow}, 0 4px 49px -4px ${currentTheme.navShadow}`,
               }}
               className="absolute top-0 left-0 flex w-full h-full bg-opacity-50 rounded-xl"
             ></motion.div>

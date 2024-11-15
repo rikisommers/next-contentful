@@ -52,6 +52,7 @@ export default function TextAnimationUp({ content, style , direction, size, colo
       //style={textStyle}
 
     >
+      dd
       {content &&
         content.split(" ").map(function (word, index) {
           return (

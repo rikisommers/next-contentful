@@ -9,7 +9,7 @@ import {
   cardThemes,
   cardHoverThemes,
   heroBackgroundThemes,
-  heroStyleThemes,
+  heroHeightThemes,
   heroTextImageThemes,
   heroTextCompositionThemes,
   heroTextPositionThemes,
@@ -481,6 +481,7 @@ export default function ThemeEditor() {
 
     }),
     'Navigation': folder({
+
       navigationPosition: { 
         options: Object.keys(navigationPositionThemes), 
         value: currentTheme.navPosition, 
@@ -494,25 +495,39 @@ export default function ThemeEditor() {
         onChange: (value) => applyCurrentTheme2('navStyle',  value) 
       },
       floating: { 
-        value: currentTheme.navigationOptions?.floating, 
+        value: currentTheme.navFloating, 
         label: 'floating',
         onChange: (value) => applyCurrentTheme2('navFloating',  value) 
+      },
+      fixed: { 
+        value: currentTheme.navFixed, 
+        label: 'fixed',
+        onChange: (value) => applyCurrentTheme2('navFixed',  value) 
+      },
+      // logoFill: { 
+      //   value: currentTheme.logoFill,
+      //   label: 'logo fill',
+      //   onChange: (value) => applyCurrentTheme2('logoFill',  value ) 
+      // },
+      border: { 
+        value: currentTheme.navBorder,
+        label: 'border',
+        onChange: (value) => applyCurrentTheme2('navBorder',  value ) 
       },
       shadow: { 
         value: currentTheme.navShadow,
         label: 'shadow',
-        onChange: (value) => applyCurrentTheme2('navShadow', value ) 
+        onChange: (value) => applyCurrentTheme2('navShadow',  value ) 
       },
       shadowColor: { 
-        options: Object.keys(navigationOptions?.shadowColor), 
         value: currentTheme.navShadowColor,
-        label: 'color',
+        label: 'shadow color',
         onChange: (value) => applyCurrentTheme2('navShadowColor', value ) 
       },
       shadowSize: { 
         options: Object.keys(navigationOptions?.shadowSize), 
         value: currentTheme.navShadowSize,
-        label: 'size',
+        label: 'sahdow size',
         onChange: (value) => applyCurrentTheme2('navShadowSize', value ) 
       },
     }),
@@ -524,12 +539,12 @@ export default function ThemeEditor() {
       },
     }),
     'Hero': folder({
-      heroLayout: { 
-        options: Object.keys(heroStyleThemes), 
-        value: currentTheme.heroStyle, 
-        label: 'Layout',
-        onChange: (value) => applyCurrentTheme2('heroStyle', value) 
-      },
+        height: { 
+          options: Object.keys(heroHeightThemes), 
+          value: currentTheme.heroHeight, 
+          label: 'Height',
+          onChange: (value) => applyCurrentTheme2('heroHeight', value) 
+        },
         heroBackgroundStyle: { 
           options: Object.keys(heroBackgroundThemes), 
           value: currentTheme.heroBackgroundStyle, 

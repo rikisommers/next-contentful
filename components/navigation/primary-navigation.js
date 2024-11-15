@@ -25,7 +25,7 @@ export default function Navigation() {
   const [isThemeEditorOpen, setIsThemeEditorOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { isThemeDialogOpen, setIsThemeDialogOpen } = useThemeContext();
-
+const { currentTheme } = useThemeContext();
 
   const [edges, setEdges] = useState({
     left: false,
@@ -40,16 +40,16 @@ export default function Navigation() {
     setIsThemeDialogOpen((prev) => !prev);
   };
 
-
- 
-
   return (
     <>
       <div
         ref={containerRef}
-        className="fixed pointer-events-none left-0 top-0 w-screen h-screen z-50 p-3 grid grid-rows-[48px_1fr_48px_48px] grid-cols-[1fr_1fr_1fr] "
+        className={`${currentTheme.navFixed ? 'fixed' : 'absolute'} ${currentTheme.navBorder ? 'border-solid border-b-[1px] border-t-0 border-l-0 border-r-0' : 'border-none'} bg-opacity-25 top-0 left-0 z-50  w-screen p-3 pointer-events-none grid grid-cols-3 `}
+        style={{
+        //  backgroundColor: currentTheme.navBorder ? 'var(--body-background-color)' : 'transparent',
+          borderColor:'var(--nav-shadow-color)'
+        }}
       >
-
         <div className="flex col-span-1 col-start-1 row-span-1 row-start-1">
           {/* <motion.div
             style={{
@@ -79,10 +79,9 @@ export default function Navigation() {
             </span>
           </motion.div> */}
 
-
           <motion.div
             style={{
-              backgroundColor: "var(--accent",
+              backgroundColor: currentTheme.logoFill ? "var(--accent)" : "transparent" ,
               color:
                 router.asPath === "/"
                   ? "var(--text-color)"
@@ -91,26 +90,20 @@ export default function Navigation() {
             className={`relative z-50 flex items-center rounded-xl`}
           >
             <div
-              className={`scene bg-opacity-80 backdrop-blur-sm`}
-              // style={{ backgroundColor: "var(--accent-pri)" }}
+              className={`w-[32px] h-[32px] flex items-center justify-center`}
             >
-              <div
-                style={{
-                  backgroundColor: isActive
-                    ? "var(--accent)"
-                    : "var(--text-accent)",
-                }}
-                className={`cube ${isActive ? "show-right" : ""}`}
-              >
-               
-                  <img src="/shapes/star.svg" viewBox="0 0 32 32" className="h-full"></img>
-                
-            </div>
+   
+                <img
+                  src="/shapes/star.svg"
+                  viewBox="0 0 32 32"
+                  className="h-full"
+                ></img>
+        
             </div>
 
             <motion.span
-              className="self-center p-3 text-sm font-aon"
-              style={{ color: "var(--text-heading)" }}
+              className="self-center p-3 font-medium"
+              style={{ color: "var(--text-color)" }}
               layoutId="title"
               initial={{
                 opacity: 0,
@@ -127,32 +120,25 @@ export default function Navigation() {
                 easing: cubicBezier(0.35, 0.17, 0.3, 0.86),
               }}
             >
-            
               Riki Sommers
             </motion.span>
           </motion.div>
-              
-</div>
-   
-            
-        <motion.div className="fixed z-50 flex items-center gap-1 rounded-lg top-3 right-3">
+        </div>
 
 
+                
+        <NavBar containerRef={containerRef} />
+
+
+        <motion.div className="z-50 flex items-center gap-1 rounded-lg top-3 right-3">
           <ButtonAlt
             click={toggleThemeEditor}
             type={ButtonType.PRIMARY}
             label={"Theme"}
           />
         </motion.div>
-
-        <NavBar containerRef={containerRef}/>
-
-
+        
       </div>
-
-
-  
-      
 
       {/* Modal for "Available for work" */}
       <Modal

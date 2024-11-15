@@ -117,7 +117,7 @@ const CursorDot = () => {
     <motion.div
       ref={hostRef}
       className={cursorClasses()}
-      style={{
+      animate={{
           zIndex: 9999,
          left: `${mousePosition.x}px`,
          top: `${mousePosition.y}px`,
@@ -127,7 +127,7 @@ const CursorDot = () => {
      }}
       transition={{
         easing: cubicBezier(0.35, 0.17, 0.3, 0.86),
-        duration: 1.2,
+        duration: 0.3,
       }}
     >
       <motion.div className="circle"></motion.div>

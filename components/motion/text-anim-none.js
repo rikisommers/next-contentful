@@ -21,8 +21,8 @@ export const TextAnimNone = ({
         style={{ 
           overflow: 'hidden',
           position: 'relative',
-          marginBottom: '0.25em'
         }}
+        className="block leading-snug"
       >
         <div
           style={{ 

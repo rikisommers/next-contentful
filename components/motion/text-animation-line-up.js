@@ -1,79 +1,125 @@
-import { motion } from "framer-motion";
-import RichTextAsset from "../rich-text/rich-text-asset"
-import { RichTextOptions } from "../rich-text/rich-text";
+"use client";
 
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import React, { useRef } from "react";
+import { motion, useInView } from "framer-motion";
+import { HighlightedSegment } from "./text-anim-highlighted-segment";
 
-export default function TextAnimationLineUp({
+export const TextAnimLineUp = ({
+  delay = 0,
   content,
-  style,
-  direction,
-  size,
-  color,
-  type,
-}) {
-  const container = {
-    hidden: { opacity: 0.5 },
-    show: {
-      opacity: 1,
+  highlight,
+  animateWhenInView = false,
+  repeatWhenInView = false,
+  type = "text",
+}) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, {
+    once: !repeatWhenInView,
+    amount: 0.2,
+  });
+
+  const containerVariants = {
+    hidden: {},
+    visible: {
       transition: {
-        delay: 0, // Add a delay to the start of the animation
-        staggerChildren: 0.123,
-        duration: 0.6,
+        staggerChildren: 0.2,
+        delayChildren: delay,
       },
     },
   };
 
-  const fadeup = {
-    hidden: {
-      opacity: 0,
-      rotateX: 0,
-      y: "30px",
-    },
-    show: {
+  const lineVariants = {
+    hidden: { y: "100%" },
+    visible: {
       y: 0,
-      opacity: 1,
-      rotateX: 0,
-      rotateY: 0,
       transition: {
-        // delay: 0.5, // Add a delay to the start of the animation
         ease: [0.33, 1, 0.68, 1],
-        duration: 0.2,
+        duration: 1.2,
       },
     },
   };
 
-  const textStyle = {
-    color: color || "black", // Default to black if color prop is not provided
-    ...style, // Include other styles passed via the style prop
+  const renderLine = (line, lineIndex) => {
+    const segments = line.split("__");
+
+    return (
+      <div
+        key={lineIndex}
+        style={{ 
+          overflow: 'hidden',
+          position: 'relative',
+        }}
+        className="block leading-snug"
+      >
+        <motion.div
+          variants={lineVariants}
+          style={{
+            fontFamily: "var(--font-family-primary)",
+            position: "relative",
+            display: "inline-block",
+          }}
+        >
+          {segments.map((segment, segmentIndex) => {
+            const imageMatch = segment.match(/!\[([^\]]*)\]\((.*?)\)/);
+            if (imageMatch) {
+              const [_, altText, url] = imageMatch;
+              const imageUrl = url.startsWith("//") ? `https:${url}` : url;
+              return (
+                <img
+                  key={segmentIndex}
+                  src={imageUrl}
+                  alt={altText}
+                  className="absolute w-[40px] h-0"
+                  style={{
+                    maxWidth: "40px",
+                    height: "auto",
+                    display: "inline-block",
+                  }}
+                />
+              );
+            }
+
+            if (segmentIndex % 2 === 0) {
+              return <span key={segmentIndex}>{segment}</span>;
+            } else {
+              return (
+                <HighlightedSegment
+                  key={segmentIndex}
+                  segment={segment}
+                  highlight={highlight}
+                />
+              );
+            }
+          })}
+        </motion.div>
+      </div>
+    );
+  };
+
+  const renderContent = (text) => {
+    if (text) {
+      const lines = text.split("\n");
+      return lines.map((line, lineIndex) => renderLine(line, lineIndex));
+    }
   };
 
   return (
-    <motion.h1
-      className="text-anim"
-      key="text-wrapper"
-      variants={container}
+    <motion.div
+      ref={ref}
+      variants={containerVariants}
       initial="hidden"
-      animate="show"
-      transition={{ delay: 2 }} // Add a delay to the start of the animation
-
-      //style={textStyle}
+      animate={
+        animateWhenInView ? (isInView ? "visible" : "hidden") : "visible"
+      }
     >
-
-
-      {content &&
-        content.split("\n").map(function (line, index) {
-          return (
-            <motion.span
-              variants={fadeup}
-              className={`text-anim-word overflow-hidden ${color}`}
-              key={index}
-            >
-              KK
-              {line}
-            </motion.span>
-          );
-        })}
-    </motion.h1>
+      <span
+        style={{
+          color: "var(--heading-color)",
+          display: "inline-block",
+        }}
+      >
+        {renderContent(content)}
+      </span>
+    </motion.div>
   );
-}
+};

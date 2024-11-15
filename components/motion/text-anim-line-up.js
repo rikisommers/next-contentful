@@ -45,10 +45,11 @@ export const TextAnimLineUp = ({
     return (
       <div
         key={lineIndex}
-        style={{
-          overflow: "hidden",
-          position: "relative",
+        style={{ 
+          overflow: 'hidden',
+          position: 'relative',
         }}
+        className="block leading-snug"
       >
         <motion.div
           variants={lineVariants}

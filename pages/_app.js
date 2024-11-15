@@ -32,15 +32,16 @@ function MyApp({ Component, pageProps, router }) {
           <ScrollPositionProvider>
             <MousePosProvider>
               <ThemeProvider>
-                <Navigation />
 
                 <AnimatePresence mode="wait" initial={false}>
+                <Navigation />
+
                   {/* {currentTheme.cursor === 'dot' && <></> } */}
-                  <CursorDot key={router.asPath + "dot"} />
+                  {/* <CursorDot key={router.asPath + "dot"} />
                   <CursorCta
                     content={"testing123"}
                     key={router.asPath + "cta"}
-                  />
+                  /> */}
                   <Component {...pageProps} key={router.asPath} />
                 </AnimatePresence>
               </ThemeProvider>

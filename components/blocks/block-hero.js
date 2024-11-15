@@ -15,6 +15,8 @@ import Button, { ButtonType } from "../base/button";
 
 const getPositionClass = (position) => {
   switch (position) {
+    case "left":
+      return "col-start-2 col-span-8 row-span-3 row-start-3"
     case "center":
       return "text-center col-start-3 col-span-8 row-span-1 row-start-4";
     case "topLeft":
@@ -29,6 +31,20 @@ const getPositionClass = (position) => {
       return ""; // Return an empty string if no match
   }
 };
+
+const getHeightClass = (height) => {
+  switch (height) {
+    case "full":
+      return "h-screen";
+    case "half":
+      return "min-h-[50vh]";
+    case "auto":
+      return "min-h-fit";
+    default:
+      return "h-screen";
+  }
+};
+
 
 const BackgroundElements = () => {
   return (
@@ -62,9 +78,14 @@ const BackgroundElements = () => {
   );
 };
 
+
+
 const FullPage = () => {
-  <ClipContainer>
-    <div className="relative left-0 top-0 w-screen h-screen z-50 p-3 grid grid-rows-[48px_48px_1fr_1fr_1fr_48px_48px] grid-cols-12">
+
+<ClipContainer>
+
+{/*grid  grid-rows-[48px_48px_1fr_1fr_1fr_48px_48px] grid-cols-12 */}
+    <div className="relative top-0 left-0 z-50 w-screen h-screen p-3 ">
       <div
         className="absolute top-0 flex items-center justify-end w-full h-full pointer-events-none z-1"
         // initial={{ clipPath: "inset(1.0rem 1.0rem 1.0rem round 0.5rem)" }}
@@ -93,7 +114,11 @@ const FullPage = () => {
           />
         )} */}
 
-      <motion.div className={position}>
+<PostIntro title={titlealt} content={contentalt}/>
+
+
+
+      {/* <motion.div className={` ${getPositionClass(currentTheme.heroTextPosition)}`}>
         <h1
           className="text-4xl"
           style={{ fontFamily: "var(--font-family-primary)" }}
@@ -104,7 +129,7 @@ const FullPage = () => {
             content={titlealt}
             delay={AnimTextOrder.ONE}
           />
-          {/* <TextScramble content={['Plan,Design & buid','wear many hats','like fart jokes']}/> */}
+           <TextScramble content={['Plan,Design & buid','wear many hats','like fart jokes']}/> 
         </h1>
         <h2
           className="text-base"
@@ -118,10 +143,10 @@ const FullPage = () => {
             delay={AnimTextOrder.THREE}
           />
         </h2>
-        <Button label={"Click me"} type={ButtonType.DEFAULT}></Button>
-      </motion.div>
+        <Button label={"Click me"} type={ButtonType.PRIMARY}></Button>
+      </motion.div> */}
 
-      {date && (
+      {/* {date && (
         <div className="z-50 flex justify-between col-span-12 col-start-1 row-span-1 row-start-7 py-6 bottom-1">
           <div className="flex gap-1 p-2 text-xs ">
             <span className="uppercase">Location:</span>
@@ -141,12 +166,12 @@ const FullPage = () => {
             <span>{date}</span>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   </ClipContainer>;
 };
 
-export default function BlockHero({ intro, titlealt, date, contentalt }) {
+export default function BlockHero({ intro, titlealt, date, contentalt, image }) {
   const { currentTheme } = useThemeContext();
   const [position, setPosition] = useState(null); // Default value
 
@@ -158,38 +183,20 @@ export default function BlockHero({ intro, titlealt, date, contentalt }) {
     setPosition(position); // Set to the desired integer value
   }, []);
 
+
+
+
   return (
-    // <div className="relative flex flex-col justify-center min-h-screen py-16 gap-[3rem]">
-
-
-    //   <PostIntro title={titlealt} content={contentalt} />
-
-    //   <AnimatedElement type={AnimStyleEl.FADEIN} delay={AnimElOrder.THREE}>
-    //     <div
-    //       className="flex items-center justify-end w-full overflow-hidden pointer-events-none h-vh33 rounded-xl z-1"
-    //       // initial={{ clipPath: "inset(1.0rem 1.0rem 1.0rem round 0.5rem)" }}
-    //       // animate={{
-    //       //   backgroundColor: "var(--background-color)",
-    //       //   clipPath: "inset( 1rem round 1rem )",
-    //       // }}
-    //       // exit={{ clipPath: "inset( 1.5rem 1.5rem 1.5rem 1.5rem round 1rem )" }}
-    //       // transition={{
-    //       //   duration: 0.6,
-    //       //   ease: [0.33, 1, 0.68, 1],
-    //       // }}
-    //     >
-    //       {currentTheme.heroBackgroundStyle === "gradient" && (
-    //         <CanvasGradientBackground />
-    //       )}
-
-    //       {currentTheme.heroBackgroundStyle === "video" && <Background />}
-    //     </div>
-    //   </AnimatedElement>
-    // </div>
+  // TODO make clip path optional  
+  //grid grid-rows-[48px_48px_1fr_1fr_1fr_48px_48px] grid-cols-12
     <ClipContainer>
-    <div className="relative left-0 top-0 w-screen h-screen z-50 p-3 grid grid-rows-[48px_48px_1fr_1fr_1fr_48px_48px] grid-cols-12">
+    <div className={`${getHeightClass(currentTheme.heroHeight)} relative flex flex-col justify-end left-0 top-0 z-50  w-full  gap-8 px-16 py-16 `}>
+      
+
+
+
       <div
-        className="absolute top-0 flex items-center justify-end w-full h-full pointer-events-none z-1"
+        className="absolute top-0 left-0 flex items-center justify-end w-full h-full pointer-events-none z-1"
         // initial={{ clipPath: "inset(1.0rem 1.0rem 1.0rem round 0.5rem)" }}
         // animate={{
         //   backgroundColor: "var(--background-color)",
@@ -208,15 +215,20 @@ export default function BlockHero({ intro, titlealt, date, contentalt }) {
         {currentTheme.heroBackgroundStyle === "video" && <Background />}
       </div>
 
-      {/* {currentTheme.heroBackgroundStyle === "image" && (
+      {(currentTheme.heroBackgroundStyle === "image" && image) &&(
+
           <BlendImage
-            className="img-cover"
+            className="absolute w-full h-full img-cover"
             alt={`Cover Image for ${image?.title}`}
             src={image.url}
           />
-        )} */}
+        )}
 
-      <motion.div className={position}>
+
+
+
+      {/* TODO: Replace with padding, this is only usefull if full height */}
+      {/* <motion.div className={`${getPositionClass(currentTheme.heroTextPosition)}`}>
         <h1
           style={{ fontFamily: "var(--font-family-primary)" }}
         >
@@ -226,7 +238,6 @@ export default function BlockHero({ intro, titlealt, date, contentalt }) {
             content={titlealt}
             delay={AnimTextOrder.ONE}
           />
-          {/* <TextScramble content={['Plan,Design & buid','wear many hats','like fart jokes']}/> */}
         </h1>
         <h2
           className="text-base"
@@ -242,8 +253,10 @@ export default function BlockHero({ intro, titlealt, date, contentalt }) {
         </h2>
         <Button label={"Click me"} type={ButtonType.DEFAULT}></Button>
       </motion.div>
+      <TextScramble content={['Plan,Design & buid','wear many hats','like fart jokes']}/> */}
 
-      {date && (
+
+      {/* {date && (
         <div className="z-50 flex justify-between col-span-12 col-start-1 row-span-1 row-start-7 py-6 bottom-1">
           <div className="flex gap-1 p-2 text-xs ">
             <span className="uppercase">Location:</span>
@@ -263,8 +276,13 @@ export default function BlockHero({ intro, titlealt, date, contentalt }) {
             <span>{date}</span>
           </div>
         </div>
-      )}
+      )} */}
+          <PostIntro title={titlealt} content={contentalt}/>
+
     </div>
+
+
+s
   </ClipContainer>
   );
 }

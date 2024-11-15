@@ -15,7 +15,7 @@ export default function PostTileRe({ post, index, size }) {
       ref={ref}
       href={`/projects/${post.slug}`}
       style={{
-        backgroundColor: "var(--background-color-inv)",
+        backgroundColor: "var(--background-color)",
       }}
       className="relative flex flex-col w-full h-full overflow-hidden no-underline rounded-2xl group"
       // onMouseEnter={() => setIsHovered(true)} // Set hover state to true on mouse enter

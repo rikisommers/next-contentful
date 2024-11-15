@@ -45,7 +45,7 @@ export const ClipContainer = ({ children }) => {
         clipPath: clipPathValue,
         backgroundColor: 'var(--body-background-color)',
        }}
-      className={`relative min-w-screen min-h-screen overflow-hidden`}
+      className={`relative min-w-screen overflow-hidden`}
     >
 
         

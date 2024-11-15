@@ -1195,14 +1195,25 @@ export const audioThemes = {
 export const navigationStyleThemes = {
   solid: 'solid',
   transparent: 'transparent',
-  text: 'text',
-  icons: 'icons',
-
 };
 
+export const navigationTextStyleThemes = {
+  text: 'text',
+  icons: 'icons',
+};
+
+export const logoBackground = {
+  solid: 'solid',
+  transparent: 'transparent',
+};
+
+
 export const navigationOptions = {
+  logoFill:true,
   floating: true,
+  fixed: true,
   shadow: true,
+  bordered: false,
   shadowColor: {
     default: 'default',
     accent: 'accent',
@@ -1226,9 +1237,10 @@ export const footerOptions = {
 };
 
 
-export const heroStyleThemes = {
+export const heroHeightThemes = {
   full: 'full',
   half: 'half',
+  auto: 'auto',
 };
 
 
@@ -1306,7 +1318,7 @@ const themeContent = {
   cardGrid:gridThemes.bento1,
   imageparallax:imageThemes.parallax,
   imageMixBlendMode:imageThemes.mixBlendMode,
-  heroStyle:heroStyleThemes.half,
+  heroHeight:heroHeightThemes.full,
   heroBackground:heroBackgroundThemes.gradient,
   heroTextImage:heroTextImageThemes.none,
   heroTextPosition:heroTextPositionThemes.center,
@@ -1315,10 +1327,15 @@ const themeContent = {
   heroTextImage:heroTextImageThemes.none,
   navPosition:navigationPositionThemes.topCenter,
   navStyle:navigationStyleThemes.solid,
+  navTextStyle:navigationTextStyleThemes.text,
   navFloating: navigationOptions.floating,
+  navFixed: navigationOptions.fixed,
+  navBorder: navigationOptions.bordered,
   navShadow: navigationOptions.shadow,
-  navShadowColor:navigationOptions.shadowColor.none,
+  navShadowColor: navigationOptions.shadowColor,
   navShadowSize:navigationOptions.shadowSize.sm,
+  logoBackground:logoBackground.solid,
+
   footerOptions:{
     fixed: footerOptions.fixed,
   },
@@ -1367,312 +1384,260 @@ export const themes = {
     key: 'light',
     ...colorThemes.light,
     ...themeContent,
-    navShadow: colorThemes.light.gradStart,
   },
   dark: {
     key: 'dark',
     ...colorThemes.dark,
     ...themeContent,
-    navShadow: colorThemes.dark.gradStart,
   },
   tokyo: {
     key: 'tokyo',
     ...colorThemes.tokyo,
     ...themeContent,
-    navShadow: colorThemes.tokyo.gradStart,
   },
   custom: {
     key: 'custom',
     ...colorThemes.custom,
     ...themeContent,
-    navShadow: colorThemes.custom.gradStart,
   },
   amberMonochrome: {
     key: 'amberMonochrome',
     ...colorThemes.amberMonochrome,
     ...themeContent,
-    navShadow: colorThemes.amberMonochrome.gradStart,
   },
   greenPhosphor: {
     key: 'greenPhosphor',
     ...colorThemes.greenPhosphor,
     ...themeContent,
-    navShadow: colorThemes.greenPhosphor.gradStart,
   },
   ibmPcXt: {
     key: 'ibmPcXt',
     ...colorThemes.ibmPcXt,
     ...themeContent,
-    navShadow: colorThemes.ibmPcXt.gradStart,
   },
   commodore64: {
     key: 'commodore64',
     ...colorThemes.commodore64,
     ...themeContent,
-    navShadow: colorThemes.commodore64.gradStart,
   },
   appleII: {
     key: 'appleII',
     ...colorThemes.appleII,
     ...themeContent,
-    navShadow: colorThemes.appleII.gradStart,
   },
   zxSpectrum: {
     key: 'zxSpectrum',
     ...colorThemes.zxSpectrum,
     ...themeContent,
-    navShadow: colorThemes.zxSpectrum.gradStart,
   },
   atari8bit: {
     key: 'atari8bit',
     ...colorThemes.atari8bit,
     ...themeContent,
-    navShadow: colorThemes.atari8bit.gradStart,
   },
   msdos: {
     key: 'msdos',
     ...colorThemes.msdos,
     ...themeContent,
-    navShadow: colorThemes.msdos.gradStart,
   },
   amigaWorkbench: {
     key: 'amigaWorkbench',
     ...colorThemes.amigaWorkbench,
     ...themeContent,
-    navShadow: colorThemes.amigaWorkbench.gradStart,
   },
   nes: {
     key: 'nes',
     ...colorThemes.nes,
     ...themeContent,
-    navShadow: colorThemes.nes.gradStart,
   },
   gameboy: {
     key: 'gameboy',
     ...colorThemes.gameboy,
     ...themeContent,
-    navShadow: colorThemes.gameboy.gradStart,
   },
   sega: {
     key: 'sega',
     ...colorThemes.sega,
     ...themeContent,
-    navShadow: colorThemes.sega.gradStart,
   },
   mustang69: {
     key: 'mustang69',
     ...colorThemes.mustang69,
     ...themeContent,
-    navShadow: colorThemes.mustang69.gradStart,
   },
   camaro69: {
     key: 'camaro69',
     ...colorThemes.camaro69,
     ...themeContent,
-    navShadow: colorThemes.camaro69.gradStart,
   },
   corvette72: {
     key: 'corvette72',
     ...colorThemes.corvette72,
     ...themeContent,
-    navShadow: colorThemes.corvette72.gradStart,
   },
   beetle68: {
     key: 'beetle68',
     ...colorThemes.beetle68,
     ...themeContent,
-    navShadow: colorThemes.beetle68.gradStart,
   },
   audi80: {
     key: 'audi80',
     ...colorThemes.audi80,
     ...themeContent,
-    navShadow: colorThemes.audi80.gradStart,
   },
   porsche911: {
     key: 'porsche911',
     ...colorThemes.porsche911,
     ...themeContent,
-    navShadow: colorThemes.porsche911.gradStart,
   },
   spiritedAway: {
     key: 'spiritedAway',
     ...colorThemes.spiritedAway,
     ...themeContent,
-    navShadow: colorThemes.spiritedAway.gradStart,
   },
   myNeighborTotoro: {
     key: 'myNeighborTotoro',
     ...colorThemes.myNeighborTotoro,
     ...themeContent,
-    navShadow: colorThemes.myNeighborTotoro.gradStart,
   },
   howlsMovingCastle: {
     key: 'howlsMovingCastle',
     ...colorThemes.howlsMovingCastle,
     ...themeContent,
-    navShadow: colorThemes.howlsMovingCastle.gradStart,
   },
   sakuraBreeze: {
     key: 'sakuraBreeze',
     ...colorThemes.sakuraBreeze,
     ...themeContent,
-    navShadow: colorThemes.sakuraBreeze.gradStart,
   },
   zenGarden: {
     key: 'zenGarden',
     ...colorThemes.zenGarden,
     ...themeContent,
-    navShadow: colorThemes.zenGarden.gradStart,
   },
   pastelAnime: {
     key: 'pastelAnime',
     ...colorThemes.pastelAnime,
     ...themeContent,
-    navShadow: colorThemes.pastelAnime.gradStart,
   },
   deathNote: {
     key: 'deathNote',
     ...colorThemes.deathNote,
     ...themeContent,
-    navShadow: colorThemes.deathNote.gradStart,
   },
   attackOnTitan: {
     key: 'attackOnTitan',
     ...colorThemes.attackOnTitan,
     ...themeContent,
-    navShadow: colorThemes.attackOnTitan.gradStart,
   },
   tokyoGhoul: {
     key: 'tokyoGhoul',
     ...colorThemes.tokyoGhoul,
     ...themeContent,
-    navShadow: colorThemes.tokyoGhoul.gradStart,
   },
   akc12: {
     key: 'akc12',
     ...colorThemes.akc12,
     ...themeContent,
-    navShadow: colorThemes.akc12.gradStart,
   },
   taikonColor24: {
     key: 'taikonColor24',
     ...colorThemes.taikonColor24,
     ...themeContent,
-    navShadow: colorThemes.taikonColor24.gradStart,
   },
   eightVision: {
     key: 'eightVision',
     ...colorThemes.eightVision,
     ...themeContent,
-    navShadow: colorThemes.eightVision.gradStart,
   },
   cgaPalette0Low: {
     key: 'cgaPalette0Low',
     ...colorThemes.cgaPalette0Low,
     ...themeContent,
-    navShadow: colorThemes.cgaPalette0Low.gradStart,
   },
   metallicChic: {
     key: 'metallicChic',
     ...colorThemes.metallicChic,
     ...themeContent,
-    navShadow: colorThemes.metallicChic.gradStart,
   },
   deepVintageMood: {
     key: 'deepVintageMood',
     ...colorThemes.deepVintageMood,
     ...themeContent,
-    navShadow: colorThemes.deepVintageMood.gradStart,
   },
   coolAndCollected: {
     key: 'coolAndCollected',
     ...colorThemes.coolAndCollected,
     ...themeContent,
-    navShadow: colorThemes.coolAndCollected.gradStart,
   },
   earthyAndSerene: {
     key: 'earthyAndSerene',
     ...colorThemes.earthyAndSerene,
     ...themeContent,
-    navShadow: colorThemes.earthyAndSerene.gradStart,
   },
   textureAndContrast: {
     key: 'textureAndContrast',
     ...colorThemes.textureAndContrast,
     ...themeContent,
-    navShadow: colorThemes.textureAndContrast.gradStart,
   },
   mechanicalAndFloaty: {
     key: 'mechanicalAndFloaty',
     ...colorThemes.mechanicalAndFloaty,
     ...themeContent,
-    navShadow: colorThemes.mechanicalAndFloaty.gradStart,
   },
   pixelIntensity: {
     key: 'pixelIntensity',
     ...colorThemes.pixelIntensity,
     ...themeContent,
-    navShadow: colorThemes.pixelIntensity.gradStart,
   },
   gradientPop: {
     key: 'gradientPop',
     ...colorThemes.gradientPop,
     ...themeContent,
-    navShadow: colorThemes.gradientPop.gradStart,
   },
   cosmicArtistry: {
     key: 'cosmicArtistry',
     ...colorThemes.cosmicArtistry,
     ...themeContent,
-    navShadow: colorThemes.cosmicArtistry.gradStart,
   },
   vibrantButCalm: {
     key: 'vibrantButCalm',
     ...colorThemes.vibrantButCalm,
     ...themeContent,
-    navShadow: colorThemes.vibrantButCalm.gradStart,
   },
   livelyAndInviting: {
     key: 'livelyAndInviting',
     ...colorThemes.livelyAndInviting,
     ...themeContent,
-    navShadow: colorThemes.livelyAndInviting.gradStart,
   },
   strikingAndSimple: {
     key: 'strikingAndSimple',
     ...colorThemes.strikingAndSimple,
     ...themeContent,
-    navShadow: colorThemes.strikingAndSimple.gradStart,
   },
   redAndLively: {
     key: 'redAndLively',
     ...colorThemes.redAndLively,
     ...themeContent,
-    navShadow: colorThemes.redAndLively.gradStart,
   },
   artsyAndCreative: {
     key: 'artsyAndCreative',
     ...colorThemes.artsyAndCreative,
     ...themeContent,
-    navShadow: colorThemes.artsyAndCreative.gradStart,
   },
   elegantYetApproachable: {
     key: 'elegantYetApproachable',
     ...colorThemes.elegantYetApproachable,
     ...themeContent,
-    navShadow: colorThemes.elegantYetApproachable.gradStart,
   },
   sleekAndFuturistic: {
     key: 'sleekAndFuturistic',
     ...colorThemes.sleekAndFuturistic,
     ...themeContent,
-    navShadow: colorThemes.sleekAndFuturistic.gradStart,
   },
   innovativeAndAudacious: {
     key: 'innovativeAndAudacious',
     ...colorThemes.innovativeAndAudacious,
     ...themeContent,
-    navShadow: colorThemes.innovativeAndAudacious.gradStart,
   },
 };

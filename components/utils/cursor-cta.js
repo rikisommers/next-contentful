@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef, useContext} from "react";
-import { motion, cubicBezier } from "framer-motion";
+import { motion, cubicBezier, easeInOut } from "framer-motion";
 import { MousePosContext } from "../mousePosContext";
 import { useMousePos } from '../mousePosContext'; // Adjust the import path as necessary
 
@@ -30,15 +30,15 @@ const CursorCta = ({content}) => {
   return (
     <>
     <motion.div
-         style={{
+        animate={{
           opacity: visible ? 1 : 0.5, // Set opacity based on the provider's visible value
           rotate: rotation, // Apply rotation based on the calculated angle
           x: mousePosition?.x + 20,
           y: mousePosition?.y - 20,
         }}
         transition={{
-          ease: [0.33, 1, 0.68, 1],
-          duration: 0.6,
+          ease: easeInOut,
+          duration: 0.2,
         }}
       className="fixed z-50 p-2 text-xs text-black bg-white shadow-md rounded-2xl shadow-emerald-300"
     >

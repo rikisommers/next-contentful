@@ -20,7 +20,7 @@ const Index = ({ data, footerData }) => {
 
     <ScrollContainer>    
       <Layout>
-  
+
               <BlockHero 
                 intro={data.intro}
                 content={data.content}

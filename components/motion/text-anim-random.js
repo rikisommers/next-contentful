@@ -55,6 +55,7 @@ export const TextAnimRandom = ({ content }) => {
 
   return (
     <motion.span
+      className="relative"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       style={{

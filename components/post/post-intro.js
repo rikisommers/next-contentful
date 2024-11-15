@@ -5,7 +5,7 @@ import AnimatedText, { AnimStyle, AnimTextOrder } from "../motion/animated-text"
 
 export default function PostIntro({ title, content }) {
   return (
-    <div className="grid items-end content-end grid-cols-12 pt-[16rem] pb-8"
+    <div className="grid items-end content-end grid-cols-12 pt-[16rem] pb-8 w-full"
     >
       <div className="col-span-12 md:col-span-8 lg:col-span-8">
         <h1 className="text-4xl leading-normal text-balance"

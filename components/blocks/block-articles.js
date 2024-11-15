@@ -52,7 +52,6 @@ export const BlockArticles = ({ data }) => {
         </h3>
 
       )} */}
-                  <p className="text-red-500">{currentTheme.cardGrid}</p>
 
       <div className="flex flex-col w-full gap-6">
         {data.articlesCollection?.items &&
@@ -69,7 +68,8 @@ export const BlockArticles = ({ data }) => {
                 
                   let nextTemplateSize;
                   if (templateSize === 6) nextTemplateSize = 4;
-                  else if (templateSize === 4) nextTemplateSize = 2;
+                  else if (templateSize === 4) nextTemplateSize = 4;
+                  else if (templateSize === 2) nextTemplateSize = 2;
                   else nextTemplateSize = 6;
                 
                   return (

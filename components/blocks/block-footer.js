@@ -54,25 +54,25 @@ export default function BlockFooter({ data }) {
   return (
     <motion.div
       ref={footerRef}
-      style={
-        {
-          //y: yTransform,
-          // clipPath: "inset( 1rem round 1rem )",
-           backgroundColor: "var(--background-color)",
-        }
-      }
-      className="flex flex-col justify-between w-screen min-h-[80vh] overflow-clip"
+      style={{
+        //y: yTransform,
+        // clipPath: "inset( 1rem round 1rem )",
+        backgroundColor: "var(--body-background-color)",
+      }}
+      className="flex flex-col justify-between w-screen overflow-clip"
     >
       {/* pt-32 pb-16 */}
 
-      <motion.div className="z-20 grid w-full h-full grid-cols-12 gap-8 px-16 py-16"
-       style={{
-         //  y: yTransform,
-       }}
+      <motion.div
+        className="z-20 grid w-full h-full grid-cols-12 gap-8 px-16 pt-16 pb-8"
+        style={
+          {
+            //  y: yTransform,
+          }
+        }
       >
-        <div className="flex col-span-12 md:col-span-5">
-
-        {/* ---columns: 3;
+        <div className="flex col-span-12 md:col-span-7">
+          {/* ---columns: 3;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: calc(0.75* var(---colWidth)) calc(0.5* var(---colWidth)) calc(0.75* var(---colWidth));
 
@@ -93,9 +93,12 @@ export default function BlockFooter({ data }) {
 
             {data?.content && (
               // <h2 className="text-2xl font-normal">{data.description}</h2>
-              <h1 className="leading-normal text-balance"> 
-              <AnimatedText content={data.description} delay={AnimTextOrder.ONE}/>
-            </h1>
+              <h1 className="mb-4 leading-normal text-balance">
+                <AnimatedText
+                  content={data.description}
+                  delay={AnimTextOrder.ONE}
+                />
+              </h1>
               // <AnimatedText content={data.description}/>
               // <div className="!text-xl" style={{ color: "var(--text-color)" }}>
               //   {documentToReactComponents(data.content.json, RichTextOptions)}
@@ -110,67 +113,104 @@ export default function BlockFooter({ data }) {
           </div>
         </div>
 
-        <div className="flex col-span-12 gap-4 md:col-span-7">
-          <div className="flex flex-col flex-grow basis-1">
-            <h3
-              className="text-sm font-normal"
-              style={{ color: "var(--text-color)" }}
-            >
-              contact
-              {/* {data?.description} */}
-            </h3>
-            {/* <div className="text-xs" style={{ color: "var(--subtext-color)" }}>
-              {data?.address && (
-                <p style={{ color: "var(--text-color)" }}>{data.address}</p>
-              )}
-              {data?.phone && (
-                <div style={{ color: "var(--text-color)" }}>{data.phone}</div>
-              )}
-              {data?.email && (
-                <div style={{ color: "var(--text-color)" }}>{data.email}</div>
-              )}
-            </div> */}
-          </div>
+        <div className="flex flex-col col-span-12 gap-4 md:col-span-5">
 
-          <div className="flex flex-col flex-grow rounded-lg basis-1 bg-black/10"
-          >
-            <h3
-              className="text-sm font-normal"
-              style={{ color: "var(--text-accent)" }}
-            >
-             Services
-              {/* {data?.description} */}
-            </h3>
 
-            <div className="flex flex-col col-span-1 gap-0">
-              {pages.map((page) => (
-                <Link
-                  className="text-xs"
-                  key={page.id}
-                  href={page.url}
-                  scroll={false}
-                  style={{ color: "var(--text-color)" }}
-                >
-                  {page.title}
-                </Link>
-              ))}
-            </div>
-          </div>
-
+        <div className="flex flex-col col-span-12 gap-4 sm:flex-row md:col-span-5">
           
           <div className="flex flex-col flex-grow basis-1">
-            <h3
+          <div
+              className="flex flex-col p-8 rounded-lg "
+              style={{
+                backgroundColor: "var(--background-color)",
+              }}
+            >
+              <h3
+                className="mb-4 text-sm font-normal "
+                style={{ color: "var(--text-color-inv)" }}
+              >
+                Product
+                {/* {data?.description} */}
+              </h3>
+            </div>
+            <div className="flex flex-col flex-grow p-8 rounded-lg bg-black/10">
+              <h3
+                className="mb-4 text-sm font-normal"
+                style={{ color: "var(--accent-pri)" }}
+              >
+                contact
+                {/* {data?.description} */}
+              </h3>
+              <div className="flex flex-col col-span-1 gap-2">
+                {pages.map((page) => (
+                  <Link
+                    className="text-sm no-underline"
+                    key={page.id}
+                    href={page.url}
+                    scroll={false}
+                    style={{ color: "var(--text-color)" }}
+                  >
+                    {page.title}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col flex-grow gap-4 basis-1">
+            <div className="flex flex-col p-8 rounded-lg bg-black/10">
+              <h3
+                className="mb-4 text-sm font-normal"
+                style={{ color: "var(--accent-pri)" }}
+              >
+                Services
+                {/* {data?.description} */}
+              </h3>
+
+              <div className="flex flex-col col-span-1 gap-2">
+                {pages.map((page) => (
+                  <Link
+                    className="text-sm no-underline"
+                    key={page.id}
+                    href={page.url}
+                    scroll={false}
+                    style={{ color: "var(--text-color)" }}
+                  >
+                    {page.title}
+                  </Link>
+                ))}
+              </div>
+            </div>
+            <div
+              className="flex flex-col p-8 rounded-lg "
+              style={{
+                backgroundColor: "var(--background-color)",
+              }}
+            >
+              <h3
+                className="mb-4 text-sm font-normal "
+                style={{ color: "var(--text-color-inv)" }}
+              >
+                Product
+                {/* {data?.description} */}
+              </h3>
+            </div>
+          </div>
+</div>
+          {/* <h3
               className="text-sm font-normal"
               style={{ color: "var(--text-accent)" }}
             >
-             Social
-              {/* {data?.description} */}
-            </h3>
+              Social
+            </h3> */}
+          {/* {data?.description} */}
+          {/* <div className="flex flex-col flex-grow basis-1">
+        
 
-            <div className="flex flex-col gap-0">
+            <div className="grid grid-cols-2 grid-rows-2 gap-4 ">
               {pages.map((page) => (
                 <Link
-                  className="text-xs"
+                  className="text-xs rounded-lg bg-black/10 aspect-square"
                   key={page.id}
                   href={page.url}
                   scroll={false}
@@ -180,16 +220,72 @@ export default function BlockFooter({ data }) {
                 </Link>
               ))}
             </div>
-          </div>
-
+          </div> */}
         </div>
 
-        <div className="flex w-full col-span-12 gap-4">
-          <div className="p-4 rounded-lg flex-grow bg-slate-300">Privacy shit</div>
-          <div className="p-4 rounded-lg bg-slate-300">Social shit</div>
+        <div className="flex w-full col-span-12 gap-2">
+          <div className="flex items-center flex-grow gap-4 px-5 rounded-lg bg-black/10">
+            <Link
+              className="text-xs no-underline"
+              style={{color:"var(--text-color)"}}
+              href="https://www.linkedin.com/in/matias-garcia-dev/"
+            >
+              Privacy Policy
+            </Link>
+            <Link
+              className="text-xs no-underline"
+              style={{color:"var(--text-color)"}}
+              href="https://www.linkedin.com/in/matias-garcia-dev/"
+            >
+              Cookies Policy
+            </Link>
+          </div>
+          <div className="p-2 rounded-lg bg-black/10">
+            <div
+              className={`w-[32px] h-[32px] flex items-center justify-center`}
+            >
+              <img
+                src="/shapes/star.svg"
+                viewBox="0 0 32 32"
+                className="h-full"
+              ></img>
+            </div>
+          </div>
+          <div className="p-2 rounded-lg bg-black/10">
+            <div
+              className={`w-[32px] h-[32px] flex items-center justify-center`}
+            >
+              <img
+                src="/shapes/star.svg"
+                viewBox="0 0 32 32"
+                className="h-full"
+              ></img>
+            </div>
+          </div>
+          <div className="p-2 rounded-lg bg-black/10">
+            <div
+              className={`w-[32px] h-[32px] flex items-center justify-center`}
+            >
+              <img
+                src="/shapes/star.svg"
+                viewBox="0 0 32 32"
+                className="h-full"
+              ></img>
+            </div>
+          </div>
+          <div className="p-2 rounded-lg bg-black/10">
+            <div
+              className={`w-[32px] h-[32px] flex items-center justify-center`}
+            >
+              <img
+                src="/shapes/star.svg"
+                viewBox="0 0 32 32"
+                className="h-full"
+              ></img>
+            </div>
+          </div>
         </div>
       </motion.div>
-
 
       {/* <motion.div ref={footerRef} className="fixed relative testing123 h-vhh">
           <motion.div
@@ -202,38 +298,8 @@ export default function BlockFooter({ data }) {
           </motion.div>
         </motion.div> */}
 
-      <div className="absolute bottom-0 z-20 flex items-center justify-end w-full px-4 py-4">
-        {/* <div
-          className="text-xs mont-monocode"
-          style={{ color: "var(--text-color)" }}
-        >
-          Site by{" "}
-          <Link
-          className="text-xs no-underline"
-            href="https://www.linkedin.com/in/matias-garcia-dev/"
-            target="_blank"
-          >
-            Matias Garcia
-          </Link>
-        </div> */}
-        <div
-          className="flex gap-4 text-xs !font-monocode"
-          style={{ color: "var(--text-color)" }}
-        >
-          <Link 
-                  className="text-xs no-underline"
-          href="https://www.linkedin.com/in/matias-garcia-dev/">
-            Privacy Policy
-          </Link>
-          <Link 
-                  className="text-xs no-underline"
-          href="https://www.linkedin.com/in/matias-garcia-dev/">
-            Cookies Policy
-          </Link>
-          <span>Get Source Code</span>
-        </div>
-      </div>
-
+    
+      
 
       {/* <motion.div
         className="absolute w-full h-full"
