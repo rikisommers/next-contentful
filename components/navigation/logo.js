@@ -1,10 +1,12 @@
 import React, { useRef } from "react";
 import { motion, cubicBezier } from "framer-motion";
 import { useThemeContext } from "../themeContext";
+import { useRouter } from "next/navigation";
 
 
 export default function Logo() {
     const { currentTheme } = useThemeContext();
+    const router = useRouter();
 
 
   return (
