@@ -1,31 +1,40 @@
 import React, { useRef } from "react";
 import Layout from "../components/layout";
-import TransitionWipe from "../components/transition/transition-wipe";
 import PostIntro from "../components/post/post-intro";
 import { getLandingPage, getFooter } from "../lib/api";
 import BlockFooter from "../components/blocks/block-footer";
 import LandingPageContent from "../components/landing-page-content";
-
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import TransitionPage from "../components/transition/pageTransition";
 
-
 const Bio = ({ data, footerData }) => {
-  
   console.log("-------------------------------", data);
 
-  const contentRef = useRef(null);
-  const footerRef = useRef(null);
-
   return (
+    <TransitionPage>
+                <SpeedInsights />
 
-    <Layout>
-        <div className="flex flex-col px-8">
-          <PostIntro title={data.titlealt} content={data.contentalt} />
-          <LandingPageContent data={data} />
-          <BlockFooter content={footerData} />
+      <div
+        className="relative"
+        style={{
+          backgroundColor: "var(--body-background-color)",
+        }}
+      >
+        <div
+          className={`${
+           "max-w-screen-md mx-auto"
+          }`}
+        >
+
+          <div className="flex flex-col px-8">
+            <PostIntro title={data.titlealt} content={data.contentalt} />
+            <LandingPageContent data={data} />
+          </div>
         </div>
-    </Layout>
+        <BlockFooter content={footerData} />
 
+      </div>
+    </TransitionPage>
   );
 };
 

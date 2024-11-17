@@ -15,7 +15,7 @@ export default function BlockList({ data }) {
               >
                 {data.title && (
                   <h2
-                    className="mb-4"
+                    className="mb-4 text-sm"
                     style={{ color: "var(--heading-color)" }}
                   >
                     {data.title}

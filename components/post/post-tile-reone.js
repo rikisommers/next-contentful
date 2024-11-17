@@ -35,7 +35,11 @@ export default function PostTileRe({ post, index, size }) {
             <div className="flex gap-1">
               {post.tags.slice(0, 2).map((tag, index) => {
                 return (
-                  <div key={index} className="text-xs">
+                  <div key={index} className="px-2 py-1 text-xs rounded-full"
+                  style={{
+                   backgroundColor: "var(--body-background-color)",
+                  }}
+                  >
                     {tag}
                   </div>
                 );
@@ -61,11 +65,15 @@ export default function PostTileRe({ post, index, size }) {
           </h2>
           </AnimatedElement>
           <div
-            className="w-10 h-10 rounded-lg "
-            style={{
-              backgroundColor: "var(--text-color)",
-            }}
-          ></div>
+            className="w-10 h-10 rounded-lg opacity-50"
+          >
+               <img
+                src="arrow_forward.svg"
+                viewBox="0 0 24 24"
+                className="h-full"
+
+              ></img>
+          </div>
           {/* <h3
             className="text-sm"
             style={{

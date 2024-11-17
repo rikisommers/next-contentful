@@ -60,13 +60,13 @@ const { currentTheme } = useThemeContext();
         <NavBar containerRef={containerRef} />
 
 
-        <motion.div className="z-50 flex items-center gap-1 rounded-lg top-3 right-3">
+        {/* <motion.div className="z-50 flex items-center gap-1 rounded-lg top-3 right-3">
           <ButtonAlt
             click={toggleThemeEditor}
             type={ButtonType.PRIMARY}
             label={"Theme"}
           />
-        </motion.div>
+        </motion.div> */}
         
       </div>
 

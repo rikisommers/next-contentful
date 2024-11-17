@@ -53,6 +53,8 @@ export const BlockArticles = ({ data }) => {
 
       )} */}
 
+      <h1>type: {data.type}</h1>
+
       <div className="flex flex-col w-full gap-6">
         {data.articlesCollection?.items &&
 

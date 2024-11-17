@@ -75,11 +75,11 @@ export default function PostBody({ content }) {
                     <BlockCode key={item.id} data={item} />
                   </AnimatedElement>
                 )}
-                {/* {item.__typename === "BlockList" && (
+                {item.__typename === "BlockList" && (
                   <AnimatedElement type={AnimStyleEl.FADEIN}>
                     <BlockList key={item.id} data={item} />
                   </AnimatedElement>
-                )}     */}
+                )}    
                 {item.__typename === "BlockCode" && (
                   <AnimatedElement type={AnimStyleEl.FADEIN}>
                     <BlockCode key={item.id} data={item} />

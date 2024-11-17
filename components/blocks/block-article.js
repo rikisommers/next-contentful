@@ -8,24 +8,23 @@ export const BlockArticle = ({ data }) => {
 
   return (
 
-    <article className="grid grid-cols-12 gap-3 article-content" id={data.title}>
+    <article className="max-w-lg article-content" id={data.title}>
  
 
-      <div className="col-span-10 col-start-2 md:col-start-3 md:col-span-8">
         
         {data.title && 
-        <h2 className="mb-10 text-3xl" style={{color: 'var(--heading-color)',}}>{data.title}</h2>
+        <h2 className="mb-4 font-normal text-1xl" style={{color: 'var(--heading-color)',}}>{data.title}</h2>
         }
         {data.content && (
           <p className="mb-8 text-base" style={{color: 'var(--subtext-color)',}}>{data.content.content}</p>
         )}
 
         {data.contentRich && (
-          <div style={{color:'var(--text-color)'}}>
+          <div style={{color:'var(--text-color)'}} className="leading-normal text-balance">
             {documentToReactComponents(
               data.contentRich.json,
               RichTextOptions
-            )}
+            )} 
           </div>
         )}
         {data.img &&
@@ -40,7 +39,6 @@ export const BlockArticle = ({ data }) => {
               />
             );
           })}
-      </div>
     </article>
   
   );

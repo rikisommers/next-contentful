@@ -179,7 +179,7 @@ export default function NavBar({ containerRef }) {
         ${getNavigationPositionClass(currentTheme.navPosition)} 
         ${getShadowSizeClass(currentTheme.navShadowSize)}
        
-         flex backdrop-blur-lg pointer-events-auto  z-50 gap-1 rounded-xl`}
+         flex mx-auto pr-2 backdrop-blur-lg pointer-events-auto  z-50 gap-1 rounded-xl`}
     >
       {currentTheme.navFloating && (
         <div
@@ -199,7 +199,7 @@ export default function NavBar({ containerRef }) {
           scroll={false}
           onClick={() => setActivePage(page.id)}
           className="relative flex items-center text-sm no-underline uppercase rounded-lg"
-          style={{ color: activePage === page.id ? "var(--text-color)" : "var(--text-accent)" }}
+          style={{ color: activePage === page.id ? "var(--text-color-inv)" : "var(--text-accent)" }}
         >
           {activePage === page.id && (
             <motion.div
