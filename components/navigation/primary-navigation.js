@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useRef } from "react";
 import { motion, cubicBezier } from "framer-motion";
 import { useRouter } from "next/navigation";

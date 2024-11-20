@@ -7,7 +7,9 @@ import { AnimatePresence } from "framer-motion";
 import { MousePosProvider } from "./mousePosContext";
 import { ScrollPositionProvider } from "./scrollPosContext";
 import { RouteProvider } from "./routeContext";
+import { PagesRouteProvider } from "./routeContextPages";
 import { ToastProvider } from "./toastContext";
+import { ThemeProvider } from "./themeContext";
 import { themes } from "../utils/theme";
 import Navigation from "./navigation/primary-navigation";
 import Preloader from "./utils/preloader";
@@ -27,9 +29,14 @@ const Providers = ({ children, router }) => {
   }, [isLoading]);
 
   return (
-      <ScrollPositionProvider>
+
+      <PagesRouteProvider>
+        <ScrollPositionProvider>
           <MousePosProvider>
-            <ToastProvider>
+            <ThemeProvider>
+
+ 
+
               {isLoading ? (
                 <Preloader />
               ) : (
@@ -49,9 +56,11 @@ const Providers = ({ children, router }) => {
                   </filter>
                 </defs>
               </svg>
-            </ToastProvider>
+
+            </ThemeProvider>
           </MousePosProvider>
-      </ScrollPositionProvider>
+        </ScrollPositionProvider>
+      </PagesRouteProvider>
   );
 };
 
