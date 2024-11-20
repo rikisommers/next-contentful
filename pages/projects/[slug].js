@@ -11,12 +11,14 @@ import PostContent from "../../components/post/post-content";
 import BlockFooter from "../../components/blocks/block-footer";
 import PageNav from "../../components/base/page-nav";
 
-export default function Post({ post, nextPost, footerData }) {
+export default function Post({ post, footerData }) {
 
 
   return (      
       <Layout>
 
+
+      <h1>sdsd{post?.protected}</h1>
 
 
    
