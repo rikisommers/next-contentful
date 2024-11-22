@@ -27,7 +27,9 @@ const PasswordPromptDialog = ({children}) => {
         setPasswordIncorrect(true);
         setLoading(false);
       } else {
-       onLoginSuccess(); // Call the onLoginSuccess callback
+       //onLoginSuccess(); // Call the onLoginSuccess callback
+       setPasswordIncorrect(false);
+       onLoginSuccess();
        //window.location.reload(); // Optionally reload the page
       }
     } catch (error) {
@@ -51,6 +53,7 @@ const PasswordPromptDialog = ({children}) => {
         <button type="submit" disabled={loading}>Submit</button>
       </form>
       {passwordIncorrect && <p>Password is incorrect</p>}
+      {passwordIncorrect ? 'true' : 'false'}
       {children}
     </div>
   );

@@ -8,7 +8,7 @@ import {
 import AnimatedElement, { AnimStyleEl } from "../motion/animated-element";
 import PostIntro from "./post-intro";
 
-export default function PostHeader({ content }) {
+export default function    PostHeader({ content }) {
   const { routeInfo } = useContext(RouteContext);
   const [sourceRoute, setSourceRoute] = useState("");
   const [destRoute, setDestRoute] = useState("");

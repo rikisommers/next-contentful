@@ -29,6 +29,15 @@
 //@tailwind components;
 @tailwind utilities;
 
+
+input{
+  outline:none;
+  border:1px solid;
+}
+
+button{
+  border:none;
+}
 // #__next{
 //   overflow: hidden;
 // }
