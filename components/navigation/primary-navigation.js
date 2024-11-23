@@ -28,7 +28,7 @@ export default function Navigation() {
   const [isThemeEditorOpen, setIsThemeEditorOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { isThemeDialogOpen, setIsThemeDialogOpen } = useThemeContext();
-const { currentTheme } = useThemeContext();
+  const { currentTheme } = useThemeContext();
 
   const [edges, setEdges] = useState({
     left: false,
@@ -40,27 +40,30 @@ const { currentTheme } = useThemeContext();
 
   // Function to toggle the ThemeEditor modal
   const toggleThemeEditor = () => {
-    setIsThemeDialogOpen((prev) => !prev);
+    console.log("sdd");
+    setIsModalOpen((prev) => !prev);
   };
 
   return (
     <>
       <div
         ref={containerRef}
-        className={`${currentTheme.navFixed ? 'fixed' : 'absolute'} ${currentTheme.navBorder ? 'border-solid border-b-[1px] border-t-0 border-l-0 border-r-0' : 'border-none'} bg-opacity-25 top-0 left-0 z-50  w-screen p-3 pointer-events-none grid grid-cols-3 `}
+        className={`${currentTheme.navFixed ? "fixed" : "absolute"} ${
+          currentTheme.navBorder
+            ? "border-solid border-b-[1px] border-t-0 border-l-0 border-r-0"
+            : "border-none"
+        } bg-opacity-25 top-0 left-0 z-50  w-screen p-3 pointer-events-none grid grid-cols-3 `}
         style={{
-        //  backgroundColor: currentTheme.navBorder ? 'var(--body-background-color)' : 'transparent',
-          borderColor:'var(--nav-shadow-color)'
+          //  backgroundColor: currentTheme.navBorder ? 'var(--body-background-color)' : 'transparent',
+          borderColor: "var(--nav-shadow-color)",
         }}
       >
-        <div className="flex col-span-1 col-start-1 row-span-1 row-start-1">
-          <Logo/>
+        <div className="z-50 flex col-span-1 col-start-1 row-span-1 row-start-1"
+             onClick={toggleThemeEditor}>
+          <Logo />
         </div>
 
-
-                
         <NavBar containerRef={containerRef} />
-
 
         {/* <motion.div className="z-50 flex items-center gap-1 rounded-lg top-3 right-3">
           <ButtonAlt
@@ -69,7 +72,6 @@ const { currentTheme } = useThemeContext();
             label={"Theme"}
           />
         </motion.div> */}
-        
       </div>
 
       {/* Modal for "Available for work" */}

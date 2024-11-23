@@ -23,7 +23,7 @@ export default function Logo() {
           ? "var(--text-color)"
           : "var(--heading-color)",
     }}
-    className={`relative z-50 flex items-center rounded-xl`}
+    className={`pointer-events-auto cursor-pointer relative z-50 flex items-center rounded-xl`}
   >
     <div
       className={`w-[32px] h-[32px] flex items-center justify-center`}

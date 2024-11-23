@@ -6,21 +6,33 @@ import {
 } from "../../lib/api";
 
 import PostHeader from "../../components/post/post-header";
-
 import PostContent from "../../components/post/post-content";
 import BlockFooter from "../../components/blocks/block-footer";
 import PageNav from "../../components/base/page-nav";
 import PagesPasswordPage from "../../components/security/password-page-pages";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+
 export default function Post({ post, footerData }) {
 
   console.log('PPPP:',post)
+
+
+  // const router = useRouter();
+
+  // useEffect(() => {
+  //   if (post.protected) {
+  //     // Redirect to the login page with the current slug as a redirect query parameter
+  //     router.push(`/login`);
+  //   }
+  // }, [post.protected, router]);
+
+
   return (      
-      <Layout>
 
 
-      <PagesPasswordPage>
-      <h1>sdsd{post?.protected}</h1>
-  
+
+      <PagesPasswordPage locked={post.protected}>
 
 
    
@@ -49,8 +61,7 @@ export default function Post({ post, footerData }) {
               // </nav>
             )} */}
   
-
-
+        <Layout>
          {post && (
 
             <div className="grid w-full grid-cols-12 gap-4 p-8 grid-rows-auto">
@@ -75,12 +86,12 @@ export default function Post({ post, footerData }) {
           {footerData && (
             <BlockFooter data={footerData} />
           )}
-        
+            </Layout>
+        {/* </ScrollContainer> */}
 
           </PagesPasswordPage>
 
-        {/* </ScrollContainer> */}
-    </Layout>
+
 
   );
 }
