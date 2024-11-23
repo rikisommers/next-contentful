@@ -1277,10 +1277,18 @@ export const heroTextImageThemes = {
   hover: 'hover',
 };
 
+export const bodyTextAlign = {
+  left: 'left',
+  center: 'center',
+  right: 'right',
+};
+
+
 export const bodyTextThemes = {
   dropCap: false,
   indent: false,
   hightlight: false,
+  align:bodyTextAlign.center
 };
 
 export const animationThemes = {
@@ -1344,6 +1352,7 @@ const themeContent = {
     dropCap: bodyTextThemes.dropCap,
     indent: bodyTextThemes.indent,
     hightlight: bodyTextThemes.hightlight,
+    align:bodyTextThemes.align
   },
   weights: {
     color: 1,

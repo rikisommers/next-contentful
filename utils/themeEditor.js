@@ -17,6 +17,7 @@ import {
   navigationDragThemes,
   fontSizeThemes,
   footerOptions,
+  bodyTextAlign,
   navigationStyleThemes,
   navigationOptions,
   cursorThemes,
@@ -476,6 +477,12 @@ export default function ThemeEditor() {
           value: currentTheme.bodyTextStyle?.highlight, // Default to false
           label: 'Highlight',
           onChange: (value) => applyCurrentTheme2('bodyTextStyle', { ...currentTheme.bodyTextStyle, highlight: value }) // Update handler
+        },
+       align: { 
+          value: currentTheme.bodyTextStyle?.align, // Default to false
+          options: Object.values(bodyTextAlign), 
+          label: 'Align',
+          onChange: (value) => applyCurrentTheme2('bodyTextStyle', { ...currentTheme.bodyTextStyle, align: value }) // Update handler
         },
       }),
 
