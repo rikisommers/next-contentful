@@ -1,8 +1,8 @@
-// app/page.js
-import React from 'react';
+// // app/page.js
+// import React from 'react';
 
-const HomePage = () => {
-  return <div>Welcome to the Home Page!</div>;
-};
+// const HomePage = () => {
+//   return <div>Welcome to the Home Page!</div>;
+// };
 
-export default HomePage;
+// export default HomePage;
