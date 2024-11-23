@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PostTile from "../post/post-tile";
 import PostTileCs from "../post/post-tile-cs";
 import PostTileLg from "../post/post-tile-lg";
@@ -6,19 +6,12 @@ import AnimatedElement, { AnimStyleEl } from "../motion/animated-element";
 import AnimatedText, { AnimStyle } from "../motion/animated-text";
 import PostTileRe from "../post/post-tile-reone";
 import PostTileImg from "../post/post-tile-img";
-import { useThemeContext } from '../themeContext';
+import { useThemeContext } from "../themeContext";
+import Grid from "../grid/grid";
+import { BlockTags } from "./block-tags";
 // import { useMousePos } from "../mousePosContext"
 
-
-
-
-
-
-
-
-
-
-export const BlockArticles = ({ data }) => {
+export const BlockArticles = ({ data, tags }) => {
   // const { setVisible, setContent } = useMousePos();
 
   // const handleShowCursor = ({content}) => {
@@ -33,80 +26,31 @@ export const BlockArticles = ({ data }) => {
 
   // };
 
+  const posts = data.articlesCollection?.items;
 
-  const { currentTheme } = useThemeContext();
-  console.log('data',data.articlesCollection?.items)
+  console.log("data", data.articlesCollection?.items);
+  console.log("tags", tags);
 
-  
+  const [selectedTag, setSelectedTag] = useState(null);
+  const [filteredPosts, setFilteredPosts] = useState(posts);
+
+  const handleTagClick = (tag) => {
+    setSelectedTag(tag);
+    if (tag) {
+      const filtered = posts.filter(
+        (post) => post.tags && post.tags.includes(tag)
+      );
+      setFilteredPosts(filtered);
+    } else {
+      setFilteredPosts(posts);
+    }
+  };
+
   return (
     <>
-
-    
-      {/* {data.title && (
-        <h3
-          className="py-2 font-mono text-xs"
-          style={{ color: "var(--heading-color)" }}
-        >
-
-          <AnimatedText type={AnimStyle.CHARFADE} content={data.title} />
-        </h3>
-
-      )} */}
-
-      <h1>type: {data.type}</h1>
-
+      {tags && tags.length && <BlockTags data={tags} selected={selectedTag} handleTagClick={handleTagClick}/>}
       <div className="flex flex-col w-full gap-6">
-        {data.articlesCollection?.items &&
-
-
-          (() => {
-            
-              
-                const GridGroup = ({ items, templateSize, startIndex }) => {
-                  if (items.length === 0) return null;
-                
-                  const groupItems = items.slice(0, templateSize);
-                  const remainingItems = items.slice(templateSize);
-                
-                  let nextTemplateSize;
-                  if (templateSize === 6) nextTemplateSize = 4;
-                  else if (templateSize === 4) nextTemplateSize = 4;
-                  else if (templateSize === 2) nextTemplateSize = 2;
-                  else nextTemplateSize = 6;
-                
-                  return (
-                    <>
-                      <div className={`grid-template-${templateSize}`}>
-                        {groupItems.map((item, i) => (
-                          <div key={startIndex + i} className={`my--${i + 1}`}>
-                            <AnimatedElement type={AnimStyleEl.FADEIN}>
-                              {currentTheme.cardLayout === 'formal' && <PostTileCs post={item} />}
-                              {currentTheme.cardLayout === 'funky' && <PostTileLg post={item} />}
-                              {currentTheme.cardLayout === 'reone' && <PostTileRe post={item} />}
-                              {currentTheme.cardLayout === 'img' && <PostTileImg post={item} />}
-                            </AnimatedElement>
-                          </div>
-                        ))}
-                      </div>
-                      <GridGroup 
-                        items={remainingItems} 
-                        templateSize={nextTemplateSize} 
-                        startIndex={startIndex + templateSize} 
-                      />
-                    </>
-                  );
-                };
-                return (
-                  <GridGroup 
-                    items={data.articlesCollection.items} 
-                    templateSize={6} 
-                    startIndex={0} 
-                  />
-                );
-                
-             
-           
-          })()}
+        {posts && <Grid type={data.type} data={filteredPosts} />}
       </div>
     </>
   );

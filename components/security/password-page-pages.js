@@ -55,7 +55,6 @@ export default function PagesPasswordPage({ children, locked }) {
 
   if (!isLoggedIn && locked) {
     return (
-      <TransitionPage>
       <motion.form
         onSubmit={handleSubmit}
         className="flex flex-col items-center justify-center w-full h-screen bg-white password-prompt-dialog p-auto"
@@ -120,7 +119,6 @@ export default function PagesPasswordPage({ children, locked }) {
           )}
         </div>
       </motion.form>
-      </TransitionPage>
     );
   } else {
     // User is authenticated, render all children (the entire slug page content)

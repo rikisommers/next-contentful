@@ -23,7 +23,7 @@ const customMarkdownOptions = (content) => ({
   },
 });
 
-export default function PostBody({ content }) {
+export default function PostBody({ content, tags }) {
 
 
 
@@ -43,7 +43,7 @@ export default function PostBody({ content }) {
                   // </AnimatedElement>
                 )}
                 {item.__typename === "BlockArticles" && (
-                    <BlockArticles key={item.id} data={item} />
+                    <BlockArticles key={item.id} data={item} tags={tags} />
                 )}
                 {item.__typename === "BlockImage" && (
                   // <AnimatedElement type={AnimStyleEl.FADEIN}>
