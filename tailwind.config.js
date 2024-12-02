@@ -1,10 +1,16 @@
 /** @type {import('tailwindcss').Config} */
+import fluid, { screens, fontSize, extract } from 'fluid-tailwind'
+
+
 module.exports = {
   content: [
     './app/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
+    extract,
   ],
   theme: {
+    screens, // Tailwind's default screens, in `rem`
+    fontSize,
     extend: {
       clipPath: {
         'inset-1': 'inset(1rem 1rem 33% 1rem round 1rem)',
@@ -15,7 +21,7 @@ module.exports = {
         'secondary': 'var(--color-theme-secondary)',
       },
       screens:{
-        'xxl':'1920px'
+       // 'xxl':'60rem'
       },
       colors: {
         'accent-1': '#FAFAFA',
@@ -47,7 +53,8 @@ module.exports = {
         '6xl': '2.75rem',
         '7xl': '4.5rem',
         '8xl': '6.25rem',
-        'jumbo': '4vw',
+        // 'fluid': 'clamp(1.25rem, 3.783vw + 0.271rem, 5rem)',
+        // 'jumbo': '4vw',
       },
       boxShadow: {
         small: '0 5px 10px rgba(0, 0, 0, 0.12)',
@@ -79,6 +86,9 @@ module.exports = {
         nav:'9999',
       }
     },
+    fluid
   },
-  plugins: [],
+  plugins: [
+    require('fluid-tailwind')
+  ],
 }

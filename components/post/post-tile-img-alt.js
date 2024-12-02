@@ -1,12 +1,12 @@
 import React from "react";
 import BlendImage from "../image/blend-image";
 
-export default function PostTileImgAlt({ post }) {
+export default function PostTileImgAlt({ img }) {
   return (
     <div className="relative flex flex-col flex-grow overflow-hidden rounded-lg img-post">
         <div className="absolute top-0 left-0 z-10 flex items-start justify-between w-full h-full gap-4 px-4 py-4 text-white ">
             <div className="flex items-center gap-4">
-              <div className="flex items-center gap-4">
+              {/* <div className="flex items-center gap-4">
                 {post?.type[0] === "case study" && (
                   <>
                     <span className="w-1 text-lg text-white material-icons">
@@ -23,9 +23,9 @@ export default function PostTileImgAlt({ post }) {
                     Blog
                   </>
                 )}
-              </div>
+              </div> */}
 
-              {post?.tags && (
+              {/* {post?.tags && (
                 <div className="flex gap-1">
                   {post?.tags.slice(0, 2).map((tag, index) => {
                     return (
@@ -38,7 +38,7 @@ export default function PostTileImgAlt({ post }) {
                     );
                   })}
                 </div>
-              )}
+              )} */}
             </div>
             <div className="flex gap-4 text-xs">
               <span>DATE</span>
@@ -47,12 +47,11 @@ export default function PostTileImgAlt({ post }) {
       {/* 
 <motion.div style={{y}}>     
 </motion.div> */}
-
-      {post?.img &&
+      {img &&
         <BlendImage
           className="img-cover"
-          alt={`Cover Image for ${post?.title}`}
-          src={post?.img.url}
+          alt={`Cover Image for ${img.title}`}
+          src={img.url}
         />
       }
     </div>

@@ -2,12 +2,12 @@ import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import { RichTextOptions } from "../rich-text/rich-text";
 
 export default function PostDetails({ post }) {
-
+  // Destructure the properties from the post object
+  const { description, intro, duration, client, role } = post || {};
 
   return (
     <div className="mb-36 ">
-      <div className="grid grid-cols-12 gap-3 py-10"
-      >
+      <div className="grid grid-cols-12 gap-3 py-10">
         <div className="flex flex-col self-start col-span-10 gap-3 rounded-lg md:col-span-7 lg:col-span-8">
           <div style={{ color: 'var(--text-color)' }}>
             <span
@@ -16,28 +16,27 @@ export default function PostDetails({ post }) {
             >
               Overview
             </span>
-            {post?.description && <>{post?.description}</>}
+            {description && <>{description}</>}
           </div>
 
           <div style={{ color: 'var(--text-color)' }}>
-            {post?.intro && (
+            {intro && (
               <>
-                {documentToReactComponents(post?.intro.json, RichTextOptions)}
+                {documentToReactComponents(intro.json, RichTextOptions)}
               </>
             )}
           </div>
         </div>
 
         <div className="flex flex-col col-span-10 gap-8 text-sm md:col-span-4 lg:col-span-3">
-          <div style={{ color:'var(--text-color)'}}>
+          <div style={{ color: 'var(--text-color)' }}>
             <span
               className="mr-2 italic"
-              style={{ color:  'var(--accent)' }}
+              style={{ color: 'var(--accent)' }}
             >
               Duration
             </span>
-
-            {post?.duration && post?.duration}
+            {duration && duration}
           </div>
 
           <div style={{ color: 'var(--text-color)' }}>
@@ -47,17 +46,17 @@ export default function PostDetails({ post }) {
             >
               Client
             </span>
-            {post?.client && post?.client}
+            {client && client}
           </div>
 
-          <div style={{ color:  'var(--text-color)' }}>
+          <div style={{ color: 'var(--text-color)' }}>
             <span
               className="mr-2 italic"
-              style={{ color:  'var(--accent)' }}
+              style={{ color: 'var(--accent)' }}
             >
               Role
             </span>
-            {post?.role && post?.role}
+            {role && role}
           </div>
         </div>
       </div>

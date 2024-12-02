@@ -6,12 +6,14 @@ import {
 } from "../../lib/api";
 
 import PostHeader from "../../components/post/post-header";
+import PostHeaderMonks from "../../components/post/post-header-monks";
 import PostContent from "../../components/post/post-content";
 import BlockFooter from "../../components/blocks/block-footer";
 import PageNav from "../../components/base/page-nav";
 import PagesPasswordPage from "../../components/security/password-page-pages";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import PostDetails from "../../components/post/post-details";
 
 export default function Post({ post, footerData }) {
 
@@ -64,10 +66,10 @@ export default function Post({ post, footerData }) {
         <Layout>
          {post && (
 
-            <div className="grid w-full grid-cols-12 gap-4 p-8 grid-rows-auto">
+            <div className="grid max-w-xl grid-cols-12 gap-4 p-8 grid-rows-auto">
                 <div className="col-span-12">
-                <PostHeader content={post} />
-                
+                  <PostHeaderMonks title={post.title} subtitle={post.subtitle} img={post.img} />
+                  <PostDetails post={post} description={post.description} intro={post.intro} duration={post.duration} client={post.client} role={post.role} />
                 </div>
   
                 <div className="row-start-2 page__content">

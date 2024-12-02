@@ -8,24 +8,20 @@ import {
 } from "../motion/animated-text";
 import AnimatedElement, { AnimStyleEl } from "../motion/animated-element";
 
-export default function    PostHeader({ content }) {
+export default function PostHeaderMonks({ title, subtitle ,img }) {
   const { routeInfo } = useContext(RouteContext);
   const [sourceRoute, setSourceRoute] = useState("");
   const [destRoute, setDestRoute] = useState("");
 
   return (
     <>
-
         {/* <div style={{backgroundColor:'var(--accent)'}}>
         </div> */}
-        <PostIntro title={content.title} content={content.subtitle}/>
+        {img.url && 
+        <PostTileImgAlt img={img} />
+}
+        <PostIntro title={title} content={subtitle}/>
 
-        <PostTileImgAlt post={content} />
-
-        
-      {/* <AnimatedElement type={AnimStyle.FADEIN}> */}
-        <PostDetails post={content}></PostDetails>
-      {/* </AnimatedElement> */}
     </>
   );
 }

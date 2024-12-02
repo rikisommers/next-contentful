@@ -20,7 +20,7 @@ function MyApp({ Component, pageProps, router }) {
     });
     const timeout = setTimeout(() => {
       setIsLoading(false);
-    }, 0);
+    }, );
 
     return () => clearTimeout(timeout);
   }, [isLoading]);
