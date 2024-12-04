@@ -14,7 +14,7 @@ import PagesPasswordPage from "../../components/security/password-page-pages";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import PostDetails from "../../components/post/post-details";
-
+import ScrollContainer from "../../components/utils/scroll-container";
 export default function Post({ post, footerData }) {
 
   console.log('PPPP:',post)
@@ -31,7 +31,7 @@ export default function Post({ post, footerData }) {
 
 
   return (      
-
+    <ScrollContainer>    
 
 
       <PagesPasswordPage locked={post.protected}>
@@ -66,10 +66,12 @@ export default function Post({ post, footerData }) {
         <Layout>
          {post && (
 
-            <div className="grid max-w-xl grid-cols-12 gap-4 p-8 grid-rows-auto">
+            <div className="grid grid-cols-12 gap-4 p-8 grid-rows-auto">
                 <div className="col-span-12">
-                  <PostHeaderMonks title={post.title} subtitle={post.subtitle} img={post.img} />
-                  <PostDetails post={post} description={post.description} intro={post.intro} duration={post.duration} client={post.client} role={post.role} />
+                  <PostHeaderMonks title={post.title} subtitle={post.subtitle} img={post.img} >
+                  {/* <PostDetails post={post} description={post.description} intro={post.intro} duration={post.duration} client={post.client} role={post.role} /> */}
+          <h1>sd</h1>
+                    </PostHeaderMonks>
                 </div>
   
                 <div className="row-start-2 page__content">
@@ -93,7 +95,7 @@ export default function Post({ post, footerData }) {
 
           </PagesPasswordPage>
 
-
+</ScrollContainer>
 
   );
 }

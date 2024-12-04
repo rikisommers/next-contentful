@@ -10,9 +10,8 @@ export default function PostIntro({ title, content, }) {
     >
       <div className="col-span-12 md:col-span-8 lg:col-span-8">
       {content && 
-        <h1 className="leading-normal ~text-2xl/6xl text-balance"
-        > 
-          <AnimatedText content={title} delay={AnimTextOrder.ONE}/>
+        <h1 className="leading-normal ~text-2xl/6xl text-balance"> 
+          <AnimatedText content={title} delay={AnimTextOrder.ONE}/><AnimatedText type={AnimStyle.LINEFADEIN} content={content} delay={AnimTextOrder.THREE}/>
         </h1>
       }
       </div>

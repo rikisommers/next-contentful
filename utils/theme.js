@@ -1154,6 +1154,7 @@ export const cursorThemes = {
 export const cardThemes = {
   formal: 'formal',
   funky: 'funky',
+  monks: 'monks',
   reone: 'reone',
   img: 'img',
 };

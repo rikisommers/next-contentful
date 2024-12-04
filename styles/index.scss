@@ -908,3 +908,84 @@ background:linear-gradient(142deg, rgba(33,33,33,1) 0%, rgba(192,198,201,1) 68%)
     linear-gradient(to right, blue, transparent),
     url(https://grainy-gradients.vercel.app/noise.svg);
 }
+
+
+
+@keyframes easeOutElastic {
+	0% {
+		transform: translateX(0%);
+	}
+
+	16% {
+		transform: translateX(-132.27%);
+	}
+
+	28% {
+		transform: translateX(-86.88%);
+	}
+
+	44% {
+		transform: translateX(-104.63%);
+	}
+
+	59% {
+		transform: translateX(-98.36%);
+	}
+
+	73% {
+		transform: translateX(-100.58%);
+	}
+
+	88% {
+		transform: translateX(-99.8%);
+	}
+
+	100% {
+		transform: translateX(-100%);
+	}
+
+}
+
+
+
+@keyframes easeOutBounce {
+  0% {
+    transform: translateX(0%);
+  }
+  50% {
+    transform: translateX(50%);
+  }
+  56% {
+    transform: translateX(39.11%);
+  }
+  62% {
+    transform: translateX(30.56%);
+  }
+  68% {
+    transform: translateX(20.01%);
+  }
+  77% {
+    transform: translateX(13.52%);
+  }
+  87% {
+    transform: translateX(7.62%);
+  }
+  91% {
+    transform: translateX(4.69%);
+  }
+  96% {
+    transform: translateX(2.65%);
+  }
+  98% {
+    transform: translateX(1.77%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+
+
+.testy{
+  animation: easeOutBounce 2s ease;
+}

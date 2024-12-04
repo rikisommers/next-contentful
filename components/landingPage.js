@@ -17,8 +17,10 @@ export default function LandingPage({ data, footerData, tags }) {
   return (
     <>
       <div className="flex flex-col px-8">
-        <PostIntro title={data.titlealt} content={data.contentalt} />
 
+        <div className="pt-[16rem] pb-8 ">
+        <PostIntro title={data.titlealt} content={data.contentalt} />
+        </div>
         {data.video && (
           <div className="pb-24 o-content">
             <BlockVideo data={data.video} />

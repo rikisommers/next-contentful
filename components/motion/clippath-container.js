@@ -43,7 +43,7 @@ export const ClipContainer = ({ children }) => {
       ref={heroRef}
       style={{ 
         clipPath: clipPathValue,
-        backgroundColor: 'var(--body-background-color)',
+        backgroundColor: 'var(--accent-pri',
        }}
       className={`relative min-w-screen overflow-hidden`}
     >

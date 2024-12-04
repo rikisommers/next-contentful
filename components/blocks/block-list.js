@@ -4,7 +4,12 @@ export default function BlockList({ data }) {
   console.log(data);
 
   const renderBlock = () => {
-    switch (data?.type[0].trim()) {
+
+    if (!data || !data.type || !data.type.length) {
+      return <div>No data available</div>; // Handle the case when data is not available
+    }
+
+    switch (data.type[0].trim()) {
       case "content":
         return (
           <article className="grid grid-cols-12 gap-3 article-content">

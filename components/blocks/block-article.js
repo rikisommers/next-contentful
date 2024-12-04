@@ -2,13 +2,27 @@ import React from "react";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { RichTextOptions } from "../rich-text/rich-text";
 import ContentfulImage from "../image/contentful-image";
+import { useThemeContext } from "../themeContext";
 
 export const BlockArticle = ({ data }) => {
+
+  const { currentTheme } = useThemeContext();
+
+  const getContentClass = (height) => {
+    switch (height) {
+      case "center":
+        return "mx-auto max-w-prose";
+      case "left":
+        return "max-w-prose";
+      default:
+        return "mx-auto max-w-prose";
+    }
+  };
 
 
   return (
 
-    <article className="max-w-lg article-content" id={data.title}>
+    <article className={getContentClass(currentTheme.bodyTextStyle.align)} id={data.title}>
  
 
         

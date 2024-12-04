@@ -5,6 +5,7 @@ import PostTileCs from "../post/post-tile-cs";
 import PostTileLg from "../post/post-tile-lg";
 import PostTileImg from "../post/post-tile-img";
 import PostTileRe from "../post/post-tile-reone";
+import PostTileMonks from "../post/post-tile.monks";
 
 const GridGroup = ({ items, templateSize, startIndex }) => {
     if (items.length === 0) return null;
@@ -29,6 +30,7 @@ const GridGroup = ({ items, templateSize, startIndex }) => {
                 {currentTheme.cardLayout === 'formal' && <PostTileCs post={item} />}
                 {currentTheme.cardLayout === 'funky' && <PostTileLg post={item} />}
                 {currentTheme.cardLayout === 'reone' && <PostTileRe post={item} />}
+                {currentTheme.cardLayout === 'monks' && <PostTileMonks post={item} />}
                 {currentTheme.cardLayout === 'img' && <PostTileImg post={item} />}
               </AnimatedElement>
             </div>
