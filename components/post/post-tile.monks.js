@@ -117,9 +117,9 @@ export default function PostTileMonks({ post, index, size }) {
 
                 <div className="inline-block">
               <motion.div
-            className={`relative w-7 h-7 rounded-full opacity-50 flex items-center justify-center`}
+            className={`overflow-hidden relative w-7 h-7 rounded-full opacity-50 flex items-center justify-center ml-2`}
             style={{
-              backgroundColor: "var(--text-color)",
+              backgroundColor: "var(--background-color)",
             }}
             animate={{
                 x: isHovered ? [0, 30, 0] : 0 , // Move to 300px and back to 0
@@ -133,7 +133,7 @@ export default function PostTileMonks({ post, index, size }) {
           >
             <motion.img
               animate={{
-                x: isHovered ? [0, 60, -60, 0] : 0,
+                x: isHovered ? [0, 40, -40, 0] : 0,
                 opacity: isHovered ? [1, 1, 0, 1] : 1,
               }}
               transition={{
@@ -145,7 +145,10 @@ export default function PostTileMonks({ post, index, size }) {
               }}
               src="arrow_forward.svg"
               viewBox="0 0 20 20"
-              className="w-8 h-8"
+              className="z-10 w-8 h-8"
+              style={{
+                color: "var(--accent-pri",
+              }}
             ></motion.img>
           </motion.div>
           </div>

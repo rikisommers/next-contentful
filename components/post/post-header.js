@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { RouteContext } from "../../components/routeContext";
+import { RouteContext } from "../../components/context/routeContext";
 import PostDetails from "./post-details";
 import PostTileImgAlt from "./post-tile-img-alt";
 import PostIntro from "./post-intro";

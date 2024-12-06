@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { getLenisInstance, destroyLenisInstance} from "./lenisInstance";
-import { useScrollPosition } from "../scrollPosContext";
+import { useScrollPosition } from "../context/scrollPosContext";
 
 export default function ScrollContainer({ children }) {
   const { setScrollPosition } = useScrollPosition();

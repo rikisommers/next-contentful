@@ -4,12 +4,16 @@ import { MousePosProvider } from "../components/context/mousePosContext";
 import { ScrollPositionProvider } from "../components/context/scrollPosContext";
 import { RouteProvider } from "../components/context/routeContext";
 import { ThemeProvider } from "../components/context/themeContext";
+import { ToastProvider } from "../components/context/toastContext";
 import Navigation from "../components/navigation/primary-navigation";
 import Preloader from "../components/utils/preloader";
 import "../styles/index.scss";
+import "../styles/prisim-vs-code-dark.scss";
+
 import CursorDot from "../components/utils/cursor-dot";
 import CursorCta from "../components/utils/cursor-cta";
 import TransitionPage from "../components/transition/pageTransition";
+// import FontLoader from "../utils/fontLoader";
 
 function MyApp({ Component, pageProps, router }) {
   const [isLoading, setIsLoading] = useState(true);
@@ -32,9 +36,14 @@ function MyApp({ Component, pageProps, router }) {
         <RouteProvider>
           <ScrollPositionProvider>
             <MousePosProvider>
+              <ToastProvider>
               <ThemeProvider>
 
                 <AnimatePresence mode="wait" initial={false}>
+                {/* <FontLoader 
+      primaryFont={currentTheme.fontFamilyPrimary} 
+      secondaryFont={currentTheme.fontFamilySecondary}
+    > */}
                 <Navigation />
 
                   {/* {currentTheme.cursor === 'dot' && <></> } */}
@@ -47,8 +56,11 @@ function MyApp({ Component, pageProps, router }) {
 
 
                   <Component {...pageProps} key={router.asPath} />
+                  {/* </FontLoader> */}
+
                 </AnimatePresence>
               </ThemeProvider>
+              </ToastProvider>
             </MousePosProvider>
           </ScrollPositionProvider>
         </RouteProvider>

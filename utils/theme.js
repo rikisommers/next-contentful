@@ -1105,6 +1105,7 @@ export const textHighlightThemes = {
 };
 
 // Type Themes
+// using google fonts kndoif sucks really just need a way to select local dfonts and not include in prod
 export const typographyThemes = {
   sans: 'sans-serif',
   serif: 'serif',
@@ -1112,6 +1113,11 @@ export const typographyThemes = {
   interp: "interphase, sans-serif",
   tron: "Tronica Mono, sans-serif",
   aon: "Aeonik Pro, sans-serif",
+  inter: 'inter', //Google/nextfont
+  roboto: 'roboto', //Google/nextfont
+  montserrat: 'Montserrat', //Google/nextfont
+  poppins: 'Poppins', //Google/nextfont
+
 };
 
 // Type Themes
