@@ -11,7 +11,7 @@ import { TextAnimBlur } from "./text-anim-blur";
 import { TextAnimLineFadeIn } from "./text-anim-line-fade";
 import { TextAnimNone } from "./text-anim-none";
 import TextAnimCode from "../motion/text-anim-code";
-import { useThemeContext } from "../themeContext";
+import { useThemeContext } from "../context/themeContext";
 
 
 const HighlightStyle = {

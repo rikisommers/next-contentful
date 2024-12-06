@@ -1,5 +1,5 @@
 import React from "react";
-import { useThemeContext } from "../themeContext";
+import { useThemeContext } from "../context/themeContext";
 import ButtonAlt,{ButtonType} from "../base/button-alt";
 
 export const BlockTags = ({ data, selected ,handleTagClick}) => {

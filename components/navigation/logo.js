@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { motion, cubicBezier } from "framer-motion";
-import { useThemeContext } from "../themeContext";
+import { useThemeContext } from "../context/themeContext";
 import { useRouter } from "next/navigation";
 
 

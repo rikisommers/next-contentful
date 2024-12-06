@@ -2,7 +2,7 @@ import React from "react";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { RichTextOptions } from "../rich-text/rich-text";
 import ContentfulImage from "../image/contentful-image";
-import { useThemeContext } from "../themeContext";
+import { useThemeContext } from "../context/themeContext";
 
 export const BlockArticle = ({ data }) => {
 

@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import { useThemeContext } from '../themeContext';
+import { useThemeContext } from '../context/themeContext';
 import TransitionTilt from "./transition-tilt";
 import TransitionFade from "./transition-fade";
 import TransitionWipeWithChild from "./transition-wipewithchild";

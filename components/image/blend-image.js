@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { useThemeContext } from '../themeContext';
+import { useThemeContext } from '../context/themeContext';
 
 const contentfulLoader = ({ src, width, quality }) => {
   return `${src}?w=${width}&q=${quality || 75}`

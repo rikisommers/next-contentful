@@ -1,8 +1,6 @@
 import React, { useState, useRef } from "react";
 import Link from "next/link";
-import { RichTextOptions } from "../rich-text/rich-text";
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import { useThemeContext } from "../themeContext";
+import { useThemeContext } from "../context/themeContext";
 import AnimatedText, {
   AnimStyle,
   AnimTextOrder,

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
-import { MousePosProvider } from "../components/mousePosContext";
-import { ScrollPositionProvider } from "../components/scrollPosContext";
-import { RouteProvider } from "../components/routeContext";
-import { ThemeProvider } from "../components/themeContext";
+import { MousePosProvider } from "../components/context/mousePosContext";
+import { ScrollPositionProvider } from "../components/context/scrollPosContext";
+import { RouteProvider } from "../components/context/routeContext";
+import { ThemeProvider } from "../components/context/themeContext";
 import Navigation from "../components/navigation/primary-navigation";
 import Preloader from "../components/utils/preloader";
 import "../styles/index.scss";

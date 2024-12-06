@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect, useRef, useContext} from "react";
 import { motion, cubicBezier, easeInOut } from "framer-motion";
-import { MousePosContext } from "../mousePosContext";
-import { useMousePos } from '../mousePosContext'; // Adjust the import path as necessary
+import { MousePosContext } from "../context/mousePosContext";
+import { useMousePos } from '../context/mousePosContext'; // Adjust the import path as necessary
 
 const CursorCta = ({content}) => {
   const { visible } = useMousePos(); // Access the visible state from context

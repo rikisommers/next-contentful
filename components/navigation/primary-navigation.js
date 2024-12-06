@@ -14,7 +14,7 @@ import Modal, {
   ModalWidth,
   ModalPosition,
 } from "../base/modal";
-import { useThemeContext } from "../themeContext";
+import { useThemeContext } from "../context/themeContext";
 import NavBar from "./navbar";
 import Logo from "./logo";
 

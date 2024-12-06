@@ -1,12 +1,4 @@
 import React, { useState } from "react";
-import PostTile from "../post/post-tile";
-import PostTileCs from "../post/post-tile-cs";
-import PostTileLg from "../post/post-tile-lg";
-import AnimatedElement, { AnimStyleEl } from "../motion/animated-element";
-import AnimatedText, { AnimStyle } from "../motion/animated-text";
-import PostTileRe from "../post/post-tile-reone";
-import PostTileImg from "../post/post-tile-img";
-import { useThemeContext } from "../themeContext";
 import Grid from "../grid/grid";
 import { BlockTags } from "./block-tags";
 // import { useMousePos } from "../mousePosContext"

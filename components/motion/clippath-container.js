@@ -5,7 +5,7 @@ import {
   useScroll,
   useMotionValueEvent,
 } from "framer-motion";
-import { useThemeContext } from "../themeContext";
+import { useThemeContext } from "../context/themeContext";
 
 export const ClipContainer = ({ children }) => {
   const heroRef = useRef(null);

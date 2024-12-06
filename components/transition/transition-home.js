@@ -12,7 +12,7 @@ const TransitionHome = ({ children }) => {
   return (
    <motion.div
           ref={nextRef}
-          className="absolute relative overflow-hidden"
+          className="relative overflow-hidden"
           layout
           initial={{
             y: 0,

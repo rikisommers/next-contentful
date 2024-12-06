@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import Background from "../background/background";
 import AnimatedText, { AnimTextOrder } from "../motion/animated-text";
 import CanvasGradientBackground from "../background/canvasGradientBackground";
-import { useThemeContext } from "../themeContext";
+import { useThemeContext } from "../context/themeContext";
 import BlendImage from "../image/blend-image";
 import { ClipContainer } from "../motion/clippath-container";
 import AnimatedElement, {

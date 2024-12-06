@@ -23,7 +23,7 @@ import {
   cursorThemes,
   gridThemes,
   mixBlendThemes} from "./theme";
-import { useThemeContext } from '../components/themeContext';
+import { useThemeContext } from '../components/context/themeContext';
 import { Leva, useControls ,button, folder} from "leva";
 
 

@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect, useRef, useContext} from "react";
 import { motion, cubicBezier } from "framer-motion";
-import { MousePosContext } from "../mousePosContext";
+import { MousePosContext } from "../context/mousePosContext";
 //import { checkTouchDevice } from "./check-toucch-device";
 
 const CursorDot = () => {

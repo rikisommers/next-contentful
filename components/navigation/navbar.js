@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Button, { ButtonType, ButtonSound } from "../base/button";
 import ButtonAlt from "../base/button-alt";
-import { useThemeContext } from "../themeContext";
+import { useThemeContext } from "../context/themeContext";
 import Link from "next/link";
 import { DotsSixVertical } from "@phosphor-icons/react";
 

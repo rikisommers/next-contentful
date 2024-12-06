@@ -2,17 +2,13 @@
 
 // app/providers.js
 import React, { useState, useEffect } from "react";
-import Cookies from "js-cookie";
 import { AnimatePresence } from "framer-motion";
 import { MousePosProvider } from "./mousePosContext";
 import { ScrollPositionProvider } from "./scrollPosContext";
-import { RouteProvider } from "./routeContext";
 import { PagesRouteProvider } from "./routeContextPages";
-import { ToastProvider } from "./toastContext";
-import { ThemeProvider } from "./themeContext";
-import { themes } from "../utils/theme";
-import Navigation from "./navigation/primary-navigation";
-import Preloader from "./utils/preloader";
+import { ThemeProvider } from "../themeContext";
+import Navigation from "../navigation/primary-navigation";
+import Preloader from "../utils/preloader";
 
 const Providers = ({ children, router }) => {
   const [isLoading, setIsLoading] = useState(true);

@@ -1,11 +1,7 @@
 import React, { useState, useRef } from "react";
-import Layout from "../components/layout";
-
 import PostIntro from "../components/post/post-intro";
 import PostBody from "../components/post/post-body";
 import BlockFooter from "../components/blocks/block-footer";
-import { useScrollPosition } from "../components/scrollPosContext";
-import TransitionPage from "../components/transition/pageTransition";
 
 export default function LandingPage({ data, footerData, tags }) {
 

@@ -1,6 +1,6 @@
 // audio-utils.js
 import { useState} from 'react';
-import { useThemeContext } from '../themeContext';
+import { useThemeContext } from '../context/themeContext';
 
 // Initialize audio references
 const initializeAudioRefs = () => {

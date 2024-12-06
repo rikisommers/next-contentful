@@ -2,7 +2,7 @@
 
 import React, { useContext } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { RouteContext } from "../../components/routeContext";
+import { RouteContext } from "../context/routeContext";
 import { useTheme } from 'next-themes';
 import { getThemeByKey } from '../../utils/theme';
 
