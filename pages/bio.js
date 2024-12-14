@@ -13,7 +13,7 @@ const Bio = ({ data, footerData }) => {
   return (
     <TransitionPage>
                 <SpeedInsights />
-
+                <Layout>
       <div
         className="relative"
         style={{
@@ -26,14 +26,16 @@ const Bio = ({ data, footerData }) => {
           }`}
         >
 
-          <div className="flex flex-col px-8">
-            <PostIntro title={data.titlealt} content={data.contentalt} />
+          <div className="flex flex-col px-8 py-12">
+          <h1 className="h-32">sd</h1>
+              <PostIntro title={data.titlealt} content={data.contentalt} />
             <LandingPageContent data={data} />
           </div>
         </div>
         <BlockFooter content={footerData} />
 
       </div>
+      </Layout>
     </TransitionPage>
   );
 };

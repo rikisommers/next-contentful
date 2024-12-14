@@ -9,6 +9,8 @@ export default function PostTileRe({ post, index, size }) {
 
   const ref = useRef(null); // Unique ref for each instance
   const inView = useInView(ref, {once:true, threshold: 0.5 }); // Trigger when 50% of the element is visible
+  const [isHovered, setIsHovered] = useState(false); // State to track hover
+
 
   return (
     <Link
@@ -18,8 +20,9 @@ export default function PostTileRe({ post, index, size }) {
         backgroundColor: "var(--background-color)",
       }}
       className="relative flex flex-col w-full h-full overflow-hidden no-underline rounded-2xl group"
-      // onMouseEnter={() => setIsHovered(true)} // Set hover state to true on mouse enter
-      // onMouseLeave={() => setIsHovered(false)} // Set hover state to false on mouse leave
+  
+      onMouseEnter={() => setIsHovered(true)} // Set hover state to true on mouse enter
+      onMouseLeave={() => setIsHovered(false)} // Set hover state to false on mouse leave
     >
       <div className="flex flex-col gap-4 justify-start w-full row-span-1 p-4 !h-1/2">
         <div
@@ -67,12 +70,26 @@ export default function PostTileRe({ post, index, size }) {
           <div
             className="w-10 h-10 rounded-lg opacity-50"
           >
-               <img
-                src="arrow_forward.svg"
-                viewBox="0 0 24 24"
-                className="h-full"
-
-              ></img>
+      
+                <motion.img
+              animate={{
+                x: isHovered ? [0, 40, -40, 0] : 0,
+                opacity: isHovered ? [1, 0, 0, 1] : 1,
+              }}
+              transition={{
+                duration: 0.6,
+                times: [0, 0.33, 0.65, 1],
+                ease:"easeOut"
+                // repeat: 1,
+                // repeatType: "loop",
+              }}
+              src="arrow_forward.svg"
+              viewBox="0 0 20 20"
+              className="z-10 w-6 h-6"
+              // style={{
+              //   color: "var(--accent-pri",
+              // }}
+            ></motion.img>
           </div>
           {/* <h3
             className="text-sm"

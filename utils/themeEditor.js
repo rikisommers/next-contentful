@@ -8,6 +8,7 @@ import {
   pageWidthThemes, 
   cardThemes,
   cardHoverThemes,
+  heroTypeThemes,
   heroBackgroundThemes,
   heroHeightThemes,
   heroTextImageThemes,
@@ -98,6 +99,7 @@ export default function ThemeEditor() {
     //root.style.setProperty('--mix-blend-mode', theme.imageMixBlendMode || 'normal');
     root.style.setProperty('--text-highlight', theme.textHighlight || 'text');
     root.style.setProperty('--text-animation', theme.textAnimation || 'linesup');
+    root.style.setProperty('--text-animation-sec', theme.textAnimationSec || 'linesup');
     root.style.setProperty('--page-transition', theme.pageTransition || 'fade');
     root.style.setProperty('--page-width', theme.pageWidth || 'large');
     
@@ -427,6 +429,12 @@ export default function ThemeEditor() {
         label: 'Text Animation',
         onChange: (value) => applyCurrentTheme2('textAnimation', value) // Call existing handler
       },
+      textAnimationSec: { 
+        options: Object.keys(textAnimationThemes), 
+        value: currentTheme.textAnimationSec, 
+        label: 'Text Anim Sec',
+        onChange: (value) => applyCurrentTheme2('textAnimationSec', value) // Call existing handler
+      },
       fontFamilyPrimary: { 
         options: Object.values(typographyThemes), 
         value: currentTheme.fontFamilyPrimary, 
@@ -551,6 +559,12 @@ export default function ThemeEditor() {
           value: currentTheme.heroHeight, 
           label: 'Height',
           onChange: (value) => applyCurrentTheme2('heroHeight', value) 
+        },
+        heroType: { 
+          options: Object.keys(heroTypeThemes), 
+          value: currentTheme.heroType, 
+          label: 'Type',
+          onChange: (value) => applyCurrentTheme2('heroType', value) 
         },
         heroBackgroundStyle: { 
           options: Object.keys(heroBackgroundThemes), 

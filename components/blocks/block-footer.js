@@ -116,22 +116,8 @@ export default function BlockFooter({ data }) {
 
         <div className="flex flex-col col-span-12 gap-4 sm:flex-row md:col-span-5">
           
-          <div className="flex flex-col flex-grow basis-1">
-          <div
-              className="flex flex-col p-8 rounded-lg "
-              style={{
-                backgroundColor: "var(--background-color)",
-              }}
-            >
-              <h3
-                className="mb-4 text-sm font-normal "
-                style={{ color: "var(--text-color-inv)" }}
-              >
-                Product
-                {/* {data?.description} */}
-              </h3>
-            </div>
-            <div className="flex flex-col flex-grow p-8 rounded-lg bg-black/10">
+      
+            <div className="flex flex-col flex-grow p-8 rounded-lg bg-black/10 basis-1">
               <h3
                 className="mb-4 text-sm font-normal"
                 style={{ color: "var(--accent-pri)" }}
@@ -153,8 +139,6 @@ export default function BlockFooter({ data }) {
                 ))}
               </div>
             </div>
-          </div>
-
           <div className="flex flex-col flex-grow gap-4 basis-1">
             <div className="flex flex-col p-8 rounded-lg bg-black/10">
               <h3

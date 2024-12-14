@@ -5,7 +5,7 @@ import PostTileCs from "../post/post-tile-cs";
 import PostTileLg from "../post/post-tile-lg";
 import PostTileImg from "../post/post-tile-img";
 import PostTileRe from "../post/post-tile-reone";
-
+import PostTileMonks from "../post/post-tile.monks";
 
 
 export default function GridList({data}) {
@@ -15,13 +15,12 @@ export default function GridList({data}) {
     return (
         <div className="grid grid-cols-3 gap-6">
         {data.map((item, i) => (
-            <div key={i}>
-              <AnimatedElement type={AnimStyleEl.FADEIN}>
+            <div key={i} class="relative">
                 {currentTheme.cardLayout === 'formal' && <PostTileCs post={item} />}
                 {currentTheme.cardLayout === 'funky' && <PostTileLg post={item} />}
                 {currentTheme.cardLayout === 'reone' && <PostTileRe post={item} />}
                 {currentTheme.cardLayout === 'img' && <PostTileImg post={item} />}
-              </AnimatedElement>
+                {currentTheme.cardLayout === 'monks' && <PostTileMonks post={item} />}
             </div>
         ))}
         </div>

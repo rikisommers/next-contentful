@@ -50,7 +50,7 @@ export default function PagesPasswordPage({ children, locked }) {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>; // Or any loading indicator
+    return <div>Loading...tttt</div>; // Or any loading indicator
   }
 
   if (!isLoggedIn && locked) {

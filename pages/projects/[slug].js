@@ -1,9 +1,5 @@
 import Layout from "../../components/layout";
-import {
-  getAllCaseStudies,
-  getPost,
-  getFooter,
-} from "../../lib/api";
+import { getAllCaseStudies, getPost, getFooter } from "../../lib/api";
 
 import PostHeader from "../../components/post/post-header";
 import PostHeaderMonks from "../../components/post/post-header-monks";
@@ -15,9 +11,14 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import PostDetails from "../../components/post/post-details";
 import ScrollContainer from "../../components/utils/scroll-container";
-export default function Post({ post, footerData }) {
+import { useThemeContext } from "../../components/context/themeContext";
+import PostHeaderRiki from "../../components/post/post-header-riki";
 
-  console.log('PPPP:',post)
+
+export default function Post({ post, footerData }) {
+  console.log("PPPP:", post);
+
+  const { currentTheme } = useThemeContext();
 
 
   // const router = useRouter();
@@ -29,18 +30,12 @@ export default function Post({ post, footerData }) {
   //   }
   // }, [post.protected, router]);
 
-
-  return (      
-    <ScrollContainer>    
-
-
+  return (
+    <ScrollContainer>
       <PagesPasswordPage locked={post.protected}>
-
-
-   
-    {/* <div className="grid col-span-1">ddd</div>
+        {/* <div className="grid col-span-1">ddd</div>
     <div className="grid col-span-1">dddd</div> */}
-      {/* {post.csblocksCollection && (
+        {/* {post.csblocksCollection && (
           <PageNav content={post.csblocksCollection.items}></PageNav>
               // <nav className="sticky right-0 z-50 flex flex-col self-start justify-center rounded-full top">
               //   <ul className="flex flex-col bg-slate-100 ml-50">
@@ -62,41 +57,51 @@ export default function Post({ post, footerData }) {
               //     </ul>
               // </nav>
             )} */}
-  
+        {post && (
+        <PageNav content={post.csblocksCollection.items}></PageNav>
+        )}
+
         <Layout>
-         {post && (
+          {post && (
+            <>
 
-            <div className="grid grid-cols-12 gap-4 p-8 grid-rows-auto">
-                <div className="col-span-12">
-                  <PostHeaderMonks title={post.title} subtitle={post.subtitle} img={post.img} >
-                  {/* <PostDetails post={post} description={post.description} intro={post.intro} duration={post.duration} client={post.client} role={post.role} /> */}
-          <h1>sd</h1>
-                    </PostHeaderMonks>
-                </div>
-  
-                <div className="row-start-2 page__content">
-                  <PostContent content={post} />
-                </div>
-                <div className="col-start-11 row-start-2">
-                <PageNav content={post.csblocksCollection.items}></PageNav>
-
-                </div>
-            </div>
-
-        
-              
-             
+            {currentTheme.heroType === 'monks' &&
+              <PostHeaderMonks
+                title={post.title}
+                subtitle={post.subtitle}
+                img={post.img}
+              />
+            }
+            {currentTheme.heroType === 'pentagram' &&
+              <PostHeader
+                title={post.title}
+                subtitle={post.subtitle}
+                img={post.img}
+              />
+            }
+            {currentTheme.heroType === 'riki' &&
+              <PostHeaderRiki
+                title={post.contentalt}
+                subtitle={post.titlealt}
+                img={post.img}
+              />
+            }
+              <PostDetails
+                post={post}
+                description={post.description}
+                intro={post.intro}
+                duration={post.duration}
+                client={post.client}
+                role={post.role}
+              />
+              <PostContent content={post} />
+            </>
           )}
-          {footerData && (
-            <BlockFooter data={footerData} />
-          )}
-            </Layout>
+          {footerData && <BlockFooter data={footerData} />}
+        </Layout>
         {/* </ScrollContainer> */}
-
-          </PagesPasswordPage>
-
-</ScrollContainer>
-
+      </PagesPasswordPage>
+    </ScrollContainer>
   );
 }
 
@@ -119,6 +124,6 @@ export async function getStaticPaths() {
   const allPosts = await getAllCaseStudies(false);
   return {
     paths: allPosts?.slice(0, 20).map(({ slug }) => `/projects/${slug}`) ?? [],
-    fallback: 'blocking',
+    fallback: "blocking",
   };
 }

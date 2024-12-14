@@ -35,12 +35,12 @@ const CtxMenu = ({ buttonContent, menuContent }) => {
     <div className="relative" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       {buttonContent}
       <motion.div
-        className="absolute left-0 z-10 shadow-lg"
+        className="absolute top-0 left-0 z-10 shadow-lg"
         initial="hidden"
         animate={controls}
         variants={{
-          visible: { opacity: 1, y: 0 },
-          hidden: { opacity: 0, y: 10 }
+          visible: { opacity: 1, y: 0, display:'block' },
+          hidden: { opacity:0, y: 10 ,display:'none'}
         }}
         transition={{ duration: 0.2 }}
         onMouseEnter={isOpen ? handleMenuMouseEnter : null}

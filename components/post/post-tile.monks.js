@@ -59,6 +59,9 @@ export default function PostTileMonks({ post, index, size }) {
     <Link
       ref={ref}
       href={`/projects/${post.slug}`}
+      style={{
+        backgroundColor: "var(--background-color)",
+      }}
       className="relative flex flex-col w-full h-full overflow-hidden no-underline rounded-2xl group"
       onMouseEnter={() => setIsHovered(true)} // Set hover state to true on mouse enter
       onMouseLeave={() => setIsHovered(false)} // Set hover state to false on mouse leave
@@ -66,9 +69,6 @@ export default function PostTileMonks({ post, index, size }) {
       {post.img && (
         <motion.div
           className="w-full !h-1/2 overflow-clip"
-          style={{
-            backgroundColor: "var(--background-color)",
-          }}
         >
           <motion.div
             className="w-full h-full"
@@ -119,7 +119,7 @@ export default function PostTileMonks({ post, index, size }) {
               <motion.div
             className={`overflow-hidden relative w-7 h-7 rounded-full opacity-50 flex items-center justify-center ml-2`}
             style={{
-              backgroundColor: "var(--background-color)",
+              backgroundColor: "var(--text-color)",
             }}
             animate={{
                 x: isHovered ? [0, 30, 0] : 0 , // Move to 300px and back to 0
@@ -134,18 +134,18 @@ export default function PostTileMonks({ post, index, size }) {
             <motion.img
               animate={{
                 x: isHovered ? [0, 40, -40, 0] : 0,
-                opacity: isHovered ? [1, 1, 0, 1] : 1,
+                opacity: isHovered ? [1, 0, 0, 1] : 1,
               }}
               transition={{
                 duration: 0.6,
                 times: [0, 0.33, 0.65, 1],
-                ease:"easeInOut"
+                ease:"easeOut"
                 // repeat: 1,
                 // repeatType: "loop",
               }}
               src="arrow_forward.svg"
               viewBox="0 0 20 20"
-              className="z-10 w-8 h-8"
+              className="z-10 w-6 h-6"
               style={{
                 color: "var(--accent-pri",
               }}

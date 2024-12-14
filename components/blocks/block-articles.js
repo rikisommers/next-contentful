@@ -40,7 +40,13 @@ export const BlockArticles = ({ data, tags }) => {
 
   return (
     <>
-      {tags && tags.length && <BlockTags data={tags} selected={selectedTag} handleTagClick={handleTagClick}/>}
+      {tags && tags.length && (
+        <BlockTags
+          data={tags}
+          selected={selectedTag}
+          handleTagClick={handleTagClick}
+        />
+      )}
       <div className="flex flex-col w-full gap-6">
         {posts && <Grid type={data.type} data={filteredPosts} />}
       </div>

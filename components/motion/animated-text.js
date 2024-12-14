@@ -86,14 +86,13 @@ const AnimatedText = ({type, highlight, content ,delay}) => {
 
 //    return getAnimatedComponent(content, delay);
 const { currentTheme } = useThemeContext();
-const type2 = currentTheme.textAnimation
 const highlight2 = currentTheme.textHighlight
 
 
 //    console.log('------',currentTheme);
 
 if(content){
-switch (type2) {
+switch (type) {
     case AnimStyle.NONE:
         return <TextAnimNone 
         content={content} 

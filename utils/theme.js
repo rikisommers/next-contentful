@@ -1269,6 +1269,13 @@ export const heroTextPositionThemes = {
   bottomRight:'bottom-right',
 };
 
+
+export const heroTypeThemes = {
+  monks: 'monks',
+  pentagram: 'pentagram',
+  riki: 'riki',
+};
+
 export const heroGradThemes = {
   gradMidPoint: 0.5
 };
@@ -1288,6 +1295,7 @@ export const bodyTextAlign = {
   left: 'left',
   center: 'center',
   right: 'right',
+  split:'split',
 };
 
 
@@ -1325,6 +1333,7 @@ const themeContent = {
   fluidVariableUnit: fluidFontSizeThemes.variableUnit,
   textHighlight:textHighlightThemes.text,
   textAnimation:textAnimationThemes.none,
+  textAnimationSec:textAnimationThemes.none,
   pageTransition:pageTransitionThemes.fade,
   pageWidth:pageWidthThemes.fluid,
   cursor:cursorThemes.none,
@@ -1334,6 +1343,7 @@ const themeContent = {
   imageparallax:imageThemes.parallax,
   imageMixBlendMode:imageThemes.mixBlendMode,
   heroHeight:heroHeightThemes.full,
+  heroType:heroTypeThemes.pentagram,
   heroBackground:heroBackgroundThemes.gradient,
   heroTextImage:heroTextImageThemes.none,
   heroTextPosition:heroTextPositionThemes.center,

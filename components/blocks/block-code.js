@@ -29,6 +29,9 @@ export const BlockCode = ({ data }) => {
 
   return (
     <article className="grid grid-cols-12 gap-3 article-content">
+      {data.embedurl &&       
+      <iframe src="embedurl"></iframe>
+      }
       <div className="col-span-10 col-start-2 md:col-start-3 md:col-span-8">
         <div className="relative w-full">
           <div className="p-4 rounded-md" >
@@ -53,9 +56,7 @@ export const BlockCode = ({ data }) => {
             <div className="overflow-x-auto">
               {data.code && (
                 <pre class={`language-${data.type ? data.type : "javascript"}`} ref={codeRef} >
-
                    <code>{data.code}</code>
-
                 </pre>
               )}
             </div>

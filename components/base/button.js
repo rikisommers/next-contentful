@@ -22,7 +22,7 @@ const ButtonSound = {
 
 
 
-const Button = ({ label, click, type = ButtonType.DEFAULT, sound }) => {
+const Button = ({ label, click, type = ButtonType.DEFAULT, sound, children  }) => {
   const { 
     playClick, 
     playBeepOn, 
@@ -87,6 +87,7 @@ const Button = ({ label, click, type = ButtonType.DEFAULT, sound }) => {
       style={getButtonStyle(type)}
     >
       {label}
+      {children}
     </motion.div>
   );
 };

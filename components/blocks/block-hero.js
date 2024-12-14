@@ -282,7 +282,7 @@ export default function BlockHero({ intro, titlealt, date, contentalt, image }) 
     </div>
 
 
-s
+
   </ClipContainer>
   );
 }

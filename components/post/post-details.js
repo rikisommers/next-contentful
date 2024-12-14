@@ -12,7 +12,7 @@ export default function PostDetails({ post }) {
           <div style={{ color: 'var(--text-color)' }}>
             <span
               className="inline mr-3 italic"
-              style={{ color: 'var(--accent)' }}
+              style={{ color: 'var(--subtext-color)' }}
             >
               Overview
             </span>
@@ -32,7 +32,7 @@ export default function PostDetails({ post }) {
           <div style={{ color: 'var(--text-color)' }}>
             <span
               className="mr-2 italic"
-              style={{ color: 'var(--accent)' }}
+              style={{ color: 'var(--subtext-color)' }}
             >
               Duration
             </span>
@@ -42,7 +42,7 @@ export default function PostDetails({ post }) {
           <div style={{ color: 'var(--text-color)' }}>
             <span
               className="mr-2 italic"
-              style={{ color: 'var(--accent)' }}
+              style={{ color: 'var(--subtext-color)' }}
             >
               Client
             </span>
@@ -52,7 +52,7 @@ export default function PostDetails({ post }) {
           <div style={{ color: 'var(--text-color)' }}>
             <span
               className="mr-2 italic"
-              style={{ color: 'var(--accent)' }}
+              style={{ color: 'var(--subtext-color)' }}
             >
               Role
             </span>

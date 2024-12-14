@@ -14,6 +14,8 @@ export const BlockArticle = ({ data }) => {
         return "mx-auto max-w-prose";
       case "left":
         return "max-w-prose";
+        case "split":
+          return "w-full grid grid-cols-2";
       default:
         return "mx-auto max-w-prose";
     }
@@ -27,7 +29,7 @@ export const BlockArticle = ({ data }) => {
 
         
         {data.title && 
-        <h2 className="mb-4 font-normal text-1xl" style={{color: 'var(--heading-color)',}}>{data.title}</h2>
+        <h2 className="mb-4 font-normal  ~text-1xl/2xl" style={{color: 'var(--heading-color)',}}>{data.title}</h2>
         }
         {data.content && (
           <p className="mb-8 text-base" style={{color: 'var(--subtext-color)',}}>{data.content.content}</p>

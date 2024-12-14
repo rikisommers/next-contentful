@@ -28,61 +28,61 @@ export default function PostBody({ content, tags }) {
 
 
   return (
-    <div className="flex flex-col w-full gap-24 pb-16">
+    <div className="flex flex-col w-full gap-16 pb-16">
         {/* max-w-6xl gap-32 mx-auto */}
         {content.items &&
           content.items.map((item,index) => {
             return (
               <section key={index} className="w-full">
                  {item.__typename === "BlockHeader" && (
-                  <BlockHeader key={item.id} data={item} ></BlockHeader>
+                  <BlockHeader key={item.id} data={item} id={item.title} ></BlockHeader>
                 )}
                 {item.__typename === "BlockArticle" && (
                   // <AnimatedElement type={AnimStyleEl.FADEIN}>
-                    <BlockArticle key={item.id} data={item} />
+                    <BlockArticle key={item.id} data={item} id={item.title} />
                   // </AnimatedElement>
                 )}
                 {item.__typename === "BlockArticles" && (
-                    <BlockArticles key={item.id} data={item} tags={tags} />
+                    <BlockArticles key={item.id} data={item} tags={tags} id={item.title} />
                 )}
                 {item.__typename === "BlockImage" && (
                   // <AnimatedElement type={AnimStyleEl.FADEIN}>
-                    <BlockImg key={item.id} data={item} />
+                    <BlockImg key={item.id} data={item} id={item.title} />
                   // </AnimatedElement>
                 )}
                 {item.__typename === "BlockHotspotImage" && (
                   // <AnimatedElement type={AnimStyleEl.FADEIN}>
-                    <BlockHotspotImg key={item.id} data={item} />
+                    <BlockHotspotImg key={item.id} data={item} id={item.title} />
                   // </AnimatedElement>
                 )}
                 {item.__typename === "BlockIg" && (
                   // <AnimatedElement type={AnimStyleEl.FADEIN}>
-                    <BlockImages key={item.id} data={item} />
+                    <BlockImages key={item.id} data={item} id={item.title} />
                   // </AnimatedElement>
                 )}
                 {item.__typename === "BlockQuote" && (
                 //  <AnimatedElement type={AnimStyleEl.FADEIN}>
-                  <BlockQuote key={item.id} data={item} />
+                  <BlockQuote key={item.id} data={item} id={item.title} />
                   // </AnimatedElement>
                 )}
                 {item.__typename === "BlockEmbed" && (
                   <AnimatedElement type={AnimStyleEl.FADEIN}>
-                    <BlockEmbed key={item.id} data={item} />
+                    <BlockEmbed key={item.id} data={item} id={item.title} />
                   </AnimatedElement>
                 )}
                 {item.__typename === "BlockCode" && (
                   <AnimatedElement type={AnimStyleEl.FADEIN}>
-                    <BlockCode key={item.id} data={item} />
+                    <BlockCode key={item.id} data={item} id={item.title} />
                   </AnimatedElement>
                 )}
                 {item.__typename === "BlockList" && (
                   <AnimatedElement type={AnimStyleEl.FADEIN}>
-                    <BlockList key={item.id} data={item} />
+                    <BlockList key={item.id} data={item} id={item.title} />
                   </AnimatedElement>
                 )}    
                 {item.__typename === "BlockCode" && (
                   <AnimatedElement type={AnimStyleEl.FADEIN}>
-                    <BlockCode key={item.id} data={item} />
+                    <BlockCode key={item.id} data={item} id={item.title} />
                   </AnimatedElement>
                 )}    
 

@@ -47,9 +47,19 @@ export const ClipContainer = ({ children }) => {
        }}
       className={`relative min-w-screen overflow-hidden`}
     >
-
+  <motion.div
+            className="w-full h-full"
+            animate={{
+              scale: useTransform(scrollContent, [0, 1], [1, 1.3]), // Updated to use scrollYProgress
+            }}
+            transition={{
+              duration: 4,
+              ease: [0.16, 1, 0.3, 1], // direct array syntax
+            }}
+          >
         
       {children}
+      </motion.div>
     </motion.div>
   );
 };

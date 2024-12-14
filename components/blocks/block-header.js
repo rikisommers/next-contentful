@@ -1,36 +1,44 @@
 import React from "react";
-import AnimatedText,{AnimStyle} from "../motion/animated-text";
-export default function BlockHeader({ data }) {
+import { useThemeContext } from "../context/themeContext";
+import AnimatedText, {
+  AnimStyle,
+  AnimTextOrder,
+} from "../motion/animated-text";
+
+export default function BlockHeader({ data  }) {
+  const { currentTheme } = useThemeContext();
+  console.log("555", data);
 
   return (
     <div
-      className={`relative flex items-start  rounded-lg ${
-        data.primaryPageHeader === true ? "h-vhh" : ""
-      }`}
-      style={{
-        backgroundColor:'var(--accent)'
-      }}
+      className={`relative ${data.primaryPageHeader === true ? "h-vhh" : ""}`}
     >
-      {/* pt-32 pb-16 */}
-      <div className="z-20 grid items-start w-full grid-cols-12 gap-3 px-8 py-16"
-
-      >
-        <div className="col-span-12 md:col-span-6">
-          {data?.title && (
-            <h2 className="text-4xl font-normal font-aon"
-              style={{color:'var(--text-color)'}}
+      <div className="grid items-end content-end w-full grid-cols-12 gap-6">
+        <div className="col-span-12 md:col-span-8 lg:col-span-8">
+          {data.title && (
+            <h4
+              className="mb-4 text-sm font-normal"
+              style={{color:'var(--text-color)'}} 
             >
-              <AnimatedText type={AnimStyle.CHARFADE} content={data.title}/> 
+              <AnimatedText
+                content={data.content}
+                type={currentTheme.textAnimationSec}
+                delay={AnimTextOrder.TWO}
+              >
+                {/* {data.title} */}
+              </AnimatedText>
+            </h4>
+          )}
+          {data.content && (
+            <h2 className="leading-normal font-normal ~text-2xl/4xl text-balance">
+             
+              <AnimatedText
+                content={data.content}
+                type={'none'}
+                delay={AnimTextOrder.TWO}
+              />
             </h2>
           )}
-        </div>
-        <div
-          className="col-span-6 font-aon md:col-span-6 "
-          style={{ color: 'var(--text-color)' }}
-        >
-          <AnimatedText type={AnimStyle.LINESUP} content={data.content}/> 
-
- 
         </div>
       </div>
     </div>
