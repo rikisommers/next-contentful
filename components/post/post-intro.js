@@ -22,7 +22,9 @@ export default function PostIntro({ title, content, }) {
       </div>
       <div className="col-span-12 text-left md:col-span-8 lg:col-span-4 text-balance">
         <h4 className="text-sm font-normal">
+          {content && 
           <AnimatedText type={currentTheme.textAnimationSec} content={content} delay={AnimTextOrder.THREE}/>
+        }
         </h4>
       </div>
     </div>

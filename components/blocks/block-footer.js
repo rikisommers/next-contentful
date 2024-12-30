@@ -108,15 +108,37 @@ export default function BlockFooter({ data }) {
                 <ButtonAlt label={data.cta} type={ButtonType.SECONDARY} />
               </Link>
             )}
+
+            <button
+              id="anchor_1"
+              popovertarget="popover_1" // This should match the ID of the popover
+              className="p-4 bg-purple-300 cursor-pointer popover-trigger"
+            >
+              Open popover
+            </button>
+            <div role="menu"
+              className="popover-target"
+              id="popover_1" // This ID should match the popovertarget
+              popover="true" // Ensure this attribute is set
+            >
+              <button
+                onClick={() =>
+                  document.getElementById("popover_1").hidePopover()
+                }
+              >
+                Close
+              </button>
+              <button>sdsdsd</button>
+              <button>sdsdsd</button>
+              <button>sdsdsd</button>
+            </div>
+
+            
           </div>
         </div>
 
         <div className="flex flex-col col-span-12 gap-4 md:col-span-5">
-
-
-        <div className="flex flex-col col-span-12 gap-4 sm:flex-row md:col-span-5">
-          
-      
+          <div className="flex flex-col col-span-12 gap-4 sm:flex-row md:col-span-5">
             <div className="flex flex-col flex-grow p-8 rounded-lg bg-black/10 basis-1">
               <h3
                 className="mb-4 text-sm font-normal"
@@ -139,46 +161,46 @@ export default function BlockFooter({ data }) {
                 ))}
               </div>
             </div>
-          <div className="flex flex-col flex-grow gap-4 basis-1">
-            <div className="flex flex-col p-8 rounded-lg bg-black/10">
-              <h3
-                className="mb-4 text-sm font-normal"
-                style={{ color: "var(--accent-pri)" }}
-              >
-                Services
-                {/* {data?.description} */}
-              </h3>
+            <div className="flex flex-col flex-grow gap-4 basis-1">
+              <div className="flex flex-col p-8 rounded-lg bg-black/10">
+                <h3
+                  className="mb-4 text-sm font-normal"
+                  style={{ color: "var(--accent-pri)" }}
+                >
+                  Services
+                  {/* {data?.description} */}
+                </h3>
 
-              <div className="flex flex-col col-span-1 gap-2">
-                {pages.map((page) => (
-                  <Link
-                    className="text-sm no-underline"
-                    key={page.id}
-                    href={page.url}
-                    scroll={false}
-                    style={{ color: "var(--text-color)" }}
-                  >
-                    {page.title}
-                  </Link>
-                ))}
+                <div className="flex flex-col col-span-1 gap-2">
+                  {pages.map((page) => (
+                    <Link
+                      className="text-sm no-underline"
+                      key={page.id}
+                      href={page.url}
+                      scroll={false}
+                      style={{ color: "var(--text-color)" }}
+                    >
+                      {page.title}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+              <div
+                className="flex flex-col p-8 rounded-lg "
+                style={{
+                  backgroundColor: "var(--background-color)",
+                }}
+              >
+                <h3
+                  className="mb-4 text-sm font-normal "
+                  style={{ color: "var(--text-color-inv)" }}
+                >
+                  Product
+                  {/* {data?.description} */}
+                </h3>
               </div>
             </div>
-            <div
-              className="flex flex-col p-8 rounded-lg "
-              style={{
-                backgroundColor: "var(--background-color)",
-              }}
-            >
-              <h3
-                className="mb-4 text-sm font-normal "
-                style={{ color: "var(--text-color-inv)" }}
-              >
-                Product
-                {/* {data?.description} */}
-              </h3>
-            </div>
           </div>
-</div>
           {/* <h3
               className="text-sm font-normal"
               style={{ color: "var(--text-accent)" }}
@@ -209,14 +231,14 @@ export default function BlockFooter({ data }) {
           <div className="flex items-center flex-grow gap-4 px-5 rounded-lg bg-black/10">
             <Link
               className="text-xs no-underline"
-              style={{color:"var(--text-color)"}}
+              style={{ color: "var(--text-color)" }}
               href="https://www.linkedin.com/in/matias-garcia-dev/"
             >
               Privacy Policy
             </Link>
             <Link
               className="text-xs no-underline"
-              style={{color:"var(--text-color)"}}
+              style={{ color: "var(--text-color)" }}
               href="https://www.linkedin.com/in/matias-garcia-dev/"
             >
               Cookies Policy
@@ -279,9 +301,6 @@ export default function BlockFooter({ data }) {
             {data.intro && <BlockFooter content={data.intro} />}
           </motion.div>
         </motion.div> */}
-
-    
-      
 
       {/* <motion.div
         className="absolute w-full h-full"

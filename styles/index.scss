@@ -19,6 +19,46 @@
 @use 'utils';
 @import 'material-icons/iconfont/material-icons.css';
 
+
+.popover-trigger{
+  anchor-name: --anchor_1;
+}
+
+.popover-target{
+  position: absolute;
+	margin: 0;
+	padding: 30px;
+	border: 0;
+  background-color: #465298;
+  position-anchor: --anchor_1;
+  top:anchor(bottom);
+  left:anchor(left);
+  
+  //right:anchor(center);
+  position-try-fallbacks: --bottom;
+  transition: display 1s, opacity 1s;
+  transition-behavior:allow-discrete;
+  opacity:0;
+	// inset-block-start: anchor(--anchor_1 bottom);
+	// inset-inline-start: anchor(--anchor_1 right);
+}
+.popover-target:popover-open{
+  display: grid;
+opacity:1;
+  margin-block-start: 4px;  //inset: auto;
+  @starting-style{
+    opacity:0;
+  }
+}
+
+@position-try --bottom{
+  top:anchor(bottom);
+ leftt:anchor(right);
+}
+
+
+
+
 .test{
   position: fixed;
   top: 0;

@@ -277,6 +277,9 @@ export default function BlockHero({ intro, titlealt, date, contentalt, image }) 
           </div>
         </div>
       )} */}
+
+
+
           <PostIntro title={titlealt} content={contentalt}/>
 
     </div>

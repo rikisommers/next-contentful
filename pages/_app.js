@@ -13,12 +13,15 @@ import "../styles/prisim-vs-code-dark.scss";
 import CursorDot from "../components/utils/cursor-dot";
 import CursorCta from "../components/utils/cursor-cta";
 import TransitionPage from "../components/transition/pageTransition";
-// import FontLoader from "../utils/fontLoader";
 
 function MyApp({ Component, pageProps, router }) {
   const [isLoading, setIsLoading] = useState(true);
 
+
   useEffect(() => {
+
+
+
     window.addEventListener("load", () => {
       setIsLoading(false);
     });
@@ -31,6 +34,7 @@ function MyApp({ Component, pageProps, router }) {
 
   return (
     <>
+
       <Preloader show={isLoading} />
       {!isLoading && (
         <RouteProvider>
@@ -38,20 +42,20 @@ function MyApp({ Component, pageProps, router }) {
             <MousePosProvider>
               <ToastProvider>
               <ThemeProvider>
-
+                <Navigation />
                 <AnimatePresence mode="wait" initial={false}>
                 {/* <FontLoader 
       primaryFont={currentTheme.fontFamilyPrimary} 
       secondaryFont={currentTheme.fontFamilySecondary}
     > */}
-                <Navigation />
+
 
                   {/* {currentTheme.cursor === 'dot' && <></> } */}
-                  {/* <CursorDot key={router.asPath + "dot"} />
-                  <CursorCta
+                 {/* <CursorDot key={router.asPath + "dot"} /> */}
+                  {/* <CursorCta
                     content={"testing123"}
                     key={router.asPath + "cta"}
-                  /> */}
+                  />  */}
 
 
 
