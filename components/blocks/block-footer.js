@@ -109,7 +109,7 @@ export default function BlockFooter({ data }) {
               </Link>
             )}
 
-            <button
+            {/* <button
               id="anchor_1"
               popovertarget="popover_1" // This should match the ID of the popover
               className="p-4 bg-purple-300 cursor-pointer popover-trigger"
@@ -131,7 +131,7 @@ export default function BlockFooter({ data }) {
               <button>sdsdsd</button>
               <button>sdsdsd</button>
               <button>sdsdsd</button>
-            </div>
+            </div> */}
 
             
           </div>

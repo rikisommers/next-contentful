@@ -55,7 +55,7 @@ export const BlockCode = ({ data }) => {
             </div>
             <div className="overflow-x-auto">
               {data.code && (
-                <pre class={`language-${data.type ? data.type : "javascript"}`} ref={codeRef} >
+                <pre className={`language-${data.type ? data.type : "javascript"}`} ref={codeRef} >
                    <code>{data.code}</code>
                 </pre>
               )}

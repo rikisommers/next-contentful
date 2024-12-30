@@ -15,7 +15,7 @@ export default function GridList({data}) {
     return (
         <div className="grid grid-cols-3 gap-6">
         {data.map((item, i) => (
-            <div key={i} class="relative">
+            <div key={i} className="relative">
                 {currentTheme.cardLayout === 'formal' && <PostTileCs post={item} />}
                 {currentTheme.cardLayout === 'funky' && <PostTileLg post={item} />}
                 {currentTheme.cardLayout === 'reone' && <PostTileRe post={item} />}

@@ -31,16 +31,51 @@ const CtxMenu = ({ buttonContent, menuContent }) => {
     }
   };
 
+  const subMenuAnimate = {
+    enter: {
+      opacity: 1,
+      rotateX: 0,
+      transition: {
+        duration: 0.5,
+      },
+      display: "block",
+    },
+    exit: {
+      opacity: 1,
+      rotateX: -15,
+      transition: {
+        duration: 0.5,
+        delay: 0.3,
+      },
+      transitionEnd: {
+        display: "none",
+      },
+    },
+  };
+
   return (
     <div className="relative" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       {buttonContent}
       <motion.div
-        className="absolute top-0 left-0 z-10 shadow-lg"
+        className="absolute top-[50%] left-0 z-10 shadow-lg"
         initial="hidden"
         animate={controls}
         variants={{
-          visible: { opacity: 1, y: 0, display:'block' },
-          hidden: { opacity:0, y: 10 ,display:'none'}
+          visible: { 
+             opacity: 1,
+             y: '-50%',
+             display:'block', 
+              scale:1
+            },
+          hidden: { 
+            opacity:1, 
+            y: '-50%' ,
+            scale:0.9,
+            transitionEnd: {
+                display: "none",
+              },
+          
+          }
         }}
         transition={{ duration: 0.2 }}
         onMouseEnter={isOpen ? handleMenuMouseEnter : null}

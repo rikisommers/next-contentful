@@ -44,7 +44,7 @@ export default function PostTileLg({ post, index, size }) {
         </motion.div>
 
         <motion.div
-          className="z-10 px-4 py-2 text-sm rounded-full"
+          className="z-10 flex items-center px-2 py-1 text-sm rounded-full"
           animate={{
             scale: isHovered ? 1 : 1.2,
           }}
@@ -57,7 +57,15 @@ export default function PostTileLg({ post, index, size }) {
             backgroundColor: "var(--background-color)",
           }}
         >
-          --
+               <img
+          
+          src="arrow_forward.svg"
+          viewBox="0 0 20 20"
+          className="z-10 w-5 h-5"
+          style={{
+            color: "var(--accent-pri",
+          }}
+        ></img>
         </motion.div>
       </div>
       <div

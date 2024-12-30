@@ -27,6 +27,8 @@ export const BlockArticles = ({ data, tags }) => {
   const [filteredPosts, setFilteredPosts] = useState(posts);
 
   const handleTagClick = (tag) => {
+
+    console.log(tag)
     setSelectedTag(tag);
     if (tag) {
       const filtered = posts.filter(
