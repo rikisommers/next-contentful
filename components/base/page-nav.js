@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, controls, useAnimation } from "framer-motion";
+import { motion, controls, useAnimation, stagger } from "framer-motion";
 
 
 
@@ -39,17 +39,35 @@ const PageNav = ({ content }) => {
   const subMenuAnimate = {
     visible: {
       opacity: 1,
+      scale:1,
       display:'block', 
     },
     hidden: {
       opacity:0, 
+      scale:0.9,
       transitionEnd: {
           display: "none",
         },
     
     },
+    transition:{ 
+      type: "spring", stiffness: 100,
+      staggerChildren: 0.2,
+      delayChildren:0.3,
+     }
+    
+  };
+
+  const subMenuItemAnimate = {
+    visible: {
+      opacity: 1,
+    },
+    hidden: {
+      opacity:0,     
+    },
     transition:{ type: "spring", stiffness: 100 }
   };
+
 
  
 
@@ -61,7 +79,7 @@ const PageNav = ({ content }) => {
       <div className="relative grid grid-cols-[1fr_2rem_0.5rem_0.5rem] items-center grid-rows-1" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
      
       <motion.div
-        className="z-40 col-start-1 col-end-4 row-span-1 row-start-1 rounded-lg shadow-xl "
+        className="z-40 col-start-1 col-end-4 row-span-1 row-start-1 origin-center rounded-lg shadow-xl "
         initial="hidden"
       
         animate={controls}
@@ -70,8 +88,7 @@ const PageNav = ({ content }) => {
         onMouseEnter={isOpen ? handleMenuMouseEnter : null}
         onMouseLeave={isOpen ? handleMenuMouseLeave : null}
         style={{
-          backgroundColor:'var(--nav-bg)'
-
+          backgroundColor:'var(--nav-bg)',
         }}
       >
             <ul className="flex flex-col p-4 mr-[40px]"
@@ -83,7 +100,10 @@ const PageNav = ({ content }) => {
                 content.length > 0 &&
                 content.map((item, index) => {
                   return (
-                    <li key={index} className="px-2 py-1 text-sm transition-colors rounded-md hover:bg-slate-200">
+                    <motion.li 
+                    animate={controls}
+                    variants={subMenuItemAnimate}
+                    key={index} className="px-2 py-1 text-sm transition-colors rounded-md hover:bg-slate-200">
                       <a href={`#${item.title}`} className="no-underline"
                       style={{
                         color:'var(--text-color)'
@@ -91,7 +111,7 @@ const PageNav = ({ content }) => {
                       >
                         {item.title}
                       </a>
-                    </li>
+                    </motion.li>
                   );
                 })}
             </ul>
@@ -99,7 +119,7 @@ const PageNav = ({ content }) => {
 
       <ul
               id="trigger"
-              className="relative z-50 flex flex-col items-end col-start-2 row-span-1 row-start-1 gap-3 px-3 py-4 rounded-lg pointer-events-auto col-emd-3 trigger ml-50 "
+              className="relative z-50 flex flex-col items-end col-start-2 row-span-1 row-start-1 gap-3 px-3 py-4 transition-all rounded-lg pointer-events-auto hover:gap-4 col-emd-3 trigger ml-50 "
               style={{backgroundColor:'var(--nav-bg)'}}
 
            >
@@ -110,11 +130,11 @@ const PageNav = ({ content }) => {
                     <li key={index}
                     style={{backgroundColor:'var(--subtext-color)'}}
                     >
-                      <div className="flex w-2 h-0.5 rounded-sm"
+                      <a href={`#${item.title}`}  className="flex w-2 h-0.5 rounded-sm"
                         
                       >
                     
-                      </div>
+                      </a>
                     </li>
                   );
                 })}

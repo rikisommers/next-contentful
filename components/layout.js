@@ -1,43 +1,43 @@
 "use client"; // Add this line
 
-import React, { useEffect } from "react";
+import React from "react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { useThemeContext } from "./context/themeContext";
 import TransitionPage from "../components/transition/pageTransition";
+import PropTypes from "prop-types";
 
-export default function Layout({ children }) {
-  const { currentTheme } = useThemeContext();
+const LayoutType = {
+  FLUID: "fluid",
+  LARGE: "large",
+  SMALL: "small",
+  DEFAULT: "default", // You can define a default option if needed
+};
 
-  // useEffect(() => {
-  //   console.log('Theme updated in Layout:', currentTheme);
-  //   // You can add any additional logic here that should run when the theme changes
-  // }, [currentTheme]);
+
+const Layout = ({ children, pageWidth = LayoutType.FLUID }) => {
 
   return (
     <TransitionPage>
-    <div
-      className="relative"
-      style={{
-        backgroundColor: "var(--body-background-color)",
-      }}
-    >
       <div
         className={`${
-          currentTheme.pageWidth === "fluid"
+          pageWidth === LayoutType.FLUID
             ? "max-w-none mx-auto"
-            : currentTheme.pageWidth === "large"
+            : pageWidth === LayoutType.LARGE
             ? "max-w-screen-xl mx-auto"
-            : currentTheme.pageWidth === "small"
+            : pageWidth === LayoutType.SMALL
             ? "max-w-screen-md mx-auto"
-            : "max-w-screen-lg mx-auto"
+            : "max-w-screen-lg mx-auto" // Default case
         }`}
       >
-        {/* <h1 className="fixed p-3 text-3xl font-bold top-16 left-16 z-nav">PageWidth: {currentTheme.pageWidth} </h1> */}
         <SpeedInsights />
-
         {children}
       </div>
-    </div>
     </TransitionPage>
   );
 }
+
+Layout.propTypes = {
+  pageWidth: PropTypes.oneOf(Object.values(LayoutType)),
+};
+
+export default Layout;
+export { LayoutType };

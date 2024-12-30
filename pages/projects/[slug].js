@@ -1,4 +1,4 @@
-import Layout from "../../components/layout";
+import Layout, {LayoutType} from "../../components/layout";
 import { getAllCaseStudies, getPost, getFooter } from "../../lib/api";
 
 import PostHeader from "../../components/post/post-header";
@@ -61,7 +61,7 @@ export default function Post({ post, footerData }) {
         <PageNav content={post.csblocksCollection.items}></PageNav>
         )}
 
-        <Layout>
+        <Layout pageWidth={LayoutType.LARGE}>
           {post && (
             <>
 
