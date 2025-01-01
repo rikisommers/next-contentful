@@ -33,7 +33,6 @@ export default function PostTileRe({ post, index, size }) {
         >
           <span className="text-xs">DATE</span>
 
-          <div className="flex items-center justify-between"></div>
           {post.tags && (
             <div className="flex gap-1">
               {post.tags.slice(0, 2).map((tag, index) => {

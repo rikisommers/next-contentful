@@ -6,7 +6,7 @@ import AnimatedText, {
 } from "../motion/animated-text";
 import { useThemeContext } from "../context/themeContext";
 
-export default function PostIntroRiki({ title, content }) {
+export default function PostIntroRiki({ title,subtitle }) {
   const { currentTheme } = useThemeContext();
 
   return (
@@ -19,14 +19,17 @@ export default function PostIntroRiki({ title, content }) {
                 color:currentTheme.subtextColor
             }}
           >
-            {title}
-        
+            <AnimatedText
+              content={title}
+              type={currentTheme.textAnimationSec}
+              delay={AnimTextOrder.ONE}
+            />
           </h4>
         )}
-        {content && (
+        {subtitle && (
           <h1 className="leading-normal ~text-2xl/6xl text-balance">
             <AnimatedText
-              content={content}
+              content={subtitle}
               type={currentTheme.textAnimation}
               delay={AnimTextOrder.TWO}
             />

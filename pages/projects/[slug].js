@@ -13,8 +13,9 @@ import PostDetails from "../../components/post/post-details";
 import ScrollContainer from "../../components/utils/scroll-container";
 import { useThemeContext } from "../../components/context/themeContext";
 import PostHeaderRiki from "../../components/post/post-header-riki";
-
-
+import TransitionPage from "../../components/transition/pageTransition";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { ClipContainer } from "../../components/motion/clippath-container";
 export default function Post({ post, footerData }) {
   console.log("PPPP:", post);
 
@@ -60,45 +61,73 @@ export default function Post({ post, footerData }) {
         {post && (
         <PageNav content={post.csblocksCollection.items}></PageNav>
         )}
+        <SpeedInsights />
+        <TransitionPage>
+        {/* <div
+        className={`${
+          pageWidth === LayoutType.FLUID
+            ? "max-w-none mx-auto"
+            : pageWidth === LayoutType.LARGE
+            ? "max-w-screen-xl mx-auto"
+            : pageWidth === LayoutType.SMALL
+            ? "max-w-screen-md mx-auto"
+            : "max-w-screen-lg mx-auto" // Default case
+        }`}
+      >
 
-        <Layout pageWidth={LayoutType.LARGE}>
+        {children}
+      </div> */}
           {post && (
             <>
-
+                          {/* <PostHeaderRiki
+                title={post.title}
+                subtitle={post.titlealt}
+                img={post.img}
+              /> */}
             {currentTheme.heroType === 'monks' &&
               <PostHeaderMonks
                 title={post.title}
-                subtitle={post.subtitle}
+                subtitle={post.titlealt}
+                tags={post.tags}
                 img={post.img}
               />
             }
-            {currentTheme.heroType === 'pentagram' &&
+            {/* {currentTheme.heroType === 'pentagram' &&
               <PostHeader
                 title={post.title}
                 subtitle={post.subtitle}
                 img={post.img}
               />
-            }
+            } */}
             {currentTheme.heroType === 'riki' &&
+                        <div className="max-w-screen-xl mx-auto">
+
               <PostHeaderRiki
-                title={post.contentalt}
+                title={post.title}
                 subtitle={post.titlealt}
                 img={post.img}
               />
+              </div>
             }
+            <div className="max-w-screen-xl mx-auto">
               <PostDetails
                 post={post}
-                description={post.description}
+                //description={post.description}
                 intro={post.intro}
                 duration={post.duration}
                 client={post.client}
                 role={post.role}
               />
               <PostContent content={post} />
+              </div>
             </>
           )}
-          {footerData && <BlockFooter data={footerData} />}
-        </Layout>
+
+
+        {footerData && <BlockFooter data={footerData} />}
+
+        </TransitionPage>
+
         {/* </ScrollContainer> */}
       </PagesPasswordPage>
     </ScrollContainer>

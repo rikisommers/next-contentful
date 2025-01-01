@@ -8,7 +8,7 @@ import { AnimStyle } from "../motion/animated-text";
 import AnimatedElement, { AnimStyleEl } from "../motion/animated-element";
 import BlendImage from "../image/blend-image";
 
-export default function PostHeaderRiki({ title, subtitle, img }) {
+export default function PostHeaderRiki({ title, subtitle, content, img }) {
   const { routeInfo } = useContext(RouteContext);
   const [sourceRoute, setSourceRoute] = useState("");
   const [destRoute, setDestRoute] = useState("");
@@ -16,7 +16,7 @@ export default function PostHeaderRiki({ title, subtitle, img }) {
   return (
     <>
       <div className="pt-64 pb-8">
-        <PostIntroRiki title={title} content={subtitle} />
+        <PostIntroRiki title={title} subtitle={subtitle} />
       </div>
 
       <div className="relative flex flex-col flex-grow overflow-hidden rounded-lg img-post">

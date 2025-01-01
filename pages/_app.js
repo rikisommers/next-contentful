@@ -9,17 +9,18 @@ import Navigation from "../components/navigation/primary-navigation";
 import Preloader from "../components/utils/preloader";
 import "../styles/index.scss";
 import "../styles/prisim-vs-code-dark.scss";
-
+import { getGlobal,getLoading } from "../lib/api";
 import CursorDot from "../components/utils/cursor-dot";
 import CursorCta from "../components/utils/cursor-cta";
 import TransitionPage from "../components/transition/pageTransition";
+import App from 'next/app'; // Import App from next/app
 
-function MyApp({ Component, pageProps, router }) {
+function MyApp({ Component, pageProps, router, globalData }) {
   const [isLoading, setIsLoading] = useState(true);
-
+  
+  console.log('GDATA', globalData)
 
   useEffect(() => {
-
 
 
     window.addEventListener("load", () => {
@@ -27,7 +28,7 @@ function MyApp({ Component, pageProps, router }) {
     });
     const timeout = setTimeout(() => {
       setIsLoading(false);
-    }, );
+    },1000 );
 
     return () => clearTimeout(timeout);
   }, [isLoading]);
@@ -35,7 +36,7 @@ function MyApp({ Component, pageProps, router }) {
   return (
     <>
 
-      <Preloader show={isLoading} />
+      <Preloader show={isLoading} data={globalData} />
       {!isLoading && (
         <RouteProvider>
           <ScrollPositionProvider>
@@ -73,4 +74,17 @@ function MyApp({ Component, pageProps, router }) {
   );
 }
 
+
+MyApp.getInitialProps = async (appContext) => {
+  const appProps = await App.getInitialProps(appContext);
+  
+  // Fetch global data from CMS
+  const globalData = await getLoading(); // Replace with your API call
+
+  return { ...appProps, globalData };
+};
+
+
+
 export default MyApp;
+

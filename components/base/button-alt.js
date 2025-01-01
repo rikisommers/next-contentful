@@ -42,7 +42,9 @@ const ButtonAlt = ({ label, click, type = ButtonType.DEFAULT, sound }) => {
         };
       case ButtonType.SECONDARY:
         return {
-          backgroundColor: 'var(--accent-sec)',
+          backgroundColor: 'transparent',
+          border:'1px solid',
+          borderColor: 'var(--accent-sec)',
           color: 'var(--text-color)',
         };
       case ButtonType.TRANSPARENT:

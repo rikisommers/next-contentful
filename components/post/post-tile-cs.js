@@ -86,7 +86,7 @@ export default function PostTileCs({ post, index }) {
           <FadeInWhenVisible>
             <BlendImage
               className="img-cover"
-              alt={`Cover Image for ${post?.title}`}
+              alt={`Cover Image for ${post?.titlealt}`}
               src={post.img.url}
             />
           </FadeInWhenVisible>

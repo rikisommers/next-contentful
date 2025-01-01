@@ -24,7 +24,8 @@ export default function BlockFooter({ data }) {
     },
   });
 
-  const yTransform = useTransform(scrollYProgress, [0, 1], [-600, 0]);
+  const yTransform = useTransform(scrollYProgress, [0, 1], [-500, 0]);
+  const scaleTransform = useTransform(scrollYProgress, [0, 1], [0.95, 1]);
 
   const pages = [
     {
@@ -53,11 +54,12 @@ export default function BlockFooter({ data }) {
     <motion.div
       ref={footerRef}
       style={{
-        //y: yTransform,
-        // clipPath: "inset( 1rem round 1rem )",
+        y: yTransform,
+        scale: scaleTransform,
+        clipPath: "inset( 1rem round 1rem )",
         backgroundColor: "var(--body-background-color)",
       }}
-      className="flex flex-col justify-between w-screen overflow-clip"
+      className="z-10 flex flex-col justify-between w-screen overflow-clip"
     >
       {/* pt-32 pb-16 */}
 

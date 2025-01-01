@@ -1272,7 +1272,6 @@ export const heroTextPositionThemes = {
 
 export const heroTypeThemes = {
   monks: 'monks',
-  pentagram: 'pentagram',
   riki: 'riki',
 };
 
@@ -1343,7 +1342,7 @@ const themeContent = {
   imageparallax:imageThemes.parallax,
   imageMixBlendMode:imageThemes.mixBlendMode,
   heroHeight:heroHeightThemes.full,
-  heroType:heroTypeThemes.pentagram,
+  heroType:heroTypeThemes.riki,
   heroBackground:heroBackgroundThemes.gradient,
   heroTextImage:heroTextImageThemes.none,
   heroTextPosition:heroTextPositionThemes.center,

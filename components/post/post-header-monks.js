@@ -17,85 +17,94 @@ import {
   useScroll,
   useMotionValueEvent,
 } from "framer-motion";
-
+import PostIntroRiki from "./post-intro-riki";
+import BlendImage from "../image/blend-image";
 import { useThemeContext } from "../context/themeContext";
 
-export default function PostHeaderMonks({ title, subtitle, img, children }) {
+export default function PostHeaderMonks({ title, subtitle, img, tags }) {
   const { routeInfo } = useContext(RouteContext);
   const [sourceRoute, setSourceRoute] = useState("");
   const [destRoute, setDestRoute] = useState("");
   const { currentTheme } = useThemeContext();
-  const heroRef = useRef(null);
-  const post1Ref = useRef(null);
-  const pos2Ref = useRef(null);
 
-  const { scrollYProgress: scrollContent } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end end"],
-    onChange: (latest) => {
-      console.log("Latest scroll position:", latest);
-    },
-  });
 
   return (
-    <div className="relative pt-10" ref={heroRef}>
-      {/* <div style={{backgroundColor:'var(--accent)'}}>
-        </div> */}
-      {img.url && (
-                // <ClipContainer>
 
-        <div className="relative">
-          <motion.div
-            className="absolute z-40 bottom-5 left-5"
-            // animate={{
-            //   y: useTransform(scrollContent, [0, 1], [1, 200]),
-            // }}
-          >
-            <h2
-              ref={post1Ref}
-              className="mx-auto text-6xl leading-normal low-root"
-              style={{
-                color: "var(--text-color)",
-              }}
-            >
-              <span className="font-medium">{title}</span> •
-            </h2>
-          </motion.div>
-          <PostTileImgAlt img={img} />
-        </div>
-      )}
+    <ClipContainer>
+    {/*grid  grid-rows-[48px_48px_1fr_1fr_1fr_48px_48px] grid-cols-12 */}
+    <div className="relative top-0 left-0 z-50 w-screen h-dvh"
+      style={{
+        backgroundColor: "var(--accent-pri)"
+      }}
+    >
 
-      {children}
-      <div className="py-8">
-        <div className="grid items-end content-end w-full grid-cols-12 gap-6">
-          <div className="col-span-12 md:col-span-8 lg:col-span-8">
-            <h1
-              className="leading-normal ~text-2xl/6xl text-balance"
-              ref={pos2Ref}
-            >
-              <AnimatedText
-                content={title}
-                type={currentTheme.textAnimation}
-                delay={AnimTextOrder.ONE}
-              />
-              <AnimatedText
-                type={AnimStyle.LINEFADEIN}
-                content={subtitle}
-                delay={AnimTextOrder.THREE}
-              />
-            </h1>
+      { img && (
+          <BlendImage
+            className="absolute z-10 w-full h-full img-cover"
+            alt={`Cover Image for ${img?.title}`}
+            src={img.url}
+          />
+        )}
+
+        <div className="absolute bottom-0 w-full p-16">
+      <PostIntroRiki title={title} subtitle={subtitle} className="z-50" />
+            {tags && (
+            <div className="flex gap-1">
+              {tags.slice(0, 2).map((tag, index) => {
+                return (
+                  <div key={index} className="px-2 py-1 text-xs border border-solid rounded-full"
+                  style={{
+                   borderColor:"var(--text-color)",
+                   backgroundColor: "var(--body-background-color)",
+                   color:"var(--text-color)"
+                  }}
+                  >
+                    {tag}
+                  </div>
+                );
+              })}
+            </div>
+          )}
           </div>
-          <div className="col-span-12 text-left md:col-span-8 lg:col-span-4 text-balance">
-            <h4 className="text-sm font-normal">
-              <AnimatedText
-                type={currentTheme.textAnimationSec}
-                content={subtitle}
-                delay={AnimTextOrder.THREE}
-              />
-            </h4>
-          </div>
-        </div>
-      </div>
     </div>
+  </ClipContainer>
+
+
+    // <div className="relative h-dvh">
+    //   {/* <div style={{backgroundColor:'var(--accent)'}}>
+    //     </div> */}
+    //   {img.url && (
+    //             // <ClipContainer>
+
+    //     <div className="relative">
+    //       <motion.div
+    //         className="absolute z-40 bottom-5 left-5"
+    //         // animate={{
+    //         //   y: useTransform(scrollContent, [0, 1], [1, 200]),
+    //         // }}
+    //       >
+    //         <PostIntroRiki title={title} subtitle={subtitle} />
+    //         {tags && (
+    //         <div className="flex gap-1">
+    //           {tags.slice(0, 2).map((tag, index) => {
+    //             return (
+    //               <div key={index} className="px-2 py-1 text-xs border border-solid rounded-full"
+    //               style={{
+    //                borderColor:"var(--text-color)",
+    //                backgroundColor: "var(--body-background-color)",
+    //                color:"var(--text-color)"
+    //               }}
+    //               >
+    //                 {tag}
+    //               </div>
+    //             );
+    //           })}
+    //         </div>
+    //       )}
+    //       </motion.div>
+    //       <PostTileImgAlt img={img} />
+    //     </div>
+    //   )}
+    // </div>
   );
 }

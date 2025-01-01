@@ -19,6 +19,8 @@ import {
   fontSizeThemes,
   footerOptions,
   bodyTextAlign,
+  imageParallax,
+  audioThemes,
   navigationStyleThemes,
   navigationOptions,
   cursorThemes,
@@ -118,6 +120,9 @@ export default function ThemeEditor() {
 
   const applyCurrentTheme2 = useCallback((key, value) => {
     const mergedTheme = { ...customTheme, [key]: value };
+
+    console.log('MER',mergedTheme)
+
     updateTheme(mergedTheme); 
     setStyleProerties(mergedTheme);
     localStorage.setItem("currentTheme", JSON.stringify(mergedTheme));
@@ -231,7 +236,7 @@ export default function ThemeEditor() {
 
     // Update the current theme with the selected theme
     updateTheme(newTheme); // Set the selected theme as the current theme
-    applyCurrentTheme(newTheme); // Apply the selected theme to the DOM
+    applyCurrentTheme2(newTheme); // Apply the selected theme to the DOM
   };
 
   const handleColorChange = (key, value) => {
@@ -327,7 +332,7 @@ export default function ThemeEditor() {
   };
 
   console.log('current theme',currentTheme)
-
+  console.log('custom theme',customTheme)
 
   // const colorControls = Object.entries(currentTheme).reduce((acc, [key, value]) => {
   //   if (typeof value === 'string' && value.startsWith('#')) {

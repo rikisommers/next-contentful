@@ -43,9 +43,9 @@ export const ClipContainer = ({ children }) => {
       ref={heroRef}
       style={{ 
         clipPath: clipPathValue,
-        backgroundColor: 'var(--accent-pri',
+        backgroundColor: 'var(--background-color)',
        }}
-      className={`relative min-w-screen overflow-hidden`}
+      className={`relative min-w-screen overflow-hidden z-10`}
     >
   <motion.div
             className="w-full h-full"
