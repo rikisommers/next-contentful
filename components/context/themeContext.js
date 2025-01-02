@@ -8,7 +8,7 @@ export const ThemeProvider = ({ children, theme }) => {
   console.log('theme from cms',theme) 
 
   const [isThemeDialogOpen, setIsThemeDialogOpen] = useState(false);
-  const [currentTheme, setCurrentTheme] = useState(themes.pastelAnime);
+  const [currentTheme, setCurrentTheme] = useState(theme ? theme :  themes.pixelIntensity);
 
   const updateTheme = useCallback((newTheme) => {
     setCurrentTheme(prevTheme => {
