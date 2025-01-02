@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { 
   themes,
   typographyThemes,
@@ -19,8 +19,6 @@ import {
   fontSizeThemes,
   footerOptions,
   bodyTextAlign,
-  imageParallax,
-  audioThemes,
   navigationStyleThemes,
   navigationOptions,
   cursorThemes,
@@ -66,6 +64,13 @@ export default function ThemeEditor() {
   const [isSaving, setIsSaving] = useState(false);
   const [saveError, setSaveError] = useState(null);
   const [selectedCursors, setSelectedCursors] = useState(currentTheme.cursor || []); // Initialize with current theme cursor
+  const currentThemeRef = useRef(currentTheme); // Create a ref to hold the current theme
+
+
+    // Update the ref whenever currentTheme changes
+    useEffect(() => {
+      currentThemeRef.current = currentTheme;
+    }, [currentTheme]);
 
     // State for slider values
     const [colorWeight, setColorWeight] = useState(5);
@@ -120,9 +125,6 @@ export default function ThemeEditor() {
 
   const applyCurrentTheme2 = useCallback((key, value) => {
     const mergedTheme = { ...customTheme, [key]: value };
-
-    console.log('MER',mergedTheme)
-
     updateTheme(mergedTheme); 
     setStyleProerties(mergedTheme);
     localStorage.setItem("currentTheme", JSON.stringify(mergedTheme));
@@ -236,7 +238,7 @@ export default function ThemeEditor() {
 
     // Update the current theme with the selected theme
     updateTheme(newTheme); // Set the selected theme as the current theme
-    applyCurrentTheme2(newTheme); // Apply the selected theme to the DOM
+    applyCurrentTheme(newTheme); // Apply the selected theme to the DOM
   };
 
   const handleColorChange = (key, value) => {
@@ -278,25 +280,27 @@ export default function ThemeEditor() {
   };
 
 
-  const saveThemeToContentful = async (theme) => {
+  const saveThemeToContentful = async () => {
     setIsSaving(true);
     setSaveError(null);
     try {
-      console.log('Saving theme to Contentful:', theme);
+      const themeToSave = currentThemeRef.current; // Use the ref to get the latest theme
+      console.log('Saving theme to Contentful:', themeToSave);
+
       const response = await fetch('/api/save-theme', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(theme),
+        body: JSON.stringify(themeToSave),
       });
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(`Failed to save theme: ${errorData.message}`);
       }
       console.log('Theme saved to Contentful successfully');
-      localStorage.setItem('currentTheme', JSON.stringify(theme));
-      localStorage.setItem('themeLastFetched', Date.now().toString());
+      // localStorage.setItem('currentTheme', JSON.stringify(currentTheme));
+      // localStorage.setItem('themeLastFetched', Date.now().toString());
     } catch (error) {
       console.error('Error saving theme to Contentful:', error.message);
       setSaveError(error.message);
@@ -306,7 +310,7 @@ export default function ThemeEditor() {
   };
 
   const handleApply = () => {
-    saveThemeToContentful(currentTheme);
+    saveThemeToContentful();
   };
 
 
@@ -332,7 +336,7 @@ export default function ThemeEditor() {
   };
 
   console.log('current theme',currentTheme)
-  console.log('custom theme',customTheme)
+
 
   // const colorControls = Object.entries(currentTheme).reduce((acc, [key, value]) => {
   //   if (typeof value === 'string' && value.startsWith('#')) {
@@ -641,11 +645,6 @@ export default function ThemeEditor() {
 
 
     'Color333': folder({
-      accent: { 
-        value: currentTheme.accent,
-        label: 'accent',
-        onChange: (value) => applyCurrentTheme2('accent', value ) 
-      },
       accentPri: {
         value: currentTheme.accentPri,
         label: 'Accent Primary',
@@ -690,11 +689,6 @@ export default function ThemeEditor() {
         value: currentTheme.navBg,
         label: 'Navigation Background',
         onChange: (newValue) => applyCurrentTheme2('navBg', newValue),
-      },
-      navShadow: {
-        value: currentTheme.navShadow,
-        label: 'Navigation Shadow',
-        onChange: (newValue) => applyCurrentTheme2('navShadow', newValue),
       },
       subtextColor: {
         value: currentTheme.subtextColor,

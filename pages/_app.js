@@ -42,7 +42,7 @@ function MyApp({ Component, pageProps, router, globalData }) {
           <ScrollPositionProvider>
             <MousePosProvider>
               <ToastProvider>
-              <ThemeProvider>
+              <ThemeProvider thene={globalData.currentTheme}>
                 <Navigation />
                 <AnimatePresence mode="wait" initial={false}>
                 {/* <FontLoader 

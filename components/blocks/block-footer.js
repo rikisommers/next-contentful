@@ -106,7 +106,7 @@ export default function BlockFooter({ data }) {
             )}
 
             {data?.ctalink && data?.cta && (
-              <Link href={data.ctalink}>
+              <Link href={data.ctalink} className="no-underline">
                 <ButtonAlt label={data.cta} type={ButtonType.SECONDARY} />
               </Link>
             )}

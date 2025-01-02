@@ -185,6 +185,8 @@ export default function NavBar({ containerRef }) {
         <div
           ref={menuDragRef}
           className="flex items-center px-2 text-lg text-white"
+          style={{ color: "var(--text-accent)" }}
+
         >
           <DotsSixVertical />
         </div>
@@ -216,7 +218,9 @@ export default function NavBar({ containerRef }) {
               className="absolute top-0 left-0 flex w-full h-full bg-opacity-50 rounded-xl"
             ></motion.div>
           )}
-          <Button label={page.title} type={ButtonType.TRANSPARENT} />
+          <span className="relative flex items-center px-3 py-3 text-xs uppercase rounded-lg cursor-pointer">
+          {page.title}
+            </span>
         </Link>
       ))}
       <Button

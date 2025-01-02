@@ -17,7 +17,6 @@ import TransitionPage from "../../components/transition/pageTransition";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ClipContainer } from "../../components/motion/clippath-container";
 export default function Post({ post, footerData }) {
-  console.log("PPPP:", post);
 
   const { currentTheme } = useThemeContext();
 
@@ -78,7 +77,7 @@ export default function Post({ post, footerData }) {
         {children}
       </div> */}
           {post && (
-            <>
+            <ClipContainer>
                           {/* <PostHeaderRiki
                 title={post.title}
                 subtitle={post.titlealt}
@@ -120,7 +119,7 @@ export default function Post({ post, footerData }) {
               />
               <PostContent content={post} />
               </div>
-            </>
+            </ClipContainer>
           )}
 
 

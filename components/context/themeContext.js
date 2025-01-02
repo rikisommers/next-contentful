@@ -3,29 +3,23 @@ import { themes } from "../../utils/theme";
 import ThemeEditor from '../../utils/themeEditor'; 
 const ThemeContext = createContext(null);
 
-export const ThemeProvider = ({ children }) => {
-  const [currentTheme, setCurrentTheme] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const savedTheme = localStorage.getItem('currentTheme');
-      return savedTheme ? JSON.parse(savedTheme) : themes.custom;
-    }
-    return themes.custom;
-  });
+export const ThemeProvider = ({ children, theme }) => {
+
+  console.log('theme from cms',theme) 
+
   const [isThemeDialogOpen, setIsThemeDialogOpen] = useState(false);
+  const [currentTheme, setCurrentTheme] = useState(themes.pastelAnime);
 
   const updateTheme = useCallback((newTheme) => {
     setCurrentTheme(prevTheme => {
-      const updatedTheme = { ...prevTheme, ...newTheme }; // Merge existing theme with new values
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('currentTheme', JSON.stringify(updatedTheme));
-      }
+      const updatedTheme = { ...prevTheme, ...newTheme };
       return updatedTheme;
     });
   }, []);
 
-  // useEffect(() => {
-  //   console.log('Theme updated in provider:', currentTheme);
-  // }, [currentTheme]);
+  useEffect(() => {
+    console.log('Theme updated in provider:', currentTheme);
+  }, [currentTheme]);
 
   return (
     <ThemeContext.Provider value={{ 

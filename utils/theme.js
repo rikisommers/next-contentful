@@ -1319,7 +1319,7 @@ export const helpers = {
 const themeContent = {
   audio:{
     audio:audioThemes.audio,
-    vloume:audioThemes.volume,
+    volume:audioThemes.volume,
   },
   typography:typographyThemes.sans,
   fontScale:fontSizeThemes.fluid,
@@ -1336,7 +1336,7 @@ const themeContent = {
   pageTransition:pageTransitionThemes.fade,
   pageWidth:pageWidthThemes.fluid,
   cursor:cursorThemes.none,
-  cardLayout:cardThemes.formal,
+  cardLayout:cardThemes.reone,
   cardHover:cardHoverThemes.none,
   cardGrid:gridThemes.bento1,
   imageparallax:imageThemes.parallax,

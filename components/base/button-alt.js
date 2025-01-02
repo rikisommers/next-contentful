@@ -45,7 +45,7 @@ const ButtonAlt = ({ label, click, type = ButtonType.DEFAULT, sound }) => {
           backgroundColor: 'transparent',
           border:'1px solid',
           borderColor: 'var(--accent-sec)',
-          color: 'var(--text-color)',
+          color: 'var(--accent-sec)',
         };
       case ButtonType.TRANSPARENT:
         return {

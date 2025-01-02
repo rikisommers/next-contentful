@@ -7,7 +7,6 @@ import AnimatedText, {
 
 export default function BlockHeader({ data  }) {
   const { currentTheme } = useThemeContext();
-  console.log("555", data);
 
   return (
     <div
