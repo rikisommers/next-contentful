@@ -17,7 +17,7 @@ export default function PostTileRe({ post, index, size }) {
       ref={ref}
       href={`/projects/${post.slug}`}
       style={{
-        backgroundColor: "var(--background-color)",
+        backgroundColor: "var(--surface1)",
       }}
       className="relative flex flex-col w-full h-full overflow-hidden no-underline rounded-2xl group"
   

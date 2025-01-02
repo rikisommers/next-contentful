@@ -760,16 +760,16 @@ export default function ThemeEditor() {
 
 
   return (
-    <>
+    
       <Leva
         fill={false} // Make the pane fill the parent DOM node
         flat // Remove border radius and shadow
         oneLineLabels={false} // Alternative layout for labels
         hideTitleBar={true} // Hide the GUI header
         collapsed={false} // Start the GUI in collapsed state
-        hidden={false} // GUI is visible by default
+        hidden={true} // GUI is visible by default
       />
-    </>
+    
   );
 
   

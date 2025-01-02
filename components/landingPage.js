@@ -2,34 +2,33 @@ import React, { useState, useRef } from "react";
 import PostIntro from "../components/post/post-intro";
 import PostBody from "../components/post/post-body";
 import BlockFooter from "../components/blocks/block-footer";
+import { ClipContainer } from "../components/motion/clippath-container";
 
 export default function LandingPage({ data, footerData, tags }) {
-
-//   const contentRef = useRef(null);
-//   const headerRef = useRef(null);
-//   const [scrollValue, setScrollValue] = useState(0);
-//   const { setScrollPosition } = useScrollPosition();
+  //   const contentRef = useRef(null);
+  //   const headerRef = useRef(null);
+  //   const [scrollValue, setScrollValue] = useState(0);
+  //   const { setScrollPosition } = useScrollPosition();
 
   return (
     <>
-      <div className="flex flex-col px-8">
-
-        <div className="pt-[16rem] pb-8 ">
-        <PostIntro title={data.titlealt} content={data.contentalt} />
-        </div>
-        {data.video && (
-          <div className="pb-24 o-content">
-            <BlockVideo data={data.video} />
+      <ClipContainer>
+        <div className="flex flex-col px-8">
+          <div className="pt-[16rem] pb-8 ">
+            <PostIntro title={data.titlealt} content={data.contentalt} />
           </div>
-        )}
+          {data.video && (
+            <div className="pb-24 o-content">
+              <BlockVideo data={data.video} />
+            </div>
+          )}
 
-        {data.csblocksCollection.items && (
-          <PostBody content={data.csblocksCollection} tags={tags}/>
-        )}
-
-      </div>
+          {data.csblocksCollection.items && (
+            <PostBody content={data.csblocksCollection} tags={tags} />
+          )}
+        </div>
+      </ClipContainer>
       {footerData && <BlockFooter data={footerData} />}
-
-      </>
+    </>
   );
-};
+}

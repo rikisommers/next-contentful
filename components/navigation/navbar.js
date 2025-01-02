@@ -201,7 +201,7 @@ export default function NavBar({ containerRef }) {
           scroll={false}
           onClick={() => setActivePage(page.id)}
           className="relative flex items-center text-sm no-underline uppercase rounded-lg"
-          style={{ color: activePage === page.id ? "var(--text-color-inv)" : "var(--text-accent)" }}
+          style={{ color: activePage === page.id ? "var(--text-color-inv)" : "var(--text-color)" }}
         >
           {activePage === page.id && (
             <motion.div

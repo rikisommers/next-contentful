@@ -38,7 +38,7 @@ const ButtonAlt = ({ label, click, type = ButtonType.DEFAULT, sound }) => {
       case ButtonType.PRIMARY:
         return {
           backgroundColor: 'var(--accent-pri)',
-          color: 'var(--text-color)',
+          color: 'var(--text-color-inv)',
         };
       case ButtonType.SECONDARY:
         return {

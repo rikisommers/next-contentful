@@ -79,7 +79,7 @@ export default function BlockFooter({ data }) {
      */}
           <div
             className="flex flex-col items-start gap-4"
-            style={{ color: "var(--text-color-inv)" }}
+            style={{ color: "var(--text-accent)" }}
           >
             {data?.title && <p className="text-sm">{data?.title}</p>}
             {/* <TextAnimation content={content?.title} /> */}
@@ -93,7 +93,8 @@ export default function BlockFooter({ data }) {
 
             {data?.content && (
               // <h2 className="text-2xl font-normal">{data.description}</h2>
-              <h1 className="mb-4 leading-normal text-balance">
+              <h1 className="leading-normal text-balance"
+              >
                 <AnimatedText
                   content={data.description}
                   delay={AnimTextOrder.ONE}
@@ -107,7 +108,7 @@ export default function BlockFooter({ data }) {
 
             {data?.ctalink && data?.cta && (
               <Link href={data.ctalink} className="no-underline">
-                <ButtonAlt label={data.cta} type={ButtonType.SECONDARY} />
+                <ButtonAlt label={data.cta} type={ButtonType.PRIMARY} />
               </Link>
             )}
 
@@ -134,14 +135,17 @@ export default function BlockFooter({ data }) {
               <button>sdsdsd</button>
               <button>sdsdsd</button>
             </div> */}
-
-            
           </div>
         </div>
 
         <div className="flex flex-col col-span-12 gap-4 md:col-span-5">
           <div className="flex flex-col col-span-12 gap-4 sm:flex-row md:col-span-5">
-            <div className="flex flex-col flex-grow p-8 rounded-lg bg-black/10 basis-1">
+            <div
+              className="flex flex-col flex-grow p-8 rounded-lg basis-1"
+              style={{
+                backgroundColor: "var(--surface1)",
+              }}
+            >
               <h3
                 className="mb-4 text-sm font-normal"
                 style={{ color: "var(--accent-pri)" }}
@@ -164,7 +168,12 @@ export default function BlockFooter({ data }) {
               </div>
             </div>
             <div className="flex flex-col flex-grow gap-4 basis-1">
-              <div className="flex flex-col p-8 rounded-lg bg-black/10">
+              <div
+                className="flex flex-col p-8 rounded-lg"
+                style={{
+                  backgroundColor: "var(--surface1)",
+                }}
+              >
                 <h3
                   className="mb-4 text-sm font-normal"
                   style={{ color: "var(--accent-pri)" }}
@@ -190,7 +199,7 @@ export default function BlockFooter({ data }) {
               <div
                 className="flex flex-col p-8 rounded-lg "
                 style={{
-                  backgroundColor: "var(--background-color)",
+                  backgroundColor: "var(--accent-pri)",
                 }}
               >
                 <h3
@@ -230,7 +239,12 @@ export default function BlockFooter({ data }) {
         </div>
 
         <div className="flex w-full col-span-12 gap-2">
-          <div className="flex items-center flex-grow gap-4 px-5 rounded-lg bg-black/10">
+          <div
+            className="flex items-center flex-grow gap-4 px-5 rounded-lg"
+            style={{
+              backgroundColor: "var(--surface1)",
+            }}
+          >
             <Link
               className="text-xs no-underline"
               style={{ color: "var(--text-color)" }}
@@ -246,7 +260,12 @@ export default function BlockFooter({ data }) {
               Cookies Policy
             </Link>
           </div>
-          <div className="p-2 rounded-lg bg-black/10">
+          <div
+            className="p-2 rounded-lg "
+            style={{
+              backgroundColor: "var(--surface1)",
+            }}
+          >
             <div
               className={`w-[32px] h-[32px] flex items-center justify-center`}
             >
@@ -257,7 +276,12 @@ export default function BlockFooter({ data }) {
               ></img>
             </div>
           </div>
-          <div className="p-2 rounded-lg bg-black/10">
+          <div
+            className="p-2 rounded-lg "
+            style={{
+              backgroundColor: "var(--surface1)",
+            }}
+          >
             <div
               className={`w-[32px] h-[32px] flex items-center justify-center`}
             >
@@ -268,7 +292,12 @@ export default function BlockFooter({ data }) {
               ></img>
             </div>
           </div>
-          <div className="p-2 rounded-lg bg-black/10">
+          <div
+            className="p-2 rounded-lg "
+            style={{
+              backgroundColor: "var(--surface1)",
+            }}
+          >
             <div
               className={`w-[32px] h-[32px] flex items-center justify-center`}
             >
@@ -279,7 +308,12 @@ export default function BlockFooter({ data }) {
               ></img>
             </div>
           </div>
-          <div className="p-2 rounded-lg bg-black/10">
+          <div
+            className="p-2 rounded-lg "
+            style={{
+              backgroundColor: "var(--surface1)",
+            }}
+          >
             <div
               className={`w-[32px] h-[32px] flex items-center justify-center`}
             >
