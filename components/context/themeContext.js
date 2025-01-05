@@ -3,9 +3,9 @@ import { themes } from "../../utils/theme";
 import ThemeEditor from '../../utils/themeEditor'; 
 const ThemeContext = createContext(null);
 
-export const ThemeProvider = ({ children, theme }) => {
+export const ThemeProvider = ({ children, theme, customThemes }) => {
 
-  console.log('theme from cms',theme) 
+  //console.log('theme from cms',theme, customThemes) 
 
   const [isThemeDialogOpen, setIsThemeDialogOpen] = useState(false);
   const [currentTheme, setCurrentTheme] = useState(theme ? theme :  themes.pixelIntensity);
@@ -17,9 +17,9 @@ export const ThemeProvider = ({ children, theme }) => {
     });
   }, []);
 
-  useEffect(() => {
-    console.log('Theme updated in provider:', currentTheme);
-  }, [currentTheme]);
+  // useEffect(() => {
+  //   console.log('Theme updated in provider:', currentTheme);
+  // }, [currentTheme]);
 
   return (
     <ThemeContext.Provider value={{ 
@@ -28,7 +28,7 @@ export const ThemeProvider = ({ children, theme }) => {
       isThemeDialogOpen, 
       setIsThemeDialogOpen 
     }}>
-      <ThemeEditor/>
+      <ThemeEditor customThemes={customThemes}/>
       {children}
     </ThemeContext.Provider>
   );

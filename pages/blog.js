@@ -1,12 +1,12 @@
 import React from "react";
 import { getLandingPage, getFooter, getAllBlogTags } from "../lib/api";
 import LandingPage from "../components/landingPage";
-import Layout from "../components/layout";
+import Layout,{LayoutType} from "../components/layout";
 
 const Blog = ({ data, footerData, tags }) => {
 
   return (
-    <Layout>
+    <Layout pageWidth={LayoutType.FLUID}>
       <LandingPage data={data} footerData={footerData} tags={tags} />
     </Layout>
   );

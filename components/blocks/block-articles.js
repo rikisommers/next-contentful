@@ -20,8 +20,8 @@ export const BlockArticles = ({ data, tags }) => {
 
   const posts = data.articlesCollection?.items;
 
-  console.log("data", data.articlesCollection?.items);
-  console.log("tags", tags);
+  // console.log("data", data.articlesCollection?.items);
+  // console.log("tags", tags);
 
   const [selectedTag, setSelectedTag] = useState(null);
   const [filteredPosts, setFilteredPosts] = useState(posts);

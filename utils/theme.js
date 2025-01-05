@@ -12,7 +12,6 @@ const colorThemes = {
     textColor: '#09090b',
     subtextColor: '#52525b',
     textColorInv: '#fafafa',
-    accent:'#c0b89b',
     navBg:"#C0C6C9",
     accentPri: '#EF7801',
     accentSec: '#FCD00A',
@@ -31,8 +30,6 @@ const colorThemes = {
     headingColor: '#e4e4e7',
     textColor: '#fafafa',
     subtextColor: '#FE8500',
-    textColorInv: '#09090b',
-    accent:'#FE8500',
     navBg:"#C0C6C9",
     accentPri: '#EF7801',
     accentSec: '#FCD00A',
@@ -52,7 +49,6 @@ const colorThemes = {
     textColor: '#887F7A',
     subtextColor: '#C0C6C9',
     textColorInv: '#887F7A',
-    accent:'#c0b89b',
     navBg:"#C0C6C9",
     accentPri: '#EF7801',
     accentSec: '#FCD00A',
@@ -73,7 +69,6 @@ const colorThemes = {
     textColor: '#FFB000',
     subtextColor: '#CC8C00',
     textColorInv: '#000000',
-    accent:'#FFD700',
     navBg:"#332900",
     accentPri: '#FFB000',
     accentSec: '#FFD700',
@@ -94,7 +89,6 @@ const colorThemes = {
     textColor: '#00FF00',
     subtextColor: '#00CC00',
     textColorInv: '#001100',
-    accent:'#00FF33',
     navBg:"#003300",
     accentPri: '#00FF00',
     accentSec: '#00FF33',
@@ -114,7 +108,6 @@ const colorThemes = {
     textColor: '#FFFFFF',
     subtextColor: '#55FFFF',
     textColorInv: '#000000',
-    accent:'#FF55FF',
     navBg:"#000055",
     accentPri: '#FFFF55',
     accentSec: '#55FF55',
@@ -134,7 +127,6 @@ const colorThemes = {
     textColor: '#FFFFFF',
     subtextColor: '#BCBAF0',
     textColorInv: '#40318D',
-    accent:'#7869C4',
     navBg:"#8F84D9",
     accentPri: '#A59FE6',
     accentSec: '#BCBAF0',
@@ -154,7 +146,6 @@ const colorThemes = {
     textColor: '#66FF66',
     subtextColor: '#33CC33',
     textColorInv: '#000000',
-    accent:'#FF6666',
     navBg:"#383838",
     accentPri: '#66FF66',
     accentSec: '#FF6666',
@@ -174,7 +165,6 @@ const colorThemes = {
     textColor: '#FFFFFF',
     subtextColor: '#FF00FF',
     textColorInv: '#000000',
-    accent:'#FF0000',
     navBg:"#0000FF",
     accentPri: '#FFFF00',
     accentSec: '#FF00FF',
@@ -194,7 +184,6 @@ const colorThemes = {
     textColor: '#F0F0F0',
     subtextColor: '#D0D0D0',
     textColorInv: '#000000',
-    accent:'#50E080',
     navBg:"#686868",
     accentPri: '#50E080',
     accentSec: '#E05050',
@@ -214,7 +203,6 @@ const colorThemes = {
     textColor: '#FFFFFF',
     subtextColor: '#A8A8FF',
     textColorInv: '#0000A8',
-    accent:'#00FF00',
     navBg:"#0000D0",
     accentPri: '#FFFF00',
     accentSec: '#00FFFF',
@@ -234,7 +222,6 @@ const colorThemes = {
     textColor: '#000000',
     subtextColor: '#0055AA',
     textColorInv: '#FFFFFF',
-    accent:'#FF8800',
     navBg:"#0099AA",
     accentPri: '#FF8800',
     accentSec: '#FFAA00',
@@ -254,7 +241,6 @@ const colorThemes = {
     textColor: '#887F7A',
     subtextColor: '#C0C6C9',
     textColorInv: '#887F7A',
-    accent:'#c0b89b',
     navBg:"#C0C6C9",
     accentPri: '#EF7801',
     accentSec: '#FCD00A',
@@ -274,7 +260,7 @@ const colorThemes = {
     textColor: '#FFFFFF',
     subtextColor: '#BCBCBC',
     textColorInv: '#000000',
-    accent:'#F8D800',
+    navBg:"#7C7C7C",
     navBg:"#7C7C7C",
     accentPri: '#FC9838',
     accentSec: '#F8D800',
@@ -294,7 +280,6 @@ const colorThemes = {
     textColor: '#0F380F',
     subtextColor: '#306230',
     textColorInv: '#AAC0AA',
-    accent:'#8BAC0F',
     navBg:"#306230",
     accentPri: '#9BBC0F',
     accentSec: '#8BAC0F',
@@ -314,7 +299,6 @@ const colorThemes = {
     textColor: '#FFFFFF',
     subtextColor: '#00FF00',
     textColorInv: '#000000',
-    accent:'#FF0000',
     navBg:"#0000FF",
     accentPri: '#FFFF00',
     accentSec: '#00FF00',
@@ -334,7 +318,6 @@ const colorThemes = {
     textColor: '#F5F5F5',
     subtextColor: '#BDBDBD',
     textColorInv: '#1C1C1C',
-    accent: '#8B0000',
     navBg: '#2E2E2E',
     accentPri: '#D4AF37',
     accentSec: '#8B0000',
@@ -354,7 +337,6 @@ const colorThemes = {
     textColor: '#F0F0F0',
     subtextColor: '#A9A9A9',
     textColorInv: '#0F0F0F',
-    accent: '#4682B4',
     navBg: '#1E1E1E',
     accentPri: '#FFA500',
     accentSec: '#4682B4',
@@ -374,7 +356,6 @@ const colorThemes = {
     textColor: '#F8F8F8',
     subtextColor: '#B0B0B0',
     textColorInv: '#141414',
-    accent: '#708090',
     navBg: '#232323',
     accentPri: '#C41E3A',
     accentSec: '#708090',
@@ -394,7 +375,6 @@ const colorThemes = {
     textColor: '#333333',
     subtextColor: '#666666',
     textColorInv: '#F2F2F2',
-    accent: '#D84B20',
     navBg: '#E0E0E0',
     accentPri: '#4D7EA8',
     accentSec: '#D84B20',
@@ -414,7 +394,6 @@ const colorThemes = {
     textColor: '#F0F0F0',
     subtextColor: '#A9A9A9',
     textColorInv: '#1A1A1A',
-    accent: '#8C8C8C',
     navBg: '#2B2B2B',
     accentPri: '#B30000',
     accentSec: '#8C8C8C',
@@ -434,7 +413,6 @@ const colorThemes = {
     textColor: '#212121',
     subtextColor: '#757575',
     textColorInv: '#F0F0F0',
-    accent: '#795548',
     navBg: '#E6E6E6',
     accentPri: '#FF5722',
     accentSec: '#795548',
@@ -454,7 +432,6 @@ const colorThemes = {
     textColor: '#4A4737', // Earthy brown from wooden structures
     subtextColor: '#7A8C85', // Muted green from forest scenes
     textColorInv: '#F0EAD6', // Cream color from paper
-    accent: '#F0B77F', // Warm orange from sunset scenes
     navBg: '#CDE6F5', // Light blue from sky scenes
     accentPri: '#8A9A5B', // Moss green from forest spirits
     accentSec: '#D4AF37', // Gold from the bathhouse details
@@ -475,7 +452,6 @@ const colorThemes = {
     textColor: '#4F4A45', // Warm gray from house interiors
     subtextColor: '#8E9B97', // Muted teal from rainy scenes
     textColorInv: '#F4F1E0', // Cream color from clouds
-    accent: '#E88D67', // Warm orange from sunset scenes
     navBg: '#D6E6F2', // Soft blue from rainy skies
     accentPri: '#9ED2C6', // Teal from the Cat Bus
     accentSec: '#FAE03C', // Bright yellow from Mei's hat
@@ -496,7 +472,6 @@ const colorThemes = {
     textColor: '#5D5C61', // Charcoal gray from castle interiors
     subtextColor: '#7D8491', // Cool gray from cloudy scenes
     textColorInv: '#F7F9F9', // Off-white from steam
-    accent: '#B7AD99', // Warm gray from castle metal parts
     navBg: '#E6F2D6', // Pale green from countryside scenes
     accentPri: '#7FB7BE', // Teal from Calcifer
     accentSec: '#FDFD96', // Light yellow from magic spells
@@ -517,7 +492,6 @@ const colorThemes = {
     textColor: '#696969', // Dim gray
     subtextColor: '#A9A9A9', // Dark gray
     textColorInv: '#FFFFFF', // White
-    accent: '#FFB6C1', // Light pink
     navBg: '#E6E6FA', // Lavender
     accentPri: '#DDA0DD', // Plum
     accentSec: '#98FB98', // Pale green
@@ -538,7 +512,6 @@ const colorThemes = {
     textColor: '#696969', // Dim gray
     subtextColor: '#808080', // Gray
     textColorInv: '#FFFFFF', // White
-    accent: '#8FBC8F', // Dark sea green
     navBg: '#E6E6FA', // Lavender
     accentPri: '#6B8E23', // Olive drab
     accentSec: '#7FFFD4', // Aquamarine
@@ -559,7 +532,6 @@ const colorThemes = {
     textColor: '#708090', // Slate gray
     subtextColor: '#A9A9A9', // Dark gray
     textColorInv: '#FFFFFF', // White
-    accent: '#FFB6C1', // Light pink
     navBg: '#F0FFF0', // Honeydew
     accentPri: '#87CEFA', // Light sky blue
     accentSec: '#98FB98', // Pale green
@@ -580,7 +552,6 @@ const colorThemes = {
     textColor: '#D3D3D3', // Light gray text
     subtextColor: '#A9A9A9', // Dark gray subtext
     textColorInv: '#1A1A1A', // Dark gray on light background
-    accent: '#8B0000', // Dark red accent
     navBg: '#2C2C2C', // Same as backgroundColor
     accentPri: '#C41E3A', // Blood red primary accent
     accentSec: '#4B0082', // Indigo secondary accent
@@ -601,7 +572,6 @@ const colorThemes = {
     textColor: '#D2B48C', // Tan text color
     subtextColor: '#A0522D', // Sienna subtext
     textColorInv: '#2B2B2B', // Dark gray on light background
-    accent: '#CD853F', // Peru accent
     navBg: '#3C3C3C', // Same as backgroundColor
     accentPri: '#8B4513', // Saddle brown primary accent
     accentSec: '#D2691E', // Chocolate secondary accent
@@ -621,7 +591,6 @@ const colorThemes = {
     textColor: '#C0C0C0', // Silver text color
     subtextColor: '#A9A9A9', // Dark gray subtext
     textColorInv: '#1C1C1C', // Very dark gray on light background
-    accent: '#B22222', // Firebrick accent
     navBg: '#2D2D2D', // Same as backgroundColor
     accentPri: '#DC143C', // Crimson primary accent
     accentSec: '#8B0000', // Dark red secondary accent
@@ -642,7 +611,6 @@ const colorThemes = {
     textColor: '#00FF00', // Green
     subtextColor: '#008080', // Teal
     textColorInv: '#000000', // Black
-    accent: '#FF00FF', // Magenta
     navBg: '#333333', // Medium gray
     accentPri: '#FF0000', // Red
     accentSec: '#0000FF', // Blue
@@ -663,7 +631,6 @@ const colorThemes = {
     textColor: '#4ECDC4', // Turquoise
     subtextColor: '#45B7A0', // Dark turquoise
     textColorInv: '#1A1A1A', // Dark gray
-    accent: '#FFD93D', // Yellow
     navBg: '#404040', // Light gray
     accentPri: '#FF6B6B', // Soft red
     accentSec: '#4ECDC4', // Turquoise
@@ -684,7 +651,6 @@ const colorThemes = {
     textColor: '#55FF55', // Green
     subtextColor: '#FFFF55', // Yellow
     textColorInv: '#000000', // Black
-    accent: '#FF5555', // Red
     navBg: '#3F3F3B', // Dark gray
     accentPri: '#FF55FF', // Magenta
     accentSec: '#5555FF', // Blue
@@ -705,7 +671,6 @@ const colorThemes = {
     textColor: '#AAAAAA', // Light gray
     subtextColor: '#555555', // Dark gray
     textColorInv: '#000000', // Black
-    accent: '#AAAA00', // Yellow
     navBg: '#0000AA', // Blue
     accentPri: '#AA0000', // Red
     accentSec: '#00AA00', // Green
@@ -725,7 +690,6 @@ const colorThemes = {
     textColor: '#212121', // Almost black
     subtextColor: '#757575', // Gray
     textColorInv: '#FFFFFF', // White
-    accent: '#9575CD', // Purple accent
     navBg: '#D1C4E9', // Metallic touches
     accentPri: '#3F51B5', // Indigo
     accentSec: '#7986CB', // Lighter indigo
@@ -746,7 +710,6 @@ const colorThemes = {
     textColor: '#FFFFFF', // White
     subtextColor: '#B0A19D', // Metallic touches
     textColorInv: '#000000', // Black
-    accent: '#B0A19D', // Metallic touches
     navBg: '#173F5F', // Deep blue gradient
     accentPri: '#D98E5D', // Earthy terracotta
     accentSec: '#B0A19D', // Metallic touches
@@ -767,7 +730,6 @@ const colorThemes = {
     textColor: '#FFFFFF', // White
     subtextColor: '#A4A8C7', // Darker bright metallics
     textColorInv: '#004D4D', // Deep teal
-    accent: '#7986CB', // Indigo accent
     navBg: '#004D4D', // Deep teal
     accentPri: '#3F51B5', // Indigo
     accentSec: '#5C6BC0', // Lighter indigo
@@ -788,7 +750,6 @@ const colorThemes = {
     textColor: '#333333', // Dark gray
     subtextColor: '#555555', // Medium gray
     textColorInv: '#FFFFFF', // White
-    accent: '#7EC8E3', // Sky blue
     navBg: '#6B6B6B', // Slate gray
     accentPri: '#B37445', // Clay
     accentSec: '#3B7A57', // Fern green
@@ -809,7 +770,6 @@ const colorThemes = {
     textColor: '#FFFFFF', // Dark gray
     subtextColor: '#887F74', // Blue-gray
     textColorInv: '#FFFFFF', // White
-    accent: '#887F74', // Orange
     navBg: '#FFFFFF', // White
     accentPri: '#556B2F', // Olive green
     accentSec: '#556B2F', // Light orange
@@ -830,7 +790,6 @@ const colorThemes = {
     textColor: '#F5F5F5', // Light gray
     subtextColor: '#9E9E9E', // Gray
     textColorInv: '#212121', // Almost black
-    accent: '#2979FF', // Bright blue accents
     navBg: '#212121', // Almost black
     accentPri: '#448AFF', // Light blue
     accentSec: '#82B1FF', // Lighter blue
@@ -851,7 +810,6 @@ const colorThemes = {
     textColor: '#FFFFFF', // White
     subtextColor: '#BDBDBD', // Light gray
     textColorInv: '#000000', // Black
-    accent: '#0D47A1', // Blue
     navBg: '#000000', // Black
     accentPri: '#FF0000', // Red
     accentSec: '#0D47A1', // Blue
@@ -872,7 +830,6 @@ const colorThemes = {
     textColor: '#FFFFFF', // White
     subtextColor: '#BDBDBD', // Light gray
     textColorInv: '#000000', // Black
-    accent: '#39FF14', // Neon green
     navBg: '#87CEEB', // Sky blue
     accentPri: '#FF8A80', // Salmon-pink
     accentSec: '#FF9800', // Bright orange
@@ -893,7 +850,6 @@ const colorThemes = {
     textColor: '#333333', // Dark gray
     subtextColor: '#708090', // Slate gray
     textColorInv: '#FFFFFF', // White
-    accent: '#FFA500', // Orange
     navBg: '#F5F5F5', // Gray-washed white
     accentPri: '#0D3B66', // Space blue
     accentSec: '#708090', // Slate gray
@@ -914,7 +870,6 @@ const colorThemes = {
     textColor: '#212121', // Almost black
     subtextColor: '#757575', // Gray
     textColorInv: '#FFFFFF', // White
-    accent: '#FFC0CB', // Pink
     navBg: '#E0E0E0', // Creamy-gray
     accentPri: '#B71C1C', // Muted red
     accentSec: '#FFC0CB', // Pink
@@ -935,7 +890,6 @@ const colorThemes = {
     textColor: '#333333', // Dark gray
     subtextColor: '#696969', // Dim gray
     textColorInv: '#FFFFFF', // White
-    accent: '#FF69B4', // Candy pink
     navBg: '#ADFF2F', // Green-yellow
     accentPri: '#C8A2C8', // Lavender gray
     accentSec: '#D2B48C', // Pastel brown
@@ -957,7 +911,6 @@ const colorThemes = {
     textColor: '#FFFFFF', // White
     subtextColor: '#BDBDBD', // Light gray
     textColorInv: '#2F2F2F', // Smoky black
-    accent: '#82B1FF', // Light blue
     navBg: '#2F2F2F', // Smoky black
     accentPri: '#2979FF', // Electric blue
     accentSec: '#82B1FF', // Light blue
@@ -978,7 +931,6 @@ const colorThemes = {
     textColor: '#FFFFFF', // White
     subtextColor: '#D3D3D3', // Light gray
     textColorInv: '#8B0000', // Dark scarlet red
-    accent: '#FF69B4', // Hot pink
     navBg: '#8B0000', // Dark scarlet red
     accentPri: '#FF1493', // Dark pink
     accentSec: '#FF69B4', // Hot pink
@@ -999,7 +951,6 @@ const colorThemes = {
     textColor: '#333333', // Dark gray
     subtextColor: '#8B4513', // Saddle brown
     textColorInv: '#FFFFFF', // White
-    accent: '#E34234', // Vermillion
     navBg: '#EFDFBB', // Dutch white
     accentPri: '#DAA520', // Goldenrod
     accentSec: '#E34234', // Vermillion
@@ -1020,7 +971,6 @@ const colorThemes = {
     textColor: '#FFFFFF', // White
     subtextColor: '#D2B48C', // Tan
     textColorInv: '#1C1C3B', // Dark imperial blue
-    accent: '#E6BE8A', // Lighter skin tone
     navBg: '#1C1C3B', // Dark imperial blue
     accentPri: '#9B111E', // Ruby
     accentSec: '#FFDAB9', // Skin tones
@@ -1041,7 +991,6 @@ const colorThemes = {
     textColor: '#FFFFFF', // White
     subtextColor: '#D2B48C', // Tan
     textColorInv: '#0F4C81', // Blue sapphire
-    accent: '#FFDAB9', // Peach-orange
     navBg: '#2F4F4F', // Gunmetal gray
     accentPri: '#0F4C81', // Blue sapphire
     accentSec: '#E5E4E2', // Platinum
@@ -1062,7 +1011,6 @@ const colorThemes = {
     textColor: '#FFFFFF', // White
     subtextColor: '#BDBDBD', // Light gray
     textColorInv: '#1C1C1C', // Dark gray, almost black
-    accent: '#00A86B', // Jade
     navBg: '#1C1C1C', // Dark gray, almost black
     accentPri: '#FF5A36', // Portland Orange
     accentSec: '#FFEB3B', // Vivid yellow
