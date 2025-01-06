@@ -2,10 +2,9 @@ import React from 'react';
 
 const ThemeModal = ({ isOpen, onClose, onSubmit }) => {
     const [themeName, setThemeName] = React.useState('');
-    const [themeKey, setThemeKey] = React.useState('');
 
     const handleSubmit = () => {
-        onSubmit(themeName, themeKey);
+        onSubmit(themeName);
         onClose(); // Close the modal after submission
     };
 

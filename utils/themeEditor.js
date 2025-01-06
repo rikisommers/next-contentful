@@ -209,10 +209,6 @@ export default function ThemeEditor({ customThemes }) {
   }, [colorWeight, vibranceWeight, funkynessWeight, updateCurrentTheme]);
 
   // Log themeName and themeKey whenever they change
-  useEffect(() => {
-  //  console.log("Updated themeName:", themeName);
-    currentThemeRef.current = currentTheme;
-  }, [currentTheme]);
 
   useEffect(() => {
     //console.log("Updated themeKey:", themeKey);
@@ -222,10 +218,20 @@ export default function ThemeEditor({ customThemes }) {
     // Function to handle theme change
     const handleCustomThemeChange = (selectedThemeKey) => {
       const selectedTheme = customThemes.find(theme => theme.data.key === selectedThemeKey);
+
+
+      let newTheme;
+      newTheme = { ...selectedTheme, key: selectedThemeKey };
+
+      setThemeName(selectedThemeKey)
       if (selectedTheme) {
-          console.log("Selected Theme:", selectedTheme); // Log the selected theme for debugging
-          updateTheme(selectedTheme); // Update the theme with the best match
-          applyCurrentTheme(selectedTheme);
+
+          updateTheme(newTheme.data); // Update the theme with the best match
+          applyCurrentTheme(newTheme.data);
+          currentThemeRef.current = newTheme.data;
+          console.log('NEW###', newTheme); // Log the new theme for debugging
+          console.log('NEWC###', currentThemeRef.current.data); // Log the new theme for debugging
+          
       } else {
           console.error("Theme not found for key:", selectedThemeKey); // Log an error if the theme is not found
       }
@@ -235,12 +241,13 @@ export default function ThemeEditor({ customThemes }) {
     const selectedThemeKey = e.target.value;
     let newTheme;
     newTheme = { ...themes[selectedThemeKey], key: selectedThemeKey };
+    setThemeName(selectedThemeKey)
 
     updateTheme(newTheme);
     applyCurrentTheme(newTheme);
-
+    currentThemeRef.current.data =  newTheme;
     console.log('NEW###', newTheme); // Log the new theme for debugging
-    console.log('NEWC###', currentThemeRef.current.data.key); // Log the new theme for debugging
+    console.log('NEWC###', currentThemeRef.current.data); // Log the new theme for debugging
 
   };
 
@@ -402,12 +409,11 @@ export default function ThemeEditor({ customThemes }) {
       }
     ),
     custom: {
-      options: customThemes.map((theme) => theme.name), // Use theme keys for options
+      options: customThemes.map((theme) => theme.data.key), // Use theme keys for options
       value: 'select theme', // Set the current theme key as the default value
       label: "Custom",
       onChange: (value) => {
-        console.log("Selected Theme Changed:", value);
-        handleCustomThemeChange({ target: { value } }); // Call existing handler
+        handleCustomThemeChange(value); // Call existing handler
       },
     },
     presets: {
@@ -818,7 +824,11 @@ export default function ThemeEditor({ customThemes }) {
     if (JSON.stringify(updatedTheme) !== JSON.stringify(currentTheme)) {
       applyCurrentTheme(updatedTheme);
     }
+
+
   }, [values, currentTheme, applyCurrentTheme]);
+
+    
 
   useEffect(() => {
     if (saveError) {
@@ -826,13 +836,33 @@ export default function ThemeEditor({ customThemes }) {
     }
   }, [saveError]);
 
+
+  const handleSubmit = (event) => {
+    event.preventDefault(); // Prevent default form submission
+    saveNewTheme(themeName); // Pass the theme name to the save function
+    setIsModalOpen(false); // Close the modal after saving
+};
+
   return (
     <>
-      <ThemeModal
+      {/* <ThemeModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onSubmit={saveNewTheme}
-      />
+      /> */}
+                  {/* Modal or form for saving a new theme */}
+                  {isModalOpen && (
+                <form onSubmit={handleSubmit}>
+                    <input
+                        type="text"
+                        value={themeName}
+                        onChange={(e) => setThemeName(e.target.value)} // Update state on input change
+                        placeholder="Enter theme name"
+                    />
+                    <button type="submit">Save Theme</button>
+                    <button type="button" onClick={() => setIsModalOpen(false)}>Cancel</button>
+                </form>
+            )}
       <Leva
         fill={false} // Make the pane fill the parent DOM node
         flat // Remove border radius and shadow
