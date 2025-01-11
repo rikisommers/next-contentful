@@ -29,6 +29,24 @@ export const BlockTags = ({ data, selected, handleTagClick }) => {
     }
   };
 
+
+  const indicatorAnimate = {
+    animate: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        staggerChildren: 0.05,
+      },
+    },
+    initial: {
+      opacity: 0.9,
+      scale: 0.9,
+    },
+  };
+
+  
   return (
     <nav className="flex gap-1 mb-8">
       <motion.button

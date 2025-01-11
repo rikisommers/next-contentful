@@ -102,31 +102,31 @@ export default function ThemeEditor({ customThemes }) {
     });
 
     
-    // //root.style.setProperty('--mix-blend-mode', theme.imageMixBlendMode || 'normal');
-    // root.style.setProperty("--text-highlight", theme.textHighlight || "text");
-    // root.style.setProperty(
-    //   "--text-animation",
-    //   theme.textAnimation || "linesup"
-    // );
-    // root.style.setProperty(
-    //   "--text-animation-sec",
-    //   theme.textAnimationSec || "linesup"
-    // );
-    // root.style.setProperty("--page-transition", theme.pageTransition || "fade");
-    // root.style.setProperty("--page-width", theme.pageWidth || "large");
+    //root.style.setProperty('--mix-blend-mode', theme.imageMixBlendMode || 'normal');
+    root.style.setProperty("--text-highlight", theme.textHighlight || "text");
+    root.style.setProperty(
+      "--text-animation",
+      theme.textAnimation || "linesup"
+    );
+    root.style.setProperty(
+      "--text-animation-sec",
+      theme.textAnimationSec || "linesup"
+    );
+    root.style.setProperty("--page-transition", theme.pageTransition || "fade");
+    root.style.setProperty("--page-width", theme.pageWidth || "large");
 
-    // root.style.setProperty(
-    //   "--font-family-primary",
-    //   theme.fontFamilyPrimary || "sans-serif"
-    // );
-    // root.style.setProperty(
-    //   "--font-family-secondary",
-    //   theme.fontFamilySecondary || "sans-serif"
-    // );
+    root.style.setProperty(
+      "--font-family-primary",
+      theme.fontFamilyPrimary || "sans-serif"
+    );
+    root.style.setProperty(
+      "--font-family-secondary",
+      theme.fontFamilySecondary || "sans-serif"
+    );
 
-    // root.style.setProperty("--cursor", theme.cursor || "dot");
-    // root.style.setProperty("--font-ratio-min", theme.fluidFontRatioMin || 1.2);
-    // root.style.setProperty("--font-ratio-max", theme.fluidFontRatioMax || 1.25);
+    root.style.setProperty("--cursor", theme.cursor || "dot");
+    root.style.setProperty("--font-ratio-min", theme.fluidFontRatioMin || 1.2);
+    root.style.setProperty("--font-ratio-max", theme.fluidFontRatioMax || 1.25);
   };
 
   const setSingleStyleProperty = (key, value) => {
@@ -738,6 +738,13 @@ export default function ThemeEditor({ customThemes }) {
 
   //useControls must be defined
   const values = useControls(() => controls);
+
+  useEffect(() => {
+    console.log('curret', currentTheme)
+    updateTheme(currentTheme);
+    setStyleProperties(currentTheme);
+    currentThemeRef.current = currentTheme;
+  }, [updateTheme]);
 
   const handleSave = (event) => {
     event.preventDefault(); // Prevent default form submission
