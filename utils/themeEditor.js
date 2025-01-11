@@ -76,10 +76,14 @@ export default function ThemeEditor({ customThemes }) {
   // Ref use to manage live updates to currentTheme for save to CMS
   const currentThemeRef = useRef(currentTheme);
 
-  // Update the ref whenever currentTheme changes
-  // useEffect(() => {
-  //   currentThemeRef.current = currentTheme;
-  // }, [currentTheme]);
+//  Update the ref whenever currentTheme changes
+// TODO: Align theme format This needs to use dataa from custom or defaut
+  useEffect(() => {
+    console.log('curret', currentTheme)
+    updateTheme(currentTheme);
+    setStyleProperties(currentTheme);
+    currentThemeRef.current = currentTheme;
+  }, []);
 
   // State for slider values
   const [colorWeight, setColorWeight] = useState(5);
@@ -97,31 +101,32 @@ export default function ThemeEditor({ customThemes }) {
       }
     });
 
-    //root.style.setProperty('--mix-blend-mode', theme.imageMixBlendMode || 'normal');
-    root.style.setProperty("--text-highlight", theme.textHighlight || "text");
-    root.style.setProperty(
-      "--text-animation",
-      theme.textAnimation || "linesup"
-    );
-    root.style.setProperty(
-      "--text-animation-sec",
-      theme.textAnimationSec || "linesup"
-    );
-    root.style.setProperty("--page-transition", theme.pageTransition || "fade");
-    root.style.setProperty("--page-width", theme.pageWidth || "large");
+    
+    // //root.style.setProperty('--mix-blend-mode', theme.imageMixBlendMode || 'normal');
+    // root.style.setProperty("--text-highlight", theme.textHighlight || "text");
+    // root.style.setProperty(
+    //   "--text-animation",
+    //   theme.textAnimation || "linesup"
+    // );
+    // root.style.setProperty(
+    //   "--text-animation-sec",
+    //   theme.textAnimationSec || "linesup"
+    // );
+    // root.style.setProperty("--page-transition", theme.pageTransition || "fade");
+    // root.style.setProperty("--page-width", theme.pageWidth || "large");
 
-    root.style.setProperty(
-      "--font-family-primary",
-      theme.fontFamilyPrimary || "sans-serif"
-    );
-    root.style.setProperty(
-      "--font-family-secondary",
-      theme.fontFamilySecondary || "sans-serif"
-    );
+    // root.style.setProperty(
+    //   "--font-family-primary",
+    //   theme.fontFamilyPrimary || "sans-serif"
+    // );
+    // root.style.setProperty(
+    //   "--font-family-secondary",
+    //   theme.fontFamilySecondary || "sans-serif"
+    // );
 
-    root.style.setProperty("--cursor", theme.cursor || "dot");
-    root.style.setProperty("--font-ratio-min", theme.fluidFontRatioMin || 1.2);
-    root.style.setProperty("--font-ratio-max", theme.fluidFontRatioMax || 1.25);
+    // root.style.setProperty("--cursor", theme.cursor || "dot");
+    // root.style.setProperty("--font-ratio-min", theme.fluidFontRatioMin || 1.2);
+    // root.style.setProperty("--font-ratio-max", theme.fluidFontRatioMax || 1.25);
   };
 
   const setSingleStyleProperty = (key, value) => {
@@ -141,8 +146,6 @@ export default function ThemeEditor({ customThemes }) {
     currentThemeRef.current.data = mergedTheme;
 
     setSingleStyleProperty(key, value);
-
-    console.log("AFFFFTER", currentThemeRef.current.data);
   };
 
   const handleCustomThemeChange = (selectedThemeKey, source) => {
@@ -150,13 +153,12 @@ export default function ThemeEditor({ customThemes }) {
         (theme) => theme.data.key === selectedThemeKey
     );
 
-    console.log('S',selectedTheme)
-    console.log('SS',source)
     if (selectedTheme) {
         // Update the theme in the context
        // updateTheme(selectedTheme.data);
         
         // Set the style properties based on the selected theme
+        updateTheme(selectedTheme.data);
         setStyleProperties(selectedTheme.data);
         
         // Update the current theme reference only
@@ -172,8 +174,7 @@ export default function ThemeEditor({ customThemes }) {
     const selectedThemeKey = e.target.value;
     const newTheme = { ...source[selectedThemeKey] };
 
-    console.log("fff", newTheme);
-    //updateTheme(newTheme);
+    updateTheme(newTheme);
     setStyleProperties(newTheme);
     currentThemeRef.current = newTheme;
   };
@@ -641,7 +642,7 @@ export default function ThemeEditor({ customThemes }) {
         onChange: (value) => updateThemeProp("imageMixBlendMode", value),
       },
     }),
-    Color2: folder({
+    Color: folder({
       accentPri: {
         value: currentTheme.accentPri,
         label: "Accent Primary",
@@ -754,11 +755,11 @@ export default function ThemeEditor({ customThemes }) {
 
   return (
     <>
-      <div className="fixed flex flex-col p-3 text-sm text-white bg-red-400 top-3 left-3 z-nav">
-        <span>REF: {currentThemeRef.current.data.key}</span>
+      {/* <div className="fixed flex flex-col p-3 text-sm text-white bg-red-400 top-3 left-3 z-nav">
+        <span>REF: {currentThemeRef.current?.data?.key}</span>
         <span>CUR: {currentTheme.key}</span>
         <span>NAM: {themeName}</span>
-      </div>
+      </div> */}
 
       <Modal
         isOpen={isSaveModalOpen}
@@ -801,7 +802,7 @@ export default function ThemeEditor({ customThemes }) {
 
         <form onSubmit={handleDelete} className="flex flex-col gap-3">
           
-          <h1>{currentThemeRef.current.data.key}</h1>
+          <h1>{currentThemeRef.current?.data?.key}</h1>
 
           <div className="flex gap-1">
             <button type="button" onClick={() => setIsDeleteModalOpen(false)}>
@@ -818,8 +819,9 @@ export default function ThemeEditor({ customThemes }) {
         fill={false} // Make the pane fill the parent DOM node
         flat // Remove border radius and shadow
         oneLineLabels={false} // Alternative layout for labels
-        hideTitleBar={true} // Hide the GUI header
-        collapsed={false} // Start the GUI in collapsed state
+        hideTitleBar={false} // Hide the GUI header
+        collapsed={true}
+         // Start the GUI in collapsed state
         hidden={false} // GUI is visible by default
       />
     </>
