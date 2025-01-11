@@ -101,7 +101,7 @@ const Modal = ({
         >
           <Close onClick={onClose} />
 
-          <motion.div className="z-10 flex flex-grow bg-white">
+          <motion.div className="z-10 flex flex-col flex-grow gap-3 p-6 bg-white rounded-lg">
               {children}
           </motion.div>
         </motion.div>

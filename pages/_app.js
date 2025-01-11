@@ -19,7 +19,7 @@ import { cursorThemes, themes } from "../utils/theme";
 function MyApp({ Component, pageProps, router, globalData, customThemes }) {
   const [isLoading, setIsLoading] = useState(true);
   
-  //console.log('GDATA', globalData, customThemes)
+  console.log('GDATA',  customThemes)
 
   useEffect(() => {
 

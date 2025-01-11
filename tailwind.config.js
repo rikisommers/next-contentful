@@ -39,7 +39,6 @@ module.exports = {
         textColor: '#09090b',
         subtextColor: '#52525b',
         textColorInv: '#fafafa',
-        accent:'#c0b89b',
         navBg:'var(--nav-bg)',
         accentPri: '#EF7801',
         accentSec: '#FCD00A',

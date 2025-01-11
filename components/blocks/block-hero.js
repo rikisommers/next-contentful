@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import Background from "../background/background";
 import AnimatedText, { AnimTextOrder } from "../motion/animated-text";
 import CanvasGradientBackground from "../background/canvasGradientBackground";
 import { useThemeContext } from "../context/themeContext";
@@ -98,7 +97,6 @@ const FullPage = () => {
           <CanvasGradientBackground />
         )}
 
-        {currentTheme.heroBackgroundStyle === "video" && <Background />}
       </div>
 
       <PostIntro title={titlealt} content={contentalt} />

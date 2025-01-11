@@ -1,6 +1,5 @@
 import * as THREE from "three";
 import { Canvas } from "@react-three/fiber";
-import Experience2 from "./experience2";
 import Experience from "./experience";
 
 export default function Background() {
