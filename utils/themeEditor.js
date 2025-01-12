@@ -211,7 +211,7 @@ export default function ThemeEditor({ customThemes }) {
 
       // Create a clean copy of the theme data
 
-      const { key, ...rest } = isCustom ? currentThemeRef.current.data : currentThemeRef.current; // Destructure to avoid circular references
+      const { key, ...rest } = currentThemeRef.current.data;
 
       // Create a new object for saving
       const themeToSave = {
