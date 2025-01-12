@@ -24,7 +24,7 @@ const playAudio = (audioRef, volume, isAudioOn) => {
 
     if (audioRef && isAudioOn) {
       try {
-        audioRef.volume = volume;
+        audioRef.volume = volume ? volume : 0;
         audioRef.currentTime = 0;
         audioRef.play();
       } catch (error) {

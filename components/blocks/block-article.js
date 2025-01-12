@@ -24,7 +24,7 @@ export const BlockArticle = ({ data }) => {
 
   return (
 
-    <article className={getContentClass(currentTheme.bodyTextStyle.align)} id={data.title}>
+    <article className={getContentClass(currentTheme.bodyTextAlign)} id={data.title}>
  
 
         

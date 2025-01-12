@@ -1132,11 +1132,6 @@ export const mixBlendThemes = {
   luminosity: 'luminosity',
 };
 
-export const imageThemes = {
-  parallax: false,
-  mixBlendMode: mixBlendThemes.luminosity,
-};
-
 export const cardHoverThemes = {
   none: 'none',
   zoom: 'zoom',
@@ -1167,7 +1162,6 @@ export const navigationOptions = {
   logoFill:true,
   floating: true,
   fixed: true,
-  shadow: true,
   bordered: false,
   shadowColor: {
     default: 'default',
@@ -1250,7 +1244,6 @@ export const bodyTextThemes = {
   dropCap: false,
   indent: false,
   hightlight: false,
-  align:bodyTextAlign.center
 };
 
 export const animationThemes = {
@@ -1265,12 +1258,11 @@ export const helpers = {
 };
 
 const themeContent = {
-  audio:{
-    audio:audioThemes.audio,
-    volume:audioThemes.volume,
-  },
-  typography:typographyThemes.sans,
-  fontScale:fontSizeThemes.fluid,
+  audioEnabled:false,
+  audioVolume:0.5,
+  fontFamilyPrimary:typographyThemes.sans,
+  fontFamilySecondary:typographyThemes.sans,
+  fontScale:fontSizeThemes.fontFixed,
   fluidFontSizeMin: fluidFontSizeThemes.fontSizeMin,
   fluidFontSizeMax: fluidFontSizeThemes.fontSizeMax,
   fluidFontRatioMin: fluidFontSizeThemes.fontRatioMin,
@@ -1287,8 +1279,8 @@ const themeContent = {
   cardLayout:cardThemes.reone,
   cardHover:cardHoverThemes.none,
   cardGrid:gridThemes.bento1,
-  imageparallax:imageThemes.parallax,
-  imageMixBlendMode:imageThemes.mixBlendMode,
+  imageparallax:false,
+  imageMixBlendMode:mixBlendThemes.luminosity,
   heroHeight:heroHeightThemes.full,
   heroType:heroTypeThemes.riki,
   heroBackground:heroBackgroundThemes.gradient,
@@ -1303,26 +1295,18 @@ const themeContent = {
   navFloating: navigationOptions.floating,
   navFixed: navigationOptions.fixed,
   navBorder: navigationOptions.bordered,
-  navShadow: navigationOptions.shadow,
-  navShadowColor: navigationOptions.shadowColor,
+  navShadow: false,
+  navShadowColor: navigationOptions.shadowColor.default,
   navShadowSize:navigationOptions.shadowSize.sm,
   logoBackground:logoBackground.solid,
-
-  footerOptions:{
-    fixed: footerOptions.fixed,
-  },
-  helpers:helpers,
-  bodyText:{
-    dropCap: bodyTextThemes.dropCap,
-    indent: bodyTextThemes.indent,
-    hightlight: bodyTextThemes.hightlight,
-    align:bodyTextThemes.align
-  },
-  weights: {
-    color: 1,
-    vibrance:1,
-    funkyness:1,
-  },
+  footerFixed: footerOptions.fixed,
+  bodyTextDropCap: bodyTextThemes.dropCap,
+  bodyTextIndent: bodyTextThemes.indent,
+  bodyTextHightlight: bodyTextThemes.hightlight,
+  bodyTextAlign:bodyTextAlign.center,
+  weightColor: 1,
+  weightVibrance:1,
+  weightFunkyness:1
 }
 
 // Function to get theme by key
@@ -1354,263 +1338,419 @@ export function getThemeLevaControls(themeKey) {
 
 export const themes = {
   light: {
-    key: 'light',
-    ...colorThemes.light,
-    ...themeContent,
+    name: "light",
+    data: {
+      key: "light",
+      ...colorThemes.light,
+      ...themeContent,
+    },
   },
   dark: {
-    key: 'dark',
-    ...colorThemes.dark,
-    ...themeContent,
+    name: "dark",
+    data: {
+      key: "dark",
+      ...colorThemes.dark,
+      ...themeContent,
+    },
   },
   tokyo: {
-    key: 'tokyo',
-    ...colorThemes.tokyo,
-    ...themeContent,
+    name: "tokyo",
+    data: {
+      key: "tokyo",
+      ...colorThemes.tokyo,
+      ...themeContent,
+    },
   },
   custom: {
-    key: 'custom',
-    ...colorThemes.custom,
-    ...themeContent,
+    name: "custom",
+    data: {
+      key: "custom",
+      ...colorThemes.custom,
+      ...themeContent,
+    },
   },
   amberMonochrome: {
-    key: 'amberMonochrome',
-    ...colorThemes.amberMonochrome,
-    ...themeContent,
+    name: "amberMonochrome",
+    data: {
+      key: "amberMonochrome",
+      ...colorThemes.amberMonochrome,
+      ...themeContent,
+    },
   },
   greenPhosphor: {
-    key: 'greenPhosphor',
-    ...colorThemes.greenPhosphor,
-    ...themeContent,
+    name: "greenPhosphor",
+    data: {
+      key: "greenPhosphor",
+      ...colorThemes.greenPhosphor,
+      ...themeContent,
+    },
   },
   ibmPcXt: {
-    key: 'ibmPcXt',
-    ...colorThemes.ibmPcXt,
-    ...themeContent,
+    name: "ibmPcXt",
+    data: {
+      key: "ibmPcXt",
+      ...colorThemes.ibmPcXt,
+      ...themeContent,
+    },
   },
   commodore64: {
-    key: 'commodore64',
-    ...colorThemes.commodore64,
-    ...themeContent,
+    name: "commodore64",
+    data: {
+      key: "commodore64",
+      ...colorThemes.commodore64,
+      ...themeContent,
+    },
   },
   appleII: {
-    key: 'appleII',
-    ...colorThemes.appleII,
-    ...themeContent,
+    name: "appleII",
+    data: {
+      key: "appleII",
+      ...colorThemes.appleII,
+      ...themeContent,
+    },
   },
   zxSpectrum: {
-    key: 'zxSpectrum',
-    ...colorThemes.zxSpectrum,
-    ...themeContent,
+    name: "zxSpectrum",
+    data: {
+      key: "zxSpectrum",
+      ...colorThemes.zxSpectrum,
+      ...themeContent,
+    },
   },
   atari8bit: {
-    key: 'atari8bit',
-    ...colorThemes.atari8bit,
-    ...themeContent,
+    name: "atari8bit",
+    data: {
+      key: "atari8bit",
+      ...colorThemes.atari8bit,
+      ...themeContent,
+    },
   },
   msdos: {
-    key: 'msdos',
-    ...colorThemes.msdos,
-    ...themeContent,
+    name: "msdos",
+    data: {
+      key: "msdos",
+      ...colorThemes.msdos,
+      ...themeContent,
+    },
   },
   amigaWorkbench: {
-    key: 'amigaWorkbench',
-    ...colorThemes.amigaWorkbench,
-    ...themeContent,
+    name: "amigaWorkbench",
+    data: {
+      key: "amigaWorkbench",
+      ...colorThemes.amigaWorkbench,
+      ...themeContent,
+    },
   },
   nes: {
-    key: 'nes',
-    ...colorThemes.nes,
-    ...themeContent,
+    name: "nes",
+    data: {
+      key: "nes",
+      ...colorThemes.nes,
+      ...themeContent,
+    },
   },
   gameboy: {
-    key: 'gameboy',
-    ...colorThemes.gameboy,
-    ...themeContent,
+    name: "gameboy",
+    data: {
+      key: "gameboy",
+      ...colorThemes.gameboy,
+      ...themeContent,
+    },
   },
   sega: {
-    key: 'sega',
-    ...colorThemes.sega,
-    ...themeContent,
+    name: "sega",
+    data: {
+      key: "sega",
+      ...colorThemes.sega,
+      ...themeContent,
+    },
   },
   mustang69: {
-    key: 'mustang69',
-    ...colorThemes.mustang69,
-    ...themeContent,
+    name: "mustang69",
+    data: {
+      key: "mustang69",
+      ...colorThemes.mustang69,
+      ...themeContent,
+    },
   },
   camaro69: {
-    key: 'camaro69',
-    ...colorThemes.camaro69,
-    ...themeContent,
+    name: "camaro69",
+    data: {
+      key: "camaro69",
+      ...colorThemes.camaro69,
+      ...themeContent,
+    },
   },
   corvette72: {
-    key: 'corvette72',
-    ...colorThemes.corvette72,
-    ...themeContent,
+    name: "corvette72",
+    data: {
+      key: "corvette72",
+      ...colorThemes.corvette72,
+      ...themeContent,
+    },
   },
   beetle68: {
-    key: 'beetle68',
-    ...colorThemes.beetle68,
-    ...themeContent,
+    name: "beetle68",
+    data: {
+      key: "beetle68",
+      ...colorThemes.beetle68,
+      ...themeContent,
+    },
   },
   audi80: {
-    key: 'audi80',
-    ...colorThemes.audi80,
-    ...themeContent,
+    name: "audi80",
+    data: {
+      key: "audi80",
+      ...colorThemes.audi80,
+      ...themeContent,
+    },
   },
   porsche911: {
-    key: 'porsche911',
-    ...colorThemes.porsche911,
-    ...themeContent,
+    name: "porsche911",
+    data: {
+      key: "porsche911",
+      ...colorThemes.porsche911,
+      ...themeContent,
+    },
   },
   spiritedAway: {
-    key: 'spiritedAway',
-    ...colorThemes.spiritedAway,
-    ...themeContent,
+    name: "spiritedAway",
+    data: {
+      key: "spiritedAway",
+      ...colorThemes.spiritedAway,
+      ...themeContent,
+    },
   },
   myNeighborTotoro: {
-    key: 'myNeighborTotoro',
-    ...colorThemes.myNeighborTotoro,
-    ...themeContent,
+    name: "myNeighborTotoro",
+    data: {
+      key: "myNeighborTotoro",
+      ...colorThemes.myNeighborTotoro,
+      ...themeContent,
+    },
   },
   howlsMovingCastle: {
-    key: 'howlsMovingCastle',
-    ...colorThemes.howlsMovingCastle,
-    ...themeContent,
+    name: "howlsMovingCastle",
+    data: {
+      key: "howlsMovingCastle",
+      ...colorThemes.howlsMovingCastle,
+      ...themeContent,
+    },
   },
   sakuraBreeze: {
-    key: 'sakuraBreeze',
-    ...colorThemes.sakuraBreeze,
-    ...themeContent,
+    name: "sakuraBreeze",
+    data: {
+      key: "sakuraBreeze",
+      ...colorThemes.sakuraBreeze,
+      ...themeContent,
+    },
   },
   zenGarden: {
-    key: 'zenGarden',
-    ...colorThemes.zenGarden,
-    ...themeContent,
+    name: "zenGarden",
+    data: {
+      key: "zenGarden",
+      ...colorThemes.zenGarden,
+      ...themeContent,
+    },
   },
   pastelAnime: {
-    key: 'pastelAnime',
-    ...colorThemes.pastelAnime,
-    ...themeContent,
+    name: "pastelAnime",
+    data: {
+      key: "pastelAnime",
+      ...colorThemes.pastelAnime,
+      ...themeContent,
+    },
   },
   deathNote: {
-    key: 'deathNote',
-    ...colorThemes.deathNote,
-    ...themeContent,
+    name: "deathNote",
+    data: {
+      key: "deathNote",
+      ...colorThemes.deathNote,
+      ...themeContent,
+    },
   },
   attackOnTitan: {
-    key: 'attackOnTitan',
-    ...colorThemes.attackOnTitan,
-    ...themeContent,
+    name: "attackOnTitan",
+    data: {
+      key: "attackOnTitan",
+      ...colorThemes.attackOnTitan,
+      ...themeContent,
+    },
   },
   tokyoGhoul: {
-    key: 'tokyoGhoul',
-    ...colorThemes.tokyoGhoul,
-    ...themeContent,
+    name: "tokyoGhoul",
+    data: {
+      key: "tokyoGhoul",
+      ...colorThemes.tokyoGhoul,
+      ...themeContent,
+    },
   },
   akc12: {
-    key: 'akc12',
-    ...colorThemes.akc12,
-    ...themeContent,
+    name: "akc12",
+    data: {
+      key: "akc12",
+      ...colorThemes.akc12,
+      ...themeContent,
+    },
   },
   taikonColor24: {
-    key: 'taikonColor24',
-    ...colorThemes.taikonColor24,
-    ...themeContent,
+    name: "taikonColor24",
+    data: {
+      key: "taikonColor24",
+      ...colorThemes.taikonColor24,
+      ...themeContent,
+    },
   },
   eightVision: {
-    key: 'eightVision',
-    ...colorThemes.eightVision,
-    ...themeContent,
+    name: "eightVision",
+    data: {
+      key: "eightVision",
+      ...colorThemes.eightVision,
+      ...themeContent,
+    },
   },
   cgaPalette0Low: {
-    key: 'cgaPalette0Low',
-    ...colorThemes.cgaPalette0Low,
-    ...themeContent,
+    name: "cgaPalette0Low",
+    data: {
+      key: "cgaPalette0Low",
+      ...colorThemes.cgaPalette0Low,
+      ...themeContent,
+    },
   },
   metallicChic: {
-    key: 'metallicChic',
-    ...colorThemes.metallicChic,
-    ...themeContent,
+    name: "metallicChic",
+    data: {
+      key: "metallicChic",
+      ...colorThemes.metallicChic,
+      ...themeContent,
+    },
   },
   deepVintageMood: {
-    key: 'deepVintageMood',
-    ...colorThemes.deepVintageMood,
-    ...themeContent,
+    name: "deepVintageMood",
+    data: {
+      key: "deepVintageMood",
+      ...colorThemes.deepVintageMood,
+      ...themeContent,
+    },
   },
   coolAndCollected: {
-    key: 'coolAndCollected',
-    ...colorThemes.coolAndCollected,
-    ...themeContent,
+    name: "coolAndCollected",
+    data: {
+      key: "coolAndCollected",
+      ...colorThemes.coolAndCollected,
+      ...themeContent,
+    },
   },
   earthyAndSerene: {
-    key: 'earthyAndSerene',
-    ...colorThemes.earthyAndSerene,
-    ...themeContent,
+    name: "earthyAndSerene",
+    data: {
+      key: "earthyAndSerene",
+      ...colorThemes.earthyAndSerene,
+      ...themeContent,
+    },
   },
   textureAndContrast: {
-    key: 'textureAndContrast',
-    ...colorThemes.textureAndContrast,
-    ...themeContent,
+    name: "textureAndContrast",
+    data: {
+      key: "textureAndContrast",
+      ...colorThemes.textureAndContrast,
+      ...themeContent,
+    },
   },
   mechanicalAndFloaty: {
-    key: 'mechanicalAndFloaty',
-    ...colorThemes.mechanicalAndFloaty,
-    ...themeContent,
+    name: "mechanicalAndFloaty",
+    data: {
+      key: "mechanicalAndFloaty",
+      ...colorThemes.mechanicalAndFloaty,
+      ...themeContent,
+    },
   },
   pixelIntensity: {
-    key: 'pixelIntensity',
-    ...colorThemes.pixelIntensity,
-    ...themeContent,
+    name: "pixelIntensity",
+    data: {
+      key: "pixelIntensity",
+      ...colorThemes.pixelIntensity,
+      ...themeContent,
+    },
   },
   gradientPop: {
-    key: 'gradientPop',
-    ...colorThemes.gradientPop,
-    ...themeContent,
+    name: "gradientPop",
+    data: {
+      key: "gradientPop",
+      ...colorThemes.gradientPop,
+      ...themeContent,
+    },
   },
   cosmicArtistry: {
-    key: 'cosmicArtistry',
-    ...colorThemes.cosmicArtistry,
-    ...themeContent,
+    name: "cosmicArtistry",
+    data: {
+      key: "cosmicArtistry",
+      ...colorThemes.cosmicArtistry,
+      ...themeContent,
+    },
   },
   vibrantButCalm: {
-    key: 'vibrantButCalm',
-    ...colorThemes.vibrantButCalm,
-    ...themeContent,
+    name: "vibrantButCalm",
+    data: {
+      key: "vibrantButCalm",
+      ...colorThemes.vibrantButCalm,
+      ...themeContent,
+    },
   },
   livelyAndInviting: {
-    key: 'livelyAndInviting',
-    ...colorThemes.livelyAndInviting,
-    ...themeContent,
+    name: "livelyAndInviting",
+    data: {
+      key: "livelyAndInviting",
+      ...colorThemes.livelyAndInviting,
+      ...themeContent,
+    },
   },
   strikingAndSimple: {
-    key: 'strikingAndSimple',
-    ...colorThemes.strikingAndSimple,
-    ...themeContent,
+    name: "strikingAndSimple",
+    data: {
+      key: "strikingAndSimple",
+      ...colorThemes.strikingAndSimple,
+      ...themeContent,
+    },
   },
   redAndLively: {
-    key: 'redAndLively',
-    ...colorThemes.redAndLively,
-    ...themeContent,
+    name: "redAndLively",
+    data: {
+      key: "redAndLively",
+      ...colorThemes.redAndLively,
+      ...themeContent,
+    },
   },
   artsyAndCreative: {
-    key: 'artsyAndCreative',
-    ...colorThemes.artsyAndCreative,
-    ...themeContent,
+    name: "artsyAndCreative",
+    data: {
+      key: "artsyAndCreative",
+      ...colorThemes.artsyAndCreative,
+      ...themeContent,
+    },
   },
   elegantYetApproachable: {
-    key: 'elegantYetApproachable',
-    ...colorThemes.elegantYetApproachable,
-    ...themeContent,
+    name: "elegantYetApproachable",
+    data: {
+      key: "elegantYetApproachable",
+      ...colorThemes.elegantYetApproachable,
+      ...themeContent,
+    },
   },
   sleekAndFuturistic: {
-    key: 'sleekAndFuturistic',
-    ...colorThemes.sleekAndFuturistic,
-    ...themeContent,
+    name: "sleekAndFuturistic",
+    data: {
+      key: "sleekAndFuturistic",
+      ...colorThemes.sleekAndFuturistic,
+      ...themeContent,
+    },
   },
   innovativeAndAudacious: {
-    key: 'innovativeAndAudacious',
-    ...colorThemes.innovativeAndAudacious,
-    ...themeContent,
+    name: "innovativeAndAudacious",
+    data: {
+      key: "innovativeAndAudacious",
+      ...colorThemes.innovativeAndAudacious,
+      ...themeContent,
+    },
   },
 };

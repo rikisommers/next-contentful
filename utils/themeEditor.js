@@ -17,7 +17,6 @@ import {
   navigationPositionThemes,
   navigationDragThemes,
   fontSizeThemes,
-  footerOptions,
   bodyTextAlign,
   navigationStyleThemes,
   navigationOptions,
@@ -61,9 +60,11 @@ const getBestTheme = (weightType, sliderValue) => {
 export default function ThemeEditor({ customThemes }) {
   const { currentTheme, updateTheme } = useThemeContext();
   const [themeName, setThemeName] = useState("");
+  const [isCustom, setIsCustom] = useState(false);
   const [isSaveModalOpen, setIsSaveModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
+  const presetThemes = themes;
 
   const handleCloseSaveModal = () => {
     setIsSaveModalOpen(false);
@@ -79,7 +80,7 @@ export default function ThemeEditor({ customThemes }) {
 //  Update the ref whenever currentTheme changes
 // TODO: Align theme format This needs to use dataa from custom or defaut
   useEffect(() => {
-    console.log('curret', currentTheme)
+    console.log('current', currentTheme)
     updateTheme(currentTheme);
     setStyleProperties(currentTheme);
     currentThemeRef.current = currentTheme;
@@ -91,18 +92,22 @@ export default function ThemeEditor({ customThemes }) {
   const [funkynessWeight, setFunkynessWeight] = useState(5);
 
   const setStyleProperties = (theme) => {
+
+    console.log('setting props -----',theme)
     const root = document.documentElement;
     root.setAttribute("data-theme", theme.key);
 
     Object.entries(theme).forEach(([key, value]) => {
-      if (typeof value === "string" && value.startsWith("#")) {
         const cssVar = `--${key.replace(/([A-Z])/g, "-$1").toLowerCase()}`;
         root.style.setProperty(cssVar, value);
-      }
+  
     });
 
-    
+ 
     //root.style.setProperty('--mix-blend-mode', theme.imageMixBlendMode || 'normal');
+
+
+
     root.style.setProperty("--text-highlight", theme.textHighlight || "text");
     root.style.setProperty(
       "--text-animation",
@@ -142,18 +147,24 @@ export default function ThemeEditor({ customThemes }) {
   // Save as custom thmeme to retain changes
   const updateThemeProp = (key, value) => {
     // This ref is used to store temp/live changes until save
-    const mergedTheme = { ...currentThemeRef.current.data, [key]: value };
-    currentThemeRef.current.data = mergedTheme;
+    const mergedTheme = { ...currentThemeRef.current, [key]: value };
+    currentThemeRef.current = mergedTheme;
 
     setSingleStyleProperty(key, value);
   };
 
-  const handleCustomThemeChange = (selectedThemeKey, source) => {
-    const selectedTheme = source.find(
+  const handleCustomThemeChange = (selectedThemeKey) => {
+
+    setIsCustom(true)
+
+
+    const selectedTheme = customThemes.find(
         (theme) => theme.data.key === selectedThemeKey
     );
 
+
     if (selectedTheme) {
+
         // Update the theme in the context
        // updateTheme(selectedTheme.data);
         
@@ -170,14 +181,26 @@ export default function ThemeEditor({ customThemes }) {
     }
 };
 
-  const handleThemeChange = (e, source) => {
+  const handleThemeChange = (e) => {
     const selectedThemeKey = e.target.value;
-    const newTheme = { ...source[selectedThemeKey] };
 
-    updateTheme(newTheme);
-    setStyleProperties(newTheme);
-    currentThemeRef.current = newTheme;
-  };
+    // Convert presetThemes object to an array and find the selected theme
+    const selectedTheme = Object.values(presetThemes).find(
+        (theme) => theme.data.key === selectedThemeKey
+    );
+
+    if (selectedTheme) {
+        // Do something with the selected theme
+        updateTheme(selectedTheme.data);
+        setStyleProperties(selectedTheme.data);
+        
+        // Update the current theme reference only
+        currentThemeRef.current = selectedTheme;
+        console.log('Selected theme:', selectedTheme);
+    } else {
+        console.error('Theme not found for key:', selectedThemeKey);
+    }
+};
 
   // Save current theme as a new theme
   const saveNewTheme = async () => {
@@ -187,7 +210,8 @@ export default function ThemeEditor({ customThemes }) {
       const customKey = toCamelCase(themeName); // Convert name to camelCase and remove spaces
 
       // Create a clean copy of the theme data
-      const { key, ...rest } = currentThemeRef.current.data; // Destructure to avoid circular references
+
+      const { key, ...rest } = isCustom ? currentThemeRef.current.data : currentThemeRef.current; // Destructure to avoid circular references
 
       // Create a new object for saving
       const themeToSave = {
@@ -332,18 +356,18 @@ export default function ThemeEditor({ customThemes }) {
     ),
     custom: {
       options: customThemes.map((theme) => theme.data.key),
-      value: "select theme",
+      value: customThemes.length ? customThemes[0].data.key : currentTheme.data.key,
       label: "Custom",
       onChange: (value) => {
-        handleCustomThemeChange(value, customThemes);
+        handleCustomThemeChange(value);
       },
     },
     presets: {
-      options: Object.keys(themes),
-      value: currentTheme.data.key,
+      options: Object.keys(presetThemes),
+      value: currentTheme.key,
       label: "Presets",
       onChange: (value) => {
-        handleThemeChange({ target: { value } }, themes);
+        handleThemeChange({ target: { value } });
       },
     },
     // "Theme Selection": folder({
@@ -380,17 +404,17 @@ export default function ThemeEditor({ customThemes }) {
     // }),
     Audio: folder({
       audio: {
-        value: currentTheme.audio,
+        value: currentTheme.audioEnabled,
         label: "Audio",
-        onChange: (value) => updateThemeProp("audio", value), // Call existing handler
+        onChange: (value) => updateThemeProp("audioEnabled", value),
       },
       volume: {
-        value: currentTheme.volume,
+        value: currentTheme.audioVolume,
         min: 0,
         max: 1,
         step: 0.1,
         label: "Volume",
-        onChange: (value) => updateThemeProp("volume", value), // Call existing handler
+        onChange: (value) => updateThemeProp("audioVolume", value), // Call existing handler
       },
     }),
     Globals: folder({
@@ -436,7 +460,7 @@ export default function ThemeEditor({ customThemes }) {
       },
       fontFamilySecondary: {
         options: Object.values(typographyThemes),
-        value: currentTheme.fontFamilySecondary,
+        value: currentThemeRef.fontFamilySecondary,
         label: "Font Family Secondary",
         onChange: (value) => updateThemeProp("fontFamilySecondary", value), // Call existing handler
       },
@@ -464,41 +488,29 @@ export default function ThemeEditor({ customThemes }) {
       },
       "Body Text": folder({
         dropCap: {
-          value: currentTheme.bodyTextStyle?.dropCap, // Default to false
+          value: currentTheme.bodyTextDropCap, // Default to false
           label: "Drop Cap",
           onChange: (value) =>
-            updateThemeProp("bodyTextStyle", {
-              ...currentTheme.bodyTextStyle,
-              dropCap: value,
-            }), // Update handler
+            updateThemeProp("bodyTextDropCap",value), // Update handler
         },
         indent: {
-          value: currentTheme.bodyTextStyle?.indent, // Default to false
+          value: currentTheme.bodyTextIndent, // Default to false
           label: "Indent",
           onChange: (value) =>
-            updateThemeProp("bodyTextStyle", {
-              ...currentTheme.bodyTextStyle,
-              indent: value,
-            }), // Update handler
+            updateThemeProp("bodyTextIndent", value), // Update handler
         },
         highlight: {
-          value: currentTheme.bodyTextStyle?.highlight, // Default to false
+          value: currentTheme.bodyTextHighlight, // Default to false
           label: "Highlight",
           onChange: (value) =>
-            updateThemeProp("bodyTextStyle", {
-              ...currentTheme.bodyTextStyle,
-              highlight: value,
-            }), // Update handler
+            updateThemeProp("bodyTextHighlight", value), // Update handler
         },
         align: {
-          value: currentTheme.bodyTextStyle?.align, // Default to false
+          value: currentTheme.bodyTextAlign, // Default to false
           options: Object.values(bodyTextAlign),
           label: "Align",
           onChange: (value) =>
-            updateThemeProp("bodyTextStyle", {
-              ...currentTheme.bodyTextStyle,
-              align: value,
-            }), // Update handler
+            updateThemeProp("bodyTextAlign", value), // Update handler
         },
       }),
     }),
@@ -553,14 +565,11 @@ export default function ThemeEditor({ customThemes }) {
       },
     }),
     Footer: folder({
-      fixed: {
-        value: currentTheme.footerOptions?.fixed,
+      footerFixed: {
+        value: currentTheme.footerFixed,
         label: "fixed",
         onChange: (value) =>
-          updateThemeProp("footerPosition", {
-            ...currentTheme.footerOptions,
-            fixed: value,
-          }),
+          updateThemeProp("footerPosition", value),
       },
     }),
     Hero: folder({
