@@ -86,7 +86,7 @@ const AnimatedText = ({type, highlight, content ,delay}) => {
 
 //    return getAnimatedComponent(content, delay);
 const { currentTheme } = useThemeContext();
-const highlight2 = currentTheme.textHighlight
+const highlight2 = currentTheme.data.textHighlight
 
 
 //    console.log('------',currentTheme);

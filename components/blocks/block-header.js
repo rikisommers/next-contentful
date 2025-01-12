@@ -21,7 +21,7 @@ export default function BlockHeader({ data  }) {
             >
               <AnimatedText
                 content={data.content}
-                type={currentTheme.textAnimationSec}
+                type={currentTheme.data.textAnimationSec}
                 delay={AnimTextOrder.TWO}
               >
                 {/* {data.title} */}

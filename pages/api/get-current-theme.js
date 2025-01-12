@@ -14,7 +14,7 @@ export default async function handler(req, res) {
       
       if (entries.items.length > 0) {
         const entry = entries.items[0];
-        const currentTheme = entry.fields.currentTheme?.['en-US'] || null;
+        const currentTheme = entry.fields.currentTheme?.data.['en-US'] || null;
         res.status(200).json({ currentTheme });
       } else {
         res.status(404).json({ message: 'No settings entry found' });

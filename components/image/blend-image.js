@@ -19,7 +19,7 @@ const BlendImage = (props) => {
    width={400}
    height={200}
    style={{
-    mixBlendMode:currentTheme.imageMixBlendMode
+    mixBlendMode:currentTheme.data.imageMixBlendMode
   }}
    className='object-cover w-full h-full greyscale'
    />

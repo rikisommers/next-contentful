@@ -27,11 +27,11 @@ const GridGroup = ({ items, templateSize, startIndex }) => {
           {groupItems.map((item, i) => (
             <div key={startIndex + i} className={`my--${i + 1}`}>
               <AnimatedElement type={AnimStyleEl.FADEIN}>
-                {currentTheme.cardLayout === 'formal' && <PostTileCs post={item} />}
-                {currentTheme.cardLayout === 'funky' && <PostTileLg post={item} />}
-                {currentTheme.cardLayout === 'reone' && <PostTileRe post={item} />}
-                {currentTheme.cardLayout === 'monks' && <PostTileMonks post={item} />}
-                {currentTheme.cardLayout === 'img' && <PostTileImg post={item} />}
+                {currentTheme.data.cardLayout === 'formal' && <PostTileCs post={item} />}
+                {currentTheme.data.cardLayout === 'funky' && <PostTileLg post={item} />}
+                {currentTheme.data.cardLayout === 'reone' && <PostTileRe post={item} />}
+                {currentTheme.data.cardLayout === 'monks' && <PostTileMonks post={item} />}
+                {currentTheme.data.cardLayout === 'img' && <PostTileImg post={item} />}
               </AnimatedElement>
             </div>
           ))}

@@ -16,12 +16,12 @@ export default function PostIntroRiki({ title,subtitle }) {
         {title && (
           <h4 className="mb-4 text-sm font-normal"
             style={{
-                color:currentTheme.subtextColor
+                color:currentTheme.data.subtextColor
             }}
           >
             <AnimatedText
               content={title}
-              type={currentTheme.textAnimationSec}
+              type={currentTheme.data.textAnimationSec}
               delay={AnimTextOrder.ONE}
             />
           </h4>
@@ -30,7 +30,7 @@ export default function PostIntroRiki({ title,subtitle }) {
           <h1 className="leading-normal ~text-2xl/6xl text-balance">
             <AnimatedText
               content={subtitle}
-              type={currentTheme.textAnimation}
+              type={currentTheme.data.textAnimation}
               delay={AnimTextOrder.TWO}
             />
           </h1>

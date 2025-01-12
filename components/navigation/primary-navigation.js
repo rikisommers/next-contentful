@@ -48,13 +48,13 @@ export default function Navigation() {
     <>
       <div
         ref={containerRef}
-        className={`${currentTheme.navFixed ? "fixed" : "absolute"} ${
-          currentTheme.navBorder
+        className={`${currentTheme.data.navFixed ? "fixed" : "absolute"} ${
+          currentTheme.data.navBorder
             ? "border-solid border-b-[1px] border-t-0 border-l-0 border-r-0"
             : "border-none"
         } bg-opacity-25 top-0 left-0 z-50  w-screen p-3 pointer-events-none grid grid-cols-3 `}
         style={{
-          //  backgroundColor: currentTheme.navBorder ? 'var(--body-background-color)' : 'transparent',
+          //  backgroundColor: currentTheme.data.navBorder ? 'var(--body-background-color)' : 'transparent',
           borderColor: "var(--nav-shadow-color)",
         }}
       >

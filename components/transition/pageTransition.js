@@ -17,7 +17,7 @@ const TransitionContainer = ({children}) => {
   return (
     <>
     {(() => {
-        switch (currentTheme.pageTransition) {
+        switch (currentTheme.data.pageTransition) {
             case 'tiltandwipe':
                 return <TransitionTiltAndWipe>{children}</TransitionTiltAndWipe>;
             case 'tilt':

@@ -1304,9 +1304,6 @@ const themeContent = {
   bodyTextIndent: bodyTextThemes.indent,
   bodyTextHightlight: bodyTextThemes.hightlight,
   bodyTextAlign:bodyTextAlign.center,
-  weightColor: 1,
-  weightVibrance:1,
-  weightFunkyness:1
 }
 
 // Function to get theme by key

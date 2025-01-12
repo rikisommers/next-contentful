@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useControls } from 'leva';
-import { initializeAudioRefs, playAudio, updateVolume, toggleAudio } from './audio-utils';
+import { initializeAudioRefs, playAudio, updateVolume, toggleAudio } from '../components/navigation/audio-utils';
 
 export const useAudioControls = () => {
   const [audioRefs, setAudioRefs] = useState(initializeAudioRefs());

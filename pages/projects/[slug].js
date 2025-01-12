@@ -83,7 +83,7 @@ export default function Post({ post, footerData }) {
                 subtitle={post.titlealt}
                 img={post.img}
               /> */}
-            {currentTheme.heroType === 'monks' &&
+            {currentTheme.data.heroType === 'monks' &&
               <PostHeaderMonks
                 title={post.title}
                 subtitle={post.titlealt}
@@ -91,14 +91,14 @@ export default function Post({ post, footerData }) {
                 img={post.img}
               />
             }
-            {/* {currentTheme.heroType === 'pentagram' &&
+            {/* {currentTheme.data.heroType === 'pentagram' &&
               <PostHeader
                 title={post.title}
                 subtitle={post.subtitle}
                 img={post.img}
               />
             } */}
-            {currentTheme.heroType === 'riki' &&
+            {currentTheme.data.heroType === 'riki' &&
                         <div className="max-w-screen-xl mx-auto">
 
               <PostHeaderRiki

@@ -64,11 +64,11 @@ export const useAudioControls = () => {
   
   return {
     audioRefs,
-    playClick: () => playAudio(audioRefs.click, currentTheme.volume, currentTheme.audio),
-    playBeepOn: () => playAudio(audioRefs.beepOn, currentTheme.volume, currentTheme.audio),
-    playBeepOff: () => playAudio(audioRefs.beepOff, currentTheme.volume, currentTheme.audio),
-    playPlink: () => playAudio(audioRefs.plink, currentTheme.volume, currentTheme.audio),
-    playDrip: () => playAudio(audioRefs.drip, currentTheme.volume, currentTheme.audio),
-    playMarimba: () => playAudio(audioRefs.marimba, currentTheme.volume, currentTheme.audio),
+    playClick: () => playAudio(audioRefs.click, currentTheme.data.volume, currentTheme.data.audio),
+    playBeepOn: () => playAudio(audioRefs.beepOn, currentTheme.data.volume, currentTheme.data.audio),
+    playBeepOff: () => playAudio(audioRefs.beepOff, currentTheme.data.volume, currentTheme.data.audio),
+    playPlink: () => playAudio(audioRefs.plink, currentTheme.data.volume, currentTheme.data.audio),
+    playDrip: () => playAudio(audioRefs.drip, currentTheme.data.volume, currentTheme.data.audio),
+    playMarimba: () => playAudio(audioRefs.marimba, currentTheme.data.volume, currentTheme.data.audio),
   };
 };

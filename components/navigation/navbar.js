@@ -60,9 +60,9 @@ export default function NavBar({ containerRef }) {
   const getNavigationStyle = (navigationStyle) => {
     switch (navigationStyle) {
       case "solid":
-        return currentTheme.accentPri;
+        return currentTheme.data.accentPri;
       case "transparent":
-        return currentTheme.navBg;
+        return currentTheme.data.navBg;
       default:
         return "solid";
     }
@@ -144,7 +144,7 @@ export default function NavBar({ containerRef }) {
   // }, [menuRef, menuDragRef]); // Include both refs in the dependency array to handle re-renders correctly
 
   useEffect(() => {
-    if (menuRef.current && menuDragRef.current && currentTheme.navFloating) {
+    if (menuRef.current && menuDragRef.current && currentTheme.data.navFloating) {
       const navRect = menuRef.current.getBoundingClientRect();
       const navSize = navRect.width;
       const threshold = navSize / 2; // Use half of the nav width as threshold
@@ -158,8 +158,8 @@ export default function NavBar({ containerRef }) {
       );
     }
   }, [menuRef, menuDragRef]);
-  //  ${getShadowSizeClass(currentTheme.navShadowSize)}
-  // boxShadow: `0 10px 15px -3px ${currentTheme.navShadow}, 0 4px 49px -4px ${currentTheme.navShadow}`,
+  //  ${getShadowSizeClass(currentTheme.data.navShadowSize)}
+  // boxShadow: `0 10px 15px -3px ${currentTheme.data.navShadow}, 0 4px 49px -4px ${currentTheme.data.navShadow}`,
 
   return (
     <motion.div
@@ -170,18 +170,18 @@ export default function NavBar({ containerRef }) {
       dragSnapToOrigin={false}
       style={{
         backgroundColor: `${
-          currentTheme.navStyle === "solid" ? currentTheme.navBg : "transparent"
+          currentTheme.data.navStyle === "solid" ? currentTheme.data.navBg : "transparent"
         }`,
-        // boxShadow: `0 10px 15px -3px ${currentTheme.navShadow}, 0 4px 49px -4px ${currentTheme.navShadow}`,
+        // boxShadow: `0 10px 15px -3px ${currentTheme.data.navShadow}, 0 4px 49px -4px ${currentTheme.data.navShadow}`,
       }}
        //add orientation if floating  ${orientation} 
       className={`
-        ${getNavigationPositionClass(currentTheme.navPosition)} 
-        ${getShadowSizeClass(currentTheme.navShadowSize)}
+        ${getNavigationPositionClass(currentTheme.data.navPosition)} 
+        ${getShadowSizeClass(currentTheme.data.navShadowSize)}
        
          flex mx-auto pr-2 backdrop-blur-lg pointer-events-auto  z-50 gap-1 rounded-xl`}
     >
-      {currentTheme.navFloating && (
+      {currentTheme.data.navFloating && (
         <div
           ref={menuDragRef}
           className="flex items-center px-2 text-lg text-white"
@@ -191,8 +191,8 @@ export default function NavBar({ containerRef }) {
           <DotsSixVertical />
         </div>
       )}
-      {/* <p>{currentTheme.navigationOptions?.floating === true ? 'true' : 'false'}</p>
-      <p>{currentTheme.navigationOptions?.shadow === true ? 'true' : 'false'}</p> */}
+      {/* <p>{currentTheme.data.navigationOptions?.floating === true ? 'true' : 'false'}</p>
+      <p>{currentTheme.data.navigationOptions?.shadow === true ? 'true' : 'false'}</p> */}
 
       {pages.map((page) => (
         <Link
@@ -208,12 +208,12 @@ export default function NavBar({ containerRef }) {
               layoutId="indicator"
               style={{
                 backgroundColor: `${
-                  currentTheme.navStyle === "solid"
-                    ? currentTheme.accentPri
+                  currentTheme.data.navStyle === "solid"
+                    ? currentTheme.data.accentPri
                     : "transparent"
                 }`,
 
-                // boxShadow: `0 10px 15px -3px ${currentTheme.navShadow}, 0 4px 49px -4px ${currentTheme.navShadow}`,
+                // boxShadow: `0 10px 15px -3px ${currentTheme.data.navShadow}, 0 4px 49px -4px ${currentTheme.data.navShadow}`,
               }}
               className="absolute top-0 left-0 flex w-full h-full bg-opacity-50 rounded-xl"
             ></motion.div>

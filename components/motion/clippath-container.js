@@ -25,8 +25,8 @@ export const ClipContainer = ({ children }) => {
     },
   });
 
-  const insetValue = currentTheme?.animation?.inset || 1.5;
-  const borderRadiusValue = currentTheme?.animation?.borderRadius || 1.5;
+  const insetValue = 1.5;
+  const borderRadiusValue = 1.5;
 
   const yv = useTransform(scrollContent, [0, 1], [0, insetValue]);
   const xv = useTransform(scrollContent, [0, 1], [0, insetValue]);

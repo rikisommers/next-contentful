@@ -17,7 +17,7 @@ export default function Logo() {
          
     <motion.div
     style={{
-      backgroundColor: currentTheme.logoFill ? "var(--accent)" : "transparent" ,
+      backgroundColor: currentTheme.data.logoFill ? "var(--accent)" : "transparent" ,
       color:
         router.asPath === "/"
           ? "var(--text-color)"

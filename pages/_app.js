@@ -19,7 +19,7 @@ import { cursorThemes, themes } from "../utils/theme";
 function MyApp({ Component, pageProps, router, globalData, customThemes }) {
   const [isLoading, setIsLoading] = useState(true);
   
-  console.log('GDATA',  customThemes)
+  //console.log('GDATA',  customThemes)
 
   useEffect(() => {
 
@@ -47,12 +47,12 @@ function MyApp({ Component, pageProps, router, globalData, customThemes }) {
                 <Navigation />
                 <AnimatePresence mode="wait" initial={false}>
                 {/* <FontLoader 
-      primaryFont={currentTheme.fontFamilyPrimary} 
-      secondaryFont={currentTheme.fontFamilySecondary}
+      primaryFont={currentTheme.data.fontFamilyPrimary} 
+      secondaryFont={currentTheme.data.fontFamilySecondary}
     > */}
 
 
-                  {/* {currentTheme.cursor === 'dot' && <></> } */}
+                  {/* {currentTheme.data.cursor === 'dot' && <></> } */}
                  {/* <CursorDot key={router.asPath + "dot"} /> */}
                   {/* <CursorCta
                     content={"testing123"}

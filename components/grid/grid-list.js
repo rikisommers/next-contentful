@@ -16,11 +16,11 @@ export default function GridList({data}) {
         <div className="grid grid-cols-3 gap-6">
         {data.map((item, i) => (
             <div key={i} className="relative">
-                {currentTheme.cardLayout === 'formal' && <PostTileCs post={item} />}
-                {currentTheme.cardLayout === 'funky' && <PostTileLg post={item} />}
-                {currentTheme.cardLayout === 'reone' && <PostTileRe post={item} />}
-                {currentTheme.cardLayout === 'img' && <PostTileImg post={item} />}
-                {currentTheme.cardLayout === 'monks' && <PostTileMonks post={item} />}
+                {currentTheme.data.cardLayout === 'formal' && <PostTileCs post={item} />}
+                {currentTheme.data.cardLayout === 'funky' && <PostTileLg post={item} />}
+                {currentTheme.data.cardLayout === 'reone' && <PostTileRe post={item} />}
+                {currentTheme.data.cardLayout === 'img' && <PostTileImg post={item} />}
+                {currentTheme.data.cardLayout === 'monks' && <PostTileMonks post={item} />}
             </div>
         ))}
         </div>

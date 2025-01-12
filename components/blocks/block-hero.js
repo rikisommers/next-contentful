@@ -59,13 +59,13 @@ const BackgroundElements = () => {
         ease: [0.33, 1, 0.68, 1],
       }}
     >
-      {currentTheme.heroBackgroundStyle === "gradient" && (
+      {currentTheme.data.heroBackgroundStyle === "gradient" && (
         <CanvasGradientBackground />
       )}
 
-      {currentTheme.heroBackgroundStyle === "video" && <Background />}
+      {currentTheme.data.heroBackgroundStyle === "video" && <Background />}
 
-      {currentTheme.heroBackgroundStyle === "image" && (
+      {currentTheme.data.heroBackgroundStyle === "image" && (
         <BlendImage
           className="img-cover"
           alt={`Cover Image for ${image?.title}`}
@@ -93,7 +93,7 @@ const FullPage = () => {
         //   ease: [0.33, 1, 0.68, 1],
         // }}
       >
-        {currentTheme.heroBackgroundStyle === "gradient" && (
+        {currentTheme.data.heroBackgroundStyle === "gradient" && (
           <CanvasGradientBackground />
         )}
 
@@ -118,7 +118,7 @@ export default function BlockHero({
 
   useEffect(() => {
     // Set the style value when the component mounts
-    const position = getPositionClass(currentTheme.heroTextPosition);
+    const position = getPositionClass(currentTheme.data.heroTextPosition);
     setPosition(position); // Set to the desired integer value
   }, []);
 
@@ -128,7 +128,7 @@ export default function BlockHero({
     <ClipContainer>
       <div
         className={`${getHeightClass(
-          currentTheme.heroHeight
+          currentTheme.data.heroHeight
         )} relative flex flex-col justify-end left-0 top-0 z-50  w-full  gap-8 px-16 py-16 `}
       >
         <div
@@ -144,14 +144,14 @@ export default function BlockHero({
           //   ease: [0.33, 1, 0.68, 1],
           // }}
         >
-          {currentTheme.heroBackgroundStyle === "gradient" && (
+          {currentTheme.data.heroBackgroundStyle === "gradient" && (
             <CanvasGradientBackground />
           )}
 
-          {currentTheme.heroBackgroundStyle === "video" && <Background />}
+          {currentTheme.data.heroBackgroundStyle === "video" && <Background />}
         </div>
 
-        {currentTheme.heroBackgroundStyle === "image" && image && (
+        {currentTheme.data.heroBackgroundStyle === "image" && image && (
           <BlendImage
             className="absolute w-full h-full img-cover"
             alt={`Cover Image for ${image?.title}`}
@@ -160,13 +160,13 @@ export default function BlockHero({
         )}
 
         {/* TODO: Replace with padding, this is only usefull if full height */}
-        {/* <motion.div className={`${getPositionClass(currentTheme.heroTextPosition)}`}>
+        {/* <motion.div className={`${getPositionClass(currentTheme.data.heroTextPosition)}`}>
         <h1
           style={{ fontFamily: "var(--font-family-primary)" }}
         >
           <AnimatedText
-            type={currentTheme.textAnimation}
-            highlight={currentTheme.textHighlight}
+            type={currentTheme.data.textAnimation}
+            highlight={currentTheme.data.textHighlight}
             content={titlealt}
             delay={AnimTextOrder.ONE}
           />
@@ -178,7 +178,7 @@ export default function BlockHero({
           }}
         >
           <AnimatedText
-            type={currentTheme.textAnimation}
+            type={currentTheme.data.textAnimation}
             content={contentalt}
             delay={AnimTextOrder.THREE}
           />

@@ -80,11 +80,11 @@ export const BlockTags = ({ data, selected, handleTagClick }) => {
                   style={{
                     borderColor:`${
                       selected === tag
-                    ? currentTheme.accentPri
+                    ? currentTheme.data.accentPri
                     : "transparent"
                 }`,
                 
-                    // boxShadow: `0 10px 15px -3px ${currentTheme.navShadow}, 0 4px 49px -4px ${currentTheme.navShadow}`,
+                    // boxShadow: `0 10px 15px -3px ${currentTheme.data.navShadow}, 0 4px 49px -4px ${currentTheme.data.navShadow}`,
                   }}
                   className="absolute top-0 left-0 flex w-full h-full bg-opacity-50 border border-solid rounded-md"
                 ></motion.div>
