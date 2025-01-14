@@ -4,6 +4,7 @@ import React from "react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import TransitionPage from "../components/transition/pageTransition";
 import PropTypes from "prop-types";
+import { useThemeContext } from "./context/themeContext";
 
 const LayoutType = {
   FLUID: "fluid",
@@ -12,9 +13,10 @@ const LayoutType = {
   DEFAULT: "default", // You can define a default option if needed
 };
 
-
-const Layout = ({ children, pageWidth = LayoutType.FLUID }) => {
-
+//pageWidth = LayoutType.FLUID
+const Layout = ({ children }) => {
+  const { currentTheme } = useThemeContext();
+  const pageWidth = currentTheme.data.pageWidth;
   return (
     <TransitionPage>
       <div

@@ -6,7 +6,7 @@ import Button, { ButtonType, ButtonSound } from "../base/button";
 import ButtonAlt from "../base/button-alt";
 import { useThemeContext } from "../context/themeContext";
 import Link from "next/link";
-import { DotsSixVertical } from "@phosphor-icons/react";
+import { DotsSixVertical, PlayCircle } from "@phosphor-icons/react";
 
 export default function NavBar({ containerRef }) {
   const { currentTheme } = useThemeContext();
@@ -149,6 +149,7 @@ export default function NavBar({ containerRef }) {
       const navSize = navRect.width;
       const threshold = navSize / 2; // Use half of the nav width as threshold
 
+      
       // Update orientation based on drag position
       setOrientation(
         navRect.left <= threshold ||
@@ -228,6 +229,7 @@ export default function NavBar({ containerRef }) {
         sound={ButtonSound.ON}
         type={ButtonType.TRANSPARENT}
       ></Button>
+      <ButtonAlt sound={ButtonSound.CLICK} label={'ssssssound'}></ButtonAlt>
     </motion.div>
   );
 }

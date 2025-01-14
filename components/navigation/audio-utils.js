@@ -18,11 +18,11 @@ const initializeAudioRefs = () => {
 };
 
 // Play audio function
-const playAudio = (audioRef, volume, isAudioOn) => {
+const playAudio = (audioRef) => {
 
-    console.log('play audio',volume, isAudioOn)
+    //console.log('play audio',volume, isAudioOn)
 
-    if (audioRef && isAudioOn) {
+    if (audioRef) {
       try {
         audioRef.volume = volume ? volume : 0;
         audioRef.currentTime = 0;
@@ -64,7 +64,7 @@ export const useAudioControls = () => {
   
   return {
     audioRefs,
-    playClick: () => playAudio(audioRefs.click, currentTheme.data.volume, currentTheme.data.audio),
+    playClick: () => playAudio(audioRefs.click),
     playBeepOn: () => playAudio(audioRefs.beepOn, currentTheme.data.volume, currentTheme.data.audio),
     playBeepOff: () => playAudio(audioRefs.beepOff, currentTheme.data.volume, currentTheme.data.audio),
     playPlink: () => playAudio(audioRefs.plink, currentTheme.data.volume, currentTheme.data.audio),

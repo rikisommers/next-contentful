@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import {
   themes,
@@ -34,10 +35,13 @@ import Modal, {
   ModalWidth,
 } from "../components/base/modal";
 import ButtonAlt, { ButtonType } from "../components/base/button-alt";
+import { useToast } from "../components/context/toastContext";
+
 
 const getBestTheme = (weightType, sliderValue) => {
   let bestTheme = null;
   let closestScoreDiff = Infinity; // Start with a large difference
+
 
   for (const [themeName, metrics] of Object.entries(themes)) {
     // Get the weight based on the specified type
@@ -64,7 +68,9 @@ export default function ThemeEditor({ customThemes }) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const presetThemes = themes;
+  const showToast = useToast();
 
+  
   const handleCloseSaveModal = () => {
     setIsSaveModalOpen(false);
   };
@@ -163,17 +169,31 @@ export default function ThemeEditor({ customThemes }) {
   // Save as custom thmeme to retain changes
   const updateThemeProp = (key, value) => {
     // This ref is used to store temp/live changes until save
-    const mergedTheme = { ...currentThemeRef.current.data, [key]: value };
-    currentThemeRef.current = mergedTheme;
-    //setStyleProperties(mergedTheme);
-    setSingleStyleProperty(key, value);
-    //updateTheme(mergedTheme)
+    const { data, ...rest } = currentThemeRef.current; // Destructure to get data and rest
+
+    const mergedTheme = {
+        ...rest, // Keep the existing properties except for data
+        data: {
+            ...data, // Spread the existing data properties
+            [key]: value, // Update the specific key with the new value
+        },
+    };
+
+    currentThemeRef.current = mergedTheme; // Update the ref with the new merged theme
+    // setStyleProperties(mergedTheme); // Uncomment if you want to apply styles immediately
+    setSingleStyleProperty(key, value); // Update the specific style property
+    updateTheme(mergedTheme); // Update the theme in your state or context
+
+    console.log('-------merged-', mergedTheme);
+    console.log('-------current-', currentThemeRef.current);
+    console.log('-------current3-', currentTheme);
   };
 
   const handleThemeChange = (e, target) => {
     const selectedThemeKey = e;
 
     console.log("key:", e);
+    console.log("source:", target);
     // Convert presetThemes object to an array and find the selected theme
     const selectedTheme = Object.values(target).find(
       (theme) => theme.data.key === selectedThemeKey
@@ -227,11 +247,14 @@ export default function ThemeEditor({ customThemes }) {
         body: JSON.stringify(themeToSave), // Send the updated theme data
       });
 
+
       if (!response.ok) throw new Error("Failed to save theme");
       console.log("Theme saved successfully", themeToSave);
+      showToast("Theme saved successfully", themeToSave.name);
       // Optionally, refresh the theme list or update state here
     } catch (error) {
       console.error("Error saving theme:", error);
+      showToast("Error saving theme:", error);
     }
   };
 
@@ -249,17 +272,22 @@ export default function ThemeEditor({ customThemes }) {
 
       // Log the response status and body
       const responseBody = await deleteResponse.json();
-      console.log("Delete response status:", deleteResponse.status);
-      console.log("Delete response body:", responseBody);
+      // console.log("Delete response status:", deleteResponse.status);
+      // console.log("Delete response body:", responseBody);
 
       if (!deleteResponse.ok) {
+        showToast(`Failed to delete theme: ${responseBody.message}`);
         throw new Error(`Failed to delete theme: ${responseBody.message}`);
       }
 
       console.log("Theme deleted successfully");
+      showToast("Theme deleted successfully", themeToSave.name);
+
       // Optionally refresh the theme list or update state here
     } catch (error) {
       console.error("Error deleting theme:", error);
+      showToast("Error deleting theme:", error);
+
     }
   };
 
@@ -276,12 +304,15 @@ export default function ThemeEditor({ customThemes }) {
         body: JSON.stringify(themeToSave),
       });
       if (!response.ok) {
+        showToast(`Failed to save theme: ${errorData.message}`);
         const errorData = await response.json();
         throw new Error(`Failed to save theme: ${errorData.message}`);
       }
       console.log("Theme saved to Contentful successfully");
+      showToast("Theme saved to Contentful successfully");
     } catch (error) {
       console.error("Error saving theme to Contentful:", error.message);
+      showToast("Error saving theme to Contentful:", error.message);
     }
   };
 
@@ -349,7 +380,7 @@ export default function ThemeEditor({ customThemes }) {
     ),
     custom: {
       options: Object.keys(customThemes),
-      value: 'currentTheme.data.key',
+      value: 'currentTheme.name',
       label: "Custom",
       onChange: (value) => {
         handleThemeChange(value, customThemes);

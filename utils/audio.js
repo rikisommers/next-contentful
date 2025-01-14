@@ -22,11 +22,11 @@ export const useAudioControls = () => {
   }, [isAudioOn, audioRefs]);
 
   return {
-    playClick: () => playAudio(audioRefs.click, volume),
-    playBeepOn: () => playAudio(audioRefs.beepOn, volume),
-    playBeepOff: () => playAudio(audioRefs.beepOff, volume),
-    playPlink: () => playAudio(audioRefs.plink, volume),
-    playDrip: () => playAudio(audioRefs.drip, volume),
-    playMarimba: () => playAudio(audioRefs.marimba, volume),
+    playClick: () => playAudio(audioRefs.click, volume, true),
+    playBeepOn: () => playAudio(audioRefs.beepOn, volume, true),
+    playBeepOff: () => playAudio(audioRefs.beepOff, volume, true),
+    playPlink: () => playAudio(audioRefs.plink, volume, true),
+    playDrip: () => playAudio(audioRefs.drip, volume, true),
+    playMarimba: () => playAudio(audioRefs.marimba, volume, true),
   };
 };
