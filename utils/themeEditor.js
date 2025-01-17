@@ -97,6 +97,8 @@ export default function ThemeEditor({ customThemes }) {
   // const [funkynessWeight, setFunkynessWeight] = useState(5);
 
   const setStyleProperties = (theme) => {
+    const root = document.documentElement;
+
     // Check if theme is defined
     if (!theme) {
       console.warn("Theme is not defined. Exiting setStyleProperties.");
@@ -104,56 +106,68 @@ export default function ThemeEditor({ customThemes }) {
     }
 
     console.log("Setting props -----", theme);
-    const root = document.documentElement;
-    root.setAttribute("data-theme", theme.key);
 
-    if (theme && theme.data) {
-      // Check if theme and theme.data are defined
-      Object.entries(theme.data).forEach(([key, value]) => {
-        // Access theme.data
-        const cssVar = `--${key.replace(/([A-Z])/g, "-$1").toLowerCase()}`;
-        root.style.setProperty(cssVar, value);
-      });
-      // Set additional style properties
-      root.style.setProperty(
-        "--text-highlight",
-        theme.data.textHighlight || "text"
-      );
-      root.style.setProperty(
-        "--text-animation",
-        theme.data.textAnimation || "linesup"
-      );
-      root.style.setProperty(
-        "--text-animation-sec",
-        theme.data.textAnimationSec || "linesup"
-      );
-      root.style.setProperty(
-        "--page-transition",
-        theme.data.pageTransition || "fade"
-      );
-      root.style.setProperty("--page-width", theme.data.pageWidth || "large");
+    // Color properties
+    root.style.setProperty("--text-highlight", theme.data.textHighlight || "text");
+    root.style.setProperty("--text-animation", theme.data.textAnimation || "linesup");
+    root.style.setProperty("--text-animation-sec", theme.data.textAnimationSec || "linesup");
+    root.style.setProperty("--page-transition", theme.data.pageTransition || "fade");
+    root.style.setProperty("--page-width", theme.data.pageWidth || "large");
 
-      root.style.setProperty(
-        "--font-family-primary",
-        theme.data.fontFamilyPrimary || "sans-serif"
-      );
-      root.style.setProperty(
-        "--font-family-secondary",
-        theme.data.fontFamilySecondary || "sans-serif"
-      );
+    // Non-color theme properties
+    root.style.setProperty("--font-family-primary", theme.data.fontFamilyPrimary || "sans-serif");
+    root.style.setProperty("--font-family-secondary", theme.data.fontFamilySecondary || "sans-serif");
+    root.style.setProperty("--cursor", theme.data.cursor || "dot");
+    root.style.setProperty("--font-ratio-min", theme.data.fluidFontRatioMin || 1.2);
+    root.style.setProperty("--font-ratio-max", theme.data.fluidFontRatioMax || 1.25);
 
-      root.style.setProperty("--cursor", theme.data.cursor || "dot");
-      root.style.setProperty(
-        "--font-ratio-min",
-        theme.data.fluidFontRatioMin || 1.2
-      );
-      root.style.setProperty(
-        "--font-ratio-max",
-        theme.data.fluidFontRatioMax || 1.25
-      );
-    } else {
-      console.warn("Theme or theme.data is not defined:", theme); // Log a warning if theme or theme.data is not defined
-    }
+    // Additional properties
+    root.style.setProperty("--body-background-color", theme.data.bodyBackgroundColor || "#ffffff");
+    root.style.setProperty("--background-color", theme.data.backgroundColor || "#ffffff");
+    root.style.setProperty("--surface1", theme.data.surface1 || "#ffffff");
+    root.style.setProperty("--surface2", theme.data.surface2 || "#ffffff");
+    root.style.setProperty("--surface3", theme.data.surface3 || "#ffffff");
+    root.style.setProperty("--heading-color", theme.data.headingColor || "#000000");
+    root.style.setProperty("--text-color", theme.data.textColor || "#000000");
+    root.style.setProperty("--subtext-color", theme.data.subtextColor || "#000000");
+    root.style.setProperty("--text-color-inv", theme.data.textColorInv || "#000000");
+    root.style.setProperty("--nav-bg", theme.data.navBg || "#ffffff");
+    root.style.setProperty("--accent-pri", theme.data.accentPri || "#000000");
+    root.style.setProperty("--accent-sec", theme.data.accentSec || "#000000");
+    root.style.setProperty("--grad-start", theme.data.gradStart || "#000000");
+    root.style.setProperty("--grad-stop", theme.data.gradStop || "#000000");
+
+    // Audio properties
+    root.style.setProperty("--audio-enabled", theme.data.audioEnabled || "false");
+    root.style.setProperty("--audio-volume", theme.data.audioVolume || 1);
+
+    // Navigation properties
+    root.style.setProperty("--nav-position", theme.data.navPosition || "static");
+    root.style.setProperty("--nav-style", theme.data.navStyle || "default");
+    root.style.setProperty("--nav-floating", theme.data.navFloating || "false");
+    root.style.setProperty("--nav-fixed", theme.data.navFixed || "false");
+    root.style.setProperty("--nav-border", theme.data.navBorder || "none");
+    root.style.setProperty("--nav-shadow", theme.data.navShadow || "none");
+    root.style.setProperty("--nav-shadow-color", theme.data.navShadowColor || "#000000");
+    root.style.setProperty("--nav-shadow-size", theme.data.navShadowSize || "0px");
+
+    // Hero properties
+    root.style.setProperty("--hero-height", theme.data.heroHeight || "auto");
+    root.style.setProperty("--hero-type", theme.data.heroType || "default");
+    root.style.setProperty("--hero-background-style", theme.data.heroBackgroundStyle || "none");
+    root.style.setProperty("--hero-grad-mid-point", theme.data.heroGradMidPoint || 0.5);
+    root.style.setProperty("--hero-text-image-style", theme.data.heroTextImageStyle || "none");
+    root.style.setProperty("--hero-text-position", theme.data.heroTextPosition || "bottom-left");
+    root.style.setProperty("--hero-text-composition", theme.data.heroTextComposition || "default");
+
+    // Card properties
+    root.style.setProperty("--card-layout", theme.data.cardLayout || "default");
+    root.style.setProperty("--card-hover", theme.data.cardHover || "none");
+    root.style.setProperty("--card-grid", theme.data.cardGrid || "default");
+
+    // Image properties
+    root.style.setProperty("--image-parallax", theme.data.imageParallax || "false");
+    root.style.setProperty("--image-mix-blend-mode", theme.data.imageMixBlendMode || "normal");
   };
 
   const setSingleStyleProperty = (key, value) => {
