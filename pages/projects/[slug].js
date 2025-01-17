@@ -26,49 +26,7 @@ export default function Post({ post, footerData }) {
         {post && (
         <PageNav content={post.csblocksCollection.items}></PageNav>
         )}
-        <SpeedInsights />
-        <TransitionPage>
-
-          {post && (
-            <ClipContainer>
-
-            {currentTheme.data.heroType === 'monks' &&
-              <PostHeaderMonks
-                title={post.title}
-                subtitle={post.titlealt}
-                tags={post.tags}
-                img={post.img}
-              />
-            }
-
-            {currentTheme.data.heroType === 'riki' &&
-                        <div className="max-w-screen-xl mx-auto">
-
-              <PostHeaderRiki
-                title={post.title}
-                subtitle={post.titlealt}
-                img={post.img}
-              />
-              </div>
-            }
-            <div className="max-w-screen-xl mx-auto">
-              <PostDetails
-                post={post}
-                intro={post.intro}
-                duration={post.duration}
-                client={post.client}
-                role={post.role}
-              />
-              <PostContent content={post} />
-              </div>
-            </ClipContainer>
-          )}
-
-
-        {footerData && <BlockFooter data={footerData} />}
-
-        </TransitionPage>
-
+      <h1>sd</h1>
       </PagesPasswordPage>
     </ScrollContainer>
   );
