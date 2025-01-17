@@ -1,3 +1,4 @@
+import React from "react";
 import Layout from "../components/layout";
 import { getHomePage, getFooter } from "../lib/api";
 import ScrollContainer from "../components/utils/scroll-container";
