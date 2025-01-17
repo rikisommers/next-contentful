@@ -180,8 +180,8 @@ export default function ThemeEditor({ customThemes }) {
     };
 
     currentThemeRef.current = mergedTheme; // Update the ref with the new merged theme
-    // setStyleProperties(mergedTheme); // Uncomment if you want to apply styles immediately
-    setSingleStyleProperty(key, value); // Update the specific style property
+    setStyleProperties(mergedTheme); // Uncomment if you want to apply styles immediately
+    //setSingleStyleProperty(key, value); // Update the specific style property
     updateTheme(mergedTheme); // Update the theme in your state or context
 
     console.log('-------merged-', mergedTheme);
