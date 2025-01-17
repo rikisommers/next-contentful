@@ -36,9 +36,9 @@ const TransitionWipeWithChild = ({ children }) => {
   const { routeInfo } = useContext(RouteContext);
   const [destRoute, setDestRoute] = useState('');
 
-  useEffect(() => {
-    setDestRoute(routeInfo.destRoute);
-  }, [routeInfo]);
+  // useEffect(() => {
+  //   setDestRoute(routeInfo.destRoute);
+  // }, [routeInfo]);
 
   return (
     <LayoutGroup>
