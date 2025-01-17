@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useState, useEffect, useCallback} from "react";
+import React, { createContext, useState, useEffect, useCallback} from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation"; // Added useSearchParams import
 
 export const RouteContext = createContext();
