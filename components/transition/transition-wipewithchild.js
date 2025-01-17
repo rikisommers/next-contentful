@@ -42,7 +42,6 @@ const TransitionWipeWithChild = ({ children }) => {
 
   return (
     <LayoutGroup>
-      
         <>
           <TransitionContent currentTheme={currentTheme} />
           <Overlay currentTheme={currentTheme} />

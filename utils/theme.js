@@ -1333,6 +1333,13 @@ export function getThemeLevaControls(themeKey) {
   return controls;
 }
 
+export const getThemeValue = (key) => {
+  const root = document.documentElement;
+  const cssVarName = `--${key}`;
+  const value = getComputedStyle(root).getPropertyValue(cssVarName).trim();
+  return value || null;
+};
+
 export const themes = {
   light: {
     name: "light",
