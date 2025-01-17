@@ -18,9 +18,7 @@ const initializeAudioRefs = () => {
 };
 
 // Play audio function
-const playAudio = (audioRef) => {
-
-    //console.log('play audio',volume, isAudioOn)
+const playAudio = (audioRef, volume, isAudio) => {
 
     if (audioRef) {
       try {
@@ -64,11 +62,11 @@ export const useAudioControls = () => {
   
   return {
     audioRefs,
-    playClick: () => playAudio(audioRefs.click),
-    playBeepOn: () => playAudio(audioRefs.beepOn, currentTheme.data.volume, currentTheme.data.audio),
-    playBeepOff: () => playAudio(audioRefs.beepOff, currentTheme.data.volume, currentTheme.data.audio),
-    playPlink: () => playAudio(audioRefs.plink, currentTheme.data.volume, currentTheme.data.audio),
-    playDrip: () => playAudio(audioRefs.drip, currentTheme.data.volume, currentTheme.data.audio),
-    playMarimba: () => playAudio(audioRefs.marimba, currentTheme.data.volume, currentTheme.data.audio),
+    playClick: () => playAudio(audioRefs.click, currentTheme.data.audioVolume, currentTheme.data.audioEnabled),
+    playBeepOn: () => playAudio(audioRefs.beepOn, currentTheme.data.audioVolume, currentTheme.data.audioEnabled),
+    playBeepOff: () => playAudio(audioRefs.beepOff, currentTheme.data.audioVolume, currentTheme.data.audioEnabled),
+    playPlink: () => playAudio(audioRefs.plink, currentTheme.data.audioVolume, currentTheme.data.audioEnabled),
+    playDrip: () => playAudio(audioRefs.drip, currentTheme.data.audioVolume, currentTheme.data.audioEnabled),
+    playMarimba: () => playAudio(audioRefs.marimba, currentTheme.data.audioVolume, currentTheme.data.audioEnabled),
   };
 };

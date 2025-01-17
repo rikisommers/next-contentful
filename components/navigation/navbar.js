@@ -219,9 +219,14 @@ export default function NavBar({ containerRef }) {
               className="absolute top-0 left-0 flex w-full h-full bg-opacity-50 rounded-xl"
             ></motion.div>
           )}
-          <span className="relative flex items-center px-3 py-3 text-xs uppercase rounded-lg cursor-pointer">
-          {page.title}
-            </span>
+          {/* <span className="relative flex items-center px-3 py-3 text-xs uppercase rounded-lg cursor-pointer">
+          
+            </span> */}
+              <Button
+            label={page.title}
+            sound={ButtonSound.CLICK}
+            type={ButtonType.TRANSPARENT}
+            ></Button>
         </Link>
       ))}
       <Button
