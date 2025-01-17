@@ -469,7 +469,7 @@ export default function ThemeEditor({ customThemes }) {
         onChange: (value) => updateThemeProp("cursor", value), // Call existing handler
       },
     }),
-    Animation: folder({
+   Transition: folder({
       pageTransition: {
         options: Object.keys(pageTransitionThemes),
         value: currentTheme.data.pageTransition,
