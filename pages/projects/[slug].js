@@ -1,10 +1,12 @@
 import React from "react";
 import { getAllCaseStudies, getPost, getFooter } from "../../lib/api";
+
 import PostHeaderMonks from "../../components/post/post-header-monks";
 import PostContent from "../../components/post/post-content";
 import BlockFooter from "../../components/blocks/block-footer";
 import PageNav from "../../components/base/page-nav";
 import PagesPasswordPage from "../../components/security/password-page-pages";
+
 import PostDetails from "../../components/post/post-details";
 import ScrollContainer from "../../components/utils/scroll-container";
 import { useThemeContext } from "../../components/context/themeContext";
@@ -26,7 +28,49 @@ export default function Post({ post, footerData }) {
         {post && (
         <PageNav content={post.csblocksCollection.items}></PageNav>
         )}
-      <h1>sd</h1>
+        <SpeedInsights />
+        <TransitionPage>
+
+          {post && (
+            <ClipContainer>
+
+            {currentTheme.data.heroType === 'monks' &&
+              <PostHeaderMonks
+                title={post.title}
+                subtitle={post.titlealt}
+                tags={post.tags}
+                img={post.img}
+              />
+            }
+
+            {currentTheme.data.heroType === 'riki' &&
+                        <div className="max-w-screen-xl mx-auto">
+
+              <PostHeaderRiki
+                title={post.title}
+                subtitle={post.titlealt}
+                img={post.img}
+              />
+              </div>
+            }
+            <div className="max-w-screen-xl mx-auto">
+              <PostDetails
+                post={post}
+                intro={post.intro}
+                duration={post.duration}
+                client={post.client}
+                role={post.role}
+              />
+              <PostContent content={post} />
+              </div>
+            </ClipContainer>
+          )}
+
+
+        {footerData && <BlockFooter data={footerData} />}
+
+        </TransitionPage>
+
       </PagesPasswordPage>
     </ScrollContainer>
   );

@@ -2,7 +2,7 @@
 
 // app/providers.js
 import React, { useState, useEffect } from "react";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "../../utils/motion";;
 import { MousePosProvider } from "./mousePosContext";
 import { ScrollPositionProvider } from "./scrollPosContext";
 import { PagesRouteProvider } from "./routeContextPages";

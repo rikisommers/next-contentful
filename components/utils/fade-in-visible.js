@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion } from "../../utils/motion";;
 
 export default function FadeInWhenVisible({ children, enabled = true }) {
 

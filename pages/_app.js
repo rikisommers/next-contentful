@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "../utils/motion";
 import { MousePosProvider } from "../components/context/mousePosContext";
 import { ScrollPositionProvider } from "../components/context/scrollPosContext";
 import { RouteProvider } from "../components/context/routeContext";

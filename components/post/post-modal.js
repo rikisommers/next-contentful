@@ -4,7 +4,7 @@ import {
   useTransform,
   useMotionValue,
   cubicBezier,
-} from "framer-motion";
+} from "../../utils/motion";;
 import { useRouter } from "next/navigation";
 import { ScrollableBox } from "../utils/scrollable";
 import NextPost from "./post-next";

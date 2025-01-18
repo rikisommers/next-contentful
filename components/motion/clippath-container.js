@@ -4,7 +4,7 @@ import {
   useTransform,
   useScroll,
   useMotionValueEvent,
-} from "framer-motion";
+} from "../../utils/motion";;
 import { useThemeContext } from "../context/themeContext";
 
 export const ClipContainer = ({ children }) => {

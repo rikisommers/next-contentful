@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, Children } from "react";
-import { motion } from "framer-motion";
+import { motion } from "../../utils/motion";;
 
 export const TextAnimRandom = ({ content }) => {
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { motion, cubicBezier } from "framer-motion";
+import { motion, cubicBezier } from "../../utils/motion";
 // The code in component is stupid and extremely verbose, you are much better off using classes & css:hover events intead.
 // I have gone with this approach as a test to compare workflows styling elements with framer and tailwind exclusively.
 // In this example it took me way longer than usual to achieve a simple interaction. I dont recomend it for triggering simlpe child animation where stagger is not required.
@@ -47,10 +47,10 @@ const Close = ({ isActive, onClick }) => {
       variants={variants}
       onHoverStart={handleHoverStart}
       onHoverEnd={handleHoverEnd}
-      className="flex flex-row items-center fixed top-8 right-36 z-50 bg-black text-white px-3 py-2 rounded-3xl cursor-pointer"
+      className="fixed z-50 flex flex-row items-center px-3 py-2 text-white bg-black cursor-pointer top-8 right-36 rounded-3xl"
     >
       <motion.img
-        className="close-icon w-4 h-4"
+        className="w-4 h-4 close-icon"
         src="/close.svg"
         initial="initial"
         variants={iconVariants}
@@ -70,7 +70,7 @@ const Close = ({ isActive, onClick }) => {
           duration: 0.3,
         }}
       >
-        <span className="ml-2 mb-0">Close</span>
+        <span className="mb-0 ml-2">Close</span>
       </motion.div>
     </motion.div>
   );

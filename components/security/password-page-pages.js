@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import Button from "../base/button";
-import { motion } from "framer-motion";
+import { motion } from "../../utils/motion";;
 import AnimatedElement, { AnimStyleEl } from "../motion/animated-element";
 import TransitionPage from "../../components/transition/pageTransition";
 

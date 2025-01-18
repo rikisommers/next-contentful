@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion, cubicBezier } from "framer-motion";
+import { motion, cubicBezier } from "../../utils/motion"
 import PropTypes from "prop-types";
 import { useAudioControls } from "../navigation/audio-utils";
 

@@ -9,7 +9,7 @@ import {
     useScroll,
     useInView,
     useMotionValueEvent,
-} from "framer-motion";
+} from "../../utils/motion";;
 export const ClipPathElement = ({ children, offset}) => {
 
     const elemRef = useRef(null);

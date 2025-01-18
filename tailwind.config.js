@@ -106,6 +106,6 @@ module.exports = {
     fluid
   },
   plugins: [
-    require('fluid-tailwind')
+    require('fluid-tailwind'),
   ],
 }

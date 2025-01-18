@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, controls, useAnimation, stagger, delay } from "framer-motion";
+import { motion, controls, useAnimation, stagger, delay } from "../../utils/motion";
 
 const PageNav = ({ content }) => {
   const [isMenuActive, toggleMenuActive] = useState(false);

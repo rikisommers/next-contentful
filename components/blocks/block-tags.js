@@ -1,7 +1,7 @@
 import React from "react";
 import { useThemeContext } from "../context/themeContext";
 import Button, { ButtonType } from "../base/button";
-import { motion } from "framer-motion";
+import { motion } from "../../utils/motion";;
 
 export const BlockTags = ({ data, selected, handleTagClick }) => {
   const { currentTheme } = useThemeContext();

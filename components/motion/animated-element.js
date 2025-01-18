@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView } from "../../utils/motion";;
 
 const useViewportHeight = () => {
     const [height, setHeight] = useState(0);

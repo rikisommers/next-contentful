@@ -8,7 +8,7 @@ import {
   useTransform,
   cubicBezier,
   useScroll,
-} from "framer-motion";
+} from "../../utils/motion";;
 
 
 export const BlockVideo = (data) => {

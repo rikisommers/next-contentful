@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import ContentfulImage from "./contentful-image";
 import {
   motion,
-} from "framer-motion";
+} from "../../utils/motion";;
 import RollUpWhenVisible from "../utils/roll-up-visible";
 
 export default function ContentImage({ title, url, slug, layout }) {

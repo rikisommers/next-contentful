@@ -9,7 +9,7 @@ import {
     useScroll,
     useInView,
     useMotionValueEvent,
-} from "framer-motion";
+} from "../../utils/motion";;
 import { ClipPathElement } from "./clippath-element";
 
 export const ParalaxElement = ({ children, offset}) => {

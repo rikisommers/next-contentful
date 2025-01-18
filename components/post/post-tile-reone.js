@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import BlendImage from "../image/blend-image";
 import Link from "next/link";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView } from "../../utils/motion";;
 import AnimatedElement,{AnimElOrder, AnimStyleEl} from "../motion/animated-element";
 
 export default function PostTileRe({ post, index, size }) {

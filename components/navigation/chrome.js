@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { motion , cubicBezier} from "framer-motion";
+import { motion , cubicBezier} from "../../utils/motion";;
 import { RouteContext } from "../routeContext";
 import { useRouter } from "next/navigation";
 

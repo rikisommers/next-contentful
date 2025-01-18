@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { motion, useAnimation } from "framer-motion";
+import { motion, useAnimation } from "../../utils/motion";;
 import PropTypes from "prop-types";
 
 const chars = "!<>-_\\/[]{}—=+*^?#";

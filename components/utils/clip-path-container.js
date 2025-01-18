@@ -9,7 +9,7 @@ import {
   useTransform,
   useScroll,
   useMotionValueEvent,
-} from "framer-motion";
+} from "../../utils/motion";;
 import { Scroll } from "@react-three/drei";
 import { useScrollPosition } from "../scrollPosContext";
 

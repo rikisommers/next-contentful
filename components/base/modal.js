@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "../../utils/motion";
 import Close from "../base/close";
 
 export const ModalDirection = {

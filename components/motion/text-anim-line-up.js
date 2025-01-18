@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView } from "../../utils/motion";;
 import { HighlightedSegment } from "./text-anim-highlighted-segment";
 
 export const TextAnimLineUp = ({

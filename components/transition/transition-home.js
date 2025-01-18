@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { motion, cubicBezier } from "framer-motion";
+import { motion, cubicBezier } from "../../utils/motion";;
 
 const TransitionHome = ({ children }) => {
   

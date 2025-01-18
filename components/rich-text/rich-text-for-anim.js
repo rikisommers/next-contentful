@@ -1,5 +1,5 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { motion } from "../../utils/motion";;
 import RichTextAsset from "../rich-text/rich-text-asset"
 import { RichTextOptions } from "../rich-text/rich-text";
 import { INLINES, BLOCKS, MARKS } from "@contentful/rich-text-types";

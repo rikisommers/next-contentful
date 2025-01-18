@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import BlendImage from "../image/blend-image";
 import Link from "next/link";
-import { motion, cubicBezier, circOut } from "framer-motion";
+import { motion, cubicBezier, circOut } from "../../utils/motion";;
 
 export default function PostTileImg({ post, index, size }) {
   const [isHovered, setIsHovered] = useState(false); // State to track hover

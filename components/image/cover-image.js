@@ -6,7 +6,7 @@ import {
   motion,
   useTransform,
   useScroll,
-} from "framer-motion";
+} from "../../utils/motion";;
 
 export default function CoverImage({ title, url, slug, layout }) {
   const ref = useRef(null);

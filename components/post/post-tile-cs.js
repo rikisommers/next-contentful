@@ -8,7 +8,7 @@ import {
   motion,
   useTransform,
   useScroll,
-} from "framer-motion";
+} from "../../utils/motion";;
 
 export default function PostTileCs({ post, index }) {
   //  console.log("ss", post);

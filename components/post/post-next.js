@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion } from "../../utils/motion";;
 import TextAnimation from "../motion/text-animation";
 import BlendImage from "../image/blend-image";
 import PostTileCs from "./post-tile-cs";

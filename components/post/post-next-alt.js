@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { motion } from "framer-motion";
+import { motion } from "../../utils/motion";;
 import TextAnimation from "../utils/text-animation";
 import PostTileImgAlt from "./post-tile-img-alt";
 export default function NextPostAlt({ post }) {

@@ -13,7 +13,7 @@ import {
   cubicBezier,
   useScroll,
   useInView,
-} from "framer-motion";
+} from "../../utils/motion";;
 
 export default function PostTile({ post, index }) {
   // const animateContentOnHover = {

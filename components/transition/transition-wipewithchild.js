@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/navigation";
-import { motion, LayoutGroup } from "framer-motion";
+import { motion, LayoutGroup } from "../../utils/motion";;
 import { RouteContext } from "../context/routeContext";
 import { useTheme } from 'next-themes';
 import { getThemeByKey } from '../../utils/theme';

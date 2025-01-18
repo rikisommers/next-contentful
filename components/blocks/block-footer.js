@@ -7,7 +7,7 @@ import AnimatedText, {
 } from "../motion/animated-text";
 
 import ButtonAlt, { ButtonType } from "../base/button-alt";
-import { motion, useTransform, useScroll } from "framer-motion";
+import { motion, useTransform, useScroll } from "../../utils/motion";
 
 export default function BlockFooter({ data }) {
   const { currentTheme } = useThemeContext();

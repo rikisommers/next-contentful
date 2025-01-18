@@ -1,4 +1,4 @@
-import { motion, cubicBezier } from "framer-motion";
+import { motion, cubicBezier } from "../../utils/motion";;
 export default function Audio() {
 
   return (

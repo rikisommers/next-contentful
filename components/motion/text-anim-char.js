@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView } from "../../utils/motion";;
 
 const TextAnimationChar = ({ content, delay = 0 }) => {
   const ref = useRef(null);

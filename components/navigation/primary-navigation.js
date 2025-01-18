@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
-import { motion, cubicBezier } from "framer-motion";
+import { motion, cubicBezier } from "../../utils/motion";;
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 //import { useScrollPosition } from "../scrollPosContext";

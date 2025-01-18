@@ -1,6 +1,6 @@
 // TODO: Split into line and letter components
 import React from "react";
-import { motion } from "framer-motion";
+import { motion } from "../utils/motion";
 import PropTypes from "prop-types";
 
 // Define the TextSize enum

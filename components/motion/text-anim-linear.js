@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
+import { motion } from "../../utils/motion";;
 import { HighlightedSegment } from "./text-anim-highlighted-segment";
 
 export const TextAnimLinear = ({ content ,delay, highlight}) => {
