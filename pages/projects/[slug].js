@@ -23,7 +23,6 @@ export default function Post({ post, footerData }) {
 
   return (
     <ScrollContainer>
-      <PagesPasswordPage locked={post.protected}>
 
         {post && (
         <PageNav content={post.csblocksCollection.items}></PageNav>
@@ -71,7 +70,6 @@ export default function Post({ post, footerData }) {
 
         </TransitionPage>
 
-      </PagesPasswordPage>
     </ScrollContainer>
   );
 }
