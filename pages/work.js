@@ -5,10 +5,11 @@ import Layout,{LayoutType} from "../components/layout";
 
 const Work = ({ data, footerData }) => {
 
+  console.log('sssssss',data)
   return (
     <Layout pageWidth={LayoutType.FLUID}>
       <LandingPage data={data} footerData={footerData}/>
-      </Layout>
+    </Layout>
   );
 };
 

@@ -8,7 +8,7 @@ import { useThemeContext } from "../context/themeContext";
 import Link from "next/link";
 import { DotsSixVertical, PlayCircle } from "@phosphor-icons/react";
 
-export default function NavBar({ containerRef }) {
+export default function NavBar({ containerRef, slugs }) {
   const { currentTheme } = useThemeContext();
   const menuRef = useRef(null);
   const menuDragRef = useRef("menuDragRef");
@@ -16,11 +16,13 @@ export default function NavBar({ containerRef }) {
   const [isActive, setIsActive] = useState(false);
   const [offset, setOffset] = useState(0);
 
+
   const pages = [
-    { id: "home", title: "Home", url: "/" },
-    { id: "work", title: "Work", url: "/work" },
-    { id: "blog", title: "Blog", url: "/blog" },
-    { id: "about", title: "About", url: "/bio" },
+    ...Array.isArray(slugs) && slugs.length > 0 ? slugs.map(slug => ({
+      id: slug.slug,
+      title: slug.title,
+      url: `/${slug.slug}` // Ensure the URL is correct
+    })) : [] // Fallback to an empty array if slugs is not an array or is empty
   ];
 
   const [activePage, setActivePage] = useState(pages[0].id);
@@ -194,7 +196,7 @@ export default function NavBar({ containerRef }) {
       )}
       {/* <p>{currentTheme.data.navigationOptions?.floating === true ? 'true' : 'false'}</p>
       <p>{currentTheme.data.navigationOptions?.shadow === true ? 'true' : 'false'}</p> */}
-
+      <Link href="/">Home</Link>
       {pages.map((page) => (
         <Link
           key={page.id}

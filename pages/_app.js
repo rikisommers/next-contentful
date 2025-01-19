@@ -9,17 +9,17 @@ import Navigation from "../components/navigation/primary-navigation";
 import Preloader from "../components/utils/preloader";
 import "../styles/index.scss";
 import "../styles/prisim-vs-code-dark.scss";
-import { getGlobal,getLoading, getThemes } from "../lib/api";
+import { getGlobal,getLoading, getThemes, getAllHomePageSlugs } from "../lib/api";
 import CursorDot from "../components/utils/cursor-dot";
 import CursorCta from "../components/utils/cursor-cta";
 import TransitionPage from "../components/transition/pageTransition";
 import App from 'next/app'; // Import App from next/app
 import { cursorThemes, themes } from "../utils/theme";
 
-function MyApp({ Component, pageProps, router, globalData, customThemes }) {
+function MyApp({ Component, pageProps, router, globalData, customThemes, slugs }) {
   const [isLoading, setIsLoading] = useState(true);
   
-  //console.log('GDATA',  customThemes)
+  console.log('GDATA',  slugs)
 
   useEffect(() => {
 
@@ -44,7 +44,9 @@ function MyApp({ Component, pageProps, router, globalData, customThemes }) {
             <MousePosProvider>
               <ToastProvider>
               <ThemeProvider theme={globalData.currentTheme} customThemes={customThemes}>
-                <Navigation />
+                {slugs &&
+                <Navigation slugs={slugs} />
+}
                 <AnimatePresence mode="wait" initial={false}>
                 {/* <FontLoader 
       primaryFont={currentTheme.data.fontFamilyPrimary} 
@@ -80,7 +82,8 @@ MyApp.getInitialProps = async (appContext) => {
   const appProps = await App.getInitialProps(appContext);
   const globalData = await getLoading(); 
   const customThemes = await getThemes(); 
-  return { ...appProps, globalData, customThemes};
+  const slugs = await getAllHomePageSlugs(); 
+  return { ...appProps, globalData, customThemes, slugs};
 };
 
 export default MyApp;

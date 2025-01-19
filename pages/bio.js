@@ -27,7 +27,6 @@ const Bio = ({ data, footerData }) => {
         >
 
           <div className="flex flex-col px-8 py-12">
-          <h1 className="h-32">sd</h1>
               <PostIntro title={data.titlealt} content={data.contentalt} />
             <LandingPageContent data={data} />
           </div>

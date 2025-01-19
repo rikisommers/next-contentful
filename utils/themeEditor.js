@@ -152,13 +152,13 @@ export default function ThemeEditor({ customThemes }) {
     root.style.setProperty("--nav-shadow-size", theme.data.navShadowSize || "0px");
 
     // Hero properties
-    root.style.setProperty("--hero-height", theme.data.heroHeight || "auto");
-    root.style.setProperty("--hero-type", theme.data.heroType || "default");
-    root.style.setProperty("--hero-background-style", theme.data.heroBackgroundStyle || "none");
+    root.style.setProperty("--hero-height", theme.data.heroHeight || heroHeightThemes.full);
+    root.style.setProperty("--hero-type", theme.data.heroType || heroTypeThemes.monks);
+    root.style.setProperty("--hero-background-style", theme.data.heroBackgroundStyle || heroBackgroundThemes.gradient);
     root.style.setProperty("--hero-grad-mid-point", theme.data.heroGradMidPoint || 0.5);
-    root.style.setProperty("--hero-text-image-style", theme.data.heroTextImageStyle || "none");
-    root.style.setProperty("--hero-text-position", theme.data.heroTextPosition || "bottom-left");
-    root.style.setProperty("--hero-text-composition", theme.data.heroTextComposition || "default");
+    root.style.setProperty("--hero-text-image-style", theme.data.heroTextImageStyle || heroTextImageThemes.inline);
+    root.style.setProperty("--hero-text-position", theme.data.heroTextPosition || heroTextPositionThemes.bottomLeft);
+    root.style.setProperty("--hero-text-composition", theme.data.heroTextComposition || heroTextCompositionThemes.foo);
 
     // Card properties
     root.style.setProperty("--card-layout", theme.data.cardLayout || "default");

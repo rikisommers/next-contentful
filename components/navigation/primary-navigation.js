@@ -18,7 +18,7 @@ import { useThemeContext } from "../context/themeContext";
 import NavBar from "./navbar";
 import Logo from "./logo";
 
-export default function Navigation() {
+export default function Navigation({slugs}) {
   const router = useRouter();
   const containerRef = useRef(null);
 
@@ -63,7 +63,7 @@ export default function Navigation() {
           <Logo />
         </div>
 
-        <NavBar containerRef={containerRef} />
+        <NavBar containerRef={containerRef} slugs={slugs} />
 
         {/* <motion.div className="z-50 flex items-center gap-1 rounded-lg top-3 right-3">
           <ButtonAlt

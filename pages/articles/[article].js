@@ -2,7 +2,7 @@ import React from "react";
 import { getAllCaseStudies, getPost, getFooter } from "../../lib/api";
 
 import PostHeaderMonks from "../../components/post/post-header-monks";
-import PostContent from "../../components/post/post-content";
+import PostBody from "../../components/post/post-body";
 import BlockFooter from "../../components/blocks/block-footer";
 import PageNav from "../../components/base/page-nav";
 import PagesPasswordPage from "../../components/security/password-page-pages";
@@ -60,7 +60,9 @@ export default function Post({ post, footerData }) {
                 client={post.client}
                 role={post.role}
               />
-              <PostContent content={post} />
+              {post.csblocksCollection && (
+              <PostBody content={post.csblocksCollection} />
+              )}
               </div>
             </ClipContainer>
           )}
@@ -92,7 +94,7 @@ export async function getStaticProps({ params, preview = false }) {
 export async function getStaticPaths() {
   const allPosts = await getAllCaseStudies(false);
   return {
-    paths: allPosts?.slice(0, 20).map(({ slug }) => `/projects/${slug}`) ?? [],
+    paths: allPosts?.slice(0, 20).map(({ slug }) => `/articles/${slug}`) ?? [],
     fallback: "blocking",
   };
 }
