@@ -85,7 +85,7 @@ export default function ThemeEditor({ customThemes }) {
   //  Update the ref whenever currentTheme changes
   // TODO: Align theme format This needs to use dataa from custom or defaut
   useEffect(() => {
-    console.log("current", currentTheme);
+    console.log("custom", customThemes);
     updateTheme(currentTheme);
     currentThemeRef.current = currentTheme;
     setStyleProperties(currentTheme);
@@ -105,7 +105,7 @@ export default function ThemeEditor({ customThemes }) {
       return; // Exit the function if theme is not defined
     }
 
-    console.log("Setting props -----", theme);
+    //console.log("Setting props -----", theme);
 
     // Color properties
     root.style.setProperty("--text-highlight", theme.data.textHighlight || "text");
@@ -198,21 +198,21 @@ export default function ThemeEditor({ customThemes }) {
     //setSingleStyleProperty(key, value); // Update the specific style property
     updateTheme(mergedTheme); // Update the theme in your state or context
 
-    console.log('-------merged-', mergedTheme);
-    console.log('-------current-', currentThemeRef.current);
-    console.log('-------current3-', currentTheme);
+    // console.log('-------merged-', mergedTheme);
+    // console.log('-------current-', currentThemeRef.current);
+    // console.log('-------current3-', currentTheme);
   };
 
   const handleThemeChange = (e, target) => {
     const selectedThemeKey = e;
 
     console.log("key:", e);
-    console.log("source:", target);
+    // console.log("source:", target);
     // Convert presetThemes object to an array and find the selected theme
     const selectedTheme = Object.values(target).find(
       (theme) => theme.data.key === selectedThemeKey
     );
-    console.log('Available theme keys:', Object.values(target).map(theme => theme.data.key));
+    //console.log('Available theme keys:', Object.values(target).map(theme => theme.data.key));
 
 
     if (selectedTheme) {
@@ -222,8 +222,8 @@ export default function ThemeEditor({ customThemes }) {
 
       // Update the current theme reference only
       currentThemeRef.current = selectedTheme;
-      console.log("Selected theme:", selectedTheme);
-      console.log('Selected theme key:', selectedThemeKey);
+      // console.log("Selected theme:", selectedTheme);
+      // console.log('Selected theme key:', selectedThemeKey);
     } else {
       console.error("Theme not found for key:", selectedThemeKey);
     }
@@ -393,8 +393,8 @@ export default function ThemeEditor({ customThemes }) {
       }
     ),
     custom: {
-      options: Object.keys(customThemes),
-      value: 'currentTheme.name',
+      options: Object.keys(customThemes).map(key => customThemes[key].data.key), // Map to get the data.key
+      value: currentTheme?.data?.key || '',
       label: "Custom",
       onChange: (value) => {
         handleThemeChange(value, customThemes);
