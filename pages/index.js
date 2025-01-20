@@ -5,11 +5,11 @@ const Index = () => {
   const router = useRouter();
 
   useEffect(() => {
-    // Redirect to a specific landing page
-    router.push('/home'); // Replace with your desired landing page slug
+    // Redirect to a the home landing page - you MUST have a slug of 'home' in CMS entries
+    router.push('/home'); 
   }, [router]);
 
-  return null; // You can also return a loading spinner or message if needed
+  return null; 
 };
 
 export default Index;

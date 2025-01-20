@@ -27,19 +27,8 @@ export async function getStaticPaths() {
   };
 }
 
-// export async function getStaticProps({ params }) {
-//   // Fetch the data for the specific home page based on the slug
-//   const data = await getLandingPage(slug);
-
-//   return {
-//     props: {
-//       data: data || null,
-//     },
-//   };
-// }
-
 export async function getStaticProps({ params, preview = false }) {
-  const slug = params.landing;
+  const slug = params.slug;
 
   const [data, footerData] = await Promise.all([
     getLandingPage(slug),

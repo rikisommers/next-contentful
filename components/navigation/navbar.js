@@ -196,7 +196,6 @@ export default function NavBar({ containerRef, slugs }) {
       )}
       {/* <p>{currentTheme.data.navigationOptions?.floating === true ? 'true' : 'false'}</p>
       <p>{currentTheme.data.navigationOptions?.shadow === true ? 'true' : 'false'}</p> */}
-      <Link href="/">Home</Link>
       {pages.map((page) => (
         <Link
           key={page.id}
