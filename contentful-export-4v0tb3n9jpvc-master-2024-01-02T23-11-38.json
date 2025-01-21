@@ -6652,7 +6652,7 @@
                     },
                     "marks": [
                     ],
-                    "value": "* No feature logic in shared components. ",
+                    "value": "* No feature logic in shared components.",
                     "nodeType": "text"
                   }
                 ],
@@ -6865,7 +6865,7 @@
                     },
                     "marks": [
                     ],
-                    "value": "* When the component must contain logic specific to a feature. ",
+                    "value": "* When the component must contain logic specific to a feature.",
                     "nodeType": "text"
                   }
                 ],
@@ -9110,7 +9110,7 @@
                   },
                   {
                     "nodeType": "text",
-                    "value": "\nConfiguration can get very granular however advanced configuration is not required for most network wide scenarios.  Configuration is also difficult to interpret as text in CLI.\nThis meant a simplified feature set could be exposed to Users. Users do not need to be concerned with low-level device configuration and nerd knobs.\n\n",
+                    "value": "\nConfiguration can get very granular however advanced configuration is not required for most network wide scenarios. Configuration is also difficult to interpret as text in CLI.\nThis meant a simplified feature set could be exposed to Users. Users do not need to be concerned with low-level device configuration and nerd knobs.\n\n",
                     "marks": [
                     ],
                     "data": {
@@ -9544,7 +9544,7 @@
                     },
                     "marks": [
                     ],
-                    "value": "\nConfiguration can get very granular with sub-polices and sub-classes, however, advanced configuration is generally not required for most network-wide scenarios.  This means a simplified feature set can be exposed to Users. ",
+                    "value": "\nConfiguration can get very granular with sub-polices and sub-classes, however, advanced configuration is generally not required for most network-wide scenarios. This means a simplified feature set can be exposed to Users. ",
                     "nodeType": "text"
                   }
                 ],
@@ -12511,7 +12511,7 @@
                   },
                   {
                     "nodeType": "text",
-                    "value": "\nI've spent the last few years working as a UX/UI designer in an agile environment, focused on products in the computer networking industry.  Prior to my current position, I worked in agencies throughout Aotearoa, assisting in the creation of websites, apps, and marketing materials for a wide variety of industries.\n\nIn my current role, I have been involved in projects from the planning phase through to code completion. You might find me working with stakeholders to resolve feature requirements, developing wireframes and prototypes for teams, or gathering feedback to drive future development. Outside of project work, I have worked with GUI teams to develop Figma and Angular component libraries that are now used across \nmultiple applications.\n\nYou can find examples of my work online at https://www.behance.net/rikisommers Recent case studies are available upon request.",
+                    "value": "\nI've spent the last few years working as a UX/UI designer in an agile environment, focused on products in the computer networking industry.  Prior to my current position, I worked in agencies throughout Aotearoa, assisting in the creation of websites, apps, and marketing materials for a wide variety of industries.\n\nIn my current role, I have been involved in projects from the planning phase through to code completion. You might find me working with stakeholders to resolve feature requirements, developing wireframes and prototypes for teams, or gathering feedback to drive future development. Outside of project work, I have worked with GUI teams to develop Figma and Angular component libraries that are now used across \nmultiple applications.\n\nYou can find examples of my work online at https://www.behance.net/rikisommersRecent case studies are available upon request.",
                     "marks": [
                     ],
                     "data": {
@@ -12605,7 +12605,7 @@
                     },
                     "marks": [
                     ],
-                    "value": "Kia Ora\n\nI am passionate about designing intuitive products that enable people to work smarter. \nI've spent the last few years working as a UX/UI designer in an agile environment, focused on products in the computer networking industry. \nPrior to my current position, I have worked in agencies throughout Aotearoa, assisting in the creation of websites, apps, and marketing materials for a variety of industries.\n\nIn my current role, I have been involved in projects from the planning phase through to code completion. You might find me working with stakeholders to resolve feature requirements, developing wireframes and prototypes for teams, or gathering feedback to drive future development. Outside of project work, I have worked with GUI teams to develop Figma and Angular component libraries that are now used across \nmultiple applications.\n\nYou can find examples of my work online at https://www.behance.net/rikisommers Recent case studies are available upon request.",
+                    "value": "Kia Ora\n\nI am passionate about designing intuitive products that enable people to work smarter. \nI've spent the last few years working as a UX/UI designer in an agile environment, focused on products in the computer networking industry. \nPrior to my current position, I have worked in agencies throughout Aotearoa, assisting in the creation of websites, apps, and marketing materials for a variety of industries.\n\nIn my current role, I have been involved in projects from the planning phase through to code completion. You might find me working with stakeholders to resolve feature requirements, developing wireframes and prototypes for teams, or gathering feedback to drive future development. Outside of project work, I have worked with GUI teams to develop Figma and Angular component libraries that are now used across \nmultiple applications.\n\nYou can find examples of my work online at https://www.behance.net/rikisommersRecent case studies are available upon request.",
                     "nodeType": "text"
                   }
                 ],
