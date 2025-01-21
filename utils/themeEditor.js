@@ -394,7 +394,7 @@ export default function ThemeEditor({ customThemes }) {
     ),
     custom: {
       options: Object.keys(customThemes).map(key => customThemes[key].data.key), // Map to get the data.key
-      value: currentTheme?.data?.key || '',
+      value: customThemes[0].data.key || '',
       label: "Custom",
       onChange: (value) => {
         handleThemeChange(value, customThemes);
