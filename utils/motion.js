@@ -1,5 +1,5 @@
 // components/motion/motionComponents.js
-import { motion, cubicBezier, AnimatePresence, useTransform, useScroll, useInView, useAnimation, LayoutGroup, useMotionValueEvent} from "framer-motion";
+import { motion, cubicBezier, AnimatePresence, useTransform, useScroll, useInView, useAnimation, LayoutGroup, useMotionValueEvent ,easeInOut} from "framer-motion";
 
 export { 
   motion, 
@@ -10,5 +10,6 @@ export {
   useInView, 
   useAnimation, 
   LayoutGroup,
-  useMotionValueEvent
+  useMotionValueEvent,
+  easeInOut
 };
