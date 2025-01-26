@@ -105,9 +105,7 @@ const FullPage = () => {
 };
 
 export default function BlockHero({
-  intro,
   titlealt,
-  date,
   contentalt,
   image,
 }) {

@@ -8,7 +8,7 @@ import { useThemeContext } from "../context/themeContext";
 import Link from "next/link";
 import { DotsSixVertical, PlayCircle } from "@phosphor-icons/react";
 
-export default function NavBar({ containerRef, slugs }) {
+export default function NavBar({ containerRef, data }) {
   const { currentTheme } = useThemeContext();
   const menuRef = useRef(null);
   const menuDragRef = useRef("menuDragRef");
@@ -18,14 +18,15 @@ export default function NavBar({ containerRef, slugs }) {
 
 
   const pages = [
-    ...Array.isArray(slugs) && slugs.length > 0 ? slugs.map(slug => ({
-      id: slug.slug,
-      title: slug.title,
-      url: `/${slug.slug}` // Ensure the URL is correct
+    ...Array.isArray(data) && data.length > 0 ? data.map(page => ({
+      id: page.slug,
+      title: page.title,
+      url: `/${page.slug}` // Ensure the URL is correct
     })) : [] // Fallback to an empty array if slugs is not an array or is empty
   ];
 
-  const [activePage, setActivePage] = useState(pages[0].id);
+  // Check if pages is not empty before accessing pages[0].id
+  const [activePage, setActivePage] = useState(pages.length > 0 ? pages[0].id : null); // Set to null or a default value
 
   const [edges, setEdges] = useState({
     left: false,
@@ -235,7 +236,6 @@ export default function NavBar({ containerRef, slugs }) {
         sound={ButtonSound.ON}
         type={ButtonType.TRANSPARENT}
       ></Button>
-      <ButtonAlt sound={ButtonSound.CLICK} label={'ssssssound'}></ButtonAlt>
     </motion.div>
   );
 }

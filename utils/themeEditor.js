@@ -129,6 +129,8 @@ export default function ThemeEditor({ customThemes }) {
     root.style.setProperty("--surface3", theme.data.surface3 || "#ffffff");
     root.style.setProperty("--heading-color", theme.data.headingColor || "#000000");
     root.style.setProperty("--text-color", theme.data.textColor || "#000000");
+    root.style.setProperty("--text-accent", theme.data.textAccent || "#000000");
+
     root.style.setProperty("--subtext-color", theme.data.subtextColor || "#000000");
     root.style.setProperty("--text-color-inv", theme.data.textColorInv || "#000000");
     root.style.setProperty("--nav-bg", theme.data.navBg || "#ffffff");

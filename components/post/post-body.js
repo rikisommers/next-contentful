@@ -34,10 +34,11 @@ export default function PostBody({ content, tags }) {
             <section key={index} className="w-full">
               {item.__typename === "BlockHero" && (
                 <BlockHero
-                  intro={"sdsd"}
+                  intro={"sdsddd"}
                   content={"sdsd"}
-                  titlealt={"sdsd"}
-                  contentalt={"sdsd"}
+                  titlealt={item.intro}
+                  title={item.title}
+                  contentalt={item.content}
                   date={"sdsd"}
                 />
               )}

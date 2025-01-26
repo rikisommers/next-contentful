@@ -50,7 +50,8 @@ export default function BlockList({ data }) {
 
       case "feature":
         return (
-          <article className="flex flex-col" id={data.title}>
+          <article className="flex flex-col px-32" id={data.title}>
+
             {data.title && (
               <h2
                 className="mb-4 text-sm"

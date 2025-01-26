@@ -6,7 +6,7 @@ const Preloader = ({ show, data }) => {
   return (
     <div className={`${show ? 'show' : 'hide'} fixed left-0 flex items-center content-center w-full h-full bg-gray-700 test top-0`}>
      
-        <h1 className="text-white">{data.loadingText}</h1>
+        <h1 className="text-white">{data}</h1>
    
     </div>
   );

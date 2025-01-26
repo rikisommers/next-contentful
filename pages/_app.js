@@ -9,17 +9,17 @@ import Navigation from "../components/navigation/primary-navigation";
 import Preloader from "../components/utils/preloader";
 import "../styles/index.scss";
 import "../styles/prisim-vs-code-dark.scss";
-import { getGlobal,getLoading, getThemes, getAllHomePageSlugs } from "../lib/api";
+import { getGlobal,getLoading, getThemes } from "../lib/api";
 import CursorDot from "../components/utils/cursor-dot";
 import CursorCta from "../components/utils/cursor-cta";
 import TransitionPage from "../components/transition/pageTransition";
 import App from 'next/app'; // Import App from next/app
 import { cursorThemes, themes } from "../utils/theme";
 
-function MyApp({ Component, pageProps, router, globalData, customThemes, slugs }) {
+function MyApp({ Component, pageProps, router, globalData, customThemes }) {
   const [isLoading, setIsLoading] = useState(true);
   
-  console.log('GDATA',  slugs)
+  console.log('GDATA',  globalData)
 
   useEffect(() => {
 
@@ -37,15 +37,17 @@ function MyApp({ Component, pageProps, router, globalData, customThemes, slugs }
   return (
     <>
 
-      <Preloader show={isLoading} data={globalData} />
+      {globalData?.loadingText &&
+      <Preloader show={isLoading} data={globalData.loadingText} />
+      }
       {!isLoading && (
         <RouteProvider>
           <ScrollPositionProvider>
             <MousePosProvider>
               <ToastProvider>
-              <ThemeProvider theme={globalData.currentTheme} customThemes={customThemes}>
-                {slugs &&
-                <Navigation slugs={slugs} />
+              <ThemeProvider theme={globalData?.currentTheme} customThemes={customThemes}>
+                {globalData.menuCollection &&
+                <Navigation data={globalData.menuCollection.items} />
 }
                 <AnimatePresence mode="wait" initial={false}>
                 {/* <FontLoader 
@@ -82,8 +84,7 @@ MyApp.getInitialProps = async (appContext) => {
   const appProps = await App.getInitialProps(appContext);
   const globalData = await getLoading(); 
   const customThemes = await getThemes(); 
-  const slugs = await getAllHomePageSlugs(); 
-  return { ...appProps, globalData, customThemes, slugs};
+  return { ...appProps, globalData, customThemes};
 };
 
 export default MyApp;

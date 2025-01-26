@@ -18,7 +18,7 @@ import { useThemeContext } from "../context/themeContext";
 import NavBar from "./navbar";
 import Logo from "./logo";
 
-export default function Navigation({slugs}) {
+export default function Navigation({data}) {
   const router = useRouter();
   const containerRef = useRef(null);
 
@@ -38,6 +38,8 @@ export default function Navigation({slugs}) {
   });
   const [orientation, setOrientation] = useState("");
 
+
+  console.log('menu:',data)
   // Function to toggle the ThemeEditor modal
   const toggleThemeEditor = () => {
     console.log("sdd");
@@ -63,7 +65,7 @@ export default function Navigation({slugs}) {
           <Logo />
         </div>
 
-        <NavBar containerRef={containerRef} slugs={slugs} />
+        <NavBar containerRef={containerRef} data={data} />
 
         {/* <motion.div className="z-50 flex items-center gap-1 rounded-lg top-3 right-3">
           <ButtonAlt
