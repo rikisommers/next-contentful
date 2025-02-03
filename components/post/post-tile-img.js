@@ -8,7 +8,7 @@ export default function PostTileImg({ post, index, size }) {
 
   return (
     <Link
-      href={`/projects/${post.slug}`}
+      href={`/articles/${post.slug}`}
       style={{
         backgroundColor: post.color || "--accent-pri",
       }}
@@ -38,7 +38,7 @@ export default function PostTileImg({ post, index, size }) {
       >
         <div className="flex gap-2">
           <h2
-            className="px-4 py-2 text-sm rounded-lg font-semibold"
+            className="px-4 py-2 text-sm font-semibold rounded-lg"
             style={{
               color: "var(--text-color)",
               backgroundColor: "var(--background-color)",

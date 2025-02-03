@@ -18,7 +18,7 @@ import { useThemeContext } from "../context/themeContext";
 import NavBar from "./navbar";
 import Logo from "./logo";
 
-export default function Navigation({data}) {
+export default function Navigation({data, logo}) {
   const router = useRouter();
   const containerRef = useRef(null);
 
@@ -62,7 +62,7 @@ export default function Navigation({data}) {
       >
         <div className="z-50 flex col-span-1 col-start-1 row-span-1 row-start-1"
              onClick={toggleThemeEditor}>
-          <Logo />
+          <Logo logo={logo} />
         </div>
 
         <NavBar containerRef={containerRef} data={data} />

@@ -15,11 +15,12 @@ import CursorCta from "../components/utils/cursor-cta";
 import TransitionPage from "../components/transition/pageTransition";
 import App from 'next/app'; // Import App from next/app
 import { cursorThemes, themes } from "../utils/theme";
+import { motion } from "../utils/motion";
 
 function MyApp({ Component, pageProps, router, globalData, customThemes }) {
   const [isLoading, setIsLoading] = useState(true);
   
-  console.log('GDATA',  globalData)
+  //console.log('GDATA',  globalData)
 
   useEffect(() => {
 
@@ -36,45 +37,36 @@ function MyApp({ Component, pageProps, router, globalData, customThemes }) {
 
   return (
     <>
-
       {globalData?.loadingText &&
-      <Preloader show={isLoading} data={globalData.loadingText} />
+      <Preloader show={isLoading} data={globalData.loadingText} logo={globalData.logo} />
       }
-      {!isLoading && (
-        <RouteProvider>
-          <ScrollPositionProvider>
-            <MousePosProvider>
-              <ToastProvider>
-              <ThemeProvider theme={globalData?.currentTheme} customThemes={customThemes}>
-                {globalData.menuCollection &&
-                <Navigation data={globalData.menuCollection.items} />
-}
-                <AnimatePresence mode="wait" initial={false}>
-                {/* <FontLoader 
-      primaryFont={currentTheme.data.fontFamilyPrimary} 
-      secondaryFont={currentTheme.data.fontFamilySecondary}
-    > */}
-
-
-                  {/* {currentTheme.data.cursor === 'dot' && <></> } */}
-                 {/* <CursorDot key={router.asPath + "dot"} /> */}
-                  {/* <CursorCta
-                    content={"testing123"}
-                    key={router.asPath + "cta"}
-                  />  */}
-
-
-
-                  <Component {...pageProps} key={router.asPath} />
-                  {/* </FontLoader> */}
-
-                </AnimatePresence>
-              </ThemeProvider>
-              </ToastProvider>
-            </MousePosProvider>
-          </ScrollPositionProvider>
-        </RouteProvider>
-      )}
+      <motion.div className="w-full h-full"
+        initial={{ y: 100 }}
+        animate={isLoading ? { y: 100 } : { y: 0 }}
+        transition={{ duration: 0.5
+         }} 
+        //  onAnimationComplete={() => {
+        //   position:'unset'
+        //  }}
+      >
+          <RouteProvider>
+            <ScrollPositionProvider>
+              <MousePosProvider>
+                <ToastProvider>
+                  <ThemeProvider theme={globalData?.currentTheme} customThemes={customThemes}>
+                    {globalData.menuCollection &&
+                    <Navigation data={globalData.menuCollection.items} logo={globalData.logo}/>
+                    }
+                    <AnimatePresence mode="wait" initial={false}>
+                      <Component {...pageProps} key={router.asPath} />
+                    </AnimatePresence>
+                  </ThemeProvider>
+                </ToastProvider>
+              </MousePosProvider>
+            </ScrollPositionProvider>
+          </RouteProvider>
+        </motion.div>
+    
     </>
   );
 }

@@ -10,21 +10,20 @@ export default function BlockHeader({ data  }) {
 
   return (
     <div
-      className={`flex flex-col justify-end relative px-32 ${data.primaryPageHeader === true ? "h-vhh" : "h-vh33"}`}
+      className={`flex flex-col justify-end relative px-8 ${data.primaryPageHeader === true ? "h-vhh" : "h-vh33"}`}
     >
       <div className="grid items-end content-end w-full grid-cols-12 gap-6">
         <div className="col-span-12 md:col-span-8 lg:col-span-8">
           {data.title && (
             <h4
-              className="mb-4 text-sm font-normal"
-              style={{color:'var(--text-color)'}} 
+              className="mb-4 text-xs font-normal"
+              style={{color:'var(--subtext-color)'}} 
             >
               <AnimatedText
                 content={data.title}
                 type={currentTheme.data.textAnimationSec}
                 delay={AnimTextOrder.TWO}
               >
-                {/* {data.title} */}
               </AnimatedText>
             </h4>
           )}

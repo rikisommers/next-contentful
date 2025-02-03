@@ -11,6 +11,7 @@ import BlockArticle from "../blocks/block-article";
 import BlockArticles from "../blocks/block-articles";
 import BlockHeader from "../blocks/block-header";
 import BlockHero from "../blocks/block-hero";
+import BlockIntro from "../blocks/block-intro"
 import AnimatedElement, { AnimStyleEl } from "../motion/animated-element";
 
 const customMarkdownOptions = (content) => ({
@@ -34,12 +35,13 @@ export default function PostBody({ content, tags }) {
             <section key={index} className="w-full">
               {item.__typename === "BlockHero" && (
                 <BlockHero
-                  intro={"sdsddd"}
+                  intro={item.intro}
                   content={"sdsd"}
-                  titlealt={item.intro}
-                  title={item.title}
-                  contentalt={item.content}
+                  titlealt={item.title}
+                  title={'sadf'}
+                  contentalt={item.intro}
                   date={"sdsd"}
+                  image={item.image}
                 />
               )}
               {item.__typename === "BlockHeader" && (
@@ -121,15 +123,15 @@ export default function PostBody({ content, tags }) {
                   id={item.title} />
                 </AnimatedElement>
               )}
-              {item.__typename === "BlockCode" && (
+              {item.__typename === "BlockIntro" && (
                 <AnimatedElement type={AnimStyleEl.FADEIN}>
-                  <BlockCode 
+                  <BlockIntro
                   key={item.id} 
                   data={item} 
-                  id={item.title} />
+                  id={item.id} />
                 </AnimatedElement>
               )}
-            </section>
+ </section>
           );
         })}
     </div>

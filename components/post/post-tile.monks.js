@@ -58,7 +58,7 @@ export default function PostTileMonks({ post, index, size }) {
   return (
     <Link
       ref={ref}
-      href={`/projects/${post.slug}`}
+      href={`/articles/${post.slug}`}
       style={{
         backgroundColor: "var(--background-color)",
       }}
@@ -96,7 +96,11 @@ export default function PostTileMonks({ post, index, size }) {
             color: "var(--text-color-inv)",
           }}
         >
-                 <span className="text-xs">
+                 <span className="text-xs"
+                    style={{
+                    color: "var(--text-accent)",
+                  }}
+                  >
                 {post?.title}
               </span>
           <AnimatedElement type={AnimStyleEl.FADEINLEFT}>

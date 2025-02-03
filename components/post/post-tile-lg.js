@@ -8,7 +8,7 @@ export default function PostTileLg({ post, index, size }) {
 
   return (
     <Link
-      href={`/projects/${post.slug}`}
+      href={`/articles/${post.slug}`}
       style={{
         backgroundColor: post.color || "--accent-pri",
       }}

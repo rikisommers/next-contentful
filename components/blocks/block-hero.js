@@ -98,7 +98,6 @@ const FullPage = () => {
         )}
 
       </div>
-
       <PostIntro title={titlealt} content={contentalt} />
     </div>
   </ClipContainer>;
@@ -147,65 +146,18 @@ export default function BlockHero({
           )}
 
           {currentTheme.data.heroBackgroundStyle === "video" && <Background />}
-        </div>
 
-        {currentTheme.data.heroBackgroundStyle === "image" && image && (
+          {currentTheme.data.heroBackgroundStyle === "image" && image && (
           <BlendImage
             className="absolute w-full h-full img-cover"
             alt={`Cover Image for ${image?.title}`}
             src={image.url}
           />
         )}
-
-        {/* TODO: Replace with padding, this is only usefull if full height */}
-        {/* <motion.div className={`${getPositionClass(currentTheme.data.heroTextPosition)}`}>
-        <h1
-          style={{ fontFamily: "var(--font-family-primary)" }}
-        >
-          <AnimatedText
-            type={currentTheme.data.textAnimation}
-            highlight={currentTheme.data.textHighlight}
-            content={titlealt}
-            delay={AnimTextOrder.ONE}
-          />
-        </h1>
-        <h2
-          className="text-base"
-          style={{
-            color: "var(--accent",
-          }}
-        >
-          <AnimatedText
-            type={currentTheme.data.textAnimation}
-            content={contentalt}
-            delay={AnimTextOrder.THREE}
-          />
-        </h2>
-        <Button label={"Click me"} type={ButtonType.DEFAULT}></Button>
-      </motion.div>
-      <TextScramble content={['Plan,Design & buid','wear many hats','like fart jokes']}/> */}
-
-        {/* {date && (
-        <div className="z-50 flex justify-between col-span-12 col-start-1 row-span-1 row-start-7 py-6 bottom-1">
-          <div className="flex gap-1 p-2 text-xs ">
-            <span className="uppercase">Location:</span>
-            <a
-              href="https://www.google.com/maps/place/New+Brighton,+Christchurch/@-43.5093881,172.6992615,14z/data=!3m1!4b1!4m6!3m5!1s0x6d318891a20200c1:0x500ef8684799330!8m2!3d-43.5079076!4d172.7225969!16zL20vMDNfcHMz?entry=ttu"
-              stlye={{ color: "var(--accent)" }}
-            >
-              @-43.5093881,172.6992615
-            </a>
-          </div>
-
-          <div
-            className="flex gap-1 p-2 text-xs"
-            stlye={{ color: "var(--accent)" }}
-          >
-            <span className="uppercase">Last Updated:</span>
-            <span>{date}</span>
-          </div>
+        
         </div>
-      )} */}
+
+
 
         <PostIntro title={titlealt} content={contentalt} />
       </div>

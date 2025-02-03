@@ -4,7 +4,7 @@ import { useThemeContext } from "../context/themeContext";
 import { useRouter } from "next/navigation";
 
 
-export default function Logo() {
+export default function Logo({logo}) {
     const { currentTheme } = useThemeContext();
     const router = useRouter();
 
@@ -29,12 +29,14 @@ export default function Logo() {
       className={`w-[32px] h-[32px] flex items-center justify-center`}
     >
 
+        {logo &&
         <img
-          src="/shapes/star.svg"
+          src={logo.url}
+          title={logo.title}
           viewBox="0 0 32 32"
           className="h-full"
         ></img>
-
+        }
     </div>
 
     <motion.span

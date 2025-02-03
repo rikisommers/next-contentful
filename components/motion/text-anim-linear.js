@@ -52,9 +52,9 @@ export const TextAnimLinear = ({ content ,delay, highlight}) => {
 
   const renderColoredText = (text, index) => (
     <motion.span
-      style={{
-        color: 'var(--text-accent)',
-      }}
+      // style={{
+      //   color: 'var(--text-accent)',
+      // }}
       key={index}
       variants={lineVariants}
       initial="hidden"
@@ -103,10 +103,10 @@ export const TextAnimLinear = ({ content ,delay, highlight}) => {
                 variants={lineVariants}
                 initial="hidden"
                 animate="visible"
-                style={{
-                  color: "var(--heading-color)",
-                  display: "inline-block",
-                }}
+                // style={{
+                //   color: "var(--heading-color)",
+                //   display: "inline-block",
+                // }}
               >
                 {line.split("").map(renderCharacter)}
               </motion.div>

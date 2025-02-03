@@ -15,7 +15,7 @@ export default function PostTileRe({ post, index, size }) {
   return (
     <Link
       ref={ref}
-      href={`/projects/${post.slug}`}
+      href={`/articles/${post.slug}`}
       style={{
         backgroundColor: "var(--surface1)",
       }}
@@ -31,7 +31,7 @@ export default function PostTileRe({ post, index, size }) {
             color: "var(--subtext-color)",
           }}
         >
-          <span className="text-xs">DATE</span>
+          <span className="text-xs">{post.title}</span>
 
           {post.tags && (
             <div className="flex gap-1">

@@ -7,7 +7,7 @@ import ScrollContainer from "../components/utils/scroll-container";
 const HomePage = ({ data, footerData }) => {
   // Render your home page using the fetched data
 
-  console.log('slluggy data',data, footerData)
+  console.log('slluggy data',data)
   return (
     <Layout pageWidth={LayoutType.FLUID}>
       <ScrollContainer>

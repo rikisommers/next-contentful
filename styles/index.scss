@@ -110,10 +110,6 @@ ul ul li {
    list-style-type: none;
 }
 
-// #__next{
-//   overflow: hidden;
-// }
-
 
 body {
 	--button-border-radius: 40px;
@@ -211,7 +207,8 @@ transition: all 300ms ease;
 }
 
 html,
-body{
+body,
+#__next{
   height  : 100%;
   overflow: hidden;
 }

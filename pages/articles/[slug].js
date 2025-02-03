@@ -15,63 +15,53 @@ import TransitionPage from "../../components/transition/pageTransition";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ClipContainer } from "../../components/motion/clippath-container";
 export default function Post({ post, footerData }) {
-
   const { currentTheme } = useThemeContext();
 
+  console.log("ppppp", post);
 
-
-
+  const articlesNavList = post.csblocksCollection.items.filter(
+    (item) => item.type === "article"
+  );
   return (
     <ScrollContainer>
+      {articlesNavList.length > 0 && (
+        <PageNav content={articlesNavList}></PageNav>
+      )}
 
+      <SpeedInsights />
+      <TransitionPage>
         {post && (
-        <PageNav content={post.csblocksCollection.items}></PageNav>
-        )}
-        <SpeedInsights />
-        <TransitionPage>
-
-          {post && (
-            <ClipContainer>
-
-            {currentTheme.data.heroType === 'monks' &&
+          <ClipContainer>
+            {/* {currentTheme.data.heroType === "monks" && (
               <PostHeaderMonks
                 title={post.title}
                 subtitle={post.titlealt}
                 tags={post.tags}
                 img={post.img}
               />
-            }
+            )}
 
-            {currentTheme.data.heroType === 'riki' &&
-                        <div className="max-w-screen-xl mx-auto">
-
-              <PostHeaderRiki
-                title={post.title}
-                subtitle={post.titlealt}
-                img={post.img}
-              />
+            {currentTheme.data.heroType === "riki" && (
+              <div className="max-w-screen-xl mx-auto">
+                <PostHeaderRiki
+                  title={post.title}
+                  subtitle={post.titlealt}
+                  img={post.img}
+                />
               </div>
-            }
+            )} */}
+
             <div className="max-w-screen-xl mx-auto">
-              <PostDetails
-                post={post}
-                intro={post.intro}
-                duration={post.duration}
-                client={post.client}
-                role={post.role}
-              />
               {post.csblocksCollection && (
-              <PostBody content={post.csblocksCollection} />
+                <PostBody content={post.csblocksCollection} />
               )}
-              </div>
-            </ClipContainer>
-          )}
-
+            </div>
+            
+          </ClipContainer>
+        )}
 
         {footerData && <BlockFooter data={footerData} />}
-
-        </TransitionPage>
-
+      </TransitionPage>
     </ScrollContainer>
   );
 }
@@ -79,6 +69,11 @@ export default function Post({ post, footerData }) {
 export async function getStaticProps({ params, preview = false }) {
   const slug = params.slug;
   const data = await getPost(slug, preview);
+  if (!data || data.length === 0) {
+    return {
+      notFound: true, // This will trigger a 404 page
+    };
+  }
   const footerData = await getFooter();
 
   return {
@@ -94,7 +89,7 @@ export async function getStaticProps({ params, preview = false }) {
 export async function getStaticPaths() {
   const allPosts = await getAllCaseStudies(false);
   return {
-    paths: allPosts?.slice(0, 20).map(({ slug }) => `/articles/${slug}`) ?? [],
+    paths: allPosts?.slice(0, 10).map(({ slug }) => `/articles/${slug}`) ?? [],
     fallback: "blocking",
   };
 }
