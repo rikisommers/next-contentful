@@ -11,8 +11,8 @@ import { TextAnimBlur } from "./text-anim-blur";
 import { TextAnimLineFadeIn } from "./text-anim-line-fade";
 import { TextAnimNone } from "./text-anim-none";
 import TextAnimCode from "../motion/text-anim-code";
+import { TextAnimFigma } from "./text-anim-figma";
 import { useThemeContext } from "../context/themeContext";
-
 
 const HighlightStyle = {
     NONE: "none",
@@ -26,6 +26,7 @@ const HighlightStyle = {
 //TODO: This needs to be defined once somwhere and imported to themeEditor and here
 const AnimStyle = {
     NONE: "none",
+    FIGMA: "figma",
     LINESUP: "linesup",
     LINEPOSUP: "lineposup",
     LINEFADEIN: "linefadein",
@@ -93,6 +94,11 @@ const highlight2 = currentTheme.data.textHighlight
 
 if(content){
 switch (type) {
+    case AnimStyle.FIGMA:
+        return <TextAnimFigma
+        content={content} 
+        highlight={highlight2}
+        />
     case AnimStyle.NONE:
         return <TextAnimNone 
         content={content} 

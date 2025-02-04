@@ -39,20 +39,20 @@
 // ".display-6": "text-[calc(1.375rem+1.6vw)] lg:text-[2.5rem] leading-[1.2] font-light",
 
 
-// @for $i from 1 through 6 {
-//   h#{$i}, .u-fs--h#{$i}, .u-t--h#{$i} {
-//     @include fluid-type(7 - $i);
-//   }
-// }
+@for $i from 1 through 6 {
+  h#{$i}, .u-fs--h#{$i}, .u-t--h#{$i} {
+    @include fluid-type(7 - $i);
+  }
+}
 
-// Additional classes for title and subtitle
-// .u-fs--title, .u-t--title {
-//   @include fluid-type(6);
-// }
+//Additional classes for title and subtitle
+.u-fs--title, .u-t--title {
+  @include fluid-type(6);
+}
 
-// .u-fs--subtitle, .u-t--subtitle {
-//   @include fluid-type(5);
-// }
+.u-fs--subtitle, .u-t--subtitle {
+  @include fluid-type(5);
+}
 
 body {
   color: var(--textColor);

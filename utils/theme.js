@@ -1035,6 +1035,7 @@ export const gridThemes = {
 // Text Animation themes
 export const textAnimationThemes = {
   none: "none",
+  figma: "figma",
   linesup: "linesup",
   lineposup: "lineposup",
   linefadein: "linefadein",
@@ -1049,6 +1050,7 @@ export const textHighlightThemes = {
   background: "background",
   underline: "underline",
   highlight: "highlight",
+  figma:'figma',
   none: "none"
 };
 
@@ -1069,9 +1071,9 @@ export const typographyThemes = {
 };
 
 // Type Themes
-export const fontSizeThemes = {
-  fontFixed: 'fixed',
-  fontFluid: 'fluid',
+export const fontScaleThemes = {
+  fixed: 'fixed',
+  fluid: 'fluid',
 };
 
 export const fluidFontSizeThemes = {
@@ -1262,7 +1264,7 @@ const themeContent = {
   audioVolume:0.5,
   fontFamilyPrimary:typographyThemes.sans,
   fontFamilySecondary:typographyThemes.sans,
-  fontScale:fontSizeThemes.fontFixed,
+  fontScale:fontScaleThemes.fluid,
   fluidFontSizeMin: fluidFontSizeThemes.fontSizeMin,
   fluidFontSizeMax: fluidFontSizeThemes.fontSizeMax,
   fluidFontRatioMin: fluidFontSizeThemes.fontRatioMin,

@@ -70,8 +70,8 @@ module.exports = {
         '6xl': '2.75rem',
         '7xl': '4.5rem',
         '8xl': '6.25rem',
-        // 'fluid': 'clamp(1.25rem, 3.783vw + 0.271rem, 5rem)',
-        // 'jumbo': '4vw',
+        'fluid': 'clamp(1.25rem, 3.783vw + 0.271rem, 5rem)',
+        'jumbo': '4vw',
       },
       boxShadow: {
         small: '0 5px 10px rgba(0, 0, 0, 0.12)',

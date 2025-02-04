@@ -37,9 +37,9 @@ export default function PostBody({ content, tags }) {
                 <BlockHero
                   intro={item.intro}
                   content={"sdsd"}
-                  titlealt={item.title}
+                  titlealt={item.intro}
                   title={'sadf'}
-                  contentalt={item.intro}
+                  contentalt={item.content}
                   date={"sdsd"}
                   image={item.image}
                 />

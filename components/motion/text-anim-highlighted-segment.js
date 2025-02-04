@@ -12,16 +12,30 @@ export const HighlightedSegment = ({ segment, highlight }) => {
           return { textDecoration: 'underline', textDecorationColor: 'var(--accent)' };
         case 'highlight':
           return { backgroundColor: 'var(--accent)', filter: 'blur(20px)' };
+        case 'figma':
+            return {
+               backgroundColor: 'var(--accent)',
+                filter: 'blur(20px)'
+               };
         default:
           return {};
       }
     };
   
     return (
-      <span
-        style={getHighlightStyle()}
+      <span className="inline-flex px-4 py-0 rounded-xl"
+
+       style={{
+        backgroundColor:'var(--surface1)'
+       }}
       >
        {segment}
       </span>
     );
   };
+
+//   <span
+//   style={getHighlightStyle()}
+//  >
+//   {segment}
+//  </span>

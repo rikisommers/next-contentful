@@ -17,7 +17,7 @@ import {
   heroTextPositionThemes,
   navigationPositionThemes,
   navigationDragThemes,
-  fontSizeThemes,
+  fontScaleThemes,
   bodyTextAlign,
   navigationStyleThemes,
   navigationOptions,
@@ -115,9 +115,12 @@ export default function ThemeEditor({ customThemes }) {
     root.style.setProperty("--page-width", theme.data.pageWidth || "large");
 
     // Non-color theme properties
+    root.style.setProperty("--cursor", theme.data.cursor || "dot");
+
     root.style.setProperty("--font-family-primary", theme.data.fontFamilyPrimary || "sans-serif");
     root.style.setProperty("--font-family-secondary", theme.data.fontFamilySecondary || "sans-serif");
-    root.style.setProperty("--cursor", theme.data.cursor || "dot");
+
+    root.style.setProperty("--font-scale", theme.data.fontScale || 'fluid');
     root.style.setProperty("--font-ratio-min", theme.data.fluidFontRatioMin || 1.2);
     root.style.setProperty("--font-ratio-max", theme.data.fluidFontRatioMax || 1.25);
 
@@ -504,6 +507,18 @@ export default function ThemeEditor({ customThemes }) {
         label: "Font Family Secondary",
         onChange: (value) => updateThemeProp("fontFamilySecondary", value), // Call existing handler
       },
+      
+      
+      
+      fontScale: {
+        options: Object.keys(fontScaleThemes),
+        value: currentTheme.data.fontScale,
+        label: "Scale",
+        onChange: (value) => updateThemeProp("fontScale", value), // Call existing handler
+      },
+
+
+
       fontSizeMax: {
         value: currentTheme.data.fluidFontRatioMax,
         min: 0,
