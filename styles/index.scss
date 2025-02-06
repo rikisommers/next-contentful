@@ -1028,3 +1028,48 @@ background:linear-gradient(142deg, rgba(33,33,33,1) 0%, rgba(192,198,201,1) 68%)
 }
 
 
+
+$iconsize:40px;
+
+.circle {
+  width:$iconsize;
+  height:$iconsize;
+  background:black;
+  border-radius:100%;
+  text-align:center;
+//  animation:rotate 40000s infinite;
+}
+.circle .yin {
+  width:$iconsize / 2;
+  height:$iconsize / 2;
+  background:white;
+  border-radius:100%;
+}
+
+.circle .yang {
+  width:$iconsize / 2;
+  height:$iconsize / 2;
+  background:black;
+  border-radius:100%;
+  margin-top:$iconsize;
+  z-index:auto;
+      position: absolute;
+  margin-left:$iconsize / 2;
+
+}
+
+.feher {
+  width:$iconsize / 2;
+  height:$iconsize;
+  background:white;
+  display:inline-block;
+  margin-top:-$iconsize / 2;
+  border-top-right-radius:$iconsize / 2;
+    border-bottom-right-radius:$iconsize / 2;
+}
+
+
+// @keyframes rotate {
+//   from {transform:rotate(0deg);}
+//   to {transform:rotate(-3600000deg);}
+// }

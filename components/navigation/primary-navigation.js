@@ -67,13 +67,10 @@ export default function Navigation({data, logo}) {
 
         <NavBar containerRef={containerRef} data={data} />
 
-        {/* <motion.div className="z-50 flex items-center gap-1 rounded-lg top-3 right-3">
-          <ButtonAlt
-            click={toggleThemeEditor}
-            type={ButtonType.PRIMARY}
-            label={"Theme"}
-          />
-        </motion.div> */}
+       <motion.div className="absolute z-50 flex items-center gap-1 p-1 bg-red-400 rounded-lg top-4 right-4">
+            <img className="w-[30px] h-[30px]" src="./icons/change.svg" title="theme"/>
+        </motion.div> 
+        
       </div>
 
       {/* Modal for "Available for work" */}

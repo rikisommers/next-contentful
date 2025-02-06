@@ -38,7 +38,11 @@ export default function PostIntro({ title, content, tag }) {
         </>
       </div>
       <div className="col-span-12 text-left md:col-span-8 lg:col-span-4 text-balance">
-        <h4 className="text-sm font-normal">
+        <h4 className="text-sm font-normal"
+                      style={{
+                        color: "var(--subtext-color)",
+                      }}
+        >
           {content && (
             <AnimatedText
               type={currentTheme.data.textAnimationSec}
