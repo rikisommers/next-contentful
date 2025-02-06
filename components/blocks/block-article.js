@@ -29,7 +29,7 @@ export const BlockArticle = ({ data }) => {
 
         
         {data.title && 
-        <h2 className="mb-4 font-normal  ~text-1xl/2xl" style={{color: 'var(--heading-color)',}}>{data.title}</h2>
+        <h2 className="mb-4 text-sm font-normal" style={{color: 'var(--subtext-color)'}}>{data.title}</h2>
         }
         {data.content && (
           <p className="mb-8 text-base" style={{color: 'var(--subtext-color)',}}>{data.content.content}</p>

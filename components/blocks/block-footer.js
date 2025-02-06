@@ -5,7 +5,10 @@ import AnimatedText, {
   AnimStyle,
   AnimTextOrder,
 } from "../motion/animated-text";
-
+import {
+  documentToReactComponents,
+  RichTextOptions,
+} from "@contentful/rich-text-react-renderer";
 import ButtonAlt, { ButtonType } from "../base/button-alt";
 import { motion, useTransform, useScroll } from "../../utils/motion";
 
@@ -63,50 +66,27 @@ export default function BlockFooter({ data }) {
     >
       {/* pt-32 pb-16 */}
 
-      <motion.div
-        className="z-20 grid w-full h-full grid-cols-12 gap-8 px-16 pt-16 pb-8"
-        style={
-          {
-            //  y: yTransform,
-          }
-        }
-      >
+      <motion.div className="z-20 grid w-full h-full grid-cols-12 gap-8 px-16 pt-16 pb-8">
         <div className="flex col-span-12 md:col-span-7">
-          {/* ---columns: 3;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: calc(0.75* var(---colWidth)) calc(0.5* var(---colWidth)) calc(0.75* var(---colWidth));
-
-     */}
-          <div
-            className="flex flex-col items-start gap-4"
-            style={{ color: "var(--subtext-color)" }}
-          >
-            {data?.title && <p className="text-xs">{data?.title}</p>}
-            {/* <TextAnimation content={content?.title} /> */}
-
-            {/* // <TextTitle
-              //   content={content?.titlealt}
-              //   color={"text-slate-400"}
-              //   className="mb-8"
-              // />
-             */}
+          <div className="flex flex-col items-start gap-4">
+            {data?.title && (
+              <p className="text-xs" style={{ color: "var(--subtext-color)" }}>
+                {data?.title}
+              </p>
+            )}
 
             {data?.content && (
               // <h2 className="text-2xl font-normal">{data.description}</h2>
-              <h1 className="leading-normal text-balance"
-              style={{ color: "var(--subtext-color)" }}
-
+              <h2
+                className="text-3xl font-normal leading-normal text-balance"
+                style={{ color: "var(--text-color)" }}
               >
                 <AnimatedText
-                  type={currentTheme.data.textAnimationPri}
-                  content={data.description}
+                  type={AnimStyle.NONE}
+                  content={data.content}
                   delay={AnimTextOrder.ONE}
                 />
-              </h1>
-              // <AnimatedText content={data.description}/>
-              // <div className="!text-xl" style={{ color: "var(--text-color)" }}>
-              //   {documentToReactComponents(data.content.json, RichTextOptions)}
-              // </div>
+              </h2>
             )}
 
             {data?.ctalink && data?.cta && (
@@ -114,30 +94,6 @@ export default function BlockFooter({ data }) {
                 <ButtonAlt label={data.cta} type={ButtonType.PRIMARY} />
               </Link>
             )}
-
-            {/* <button
-              id="anchor_1"
-              popovertarget="popover_1" // This should match the ID of the popover
-              className="p-4 bg-purple-300 cursor-pointer popover-trigger"
-            >
-              Open popover
-            </button>
-            <div role="menu"
-              className="popover-target"
-              id="popover_1" // This ID should match the popovertarget
-              popover="true" // Ensure this attribute is set
-            >
-              <button
-                onClick={() =>
-                  document.getElementById("popover_1").hidePopover()
-                }
-              >
-                Close
-              </button>
-              <button>sdsdsd</button>
-              <button>sdsdsd</button>
-              <button>sdsdsd</button>
-            </div> */}
           </div>
         </div>
 
@@ -151,7 +107,7 @@ export default function BlockFooter({ data }) {
             >
               <h3
                 className="mb-4 text-sm font-normal"
-                style={{ color: "var(--accent-pri)" }}
+                style={{ color: "var(--subtext-color)" }}
               >
                 contact
                 {/* {data?.description} */}
@@ -179,7 +135,7 @@ export default function BlockFooter({ data }) {
               >
                 <h3
                   className="mb-4 text-sm font-normal"
-                  style={{ color: "var(--accent-pri)" }}
+                  style={{ color: "var(--subtext-color)" }}
                 >
                   Services
                   {/* {data?.description} */}
@@ -201,9 +157,7 @@ export default function BlockFooter({ data }) {
               </div>
               <div
                 className="flex flex-col p-8 rounded-lg "
-                // style={{
-                //   backgroundColor: "var(--accent-pri)",
-                // }}
+                style={{ backgroundColor: "var(--surface1)" }}
               >
                 <h3
                   className="mb-4 text-sm font-normal "
@@ -215,118 +169,45 @@ export default function BlockFooter({ data }) {
               </div>
             </div>
           </div>
-          {/* <h3
-              className="text-sm font-normal"
-              style={{ color: "var(--text-accent)" }}
-            >
-              Social
-            </h3> */}
-          {/* {data?.description} */}
-          {/* <div className="flex flex-col flex-grow basis-1">
-        
-
-            <div className="grid grid-cols-2 grid-rows-2 gap-4 ">
-              {pages.map((page) => (
-                <Link
-                  className="text-xs rounded-lg bg-black/10 aspect-square"
-                  key={page.id}
-                  href={page.url}
-                  scroll={false}
-                  style={{ color: "var(--text-color)" }}
-                >
-                  {page.title}
-                </Link>
-              ))}
-            </div>
-          </div> */}
         </div>
 
         <div className="flex w-full col-span-12 gap-2">
           <div
             className="flex items-center flex-grow gap-4 px-5 rounded-lg"
-            style={{
-              backgroundColor: "var(--surface1)",
-            }}
+            style={{ color: "var(--text-color)" }}
           >
-            <Link
-              className="text-xs no-underline"
-              style={{ color: "var(--text-color)" }}
-              href="https://www.linkedin.com/in/matias-garcia-dev/"
-            >
-              Privacy Policy
-            </Link>
-            <Link
-              className="text-xs no-underline"
-              style={{ color: "var(--text-color)" }}
-              href="https://www.linkedin.com/in/matias-garcia-dev/"
-            >
-              Cookies Policy
-            </Link>
+            {data.privacypolicy && (
+              <Link className="text-xs no-underline" href={data.privacypolicy}>
+                Privacy Policy
+              </Link>
+            )}
+            {data.cookiespolicy && (
+              <Link className="text-xs no-underline" href={data.cookiespolicy}>
+                Cookies Policy
+              </Link>
+            )}
           </div>
-          <div
-            className="p-2 rounded-lg "
-            style={{
-              backgroundColor: "var(--surface1)",
-            }}
-          >
-            <div
-              className={`w-[32px] h-[32px] flex items-center justify-center`}
-            >
-              <img
-                src="/shapes/star.svg"
-                viewBox="0 0 32 32"
-                className="h-full"
-              ></img>
+
+          {data.socialCollection && data.socialCollection.items.length && (
+            <div className="flex gap-2 ">
+              {data.socialCollection.items.map((item, i) => (
+                <Link
+                  href={item.url}
+                  key={i}
+                  className={`w-[32px] h-[32px] flex items-center justify-center rounded-lg p-2`}
+                  style={{
+                    backgroundColor: "var(--surface1)",
+                  }}
+                >
+                  <img
+                    alt={item.title}
+                    src={item.icon.url}
+                    viewBox="0 0 24 24"
+                  ></img>
+                </Link>
+              ))}
             </div>
-          </div>
-          <div
-            className="p-2 rounded-lg "
-            style={{
-              backgroundColor: "var(--surface1)",
-            }}
-          >
-            <div
-              className={`w-[32px] h-[32px] flex items-center justify-center`}
-            >
-              <img
-                src="/shapes/star.svg"
-                viewBox="0 0 32 32"
-                className="h-full"
-              ></img>
-            </div>
-          </div>
-          <div
-            className="p-2 rounded-lg "
-            style={{
-              backgroundColor: "var(--surface1)",
-            }}
-          >
-            <div
-              className={`w-[32px] h-[32px] flex items-center justify-center`}
-            >
-              <img
-                src="/shapes/star.svg"
-                viewBox="0 0 32 32"
-                className="h-full"
-              ></img>
-            </div>
-          </div>
-          <div
-            className="p-2 rounded-lg "
-            style={{
-              backgroundColor: "var(--surface1)",
-            }}
-          >
-            <div
-              className={`w-[32px] h-[32px] flex items-center justify-center`}
-            >
-              <img
-                src="/shapes/star.svg"
-                viewBox="0 0 32 32"
-                className="h-full"
-              ></img>
-            </div>
-          </div>
+          )}
         </div>
       </motion.div>
 

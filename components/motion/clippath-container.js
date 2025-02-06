@@ -4,7 +4,7 @@ import {
   useTransform,
   useScroll,
   useMotionValueEvent,
-} from "../../utils/motion";;
+} from "../../utils/motion";
 import { useThemeContext } from "../context/themeContext";
 
 export const ClipContainer = ({ children }) => {
@@ -14,6 +14,8 @@ export const ClipContainer = ({ children }) => {
   const [clipPathValue, setClipPathValue] = useState(
     "inset( 0rem 0rem 0rem round 0rem 0rem 0rem 0rem)"
   );
+
+  const [scaleValue, setScaleValue] = useState(1);
 
   const { scrollYProgress: scrollContent } = useScroll({
     target: heroRef,
@@ -31,34 +33,35 @@ export const ClipContainer = ({ children }) => {
   const yv = useTransform(scrollContent, [0, 1], [0, insetValue]);
   const xv = useTransform(scrollContent, [0, 1], [0, insetValue]);
   const xr = useTransform(scrollContent, [0, 1], [0, borderRadiusValue]);
+  const scaleMotionValue = useTransform(scrollContent, [0, 1], [1, 0.9]);
 
   useMotionValueEvent(scrollContent, "change", (latest) => {
     setClipPathValue(
       `inset(${yv.current}rem ${xv.current}rem round ${xr.current}rem)`
     );
+    setScaleValue(scaleMotionValue);
   });
 
   return (
     <motion.div
       ref={heroRef}
-      style={{ 
+      style={{
         clipPath: clipPathValue,
-        backgroundColor: 'var(--background-color)',
-       }}
+        backgroundColor: "var(--background-color)",
+      }}
       className={`relative min-w-screen overflow-hidden z-10`}
     >
-  <motion.div
-            className="w-full h-full"
-            animate={{
-              scale: useTransform(scrollContent, [0, 1], [1, 1.3]), // Updated to use scrollYProgress
-            }}
-            transition={{
-              duration: 4,
-              ease: [0.16, 1, 0.3, 1], // direct array syntax
-            }}
-          >
-        
-      {children}
+      <motion.div
+        className="w-full h-full"
+        style={{
+          scale: scaleValue, // Updated to use scrollYProgress
+        }}
+        transition={{
+          duration: 4,
+          ease: [0.16, 1, 0.3, 1], // direct array syntax
+        }}
+      >
+        {children}
       </motion.div>
     </motion.div>
   );

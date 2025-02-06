@@ -104,8 +104,9 @@ const FullPage = () => {
 };
 
 export default function BlockHero({
-  titlealt,
-  contentalt,
+  title,
+  content,
+  tag,
   image,
 }) {
   const { currentTheme } = useThemeContext();
@@ -130,16 +131,6 @@ export default function BlockHero({
       >
         <div
           className="absolute top-0 left-0 flex items-center justify-end w-full h-full pointer-events-none z-1"
-          // initial={{ clipPath: "inset(1.0rem 1.0rem 1.0rem round 0.5rem)" }}
-          // animate={{
-          //   backgroundColor: "var(--background-color)",
-          //   clipPath: "inset( 1rem round 1rem )",
-          // }}
-          // exit={{ clipPath: "inset( 1.5rem 1.5rem 1.5rem 1.5rem round 1rem )" }}
-          // transition={{
-          //   duration: 0.6,
-          //   ease: [0.33, 1, 0.68, 1],
-          // }}
         >
           {currentTheme.data.heroBackgroundStyle === "gradient" && (
             <CanvasGradientBackground />
@@ -159,7 +150,7 @@ export default function BlockHero({
 
 
 
-        <PostIntro title={titlealt} content={contentalt} />
+        <PostIntro title={title} content={content} tag={tag}/>
       </div>
     </ClipContainer>
   );

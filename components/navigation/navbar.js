@@ -224,11 +224,18 @@ export default function NavBar({ containerRef, data }) {
           {/* <span className="relative flex items-center px-3 py-3 text-xs uppercase rounded-lg cursor-pointer">
           
             </span> */}
-              <Button
+              {/* <Button
             label={page.title}
             sound={ButtonSound.CLICK}
             type={ButtonType.TRANSPARENT}
-            ></Button>
+            ></Button> */}
+            <motion.div
+            className="relative flex items-center px-3 py-3 text-xs uppercase rounded-lg cursor-pointer"
+            
+            >
+            {page.title}
+          </motion.div>
+
         </Link>
       ))}
       <Button

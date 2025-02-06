@@ -1,7 +1,23 @@
 import React from "react";
+import { useThemeContext } from "../context/themeContext";
+
+
+const getContentClass = (height) => {
+  switch (height) {
+    case "center":
+      return "mx-auto max-w-prose";
+    case "left":
+      return "max-w-prose";
+      case "split":
+        return "w-full grid grid-cols-2";
+    default:
+      return "mx-auto max-w-prose";
+  }
+};
 
 export default function BlockList({ data }) {
-  console.log(data);
+  
+  const { currentTheme } = useThemeContext();
 
   const renderBlock = () => {
     if (!data || !data.type || !data.type.length) {
@@ -53,12 +69,7 @@ export default function BlockList({ data }) {
           <article className="flex flex-col px-32" id={data.title}>
 
             {data.title && (
-              <h2
-                className="mb-4 text-sm"
-                style={{ color: "var(--heading-color)" }}
-              >
-                {data.title}
-              </h2>
+              <h2 className="mb-4 text-sm font-normal" style={{color: 'var(--subtext-color)'}}>{data.title}</h2>
             )}
 
               <div
@@ -105,15 +116,10 @@ export default function BlockList({ data }) {
       case "timeline":
         return (
           <article className="flex flex-col gap-3 article-content" id={data.title}>
-            <div className="flex flex-col gap-3 p-8 justfy-between">
-              <div className="flex flex-col w-full gap-2 p-4 rounded">
+            <div className="flex flex-col gap-3 justfy-between">
+              <div className="flex flex-col w-full gap-2 rounded">
                 {data.title && (
-                  <h2
-                    className="mb-4 text-sm"
-                    style={{ color: "var(--heading-color)" }}
-                  >
-                    {data.title}
-                  </h2>
+                  <h2 className="mb-4 text-sm font-normal" style={{color: 'var(--subtext-color)'}}>{data.title}</h2>
                 )}
                 {data.itemsCollection &&
                   data.itemsCollection.items.map((item, index) => (
@@ -247,5 +253,12 @@ export default function BlockList({ data }) {
     }
   };
 
-  return renderBlock();
+  return( 
+  <div className={getContentClass(currentTheme.data.bodyTextAlign)}>
+    { 
+    renderBlock()
+    }
+  </div>
+ 
+  )
 }

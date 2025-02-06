@@ -27,7 +27,7 @@ const customMarkdownOptions = (content) => ({
 
 export default function PostBody({ content, tags }) {
   return (
-    <div className="flex flex-col w-full gap-16 pb-16">
+    <div className="flex flex-col w-full gap-16 pb-8">
       {/* max-w-6xl gap-32 mx-auto */}
       {content.items &&
         content.items.map((item, index) => {
@@ -36,11 +36,9 @@ export default function PostBody({ content, tags }) {
               {item.__typename === "BlockHero" && (
                 <BlockHero
                   intro={item.intro}
-                  content={"sdsd"}
-                  titlealt={item.intro}
-                  title={'sadf'}
-                  contentalt={item.content}
-                  date={"sdsd"}
+                  tag={item.tag}
+                  title={item.intro}
+                  content={item.content}
                   image={item.image}
                 />
               )}

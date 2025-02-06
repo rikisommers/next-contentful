@@ -1,7 +1,7 @@
 import React from "react";
 import { useThemeContext } from "../context/themeContext";
 import Button, { ButtonType } from "../base/button";
-import { motion } from "../../utils/motion";;
+import { motion } from "../../utils/motion";
 
 export const BlockTags = ({ data, selected, handleTagClick }) => {
   const { currentTheme } = useThemeContext();
@@ -29,7 +29,6 @@ export const BlockTags = ({ data, selected, handleTagClick }) => {
     }
   };
 
-
   const indicatorAnimate = {
     animate: {
       opacity: 1,
@@ -46,54 +45,27 @@ export const BlockTags = ({ data, selected, handleTagClick }) => {
     },
   };
 
-  
   return (
-    <nav className="flex gap-1 mb-8">
+    <nav className="relative flex gap-1 mb-8">
+    {[null, ...data.filter((tag) => tag !== null)].map((tag, index) => (
       <motion.button
-        onClick={() => handleTagClick(null)}
-        className="relative flex items-center px-3 py-2 text-xs uppercase transition-colors border border-solid rounded-md cursor-pointer"
-        style={getButtonStyle(
-          selected === null ? ButtonType.ACTIVE : ButtonType.DEFAULT
-        )}
+        key={index}
+        className="relative z-50 flex items-center px-3 py-2 text-xs uppercase transition-colors rounded-md cursor-pointer"
+        style={getButtonStyle(selected === tag ? ButtonType.ACTIVE : ButtonType.DEFAULT)}
+        onClick={() => handleTagClick(tag)}
+        layout
       >
-        All
+        {selected === tag && (
+          <motion.div
+            layoutId="indicatorTag2"
+            className="absolute top-0 left-0 w-full h-full border border-solid rounded-md"
+            style={{ borderColor: currentTheme.data.accentPri }}
+          />
+        )}
+        {tag === null ? "All" : tag}
       </motion.button>
-
-
-
-
-      {data &&
-        data
-          .filter((tag) => tag !== null)
-          .map((tag, index) => (
-            <motion.button
-              key={index}
-              className="relative z-50 flex items-center px-3 py-2 text-xs uppercase transition-colors rounded-md cursor-pointer"
-              style={getButtonStyle(
-                selected === tag ? ButtonType.ACTIVE : ButtonType.DEFAULT
-              )}
-              onClick={() => handleTagClick(tag)}
-            >
-              {selected === tag && (
-                <motion.div
-                  layoutId="indicatorTag"
-                  style={{
-                    borderColor:`${
-                      selected === tag
-                    ? currentTheme.data.accentPri
-                    : "transparent"
-                }`,
-                
-                    // boxShadow: `0 10px 15px -3px ${currentTheme.data.navShadow}, 0 4px 49px -4px ${currentTheme.data.navShadow}`,
-                  }}
-                  className="absolute top-0 left-0 flex w-full h-full bg-opacity-50 border border-solid rounded-md"
-                ></motion.div>
-              )}
-
-              {tag}
-            </motion.button>
-          ))}
-    </nav>
+    ))}
+  </nav>
   );
 };
 

@@ -1,17 +1,17 @@
 import React from "react";
-import { getLandingPage, getAllHomePageSlugs, getFooter } from '../lib/api';
+import { getLandingPage, getAllHomePageSlugs, getFooter, getAllBlogTags } from '../lib/api';
 import LandingPage from "../components/landingPage";
 import Layout,{LayoutType} from "../components/layout";
 import ScrollContainer from "../components/utils/scroll-container";
 
-const HomePage = ({ data, footerData }) => {
+const HomePage = ({ data, footerData, tags }) => {
   // Render your home page using the fetched data
 
-  console.log('slluggy data',data)
+  console.log('tagsa',tags)
   return (
     <Layout pageWidth={LayoutType.FLUID}>
       <ScrollContainer>
-        <LandingPage data={data} footerData={footerData}  />
+        <LandingPage data={data} footerData={footerData} tags={tags} />
       </ScrollContainer>
     </Layout>
   );
@@ -30,9 +30,10 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params, preview = false }) {
   const slug = params.slug;
 
-  const [data, footerData] = await Promise.all([
+  const [data, footerData, tags] = await Promise.all([
     getLandingPage(slug),
     getFooter(),
+    getAllBlogTags()
   ]);
 
   return {
@@ -40,6 +41,7 @@ export async function getStaticProps({ params, preview = false }) {
       slug: slug || null,
       preview,
       data: data || null,
+      tags: tags || null,
       footerData: footerData || null,
     },
   };
