@@ -58,7 +58,7 @@ const BackgroundElements = () => {
         <CanvasGradientBackground />
       )}
 
-      {currentTheme.data.heroBackgroundStyle === "video" && <Background />}
+      {/* {currentTheme.data.heroBackgroundStyle === "video" && <Background />} */}
 
       {currentTheme.data.heroBackgroundStyle === "image" && (
         <BlendImage

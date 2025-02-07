@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import Button, { ButtonType, ButtonSound } from "../base/button";
 import { useThemeContext } from "../context/themeContext";
 import Link from "next/link";
-import { DotsSixVertical } from "@phosphor-icons/react";
 
 export default function NavBar({ containerRef, data }) {
   const { currentTheme } = useThemeContext();
@@ -186,11 +185,11 @@ export default function NavBar({ containerRef, data }) {
       {currentTheme.data.navFloating && (
         <div
           ref={menuDragRef}
-          className="flex items-center px-2 text-lg text-white"
+          className="flex items-center w-2 h-2 px-2 text-lg text-white bg-white"
           style={{ color: "var(--text-accent)" }}
 
         >
-          <DotsSixVertical />
+          
         </div>
       )}
       {/* <p>{currentTheme.data.navigationOptions?.floating === true ? 'true' : 'false'}</p>
