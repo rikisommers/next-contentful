@@ -1,16 +1,12 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from "react";
-import Lenis from "@studio-freight/lenis";
+import React, { useState, useRef } from "react";
 import {
   motion,
-  cubicBezier,
-  useMotionValue,
   useTransform,
   useScroll,
   useMotionValueEvent,
 } from "../../utils/motion";;
-import { Scroll } from "@react-three/drei";
 import { useScrollPosition } from "../scrollPosContext";
 
 export default function ClipPathContainer({ children }) {

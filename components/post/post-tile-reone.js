@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import BlendImage from "../image/blend-image";
 import Link from "next/link";
 import { motion, useInView } from "../../utils/motion";;
-import AnimatedElement,{AnimElOrder, AnimStyleEl} from "../motion/animated-element";
+import AnimatedElement,{ AnimStyleEl} from "../motion/animated-element";
 
 export default function PostTileRe({ post, index, size }) {
   //   const [isHovered, setIsHovered] = useState(false); // State to track hover

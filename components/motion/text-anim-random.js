@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, Children } from "react";
+import React from "react";
 import { motion } from "../../utils/motion";;
 
 export const TextAnimRandom = ({ content }) => {

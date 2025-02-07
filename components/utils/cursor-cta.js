@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useContext} from "react";
-import { motion, cubicBezier, easeInOut } from "../../utils/motion";;
+import React, { useContext} from "react";
+import { motion, easeInOut } from "../../utils/motion";;
 import { MousePosContext } from "../context/mousePosContext";
 import { useMousePos } from '../context/mousePosContext'; // Adjust the import path as necessary
 

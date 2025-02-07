@@ -1,10 +1,9 @@
 import React, { useState, useRef } from "react";
 import BlendImage from "../image/blend-image";
 import Link from "next/link";
-import { motion, useInView, spring, useAnimation } from "../../utils/motion";;
+import { motion, useInView, useAnimation } from "../../utils/motion";;
 
 import AnimatedElement, {
-  AnimElOrder,
   AnimStyleEl,
 } from "../motion/animated-element";
 

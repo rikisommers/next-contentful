@@ -9,12 +9,8 @@ import Navigation from "../components/navigation/primary-navigation";
 import Preloader from "../components/utils/preloader";
 import "../styles/index.scss";
 import "../styles/prisim-vs-code-dark.scss";
-import { getGlobal,getLoading, getThemes } from "../lib/api";
-import CursorDot from "../components/utils/cursor-dot";
-import CursorCta from "../components/utils/cursor-cta";
-import TransitionPage from "../components/transition/pageTransition";
+import { getLoading, getThemes } from "../lib/api";
 import App from 'next/app'; // Import App from next/app
-import { cursorThemes, themes } from "../utils/theme";
 import { motion } from "../utils/motion";
 
 function MyApp({ Component, pageProps, router, globalData, customThemes }) {

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { motion, cubicBezier } from "../../utils/motion";;
 import { useThemeContext } from "../context/themeContext";
 import { useRouter } from "next/navigation";

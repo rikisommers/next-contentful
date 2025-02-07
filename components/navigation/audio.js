@@ -1,4 +1,4 @@
-import { motion, cubicBezier } from "../../utils/motion";;
+import { motion } from "../../utils/motion";;
 export default function Audio() {
 
   return (
@@ -31,7 +31,7 @@ export default function Audio() {
                   ease: [0.25, 1, 0.5, 1],
                 },
               }}
-              className="btn absolute bottom-0 right-1 bg-teal-400"
+              className="absolute bottom-0 bg-teal-400 btn right-1"
             ></motion.div>
             <motion.div
               initial={{
@@ -61,7 +61,7 @@ export default function Audio() {
                   ease: [0.25, 1, 0.5, 1],
                 },
               }}
-              className="btn absolute bottom-0 right-1"
+              className="absolute bottom-0 btn right-1"
             ></motion.div>
             </div>
 

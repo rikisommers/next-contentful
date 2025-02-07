@@ -4,16 +4,6 @@ import { useRef } from "react";
 
 import ContentfulImage from "../image/contentful-image";
 import Link from "next/link";
-import FadeInWhenVisible from "../utils/fade-in-visible";
-import RollUpWhenVisible from "../utils/roll-up-visible";
-import {
-  motion,
-  useTransform,
-  useMotionValue,
-  cubicBezier,
-  useScroll,
-  useInView,
-} from "../../utils/motion";;
 
 export default function PostTile({ post, index }) {
   // const animateContentOnHover = {

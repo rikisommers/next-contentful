@@ -1,12 +1,10 @@
 import React, { useRef } from "react";
-import { motion, cubicBezier } from "../../utils/motion";;
-import { useRouter } from "next/navigation";
+import { motion } from "../../utils/motion";;
 import { useEffect, useState } from "react";
 import Button, { ButtonType, ButtonSound } from "../base/button";
-import ButtonAlt from "../base/button-alt";
 import { useThemeContext } from "../context/themeContext";
 import Link from "next/link";
-import { DotsSixVertical, PlayCircle } from "@phosphor-icons/react";
+import { DotsSixVertical } from "@phosphor-icons/react";
 
 export default function NavBar({ containerRef, data }) {
   const { currentTheme } = useThemeContext();

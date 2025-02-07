@@ -1,9 +1,6 @@
 import React from "react";
 import { useThemeContext } from "../context/themeContext";
-import AnimatedText, {
-  AnimStyle,
-  AnimTextOrder,
-} from "../motion/animated-text";
+
 import PostIntro from "../../components/post/post-intro"
 export default function BlockHeader({ data  }) {
   const { currentTheme } = useThemeContext();

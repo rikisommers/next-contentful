@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 import AnimatedElement, { AnimStyleEl } from "../motion/animated-element";
 import { useThemeContext } from '../context/themeContext';
 import PostTileCs from "../post/post-tile-cs";

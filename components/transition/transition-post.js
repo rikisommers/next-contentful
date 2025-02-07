@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "../../utils/motion";;
 
 const TransitionPost = ({ children }) => {

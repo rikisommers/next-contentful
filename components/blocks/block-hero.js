@@ -1,16 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "../../utils/motion";;
-import AnimatedText, { AnimTextOrder } from "../motion/animated-text";
 import CanvasGradientBackground from "../background/canvasGradientBackground";
 import { useThemeContext } from "../context/themeContext";
 import BlendImage from "../image/blend-image";
 import { ClipContainer } from "../motion/clippath-container";
-import AnimatedElement, {
-  AnimElOrder,
-  AnimStyleEl,
-} from "../motion/animated-element";
+
 import PostIntro from "../post/post-intro";
-import Button, { ButtonType } from "../base/button";
 
 const getPositionClass = (position) => {
   switch (position) {

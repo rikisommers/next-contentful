@@ -5,10 +5,7 @@ import AnimatedText, {
   AnimStyle,
   AnimTextOrder,
 } from "../motion/animated-text";
-import {
-  documentToReactComponents,
-  RichTextOptions,
-} from "@contentful/rich-text-react-renderer";
+
 import ButtonAlt, { ButtonType } from "../base/button-alt";
 import { motion, useTransform, useScroll } from "../../utils/motion";
 

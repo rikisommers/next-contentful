@@ -1,7 +1,5 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
-import { motion, cubicBezier } from "../../utils/motion";;
+
 import AnimatedText, {
-  AnimStyle,
   AnimTextOrder,
 } from "../motion/animated-text";
 import { useThemeContext } from "../context/themeContext";

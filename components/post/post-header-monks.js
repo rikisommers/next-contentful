@@ -1,4 +1,4 @@
-import { useContext, useState, useRef } from "react";
+import { useContext, useState } from "react";
 import { RouteContext } from "../../components/context/routeContext";
 import { ClipContainer } from "../motion/clippath-container";
 

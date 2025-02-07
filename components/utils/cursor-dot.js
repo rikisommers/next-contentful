@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useRef, useContext} from "react";
+import React, { useState, useRef, useContext} from "react";
 import { motion, cubicBezier } from "../../utils/motion";;
 import { MousePosContext } from "../context/mousePosContext";
 //import { checkTouchDevice } from "./check-toucch-device";

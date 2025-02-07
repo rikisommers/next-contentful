@@ -1,9 +1,8 @@
 "use client";
 
 import React, { useContext } from "react";
-import { motion, AnimatePresence, LayoutGroup } from "../../utils/motion";;
+import { motion, LayoutGroup } from "../../utils/motion";;
 import { RouteContext } from "../context/routeContext";
-import { useTheme } from "next-themes";
 import { useThemeContext } from "../../components/context/themeContext";
 
 const Overlay = ({ currentTheme, children }) => (

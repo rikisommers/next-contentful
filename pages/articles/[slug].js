@@ -1,23 +1,21 @@
 import React from "react";
 import { getAllCaseStudies, getPost, getFooter } from "../../lib/api";
 
-import PostHeaderMonks from "../../components/post/post-header-monks";
 import PostBody from "../../components/post/post-body";
 import BlockFooter from "../../components/blocks/block-footer";
 import PageNav from "../../components/base/page-nav";
 import PagesPasswordPage from "../../components/security/password-page-pages";
-
-import PostDetails from "../../components/post/post-details";
 import ScrollContainer from "../../components/utils/scroll-container";
 import { useThemeContext } from "../../components/context/themeContext";
-import PostHeaderRiki from "../../components/post/post-header-riki";
 import TransitionPage from "../../components/transition/pageTransition";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ClipContainer } from "../../components/motion/clippath-container";
+
 export default function Post({ post, footerData }) {
+  
   const { currentTheme } = useThemeContext();
 
-  console.log("ppppp", post);
+  //console.log("ppppp", post);
 
   const articlesNavList = post.csblocksCollection.items.filter(
     (item) => item.type === "article"

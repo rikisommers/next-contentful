@@ -1,13 +1,10 @@
 "use client";
 
-import React, { useState, useRef, Children } from "react";
+import React, { useState, useRef } from "react";
 import {
     motion,
     useTransform,
-    useMotionValue,
-    cubicBezier,
     useScroll,
-    useInView,
     useMotionValueEvent,
 } from "../../utils/motion";;
 export const ClipPathElement = ({ children, offset}) => {
