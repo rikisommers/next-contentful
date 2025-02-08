@@ -49,11 +49,11 @@ export default function Post({ post, footerData }) {
               </div>
             )} */}
 
-            <div className="max-w-screen-xl mx-auto">
+            
               {post.csblocksCollection && (
                 <PostBody content={post.csblocksCollection} />
               )}
-            </div>
+           
             
           </ClipContainer>
         )}

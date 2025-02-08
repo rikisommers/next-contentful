@@ -1,5 +1,3 @@
-import React from "react";
-
 import { INLINES, BLOCKS, MARKS } from "@contentful/rich-text-types";
 
 export const RichTextOptions = {
@@ -33,7 +31,7 @@ export const RichTextOptions = {
     },
 
     [BLOCKS.PARAGRAPH]: (node, children) => {
-      return <p className="mb-4 indent-12">{children}</p>;
+      return <p className="mb-4">{children}</p>;
     },
 
     // [BLOCKS.EMBEDDED_ASSET]: (node) => {

@@ -3,7 +3,7 @@ import React from "react";
 export default function BlockIntro({ data }) {
   return (
     <div
-      className={`flex flex-col justify-end relative px-32 ${
+      className={`flex flex-col justify-end relative px-8 ${
         data.primaryPageHeader === true ? "h-vhh" : "h-vh33"
       }`}
     >

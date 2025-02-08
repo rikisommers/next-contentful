@@ -123,6 +123,7 @@ export default function ThemeEditor({ customThemes }) {
     root.style.setProperty("--font-scale", theme.data.fontScale || 'fluid');
     root.style.setProperty("--font-ratio-min", theme.data.fluidFontRatioMin || 1.2);
     root.style.setProperty("--font-ratio-max", theme.data.fluidFontRatioMax || 1.25);
+    root.style.setProperty("--body-text-indent", theme.data.bodyTextIndent || "false");
 
     // Additional properties
     root.style.setProperty("--body-background-color", theme.data.bodyBackgroundColor || "#ffffff");
@@ -171,7 +172,7 @@ export default function ThemeEditor({ customThemes }) {
     root.style.setProperty("--card-grid", theme.data.cardGrid || "default");
 
     // Image properties
-    root.style.setProperty("--image-parallax", theme.data.imageParallax || "false");
+    root.style.setProperty("--image-parallax", theme.data.imageParallax || false);
     root.style.setProperty("--image-mix-blend-mode", theme.data.imageMixBlendMode || "normal");
   };
 
@@ -537,7 +538,7 @@ export default function ThemeEditor({ customThemes }) {
       },
       textHighlight: {
         options: Object.values(textHighlightThemes),
-        value: currentTheme.data.textHighlight,
+        value: currentTheme.data.textHighlight || 'figma',
         label: "Text Highlight",
         onChange: (value) => updateThemeProp("textHighlight", value), // Call existing handler
       },
