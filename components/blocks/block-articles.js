@@ -41,7 +41,7 @@ export const BlockArticles = ({ data, tags }) => {
   };
 
   return (
-    <div className="px-8">
+    <div className="px-8 pb-8">
       {data.filter === true && tags && tags.length && (
         <BlockTags
           data={tags}

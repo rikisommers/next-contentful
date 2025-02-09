@@ -7,7 +7,7 @@ import {
 } from "../../utils/motion";
 import { useThemeContext } from "../context/themeContext";
 
-export const ClipContainer = ({ children }) => {
+export const ClipContainer = ({ children, background, scale }) => {
   const heroRef = useRef(null);
   const { currentTheme } = useThemeContext();
 
@@ -51,10 +51,16 @@ export const ClipContainer = ({ children }) => {
       }}
       className={`relative min-w-screen overflow-hidden z-10`}
     >
+
+      {/* <div className="absolute top-0 left-0 w-full h-screen">
+      {background}
+      </div> */}
+
+
       <motion.div
         className="w-full h-full"
         style={{
-          scale: scaleValue, // Updated to use scrollYProgress
+         // scale: scale === false ? 1 : scaleValue
         }}
         transition={{
           duration: 4,
@@ -63,6 +69,8 @@ export const ClipContainer = ({ children }) => {
       >
         {children}
       </motion.div>
+
+
     </motion.div>
   );
 };

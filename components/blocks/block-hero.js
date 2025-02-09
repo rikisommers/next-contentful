@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { motion } from "../../utils/motion";;
+import { motion } from "../../utils/motion";
 import CanvasGradientBackground from "../background/canvasGradientBackground";
 import { useThemeContext } from "../context/themeContext";
 import BlendImage from "../image/blend-image";
 import { ClipContainer } from "../motion/clippath-container";
-
+import { ScaleContainer } from "../motion/scale-container";
 import PostIntro from "../post/post-intro";
 
 const getPositionClass = (position) => {
@@ -88,22 +88,37 @@ const FullPage = () => {
         //   ease: [0.33, 1, 0.68, 1],
         // }}
       >
-        {currentTheme.data.heroBackgroundStyle === "gradient" && (
+        {/* {currentTheme.data.heroBackgroundStyle === "gradient" && (
           <CanvasGradientBackground />
-        )}
-
+        )} */}
       </div>
       <PostIntro title={titlealt} content={contentalt} />
     </div>
   </ClipContainer>;
 };
 
-export default function BlockHero({
-  title,
-  content,
-  tag,
-  image,
-}) {
+const BackgroundGrad = () => {
+  const { currentTheme } = useThemeContext();
+  return (
+    <div className="absolute top-0 left-0 flex items-center justify-end w-full h-full pointer-events-none z-1">
+      {currentTheme.data.heroBackgroundStyle === "gradient" && (
+        <CanvasGradientBackground />
+      )}
+
+      {currentTheme.data.heroBackgroundStyle === "video" && <Background />}
+
+      {currentTheme.data.heroBackgroundStyle === "image" && image && (
+        <BlendImage
+          className="absolute w-full h-full img-cover"
+          alt={`Cover Image for ${image?.title}`}
+          src={image.url}
+        />
+      )}
+    </div>
+  );
+};
+
+export default function BlockHero({ title, content, tag, image}) {
   const { currentTheme } = useThemeContext();
   const [position, setPosition] = useState(null); // Default value
 
@@ -117,36 +132,53 @@ export default function BlockHero({
 
   return (
     // TODO make clip path optional
-    //grid grid-rows-[48px_48px_1fr_1fr_1fr_48px_48px] grid-cols-12
+    // grid grid-rows-[48px_48px_1fr_1fr_1fr_48px_48px] grid-cols-12
     <ClipContainer>
       <div
         className={`${getHeightClass(
           currentTheme.data.heroHeight
-        )} relative flex flex-col justify-end left-0 top-0 z-50  w-full  gap-8 px-16 py-16 `}
+        )} relative flex flex-col justify-end left-0 top-0 z-50 w-full gap-8 px-16 py-16`}
       >
-        <div
-          className="absolute top-0 left-0 flex items-center justify-end w-full h-full pointer-events-none z-1"
-        >
-          {currentTheme.data.heroBackgroundStyle === "gradient" && (
-            <CanvasGradientBackground />
-          )}
-
-          {currentTheme.data.heroBackgroundStyle === "video" && <Background />}
-
-          {currentTheme.data.heroBackgroundStyle === "image" && image && (
-          <BlendImage
-            className="absolute w-full h-full img-cover"
-            alt={`Cover Image for ${image?.title}`}
-            src={image.url}
-          />
-        )}
-        
-        </div>
-
-
-
-        <PostIntro title={title} content={content} tag={tag}/>
+        {/* <h1>NO {clip ? "YES" : "NO"}</h1> */}
+        <BackgroundGrad />
+        <ScaleContainer>
+          <PostIntro title={title} content={content} tag={tag} />
+        </ScaleContainer>
       </div>
     </ClipContainer>
+
+    // <>
+    //   {clip && (
+    //     <ClipContainer>
+    //       <div
+    //         className={`${getHeightClass(
+    //           currentTheme.data.heroHeight
+    //         )} relative flex flex-col justify-end left-0 top-0 z-50 w-full gap-8 px-16 py-16`}
+    //       >
+    //         <BackgroundGrad />
+    //         <h1>YES {clip ? "YES" : "NO"}</h1>
+
+    //         <PostIntro title={title} content={content} tag={tag} />
+    //       </div>
+    //     </ClipContainer>
+    //   )}
+
+    //   {!clip && (
+
+    //     <div
+    //       className={`${getHeightClass(
+    //         currentTheme.data.heroHeight
+    //       )} relative flex flex-col justify-end left-0 top-0 z-50 w-full gap-8 px-16 py-16`}
+    //     >
+    //       <h1>NO {clip ? "YES" : "NO"}</h1>
+    //       <BackgroundGrad />
+    //       <ScaleContainer>
+    //       <PostIntro title={title} content={content} tag={tag} />
+    //       </ScaleContainer>
+
+    //     </div>
+    //   )}
+
+    // </>
   );
 }
