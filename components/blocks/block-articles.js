@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Grid from "../grid/grid";
 import { BlockTags } from "./block-tags";
 // import { useMousePos } from "../mousePosContext"
-
+import { ScaleContainer } from "../motion/scale-container";
 export const BlockArticles = ({ data, tags }) => {
   // const { setVisible, setContent } = useMousePos();
 
@@ -50,7 +50,9 @@ export const BlockArticles = ({ data, tags }) => {
         />
       )}
       <div className="flex flex-col w-full gap-6">
+        <ScaleContainer>
         {posts && <Grid type={data.type} data={filteredPosts} />}
+        </ScaleContainer>
       </div>
     </div>
   );
