@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Button, { ButtonType, ButtonSound } from "../base/button";
 import { useThemeContext } from "../context/themeContext";
 import Link from "next/link";
+import { Smiley, Heart, Horse, Barbell, BookOpenText, Brain, Eyes, Fingerprint, Intersect, Panorama} from "@phosphor-icons/react";
 
 export default function NavBar({ containerRef, data }) {
   const { currentTheme } = useThemeContext();
@@ -18,6 +19,7 @@ export default function NavBar({ containerRef, data }) {
       ? data.map((page) => ({
           id: page.slug,
           title: page.title,
+          icon: page.icon,
           url: `/${page.slug}`, // Ensure the URL is correct
         }))
       : []), // Fallback to an empty array if slugs is not an array or is empty
@@ -86,7 +88,7 @@ export default function NavBar({ containerRef, data }) {
       case "bottomRight":
         return "col-start-3 col-span-1 row-span-1 row-start-5";
       case "leftCenter":
-        return "col-start-1 col-span-1 row-span-1 row-start-3 flex flex-col w-[40px] writing-mode-sideways-rl";
+        return "col-start-1 col-span-1 row-span-1 row-start-3 flex flex-col w-[40px] writing-mode-sideways-rl pr";
       case "rightCenter":
         return "col-start-5 col-span-1 row-span-1 row-start-3 flex flex-col w-[40px] writing-mode-sideways-rl";
       default:
@@ -176,6 +178,34 @@ export default function NavBar({ containerRef, data }) {
   //  ${getShadowSizeClass(currentTheme.data.navShadowSize)}
   // boxShadow: `0 10px 15px -3px ${currentTheme.data.navShadow}, 0 4px 49px -4px ${currentTheme.data.navShadow}`,
 
+    const renderDynamicIcon = (iconName, size = 20) => {
+      
+      if (iconName === 'Brain') {
+        return <Brain size={size} />;
+      }
+      if (iconName === 'Barbell') {
+        return <Barbell size={size} />;
+      }
+      if (iconName === 'BookOpenText') {
+        return <BookOpenText size={size} />;
+      } 
+      if (iconName === 'Eyes') {
+        return <Eyes size={size} />;
+      }
+      if (iconName === 'Fingerprint') {
+        return <Fingerprint size={size} />;
+      }
+      if (iconName === 'Intersect') {
+        return <Intersect size={size} />;
+      }
+      if (iconName === 'Panorama') {
+        return <Panorama size={size} />;
+      }
+      if (iconName === 'Smiley') {
+        return <Smiley size={size} />;
+      }
+    };
+
   return (
     <motion.div
       drag
@@ -196,7 +226,7 @@ export default function NavBar({ containerRef, data }) {
         ${getNavigationPositionClass(currentTheme.data.navPosition)} 
         ${getShadowSizeClass(currentTheme.data.navShadowSize)}
        
-         flex mx-auto pr-2 backdrop-blur-lg pointer-events-auto  z-50 gap-1 rounded-xl`}
+         flex mx-auto backdrop-blur-lg pointer-events-auto  z-50 gap-1 rounded-xl`}
     >
       {/* {currentTheme.data.navFloating && (
         <div
@@ -254,7 +284,19 @@ export default function NavBar({ containerRef, data }) {
                   : "horizontal-tb",
             }}
           >
+            {currentTheme.data.navLabelDisplay === "text" && 
+            page.title
+            }
+          {currentTheme.data.navLabelDisplay === "icons" && 
+          renderDynamicIcon(page.icon, 20)
+          }
+          {currentTheme.data.navLabelDisplay === "textAndIcons" && 
+            <>
             {page.title}
+            {page.icon}
+            {renderDynamicIcon(page.icon, 20)}
+            </>
+          }
           </motion.div>
         </Link>
       ))}

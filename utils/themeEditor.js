@@ -156,7 +156,7 @@ export default function ThemeEditor({ customThemes }) {
     root.style.setProperty("--nav-shadow", theme.data.navShadow || "none");
     root.style.setProperty("--nav-shadow-color", theme.data.navShadowColor || "#000000");
     root.style.setProperty("--nav-shadow-size", theme.data.navShadowSize || "0px");
-
+    root.style.setProperty("--nav-label-display", theme.data.navLabelDisplay || "text");
     // Hero properties
     root.style.setProperty("--hero-height", theme.data.heroHeight || heroHeightThemes.full);
     root.style.setProperty("--hero-type", theme.data.heroType || heroTypeThemes.monks);
@@ -578,6 +578,12 @@ export default function ThemeEditor({ customThemes }) {
         value: currentTheme.data.navStyle,
         label: "Style",
         onChange: (value) => updateThemeProp("navStyle", value),
+      },
+      labelDisplay: {
+        options: Object.keys(navigationOptions?.labelDisplay),
+        value: currentTheme.data.navLabelDisplay,
+        label: "Label Display",
+        onChange: (value) => updateThemeProp("navLabelDisplay", value),
       },
       floating: {
         value: currentTheme.data.navFloating,

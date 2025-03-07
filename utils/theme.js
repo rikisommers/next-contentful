@@ -1173,6 +1173,11 @@ export const navigationOptions = {
     sm:'sm',
     md:'md',
     lg:'lg',
+  },
+  labelDisplay:{
+    text:'text',
+    icons:'icons',
+    textAndIcons:'textAndIcons',
   }
 }
 
@@ -1301,6 +1306,7 @@ const themeContent = {
   navFloating: navigationOptions.floating,
   navFixed: navigationOptions.fixed,
   navBorder: navigationOptions.bordered,
+  navLabelDisplay:navigationOptions.labelDisplay.text,
   navShadow: false,
   navShadowColor: navigationOptions.shadowColor.default,
   navShadowSize:navigationOptions.shadowSize.sm,
