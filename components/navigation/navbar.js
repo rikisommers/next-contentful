@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { motion } from "../../utils/motion";;
+import { motion } from "../../utils/motion";
 import { useEffect, useState } from "react";
 import Button, { ButtonType, ButtonSound } from "../base/button";
 import { useThemeContext } from "../context/themeContext";
@@ -13,17 +13,20 @@ export default function NavBar({ containerRef, data }) {
   const [isActive, setIsActive] = useState(false);
   const [offset, setOffset] = useState(0);
 
-
   const pages = [
-    ...Array.isArray(data) && data.length > 0 ? data.map(page => ({
-      id: page.slug,
-      title: page.title,
-      url: `/${page.slug}` // Ensure the URL is correct
-    })) : [] // Fallback to an empty array if slugs is not an array or is empty
+    ...(Array.isArray(data) && data.length > 0
+      ? data.map((page) => ({
+          id: page.slug,
+          title: page.title,
+          url: `/${page.slug}`, // Ensure the URL is correct
+        }))
+      : []), // Fallback to an empty array if slugs is not an array or is empty
   ];
 
   // Check if pages is not empty before accessing pages[0].id
-  const [activePage, setActivePage] = useState(pages.length > 0 ? pages[0].id : null); // Set to null or a default value
+  const [activePage, setActivePage] = useState(
+    pages.length > 0 ? pages[0].id : null
+  ); // Set to null or a default value
 
   const [edges, setEdges] = useState({
     left: false,
@@ -71,15 +74,23 @@ export default function NavBar({ containerRef, data }) {
   const getNavigationPositionClass = (navigationPosition) => {
     switch (navigationPosition) {
       case "topLeft":
-        return "(col-start-1 col-span-1 row-span-1 row-start-1)";
+        return "(col-start-2 col-span-1 row-span-1 row-start-1)";
       case "topCenter":
-        return "col-start-2 col-span-1 row-span-1 row-start-1";
-      case "topRight":
         return "col-start-3 col-span-1 row-span-1 row-start-1";
+      case "topRight":
+        return "col-start-4 col-span-1 row-span-1 row-start-1";
+      case "bottomLeft":
+        return "col-start-1 col-span-1 row-span-1 row-start-5";
       case "bottomCenter":
-        return "fixed bottom-6 mx-auto";
+        return "col-start-2 col-span-1 row-span-1 row-start-5";
+      case "bottomRight":
+        return "col-start-3 col-span-1 row-span-1 row-start-5";
+      case "leftCenter":
+        return "col-start-1 col-span-1 row-span-1 row-start-3 flex flex-col w-[40px] writing-mode-sideways-rl";
+      case "rightCenter":
+        return "col-start-5 col-span-1 row-span-1 row-start-3 flex flex-col w-[40px] writing-mode-sideways-rl";
       default:
-        return ""; // Return an empty string if no match
+        return "col-start-2 col-span-1 row-span-1 row-start-1";
     }
   };
 
@@ -144,12 +155,15 @@ export default function NavBar({ containerRef, data }) {
   // }, [menuRef, menuDragRef]); // Include both refs in the dependency array to handle re-renders correctly
 
   useEffect(() => {
-    if (menuRef.current && menuDragRef.current && currentTheme.data.navFloating) {
+    if (
+      menuRef.current &&
+      menuDragRef.current &&
+      currentTheme.data.navFloating
+    ) {
       const navRect = menuRef.current.getBoundingClientRect();
       const navSize = navRect.width;
       const threshold = navSize / 2; // Use half of the nav width as threshold
 
-      
       // Update orientation based on drag position
       setOrientation(
         navRect.left <= threshold ||
@@ -171,27 +185,26 @@ export default function NavBar({ containerRef, data }) {
       dragSnapToOrigin={false}
       style={{
         backgroundColor: `${
-          currentTheme.data.navStyle === "solid" ? currentTheme.data.navBg : "transparent"
+          currentTheme.data.navStyle === "solid"
+            ? currentTheme.data.navBg
+            : "transparent"
         }`,
         // boxShadow: `0 10px 15px -3px ${currentTheme.data.navShadow}, 0 4px 49px -4px ${currentTheme.data.navShadow}`,
       }}
-       //add orientation if floating  ${orientation} 
+      //add orientation if floating  ${orientation}
       className={`
         ${getNavigationPositionClass(currentTheme.data.navPosition)} 
         ${getShadowSizeClass(currentTheme.data.navShadowSize)}
        
          flex mx-auto pr-2 backdrop-blur-lg pointer-events-auto  z-50 gap-1 rounded-xl`}
     >
-      {currentTheme.data.navFloating && (
+      {/* {currentTheme.data.navFloating && (
         <div
           ref={menuDragRef}
           className="flex items-center w-2 h-2 px-2 text-lg text-white bg-white"
           style={{ color: "var(--text-accent)" }}
-
-        >
-          
-        </div>
-      )}
+        ></div>
+      )} */}
       {/* <p>{currentTheme.data.navigationOptions?.floating === true ? 'true' : 'false'}</p>
       <p>{currentTheme.data.navigationOptions?.shadow === true ? 'true' : 'false'}</p> */}
       {pages.map((page) => (
@@ -201,7 +214,12 @@ export default function NavBar({ containerRef, data }) {
           scroll={false}
           onClick={() => setActivePage(page.id)}
           className="relative flex items-center text-sm no-underline uppercase rounded-lg"
-          style={{ color: activePage === page.id ? "var(--text-color-inv)" : "var(--text-color)" }}
+          style={{
+            color:
+              activePage === page.id
+                ? "var(--text-color-inv)"
+                : "var(--text-color)",
+          }}
         >
           {activePage === page.id && (
             <motion.div
@@ -221,25 +239,45 @@ export default function NavBar({ containerRef, data }) {
           {/* <span className="relative flex items-center px-3 py-3 text-xs uppercase rounded-lg cursor-pointer">
           
             </span> */}
-              {/* <Button
+          {/* <Button
             label={page.title}
             sound={ButtonSound.CLICK}
             type={ButtonType.TRANSPARENT}
             ></Button> */}
-            <motion.div
+          <motion.div
             className="relative flex items-center px-3 py-3 text-xs uppercase rounded-lg cursor-pointer"
-            
-            >
+            style={{
+              writingMode:
+                currentTheme.data.navPosition === "leftCenter" ||
+                currentTheme.data.navPosition === "rightCenter"
+                  ? "vertical-rl"
+                  : "horizontal-tb",
+            }}
+          >
             {page.title}
           </motion.div>
-
         </Link>
       ))}
-      <Button
+
+      <motion.div
+        className="relative flex items-center px-3 py-3 text-xs uppercase rounded-lg cursor-pointer"
+        style={{
+          color: "var(--text-color)",
+          writingMode:
+            currentTheme.data.navPosition === "leftCenter" ||
+            currentTheme.data.navPosition === "rightCenter"
+              ? "vertical-rl"
+              : "horizontal-tb",
+        }}
+      >
+        Contact
+      </motion.div>
+      {/* <Button
+
         label={"Contact"}
         sound={ButtonSound.ON}
         type={ButtonType.TRANSPARENT}
-      ></Button>
+      ></Button> */}
     </motion.div>
   );
 }

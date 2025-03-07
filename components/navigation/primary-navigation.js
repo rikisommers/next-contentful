@@ -48,7 +48,7 @@ export default function Navigation({data, logo}) {
     <>
       <div
         ref={containerRef}
-        className={`${currentTheme.data.navFixed ? "fixed" : "absolute"} ${
+        className={`${currentTheme.data.navFixed ? "fixed h-dvh grid grid-cols-[40px_1fr_1fr_1fr_40px] grid-rows-[40px_1fr_1fr_1fr_40px]" : "absolute"} ${
           currentTheme.data.navBorder
             ? "border-solid border-b-[1px] border-t-0 border-l-0 border-r-0"
             : "border-none"
@@ -58,16 +58,16 @@ export default function Navigation({data, logo}) {
           borderColor: "var(--nav-shadow-color)",
         }}
       >
-        <div className="z-50 flex col-span-1 col-start-1 row-span-1 row-start-1"
+        {/* <div className="z-50 flex col-span-1 col-start-1 row-span-1 row-start-1"
              onClick={toggleThemeEditor}>
           <Logo logo={logo} />
-        </div>
+        </div> */}
 
         <NavBar containerRef={containerRef} data={data} />
 
-       <motion.div className="absolute z-50 flex items-center gap-1 p-1 bg-red-400 rounded-lg top-4 right-4">
+       {/* <motion.div className="absolute z-50 flex items-center gap-1 p-1 bg-red-400 rounded-lg top-4 right-4">
             <img className="w-[30px] h-[30px]" src="./icons/change.svg" title="theme"/>
-        </motion.div> 
+        </motion.div>  */}
         
       </div>
 

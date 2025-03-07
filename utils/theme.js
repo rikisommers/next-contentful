@@ -1180,7 +1180,11 @@ export const navigationPositionThemes = {
   topLeft: 'top-left',
   topCenter: 'top-center',
   topRight: 'top-right',
+  bottomLeft: 'bottom-left',
   bottomCenter: 'bottom-center',
+  bottomRight: 'bottom-right',
+  leftCenter: 'left-center',
+  rightCenter: 'right-center',
 };
 
 export const footerOptions = {
