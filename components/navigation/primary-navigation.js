@@ -1,12 +1,23 @@
 "use client";
+import dynamic from 'next/dynamic';
+import { Sliders } from "@phosphor-icons/react";
 
 import React, { useRef } from "react";
 import { motion} from "../../utils/motion";;
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 //import { useScrollPosition } from "../scrollPosContext";
-
 import ThemeEditor from "../../utils/themeEditor";
+const TweakpaneComponent = dynamic(
+  () => import('../../utils/tweakpane'),
+  { 
+    ssr: false,
+    loading: () => <p>Loading controls...</p>
+  }
+);
+
+// import ThemeEditor from "../../utils/themeEditor";
+
 import Modal, {
   ModalDirection,
   ModalWidth,
@@ -16,7 +27,7 @@ import { useThemeContext } from "../context/themeContext";
 import NavBar from "./navbar";
 import Logo from "./logo";
 
-export default function Navigation({data, logo}) {
+export default function Navigation({data, logo, customThemes}) {
   const router = useRouter();
   const containerRef = useRef(null);
 
@@ -44,8 +55,20 @@ export default function Navigation({data, logo}) {
     setIsModalOpen((prev) => !prev);
   };
 
+  const toggleThemeEditor2 = () => {
+    console.log("sdd");
+    setIsThemeDialogOpen((prev) => !prev);
+  };
+
   return (
     <>
+            <motion.div
+        onClick={toggleThemeEditor2}
+        className="fixed flex items-center gap-1 p-1 px-3 py-3 text-xs uppercase bg-red-400 rounded-lg cursor-pointer top-4 right-4"
+        style={{zIndex: 9999}}
+      >
+       <Sliders size={20}/>
+      </motion.div>
       <div
         ref={containerRef}
         className={`${currentTheme.data.navFixed ? "fixed h-dvh grid grid-cols-[40px_1fr_1fr_1fr_40px] grid-rows-[40px_1fr_1fr_1fr_40px]" : "absolute"} ${
@@ -58,17 +81,18 @@ export default function Navigation({data, logo}) {
           borderColor: "var(--nav-shadow-color)",
         }}
       >
-        {/* <div className="z-50 flex col-span-1 col-start-1 row-span-1 row-start-1"
+        <div className="z-50 flex col-span-1 col-start-1 row-span-1 row-start-1"
              onClick={toggleThemeEditor}>
           <Logo logo={logo} />
-        </div> */}
+        </div>
 
         <NavBar containerRef={containerRef} data={data} />
-
-       {/* <motion.div className="absolute z-50 flex items-center gap-1 p-1 bg-red-400 rounded-lg top-4 right-4">
+{/* 
+       <motion.div className="absolute z-50 flex items-center gap-1 p-1 bg-red-400 rounded-lg top-4 right-4">
             <img className="w-[30px] h-[30px]" src="./icons/change.svg" title="theme"/>
         </motion.div>  */}
-        
+
+
       </div>
 
       {/* Modal for "Available for work" */}
@@ -80,16 +104,18 @@ export default function Navigation({data, logo}) {
         position={ModalPosition.BOTTOM_RIGHT}
       >
         <div
-          className="p-8 h-vh66"
-          style={{ backgroundColor: "var(--accent-pri)" }}
+          className="h-svh "
         >
-          <h2>Hello, I'm available for work!</h2>
+              <TweakpaneComponent customThemes={customThemes}/>
+
+          </div>
+          {/* <h2>Hello, I'm available for work!</h2>
           <p>
             This is some sample content for the modal. You can customize this as
             needed.
           </p>
           <button onClick={() => setIsModalOpen(false)}>Close</button>
-        </div>
+        </div> */}
       </Modal>
 
       {/* Modal for ThemeEditor */}
@@ -101,9 +127,9 @@ export default function Navigation({data, logo}) {
         position={ModalPosition.BOTTOM_RIGHT}
         bodyClass="theme-dialog-open"
       >
-        <div className="w-full h-screen p-8 overflow-y-auto">
-          <h2>Theme Editor</h2>
-          <ThemeEditor />
+        <div className="w-full h-screen overflow-y-auto">
+          {/* <ThemeEditor  customThemes={customThemes}/> */}
+          {/* <TweakpaneComponent/> */}
           <button onClick={toggleThemeEditor}>Close</button>
         </div>
       </Modal>

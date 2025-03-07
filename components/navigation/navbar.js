@@ -88,9 +88,9 @@ export default function NavBar({ containerRef, data }) {
       case "bottomRight":
         return "col-start-3 col-span-1 row-span-1 row-start-5";
       case "leftCenter":
-        return "col-start-1 col-span-1 row-span-1 row-start-3 flex flex-col w-[40px] writing-mode-sideways-rl pr";
+        return "col-start-1 col-span-1 row-span-1 row-start-3 flex flex-col w-[40px] writing-mode-sideways-rl ml-4";
       case "rightCenter":
-        return "col-start-5 col-span-1 row-span-1 row-start-3 flex flex-col w-[40px] writing-mode-sideways-rl";
+        return "col-start-5 col-span-1 row-span-1 row-start-3 flex flex-col w-[40px] writing-mode-sideways-rl mr-4";
       default:
         return "col-start-2 col-span-1 row-span-1 row-start-1";
     }

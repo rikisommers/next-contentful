@@ -3,6 +3,15 @@ import { themes } from "../../utils/theme";
 import ThemeEditor from '../../utils/themeEditor'; 
 const ThemeContext = createContext(null);
 
+// import dynamic from 'next/dynamic';
+// const TweakpaneComponent = dynamic(
+//   () => import('../../utils/tweakpane'),
+//   { 
+//     ssr: false,
+//     loading: () => <p>Loading controls...</p>
+//   }
+// );
+
 export const ThemeProvider = ({ children, theme, customThemes }) => {
 
   //console.log('theme from cms',theme, customThemes) 

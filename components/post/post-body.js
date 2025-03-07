@@ -13,7 +13,7 @@ import BlockHeader from "../blocks/block-header";
 import BlockHero from "../blocks/block-hero";
 import BlockIntro from "../blocks/block-intro";
 import AnimatedElement, { AnimStyleEl } from "../motion/animated-element";
-
+import { useThemeContext } from "../context/themeContext";
 const customMarkdownOptions = (content) => ({
   renderNode: {
     [BLOCKS.EMBEDDED_ASSET]: (node) => (
@@ -26,8 +26,13 @@ const customMarkdownOptions = (content) => ({
 });
 
 export default function PostBody({ content, tags }) {
+  const { currentTheme } = useThemeContext();
+  console.log('currentTheme',currentTheme)
   return (
-    <div className="flex flex-col w-full gap-16">
+    <div className={`flex flex-col w-full gap-16
+       ${currentTheme.data.navPosition === 'leftCenter' ? 'pl-16' : ''}
+       ${currentTheme.data.navPosition === 'rightCenter' ? 'pr-16' : ''}
+    `}>
       {/* max-w-6xl gap-32 mx-auto */}
       {content.items &&
         content.items.map((item, index) => {

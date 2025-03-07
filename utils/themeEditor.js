@@ -62,6 +62,10 @@ const getBestTheme = (weightType, sliderValue) => {
 };
 
 export default function ThemeEditor({ customThemes }) {
+
+
+
+  
   const { currentTheme, updateTheme } = useThemeContext();
   const [themeName, setThemeName] = useState("");
   const [isSaveModalOpen, setIsSaveModalOpen] = useState(false);
@@ -156,7 +160,7 @@ export default function ThemeEditor({ customThemes }) {
     root.style.setProperty("--nav-shadow", theme.data.navShadow || "none");
     root.style.setProperty("--nav-shadow-color", theme.data.navShadowColor || "#000000");
     root.style.setProperty("--nav-shadow-size", theme.data.navShadowSize || "0px");
-    root.style.setProperty("--nav-label-display", theme.data.navLabelDisplay || "text");
+    root.style.setProperty("--nav-label-display", theme.data.navLabelDisplay || "icons");
     // Hero properties
     root.style.setProperty("--hero-height", theme.data.heroHeight || heroHeightThemes.full);
     root.style.setProperty("--hero-type", theme.data.heroType || heroTypeThemes.monks);
@@ -569,7 +573,7 @@ export default function ThemeEditor({ customThemes }) {
     Navigation: folder({
       navigationPosition: {
         options: Object.keys(navigationPositionThemes),
-        value: currentTheme.data.navPosition,
+        value: currentTheme?.data?.navPosition || "topCenter",
         label: "Position",
         onChange: (value) => updateThemeProp("navPosition", value),
       },
@@ -581,7 +585,7 @@ export default function ThemeEditor({ customThemes }) {
       },
       labelDisplay: {
         options: Object.keys(navigationOptions?.labelDisplay),
-        value: currentTheme.data.navLabelDisplay,
+        value: currentTheme?.data?.navLabelDisplay || "icons",
         label: "Label Display",
         onChange: (value) => updateThemeProp("navLabelDisplay", value),
       },

@@ -1302,7 +1302,7 @@ const themeContent = {
   heroTextImage:heroTextImageThemes.none,
   navPosition:navigationPositionThemes.topCenter,
   navStyle:navigationStyleThemes.solid,
-  navTextStyle:navigationTextStyleThemes.text,
+  navTextStyle:navigationTextStyleThemes.icons,
   navFloating: navigationOptions.floating,
   navFixed: navigationOptions.fixed,
   navBorder: navigationOptions.bordered,

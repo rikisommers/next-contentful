@@ -51,7 +51,7 @@ function MyApp({ Component, pageProps, router, globalData, customThemes }) {
                 <ToastProvider>
                   <ThemeProvider theme={globalData?.currentTheme} customThemes={customThemes}>
                     {globalData.menuCollection &&
-                    <Navigation data={globalData.menuCollection.items} logo={globalData.logo}/>
+                    <Navigation data={globalData.menuCollection.items} logo={globalData.logo} customThemes={customThemes}/>
                     }
                     <AnimatePresence mode="wait" initial={false}>
                       <Component {...pageProps} key={router.asPath} />
