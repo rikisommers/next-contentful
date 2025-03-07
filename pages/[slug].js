@@ -9,7 +9,7 @@ const HomePage = ({ data, footerData, tags }) => {
 
   console.log('tagsa',tags)
   return (
-    <Layout pageWidth={LayoutType.FLUID}>
+    <Layout>
       <ScrollContainer>
         <LandingPage data={data} footerData={footerData} tags={tags} />
       </ScrollContainer>

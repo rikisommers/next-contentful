@@ -25,14 +25,34 @@ const customMarkdownOptions = (content) => ({
   },
 });
 
+
+
 export default function PostBody({ content, tags }) {
   const { currentTheme } = useThemeContext();
+  const pageWidth = currentTheme.data.pageWidth;
+  const LayoutType = {
+    FLUID: "fluid",
+    LARGE: "large",
+    SMALL: "small",
+    DEFAULT: "default", // You can define a default option if needed
+  };
   console.log('currentTheme',currentTheme)
   return (
     <div className={`flex flex-col w-full gap-16
        ${currentTheme.data.navPosition === 'leftCenter' ? 'pl-16' : ''}
        ${currentTheme.data.navPosition === 'rightCenter' ? 'pr-16' : ''}
+       ${
+        pageWidth === LayoutType.FLUID
+          ? "max-w-none mx-auto"
+          : pageWidth === LayoutType.LARGE
+          ? "max-w-screen-xl mx-auto"
+          : pageWidth === LayoutType.SMALL
+          ? "max-w-screen-md mx-auto"
+          : "max-w-screen-lg mx-auto" // Default case
+      }
     `}>
+       
+
       {/* max-w-6xl gap-32 mx-auto */}
       {content.items &&
         content.items.map((item, index) => {
@@ -51,7 +71,8 @@ export default function PostBody({ content, tags }) {
                 </>
               )}
               {item.__typename === "BlockHeader" && (
-                <div className="max-w-screen-xl mx-auto">
+                <div className="">
+                
                   <BlockHeader
                     key={item.id}
                     data={item}

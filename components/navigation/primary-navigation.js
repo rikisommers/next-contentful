@@ -64,8 +64,12 @@ export default function Navigation({data, logo, customThemes}) {
     <>
             <motion.div
         onClick={toggleThemeEditor2}
-        className="fixed flex items-center gap-1 p-1 px-3 py-3 text-xs uppercase bg-red-400 rounded-lg cursor-pointer top-4 right-4"
-        style={{zIndex: 9999}}
+        className="fixed flex items-center gap-1 p-1 px-2 py-2 text-xs uppercase rounded-lg cursor-pointer top-4 right-4"
+        style={{
+          zIndex: 9999,
+          backgroundColor:'var(--body-background-color)',
+          color:'var(--accent-pri)',
+        }}
       >
        <Sliders size={20}/>
       </motion.div>
