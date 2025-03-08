@@ -173,7 +173,7 @@ export default function ThemeEditor({ customThemes }) {
     // Card properties
     root.style.setProperty("--card-layout", theme.data.cardLayout || "default");
     root.style.setProperty("--card-hover", theme.data.cardHover || "none");
-    root.style.setProperty("--card-grid", theme.data.cardGrid || "default");
+    root.style.setProperty("--card-grid", theme.data.cardGrid || "bento1");
 
     // Image properties
     root.style.setProperty("--image-parallax", theme.data.imageParallax || false);
@@ -694,7 +694,7 @@ export default function ThemeEditor({ customThemes }) {
       },
       grid: {
         options: Object.keys(gridThemes),
-        value: currentTheme.data.cardGrid || "bento1",
+        value: currentTheme?.data?.cardGrid || "bento1",
         label: "grid",
         onChange: (value) => updateThemeProp("cardGrid", value),
       },

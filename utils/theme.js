@@ -1026,8 +1026,6 @@ const colorThemes = {
 // Text Animation themes
 export const gridThemes = {
   bento1: "bento1",
-  bento2: "bento2",
-  grid: "grid",
   list: "list",
 };
 

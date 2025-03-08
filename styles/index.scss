@@ -20,6 +20,29 @@
 @import 'material-icons/iconfont/material-icons.css';
 
 
+//@tailwind base;
+//@tailwind components;
+//@tailwind utilities;
+@import "tailwindcss";
+@theme {
+  --color-mint-500: oklch(0.72 0.11 178);
+  --height-vhr: calc(100vh - 150px);
+  --height-vhh: 64vh;
+  --height-vh33: 33vh;
+  --height-vh44: 44vh;
+  --height-vh55: 55vh;
+  --height-vh66: 66vh;
+  --height-header: 20rem;
+  --height-footer: 20rem;
+  --text-5xl: 2.5rem;
+  --text-6xl: 2.75rem;
+  --text-7xl: 4.5rem;
+  --text-8xl: 6.25rem;
+  --text-fluid: clamp(1.25rem, 3.783vw + 0.271rem, 5rem);
+  --text-jumbo: 4vw;
+}
+
+
 .popover-trigger{
   anchor-name: --anchor_1;
 }
@@ -87,9 +110,6 @@ opacity:1;
   
 }
 
-//@tailwind base;
-//@tailwind components;
-@tailwind utilities;
 
 
 input{

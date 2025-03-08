@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Grid from "../grid/grid";
 import { BlockTags } from "./block-tags";
 // import { useMousePos } from "../mousePosContext"
+import { useThemeContext } from "../context/themeContext";
 import { ScaleContainer } from "../motion/scale-container";
 export const BlockArticles = ({ data, tags }) => {
   // const { setVisible, setContent } = useMousePos();
@@ -17,6 +18,8 @@ export const BlockArticles = ({ data, tags }) => {
   //   setContent(''); // Set content based on the article index or any other logic
 
   // };
+
+  const { currentTheme } = useThemeContext();
 
   const posts = data.articlesCollection?.items;
 
@@ -49,9 +52,9 @@ export const BlockArticles = ({ data, tags }) => {
           handleTagClick={handleTagClick}
         />
       )}
-      <div className="flex flex-col w-full gap-6">
+      <div className="flex flex-col w-full gap-6 @container/grid">
         <ScaleContainer>
-        {posts && <Grid type={data.type} data={filteredPosts} />}
+        {posts && <Grid type={currentTheme.data.cardGrid} data={filteredPosts} />}
         </ScaleContainer>
       </div>
     </div>

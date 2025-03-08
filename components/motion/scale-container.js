@@ -27,7 +27,7 @@ export const ScaleContainer = ({ children }) => {
   return (
     <motion.div
       ref={containerRef}
-      className={`relative min-w-screen z-10`}
+      className={`relative  z-10`}
     >
 
       <motion.div

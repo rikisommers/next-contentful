@@ -58,7 +58,7 @@ export const ClipContainer = ({ children, background, scale }) => {
 
 
       <motion.div
-        className="w-full h-full"
+        className="flex flex-col w-full h-full"
         style={{
          // scale: scale === false ? 1 : scaleValue
         }}

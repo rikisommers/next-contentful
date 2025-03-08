@@ -14,6 +14,8 @@ import BlockHero from "../blocks/block-hero";
 import BlockIntro from "../blocks/block-intro";
 import AnimatedElement, { AnimStyleEl } from "../motion/animated-element";
 import { useThemeContext } from "../context/themeContext";
+import { pageWidthThemes } from "../../utils/theme";
+
 const customMarkdownOptions = (content) => ({
   renderNode: {
     [BLOCKS.EMBEDDED_ASSET]: (node) => (
@@ -27,31 +29,33 @@ const customMarkdownOptions = (content) => ({
 
 
 
+
 export default function PostBody({ content, tags }) {
   const { currentTheme } = useThemeContext();
   const pageWidth = currentTheme.data.pageWidth;
-  const LayoutType = {
-    FLUID: "fluid",
-    LARGE: "large",
-    SMALL: "small",
-    DEFAULT: "default", // You can define a default option if needed
-  };
+
   console.log('currentTheme',currentTheme)
   return (
-    <div className={`flex flex-col w-full gap-16
+    <div className={`flex flex-col gap-16 self-center
        ${currentTheme.data.navPosition === 'leftCenter' ? 'pl-16' : ''}
        ${currentTheme.data.navPosition === 'rightCenter' ? 'pr-16' : ''}
-       ${
-        pageWidth === LayoutType.FLUID
-          ? "max-w-none mx-auto"
-          : pageWidth === LayoutType.LARGE
-          ? "max-w-screen-xl mx-auto"
-          : pageWidth === LayoutType.SMALL
-          ? "max-w-screen-md mx-auto"
-          : "max-w-screen-lg mx-auto" // Default case
-      }
+       ${(() => {
+         // For Tailwind v4, max-width classes have changed
+         const widthClasses = {
+           'fluid': "w-full ", // No max width constraint
+           'large': "max-w-[1280px]", // Equivalent to previous max-w-screen-xl
+           'small': "max-w-[768px]", // Equivalent to previous max-w-screen-md
+           'medium': "max-w-[1024px]" // Equivalent to previous max-w-screen-lg
+         };
+         
+         // Get the width value, defaulting to 'medium'
+         const width = currentTheme.data.pageWidth || 'medium';
+         
+         // Return the matching class or default
+         return widthClasses[width] || "max-w-[1024px] mx-auto";
+       })()}
+    
     `}>
-       
 
       {/* max-w-6xl gap-32 mx-auto */}
       {content.items &&
