@@ -152,8 +152,8 @@ export default function ThemeEditor({ customThemes }) {
     root.style.setProperty("--audio-volume", theme.data.audioVolume || 1);
 
     // Navigation properties
-    root.style.setProperty("--nav-position", theme.data.navPosition || "static");
-    root.style.setProperty("--nav-style", theme.data.navStyle || "default");
+    root.style.setProperty("--nav-position", theme.data.navPosition || "topCenter");
+    root.style.setProperty("--nav-style", theme.data.navStyle || "solid");
     root.style.setProperty("--nav-floating", theme.data.navFloating || "false");
     root.style.setProperty("--nav-fixed", theme.data.navFixed || "false");
     root.style.setProperty("--nav-border", theme.data.navBorder || "none");

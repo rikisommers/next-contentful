@@ -76,17 +76,17 @@ export default function NavBar({ containerRef, data }) {
   const getNavigationPositionClass = (navigationPosition) => {
     switch (navigationPosition) {
       case "topLeft":
-        return "(col-start-2 col-span-1 row-span-1 row-start-1)";
+        return "(col-start-2 col-span-1 row-span-1 row-start-1) w-fit";
       case "topCenter":
-        return "col-start-3 col-span-1 row-span-1 row-start-1";
+        return "col-start-3 col-span-1 row-span-1 row-start-1 w-fit mx-auto";
       case "topRight":
-        return "col-start-4 col-span-1 row-span-1 row-start-1";
+        return "col-start-4 col-span-1 row-span-1 row-start-1 w-fit";
       case "bottomLeft":
-        return "col-start-1 col-span-1 row-span-1 row-start-5";
+        return "col-start-1 col-span-1 row-span-1 row-start-5 w-fit";
       case "bottomCenter":
-        return "col-start-2 col-span-1 row-span-1 row-start-5";
+        return "col-start-2 col-span-1 row-span-1 row-start-5 w-fit mx-auto";
       case "bottomRight":
-        return "col-start-3 col-span-1 row-span-1 row-start-5";
+        return "col-start-3 col-span-1 row-span-1 row-start-5 w-fit";
       case "leftCenter":
         return "col-start-1 col-span-1 row-span-1 row-start-3 flex flex-col w-[40px] writing-mode-sideways-rl ml-4";
       case "rightCenter":
@@ -226,7 +226,7 @@ export default function NavBar({ containerRef, data }) {
         ${getNavigationPositionClass(currentTheme.data.navPosition)} 
         ${getShadowSizeClass(currentTheme.data.navShadowSize)}
        
-         flex mx-auto backdrop-blur-lg pointer-events-auto  z-50 gap-1 rounded-xl`}
+         flex self-center backdrop-blur-lg pointer-events-auto  z-50 gap-1 rounded-xl`}
     >
       {/* {currentTheme.data.navFloating && (
         <div
@@ -291,11 +291,10 @@ export default function NavBar({ containerRef, data }) {
           renderDynamicIcon(page.icon, 20)
           }
           {currentTheme.data.navLabelDisplay === "textAndIcons" && 
-            <>
-            {page.title}
-            {page.icon}
+            <div className="flex items-center gap-2">
             {renderDynamicIcon(page.icon, 20)}
-            </>
+            {page.title}
+            </div>
           }
           </motion.div>
         </Link>

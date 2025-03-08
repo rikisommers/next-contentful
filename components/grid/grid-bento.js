@@ -26,7 +26,7 @@ const GridGroup = ({ items, templateSize, startIndex }) => {
         <div className={`grid-template-${templateSize}`}>
           {groupItems.map((item, i) => (
             <div key={startIndex + i} className={`my--${i + 1}`}>
-              <AnimatedElement type={AnimStyleEl.FADEIN}>
+              <AnimatedElement type={AnimStyleEl.FADEIN} delay={i * 0.1}>
                 {currentTheme.data.cardLayout === 'formal' && <PostTileCs post={item} />}
                 {currentTheme.data.cardLayout === 'funky' && <PostTileLg post={item} />}
                 {currentTheme.data.cardLayout === 'reone' && <PostTileRe post={item} />}

@@ -54,6 +54,7 @@ const ElementAnimFadeIn = ({ delay, offset, children }) => {
                 duration: 1.2,
             }}
         >
+            <h1 className="absolute top-0 left-0 z-50 text-red-400">{delay}</h1>
             {children}
         </motion.div>
     );
