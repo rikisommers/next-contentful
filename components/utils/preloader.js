@@ -4,7 +4,12 @@ import React from "react";
 
 const Preloader = ({ show, data, logo}) => {
   return (
-    <div className={`${show ? 'show' : 'hide'} fixed left-0 flex items-center justify-center w-full h-full bg-gray-700 test top-0`}>
+    <div className={`${show ? 'translate-y-0' : '-translate-y-full'} fixed flex items-center justify-center w-full h-full fixed top-0 left-0 z-[9999] pointer-events-none w-full h-full 
+        transition-all duration-600 ease-in-out top-0`}
+        style={{
+          backgroundColor: 'var(--body-background-color)',
+        }} 
+        >
 {/*      
         <h1 className="text-white">{data}</h1> */}
         {logo &&

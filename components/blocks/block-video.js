@@ -31,9 +31,9 @@ export const BlockVideo = (data) => {
 
   return (
     <RollUpWhenVisible>
-      
+
     <motion.div ref={ref} 
-    className="flex flex-col content-end overflow-hidden align-bottom rounded-lg c-video"  
+    className="flex flex-col content-end overflow-hidden align-bottom rounded-lg w-full bg-gray-500 relative grid aspect-[16/9] overflow-hidden flex justify-end"  
                 // initial={{ clipPath: clipPathInitial }}
                 // animate={{ clipPath: clipPathInitial }}
                 // exit={{ clipPath: clipPathInitial }}
@@ -46,7 +46,7 @@ export const BlockVideo = (data) => {
 
 
       {data.data.poster && 
-        <div className="c-video__content">
+        <div className="absolute w-full h-[calc(100%+200px)] -top-[10px] left-0 flex flex-col justify-center items-center">
             <motion.div className="w-full h-full py-6" 
                         style={{y}}>    
 

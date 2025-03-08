@@ -34,7 +34,7 @@ const ShaderComponent = ({ texture }) => {
 
 export default function WebGLRenderer ({ capturedImage }) {
   return (
-    <Canvas id="canvas">
+    <Canvas id="canvas" className="fixed top-0 left-0 z-[9999] pointer-events-none w-full h-full opacity-5">
       <ambientLight />
       <pointLight position={[10, 10, 10]} />
       <ShaderComponent texture={capturedImage} />

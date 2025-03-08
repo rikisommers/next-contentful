@@ -36,7 +36,7 @@ export default function PostBody({ content, tags }) {
 
   console.log('currentTheme',currentTheme)
   return (
-    <div className={`flex flex-col gap-16 self-center
+    <div className={`flex flex-col gap-16 self-center pb-20
        ${currentTheme.data.navPosition === 'leftCenter' ? 'pl-16' : ''}
        ${currentTheme.data.navPosition === 'rightCenter' ? 'pr-16' : ''}
        ${(() => {

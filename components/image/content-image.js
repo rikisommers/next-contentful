@@ -12,7 +12,7 @@ export default function ContentImage({ title, url, slug, layout }) {
     <RollUpWhenVisible>
       <motion.div
         ref={ref}
-        className="c-video flex flex-col align-bottom content-end"
+        className="w-full bg-gray-500 relative grid aspect-[16/9] overflow-hidden flex justify-end flex flex-col align-bottom content-end"
         // initial={{ clipPath: clipPathInitial }}
         // animate={{ clipPath: clipPathInitial }}
         // exit={{ clipPath: clipPathInitial }}
@@ -21,7 +21,7 @@ export default function ContentImage({ title, url, slug, layout }) {
         //   easing: cubicBezier(0.35, 0.17, 0.3, 0.86),
         // }}
       >
-        <div className="c-video__content">
+        <div className="absolute w-full h-[calc(100%+200px)] -top-[10px] left-0 bg-purple-700 flex flex-col justify-center items-center">
           <motion.div className="w-full h-full py-6" >
             <ContentfulImage
               width={1920}

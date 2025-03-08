@@ -67,13 +67,13 @@ const TransitionTilt = ({active, children }) => {
   };
   
   return (
-    <motion.div className="relative transition-tilt__content"
+    <motion.div className="relative z-[49]"
     variants={active ? container : null}
     initial="initial"
     exit='exit'
     >
     <motion.div
-        className="z-40 w-full overflow-auto torigin"
+        className="z-40 w-full overflow-auto origin-bottom-right [transform-origin:bottom_right_60px]"
        variants={active ? blur : null}
        initial="initial"
        animate="show"

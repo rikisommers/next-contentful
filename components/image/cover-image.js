@@ -22,7 +22,7 @@ export default function CoverImage({ title, url, slug, layout }) {
   const image = (
       <motion.div
         ref={ref}
-        className="flex flex-col content-end align-bottom c-video"
+        className="flex flex-col content-end align-bottom w-full bg-gray-500 relative grid aspect-[16/9] overflow-hidden flex justify-end"
         // initial={{ clipPath: clipPathInitial }}
         // animate={{ clipPath: clipPathInitial }}
         // exit={{ clipPath: clipPathInitial }}
@@ -31,7 +31,7 @@ export default function CoverImage({ title, url, slug, layout }) {
         //   easing: cubicBezier(0.35, 0.17, 0.3, 0.86),
         // }}
       >
-        <div className="c-video__content">
+        <div className="bsolute w-full h-[calc(100%+200px)] -top-[10px] left-0 bg-purple-700 flex flex-col justify-center items-center">
         {/* style={{ y }} */}
           <motion.div className="w-full h-full py-6" style={{ y }} >
             <ContentfulImage

@@ -24,7 +24,7 @@ export default function PostIntro({ title, content, tag }) {
             </div>
           )}
           {title && (
-            <h1 className="leading-normal text-balance">
+            <h1 className="leading-normal text-balance text-fluid">
               <AnimatedText
                 content={title}
                 type={currentTheme.data.textAnimation}

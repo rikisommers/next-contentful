@@ -52,7 +52,7 @@ export const BlockArticles = ({ data, tags }) => {
           handleTagClick={handleTagClick}
         />
       )}
-      <div className="flex flex-col w-full gap-6 @container/grid">
+      <div className="flex flex-col w-full gap-6">
         <ScaleContainer>
         {posts && <Grid type={currentTheme.data.cardGrid} data={filteredPosts} />}
         </ScaleContainer>

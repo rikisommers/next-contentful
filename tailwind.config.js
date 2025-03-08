@@ -15,7 +15,7 @@ module.exports = {
       'xs': '0.75rem',
       'sm': '0.875rem',
       'base': '1rem',
-      'lg': '2.125rem',
+      'lg': '1.125rem',
       'xl': '1.25rem',
       '2xl': '1.5rem',
       '3xl': '1.875rem',
@@ -105,11 +105,12 @@ module.exports = {
       },
       zIndex: {
         nav: '9999',
+        '100': '9999',
       },
     },
     fluid,
   },
   plugins: [
-    require('@tailwindcss/postcss'),
+    require('@tailwindcss/postcss')
   ],
 };

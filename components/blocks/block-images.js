@@ -4,15 +4,15 @@ import CoverImage from "../image/cover-image";
 export const BlockImages = ({ data }) => {
   return (
     <figure>
-      <h3 className="col-6 u-ph--title u-t-subtitle u-mb--16">{data.title}</h3>
+      <h3 className="redo">{data.title}</h3>
 
-      <div className="o-img-grid">
+      <div className="redo">
         {data.imagegridCollection &&
           data.imagegridCollection.items.map((image) => {
             return (
               <figure>
                 <CoverImage title={image.title} url={image.url} />
-                <figcaption className="u-fs--caption u-c--light">
+                <figcaption className="redo">
                   {image.description}
                 </figcaption>
               </figure>
