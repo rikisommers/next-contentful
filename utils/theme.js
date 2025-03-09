@@ -1052,6 +1052,19 @@ export const textHighlightThemes = {
   none: "none"
 };
 
+export const textHighlightOutlineThemes = {
+  none: "none",
+  shadow: "shadow",
+  nuemorphic: "nuemorphic",
+};
+
+export const textHighlightOutlineNeumorphic = {
+  size: "15px 15px 30px",
+  startColor: "#FFFFFF",
+  endColor: "#000000",
+};
+
+
 // Type Themes
 // using google fonts kndoif sucks really just need a way to select local dfonts and not include in prod
 export const typographyThemes = {
@@ -1288,7 +1301,7 @@ const themeContent = {
   cardLayout:cardThemes.reone,
   cardHover:cardHoverThemes.none,
   cardGrid:gridThemes.bento1,
-  imageparallax:false,
+  imageParallax:false,
   imageMixBlendMode:mixBlendThemes.luminosity,
   heroHeight:heroHeightThemes.full,
   heroType:heroTypeThemes.riki,
@@ -1314,6 +1327,10 @@ const themeContent = {
   bodyTextIndent: bodyTextThemes.indent,
   bodyTextHightlight: bodyTextThemes.hightlight,
   bodyTextAlign:bodyTextAlign.center,
+  textHighlightOutline:textHighlightOutlineThemes.none,
+  // textHighlightOutlineNeumorphicSize:textHighlightOutlineNeumorphic.size,
+  textHighlightOutlineNeumorphicStartColor:'#FFFFFF',
+  textHighlightOutlineNeumorphicEndColor:'#000000',
 }
 
 // Function to get theme by key

@@ -16,15 +16,15 @@ export default function PostIntro({ title, content, tag }) {
             <div
               className="inline-flex px-2 py-1 mb-8 ml-2 text-xs font-medium uppercase rounded-full"
               style={{
-                color: "var(--text-color-inv)",
-                backgroundColor: "var(--accent-sec)",
+                color: "var(--text-accent)",
+                backgroundColor: "var(--body-background-color)",
               }}
             >
               {tag}
             </div>
           )}
           {title && (
-            <h1 className="leading-normal text-balance text-fluid">
+            <h1 className="text-4xl leading-normal text-balance">
               <AnimatedText
                 content={title}
                 type={currentTheme.data.textAnimation}

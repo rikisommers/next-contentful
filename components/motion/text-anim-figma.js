@@ -22,7 +22,8 @@ export const TextAnimFigma = ({
 
   const renderLine = (line, lineIndex) => {
     const segments = line.split("__");
-    
+    const italicSegments = line.split("*");
+
     return (
       <motion.div
         key={lineIndex}

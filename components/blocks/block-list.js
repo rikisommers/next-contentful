@@ -27,8 +27,7 @@ export default function BlockList({ data }) {
     switch (data.type[0].trim()) {
       case "content":
         return (
-          <article className="grid grid-cols-12 gap-3 article-content" id={data.title}>
-            <div className="col-span-10 col-start-2 md:col-start-3 md:col-span-8">
+          <article className="flex flex-col gap-3 " id={data.title}>
               <div
                 className="flex flex-col w-full gap-3 p-4 rounded"
                 style={{ backgroundColor: "var(--surface1)" }}
@@ -60,24 +59,22 @@ export default function BlockList({ data }) {
                     </div>
                   ))}
               </div>
-            </div>
           </article>
         );
 
       case "feature":
         return (
-          <article className="flex flex-col px-32" id={data.title}>
-
+          <article className="flex flex-col" id={data.title}>
             {data.title && (
               <h2 className="mb-4 text-sm font-normal" style={{color: 'var(--subtext-color)'}}>{data.title}</h2>
             )}
 
               <div
-                className="grid grid-cols-12 gap-3 article-content"
+                className="grid grid-cols-12 gap-3 @container"
               >
                 {data.itemsCollection &&
                   data.itemsCollection.items.map((item, index) => (
-                    <div key={index} className="col-span-3 px-6 py-4 rounded-md"
+                    <div key={index} className="col-span-1 @lg:col-span-4 px-6 py-4 rounded-md"
                     style={{ backgroundColor: "var(--surface1)" }}
 
                     >
@@ -115,7 +112,7 @@ export default function BlockList({ data }) {
 
       case "timeline":
         return (
-          <article className="flex flex-col gap-3 article-content" id={data.title}>
+          <article className="flex flex-col gap-3" id={data.title}>
             <div className="flex flex-col gap-3 justfy-between">
               <div className="flex flex-col w-full gap-2 rounded">
                 {data.title && (
@@ -168,8 +165,7 @@ export default function BlockList({ data }) {
 
       case "results":
         return (
-          <article className="grid grid-cols-12 gap-3 article-content" id={data.title}>
-            <div className="col-span-10 col-start-2 md:col-start-3 md:col-span-8">
+          <article className="flex flex-col gap-3" id={data.title}>
               <div
                 className="flex flex-col w-full gap-3 p-6 pb-8 rounded"
                 style={{ backgroundColor: "var(--surface1)" }}
@@ -201,8 +197,7 @@ export default function BlockList({ data }) {
                       )}
                     </div>
                   ))}
-              </div>
-            </div>
+              </div>  
           </article>
         );
 

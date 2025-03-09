@@ -1,11 +1,9 @@
 import React, { useState, useRef } from "react";
 import BlendImage from "../image/blend-image";
 import Link from "next/link";
-import { motion, useInView, useAnimation } from "../../utils/motion";;
+import { motion, useInView, useAnimation } from "../../utils/motion";
 
-import AnimatedElement, {
-  AnimStyleEl,
-} from "../motion/animated-element";
+import AnimatedElement, { AnimStyleEl } from "../motion/animated-element";
 
 export default function PostTileMonks({ post, index, size }) {
   //   const [isHovered, setIsHovered] = useState(false); // State to track hover
@@ -44,31 +42,28 @@ export default function PostTileMonks({ post, index, size }) {
 
   const bounce = {
     duration: 1.2,
-    ease: bounceEase
+    ease: bounceEase,
   };
-  
+
   const ease = {
     type: "spring",
     stiffness: 700,
-    damping: 30
+    damping: 30,
   };
 
-  
   return (
     <Link
       ref={ref}
       href={`/articles/${post.slug}`}
       style={{
-        backgroundColor: "var(--background-color)",
+        backgroundColor: "var(--surface1)",
       }}
       className="relative flex flex-col w-full h-full overflow-hidden no-underline rounded-2xl group"
       onMouseEnter={() => setIsHovered(true)} // Set hover state to true on mouse enter
       onMouseLeave={() => setIsHovered(false)} // Set hover state to false on mouse leave
     >
       {post.img && (
-        <motion.div
-          className="w-full !h-1/2 overflow-clip"
-        >
+        <motion.div className="w-full h-full overflow-clip">
           <motion.div
             className="w-full h-full"
             animate={{
@@ -95,69 +90,63 @@ export default function PostTileMonks({ post, index, size }) {
             color: "var(--text-color-inv)",
           }}
         >
-                 <span className="text-xs"
-                    style={{
-                    color: "var(--text-accent)",
-                  }}
-                  >
-                {post?.title}
-              </span>
+          <span
+            className="text-xs"
+            style={{
+              color: "var(--subtext-color)",
+            }}
+          >
+            {post?.title}
+          </span>
           <AnimatedElement type={AnimStyleEl.FADEINLEFT}>
             <h2
-              className="flow-root text-2xl leading-normal"
+              className="inline-flex items-center flow-root text-xl leading-normal"
               style={{
                 color: "var(--text-color)",
               }}
             >
-       
-              <span className="font-medium">
-                {post?.subtitle}
-              </span> • 
-
-              <span className="font-light">
-                {post?.client}
-              </span> 
-
-                <div className="inline-block">
-              <motion.div
-            className={`overflow-hidden relative w-7 h-7 rounded-full opacity-50 flex items-center justify-center ml-2`}
-            style={{
-              backgroundColor: "var(--text-color)",
-            }}
-            animate={{
-                x: isHovered ? [0, 30, 0] : 0 , // Move to 300px and back to 0
-              }}
-              transition={{
-                duration: 1,
-                //ease: bounceEase
-                ease: ["easeOut", bounceEase], // Different easings for each segment
-                times: [0, 0.33, 1], // Control when each keyframe is reached
-              }}
-          >
-            <motion.img
-              animate={{
-                x: isHovered ? [0, 40, -40, 0] : 0,
-                opacity: isHovered ? [1, 0, 0, 1] : 1,
-              }}
-              transition={{
-                duration: 0.6,
-                times: [0, 0.33, 0.65, 1],
-                ease:"easeOut"
-                // repeat: 1,
-                // repeatType: "loop",
-              }}
-              src="arrow_forward.svg"
-              viewBox="0 0 20 20"
-              className="z-10 w-6 h-6"
-              style={{
-                color: "var(--accent-pri",
-              }}
-            ></motion.img>
-          </motion.div>
-          </div>
+              <span className="font-light">{post?.subtitle}</span> •
+              <span className="font-light">{post?.client}</span>
+              <div className="inline-block">
+                <motion.div
+                  className={`overflow-hidden relative w-6 h-6 rounded-full opacity-50 flex items-center justify-center ml-2 `}
+                  style={{
+                    backgroundColor: "var(--surface2)",
+                    transform: "translateY(8px)",
+                  }}
+                  animate={{
+                    x: isHovered ? [0, 30, 0] : 0, // Move to 300px and back to 0
+                  }}
+                  transition={{
+                    duration: 1,
+                    //ease: bounceEase
+                    ease: ["easeOut", bounceEase], // Different easings for each segment
+                    times: [0, 0.33, 1], // Control when each keyframe is reached
+                  }}
+                >
+                  <motion.img
+                    animate={{
+                      x: isHovered ? [0, 40, -40, 0] : 0,
+                      opacity: isHovered ? [1, 0, 0, 1] : 1,
+                    }}
+                    transition={{
+                      duration: 0.6,
+                      times: [0, 0.33, 0.65, 1],
+                      ease: "easeOut",
+                      // repeat: 1,
+                      // repeatType: "loop",
+                    }}
+                    src="arrow_forward.svg"
+                    viewBox="0 0 20 20"
+                    className="z-10 w-6 h-6"
+                    style={{
+                      color: "var(--accent-pri",
+                    }}
+                  ></motion.img>
+                </motion.div>
+              </div>
             </h2>
           </AnimatedElement>
-
 
           {/* <h3
             className="text-sm"
@@ -170,7 +159,7 @@ export default function PostTileMonks({ post, index, size }) {
         </div>
 
         <div
-          className="flex justify-between w-full mt-2 border border-top"
+          className="flex justify-between w-full mt-2"
           style={{
             color: "var(--subtext-color)",
           }}

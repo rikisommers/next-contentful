@@ -1,7 +1,16 @@
 "use client";
 import React from "react";
+import { useThemeContext } from '../context/themeContext';
+import { data } from "autoprefixer";
 
 export const HighlightedSegment = ({ segment, highlight }) => {
+    const { currentTheme } = useThemeContext();
+    
+    // Get colors from theme
+    const surface1 = currentTheme?.data?.surface1 || '#f1f1f1';
+    const surface2 = currentTheme?.data?.surface2 || '#e1e1e1';
+    const gradientAngle = currentTheme?.data?.gradientAngle || '145deg';
+    
     const getHighlightStyle = () => {
       switch (highlight) {
         case 'text':
@@ -22,12 +31,22 @@ export const HighlightedSegment = ({ segment, highlight }) => {
       }
     };
   
+    // Create the style with dynamic gradient
+    const highlightStyle = {
+      backgroundColor: `linear-gradient(${gradientAngle}, ${surface1}, ${surface2})`,
+      padding: '0.25em 0.5em',
+      borderRadius: '0.25em',
+      display: 'inline-block',
+      position: 'relative',
+      boxShadow: `7px 7px 14px ${currentTheme?.data?.bodyBackgroundColor || '#ffffff'}, 
+                  -7px -7px 14px ${currentTheme?.data?.textHighlightOutlineNeumorphicEndColor || '#000000'}`
+    };
+  
+    
     return (
       <span className="inline-flex px-4 py-0 rounded-xl"
-
-       style={{
-        backgroundColor:'var(--surface1)'
-       }}
+       style={
+        currentTheme.data.textHighlightOutline === 'nuemorphic' ? {...highlightStyle} : {backgroundColor:'red'} }
       >
        {segment}
       </span>

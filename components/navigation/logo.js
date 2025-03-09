@@ -40,7 +40,7 @@ export default function Logo({logo}) {
     </div>
 
     <motion.span
-      className="self-center p-3 font-medium"
+      className="self-center p-3 font-medium whitespace-nowrap"
       style={{ color: "var(--text-color)" }}
       layoutId="title"
       initial={{

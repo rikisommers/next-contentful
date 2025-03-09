@@ -1,16 +1,33 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useThemeContext } from '../context/themeContext';
 
-export default function CanvasGradientBackground() {
+export default function CanvasGradientBackground({ 
+  gradientType = null, // 'linear' or 'conic'
+  conicCenterX = null,
+  conicCenterY = null,
+  conicRotation = null
+}) {
   const canvasRef = useRef(null);
   const { currentTheme } = useThemeContext();
 
-  // Log the current theme for debugging
-
-  // Define external color variables as hex
-  const [colorTopHex, setColorTopHex] = useState(currentTheme?.data.gradStart || currentTheme.data.gradStart); // Default to white if undefined
-  const [colorBottomHex, setColorBottomHex] = useState(currentTheme?.data.gradStop || currentTheme.data.gradStop); // Default to dark gray if undefined
-  const [midPoint, setMidPoint] = useState(currentTheme?.data.gradMidPoint || 0.5); // Midpoint of the gradient (0 = bottom, 1 = top)
+  // Define gradient variables - props take precedence over theme values
+  const [colorTopHex, setColorTopHex] = useState(currentTheme?.data.gradStart || '#ffffff');
+  const [colorBottomHex, setColorBottomHex] = useState(currentTheme?.data.gradStop || '#333333');
+  const [midPoint, setMidPoint] = useState(currentTheme?.data.gradMidPoint || 0.5);
+  
+  // Use prop values if provided, otherwise fall back to theme values
+  const [activeGradientType, setActiveGradientType] = useState(
+    gradientType || currentTheme?.data.gradientType || 'linear'
+  );
+  
+  const [conicCenter, setConicCenter] = useState([
+    conicCenterX !== null ? conicCenterX : (currentTheme?.data.conicCenterX || 0.5), 
+    conicCenterY !== null ? conicCenterY : (currentTheme?.data.conicCenterY || 0.5)
+  ]);
+  
+  const [activeConicRotation, setActiveConicRotation] = useState(
+    conicRotation !== null ? conicRotation : (currentTheme?.data.conicRotation || 0.0)
+  );
 
   // Convert hex to RGB
   const hexToRgb = (hex) => {
@@ -22,9 +39,52 @@ export default function CanvasGradientBackground() {
     return [r / 255, g / 255, b / 255]; // Normalize to [0, 1]
   };
 
+  // Update state when props change
+  useEffect(() => {
+    if (gradientType !== null) {
+      // Validate that gradientType is either 'linear' or 'conic'
+      if (gradientType === 'linear' || gradientType === 'conic') {
+        setActiveGradientType(gradientType);
+      } else {
+        console.warn('Invalid gradientType prop. Must be "linear" or "conic".');
+      }
+    }
+    
+    if (conicCenterX !== null || conicCenterY !== null) {
+      setConicCenter([
+        conicCenterX !== null ? conicCenterX : conicCenter[0],
+        conicCenterY !== null ? conicCenterY : conicCenter[1]
+      ]);
+    }
+    
+    if (conicRotation !== null) {
+      setActiveConicRotation(conicRotation);
+    }
+  }, [gradientType, conicCenterX, conicCenterY, conicRotation]);
+
   useEffect(() => {
     const canvas = canvasRef.current;
     const gl = canvas.getContext('webgl');
+
+    if (!gl) {
+      console.error('WebGL not supported');
+      return;
+    }
+
+    // Set canvas size to match its display size
+    const resizeCanvas = () => {
+      const displayWidth = canvas.clientWidth;
+      const displayHeight = canvas.clientHeight;
+      
+      if (canvas.width !== displayWidth || canvas.height !== displayHeight) {
+        canvas.width = displayWidth;
+        canvas.height = displayHeight;
+        gl.viewport(0, 0, canvas.width, canvas.height);
+      }
+    };
+    
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
 
     // Vertex shader program
     const vsSource = `
@@ -34,26 +94,37 @@ export default function CanvasGradientBackground() {
       }
     `;
 
-    // Fragment shader program with linear gradient only
+    // Fragment shader program with support for both linear and conic gradients
     const fsSource = `
       precision mediump float;
-      uniform vec2 canvasSize; // Uniform for canvas size
-      uniform vec3 colorTop;    // Color at the top
-      uniform vec3 colorBottom;  // Color at the bottom
-      uniform float midPoint;    // Midpoint of the gradient
+      uniform vec2 canvasSize;
+      uniform vec3 colorTop;
+      uniform vec3 colorBottom;
+      uniform float midPoint;
+      uniform int gradientType; // 0 for linear, 1 for conic
+      uniform vec2 conicCenter;
+      uniform float conicRotation;
 
       void main(void) {
         // Normalize the fragment coordinates
-        vec2 uv = gl_FragCoord.xy / canvasSize; // Use the canvas size uniform
+        vec2 uv = gl_FragCoord.xy / canvasSize;
+        vec3 color;
         
-        // Calculate the linear gradient based on the y-coordinate
-        float gradientFactor = (uv.y - midPoint) * 2.0; // Scale to [0, 2] range
-        gradientFactor = clamp(gradientFactor, 0.0, 1.0); // Clamp to [0, 1]
-
-        // Create a vertical gradient using the top and bottom colors
-        vec3 color = mix(colorBottom, colorTop, gradientFactor); // Interpolate between colors
-
-        gl_FragColor = vec4(color, 1.0); // Set the fragment color
+        if (gradientType == 0) {
+          // Linear gradient
+          float gradientFactor = (uv.y - midPoint) * 2.0;
+          gradientFactor = clamp(gradientFactor, 0.0, 1.0);
+          color = mix(colorBottom, colorTop, gradientFactor);
+        } else {
+          // Conic gradient
+          vec2 centered = uv - conicCenter;
+          float angle = atan(centered.y, centered.x) + conicRotation;
+          // Normalize angle to [0, 1] range
+          float normalizedAngle = (angle + 3.14159) / (2.0 * 3.14159);
+          color = mix(colorBottom, colorTop, normalizedAngle);
+        }
+        
+        gl_FragColor = vec4(color, 1.0);
       }
     `;
 
@@ -111,38 +182,61 @@ export default function CanvasGradientBackground() {
     const colorTopUniform = gl.getUniformLocation(shaderProgram, "colorTop");
     const colorBottomUniform = gl.getUniformLocation(shaderProgram, "colorBottom");
     const midPointUniform = gl.getUniformLocation(shaderProgram, "midPoint");
+    const gradientTypeUniform = gl.getUniformLocation(shaderProgram, "gradientType");
+    const conicCenterUniform = gl.getUniformLocation(shaderProgram, "conicCenter");
+    const conicRotationUniform = gl.getUniformLocation(shaderProgram, "conicRotation");
     
-    gl.uniform3f(colorTopUniform, ...colorTop);    // Spread the array for colorTop
-    gl.uniform3f(colorBottomUniform, ...colorBottom); // Spread the array for colorBottom
-    gl.uniform1f(midPointUniform, midPoint); // Set the midpoint
+    gl.uniform3f(colorTopUniform, ...colorTop);
+    gl.uniform3f(colorBottomUniform, ...colorBottom);
+    gl.uniform1f(midPointUniform, midPoint);
+    gl.uniform1i(gradientTypeUniform, activeGradientType === 'conic' ? 1 : 0);
+    gl.uniform2f(conicCenterUniform, conicCenter[0], conicCenter[1]);
+    gl.uniform1f(conicRotationUniform, activeConicRotation);
 
     // Clear the canvas and draw
-    gl.clearColor(0.0, 0.0, 0.0, 1.0); // Black background
+    gl.clearColor(0.0, 0.0, 0.0, 1.0);
     gl.clear(gl.COLOR_BUFFER_BIT);
     gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
 
     // Cleanup on component unmount
     return () => {
+      window.removeEventListener('resize', resizeCanvas);
       gl.deleteProgram(shaderProgram);
       gl.deleteShader(vertexShader);
       gl.deleteShader(fragmentShader);
     };
-  }, [colorTopHex, colorBottomHex, midPoint, currentTheme]); // Re-run effect if colors, midpoint, or theme change
+  }, [colorTopHex, colorBottomHex, midPoint, activeGradientType, conicCenter, activeConicRotation]);
 
-  // Update colors when currentTheme changes
+  // Update settings when currentTheme changes
   useEffect(() => {
     if (currentTheme) {
-      setColorTopHex(currentTheme.data.gradStart || '#ffffff'); // Default to white if undefined
-      setColorBottomHex(currentTheme.data.gradStop || '#333333'); // Default to dark gray if undefined
-      setMidPoint(currentTheme.data.gradMidPoint || 0.5); // Default to dark gray if undefined
-
+      setColorTopHex(currentTheme.data.gradStart || '#ffffff');
+      setColorBottomHex(currentTheme.data.gradStop || '#333333');
+      setMidPoint(currentTheme.data.gradMidPoint || 0.5);
+      
+      // Only update from theme if props aren't provided
+      if (gradientType === null) {
+        setActiveGradientType(currentTheme.data.gradientType || 'linear');
+      }
+      
+      if (conicCenterX === null && conicCenterY === null) {
+        setConicCenter([
+          currentTheme.data.conicCenterX || 0.5,
+          currentTheme.data.conicCenterY || 0.5
+        ]);
+      }
+      
+      if (conicRotation === null) {
+        setActiveConicRotation(currentTheme.data.conicRotation || 0.0);
+      }
     }
-  }, [currentTheme]); // Update colors when currentTheme changes
+  }, [currentTheme, gradientType, conicCenterX, conicCenterY, conicRotation]);
 
   return (
     <canvas
       ref={canvasRef}
-      className="w-full h-full"
+      className="absolute top-0 left-0 w-full h-full -z-10"
+      style={{ position: 'fixed' }}
     />
   );
 }

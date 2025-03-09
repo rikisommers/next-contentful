@@ -24,6 +24,9 @@ import {
   cursorThemes,
   gridThemes,
   mixBlendThemes,
+  textHighlightOutlineThemes,
+  textHighlightOutlineNeumorphicStartColor,
+  textHighlightOutlineNeumorphicEndColor,
 } from "./theme";
 import { useThemeContext } from "../components/context/themeContext";
 import { Leva, useControls, button, folder } from "leva";
@@ -169,6 +172,9 @@ export default function ThemeEditor({ customThemes }) {
     root.style.setProperty("--hero-text-image-style", theme.data.heroTextImageStyle || heroTextImageThemes.inline);
     root.style.setProperty("--hero-text-position", theme.data.heroTextPosition || heroTextPositionThemes.bottomLeft);
     root.style.setProperty("--hero-text-composition", theme.data.heroTextComposition || heroTextCompositionThemes.foo);
+    root.style.setProperty("--text-highlight-outline", theme.data.textHighlightOutline || textHighlightOutlineThemes.none);
+    root.style.setProperty("--text-highlight-outline-neumorphic-start-color", theme.data.textHighlightOutlineNeumorphicStartColor || '#FFFFFF');
+    root.style.setProperty("--text-highlight-outline-neumorphic-end-color", theme.data.textHighlightOutlineNeumorphicEndColor || '#000000');
 
     // Card properties
     root.style.setProperty("--card-layout", theme.data.cardLayout || "default");
@@ -546,6 +552,35 @@ export default function ThemeEditor({ customThemes }) {
         label: "Text Highlight",
         onChange: (value) => updateThemeProp("textHighlight", value), // Call existing handler
       },
+      textHighlightOutline: {
+        options: Object.values(textHighlightOutlineThemes),
+        value: currentTheme?.data?.textHighlightOutline || 'none',
+        label: "Text Highlight Outline",
+        onChange: (value) => updateThemeProp("textHighlightOutline", value), // Call existing handler
+      },
+      // textHighlightOutlineNeumorphicSize: {
+      //   type: 'slider',
+      //   min: 0,
+      //   max: 100,
+      //   step: 1,
+      //   value: currentTheme?.data?.textHighlightOutlineNeumorphicSize || 0,
+      //   label: "Text Highlight Outline Neumorphic Size",
+      //   onChange: (value) => updateThemeProp("textHighlightOutlineNeumorphicSize", Number(value)), // Convert to number
+      // },
+      // textHighlightOutlineNeumorphicStartColor: {
+      //   type: 'color',
+      //   value: currentTheme?.data?.textHighlightOutlineNeumorphicStartColor || '#ffffff',
+      //   label: "Text Highlight Outline Neumorphic Start Color",
+      //   onChange: (value) => updateThemeProp("textHighlightOutlineNeumorphicStartColor", value),
+      // },
+      // textHighlightOutlineNeumorphicEndColor: {
+      //   type: 'color',
+      //   value: currentTheme?.data?.textHighlightOutlineNeumorphicEndColor || '#000000',
+      //   label: "Text Highlight Outline Neumorphic End Color",
+      //   onChange: (value) => updateThemeProp("textHighlightOutlineNeumorphicEndColor", value),
+      // },
+      
+      
       "Body Text": folder({
         dropCap: {
           value: currentTheme.data.bodyTextDropCap, // Default to false
@@ -558,7 +593,7 @@ export default function ThemeEditor({ customThemes }) {
           onChange: (value) => updateThemeProp("bodyTextIndent", value), // Update handler
         },
         highlight: {
-          value: currentTheme.data.bodyTextHighlight, // Default to false
+          value: currentTheme?.data?.bodyTextHighlight || 'figma', // Default to false
           label: "Highlight",
           onChange: (value) => updateThemeProp("bodyTextHighlight", value), // Update handler
         },
@@ -701,7 +736,7 @@ export default function ThemeEditor({ customThemes }) {
     }),
     Iamges: folder({
       parallax: {
-        value: currentTheme.data.imageParallax,
+        value: currentThem?.data?.imageParallax || false,
         label: "parallax",
         onChange: (value) => updateThemeProp("imageParallax", value),
       },

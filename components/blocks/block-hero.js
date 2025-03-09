@@ -102,7 +102,7 @@ const BackgroundGrad = () => {
   return (
     <div className="absolute top-0 left-0 flex items-center justify-end w-full h-full pointer-events-none z-1">
       {currentTheme.data.heroBackgroundStyle === "gradient" && (
-        <CanvasGradientBackground />
+        <CanvasGradientBackground gradientType="conic" conicRotation={1} />
       )}
 
       {currentTheme.data.heroBackgroundStyle === "video" && <Background />}
