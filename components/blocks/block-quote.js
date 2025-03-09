@@ -1,9 +1,11 @@
 "use client";
 
 import React from "react";
+import AnimatedText from "../motion/animated-text";
+import { useThemeContext } from "../context/themeContext";
 
 export const BlockQuote = ({ data }) => {
-
+  const { currentTheme } = useThemeContext();
   console.log(data)
   
   return (
@@ -21,11 +23,11 @@ export const BlockQuote = ({ data }) => {
 
         {data.content && (
           <h2 className="text-6xl font-normal leading-relaxed text-balance" style={{ color: "var(--text-color)" }}>
-            {/* <AnimatedText
-              type={AnimStyle.CHARFADE}
+            <AnimatedText
+              type={currentTheme.data.textAnimationPrimary}
               content={data.content}
-            /> */}
-           {data.content}
+            />
+           {/* {data.content} */}
           </h2>
 
         )}

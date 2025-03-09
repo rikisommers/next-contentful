@@ -1049,6 +1049,7 @@ export const textHighlightThemes = {
   underline: "underline",
   highlight: "highlight",
   figma:'figma',
+  figmaNeumorphic: "figma-neumorphic",
   none: "none"
 };
 

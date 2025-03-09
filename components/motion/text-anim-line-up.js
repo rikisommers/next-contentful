@@ -51,6 +51,7 @@ export const TextAnimLineUp = ({
         }}
         className="block leading-snug"
       >
+        <h1>sd</h1>
         <motion.div
           variants={lineVariants}
 

@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useThemeContext } from '../context/themeContext';
-import { data } from "autoprefixer";
+import { processItalicText } from "../utils/textFormatting";
 
 export const HighlightedSegment = ({ segment, highlight }) => {
     const { currentTheme } = useThemeContext();
@@ -11,7 +11,14 @@ export const HighlightedSegment = ({ segment, highlight }) => {
     const surface2 = currentTheme?.data?.surface2 || '#e1e1e1';
     const gradientAngle = currentTheme?.data?.gradientAngle || '145deg';
     
+    // Process the segment for italic text using the shared utility function
+    const { processed: processedSegment, hasItalic } = processItalicText(segment);
+
+    // Get the appropriate style based on highlight type
     const getHighlightStyle = () => {
+
+
+      // Standard highlight styles
       switch (highlight) {
         case 'text':
           return { color: 'var(--text-accent)' };
@@ -22,39 +29,35 @@ export const HighlightedSegment = ({ segment, highlight }) => {
         case 'highlight':
           return { backgroundColor: 'var(--accent)', filter: 'blur(20px)' };
         case 'figma':
+          return { backgroundColor: 'var(--surface1)' };
+        case 'figma-neumorphic':
             return {
-               backgroundColor: 'var(--accent)',
-                filter: 'blur(20px)'
-               };
+              backgroundColor: `linear-gradient(${gradientAngle}, ${surface1}, ${surface2})`,
+              position: 'relative',
+              boxShadow: `7px 7px 14px ${currentTheme?.data?.bodyBackgroundColor || '#ffffff'}, 
+                          -7px -7px 14px ${currentTheme?.data?.textHighlightOutlineNeumorphicEndColor || '#000000'}`
+            };
         default:
-          return {};
+          return { backgroundColor: 'var(--surface1)' };
       }
     };
+
+    // Get the computed style
+    const style = getHighlightStyle();
   
-    // Create the style with dynamic gradient
-    const highlightStyle = {
-      backgroundColor: `linear-gradient(${gradientAngle}, ${surface1}, ${surface2})`,
-      padding: '0.25em 0.5em',
-      borderRadius: '0.25em',
-      display: 'inline-block',
-      position: 'relative',
-      boxShadow: `7px 7px 14px ${currentTheme?.data?.bodyBackgroundColor || '#ffffff'}, 
-                  -7px -7px 14px ${currentTheme?.data?.textHighlightOutlineNeumorphicEndColor || '#000000'}`
-    };
-  
-    
-    return (
-      <span className="inline-flex px-4 py-0 rounded-xl"
-       style={
-        currentTheme.data.textHighlightOutline === 'nuemorphic' ? {...highlightStyle} : {backgroundColor:'red'} }
+    // Render with the appropriate approach based on whether we have italic text
+    return hasItalic ? (
+      <span 
+        className="inline-flex px-4 py-0 rounded-xl"
+        style={style}
+        dangerouslySetInnerHTML={{ __html: processedSegment }}
+      />
+    ) : (
+      <span 
+        className="inline-flex px-4 py-0 rounded-xl"
+        style={style}
       >
-       {segment}
+        {segment}
       </span>
     );
-  };
-
-//   <span
-//   style={getHighlightStyle()}
-//  >
-//   {segment}
-//  </span>
+};

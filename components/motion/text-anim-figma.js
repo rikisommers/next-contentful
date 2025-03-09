@@ -3,6 +3,7 @@
 import React from "react";
 import { HighlightedSegment } from "./text-anim-highlighted-segment";
 import { motion } from "framer-motion";
+import { processItalicText } from "../utils/textFormatting";
 
 export const TextAnimFigma = ({ 
   delay = 0, // Base delay
@@ -22,7 +23,6 @@ export const TextAnimFigma = ({
 
   const renderLine = (line, lineIndex) => {
     const segments = line.split("__");
-    const italicSegments = line.split("*");
 
     return (
       <motion.div
@@ -32,6 +32,7 @@ export const TextAnimFigma = ({
         animate="visible"
       >
         {segments.map((segment, segmentIndex) => {
+          
           const imageMatch = segment.match(/!\[([^\]]*)\]\((.*?)\)/);
           if (imageMatch) {
             const altText = imageMatch[1]; 
@@ -48,15 +49,45 @@ export const TextAnimFigma = ({
             );
           }
 
-          return (
-            <motion.span 
-              key={segmentIndex}
-              variants={segmentVariants}
-              custom={segmentIndex}
-            >
-              {segmentIndex % 2 === 0 ? segment : <HighlightedSegment segment={segment} highlight={highlight} />}
-            </motion.span>
-          );
+          // For non-highlighted segments, process italic text here
+          if (segmentIndex % 2 === 0) {
+            // Process the segment for italic text
+            const { processed: processedSegment, hasItalic } = processItalicText(segment);
+
+            if (hasItalic) {
+              // If segment has italic formatting, use dangerouslySetInnerHTML
+              return (
+                <motion.span 
+                  key={segmentIndex}
+                  variants={segmentVariants}
+                  custom={segmentIndex}
+                  dangerouslySetInnerHTML={{ __html: processedSegment }}
+                />
+              );
+            } else {
+              // If no italic formatting, use regular children
+              return (
+                <motion.span 
+                  key={segmentIndex}
+                  variants={segmentVariants}
+                  custom={segmentIndex}
+                >
+                  {segment}
+                </motion.span>
+              );
+            }
+          } else {
+            // For highlighted segments, let HighlightedSegment handle the italic formatting
+            return (
+              <motion.span 
+                key={segmentIndex}
+                variants={segmentVariants}
+                custom={segmentIndex}
+              >
+                <HighlightedSegment segment={segment} highlight={highlight} />
+              </motion.span>
+            );
+          }
         })}
       </motion.div>
     );
