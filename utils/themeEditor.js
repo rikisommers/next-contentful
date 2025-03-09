@@ -736,7 +736,7 @@ export default function ThemeEditor({ customThemes }) {
     }),
     Iamges: folder({
       parallax: {
-        value: currentThem?.data?.imageParallax || false,
+        value: currentTheme?.data?.imageParallax || false,
         label: "parallax",
         onChange: (value) => updateThemeProp("imageParallax", value),
       },
