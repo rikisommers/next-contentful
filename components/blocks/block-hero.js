@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "../../utils/motion";
 import CanvasGradientBackground from "../background/canvasGradientBackground";
+import BackgroundCssGrad from "../background/bg-grad-css";
 import { useThemeContext } from "../context/themeContext";
 import BlendImage from "../image/blend-image";
 import { ClipContainer } from "../motion/clippath-container";
@@ -54,9 +55,13 @@ const BackgroundElements = () => {
         ease: [0.33, 1, 0.68, 1],
       }}
     >
-      {currentTheme.data.heroBackgroundStyle === "gradient" && (
-        <CanvasGradientBackground />
-      )}
+        {currentTheme.data.heroBackgroundStyle === "gradient" && (
+          <CanvasGradientBackground />
+        )}
+
+        {currentTheme.data.heroBackgroundStyle === "cssgradient" && (
+          <BackgroundCssGrad />
+        )}
 
       {/* {currentTheme.data.heroBackgroundStyle === "video" && <Background />} */}
 
@@ -101,9 +106,13 @@ const BackgroundGrad = () => {
   const { currentTheme } = useThemeContext();
   return (
     <div className="absolute top-0 left-0 flex items-center justify-end w-full h-full pointer-events-none z-1">
-      {currentTheme.data.heroBackgroundStyle === "gradient" && (
-        <CanvasGradientBackground gradientType="conic" conicRotation={1} />
-      )}
+        {currentTheme.data.heroBackgroundStyle === "gradient" && (
+          <CanvasGradientBackground gradientType="conic" conicRotation={1} />
+        )}
+
+        {currentTheme.data.heroBackgroundStyle === "cssgradient" && (
+          <BackgroundCssGrad />
+        )}
 
       {currentTheme.data.heroBackgroundStyle === "video" && <Background />}
 

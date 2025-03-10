@@ -11,10 +11,12 @@ import {
   cardHoverThemes,
   heroTypeThemes,
   heroBackgroundThemes,
+  heroCssGradientThemes,
   heroHeightThemes,
   heroTextImageThemes,
   heroTextCompositionThemes,
   heroTextPositionThemes,
+  heroCssGradientRadialPositionThemes,
   navigationPositionThemes,
   navigationDragThemes,
   fontScaleThemes,
@@ -168,6 +170,9 @@ export default function ThemeEditor({ customThemes }) {
     root.style.setProperty("--hero-height", theme.data.heroHeight || heroHeightThemes.full);
     root.style.setProperty("--hero-type", theme.data.heroType || heroTypeThemes.monks);
     root.style.setProperty("--hero-background-style", theme.data.heroBackgroundStyle || heroBackgroundThemes.gradient);
+    root.style.setProperty("--hero-css-gradient", theme.data.heroCssGradient || heroCssGradientThemes.linearVertical);
+    root.style.setProperty("--hero-css-gradient-angle", theme.data.heroCssGradientAngle || '90');
+    root.style.setProperty("--hero-css-gradient-radial-position", theme.data.heroCssGradientRadialPosition || heroCssGradientRadialPositionThemes.center);
     root.style.setProperty("--hero-grad-mid-point", theme.data.heroGradMidPoint || 0.5);
     root.style.setProperty("--hero-text-image-style", theme.data.heroTextImageStyle || heroTextImageThemes.inline);
     root.style.setProperty("--hero-text-position", theme.data.heroTextPosition || heroTextPositionThemes.bottomLeft);
@@ -686,6 +691,29 @@ export default function ThemeEditor({ customThemes }) {
         value: currentTheme.data.heroBackgroundStyle,
         label: "Bg",
         onChange: (value) => updateThemeProp("heroBackgroundStyle", value),
+      },
+      heroCssGradient: {
+        options: Object.keys(heroCssGradientThemes),
+        value: currentTheme.data.heroCssGradient || heroCssGradientThemes.linear,
+        label: "Css Gradient type",
+        onChange: (value) => updateThemeProp("heroCssGradient", value),
+      },
+        heroCssGradientAngle: {
+          value: currentTheme.data.heroCssGradientAngle || 45,
+          min: 0,
+          max: 180,
+          step: 1,
+          label: "Css Gradient Angle",
+          onChange: (value) => updateThemeProp("heroCssGradientAngle", value),
+          onEditStart: () => {}, // Empty function to enable continuous updates
+          joystick: false, // Disable joystick mode for more precise control
+          transient: true, // Enable real-time updates as the user drags
+        },
+      heroCssGradientRadialPosition: {
+        options: Object.keys(heroCssGradientRadialPositionThemes),
+        value: currentTheme.data.heroCssGradientRadialPosition,
+        label: "Css Gradient Radial Position",
+        onChange: (value) => updateThemeProp("heroCssGradientRadialPosition", value),
       },
       heroGradMidPoint: {
         value: currentTheme.data.heroGradMidPoint,

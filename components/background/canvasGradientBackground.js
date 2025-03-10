@@ -13,7 +13,7 @@ export default function CanvasGradientBackground({
   // Define gradient variables - props take precedence over theme values
   const [colorTopHex, setColorTopHex] = useState(currentTheme?.data.gradStart || '#ffffff');
   const [colorBottomHex, setColorBottomHex] = useState(currentTheme?.data.gradStop || '#333333');
-  const [midPoint, setMidPoint] = useState(currentTheme?.data.gradMidPoint || 0.5);
+  const [midPoint, setMidPoint] = useState(33);
   
   // Use prop values if provided, otherwise fall back to theme values
   const [activeGradientType, setActiveGradientType] = useState(
@@ -26,7 +26,7 @@ export default function CanvasGradientBackground({
   ]);
   
   const [activeConicRotation, setActiveConicRotation] = useState(
-    conicRotation !== null ? conicRotation : (currentTheme?.data.conicRotation || 0.0)
+     134
   );
 
   // Convert hex to RGB
@@ -120,7 +120,7 @@ export default function CanvasGradientBackground({
           vec2 centered = uv - conicCenter;
           float angle = atan(centered.y, centered.x) + conicRotation;
           // Normalize angle to [0, 1] range
-          float normalizedAngle = (angle + 3.14159) / (2.0 * 3.14159);
+          float normalizedAngle = (angle + 6.14159) / (1.0 * 3.14159);
           color = mix(colorBottom, colorTop, normalizedAngle);
         }
         
@@ -226,9 +226,9 @@ export default function CanvasGradientBackground({
         ]);
       }
       
-      if (conicRotation === null) {
-        setActiveConicRotation(currentTheme.data.conicRotation || 0.0);
-      }
+      
+        setActiveConicRotation( 7.5);
+      
     }
   }, [currentTheme, gradientType, conicCenterX, conicCenterY, conicRotation]);
 

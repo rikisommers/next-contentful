@@ -1221,8 +1221,25 @@ export const heroBackgroundThemes = {
   video: 'video',
   image: 'image',
   gradient: 'gradient',
+  cssgradient: 'cssgradient',
   animatedGradient: 'animated-gradient',
   blob:'blob',
+};
+
+export const heroCssGradientThemes = {
+  linearVertical: 'linear',
+  radial: 'radial',
+  conic: 'conic',
+};
+
+export const heroCssGradientRadialPositionThemes = {
+  center: 'center',
+  topLeft:'top-left',
+  bottomLeft:'bottom-left',
+  bottomCenter:'bottom-center',
+  topCenter:'top-center',
+  topRight:'top-right',
+  bottomRight:'bottom-right',
 };
 
 export const heroTextPositionThemes = {
@@ -1310,6 +1327,9 @@ const themeContent = {
   heroTextImage:heroTextImageThemes.none,
   heroTextPosition:heroTextPositionThemes.center,
   heroGradMidPoint:heroGradThemes.gradMidPoint,
+  heroCssGradient:heroCssGradientThemes.linear,
+  heroCssGradientAngle:'90',
+  heroCssGradientRadialPosition:heroCssGradientRadialPositionThemes.center,
   heroTextLayout:heroTextCompositionThemes.foo,
   heroTextImage:heroTextImageThemes.none,
   navPosition:navigationPositionThemes.topCenter,
