@@ -102,17 +102,6 @@ const AnimatedText = ({ type, highlight, content, delay }) => {
             repeatWhenInView={true}
           />
         );
-      case AnimStyle.LINEPOSUP:
-        return (
-          <TextAnimLineUp
-            theme={currentTheme}
-            content={content}
-            delay={delay}
-            highlight={highlight2}
-            animateWhenInView={true}
-            repeatWhenInView={true}
-          />
-        );
       case AnimStyle.LINEFADEIN:
         return (
           <TextAnimLineFadeIn

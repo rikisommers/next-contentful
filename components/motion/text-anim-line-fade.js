@@ -1,145 +1,147 @@
-import React from "react";
-import { motion } from "../../utils/motion";;
+"use client";
 
-export const TextAnimLineFadeIn = ({ 
-  content ,delay, highlight, theme,
+import React, { useRef } from "react";
+import { motion, useInView } from "../../utils/motion";;
+import { HighlightedSegment } from "./text-anim-highlighted-segment";
+import { processItalicText } from "../utils/textFormatting";
+export const TextAnimLineFadeIn = ({
+  delay = 0,
+  content,
+  highlight,
   animateWhenInView = false,
   repeatWhenInView = false,
+  type = "text",
 }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, {
+    once: !repeatWhenInView,
+    amount: 0.2,
+  });
 
-  const container = {
-    initial: { opacity: 0.5 },
-    animate: {
-      opacity: 1,
+  const containerVariants = {
+    hidden: {},
+    visible: {
       transition: {
-        delayChildren:delay,
-        staggerChildren: 0.123,
-        duration: 0.3,
+        staggerChildren: 0.2,
+        delayChildren: delay,
       },
     },
   };
 
   const lineVariants = {
-    initial: {
-      opacity: 0,
-      rotateX: 0,
-      y: "300px",
-    },
-    animate: {
+    hidden: { y: "100%", opacity: 0 },
+    visible: {
       y: 0,
       opacity: 1,
-      rotateX: 0,
-      rotateY: 0,
       transition: {
-        // delay: 0.5, // Add a delay to the start of the animation
-        ease: [0.33, 1, 0.68, 1],
-        duration: 1.2,
-      },
+        y: {
+          ease: [0.33, 1, 0.68, 1],
+          duration: 0.8,  // Shorter duration for movement
+        },
+        opacity: {
+          ease: "easeOut",
+          duration: 3,  // Longer duration for opacity (almost 2x longer)
+          delay: 0.1,     // Small delay for opacity to start after movement begins
+        }
+      }
     },
   };
 
-  const imageVariants = {
-    hidden: {
-      opacity: 0,
-      scale: 0,
-    },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        delay:1,
-        ease: [0.33, 1, 0.68, 1],
-        duration: 0.6,
-      },
-    },
-  };
-
-
-  const renderNewLine = (line, index) => {
+  const renderLine = (line, lineIndex) => {
     const segments = line.split("__");
 
     return (
-      <span
-        key={index}
-        style={{
-          position: "relative",
-          marginBottom: "0.25em",
+      <div
+        key={lineIndex}
+        style={{ 
+          overflow: 'hidden',
+          position: 'relative',
         }}
+        className="block leading-snug"
       >
         <motion.div
           variants={lineVariants}
           style={{
+            fontFamily: "var(--font-family-primary)",
             position: "relative",
             display: "inline-block",
           }}
         >
           {segments.map((segment, segmentIndex) => {
             const imageMatch = segment.match(/!\[([^\]]*)\]\((.*?)\)/);
-              if (imageMatch) {
-                if (theme.heroTextImageStyle === "none") {
-                  return "_"
-                }else{
-
-                const altText = imageMatch[1]; // Get alt text
-                const imageUrl = imageMatch[2].startsWith("//")
-                  ? `https:${imageMatch[2]}`
-                  : imageMatch[2]; // Ensure the URL is complete
-                return (
-                  <motion.div
-                  
-                  variants={imageVariants}
-                  initial="hidden"
-                  // animate={
-                  //   animateWhenInView ? (isInView ? "visible" : "hidden") : "hidden"
-                  // }
-                  animate="visible"
-                  className="relative inline-block rounded-full w-[30px] h-[30px] overflow-hidden mx-1 leading-normal bg-slate-300">
-                    <img
-                      key={segmentIndex}
-                      src={imageUrl}
-                      alt={altText}
-                      style={{
-                        maxWidth: "60px",
-                        height: "auto",
-                        display: "inline-block",
-                      }} // Adjust styles as needed
-                    />
-                  </motion.div>
-                );
-              
-              }
+            if (imageMatch) {
+              const [_, altText, url] = imageMatch;
+              const imageUrl = url.startsWith("//") ? `https:${url}` : url;
+              return (
+                <img
+                  key={segmentIndex}
+                  src={imageUrl}
+                  alt={altText}
+                  className="absolute w-[40px] h-0"
+                  style={{
+                    maxWidth: "40px",
+                    height: "auto",
+                    display: "inline-block",
+                  }}
+                />
+              );
             }
 
-            return <span key={segmentIndex}>{segment}</span>;
+            if (segmentIndex % 2 === 0) {
+              // Process the segment for italic text
+              const { processed: processedSegment, hasItalic } = processItalicText(segment);
+
+              // If segment has italic formatting, use dangerouslySetInnerHTML
+              if (hasItalic) {
+                return (
+                  <span 
+                    key={segmentIndex}
+                    dangerouslySetInnerHTML={{ __html: processedSegment }}
+                  />
+                );
+              } else {
+                // If no italic formatting, use regular children
+                return <span key={segmentIndex}>{segment}</span>;
+              }
+            } else {
+              return (
+                <HighlightedSegment
+                  key={segmentIndex}
+                  segment={segment}
+                  highlight={highlight}
+                />
+              );
+            }
           })}
         </motion.div>
-      </span>
+      </div>
     );
   };
 
-  const renderTextAsLines = (text) => {
-    if(text){
-    const segments = text.split("\n");
-    return segments.map((segment, index) => {
-      return renderNewLine(segment, index);
-    });
-  }
+  const renderContent = (text) => {
+    if (text) {
+      const lines = text.split("\n");
+      return lines.map((line, lineIndex) => renderLine(line, lineIndex));
+    }
   };
 
   return (
-
-    <motion.span
-         variants={container}
-         initial="initial"
-         animate="animate"
-         style={{
+    <motion.div
+      ref={ref}
+      variants={containerVariants}
+      initial="hidden"
+      animate={
+        animateWhenInView ? (isInView ? "visible" : "hidden") : "visible"
+      }
+    >
+      <span
+        style={{
           color: "var(--heading-color)",
           display: "inline-block",
         }}
-          
-         >
-          SS
-          {renderTextAsLines(content)}
-    </motion.span>
+      >
+        {renderContent(content)}
+      </span>
+    </motion.div>
   );
 };

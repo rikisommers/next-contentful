@@ -1035,7 +1035,6 @@ export const textAnimationThemes = {
   none: "none",
   figma: "figma",
   linesup: "linesup",
-  lineposup: "lineposup",
   linefadein: "linefadein",
   charfade: "charfade",
   charblur: "charblur",

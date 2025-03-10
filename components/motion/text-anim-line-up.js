@@ -3,6 +3,7 @@
 import React, { useRef } from "react";
 import { motion, useInView } from "../../utils/motion";;
 import { HighlightedSegment } from "./text-anim-highlighted-segment";
+import { processItalicText } from "../utils/textFormatting";
 
 export const TextAnimLineUp = ({
   delay,
@@ -29,12 +30,23 @@ export const TextAnimLineUp = ({
   };
 
   const lineVariants = {
-    hidden: { y: "100%" },
+    hidden: { 
+      y: "100%", 
+      opacity: 0 
+    },
     visible: {
       y: 0,
+      opacity: 1,
       transition: {
-        ease: [0.33, 1, 0.68, 1],
-        duration: 1.2,
+        y: {
+          ease: [0.33, 1, 0.68, 1],
+          duration: 0.8,
+        },
+        opacity: {
+          ease: "easeOut",
+          duration: 1.5, // Longer duration for opacity
+          delay: 0.1, // Small delay for opacity to start after movement begins
+        }
       },
     },
   };
@@ -51,7 +63,6 @@ export const TextAnimLineUp = ({
         }}
         className="block leading-snug"
       >
-        <h1>sd</h1>
         <motion.div
           variants={lineVariants}
 
@@ -84,7 +95,21 @@ export const TextAnimLineUp = ({
             }
 
             if (segmentIndex % 2 === 0) {
-              return <span key={segmentIndex}>{segment}</span>;
+              // Process the segment for italic text
+              const { processed: processedSegment, hasItalic } = processItalicText(segment);
+
+              // If segment has italic formatting, use dangerouslySetInnerHTML
+              if (hasItalic) {
+                return (
+                  <span 
+                    key={segmentIndex}
+                    dangerouslySetInnerHTML={{ __html: processedSegment }}
+                  />
+                );
+              } else {
+                // If no italic formatting, use regular children
+                return <span key={segmentIndex}>{segment}</span>;
+              }
             } else {
               return (
                 <HighlightedSegment

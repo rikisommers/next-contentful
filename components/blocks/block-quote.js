@@ -24,7 +24,7 @@ export const BlockQuote = ({ data }) => {
         {data.content && (
           <h2 className="text-6xl font-normal leading-relaxed text-balance" style={{ color: "var(--text-color)" }}>
             <AnimatedText
-              type={currentTheme.data.textAnimationPrimary}
+              type={currentTheme.data.textAnimation}
               content={data.content}
             />
            {/* {data.content} */}

@@ -3,7 +3,7 @@
 import React, { useRef } from "react";
 import { motion, useInView } from "../../utils/motion";;
 import { HighlightedSegment } from "./text-anim-highlighted-segment";
-
+import { processItalicText } from "../utils/textFormatting";
 export const TextAnimLinePosUp = ({
   delay = 0,
   content,
@@ -80,7 +80,21 @@ export const TextAnimLinePosUp = ({
             }
 
             if (segmentIndex % 2 === 0) {
-              return <span key={segmentIndex}>{segment}</span>;
+              // Process the segment for italic text
+              const { processed: processedSegment, hasItalic } = processItalicText(segment);
+
+              // If segment has italic formatting, use dangerouslySetInnerHTML
+              if (hasItalic) {
+                return (
+                  <span 
+                    key={segmentIndex}
+                    dangerouslySetInnerHTML={{ __html: processedSegment }}
+                  />
+                );
+              } else {
+                // If no italic formatting, use regular children
+                return <span key={segmentIndex}>{segment}</span>;
+              }
             } else {
               return (
                 <HighlightedSegment
