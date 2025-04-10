@@ -1040,6 +1040,8 @@ export const textAnimationThemes = {
   charblur: "charblur",
   charrandom: "charrandom",
   charcode: "charcode",
+  wordmask: "wordmask",
+  navigators: "navigators",
 };
 
 export const textHighlightThemes = {
@@ -1310,7 +1312,7 @@ const themeContent = {
   fluidFontWidthMax: fluidFontSizeThemes.fontWidthMax,
   fluidVariableUnit: fluidFontSizeThemes.variableUnit,
   textHighlight:textHighlightThemes.text,
-  textAnimation:textAnimationThemes.none,
+  textAnimation:textAnimationThemes.navigators,
   textAnimationSec:textAnimationThemes.none,
   pageTransition:pageTransitionThemes.fade,
   pageWidth:pageWidthThemes.fluid,

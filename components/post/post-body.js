@@ -100,12 +100,12 @@ export default function PostBody({ content, tags }) {
               )}
               {item.__typename === "BlockImage" && (
                 // <AnimatedElement type={AnimStyleEl.FADEIN}>
-                <div className="max-w-screen-xl mx-auto">
+                <div className="max-w-screen-xl px-16 mx-auto">
                   <BlockImg key={item.id} data={item} id={item.title} />
                 </div>
                 // </AnimatedElement>
               )}
-              {item.__typename === "BlockHotspotImage" && (
+              {item.__typename === "BlockHotspotImage px-16" && (
                 // <AnimatedElement type={AnimStyleEl.FADEIN}>
                 <BlockHotspotImg key={item.id} data={item} id={item.title} />
                 // </AnimatedElement>

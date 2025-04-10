@@ -6,6 +6,8 @@ import { ClipContainer } from "../components/motion/clippath-container";
 import BackgroundGrad from "./background/background-grad";
 
 export default function LandingPage({ data, footerData, tags }) {
+
+  console.log('dd',data)
   return (
     <>
       <ClipContainer background={<BackgroundGrad/>}>

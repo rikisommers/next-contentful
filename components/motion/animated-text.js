@@ -9,10 +9,12 @@ import { TextAnimLinear } from "./text-anim-linear";
 import { TextAnimRandom } from "./text-anim-random";
 import { TextAnimBlur } from "./text-anim-blur";
 import { TextAnimLineFadeIn } from "./text-anim-line-fade";
+import { TextAnimWordMask } from "./text-anim-word-mask";
 import { TextAnimNone } from "./text-anim-none";
 import TextAnimCode from "../motion/text-anim-code";
 import { TextAnimFigma } from "./text-anim-figma";
 import { useThemeContext } from "../context/themeContext";
+import { TextAnimNavigators } from "./text-anim-navigators";
 
 const HighlightStyle = {
   NONE: "none",
@@ -33,6 +35,8 @@ const AnimStyle = {
   CHARBLUR: "charblur",
   CHARRANDOM: "charrandom",
   CHARCODE: "charcode",
+  WORDMASK: "wordmask",
+  NAVIGATORS: "navigators",
 };
 
 // none: "none",
@@ -87,6 +91,10 @@ const AnimatedText = ({ type, highlight, content, delay }) => {
 
   if (content) {
     switch (type) {
+      case AnimStyle.NAVIGATORS:
+        return <TextAnimNavigators 
+                content={content}
+                highlight={highlight2} />;
       case AnimStyle.FIGMA:
         return <TextAnimFigma content={content} highlight={highlight2} />;
       case AnimStyle.NONE:
@@ -100,6 +108,14 @@ const AnimatedText = ({ type, highlight, content, delay }) => {
             highlight={highlight2}
             animateWhenInView={true}
             repeatWhenInView={true}
+          />
+        );
+      case AnimStyle.WORDMASK:
+        return (
+          <TextAnimWordMask
+            content={content}
+            delay={delay}
+            highlight={highlight2}
           />
         );
       case AnimStyle.LINEFADEIN:
@@ -127,6 +143,7 @@ const AnimatedText = ({ type, highlight, content, delay }) => {
             content={content}
           />
         );
+
       case AnimStyle.CHARRANDOM:
         return <TextAnimRandom content={content} />;
       case AnimStyle.CHARCODE:

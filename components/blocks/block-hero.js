@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "../../utils/motion";
 import CanvasGradientBackground from "../background/canvasGradientBackground";
+import CanvasAnimatedGradient from "../background/canvasAnimatedGradient";
 import BackgroundCssGrad from "../background/bg-grad-css";
 import { useThemeContext } from "../context/themeContext";
 import BlendImage from "../image/blend-image";
@@ -56,8 +57,12 @@ const BackgroundElements = () => {
       }}
     >
         {currentTheme.data.heroBackgroundStyle === "gradient" && (
-          <CanvasGradientBackground />
+          // <CanvasGradientBackground />
+          <CanvasAnimatedGradient/>
+
         )}
+
+
 
         {currentTheme.data.heroBackgroundStyle === "cssgradient" && (
           <BackgroundCssGrad />
@@ -113,6 +118,8 @@ const BackgroundGrad = () => {
         {currentTheme.data.heroBackgroundStyle === "cssgradient" && (
           <BackgroundCssGrad />
         )}
+
+{/* <CanvasGradientBackground gradientType="conic" conicRotation={1} /> */}
 
       {currentTheme.data.heroBackgroundStyle === "video" && <Background />}
 
