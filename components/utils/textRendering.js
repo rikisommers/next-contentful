@@ -2,6 +2,7 @@
  * Text rendering utilities for animation components
  */
 import { motion } from "../motion";
+import { splitTextLine } from "./splitText";
 
 // Define animation transition
 const TRANSITION = {
@@ -96,7 +97,7 @@ export const renderContent = (words, animationStep, options) => {
   if (!words || words.length === 0) return null;
 
   // Group words by line
-  const lines = groupWordsByLine(words);
+  const lines = splitTextLine(words);
 
   return (
     <div className="flex flex-col space-y-2">
@@ -124,4 +125,31 @@ export const renderSimpleContent = (words, animationStep, options) => {
       )}
     </div>
   );
+};
+
+/**
+ * Detects and processes image markdown in text
+ * @param {string} text - The text to process
+ * @returns {Object} Object containing image information and processed text
+ */
+export const processImageMarkdown = (text) => {
+  const imageRegex = /!\[(.*?)\]\((.*?)\)/g;
+  const matches = [...text.matchAll(imageRegex)];
+  
+  if (matches.length === 0) {
+    return { hasImage: false, text };
+  }
+
+  const processedText = text.replace(imageRegex, (match, alt, url) => {
+    return `<img src="${url}" alt="${alt}" class="inline-block max-h-[1.2em] align-middle" />`;
+  });
+
+  return {
+    hasImage: true,
+    processedText,
+    imageInfo: matches.map(match => ({
+      altText: match[1],
+      imageUrl: match[2]
+    }))
+  };
 }; 

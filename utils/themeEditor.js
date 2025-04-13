@@ -1,12 +1,12 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import {
+import { 
   themes,
   typographyThemes,
   textAnimationThemes,
-  textHighlightThemes,
-  pageTransitionThemes,
-  pageWidthThemes,
+  textHighlightThemes, 
+  pageTransitionThemes, 
+  pageWidthThemes, 
   cardThemes,
   cardHoverThemes,
   heroTypeThemes,
@@ -70,7 +70,7 @@ export default function ThemeEditor({ customThemes }) {
 
 
 
-  
+
   const { currentTheme, updateTheme } = useThemeContext();
   const [themeName, setThemeName] = useState("");
   const [isSaveModalOpen, setIsSaveModalOpen] = useState(false);
@@ -193,7 +193,7 @@ export default function ThemeEditor({ customThemes }) {
 
   const setSingleStyleProperty = (key, value) => {
     const root = document.documentElement;
-    const cssVar = `--${key.replace(/([A-Z])/g, "-$1").toLowerCase()}`;
+        const cssVar = `--${key.replace(/([A-Z])/g, "-$1").toLowerCase()}`;
 
     // Set the CSS variable regardless of the value type
     root.style.setProperty(cssVar, value);
@@ -369,7 +369,7 @@ export default function ThemeEditor({ customThemes }) {
       default:
         console.warn(`Unknown metric type: ${metricType}`);
     }
-
+  
     const bestTheme = getBestTheme(metricType, value);
     if (bestTheme) {
       updateTheme(bestTheme); // Ensure this is called for vibrancy and funkyness
@@ -417,7 +417,7 @@ export default function ThemeEditor({ customThemes }) {
       options: Object.keys(customThemes).map(key => customThemes[key].data.key), // Map to get the data.key
       value: customThemes[0].data.key || '',
       label: "Custom",
-      onChange: (value) => {
+        onChange: (value) => {
         handleThemeChange(value, customThemes);
       },
     },
@@ -425,7 +425,7 @@ export default function ThemeEditor({ customThemes }) {
       options: Object.keys(presetThemes),
       value: currentTheme.data.key,
       label: "Presets",
-      onChange: (value) => {
+        onChange: (value) => {
         handleThemeChange(value, presetThemes);
       },
     },
@@ -462,63 +462,63 @@ export default function ThemeEditor({ customThemes }) {
     //   },
     // }),
     Audio: folder({
-      audio: {
+      audio: { 
         value: currentTheme.data.audioEnabled,
         label: "Audio",
         onChange: (value) => updateThemeProp("audioEnabled", value),
       },
-      volume: {
+      volume: { 
         value: currentTheme.data.audioVolume,
-        min: 0,
-        max: 1,
-        step: 0.1,
+        min: 0, 
+        max: 1, 
+        step: 0.1, 
         label: "Volume",
         onChange: (value) => updateThemeProp("audioVolume", value), // Call existing handler
       },
     }),
     Globals: folder({
-      pageWidth: {
-        options: Object.keys(pageWidthThemes),
+      pageWidth: { 
+        options: Object.keys(pageWidthThemes), 
         value: currentTheme.data.pageWidth,
         label: "Page Width",
         onChange: (value) => updateThemeProp("pageWidth", value), // Call existing handler
       },
-      cursor: {
-        options: Object.keys(cursorThemes),
+      cursor: { 
+        options: Object.keys(cursorThemes), 
         value: currentTheme.data.cursor,
         label: "Cursor",
         onChange: (value) => updateThemeProp("cursor", value), // Call existing handler
       },
     }),
    Transition: folder({
-      pageTransition: {
-        options: Object.keys(pageTransitionThemes),
+      pageTransition: { 
+        options: Object.keys(pageTransitionThemes), 
         value: currentTheme.data.pageTransition,
         label: "Page Transition",
         onChange: (value) => updateThemeProp("pageTransition", value), // Call existing handler
       },
     }),
     Typography: folder({
-      textAnimation: {
-        options: Object.keys(textAnimationThemes),
-        value: currentTheme.textAnimation,
+      textAnimation: { 
+        options: Object.keys(textAnimationThemes), 
+        value: currentTheme.textAnimation, 
         label: "Text Animation",
         onChange: (value) => updateThemeProp("textAnimation", value), // Call existing handler
       },
-      textAnimationSec: {
-        options: Object.keys(textAnimationThemes),
+      textAnimationSec: { 
+        options: Object.keys(textAnimationThemes), 
         value: currentTheme.data.textAnimationSec,
         label: "Text Anim Sec",
         onChange: (value) => updateThemeProp("textAnimationSec", value), // Call existing handler
       },
-      fontFamilyPrimary: {
-        options: Object.values(typographyThemes),
+      fontFamilyPrimary: { 
+        options: Object.values(typographyThemes), 
         value: currentTheme.data.fontFamilyPrimary,
         label: "Font Family Primary",
         onChange: (value) => updateThemeProp("fontFamilyPrimary", value), // Call existing handler
       },
-      fontFamilySecondary: {
-        options: Object.values(typographyThemes),
+      fontFamilySecondary: { 
+        options: Object.values(typographyThemes), 
         value: currentThemeRef.fontFamilySecondary,
         label: "Font Family Secondary",
         onChange: (value) => updateThemeProp("fontFamilySecondary", value), // Call existing handler
@@ -537,22 +537,22 @@ export default function ThemeEditor({ customThemes }) {
 
       fontSizeMax: {
         value: currentTheme.data.fluidFontRatioMax,
-        min: 0,
-        max: 1.3,
-        step: 0.01,
+          min: 0, 
+          max: 1.3, 
+          step: 0.01, 
         label: "Fluid Max",
         onChange: (value) => updateThemeProp("fluidFontRatioMax", value), // Call existing handler
       },
       fontSizeMin: {
         value: currentTheme.data.fluidFontRatioMin,
-        min: 0,
-        max: 1.3,
-        step: 0.01,
+        min: 0, 
+        max: 1.3, 
+        step: 0.01, 
         label: "Fluid Min",
         onChange: (value) => updateThemeProp("fluidFontRatioMin", value), // Call existing handler
-      },
-      textHighlight: {
-        options: Object.values(textHighlightThemes),
+    },
+      textHighlight: { 
+        options: Object.values(textHighlightThemes), 
         value: currentTheme.data.textHighlight || 'figma',
         label: "Text Highlight",
         onChange: (value) => updateThemeProp("textHighlight", value), // Call existing handler
@@ -587,38 +587,38 @@ export default function ThemeEditor({ customThemes }) {
       
       
       "Body Text": folder({
-        dropCap: {
+        dropCap: { 
           value: currentTheme.data.bodyTextDropCap, // Default to false
           label: "Drop Cap",
           onChange: (value) => updateThemeProp("bodyTextDropCap", value), // Update handler
         },
-        indent: {
+        indent: { 
           value: currentTheme.data.bodyTextIndent, // Default to false
           label: "Indent",
           onChange: (value) => updateThemeProp("bodyTextIndent", value), // Update handler
         },
-        highlight: {
+        highlight: { 
           value: currentTheme?.data?.bodyTextHighlight || 'figma', // Default to false
           label: "Highlight",
           onChange: (value) => updateThemeProp("bodyTextHighlight", value), // Update handler
         },
-        align: {
+       align: { 
           value: currentTheme.data.bodyTextAlign, // Default to false
-          options: Object.values(bodyTextAlign),
+          options: Object.values(bodyTextAlign), 
           label: "Align",
           onChange: (value) => updateThemeProp("bodyTextAlign", value), // Update handler
         },
       }),
     }),
     Navigation: folder({
-      navigationPosition: {
-        options: Object.keys(navigationPositionThemes),
+      navigationPosition: { 
+        options: Object.keys(navigationPositionThemes), 
         value: currentTheme?.data?.navPosition || "topCenter",
         label: "Position",
         onChange: (value) => updateThemeProp("navPosition", value),
       },
-      navigationStyle: {
-        options: Object.keys(navigationStyleThemes),
+      navigationStyle: { 
+        options: Object.keys(navigationStyleThemes), 
         value: currentTheme.data.navStyle,
         label: "Style",
         onChange: (value) => updateThemeProp("navStyle", value),
@@ -629,38 +629,38 @@ export default function ThemeEditor({ customThemes }) {
         label: "Label Display",
         onChange: (value) => updateThemeProp("navLabelDisplay", value),
       },
-      floating: {
+      floating: { 
         value: currentTheme.data.navFloating,
         label: "floating",
         onChange: (value) => updateThemeProp("navFloating", value),
       },
-      fixed: {
+      fixed: { 
         value: currentTheme.data.navFixed,
         label: "fixed",
         onChange: (value) => updateThemeProp("navFixed", value),
       },
-      // logoFill: {
+      // logoFill: { 
       //   value: currentTheme.data.logoFill,
       //   label: 'logo fill',
       //   onChange: (value) => updateThemeProp('logoFill',  value )
       // },
-      border: {
+      border: { 
         value: currentTheme.data.navBorder,
         label: "border",
         onChange: (value) => updateThemeProp("navBorder", value),
       },
-      shadow: {
+      shadow: { 
         value: currentTheme.data.navShadow,
         label: "shadow",
         onChange: (value) => updateThemeProp("navShadow", value),
       },
-      shadowColor: {
+      shadowColor: { 
         value: currentTheme.data.navShadowColor,
         label: "shadow color",
         onChange: (value) => updateThemeProp("navShadowColor", value),
       },
-      shadowSize: {
-        options: Object.keys(navigationOptions?.shadowSize),
+      shadowSize: { 
+        options: Object.keys(navigationOptions?.shadowSize), 
         value: currentTheme.data.navShadowSize,
         label: "sahdow size",
         onChange: (value) => updateThemeProp("navShadowSize", value),
@@ -674,20 +674,20 @@ export default function ThemeEditor({ customThemes }) {
       },
     }),
     Hero: folder({
-      height: {
-        options: Object.keys(heroHeightThemes),
+        height: { 
+          options: Object.keys(heroHeightThemes), 
         value: currentTheme.data.heroHeight,
         label: "Height",
         onChange: (value) => updateThemeProp("heroHeight", value),
-      },
-      heroType: {
-        options: Object.keys(heroTypeThemes),
+        },
+        heroType: { 
+          options: Object.keys(heroTypeThemes), 
         value: currentTheme.data.heroType,
         label: "Type",
         onChange: (value) => updateThemeProp("heroType", value),
-      },
-      heroBackgroundStyle: {
-        options: Object.keys(heroBackgroundThemes),
+        },
+        heroBackgroundStyle: { 
+          options: Object.keys(heroBackgroundThemes), 
         value: currentTheme.data.heroBackgroundStyle,
         label: "Bg",
         onChange: (value) => updateThemeProp("heroBackgroundStyle", value),
@@ -714,62 +714,62 @@ export default function ThemeEditor({ customThemes }) {
         value: currentTheme.data.heroCssGradientRadialPosition,
         label: "Css Gradient Radial Position",
         onChange: (value) => updateThemeProp("heroCssGradientRadialPosition", value),
-      },
-      heroGradMidPoint: {
+        },
+        heroGradMidPoint: { 
         value: currentTheme.data.heroGradMidPoint,
-        min: 0,
-        max: 1,
-        step: 0.1,
+          min: 0, 
+          max: 1, 
+          step: 0.1, 
         label: "Gradient Mid Point",
         onChange: (value) => updateThemeProp("heroGradMidPoint", value),
-      },
-      heroTextImageStyle: {
-        options: Object.keys(heroTextImageThemes),
+        },
+        heroTextImageStyle: { 
+          options: Object.keys(heroTextImageThemes), 
         value: currentTheme.data.heroTextImageStyle,
         label: "Images",
         onChange: (value) => updateThemeProp("heroTextImageStyle", value),
-      },
-      heroTextLayoutStyle: {
-        options: Object.keys(heroTextPositionThemes),
+        },
+        heroTextLayoutStyle: { 
+          options: Object.keys(heroTextPositionThemes), 
         value: currentTheme.data.heroTextPosition || "bottom-left",
         label: "TextLayout",
         onChange: (value) => updateThemeProp("heroTextPosition", value),
-      },
-      heroTextCompStyle: {
-        options: Object.keys(heroTextCompositionThemes),
+        },
+        heroTextCompStyle: { 
+          options: Object.keys(heroTextCompositionThemes), 
         value: currentTheme.data.heroTextComposition,
         label: "Compo",
         onChange: (value) => updateThemeProp("heroTextPosition", value),
       },
     }),
     Cards: folder({
-      layout: {
-        options: Object.keys(cardThemes),
+      layout: { 
+        options: Object.keys(cardThemes), 
         value: currentTheme.data.cardLayout || "reone",
         label: "layout",
         onChange: (value) => updateThemeProp("cardLayout", value),
       },
-      hover: {
-        options: Object.keys(cardHoverThemes),
+      hover: { 
+        options: Object.keys(cardHoverThemes), 
         value: currentTheme.data.cardHover,
         label: "hover",
         onChange: (value) => updateThemeProp("cardHover", value),
       },
-      grid: {
-        options: Object.keys(gridThemes),
+      grid: { 
+        options: Object.keys(gridThemes), 
         value: currentTheme?.data?.cardGrid || "bento1",
         label: "grid",
         onChange: (value) => updateThemeProp("cardGrid", value),
       },
     }),
     Iamges: folder({
-      parallax: {
+      parallax: { 
         value: currentTheme?.data?.imageParallax || false,
         label: "parallax",
         onChange: (value) => updateThemeProp("imageParallax", value),
       },
-      mixBlendMode: {
-        options: Object.keys(mixBlendThemes),
+      mixBlendMode: { 
+        options: Object.keys(mixBlendThemes), 
         value: currentTheme.data.imageMixBlendMode,
         label: "Blend Mode",
         onChange: (value) => updateThemeProp("imageMixBlendMode", value),
@@ -802,7 +802,7 @@ export default function ThemeEditor({ customThemes }) {
         onChange: (newValue) =>
           updateThemeProp("bodyBackgroundColor", newValue),
       },
-      gradStart: {
+            gradStart: {
         value: currentTheme.data.gradStart,
         label: "Gradient Start",
         onChange: (newValue) => updateThemeProp("gradStart", newValue),

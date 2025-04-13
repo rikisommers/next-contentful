@@ -56,11 +56,11 @@ export const processContent = (content) => {
 };
 
 /**
- * Group words into lines based on segment indices
+ * Split words into lines based on segment indices
  * @param {Array} words - Array of processed word objects
  * @returns {Array} - Array of lines, each containing an array of words
  */
-export const groupWordsByLine = (words) => {
+export const splitTextLine = (words) => {
   const lines = [];
   let currentLine = [];
   let currentSegmentIndex = -1;
@@ -87,11 +87,11 @@ export const groupWordsByLine = (words) => {
 };
 
 /**
- * Simple content processing that strips images and splits into words
+ * Split text content into individual words, removing images
  * @param {string} content - The content to process
  * @returns {Array} - Array of words
  */
-export const processSimpleContent = (content) => {
+export const splitTextWords = (content) => {
   if (!content) return [];
   
   // First, strip out all image markdown patterns

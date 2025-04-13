@@ -22,7 +22,7 @@ export const BlockQuote = ({ data }) => {
         )}
 
         {data.content && (
-          <h2 className="text-6xl font-normal leading-relaxed text-balance" style={{ color: "var(--text-color)" }}>
+          <h2 className="text-2xl font-normal leading-relaxed text-balance" style={{ color: "var(--text-color)" }}>
             <AnimatedText
               type={currentTheme.data.textAnimation}
               content={data.content}
