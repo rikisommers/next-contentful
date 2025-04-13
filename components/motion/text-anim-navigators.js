@@ -9,19 +9,19 @@ import { HighlightedSegment } from "./text-anim-highlighted-segment";
 export const TextAnimNavigators = ({
   delay = 1,
   itemDuration = 0.1,
-  itemGap = 0.1,
-  textDelay = 0.1,
-  buffer = 0.2,
+  itemGap = 0.05,
+  textDelay = 1,
+  buffer = 0,
   content,
   highlight,
   animateWhenInView = false,
   repeatWhenInView = false,
   type = "text",
   useSimpleContent = false,
-  loadingPercentage = 100,
 }) => {
   const ref = useRef(null);
-  const [animationStep, setAnimationStep] = useState(0);
+  const [loadingStep, setLoadingStep] = useState(0);
+  const [textStep, setTextStep] = useState(0);
   const [words, setWords] = useState([]);
   const [lines, setLines] = useState([]);
   const isInView = useInView(ref, {
@@ -56,17 +56,17 @@ export const TextAnimNavigators = ({
   useEffect(() => {
     if (words.length === 0 || !(animateWhenInView ? isInView : true)) return;
 
-    // Reset animation step
-    setAnimationStep(0);
+    // Reset animation steps
+    setLoadingStep(0);
+    setTextStep(0);
+    console.log("Animation started with", words.length, "words, textDelay:", textDelay);
 
-    // Calculate how many loading words to animate based on the percentage
-    const loadingWordsCount = Math.max(1, Math.floor((words.length * loadingPercentage) / 100));
-    
     // Step 1: Animate loading spans in sequence
     const loadingInTimers = words.map((_, index) => {
       return setTimeout(() => {
-        setAnimationStep((prev) => {
+        setLoadingStep((prev) => {
           if (prev === index) {
+            console.log("Loading span", index, "appeared, step:", index + 1);
             return index + 1;
           }
           return prev;
@@ -74,31 +74,38 @@ export const TextAnimNavigators = ({
       }, index * itemDuration * 1000); // Convert seconds to milliseconds
     });
 
-    // Step 2: Animate loading spans out in sequence
-    const allLoadingCompleteTime =
-      loadingWordsCount * itemDuration * 1000 + buffer * 1000; // Time for all loading spans to appear + buffer
-
+    // Step 2: Animate loading spans out in sequence - start after textDelay seconds
     const loadingOutTimers = words.map((_, index) => {
+      // Start fading out after textDelay seconds from when component came into view
+      const fadeOutStartTime = textDelay * 1000 + index * itemGap * 1000;
+      console.log("Loading span", index, "will fade out at", fadeOutStartTime, "ms");
+      
       return setTimeout(() => {
-        setAnimationStep((prev) => {
+        setLoadingStep((prev) => {
           if (prev === words.length + index) {
+            console.log("Loading span", index, "fading out, step:", words.length + index + 1);
             return words.length + index + 1;
           }
           return prev;
         });
-      }, allLoadingCompleteTime + index * itemGap * 1000); // Start after all loading spans are visible
+      }, fadeOutStartTime);
     });
 
-    // Step 3: Animate text in sequence after each loading span has faded out
+    // Step 3: Animate text in sequence - start after textDelay seconds
     const textInTimers = words.map((_, index) => {
+      // Start text animation after textDelay seconds from when component came into view
+      const textStartTime = textDelay * 1000 + index * itemGap * 1000;
+      console.log("Text", index, "will appear at", textStartTime, "ms");
+      
       return setTimeout(() => {
-        setAnimationStep((prev) => {
-          if (prev === words.length * 2 + index) {
-            return words.length * 2 + index + 1;
+        setTextStep((prev) => {
+          if (prev === index) {
+            console.log("Text", index, "appearing, step:", index + 1);
+            return index + 1;
           }
           return prev;
         });
-      }, allLoadingCompleteTime + index * itemGap * 1000 + 0); // Start immediately after loading span starts fading out
+      }, textStartTime);
     });
 
     // Cleanup timers
@@ -107,7 +114,7 @@ export const TextAnimNavigators = ({
       loadingOutTimers.forEach((timer) => clearTimeout(timer));
       textInTimers.forEach((timer) => clearTimeout(timer));
     };
-  }, [words, isInView, animateWhenInView, itemDuration, itemGap, buffer, loadingPercentage]);
+  }, [words, isInView, animateWhenInView, itemDuration, itemGap, buffer, textDelay]);
 
   // Process content into lines of words, handling images and formatting
   const processContent = (content) => {
@@ -170,14 +177,18 @@ export const TextAnimNavigators = ({
   };
 
   // Render a single word with loading and text animations
-  const renderWord = (word, index, animationStep, totalWords, { itemDuration, textDelay }) => {
-    // Calculate how many loading words to animate based on the percentage
-    const loadingWordsCount = Math.max(1, Math.floor((totalWords * loadingPercentage) / 100));
-    
+  const renderWord = (word, index, loadingStep, textStep, totalWords, { itemDuration, textDelay }) => {
     // Determine if this word's loading span should be visible
-    const loadingVisible = animationStep > index && animationStep <= totalWords + index;
+    const loadingVisible = loadingStep > index && loadingStep <= totalWords + index;
+    
     // Determine if this word's text should be visible
-    const textVisible = animationStep > totalWords + index;
+    // Text starts appearing after textDelay seconds, regardless of loading span completion
+    const textVisible = textStep > index;
+    
+    // Debug visibility conditions for the first word
+    if (index === 0 && (loadingStep % 5 === 0 || textStep % 5 === 0)) {
+      console.log("Word 0 - Loading step:", loadingStep, "Text step:", textStep, "Loading visible:", loadingVisible, "Text visible:", textVisible);
+    }
 
     if (word.type === 'linebreak') {
       return <br key={`break-${index}`} />;
@@ -192,7 +203,7 @@ export const TextAnimNavigators = ({
         <span className="relative mr-2" key={`word-${index}`} data-index={index}>
           <motion.span
             style={{backgroundColor:'var(--surface2)'}}
-            className="absolute top-0 left-0 inline-flex w-full h-full py-0 rounded-xl"
+            className="absolute inline-flex w-full h-full py-2 rounded-xl"
             initial={{ opacity: 0 }}
             animate={{ opacity: loadingVisible ? 1 : 0 }}
             transition={TRANSITION}
@@ -223,16 +234,16 @@ export const TextAnimNavigators = ({
     }
 
     return (
-      <span className="relative mr-2" key={`word-${index}`} data-index={index}>
+      <span className="relative flex items-center justify-center mr-2" key={`word-${index}`} data-index={index}>
         <motion.span
           style={{backgroundColor:'var(--surface2)'}}
-          className="absolute top-0 left-0 inline-flex w-full h-full py-0 rounded-xl"
+          className="absolute top-[10%] left-0 inline-flex w-full h-[80%]  py-0 rounded-xl"
           initial={{ opacity: 0 }}
           animate={{ opacity: loadingVisible ? 1 : 0 }}
           transition={TRANSITION}
         ></motion.span>
         <motion.span
-          className="z-50 inline-flex py-0 rounded-xl"
+          className="relative z-50 inline-flex py-0 rounded-xl"
           initial={{ opacity: 0 }}
           animate={{ opacity: textVisible ? 1 : 0 }}
           transition={{
@@ -248,30 +259,30 @@ export const TextAnimNavigators = ({
   };
 
   // Render a line of words
-  const renderLine = (line, lineIndex, allWords, animationStep, options) => {
+  const renderLine = (line, lineIndex, allWords, loadingStep, textStep, options) => {
     return (
       <div key={`line-${lineIndex}`} className="flex flex-wrap mb-2">
         {line.map((word, wordIndex) => {
           const index = allWords.findIndex(w => w === word);
-          return renderWord(word, index, animationStep, allWords.length, options);
+          return renderWord(word, index, loadingStep, textStep, allWords.length, options);
         })}
       </div>
     );
   };
 
   // Render the entire content with vertical stacking
-  const renderContent = (lines, animationStep, options) => {
+  const renderContent = (lines, loadingStep, textStep, options) => {
     if (!lines || lines.length === 0) return null;
 
     return (
       <div className="flex flex-col">
         {lines.map((line, lineIndex) => 
-          renderLine(line, lineIndex, words, animationStep, options)
+          renderLine(line, lineIndex, words, loadingStep, textStep, options)
         )}
       </div>
     );
   };
 
-  return renderContent(lines, animationStep, { itemDuration, textDelay })
+  return renderContent(lines, loadingStep, textStep, { itemDuration, textDelay })
   
 };
