@@ -1,288 +1,81 @@
 "use client";
 
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useMemo, useEffect } from "react";
+import { useAnimationControls } from "framer-motion";
 import { motion, useInView } from "framer-motion";
-import { processImageMarkdown, createImageWord } from "../utils/textFormatting";
-import { splitTextWords } from "../utils/splitText";
-import { HighlightedSegment } from "./text-anim-highlighted-segment";
+
+const divVariants = {
+    left: {
+      x: -10,
+      transition: {
+        duration: 1
+      }
+    },
+    right: {
+      x: 10,
+      transition: {
+        duration: 1
+      }
+    }
+  };
 
 export const TextAnimNavigators = ({
   delay = 1,
-  itemDuration = 0.1,
-  itemGap = 0.05,
-  textDelay = 1,
-  buffer = 0,
   content,
   highlight,
   animateWhenInView = false,
   repeatWhenInView = false,
   type = "text",
-  useSimpleContent = false,
 }) => {
-  const ref = useRef(null);
-  const [loadingStep, setLoadingStep] = useState(0);
-  const [textStep, setTextStep] = useState(0);
-  const [words, setWords] = useState([]);
-  const [lines, setLines] = useState([]);
-  const isInView = useInView(ref, {
-    once: !repeatWhenInView,
-    amount: 0.2,
-  });
 
-  // Define animation transition
-  const TRANSITION = {
-    ease: "easeInOut",
-    duration: itemDuration,
-  };
+    const textControls = useAnimationControls();
+    const ref = useRef(null);
+    const isInView = useInView(ref, {
+      once: !repeatWhenInView,
+      amount: 0.2,
+    });
 
-  // Process content when it changes
-  useEffect(() => {
-    if (content) {
-      if (useSimpleContent) {
-        // For simple content, just split into words
-        const processedWords = splitTextWords(content);
-        setWords(processedWords);
-        setLines([processedWords]); // All words in one line
-      } else {
-        // For complex content, process line by line
-        const { lines: processedLines, words: processedWords } = processContent(content);
-        setLines(processedLines);
-        setWords(processedWords);
+    useEffect(() => {
+      if (isInView) {
+        textControls.start({
+          x: [0, 40, -40, 0],
+          opacity: [1, 0, 0, 1],
+          transition: {
+            duration: 0.6,
+            times: [0, 0.33, 0.65, 1],
+          },
+        });
       }
-    }
-  }, [content, useSimpleContent]);
+    }, [isInView, textControls]);
 
-  // Animation sequence
-  useEffect(() => {
-    if (words.length === 0 || !(animateWhenInView ? isInView : true)) return;
-
-    // Reset animation steps
-    setLoadingStep(0);
-    setTextStep(0);
-    console.log("Animation started with", words.length, "words, textDelay:", textDelay);
-
-    // Step 1: Animate loading spans in sequence
-    const loadingInTimers = words.map((_, index) => {
-      return setTimeout(() => {
-        setLoadingStep((prev) => {
-          if (prev === index) {
-            console.log("Loading span", index, "appeared, step:", index + 1);
-            return index + 1;
-          }
-          return prev;
-        });
-      }, index * itemDuration * 1000); // Convert seconds to milliseconds
-    });
-
-    // Step 2: Animate loading spans out in sequence - start after textDelay seconds
-    const loadingOutTimers = words.map((_, index) => {
-      // Start fading out after textDelay seconds from when component came into view
-      const fadeOutStartTime = textDelay * 1000 + index * itemGap * 1000;
-      console.log("Loading span", index, "will fade out at", fadeOutStartTime, "ms");
-      
-      return setTimeout(() => {
-        setLoadingStep((prev) => {
-          if (prev === words.length + index) {
-            console.log("Loading span", index, "fading out, step:", words.length + index + 1);
-            return words.length + index + 1;
-          }
-          return prev;
-        });
-      }, fadeOutStartTime);
-    });
-
-    // Step 3: Animate text in sequence - start after textDelay seconds
-    const textInTimers = words.map((_, index) => {
-      // Start text animation after textDelay seconds from when component came into view
-      const textStartTime = textDelay * 1000 + index * itemGap * 1000;
-      console.log("Text", index, "will appear at", textStartTime, "ms");
-      
-      return setTimeout(() => {
-        setTextStep((prev) => {
-          if (prev === index) {
-            console.log("Text", index, "appearing, step:", index + 1);
-            return index + 1;
-          }
-          return prev;
-        });
-      }, textStartTime);
-    });
-
-    // Cleanup timers
-    return () => {
-      loadingInTimers.forEach((timer) => clearTimeout(timer));
-      loadingOutTimers.forEach((timer) => clearTimeout(timer));
-      textInTimers.forEach((timer) => clearTimeout(timer));
-    };
-  }, [words, isInView, animateWhenInView, itemDuration, itemGap, buffer, textDelay]);
-
-  // Process content into lines of words, handling images and formatting
-  const processContent = (content) => {
-    if (!content) return [];
-    
-    const rawLines = content.split('\n');
-    const processedLines = [];
-    let allWords = [];
-    let segmentIndex = 0;
-    let spaceIndex = 0; // Add a counter for space elements
-
-    rawLines.forEach((line, lineIndex) => {
-      if (line.trim() === '') {
-        processedLines.push([]); // Add empty line to maintain structure
-        return;
-      }
-
-      const lineWords = [];
-      // Split by spaces but keep the spaces as separate segments
-      const segments = line.split(/(\s+)/);
-      
-      segments.forEach((segment, segmentIndex) => {
-        if (segment.trim() === '') {
-          lineWords.push({ 
-            type: 'space', 
-            text: segment, 
-            segmentIndex: segmentIndex++,
-            spaceIndex: spaceIndex++ // Add a unique index for each space
-          });
-          return;
-        }
-
-        // Process image markdown
-        const { hasImage, imageInfo } = processImageMarkdown(segment);
-        if (hasImage) {
-          imageInfo.forEach(info => {
-            const imageWord = createImageWord(info, segmentIndex++);
-            lineWords.push(imageWord);
-            allWords.push(imageWord);
-          });
-          return;
-        }
-
-        // Strip formatting characters and just use plain text
-        const cleanText = segment.replace(/__|\*\*/g, '');
-        
-        const textWord = {
-          type: 'text',
-          text: cleanText,
-          segmentIndex: segmentIndex++
-        };
-        lineWords.push(textWord);
-        allWords.push(textWord);
-      });
-
-      processedLines.push(lineWords);
-    });
-
-    return { lines: processedLines, words: allWords };
-  };
-
-  // Render a single word with loading and text animations
-  const renderWord = (word, index, loadingStep, textStep, totalWords, { itemDuration, textDelay }) => {
-    // Determine if this word's loading span should be visible
-    const loadingVisible = loadingStep > index && loadingStep <= totalWords + index;
-    
-    // Determine if this word's text should be visible
-    // Text starts appearing after textDelay seconds, regardless of loading span completion
-    const textVisible = textStep > index;
-    
-    // Debug visibility conditions for the first word
-    if (index === 0 && (loadingStep % 5 === 0 || textStep % 5 === 0)) {
-      console.log("Word 0 - Loading step:", loadingStep, "Text step:", textStep, "Loading visible:", loadingVisible, "Text visible:", textVisible);
-    }
-
-    if (word.type === 'linebreak') {
-      return <br key={`break-${index}`} />;
-    }
-
-    if (word.type === 'space') {
-      return <span key={`space-${word.spaceIndex || index}`}>{word.text}</span>;
-    }
-
-    if (word.type === 'image') {
-      return (
-        <span className="relative mr-2" key={`word-${index}`} data-index={index}>
-          <motion.span
-            style={{backgroundColor:'var(--surface2)'}}
-            className="absolute inline-flex w-full h-full py-2 rounded-xl"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: loadingVisible ? 1 : 0 }}
-            transition={TRANSITION}
-          ></motion.span>
-          <motion.span
-            className="z-50 inline-flex py-0 rounded-xl"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: textVisible ? 1 : 0 }}
-            transition={{
-              ...TRANSITION,
-              duration: itemDuration,
-              delay: textDelay,
-            }}
-          >
-            <img
-              src={word.imageUrl}
-              alt={word.altText}
-              className="inline h-[1em]"
-              style={{
-                maxWidth: "40px",
-                height: "auto",
-                display: "inline-block",
-              }}
-            />
-          </motion.span>
-        </span>
-      );
-    }
-
+  const renderWord = (line, index) => {
     return (
-      <span className="relative flex items-center justify-center mr-2" key={`word-${index}`} data-index={index}>
+      <motion.span
+        className="relative inline-flex px-4 py-0 bg-slate-500/20 rounded-xl"
+        animate={textControls}
+        variants={divVariants}
+        key={index}
+      >
         <motion.span
-          style={{backgroundColor:'var(--surface2)'}}
-          className="absolute top-[10%] left-0 inline-flex w-full h-[80%]  py-0 rounded-xl"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: loadingVisible ? 1 : 0 }}
-          transition={TRANSITION}
-        ></motion.span>
-        <motion.span
-          className="relative z-50 inline-flex py-0 rounded-xl"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: textVisible ? 1 : 0 }}
-          transition={{
-            ...TRANSITION,
-            duration: itemDuration,
-            delay: textDelay,
-          }}
-        >
-         {word.text}
-        </motion.span>
-      </span>
+          className="absolute top-0 left-0 inline-flex w-full h-full m-1 bg-purple-600/30"
+          key={index + "2r4"}
+        />
+        {line}
+      </motion.span>
     );
   };
 
-  // Render a line of words
-  const renderLine = (line, lineIndex, allWords, loadingStep, textStep, options) => {
-    return (
-      <div key={`line-${lineIndex}`} className="flex flex-wrap mb-2">
-        {line.map((word, wordIndex) => {
-          const index = allWords.findIndex(w => w === word);
-          return renderWord(word, index, loadingStep, textStep, allWords.length, options);
-        })}
-      </div>
-    );
+  const renderContent = (text) => {
+    if (text) {
+      const lines = text.split(" ");
+      return lines.map((line, lineIndex) => renderWord(line, lineIndex));
+    }
   };
 
-  // Render the entire content with vertical stacking
-  const renderContent = (lines, loadingStep, textStep, options) => {
-    if (!lines || lines.length === 0) return null;
-
-    return (
-      <div className="flex flex-col">
-        {lines.map((line, lineIndex) => 
-          renderLine(line, lineIndex, words, loadingStep, textStep, options)
-        )}
-      </div>
-    );
-  };
-
-  return renderContent(lines, loadingStep, textStep, { itemDuration, textDelay })
-  
+  return (
+    <div ref={ref}>
+        {isInView ? 'Y' : 'N'}
+      {renderContent(content)}
+    </div>
+  )
 };
