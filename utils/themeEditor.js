@@ -180,6 +180,8 @@ export default function ThemeEditor({ customThemes }) {
     root.style.setProperty("--text-highlight-outline", theme.data.textHighlightOutline || textHighlightOutlineThemes.none);
     root.style.setProperty("--text-highlight-outline-neumorphic-start-color", theme.data.textHighlightOutlineNeumorphicStartColor || '#FFFFFF');
     root.style.setProperty("--text-highlight-outline-neumorphic-end-color", theme.data.textHighlightOutlineNeumorphicEndColor || '#000000');
+    root.style.setProperty("--text-animation", theme.data.textAnimation || textAnimationThemes.navigators);
+    root.style.setProperty("--text-animation-sec", theme.data.textAnimation || textAnimationThemes.navigators);
 
     // Card properties
     root.style.setProperty("--card-layout", theme.data.cardLayout || "default");

@@ -1,81 +1,125 @@
 "use client";
 
-import React, { useRef, useMemo, useEffect } from "react";
-import { useAnimationControls } from "framer-motion";
-import { motion, useInView } from "framer-motion";
+import React, { useRef, useEffect } from "react";
+import { motion, useAnimationControls, useInView } from "framer-motion";
 
-const divVariants = {
-    left: {
-      x: -10,
-      transition: {
-        duration: 1
-      }
-    },
-    right: {
-      x: 10,
-      transition: {
-        duration: 1
-      }
-    }
-  };
+// Define the fade in ("visible") and fade out ("hidden") variants.
+const wordVariants = {
+  hidden: {
+    opacity: 0,
+    transition: { duration: 1 }, // fade-out duration
+  },
+  visible: {
+    opacity: 1,
+    transition: { duration: 1 }, // fade-in duration
+  },
+};
 
-export const TextAnimNavigators = ({
-  delay = 1,
-  content,
-  highlight,
-  animateWhenInView = false,
-  repeatWhenInView = false,
-  type = "text",
-}) => {
+// A separate Word component lets each word have its own animation controller.
+const Word = ({ word, index, registerControl }) => {
+  const controls = useAnimationControls();
 
-    const textControls = useAnimationControls();
-    const ref = useRef(null);
-    const isInView = useInView(ref, {
-      once: !repeatWhenInView,
-      amount: 0.2,
-    });
-
-    useEffect(() => {
-      if (isInView) {
-        textControls.start({
-          x: [0, 40, -40, 0],
-          opacity: [1, 0, 0, 1],
-          transition: {
-            duration: 0.6,
-            times: [0, 0.33, 0.65, 1],
-          },
-        });
-      }
-    }, [isInView, textControls]);
-
-  const renderWord = (line, index) => {
-    return (
-      <motion.span
-        className="relative inline-flex px-4 py-0 bg-slate-500/20 rounded-xl"
-        animate={textControls}
-        variants={divVariants}
-        key={index}
-      >
-        <motion.span
-          className="absolute top-0 left-0 inline-flex w-full h-full m-1 bg-purple-600/30"
-          key={index + "2r4"}
-        />
-        {line}
-      </motion.span>
-    );
-  };
-
-  const renderContent = (text) => {
-    if (text) {
-      const lines = text.split(" ");
-      return lines.map((line, lineIndex) => renderWord(line, lineIndex));
-    }
-  };
+  // Register this control with the parent component when the Word mounts.
+  useEffect(() => {
+    registerControl(index, controls);
+  }, [index, controls, registerControl]);
 
   return (
-    <div ref={ref}>
-        {isInView ? 'Y' : 'N'}
-      {renderContent(content)}
+    <motion.span
+      variants={wordVariants}
+      initial="hidden"
+      animate={controls}
+      className="inline-flex items-center justify-center w-8 h-8 m-1 bg-purple-600/30"
+    >
+      {word}
+    </motion.span>
+  );
+};
+
+export const TextAnimNavigators = ({
+  content = "",
+  duplicateOnlyVisible = false, // new prop: if true, duplicate words animate only "visible"
+}) => {
+  const ref = useRef(null);
+  // Trigger animation when the container is at least 50% in view.
+  const isInView = useInView(ref, { once: false, amount: 0.5 });
+  const words = content.split(" ");
+
+  // We store animation controllers for each instance:
+  // The first words.length indices for original words,
+  // and the next words.length indices for duplicates.
+  const wordControlsRef = useRef([]);
+
+  // Callback to allow each Word instance to register its controller.
+  const registerControl = (index, control) => {
+    wordControlsRef.current[index] = control;
+  };
+
+  useEffect(() => {
+    if (!isInView) return;
+
+    // Timing parameters in milliseconds.
+    const staggerDelay = 100;      // delay between each word's fade-in start.
+    const overlapDelay = 2000;     // delay after fade-in before starting fade-out.
+    const duplicateOffset = 1000;  // additional delay for duplicate words.
+
+    words.forEach((_, index) => {
+      // --- Original word sequence ---
+      const fadeInDelayOriginal = index * staggerDelay;
+      const fadeOutDelayOriginal = fadeInDelayOriginal + overlapDelay;
+
+      // Trigger fade in.
+      setTimeout(() => {
+        wordControlsRef.current[index]?.start("visible");
+      }, fadeInDelayOriginal);
+
+      // Trigger fade out.
+      setTimeout(() => {
+        wordControlsRef.current[index]?.start("hidden");
+      }, fadeOutDelayOriginal);
+
+      // --- Duplicate word sequence ---
+      const duplicateIndex = words.length + index;
+      const fadeInDelayDuplicate = index * staggerDelay + duplicateOffset;
+      const fadeOutDelayDuplicate = fadeInDelayDuplicate + overlapDelay;
+
+      // Trigger fade in for duplicate.
+      setTimeout(() => {
+        wordControlsRef.current[duplicateIndex]?.start("visible");
+      }, fadeInDelayDuplicate);
+
+      // Only schedule fade out for duplicate if duplicateOnlyVisible is false.
+      // if (!duplicateOnlyVisible) {
+      //   setTimeout(() => {
+      //     wordControlsRef.current[duplicateIndex]?.start("hidden");
+      //   }, fadeOutDelayDuplicate);
+      // }
+    });
+  }, [isInView, words, duplicateOnlyVisible]);
+
+  return (
+    <div ref={ref} className="flex flex-wrap gap-2">
+      {words.map((word, index) => (
+        <div className="relative" key={`wrapper-${index}`}>
+          {/* Original word */}
+          <Word
+            key={`word-${index}`}
+            word={word}
+            index={index}
+            registerControl={registerControl}
+          />
+          {/* Duplicate word.
+              Its controller index is offset by the total number of words.
+              If duplicateOnlyVisible is true, the duplicate will animate in and stay visible. */}
+          <Word
+            key={`word-dup-${index}`}
+            word={word}
+            index={words.length + index}
+            registerControl={registerControl}
+            duplicateOnlyVisible={true}
+              />
+        </div>
+      ))}
     </div>
-  )
+  );
 };
