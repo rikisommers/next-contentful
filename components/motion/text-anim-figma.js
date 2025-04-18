@@ -21,8 +21,70 @@ export const TextAnimFigma = ({
     }),
   };
 
+  const renderWord = (word, wordIndex) => {
+    // Check for image markdown syntax
+    const imageMatch = word.match(/!\[([^\]]*)\]\((.*?)\)/);
+    if (imageMatch) {
+      const altText = imageMatch[1]; 
+      const imageUrl = imageMatch[2].startsWith("//") ? `https:${imageMatch[2]}` : imageMatch[2]; 
+      return (
+        <motion.img
+          key={wordIndex}
+          className="inline h-[1em]"
+          src={imageUrl}
+          alt={altText}
+          variants={segmentVariants}
+          custom={wordIndex}
+        />
+      );
+    }
+
+    // Check for bold text (wrapped with __)
+    const boldMatch = word.match(/^__(.*)__$/);
+    if (boldMatch) {
+      // Extract the text inside the __ markers
+      const boldText = boldMatch[1];
+      return (
+        <motion.span 
+          key={wordIndex}
+          variants={segmentVariants}
+          custom={wordIndex}
+        >
+          <HighlightedSegment segment={boldText} highlight={highlight} />
+        </motion.span>
+      );
+    }
+
+    // Process the word for italic text
+    const { processed: processedWord, hasItalic } = processItalicText(word);
+
+    // If word has italic formatting, use dangerouslySetInnerHTML
+    if (hasItalic) {
+      return (
+        <motion.span 
+          key={wordIndex}
+          variants={segmentVariants}
+          custom={wordIndex}
+          dangerouslySetInnerHTML={{ __html: processedWord }}
+        />
+      );
+    } else {
+      // If no italic formatting, use regular children
+      return (
+        <motion.span 
+          key={wordIndex}
+          variants={segmentVariants}
+          custom={wordIndex}
+        >
+          {word}
+        </motion.span>
+      );
+    }
+  };
+
   const renderLine = (line, lineIndex) => {
-    const segments = line.split("__");
+    // Split the line into words and filter out empty strings
+    const words = line.split(" ").filter(word => word.trim() !== "");
 
     return (
       <motion.div
@@ -31,64 +93,12 @@ export const TextAnimFigma = ({
         initial="hidden"
         animate="visible"
       >
-        {segments.map((segment, segmentIndex) => {
-          
-          const imageMatch = segment.match(/!\[([^\]]*)\]\((.*?)\)/);
-          if (imageMatch) {
-            const altText = imageMatch[1]; 
-            const imageUrl = imageMatch[2].startsWith("//") ? `https:${imageMatch[2]}` : imageMatch[2]; 
-            return (
-              <motion.img
-                key={segmentIndex}
-                className="inline h-[1em]"
-                src={imageUrl}
-                alt={altText}
-                variants={segmentVariants}
-                custom={segmentIndex}
-              />
-            );
-          }
-
-          // For non-highlighted segments, process italic text here
-          if (segmentIndex % 2 === 0) {
-            // Process the segment for italic text
-            const { processed: processedSegment, hasItalic } = processItalicText(segment);
-
-            if (hasItalic) {
-              // If segment has italic formatting, use dangerouslySetInnerHTML
-              return (
-                <motion.span 
-                  key={segmentIndex}
-                  variants={segmentVariants}
-                  custom={segmentIndex}
-                  dangerouslySetInnerHTML={{ __html: processedSegment }}
-                />
-              );
-            } else {
-              // If no italic formatting, use regular children
-              return (
-                <motion.span 
-                  key={segmentIndex}
-                  variants={segmentVariants}
-                  custom={segmentIndex}
-                >
-                  {segment}
-                </motion.span>
-              );
-            }
-          } else {
-            // For highlighted segments, let HighlightedSegment handle the italic formatting
-            return (
-              <motion.span 
-                key={segmentIndex}
-                variants={segmentVariants}
-                custom={segmentIndex}
-              >
-                <HighlightedSegment segment={segment} highlight={highlight} />
-              </motion.span>
-            );
-          }
-        })}
+        {words.map((word, wordIndex) => (
+          <React.Fragment key={wordIndex}>
+            {renderWord(word, wordIndex)}
+            {wordIndex < words.length - 1 && " "}
+          </React.Fragment>
+        ))}
       </motion.div>
     );
   };

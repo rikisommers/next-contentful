@@ -47,8 +47,61 @@ export const TextAnimLineFadeIn = ({
     },
   };
 
+  const renderWord = (word, wordIndex) => {
+    // Check for image markdown syntax
+    const imageMatch = word.match(/!\[([^\]]*)\]\((.*?)\)/);
+    if (imageMatch) {
+      const [_, altText, url] = imageMatch;
+      const imageUrl = url.startsWith("//") ? `https:${url}` : url;
+      return (
+        <img
+          key={wordIndex}
+          src={imageUrl}
+          alt={altText}
+          className="w-[40px] h-0"
+          style={{
+            maxWidth: "40px",
+            height: "auto",
+            display: "inline-block",
+          }}
+        />
+      );
+    }
+
+    // Check for bold text (wrapped with __)
+    const boldMatch = word.match(/^__(.*)__$/);
+    if (boldMatch) {
+      // Extract the text inside the __ markers
+      const boldText = boldMatch[1];
+      return (
+        <HighlightedSegment
+          key={wordIndex}
+          segment={boldText}
+          highlight={highlight}
+        />
+      );
+    }
+
+    // Process the word for italic text
+    const { processed: processedWord, hasItalic } = processItalicText(word);
+
+    // If word has italic formatting, use dangerouslySetInnerHTML
+    if (hasItalic) {
+      return (
+        <span 
+          key={wordIndex}
+          dangerouslySetInnerHTML={{ __html: processedWord }}
+        />
+      );
+    } else {
+      // If no italic formatting, use regular children
+      return <span key={wordIndex}>{word}</span>;
+    }
+  };
+
   const renderLine = (line, lineIndex) => {
-    const segments = line.split("__");
+    // Split the line into words and filter out empty strings
+    const words = line.split(" ").filter(word => word.trim() !== "");
 
     return (
       <div
@@ -67,52 +120,12 @@ export const TextAnimLineFadeIn = ({
             display: "inline-block",
           }}
         >
-          {segments.map((segment, segmentIndex) => {
-            const imageMatch = segment.match(/!\[([^\]]*)\]\((.*?)\)/);
-            if (imageMatch) {
-              const [_, altText, url] = imageMatch;
-              const imageUrl = url.startsWith("//") ? `https:${url}` : url;
-              return (
-                <img
-                  key={segmentIndex}
-                  src={imageUrl}
-                  alt={altText}
-                  className="absolute w-[40px] h-0"
-                  style={{
-                    maxWidth: "40px",
-                    height: "auto",
-                    display: "inline-block",
-                  }}
-                />
-              );
-            }
-
-            if (segmentIndex % 2 === 0) {
-              // Process the segment for italic text
-              const { processed: processedSegment, hasItalic } = processItalicText(segment);
-
-              // If segment has italic formatting, use dangerouslySetInnerHTML
-              if (hasItalic) {
-                return (
-                  <span 
-                    key={segmentIndex}
-                    dangerouslySetInnerHTML={{ __html: processedSegment }}
-                  />
-                );
-              } else {
-                // If no italic formatting, use regular children
-                return <span key={segmentIndex}>{segment}</span>;
-              }
-            } else {
-              return (
-                <HighlightedSegment
-                  key={segmentIndex}
-                  segment={segment}
-                  highlight={highlight}
-                />
-              );
-            }
-          })}
+          {words.map((word, wordIndex) => (
+            <React.Fragment key={wordIndex}>
+              {renderWord(word, wordIndex)}
+              {wordIndex < words.length - 1 && " "}
+            </React.Fragment>
+          ))}
         </motion.div>
       </div>
     );

@@ -12,7 +12,6 @@ export const TextAnimWordMask = ({
   type = "text"
 }) => {
   
-console.log('conten -----', content)
 
   const segmentVariants = {
     hidden: { opacity: 1,

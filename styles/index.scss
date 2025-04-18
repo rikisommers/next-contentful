@@ -204,3 +204,9 @@ display:none;
     transform: translateX(0%);
   }
 } 
+
+
+::selection{
+  color:var(--body-background-color);
+   background-color:var(--accent-pri);
+ }

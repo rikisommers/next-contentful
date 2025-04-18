@@ -65,7 +65,7 @@ const TextAnimationChar = ({ content, delay = 0 }) => {
       initial="hidden"
       animate={isInView ? "show" : "hidden"}
     >
-      JJ
+      
       {content &&
         content.split(" ").map((word, index) => (
           <motion.span key={index} 

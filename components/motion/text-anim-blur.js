@@ -1,36 +1,43 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "../../utils/motion";
-import { HighlightedSegment } from "./text-anim-highlighted-segment";
 
-export const TextAnimBlur = ({ content, delay, highlight }) => {
+export const TextAnimBlur = ({ content, delay }) => {
+  const [isComplete, setIsComplete] = useState(false);
+  
+  // Clean the content by removing formatting
+  const cleanContent = content
+    .replace(/__([^_]+)__/g, '$1') // Remove bold formatting
+    .replace(/\*([^*]+)\*/g, '$1') // Remove italic formatting
+    .replace(/!\[([^\]]*)\]\((.*?)\)/g, ''); // Remove image markdown
+  
+  const lines = cleanContent.split('\n');
+  
+  // Calculate total characters for timing
+  const totalChars = lines.reduce((acc, line) => {
+    return acc + line.length;
+  }, 0);
+  
+  // Calculate completion time based on animation sequence
+  const completionTime = totalChars * 20 + // Character delays
+                        300; // Buffer for final character settling
+
   const characterVariants = {
     hidden: { 
       opacity: 0, 
       filter: "blur(10px)",
       scale: 0.5 
     },
-    visible: (index) => ({
+    visible: (custom) => ({
       opacity: 1,
       filter: "blur(0px)",
       scale: 1,
       transition: {
-        delay: index * 0.03,
+        delay: custom * 0.02,
         duration: 0.5,
       },
     }),
-  };
-
-  const lineVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        when: "beforeChildren",
-        staggerChildren: 0.1,
-      },
-    },
   };
 
   const containerVariants = {
@@ -38,11 +45,15 @@ export const TextAnimBlur = ({ content, delay, highlight }) => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
-        delayChildren:delay,
+        delayChildren: delay,
       },
     },
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsComplete(true), completionTime);
+    return () => clearTimeout(timer);
+  }, [completionTime]);
 
   const renderCharacter = (char, index) => (
     <motion.span
@@ -56,66 +67,29 @@ export const TextAnimBlur = ({ content, delay, highlight }) => {
     </motion.span>
   );
 
+  const renderLine = (line, lineIndex) => {
+    // Calculate the starting index for this line's characters
+    const startIndex = lines.slice(0, lineIndex).reduce((acc, l) => acc + l.length, 0);
+    
+    return (
+      <div 
+        key={lineIndex} 
+        className={lineIndex === 0 ? "inline" : "block"}
+      >
+        {line.split("").map((char, charIndex) => (
+          <motion.span
+            key={charIndex}
+            custom={startIndex + charIndex}
+            variants={characterVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            {char}
+          </motion.span>
+        ))}
 
-  const renderColoredText = (text, index) => (
-    <motion.span
-      key={index}
-      variants={lineVariants}
-      initial="hidden"
-      animate="visible"
-    >
-      <HighlightedSegment
-        segment={text}
-        highlight={highlight}
-      />
-    </motion.span>
-  );
-
-  const renderTextWithBoldAndLineBreaks = (text) => {
-    if (text) {
-      const boldSegments = text.split("__");
-      return boldSegments.map((segment, index) => {
-        const imageMatch = segment.match(/!\[([^\]]*)\]\((.*?)\)/); // Check for image syntax
-        if (imageMatch) {
-          const altText = imageMatch[1]; // Get alt text
-          const imageUrl = imageMatch[2].startsWith("//")
-            ? `https:${imageMatch[2]}`
-            : imageMatch[2]; // Ensure the URL is complete
-          return (
-            <motion.div
-              key={index}
-              variants={lineVariants}
-              initial="hidden"
-              animate="visible"
-              className="relative inline-block rounded-full w-[30px] h-[30px] overflow-hidden mx-1 leading-normal bg-slate-300"
-            >
-              <img
-                src={imageUrl}
-                alt={altText}
-                style={{
-                  maxWidth: "60px",
-                  height: "auto",
-                  display: "inline-block",
-                }} // Adjust styles as needed
-              />
-            </motion.div>
-          );
-        } else {
-          const lines = segment.split("\n");
-          return lines.map((line, lineIndex) => (
-            <motion.div
-              className={lineIndex === 0 ? "inline" : "block"}
-              key={`${index}-${lineIndex}`}
-              variants={lineVariants}
-              initial="hidden"
-              animate="visible"
-            >
-              {line.split("").map(renderCharacter)}
-            </motion.div>
-          ));
-        }
-      });
-    }
+      </div>
+    );
   };
   
   return (
@@ -127,7 +101,7 @@ export const TextAnimBlur = ({ content, delay, highlight }) => {
         color: 'var(--heading-color)',
       }}
     >
-      {renderTextWithBoldAndLineBreaks(content)}
+      {lines.map((line, lineIndex) => renderLine(line, lineIndex))}
     </motion.span>
   );
 }

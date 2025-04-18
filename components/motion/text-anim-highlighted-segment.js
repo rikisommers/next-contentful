@@ -54,10 +54,13 @@ export const HighlightedSegment = ({ segment, highlight }) => {
       />
     ) : (
       <span 
-        className="inline-flex px-4 py-0 rounded-xl"
-        style={style}
+        className="relative inline-flex py-0"
       >
-        {segment}
+
+        <span className="z-10 px-3">{segment}</span>
+        <span className="absolute z-0 w-full h-[80%] top-[10%] rounded-xl"
+              style={style}
+         ></span>
       </span>
     );
 };
