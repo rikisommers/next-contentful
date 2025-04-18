@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { motion, useAnimation } from "../../utils/motion";;
 import PropTypes from "prop-types";
 
-const chars = "!<>-_\\/[]{}—=+*^?#";
+// Use a wider range of characters for more varied animation
+const chars = "!<>-_\\/[]{}—=+*^?#@$%&ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 const randomChar = () => chars[Math.floor(Math.random() * chars.length)];
 
 const AnimatedChar = ({ char, delay }) => {
@@ -11,14 +12,22 @@ const AnimatedChar = ({ char, delay }) => {
 
   useEffect(() => {
     const animate = async () => {
-      await controls.start({ opacity: 1, transition: { duration: 0.1 } });
+      // Start with opacity 0
+      await controls.set({ opacity: 0 });
+      
+      // Wait for the delay
       await new Promise(resolve => setTimeout(resolve, delay));
-
+      
+      // Fade in while rotating through random chars
+      await controls.start({ opacity: 1, transition: { duration: 0.2 } });
+      
+      // Rotate through random chars
       for (let i = 0; i < 5; i++) {
         setDisplayChar(randomChar());
         await new Promise(resolve => setTimeout(resolve, 50));
       }
 
+      // Set to final char
       setDisplayChar(char);
     };
 
@@ -29,6 +38,7 @@ const AnimatedChar = ({ char, delay }) => {
     <motion.span
       initial={{ opacity: 0 }}
       animate={controls}
+      className="inline-block text-center text-mon"
     >
       {displayChar}
     </motion.span>
@@ -37,13 +47,30 @@ const AnimatedChar = ({ char, delay }) => {
 
 const TextAnimCode = ({ content }) => {
   const [isComplete, setIsComplete] = useState(false);
-  const lines = content.split('\n');
+  
+  // Clean the content by removing image markdown and bold formatting
+  const cleanContent = content
+    .replace(/!\[([^\]]*)\]\((.*?)\)/g, '') // Remove image markdown
+    .replace(/__/g, '') // Remove bold formatting markers
+    .replace(/\*([^*]+)\*/g, '$1'); // Remove italic formatting
+  
+  const lines = cleanContent.split('\n');
+  
+  // Calculate total characters for timing
+  const totalChars = lines.reduce((acc, line) => {
+    return acc + line.split(' ').reduce((lineAcc, word) => lineAcc + word.length, 0);
+  }, 0);
+  
+  // Calculate completion time based on animation sequence
+  const completionTime = lines.length * 50 + // Line delays
+                        totalChars * 20 + // Character delays
+                        300; // Buffer for final character settling
 
   const containerVariants = {
     hidden: {},
     visible: {
       transition: {
-        staggerChildren: 0.1
+        staggerChildren: 0.2
       }
     }
   };
@@ -53,19 +80,66 @@ const TextAnimCode = ({ content }) => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.05
+        staggerChildren: 0.5
       }
     }
   };
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsComplete(true), lines.reduce((acc, line) => acc + line.length * 300, 0));
+    const timer = setTimeout(() => setIsComplete(true), completionTime);
     return () => clearTimeout(timer);
-  }, [lines]);
+  }, [completionTime]);
+
+  const renderLine = (line, lineIndex) => {
+    // Split line into words for word-by-word animation
+    const words = line.split(" ");
+    
+    return (
+      <motion.div key={lineIndex} className="flex flex-wrap items-center"
+      style={{'--font-family-primary': 'monospace'}}
+      variants={lineVariants}>
+        {words.map((word, wordIndex) => {
+          const wordDelay = lineIndex * 50 + wordIndex * 100;
+          
+          return (
+            <span key={wordIndex} className="mr-2">
+              {word.split("").map((char, charIndex) => (
+                <AnimatedChar 
+                  key={charIndex} 
+                  char={char} 
+                  delay={wordDelay + charIndex * 20}
+                />
+              ))}
+            </span>
+          );
+        })}
+        {lineIndex === lines.length - 1 && !isComplete && (
+          <motion.span
+            className="inline-block ml-1"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 1, loop: Infinity, ease: "linear" }}
+          >
+            |
+          </motion.span>
+        )}
+        {lineIndex === lines.length - 1 && isComplete && (
+          <motion.span
+          style={{color:'var(--text-accent)'}}
+            className="inline-block ml-1 origin-center"
+            initial={{ opacity: 1 }}
+            animate={{ opacity: 0}}
+            transition={{ duration: 0.5 }}
+          >
+            |
+          </motion.span>
+        )}
+      </motion.div>
+    );
+  };
 
   return (
     <motion.div 
-      className="flex flex-col items-start"
+      className="flex flex-col items-start font-mono"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
@@ -73,27 +147,7 @@ const TextAnimCode = ({ content }) => {
         color: "var(--heading-color)",
       }}
     >
-      {lines.map((line, lineIndex) => (
-        <motion.div key={lineIndex} className="flex items-center" variants={lineVariants}>
-          {line.split("").map((char, charIndex) => (
-            <AnimatedChar 
-              key={charIndex} 
-              char={char} 
-              delay={charIndex * 50 + lineIndex * line.length * 50}
-            />
-          ))}
-          {lineIndex === lines.length - 1 && !isComplete && (
-            <motion.span
-              className="inline-block ml-1"
-              animate={{ rotate: 360 }}
-              transition={{ duration: 1, loop: Infinity, ease: "linear" }}
-            >
-              |
-            </motion.span>
-          )}
-        </motion.div>
-      ))}
-      {isComplete && <motion.span className="inline-block ml-1">.</motion.span>}
+      {lines.map((line, lineIndex) => renderLine(line, lineIndex))}
     </motion.div>
   );
 };
@@ -103,188 +157,3 @@ TextAnimCode.propTypes = {
 };
 
 export default TextAnimCode;
-// import React, { useEffect, useState } from "react";
-// import { motion, useAnimation } from "framer-motion";
-// import PropTypes from "prop-types";
-
-// const chars = "!<>-_\\/[]{}—=+*^?#________";
-// const randomChar = () => chars[Math.floor(Math.random() * chars.length)];
-
-// const AnimatedChar = ({ char, delay }) => {
-//   const controls = useAnimation();
-//   const [displayChar, setDisplayChar] = useState(" ");
-
-//   useEffect(() => {
-//     const animate = async () => {
-//       await new Promise(resolve => setTimeout(resolve, delay));
-//       await controls.start({ opacity: 1 });
-
-//       for (let i = 0; i < 5; i++) {
-//         setDisplayChar(randomChar());
-//         await new Promise(resolve => setTimeout(resolve, 50));
-//       }
-
-//       setDisplayChar(char);
-//     };
-
-//     animate();
-//   }, [char, controls, delay]);
-
-//   return (
-//     <motion.span
-//       initial={{ opacity: 0 }}
-//       animate={controls}
-//     >
-//       {displayChar}
-//     </motion.span>
-//   );
-// };
-
-// const TextAnimCode = ({ content }) => {
-//   const [isComplete, setIsComplete] = useState(false);
-//   const lines = content.split('\n');
-
-//   const containerVariants = {
-//     hidden: {},
-//     visible: {
-//       transition: {
-//         staggerChildren: 0.1
-//       }
-//     }
-//   };
-
-//   const lineVariants = {
-//     hidden: { opacity: 0 },
-//     visible: {
-//       opacity: 1,
-//       transition: {
-//         staggerChildren: 0.05
-//       }
-//     }
-//   };
-
-//   useEffect(() => {
-//     const totalChars = lines.reduce((sum, line) => sum + line.length, 0);
-//     const timer = setTimeout(() => setIsComplete(true), totalChars * 300);
-//     return () => clearTimeout(timer);
-//   }, [lines]);
-
-//   return (
-//     <motion.div 
-//       className="flex flex-col items-start font-mono text-slate-50"
-//       variants={containerVariants}
-//       initial="hidden"
-//       animate="visible"
-//     >
-//       {lines.map((line, lineIndex) => (
-//         <motion.div key={lineIndex} className="flex items-center" variants={lineVariants}>
-//           {line.split("").map((char, charIndex) => (
-//             <AnimatedChar 
-//               key={charIndex} 
-//               char={char} 
-//               delay={(lineIndex * line.length + charIndex) * 250}
-//             />
-//           ))}
-//         </motion.div>
-//       ))}
-//       {!isComplete && (
-//         <motion.span
-//           className="inline-block ml-1"
-//           animate={{ rotate: 360 }}
-//           transition={{ duration: 1, loop: Infinity, ease: "linear" }}
-//         >
-//           |
-//         </motion.span>
-//       )}
-//       {isComplete && <motion.span className="inline-block ml-1">.</motion.span>}
-//     </motion.div>
-//   );
-// };
-
-// TextAnimCode.propTypes = {
-//   content: PropTypes.string.isRequired,
-// };
-
-// export default TextAnimCode;
-
-
-
-// import React, { useEffect, useState } from "react";
-// import { motion, useAnimation } from "framer-motion";
-// import PropTypes from "prop-types";
-
-// const chars = "!<>-_\\/[]{}—=+*^?#________";
-// const randomChar = () => chars[Math.floor(Math.random() * chars.length)];
-
-// const AnimatedChar = ({ char, delay }) => {
-//   const controls = useAnimation();
-//   const [displayChar, setDisplayChar] = useState(" ");
-
-//   useEffect(() => {
-//     const animate = async () => {
-//       await new Promise(resolve => setTimeout(resolve, delay));
-//       await controls.start({ opacity: 1 });
-
-//       for (let i = 0; i < 5; i++) {
-//         setDisplayChar(randomChar());
-//         await new Promise(resolve => setTimeout(resolve, 50));
-//       }
-
-//       setDisplayChar(char);
-//     };
-
-//     animate();
-//   }, [char, controls, delay]);
-
-//   return (
-//     <motion.span
-//       initial={{ opacity: 0 }}
-//       animate={controls}
-//     >
-//       {displayChar}
-//     </motion.span>
-//   );
-// };
-
-// const TextAnimCode = ({ content }) => {
-//   const [isComplete, setIsComplete] = useState(false);
-//   const lines = content.split('\n');
-
-//   useEffect(() => {
-//     const maxLineLength = Math.max(...lines.map(line => line.length));
-//     const timer = setTimeout(() => setIsComplete(true), maxLineLength * 300);
-//     return () => clearTimeout(timer);
-//   }, [lines]);
-
-//   return (
-//     <div className="flex flex-col items-start font-mono text-slate-50">
-//       {lines.map((line, lineIndex) => (
-//         <div key={lineIndex} className="flex items-center">
-//           {line.split("").map((char, charIndex) => (
-//             <AnimatedChar 
-//               key={charIndex} 
-//               char={char} 
-//               delay={charIndex * 250}
-//             />
-//           ))}
-//         </div>
-//       ))}
-//       {!isComplete && (
-//         <motion.span
-//           className="inline-block ml-1"
-//           animate={{ rotate: 360 }}
-//           transition={{ duration: 1, loop: Infinity, ease: "linear" }}
-//         >
-//           |
-//         </motion.span>
-//       )}
-//       {isComplete && <motion.span className="inline-block ml-1">.</motion.span>}
-//     </div>
-//   );
-// };
-
-// TextAnimCode.propTypes = {
-//   content: PropTypes.string.isRequired,
-// };
-
-// export default TextAnimCode;
