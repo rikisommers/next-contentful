@@ -8,7 +8,8 @@ import BlendImage from "../image/blend-image";
 import { ClipContainer } from "../motion/clippath-container";
 import { ScaleContainer } from "../motion/scale-container";
 import PostIntro from "../post/post-intro";
-
+import BlockPreview from "./block_preview";
+import { TextAnimLinear } from "../motion/text-anim-linear";
 const getPositionClass = (position) => {
   switch (position) {
     case "left":
@@ -40,6 +41,7 @@ const getHeightClass = (height) => {
       return "h-screen";
   }
 };
+
 
 const BackgroundElements = () => {
   return (
@@ -140,6 +142,22 @@ export default function BlockHero({ title, content, tag, image}) {
 
   const full = false;
 
+
+  // The component to showcase
+  const buttonComponent = (
+    <TextAnimLinear
+    delay={0}
+    highlight={'figma'}
+    content={'content asd asd asd asd asd asd asd asd'}
+  />  )
+
+  // The code to display
+  const buttonCode = `<TextAnimLinear
+            delay={delay}
+            highlight={highlight2}
+            content={content}
+          />`;
+  
   useEffect(() => {
     // Set the style value when the component mounts
     const position = getPositionClass(currentTheme.data.heroTextPosition);
@@ -158,6 +176,14 @@ export default function BlockHero({ title, content, tag, image}) {
         {/* <h1>NO {clip ? "YES" : "NO"}</h1> */}
         <BackgroundGrad />
         <ScaleContainer>
+
+        <BlockPreview
+        title="Button Component"
+        description="A simple button component with Tailwind CSS."
+        component={buttonComponent}
+        code={buttonCode}
+      />
+
           <PostIntro title={title} content={content} tag={tag} />
         </ScaleContainer>
       </div>
