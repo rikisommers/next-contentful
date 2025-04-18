@@ -1,125 +1,223 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
-import { motion, useAnimationControls, useInView } from "framer-motion";
-
-// Define the fade in ("visible") and fade out ("hidden") variants.
-const wordVariants = {
-  hidden: {
-    opacity: 0,
-    transition: { duration: 1 }, // fade-out duration
-  },
-  visible: {
-    opacity: 1,
-    transition: { duration: 1 }, // fade-in duration
-  },
-};
-
-// A separate Word component lets each word have its own animation controller.
-const Word = ({ word, index, registerControl }) => {
-  const controls = useAnimationControls();
-
-  // Register this control with the parent component when the Word mounts.
-  useEffect(() => {
-    registerControl(index, controls);
-  }, [index, controls, registerControl]);
-
-  return (
-    <motion.span
-      variants={wordVariants}
-      initial="hidden"
-      animate={controls}
-      className="inline-flex items-center justify-center w-8 h-8 m-1 bg-purple-600/30"
-    >
-      {word}
-    </motion.span>
-  );
-};
+import React, { useRef } from "react";
+import { motion, useInView, useTransform } from "../../utils/motion";;
+import { HighlightedSegment } from "./text-anim-highlighted-segment";
+import { processItalicText } from "../utils/textFormatting";
 
 export const TextAnimNavigators = ({
-  content = "",
-  duplicateOnlyVisible = false, // new prop: if true, duplicate words animate only "visible"
+  delay,
+  content,
+  highlight,
+  animateWhenInView = false,
+  repeatWhenInView = false,
+  type = "text",
 }) => {
   const ref = useRef(null);
-  // Trigger animation when the container is at least 50% in view.
-  const isInView = useInView(ref, { once: false, amount: 0.5 });
+  const [textAnimationState, setTextAnimationState] = React.useState("visible");
+  const gap = 0.03;
+  const isInView = useInView(ref, {
+    once: !repeatWhenInView,
+    amount: 0.4,
+  });
+
   const words = content.split(" ");
+  const wordsLength = words.length;
+  const internalDelay = 1;
+  const totalDuration = wordsLength * gap;
+  const textDuration = totalDuration + internalDelay;
 
-  // We store animation controllers for each instance:
-  // The first words.length indices for original words,
-  // and the next words.length indices for duplicates.
-  const wordControlsRef = useRef([]);
+  // Calculate text timing values (monotonically increasing)
+  const t1 = Math.min(gap / textDuration, 1);
+  const t2 = Math.min((textDuration - internalDelay) / textDuration, 1);
+  const t3 = Math.min((totalDuration + gap) / totalDuration, 1);
+  const t4 = 1;
 
-  // Callback to allow each Word instance to register its controller.
-  const registerControl = (index, control) => {
-    wordControlsRef.current[index] = control;
+  const textTimes = [t1, t2, t3, t4];
+
+  // Calculate preview timing values (monotonically increasing)
+  const p1 = 0;
+  const p2 = Math.min(gap / totalDuration, 1);
+  const p3 = Math.min((totalDuration - gap) / totalDuration, 1);
+  const p4 = 1;
+
+  const previewTimes = [p1, p2, p3, p4];
+
+  const handleContainerAnimationComplete = () => {
+    console.log("Container animation completed, triggering text fade out");
+    setTextAnimationState("fadeOut");
   };
 
-  useEffect(() => {
-    if (!isInView) return;
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: gap,
+        delayChildren: delay || 0,
+      },
+    },
+    fadeOut:{
+      opacity: 1,
+      transition: {
+        staggerChildren: gap,
+        delayChildren: delay || 0,
+      },
+    }
+  };
 
-    // Timing parameters in milliseconds.
-    const staggerDelay = 100;      // delay between each word's fade-in start.
-    const overlapDelay = 2000;     // delay after fade-in before starting fade-out.
-    const duplicateOffset = 1000;  // additional delay for duplicate words.
+  const wordVariants = {
+    hidden: { 
+      opacity: 0
+    },
+    visible: {
+      opacity: [0, 0, 1, 1],
+      transition: {
+        ease: "easeOut",
+        duration: textDuration,
+        times: textTimes
+      },
+    },
+    fadeOut: {
+      opacity: 0,
+      transition: {
+        ease: "easeOut",
+        duration: 0.2,
+      },
+    },
+  };
 
-    words.forEach((_, index) => {
-      // --- Original word sequence ---
-      const fadeInDelayOriginal = index * staggerDelay;
-      const fadeOutDelayOriginal = fadeInDelayOriginal + overlapDelay;
+  const previewVariants = {
+    hidden: { 
+      opacity: 0
+    },
+    visible: {
+      opacity: [0, 1, 1, 0],
+      transition: {
+        ease: "easeOut",
+        duration: totalDuration,
+        times: previewTimes
+      },
+    },
+    fadeOut: {
+      opacity: 0,
+      transition: {
+        ease: "easeOut",
+        duration: 0.2,
+      },
+    },
+  };
 
-      // Trigger fade in.
-      setTimeout(() => {
-        wordControlsRef.current[index]?.start("visible");
-      }, fadeInDelayOriginal);
+  const renderWord = (word, wordIndex) => {
+    // Check if the word contains an image markdown syntax
+    const imageMatch = word.match(/!\[([^\]]*)\]\((.*?)\)/);
+    
+    if (imageMatch) {
+      const [_, altText, url] = imageMatch;
+      const imageUrl = url.startsWith("//") ? `https:${url}` : url;
+      
+      return (
+        <div className="relative inline-block mr-2" key={wordIndex}>
+          <motion.span
+            variants={wordVariants}
+            className="inline-block"
+          >
+            <img
+              src={imageUrl}
+              alt={altText}
+              className="max-w-[40px] h-auto inline-block"
+            />
+          </motion.span>
+          <motion.span
+            variants={previewVariants}
+            className="absolute top-0 left-0 inline-flex items-center justify-center w-full h-[90%] top-[5%] px-2 rounded-xl bg-slate-200/10"
+          >
+          </motion.span>
+        </div>
+      );
+    }
+    
+    // Check for bold segments indicated by __
+    const segments = word.split("__");
+    
+    if (segments.length > 1) {
+      // Word contains bold segments
+      return (
+        <div className="relative inline-block mr-2" key={wordIndex}>
+          <motion.span
+            variants={wordVariants}
+            className="inline-block"
+          >
+            {segments.map((segment, segmentIndex) => (
+              <React.Fragment key={segmentIndex}>
+                {segmentIndex % 2 === 0 ? (
+                  <span>{segment}</span>
+                ) : (
+                  <HighlightedSegment
+                    key={segmentIndex}
+                    segment={segment}
+                    highlight={highlight}
+                  />
+                )}
+              </React.Fragment>
+            ))}
+          </motion.span>
+          <motion.span
+            variants={previewVariants}
+            className="absolute top-0 left-0 inline-flex items-center justify-center w-full h-[90%] top-[5%] px-2 rounded-xl bg-slate-200/10"
+          >
+          </motion.span>
+        </div>
+      );
+    }
+    
+    return (
+      <div className="relative inline-block mr-2" key={wordIndex}>
+        <motion.span
+          variants={wordVariants}
+          className="inline-block"
+        >
+          {word}
+        </motion.span>
+        <motion.span
+          variants={previewVariants}
+          className="absolute top-0 left-0 inline-flex items-center justify-center w-full h-[90%] top-[5%] px-2 rounded-xl bg-slate-200/10"
+        >
+        </motion.span>
+      </div>
+    );
+  };
 
-      // Trigger fade out.
-      setTimeout(() => {
-        wordControlsRef.current[index]?.start("hidden");
-      }, fadeOutDelayOriginal);
-
-      // --- Duplicate word sequence ---
-      const duplicateIndex = words.length + index;
-      const fadeInDelayDuplicate = index * staggerDelay + duplicateOffset;
-      const fadeOutDelayDuplicate = fadeInDelayDuplicate + overlapDelay;
-
-      // Trigger fade in for duplicate.
-      setTimeout(() => {
-        wordControlsRef.current[duplicateIndex]?.start("visible");
-      }, fadeInDelayDuplicate);
-
-      // Only schedule fade out for duplicate if duplicateOnlyVisible is false.
-      // if (!duplicateOnlyVisible) {
-      //   setTimeout(() => {
-      //     wordControlsRef.current[duplicateIndex]?.start("hidden");
-      //   }, fadeOutDelayDuplicate);
-      // }
-    });
-  }, [isInView, words, duplicateOnlyVisible]);
+  const renderContent = (text) => {
+    if (!text) return null;
+    const words = text.split(" ");
+    return (
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate={textAnimationState}
+        className="flex flex-wrap"
+      >
+        {words.map((word, wordIndex) => renderWord(word, wordIndex))}
+      </motion.div>
+    );
+  };
 
   return (
-    <div ref={ref} className="flex flex-wrap gap-2">
-      {words.map((word, index) => (
-        <div className="relative" key={`wrapper-${index}`}>
-          {/* Original word */}
-          <Word
-            key={`word-${index}`}
-            word={word}
-            index={index}
-            registerControl={registerControl}
-          />
-          {/* Duplicate word.
-              Its controller index is offset by the total number of words.
-              If duplicateOnlyVisible is true, the duplicate will animate in and stay visible. */}
-          <Word
-            key={`word-dup-${index}`}
-            word={word}
-            index={words.length + index}
-            registerControl={registerControl}
-            duplicateOnlyVisible={true}
-              />
-        </div>
-      ))}
-    </div>
+    <motion.div
+      ref={ref}
+      variants={containerVariants}
+      className="flex flex-wrap"
+      initial="hidden"
+      animate={
+        animateWhenInView ? (isInView ? "visible" : "hidden") : "visible"
+      }
+   //  onAnimationComplete={handleContainerAnimationComplete}
+    >
+      <button onClick={handleContainerAnimationComplete}>CLICK</button>
+   
+        {renderContent(content)}
+   
+    </motion.div>
   );
 };
