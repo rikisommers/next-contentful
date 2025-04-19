@@ -7,6 +7,7 @@ import { useThemeContext } from "../context/themeContext";
 export default function PostIntro({ title, content, tag }) {
   const { currentTheme } = useThemeContext();
 
+  console.log('titlecontent---------',title)
   return (
     //pt-[16rem] pb-8
     <div className="z-10 grid items-end content-end w-full grid-cols-12 gap-6">

@@ -16,8 +16,6 @@ export const HighlightedSegment = ({ segment, highlight }) => {
 
     // Get the appropriate style based on highlight type
     const getHighlightStyle = () => {
-
-
       // Standard highlight styles
       switch (highlight) {
         case 'text':
@@ -56,11 +54,16 @@ export const HighlightedSegment = ({ segment, highlight }) => {
       <span 
         className="relative inline-flex py-0"
       >
-
-        <span className="z-10 px-3">{segment}</span>
-        <span className="absolute z-0 w-full h-[80%] top-[10%] rounded-xl"
-              style={style}
-         ></span>
+        {highlight === 'underline' ? (
+          <span className="z-10 px-3" style={style}>{segment}</span>
+        ) : (
+          <>
+            <span className="z-10 px-3">{segment}</span>
+            <span className="absolute z-0 w-full h-[80%] top-[10%] rounded-xl"
+                  style={style}
+            ></span>
+          </>
+        )}
       </span>
     );
 };

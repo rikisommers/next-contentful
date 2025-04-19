@@ -42,12 +42,13 @@ export default function PostTileCs({ post, index }) {
           }}
           >
             {/* <p>{post.type }</p> */}
-            {post?.type[0] === "case study" && (
+
+            {post?.type && post?.type[0] === "case study" && (
               <span className="text-lg material-icons">
                 inventory_alt
               </span>
             )}
-            {post?.type[0] === "blog post" && (
+            {post?.type && post?.type[0] === "blog post" && (
               <span className="material-icons">article</span>
             )}
           </div>

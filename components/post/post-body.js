@@ -12,6 +12,7 @@ import BlockArticles from "../blocks/block-articles";
 import BlockHeader from "../blocks/block-header";
 import BlockHero from "../blocks/block-hero";
 import BlockIntro from "../blocks/block-intro";
+import { BlockPreviewGrid } from "../blocks/block_preview_grid";
 import AnimatedElement, { AnimStyleEl } from "../motion/animated-element";
 import { useThemeContext } from "../context/themeContext";
 import { pageWidthThemes } from "../../utils/theme";
@@ -83,6 +84,9 @@ export default function PostBody({ content, tags }) {
                     id={item.title}
                   ></BlockHeader>
                 </div>
+              )}
+              {item.__typename === "BlockPreview" && (
+                  <BlockPreviewGrid />
               )}
               {item.__typename === "BlockArticle" && (
                 <div className="max-w-screen-xl mx-auto">

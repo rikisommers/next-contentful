@@ -4,7 +4,7 @@ import PostTileCs from "../post/post-tile-cs";
 import PostTileLg from "../post/post-tile-lg";
 import PostTileImg from "../post/post-tile-img";
 import PostTileRe from "../post/post-tile-reone";
-import PostTileMonks from "../post/post-tile.monks";
+import PostTileMonks from "../post/post-tile-monks";
 import AnimatedElement, { AnimStyleEl } from "../motion/animated-element";
 
 export default function GridList({ data }) {

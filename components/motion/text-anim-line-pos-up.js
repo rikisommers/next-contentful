@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
-import { motion, useInView } from "../../utils/motion";;
+import { motion, useInView } from "../../utils/motion";
 import { HighlightedSegment } from "./text-anim-highlighted-segment";
 import { processItalicText } from "../utils/textFormatting";
 export const TextAnimLinePosUp = ({

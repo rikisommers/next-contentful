@@ -3,8 +3,26 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "../../utils/motion";
 
-export const TextAnimBlur = ({ content, delay }) => {
+/**
+ * Text animation component with blur effect
+ * @param {Object} props - Component props
+ * @param {string} props.content - The text content to animate
+ * @param {number} props.delay - Delay before animation starts (in seconds)
+ * @param {string} props.highlight - Highlight style for the text
+ * @param {string} props.trigger - What triggers the animation: 'hover', 'inview', or 'custom'
+ * @param {Function} props.onTrigger - Custom function to trigger the animation (only used when trigger='custom')
+ * @param {string} props.key - Key prop passed from parent to force re-render
+ */
+export const TextAnimBlur = ({ 
+  content, 
+  delay = 0, 
+  highlight = "background",
+  trigger = "hover",
+  onTrigger,
+  key
+}) => {
   const [isComplete, setIsComplete] = useState(false);
+  const [isTriggered, setIsTriggered] = useState(true); // Always start triggered
   
   // Clean the content by removing formatting
   const cleanContent = content
@@ -50,10 +68,37 @@ export const TextAnimBlur = ({ content, delay }) => {
     },
   };
 
+  // Handle hover trigger
+  const handleMouseEnter = () => {
+    if (trigger === "hover") {
+      setIsTriggered(true);
+    }
+  };
+
+  // Handle custom trigger
   useEffect(() => {
-    const timer = setTimeout(() => setIsComplete(true), completionTime);
-    return () => clearTimeout(timer);
-  }, [completionTime]);
+    if (trigger === "custom" && onTrigger) {
+      const unsubscribe = onTrigger(setIsTriggered);
+      return () => {
+        if (typeof unsubscribe === 'function') {
+          unsubscribe();
+        }
+      };
+    }
+  }, [trigger, onTrigger]);
+
+  // Reset animation when key changes (from parent)
+  useEffect(() => {
+    setIsComplete(false);
+    setIsTriggered(true);
+  }, [key]);
+
+  useEffect(() => {
+    if (isTriggered) {
+      const timer = setTimeout(() => setIsComplete(true), completionTime);
+      return () => clearTimeout(timer);
+    }
+  }, [isTriggered, completionTime, key]);
 
   const renderCharacter = (char, index) => (
     <motion.span
@@ -61,7 +106,7 @@ export const TextAnimBlur = ({ content, delay }) => {
       custom={index}
       variants={characterVariants}
       initial="hidden"
-      animate="visible"
+      animate={isTriggered ? "visible" : "hidden"}
     >
       {char}
     </motion.span>
@@ -82,7 +127,7 @@ export const TextAnimBlur = ({ content, delay }) => {
             custom={startIndex + charIndex}
             variants={characterVariants}
             initial="hidden"
-            animate="visible"
+            animate={isTriggered ? "visible" : "hidden"}
           >
             {char}
           </motion.span>
@@ -95,11 +140,12 @@ export const TextAnimBlur = ({ content, delay }) => {
   return (
     <motion.span
       initial="hidden"
-      animate="visible"
+      animate={isTriggered ? "visible" : "hidden"}
       variants={containerVariants}
       style={{
         color: 'var(--heading-color)',
       }}
+      onMouseEnter={handleMouseEnter}
     >
       {lines.map((line, lineIndex) => renderLine(line, lineIndex))}
     </motion.span>

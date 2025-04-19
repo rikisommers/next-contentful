@@ -3,7 +3,7 @@ import { getAllCaseStudies, getPost, getFooter } from "../../lib/api";
 
 import PostBody from "../../components/post/post-body";
 import BlockFooter from "../../components/blocks/block-footer";
-import PageNav from "../../components/base/page-nav";
+import PageNav from "../../components/navigation/page-nav";
 import PagesPasswordPage from "../../components/security/password-page-pages";
 import ScrollContainer from "../../components/utils/scroll-container";
 import { useThemeContext } from "../../components/context/themeContext";
@@ -23,7 +23,12 @@ export default function Post({ post, footerData }) {
   return (
     <ScrollContainer>
       {articlesNavList.length > 0 && (
+                  <div className="relative">
+                  <nav className="fixed right-0 z-50 flex flex-col self-start justify-center h-screen">
+          
         <PageNav content={articlesNavList}></PageNav>
+        </nav>
+        </div>
       )}
 
       <SpeedInsights />

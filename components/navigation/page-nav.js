@@ -112,15 +112,15 @@ const PageNav = ({ content }) => {
   };
 
   return (
-    <div className="relative">
-      <nav className="fixed right-0 z-50 flex flex-col self-start justify-center h-screen">
+   
         <div
-          className="group relative grid grid-cols-[1fr_2rem_0.5rem_0.5rem] items-center grid-rows-1"
+          className="group relative grid grid-cols-[1fr_2rem_0.5rem_0.5rem] h-full items-center grid-rows-1"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
           <motion.ul
-            className="flex flex-col p-4 pr-[40px] z-40 col-start-1 col-end-4 row-span-1 row-start-1 origin-center rounded-lg shadow-xl "
+            className="flex flex-col p-4 pr-[40px] z-40 col-start-1 col-end-4 row-span-1 row-start-1 origin-center rounded-lg shadow-xl origin-right
+"
             initial="initial"
             animate={controls}
             variants={subMenuAnimate}
@@ -174,8 +174,8 @@ const PageNav = ({ content }) => {
 
           <motion.ul
             id="trigger"
-            className="relative z-50 flex flex-col items-end col-start-2 row-span-1 row-start-1 gap-4 px-3 py-4 transition-all rounded-lg pointer-events-none col-emd-3 trigger ml-50 "
-            style={{ backgroundColor: "var(--nav-bg)" }}
+            className="relative z-50 flex flex-col items-end col-start-2 col-end-3 row-span-1 row-start-1 gap-4 px-3 py-4 transition-all rounded-lg pointer-events-none trigger"
+           // style={{ backgroundColor: "var(--nav-bg)" }}
             variants={indicatorAnimate}
             animate={controls}
           >
@@ -216,52 +216,8 @@ const PageNav = ({ content }) => {
           </motion.ul>
         </div>
 
-        {/* <ul
-            id="menu-trigger"
-            className="z-50 flex flex-col items-end gap-3 p-3 pointer-events-auto ml-50 hover:bg-red-600"
-            onMouseEnter={handleHoverStart}
+       
 
-          >
-
-            <h1>ss{isMenuActive ? 't' : 'f'}</h1>
-            {content &&
-              content.length > 0 &&
-              content.map((item, index) => {
-                return (
-                  <div key={index}>
-                    <div className="flex w-6 h-1 text-red-400 rounded-sm bg-slate-300">
-                      -
-                    </div>
-                  </div>
-                );
-              })}
-          </ul>
-          <motion.div
-            id="menu"
-            className="absolute top-0 z-40 p-6 rounded-md shadow-lg bg-slate-300"
-            initial="exit"
-            animate={isMenuActive ? "enter" : "exit"}
-            variants={subMenuAnimate}
-            onMouseLeave={handleHoverEnd}
-
-          >
-            <ul className="flex flex-col gap-3" 
-                        >
-              {content &&
-                content.length > 0 &&
-                content.map((item, index) => {
-                  return (
-                    <li key={index} className="text-sm ">
-                      <a href={`#${item.title}`} className="no-underline">
-                        {item.title}
-                      </a>
-                    </li>
-                  );
-                })}
-            </ul>
-          </motion.div> */}
-      </nav>
-    </div>
   );
 };
 

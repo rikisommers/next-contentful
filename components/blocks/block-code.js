@@ -28,7 +28,7 @@ export const BlockCode = ({ data }) => {
   };
 
   return (
-    <article >
+<>
       {data.embedurl &&       
       <iframe src="embedurl"></iframe>
       }
@@ -62,7 +62,7 @@ export const BlockCode = ({ data }) => {
           </div>
         </div>
 
-    </article>
+    </>
   );
 };
 

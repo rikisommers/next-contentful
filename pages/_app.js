@@ -16,7 +16,7 @@ import { motion } from "../utils/motion";
 function MyApp({ Component, pageProps, router, globalData, customThemes }) {
   const [isLoading, setIsLoading] = useState(true);
   
-  //console.log('GDATA',  globalData)
+  console.log('GDATA',  globalData)
 
   useEffect(() => {
 

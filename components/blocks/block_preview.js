@@ -1,50 +1,114 @@
-"use client"
+"use client";
 
-import { useState } from "react"
+import { useState } from "react";
+import React from "react";
+import BlockCode from "./block-code";
 
-export default function BlockPreview({ component, code, title, description }) {
-  const [activeView, setActiveView] = useState("preview")
+export const BlockPreview = ({ component, code, title, description }) => {
+  const [activeView, setActiveView] = useState("preview");
+  const [renderKey, setRenderKey] = useState(0);
+
+  const triggerReRender = () => {
+    setRenderKey((prevKey) => prevKey + 1);
+  };
+
+  // Create a data object for BlockCode
+  const codeData = {
+    title: title || "Code Preview",
+    code: code,
+    type: "jsx",
+  };
 
   return (
-    <div className="w-full overflow-hidden border border-gray-200 rounded-lg">
-      {(title || description) && (
-        <div className="p-4 border-b border-gray-200 bg-gray-50">
-          {title && <h3 className="text-lg font-medium">{title}</h3>}
-          {description && <p className="mt-1 text-sm text-gray-500">{description}</p>}
-        </div>
-      )}
+    <div
+      className="relative flex flex-col w-full h-full overflow-hidden rounded-2xl group inset-shadow-xl"
+      style={{
+        backgroundColor: "var(--body-background-color)",
+        backgroundOpacity: "0.5",
+      }}
+    >
+      <div className="relative w-full h-full py-20 overflow-clip">
+        <div className="absolute flex items-center justify-between w-full px-4 py-2 top-2 right-2">
+          <span
+            className="text-xs"
+            style={{
+              color: "var(--subtext-color)",
+            }}
+          >
+            {title}
+          </span>
 
-      <div className="flex items-center justify-between px-4 py-2 border-b border-gray-200 bg-gray-50">
-        <div className="flex p-1 space-x-1 bg-white border border-gray-200 rounded-md">
-          <button
-            onClick={() => setActiveView("preview")}
-            className={`px-3 py-1.5 text-sm font-medium rounded-md ${
-              activeView === "preview" ? "bg-gray-100 text-gray-900" : "text-gray-500 hover:text-gray-700"
-            }`}
-          >
-            Preview
-          </button>
-          <button
-            onClick={() => setActiveView("code")}
-            className={`px-3 py-1.5 text-sm font-medium rounded-md flex items-center ${
-              activeView === "code" ? "bg-gray-100 text-gray-900" : "text-gray-500 hover:text-gray-700"
-            }`}
-          >
-          </button>
+          <div className="flex p-1 space-x-1 rounded-md">
+            <button
+              onClick={() => setActiveView("preview")}
+              style={{
+                backgroundColor: activeView === "preview" ? "var(--body-background-color)" : "var(--surface2)",
+              }}
+              className={`px-3 py-1.5 text-sm font-medium rounded-md `}
+            >
+              Preview
+            </button>
+            <button
+              onClick={() => setActiveView("code")}
+              style={{
+                backgroundColor: activeView === "code" ? "var(--body-background-color)" : "var(--surface2)",
+              }}
+              className={`px-3 py-1.5 text-sm font-medium rounded-md flex items-center `}
+            >
+              Code
+            </button>
+            <button
+              onClick={triggerReRender}
+              style={{
+                backgroundColor:   "var(--surface2)",
+              }}
+              className={`px-3 py-1.5 text-sm font-medium rounded-md `}
+            >
+              Re-render
+            </button>
+          </div>
         </div>
+
+        {activeView === "preview" ? (
+          <div className="flex flex-col gap-4 ">
+            <div className="p-6">
+                {React.cloneElement(component, { key: renderKey })}
+            </div>
+
+            {(title || description) && (
+              <div className="flex flex-col gap-4 justify-start w-full row-span-1 p-4 !h-1/2">
+                <div
+                  className="flex flex-col items-start w-full gap-4"
+                  style={{
+                    color: "var(--text-color-inv)",
+                  }}
+                >
+                  <div className="p-4">
+                    <span
+                      className="text-xs"
+                      style={{
+                        color: "var(--subtext-color)",
+                      }}
+                    >
+                      {title}
+                    </span>
+                    <span
+                      className="text-xs"
+                      style={{
+                        color: "var(--subtext-color)",
+                      }}
+                    >
+                      {description}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        ) : (
+            <BlockCode data={codeData} />
+        )}
       </div>
-
-      {activeView === "preview" ? (
-        <div className="p-6 bg-white">
-          <div className="flex items-center justify-center">{component}</div>
-        </div>
-      ) : (
-        <div className="p-0 bg-gray-50">
-          <pre className="p-4 overflow-x-auto text-sm">
-            <code>{code}</code>
-          </pre>
-        </div>
-      )}
     </div>
-  )
-}
+  );
+};
