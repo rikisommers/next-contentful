@@ -104,7 +104,7 @@ export default function PostTileRe({ post, index, size }) {
         <motion.div
           className="w-full !h-1/2 overflow-clip"
           style={{
-            backgroundColor: "var(--accent-pri",
+            backgroundColor: "var(--accent-pri)",
           }}
         >
           <motion.div

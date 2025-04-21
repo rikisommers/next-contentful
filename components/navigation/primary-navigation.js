@@ -1,6 +1,5 @@
 "use client";
 import dynamic from 'next/dynamic';
-import { Sliders } from "@phosphor-icons/react";
 
 import React, { useRef } from "react";
 import { motion} from "../../utils/motion";;
@@ -71,7 +70,7 @@ export default function Navigation({data, logo, customThemes}) {
           color:'var(--accent-pri)',
         }}
       >
-       <Sliders size={20}/>
+        theme icon
       </motion.div>
       <div
         ref={containerRef}

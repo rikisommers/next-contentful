@@ -140,7 +140,7 @@ export default function PostTileMonks({ post, index, size }) {
                     viewBox="0 0 20 20"
                     className="z-10 w-6 h-6"
                     style={{
-                      color: "var(--accent-pri",
+                      color: "var(--accent-pri)",
                     }}
                   ></motion.img>
                 </motion.div>

@@ -63,7 +63,7 @@ export default function PostTileLg({ post, index, size }) {
           viewBox="0 0 20 20"
           className="z-10 w-5 h-5"
           style={{
-            color: "var(--accent-pri",
+            color: "var(--accent-pri)",
           }}
         ></img>
         </motion.div>

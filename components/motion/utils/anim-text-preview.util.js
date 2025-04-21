@@ -126,5 +126,5 @@ export const createTextAnimComponents = (highlight = defaultHighlight) => {
   }
 }
 
-// Default export for backward compatibility
-export const textAnimComponents = createTextAnimComponents()
+// Remove the module-level export that was causing the issue
+// export const textAnimComponents = createTextAnimComponents()

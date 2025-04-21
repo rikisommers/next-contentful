@@ -22,7 +22,7 @@ export const TextAnimNavigators = ({
   });
 
   const words = content.split(" ");
-  const wordsLength = words.length;
+  const wordsLength = content.split(" ").length;
   const internalDelay = 1;
   const totalDuration = wordsLength * gap;
   const textDuration = totalDuration + internalDelay;

@@ -181,6 +181,3 @@ export const createTileComponents = () => {
     }
   }
 }
-
-// Default export for backward compatibility
-export const tileComponents = createTileComponents()

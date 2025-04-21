@@ -8,7 +8,8 @@ import { ToastProvider } from "../components/context/toastContext";
 import Navigation from "../components/navigation/primary-navigation";
 import Preloader from "../components/utils/preloader";
 import "../styles/index.scss";
-import "../styles/prisim-vs-code-dark.scss";
+//import "../styles/prisim-vs-code-dark.scss";
+//import "../styles/tailwind-theme.css";
 import { getLoading, getThemes } from "../lib/api";
 import App from 'next/app'; // Import App from next/app
 import { motion } from "../utils/motion";

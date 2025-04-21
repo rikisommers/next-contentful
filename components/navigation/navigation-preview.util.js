@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react"
-import NavBar from "./navbar"
+import NavBar from "./primary-navigation"
 import PageNav from "./page-nav"
 // Sample post data for previews
 const sampleNavbarData =  [
@@ -79,6 +79,6 @@ export const createNavComponents = () => {
   }
 }
 
-// Default export for backward compatibility
-export const navComponents = createNavComponents()
+// Remove the module-level export that was causing the issue
+// export const navComponents = createNavComponents()
 

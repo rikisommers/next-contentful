@@ -1,32 +1,33 @@
-/* Theme Variables for Tailwind CSS v4 */
+@import "tailwindcss";
+
 :root {
-  /* Theme Colors */
-  --body-background-color: #F8FBF8;
-  --background-color: #F7FCFE;
-  --surface1: #F8FBF8;
-  --surface2: #F7FCFE;
-  --surface3: #C0C6C9;
-  --background-color-inv: #C0C6C9;
-  --heading-color: #887F7A;
-  --text-color: #887F7A;
-  --subtext-color: #C0C6C9;
-  --text-color-inv: #887F7A;
-  --accent: #BED3CD;
-  --accent-pri: #EF7801;
-  --accent-sec: #FCD00A;
-  --text-accent: #BED3CD;
-  --mix-blend-mode: luminosity;
-  --nav-bg: #F8FBF8;
-
-  /* Button Colors */
-  --button-default-bg: var(--nav-bg);
-  --button-default-text: var(--text-color);
-  --button-primary-bg: var(--accent-pri);
-  --button-primary-text: var(--text-color-inv);
-  --button-secondary-bg: var(--accent-sec);
-  --button-secondary-text: var(--text-color-inv);
-
-  /* Tailwind Theme Colors */
+  /* Screen breakpoints */
+  --screen-xs: 475px;
+  --screen-sm: 640px;
+  --screen-md: 768px;
+  --screen-lg: 1024px;
+  --screen-xl: 1280px;
+  --screen-2xl: 1440px;
+  --screen-3xl: 1600px;
+  --screen-4xl: 1920px;
+  
+  /* Font sizes */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  --font-size-5xl: 2.5rem;
+  --font-size-6xl: 2.75rem;
+  --font-size-7xl: 4.5rem;
+  --font-size-8xl: 6.25rem;
+  --font-size-fluid: clamp(1.25rem, 3.783vw + 0.271rem, 5rem);
+  --font-size-jumbo: 4vw;
+  
+  /* Colors */
   --color-theme-primary: var(--accent-pri);
   --color-theme-secondary: var(--accent-sec);
   --accent-color: var(--accent);
@@ -49,10 +50,59 @@
   --color-grad-stop: #f4f4f5;
   --color-text-accent: #d946ef;
   --color-state-success-background: #d946ef;
-
-  /* Typography */
-  --font-family-primary: 'Arial', sans-serif;
-  --font-family-secondary: 'Georgia', serif;
+  
+  /* Spacing */
+  --spacing-28: 7rem;
+  --spacing-panel-xs: 300px;
+  --spacing-panel-sm: 400px;
+  --spacing-header: 20rem;
+  --spacing-footer: 20rem;
+  
+  /* Letter spacing */
+  --letter-spacing-tighter: -.04em;
+  
+  /* Line height */
+  --line-height-tight: 1.2;
+  
+  /* Box shadow */
+  --shadow-small: 0 5px 10px rgba(0, 0, 0, 0.12);
+  --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.12);
+  
+  /* Width */
+  --width-panel-xs: 300px;
+  --width-panel-sm: 400px;
+  
+  /* Height */
+  --height-vhr: calc(100vh - 150px);
+  --height-vhh: 64vh;
+  --height-vh33: 33vh;
+  --height-vh44: 44vh;
+  --height-vh55: 55vh;
+  --height-vh66: 66vh;
+  --height-header: 20rem;
+  --height-footer: 20rem;
+  
+  /* Padding */
+  --padding-vhh: 64vh;
+  --padding-xlx: 10vw;
+  
+  /* Margin */
+  --margin-vhh: 64vh;
+  
+  /* Z-index */
+  --z-index-nav: 9999;
+  --z-index-100: 9999;
+  
+  /* Font families */
+  --font-family-interp: 'interphase', 'sans-serif';
+  --font-family-tron: 'Tronica Mono', 'sans-serif';
+  --font-family-aon: 'Aeonik Pro', 'sans-serif';
+  
+  /* Clip paths */
+  --clip-path-inset-1: inset(1rem 1rem 33% 1rem round 1rem);
+  --clip-path-inset-0: inset(0rem 0rem 0rem 0rem round 1rem);
+  
+  /* Font Sizes */
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;
   --font-size-base: 1rem;
@@ -61,12 +111,23 @@
   --font-size-2xl: 1.5rem;
   --font-size-3xl: 1.875rem;
   --font-size-4xl: 2.25rem;
-  --font-size-5xl: 2.5rem;
-  --font-size-6xl: 2.75rem;
-  --font-size-7xl: 4.5rem;
-  --font-size-8xl: 6.25rem;
-  --font-size-fluid: clamp(1.25rem, 3.783vw + 0.271rem, 5rem);
-  --font-size-jumbo: 4vw;
+
+  /* Colors */
+  --color-theme-primary: #0070f3;
+  --color-theme-secondary: #7928ca;
+  --color-theme-accent: #f81ce5;
+  --color-theme-background: #ffffff;
+  --color-theme-foreground: #000000;
+
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  --spacing-3xl: 4rem;
+  --spacing-4xl: 6rem;
 
   /* Letter Spacing */
   --letter-spacing-tighter: -0.05em;
@@ -84,29 +145,12 @@
   --line-height-relaxed: 1.625;
   --line-height-loose: 2;
 
-  /* Spacing */
-  --spacing-xs: 0.25rem;
-  --spacing-sm: 0.5rem;
-  --spacing-md: 1rem;
-  --spacing-lg: 1.5rem;
-  --spacing-xl: 2rem;
-  --spacing-2xl: 3rem;
-  --spacing-3xl: 4rem;
-  --spacing-4xl: 6rem;
-  --spacing-28: 7rem;
-  --spacing-panel-xs: 300px;
-  --spacing-panel-sm: 400px;
-  --spacing-header: 20rem;
-  --spacing-footer: 20rem;
-
   /* Box Shadow */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  --shadow-small: 0 5px 10px rgba(0, 0, 0, 0.12);
-  --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.12);
 
   /* Width */
   --width-xs: 20rem;
@@ -117,9 +161,6 @@
   --width-2xl: 42rem;
   --width-3xl: 48rem;
   --width-4xl: 56rem;
-  --width-panel-xs: 300px;
-  --width-panel-sm: 400px;
-  --menu-width-xs: 300px;
 
   /* Height */
   --height-xs: 20rem;
@@ -130,14 +171,6 @@
   --height-2xl: 42rem;
   --height-3xl: 48rem;
   --height-4xl: 56rem;
-  --height-vhr: calc(100vh - 150px);
-  --height-vhh: 64vh;
-  --height-vh33: 33vh;
-  --height-vh44: 44vh;
-  --height-vh55: 55vh;
-  --height-vh66: 66vh;
-  --height-header: 20rem;
-  --height-footer: 20rem;
 
   /* Padding */
   --padding-xs: 0.25rem;
@@ -148,8 +181,6 @@
   --padding-2xl: 3rem;
   --padding-3xl: 4rem;
   --padding-4xl: 6rem;
-  --padding-vhh: 64vh;
-  --padding-xlx: 10vw;
 
   /* Margin */
   --margin-xs: 0.25rem;
@@ -160,45 +191,17 @@
   --margin-2xl: 3rem;
   --margin-3xl: 4rem;
   --margin-4xl: 6rem;
-  --margin-vhh: 64vh;
 
-  /* Z-index */
-  --z-index-nav: 9999;
-  --z-index-100: 9999;
-
-  /* Screen Breakpoints */
-  --screen-xs: 475px;
-  --screen-sm: 640px;
-  --screen-md: 768px;
-  --screen-lg: 1024px;
-  --screen-xl: 1280px;
-  --screen-2xl: 1440px;
-  --screen-3xl: 1600px;
-  --screen-4xl: 1920px;
+  /* Font Family */
+  --font-family-primary: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-family-secondary: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
 
   /* Clip Path */
   --clip-path-nav-open: polygon(0 0, 100% 0, 100% 100%, 0 100%);
   --clip-path-nav-closed: polygon(0 0, 0 0, 0 0, 0 0);
 }
 
-/* Dark mode variables */
 .dark {
-  --body-background-color: #1a1a1a;
-  --background-color: #121212;
-  --surface1: #1a1a1a;
-  --surface2: #121212;
-  --surface3: #333333;
-  --background-color-inv: #333333;
-  --heading-color: #e0e0e0;
-  --text-color: #e0e0e0;
-  --subtext-color: #a0a0a0;
-  --text-color-inv: #e0e0e0;
-  --accent: #4a9eff;
-  --accent-pri: #4a9eff;
-  --accent-sec: #ff4a4a;
-  --text-accent: #4a9eff;
-  --mix-blend-mode: luminosity;
-  --nav-bg: #1a1a1a;
   --color-theme-primary: #3291ff;
   --color-theme-secondary: #9f7aea;
   --color-theme-accent: #f81ce5;

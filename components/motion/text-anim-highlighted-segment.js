@@ -30,7 +30,7 @@ export const HighlightedSegment = ({ segment, highlight }) => {
           return { backgroundColor: 'var(--surface1)' };
         case 'figma-neumorphic':
             return {
-              backgroundColor: `linear-gradient(${gradientAngle}, ${surface1}, ${surface2})`,
+              background: `linear-gradient(${gradientAngle}, ${surface1}, ${surface2})`,
               position: 'relative',
               boxShadow: `7px 7px 14px ${currentTheme?.data?.bodyBackgroundColor || '#ffffff'}, 
                           -7px -7px 14px ${currentTheme?.data?.textHighlightOutlineNeumorphicEndColor || '#000000'}`

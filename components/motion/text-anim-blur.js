@@ -14,7 +14,7 @@ import { motion } from "../../utils/motion";
  * @param {string} props.key - Key prop passed from parent to force re-render
  */
 export const TextAnimBlur = ({ 
-  content, 
+  content = '', // Provide default empty string
   delay = 0, 
   highlight = "background",
   trigger = "hover",
@@ -22,24 +22,23 @@ export const TextAnimBlur = ({
   key
 }) => {
   const [isComplete, setIsComplete] = useState(false);
-  const [isTriggered, setIsTriggered] = useState(true); // Always start triggered
+  const [isTriggered, setIsTriggered] = useState(true);
   
-  // Clean the content by removing formatting
-  const cleanContent = content
-    .replace(/__([^_]+)__/g, '$1') // Remove bold formatting
-    .replace(/\*([^*]+)\*/g, '$1') // Remove italic formatting
-    .replace(/!\[([^\]]*)\]\((.*?)\)/g, ''); // Remove image markdown
+  // Ensure content is a string and clean it
+  const cleanContent = (typeof content === 'string' ? content : '')
+    .replace(/__([^_]+)__/g, '$1')
+    .replace(/\*([^*]+)\*/g, '$1')
+    .replace(/!\[([^\]]*)\]\((.*?)\)/g, '');
   
-  const lines = cleanContent.split('\n');
+  const lines = cleanContent.split('\n').filter(line => line !== null && line !== undefined);
   
-  // Calculate total characters for timing
+  // Calculate total characters for timing with null checks
   const totalChars = lines.reduce((acc, line) => {
-    return acc + line.length;
+    return acc + (line && typeof line === 'string' ? line.length : 0);
   }, 0);
   
   // Calculate completion time based on animation sequence
-  const completionTime = totalChars * 20 + // Character delays
-                        300; // Buffer for final character settling
+  const completionTime = totalChars * 20 + 300;
 
   const characterVariants = {
     hidden: { 
@@ -113,15 +112,17 @@ export const TextAnimBlur = ({
   );
 
   const renderLine = (line, lineIndex) => {
-    // Calculate the starting index for this line's characters
-    const startIndex = lines.slice(0, lineIndex).reduce((acc, l) => acc + l.length, 0);
+    // Calculate the starting index for this line's characters with null checks
+    const startIndex = lines.slice(0, lineIndex).reduce((acc, l) => {
+      return acc + (l && typeof l === 'string' ? l.length : 0);
+    }, 0);
     
     return (
       <div 
         key={lineIndex} 
         className={lineIndex === 0 ? "inline" : "block"}
       >
-        {line.split("").map((char, charIndex) => (
+        {line && typeof line === 'string' ? line.split("").map((char, charIndex) => (
           <motion.span
             key={charIndex}
             custom={startIndex + charIndex}
@@ -131,11 +132,15 @@ export const TextAnimBlur = ({
           >
             {char}
           </motion.span>
-        ))}
-
+        )) : null}
       </div>
     );
   };
+  
+  // If no content, return null
+  if (!content || typeof content !== 'string') {
+    return null;
+  }
   
   return (
     <motion.span
@@ -150,4 +155,4 @@ export const TextAnimBlur = ({
       {lines.map((line, lineIndex) => renderLine(line, lineIndex))}
     </motion.span>
   );
-}
+};

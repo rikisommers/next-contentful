@@ -20,7 +20,7 @@ export default function BlockList({ data }) {
   const { currentTheme } = useThemeContext();
 
   const renderBlock = () => {
-    if (!data || !data.type || !data.type.length) {
+    if (!data || !data.type || !data.type?.length) {
       return <div>No data available</div>; // Handle the case when data is not available
     }
 
@@ -130,7 +130,7 @@ export default function BlockList({ data }) {
                             {item.number}
                           </span>
                         )}
-                        {index !== data.itemsCollection.items.length - 1 && (
+                        {index !== data.itemsCollection.items?.length - 1 && (
                           <span
                             className="h-full ml-3 w-[1px]"
                             style={{ backgroundColor: "var(--subtext-color)" }}

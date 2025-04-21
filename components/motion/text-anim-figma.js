@@ -6,11 +6,15 @@ import { motion } from "framer-motion";
 import { processItalicText } from "../utils/textFormatting";
 
 export const TextAnimFigma = ({ 
-  delay = 0, // Base delay
-  content, 
+  delay = 0,
+  content = '', // Add default empty string
   highlight,
   type = "text"
 }) => {
+  // Early return if content is invalid
+  if (!content || typeof content !== 'string') {
+    return null;
+  }
   
   const segmentVariants = {
     hidden: { opacity: 0, x: 10 },
@@ -22,6 +26,10 @@ export const TextAnimFigma = ({
   };
 
   const renderWord = (word, wordIndex) => {
+    if (!word || typeof word !== 'string') {
+      return null;
+    }
+
     // Check for image markdown syntax
     const imageMatch = word.match(/!\[([^\]]*)\]\((.*?)\)/);
     if (imageMatch) {
@@ -83,8 +91,12 @@ export const TextAnimFigma = ({
   };
 
   const renderLine = (line, lineIndex) => {
+    if (!line || typeof line !== 'string') {
+      return null;
+    }
+
     // Split the line into words and filter out empty strings
-    const words = line.split(" ").filter(word => word.trim() !== "");
+    const words = line.split(" ").filter(word => word && word.trim() !== "");
 
     return (
       <motion.div
@@ -104,10 +116,12 @@ export const TextAnimFigma = ({
   };
 
   const renderContent = (text) => {
-    if (text) {
-      const lines = text.split("\n");
-      return lines.map((line, lineIndex) => renderLine(line, lineIndex));
+    if (!text || typeof text !== 'string') {
+      return null;
     }
+
+    const lines = text.split("\n").filter(line => line && line.trim() !== "");
+    return lines.map((line, lineIndex) => renderLine(line, lineIndex));
   };
 
   return (

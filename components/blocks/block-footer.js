@@ -185,7 +185,7 @@ export default function BlockFooter({ data }) {
             )}
           </div>
 
-          {data.socialCollection && data.socialCollection.items.length && (
+          {data.socialCollection && data.socialCollection.items?.length && (
             <div className="flex gap-2 ">
               {data.socialCollection.items.map((item, i) => (
                 <Link
