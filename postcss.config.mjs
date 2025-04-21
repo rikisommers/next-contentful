@@ -1,16 +1,6 @@
-// If you want to use other PostCSS plugins, see the following:
-// https://tailwindcss.com/docs/using-with-preprocessors
-export default {
+const config = {
   plugins: {
-    'tailwindcss': {},
-    'autoprefixer': {},
-    'cssnano': {
-      preset: ['default', {
-        discardComments: {
-          removeAll: true,
-        },
-      }],
-    },
+    "@tailwindcss/postcss": {},
   },
 };
-
+export default config;
