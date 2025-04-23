@@ -28,7 +28,7 @@ import { useThemeContext } from "../components/context/themeContext";
 import ThemeModal from "../components/base/theme-modal";
 import { toCamelCase } from "../components/utils/toCamelCase";
 import Modal from "../components/base/modal";
-import ButtonAlt from "../components/base/button-alt";
+import ButtonWipe from "../components/base/button/button-wipe";
 import { useToast } from "../components/context/toastContext";
 import { Pane } from 'tweakpane';
 import dynamic from 'next/dynamic';
@@ -342,7 +342,7 @@ export default function ThemeEditor({ customThemes }) {
             onChange={(e) => setThemeName(e.target.value)}
             className="p-2 border"
           />
-          <ButtonAlt onClick={saveNewTheme}>Save Theme</ButtonAlt>
+          <ButtonWipe onClick={saveNewTheme}>Save Theme</ButtonWipe>
         </div>
       </Modal>
       <Modal
@@ -351,7 +351,7 @@ export default function ThemeEditor({ customThemes }) {
         title="Delete Theme"
       >
         <p>Are you sure you want to delete this theme?</p>
-        <ButtonAlt onClick={deleteTheme}>Delete Theme</ButtonAlt>
+        <ButtonWipe onClick={deleteTheme}>Delete Theme</ButtonWipe> 
       </Modal>
     </div>
   );

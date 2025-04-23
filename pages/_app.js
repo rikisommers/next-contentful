@@ -34,6 +34,7 @@ function MyApp({ Component, pageProps, router, globalData, customThemes }) {
 
   return (
     <>
+    <div className="noise"></div>
       {globalData?.loadingText &&
       <Preloader show={isLoading} data={globalData.loadingText} logo={globalData.logo} />
       }

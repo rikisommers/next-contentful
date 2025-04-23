@@ -1299,7 +1299,7 @@ export const helpers = {
 };
 
 const themeContent = {
-  audioEnabled:false,
+  audioEnabled:true,
   audioVolume:0.5,
   fontFamilyPrimary:typographyThemes.sans,
   fontFamilySecondary:typographyThemes.sans,

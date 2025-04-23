@@ -6,7 +6,10 @@ import AnimatedText, {
   AnimTextOrder,
 } from "../motion/animated-text";
 
-import ButtonAlt, { ButtonType } from "../base/button-alt";
+import Button from "../base/button/button";
+import ButtonWipe from "../base/button/button-wipe";
+import ButtonMonks from "../base/button/button-monks";
+import { ButtonType, ButtonSound } from "../base/button/button.util";
 import { motion, useTransform, useScroll } from "../../utils/motion";
 
 export default function BlockFooter({ data }) {
@@ -86,9 +89,27 @@ export default function BlockFooter({ data }) {
               </h2>
             )}
 
+
+
+
+<ButtonMonks label={'Click Me'} type={ButtonType.PRIMARY} />
+<Button label={'Click Me'} type={ButtonType.DEFAULT} />
+<Button label={'Click Me'} type={ButtonType.PRIMARY} />
+<Button label={'Click Me'} type={ButtonType.SECONDARY} />
+<Button label={'Click Me'} type={ButtonType.TRANSPARENT} />
+
+
+
+  <ButtonWipe label={'Click Me'} type={ButtonType.DEFAULT} />
+  <ButtonWipe label={'Click Me'} type={ButtonType.PRIMARY} />
+  <ButtonWipe label={'Click Me'} type={ButtonType.SECONDARY} />
+  <ButtonWipe label={'Click Me'} type={ButtonType.TRANSPARENT} />
+
+
+
             {data?.ctalink && data?.cta && (
               <Link href={data.ctalink} className="no-underline">
-                <ButtonAlt label={data.cta} type={ButtonType.PRIMARY} />
+                <ButtonWipe label={data.cta} type={ButtonType.PRIMARY} />
               </Link>
             )}
           </div>

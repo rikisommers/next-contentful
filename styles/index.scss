@@ -124,3 +124,16 @@ display:none;
   color:var(--body-background-color);
    background-color:var(--accent-pri);
  }
+
+
+ .noise{
+  background-image: url('/noise.png');
+  background-repeat: repeat;
+  position: fixed;
+  pointer-events: none;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+ }

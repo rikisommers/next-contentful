@@ -40,98 +40,31 @@ const getHeightClass = (height) => {
   }
 };
 
-
-const BackgroundElements = () => {
-  return (
-    <motion.div
-      className="absolute flex items-center justify-end w-full h-full opacity-75 pointer-events-none z-1"
-      initial={{ clipPath: "inset(1.0rem 1.0rem 1.0rem round 0.5rem)" }}
-      animate={{
-        backgroundColor: "var(--background-color)",
-        clipPath: "inset( 1rem round 1rem )",
-      }}
-      exit={{ clipPath: "inset( 1.5rem 1.5rem 1.5rem 1.5rem round 1rem )" }}
-      transition={{
-        duration: 0.6,
-        ease: [0.33, 1, 0.68, 1],
-      }}
-    >
-        {currentTheme.data.heroBackgroundStyle === "gradient" && (
-          // <CanvasGradientBackground />
-          <CanvasAnimatedGradient/>
-
-        )}
-
-
-
-        {currentTheme.data.heroBackgroundStyle === "cssgradient" && (
-          <BackgroundCssGrad />
-        )}
-
-      {/* {currentTheme.data.heroBackgroundStyle === "video" && <Background />} */}
-
-      {currentTheme.data.heroBackgroundStyle === "image" && (
-        <BlendImage
-          className="img-cover"
-          alt={`Cover Image for ${image?.title}`}
-          src={image.url}
-        />
-      )}
-    </motion.div>
-  );
-};
-
-const FullPage = () => {
-  <ClipContainer>
-    {/*grid  grid-rows-[48px_48px_1fr_1fr_1fr_48px_48px] grid-cols-12 */}
-    <div className="relative top-0 left-0 z-50 w-screen h-screen p-3 ">
-      <div
-        className="absolute top-0 flex items-center justify-end w-full h-full pointer-events-none z-1"
-        // initial={{ clipPath: "inset(1.0rem 1.0rem 1.0rem round 0.5rem)" }}
-        // animate={{
-        //   backgroundColor: "var(--background-color)",
-        //   clipPath: "inset( 1rem round 1rem )",
-        // }}
-        // exit={{ clipPath: "inset( 1.5rem 1.5rem 1.5rem 1.5rem round 1rem )" }}
-        // transition={{
-        //   duration: 0.6,
-        //   ease: [0.33, 1, 0.68, 1],
-        // }}
-      >
-        {/* {currentTheme.data.heroBackgroundStyle === "gradient" && (
-          <CanvasGradientBackground />
-        )} */}
-      </div>
-      <PostIntro title={titlealt} content={contentalt} />
-    </div>
-  </ClipContainer>;
-};
-
-const BackgroundGrad = () => {
-  const { currentTheme } = useThemeContext();
-  return (
-    <div className="absolute top-0 left-0 flex items-center justify-end w-full h-full pointer-events-none z-1">
-        {currentTheme.data.heroBackgroundStyle === "gradient" && (
-          <CanvasGradientBackground gradientType="conic" conicRotation={1} />
-        )}
-
-        {currentTheme.data.heroBackgroundStyle === "cssgradient" && (
-          <BackgroundCssGrad />
-        )}
-
-{/* <CanvasGradientBackground gradientType="conic" conicRotation={1} /> */}
-
-      {currentTheme.data.heroBackgroundStyle === "video" && <Background />}
-
-      {currentTheme.data.heroBackgroundStyle === "image" && image && (
+/**
+ * Renders the appropriate background component based on the heroBackgroundStyle
+ * @param {string} heroBackgroundStyle - The style of the hero background
+ * @param {Object} image - The image object for image background
+ * @returns {JSX.Element|null} - The rendered background component or null
+ */
+const renderHeroBackground = (heroBackgroundStyle, image) => {
+  switch (heroBackgroundStyle) {
+    case "gradient":
+      return <CanvasGradientBackground gradientType="conic" conicRotation={1} />;
+    case "cssgradient":
+      return <BackgroundCssGrad />;
+    case "video":
+      return <Background />;
+    case "image":
+      return image ? (
         <BlendImage
           className="absolute w-full h-full img-cover"
           alt={`Cover Image for ${image?.title}`}
           src={image.url}
         />
-      )}
-    </div>
-  );
+      ) : null;
+    default:
+      return null;
+  }
 };
 
 export default function BlockHero({ title, content, tag, image}) {
@@ -140,8 +73,6 @@ export default function BlockHero({ title, content, tag, image}) {
 
   const full = false;
 
-
-  
   useEffect(() => {
     // Set the style value when the component mounts
     const position = getPositionClass(currentTheme.data.heroTextPosition);
@@ -158,46 +89,12 @@ export default function BlockHero({ title, content, tag, image}) {
         )} relative flex flex-col justify-end left-0 top-0 z-50 w-full gap-8 px-16 py-16`}
       >
         {/* <h1>NO {clip ? "YES" : "NO"}</h1> */}
-        <BackgroundGrad />
-        <ScaleContainer>
+        {renderHeroBackground(currentTheme.data.heroBackgroundStyle, image)}
 
+        <ScaleContainer>
           <PostIntro title={title} content={content} tag={tag} />
         </ScaleContainer>
       </div>
     </ClipContainer>
-
-    // <>
-    //   {clip && (
-    //     <ClipContainer>
-    //       <div
-    //         className={`${getHeightClass(
-    //           currentTheme.data.heroHeight
-    //         )} relative flex flex-col justify-end left-0 top-0 z-50 w-full gap-8 px-16 py-16`}
-    //       >
-    //         <BackgroundGrad />
-    //         <h1>YES {clip ? "YES" : "NO"}</h1>
-
-    //         <PostIntro title={title} content={content} tag={tag} />
-    //       </div>
-    //     </ClipContainer>
-    //   )}
-
-    //   {!clip && (
-
-    //     <div
-    //       className={`${getHeightClass(
-    //         currentTheme.data.heroHeight
-    //       )} relative flex flex-col justify-end left-0 top-0 z-50 w-full gap-8 px-16 py-16`}
-    //     >
-    //       <h1>NO {clip ? "YES" : "NO"}</h1>
-    //       <BackgroundGrad />
-    //       <ScaleContainer>
-    //       <PostIntro title={title} content={content} tag={tag} />
-    //       </ScaleContainer>
-
-    //     </div>
-    //   )}
-
-    // </>
   );
 }

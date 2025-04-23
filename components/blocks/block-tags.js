@@ -1,6 +1,6 @@
 import React from "react";
 import { useThemeContext } from "../context/themeContext";
-import Button, { ButtonType } from "../base/button";
+import Button, { ButtonType } from "../base/button/button";
 import { motion } from "../../utils/motion";
 
 export const BlockTags = ({ data, selected, handleTagClick }) => {

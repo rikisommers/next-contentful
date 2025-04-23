@@ -39,7 +39,7 @@ import Modal, {
   ModalPosition,
   ModalWidth,
 } from "../components/base/modal";
-import ButtonAlt, { ButtonType } from "../components/base/button-alt";
+import ButtonWipe, { ButtonType } from "../components/base/button/button-wipe";
 import { useToast } from "../components/context/toastContext";
 
 
@@ -921,10 +921,10 @@ export default function ThemeEditor({ customThemes }) {
 
           <div className="flex gap-1">
             <button type="button" onClick={() => setIsSaveModalOpen(false)}>
-              <ButtonAlt type={ButtonType.DEFAULT} label="Cancel" />
+              <ButtonWipe type={ButtonType.DEFAULT} label="Cancel" />
             </button>
             <button type="submit">
-              <ButtonAlt type={ButtonType.PRIMARY} label="Save Theme" />
+              <ButtonWipe type={ButtonType.PRIMARY} label="Save Theme" />
             </button>
           </div>
         </form>
@@ -945,10 +945,10 @@ export default function ThemeEditor({ customThemes }) {
 
           <div className="flex gap-1">
             <button type="button" onClick={() => setIsDeleteModalOpen(false)}>
-              <ButtonAlt type={ButtonType.DEFAULT} label="Cancel" />
+              <ButtonWipe type={ButtonType.DEFAULT} label="Cancel" /> 
             </button>
             <button type="submit">
-              <ButtonAlt type={ButtonType.PRIMARY} label="Delete Theme" />
+              <ButtonWipe type={ButtonType.PRIMARY} label="Delete Theme" />
             </button>
           </div>
         </form>

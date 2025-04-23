@@ -1,24 +1,11 @@
 "use client";
 
 import React from "react";
-import { motion } from "../../utils/motion";
+import { motion } from "../../../utils/motion";
 import PropTypes from "prop-types";
-import { useAudioControls } from "../navigation/audio-utils";
+import { useAudioControls } from "../../navigation/audio-utils";
+import { ButtonType, ButtonSound } from "./button.util";
 
-
-// Define the ButtonType enum
-const ButtonType = {
-  DEFAULT: "default",
-  PRIMARY: "primary",
-  SECONDARY: "secondary",
-  TRANSPARENT: "transparent",
-};
-
-const ButtonSound = {
-  ON: "on",
-  OFF: "off",
-  CLICK: "click",
-};
 
 
 

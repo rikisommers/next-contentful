@@ -1,12 +1,14 @@
 import React, { useRef } from "react";
 import { motion } from "../../utils/motion";
 import { useEffect, useState } from "react";
-import Button, { ButtonType, ButtonSound } from "../base/button";
+import Button, { ButtonType, ButtonSound } from "../base/button/button";
 import { useThemeContext } from "../context/themeContext";
+import { useAudioControls } from "../navigation/audio-utils";
 import Link from "next/link";
 
 export default function NavBar({ containerRef, data }) {
   const { currentTheme } = useThemeContext();
+  const { playClick } = useAudioControls();
   const menuRef = useRef(null);
   const menuDragRef = useRef("menuDragRef");
   //const { scrollPosition } = useScrollPosition();
@@ -205,6 +207,12 @@ export default function NavBar({ containerRef, data }) {
     //   }
     // };
 
+  // Handle navigation link click with sound
+  const handleNavClick = (pageId) => {
+    playClick();
+    setActivePage(pageId);
+  };
+
   return (
     <motion.div
       drag
@@ -241,7 +249,7 @@ export default function NavBar({ containerRef, data }) {
           key={page.id}
           href={page.url}
           scroll={false}
-          onClick={() => setActivePage(page.id)}
+          onClick={() => handleNavClick(page.id)}
           className="relative flex items-center text-sm no-underline uppercase rounded-lg"
           style={{
             color:
@@ -309,6 +317,7 @@ export default function NavBar({ containerRef, data }) {
               ? "vertical-rl"
               : "horizontal-tb",
         }}
+        onClick={playClick}
       >
         Contact
       </motion.div>

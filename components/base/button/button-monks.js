@@ -1,31 +1,36 @@
 "use client";
 
-import React from "react";
-import { motion } from "../../utils/motion"
+import React, {useState} from "react";
+import { motion } from "../../../utils/motion"
 import PropTypes from "prop-types";
-import { useAudioControls } from "../navigation/audio-utils";
+import { useAudioControls } from "../../navigation/audio-utils";
+import { ButtonType, ButtonSound } from "./button.util";
 
 
-// Define the ButtonType enum
-const ButtonType = {
-  DEFAULT: "default",
-  PRIMARY: "primary",
-  SECONDARY: "secondary",
-  TRANSPARENT: "transparent",
-};
-
-const ButtonSound = {
-  ON: "on",
-  OFF: "off",
-  CLICK: "click",
-};
-
-const ButtonAlt = ({ label, click, type = ButtonType.DEFAULT, sound }) => {
+const ButtonMonks = ({ label, click, type = ButtonType.DEFAULT, sound }) => {
   const { 
     playClick, 
     playBeepOn, 
     playBeepOff, 
   } = useAudioControls();
+
+  const [isHovered, setIsHovered] = useState(false); // State to track hover
+
+  // From https://easings.net/#easeOutBounce -- replace with spring
+  function bounceEase(x) {
+    const n1 = 7.5625;
+    const d1 = 2.75;
+
+    if (x < 1 / d1) {
+      return n1 * x * x;
+    } else if (x < 2 / d1) {
+      return n1 * (x -= 1.5 / d1) * x + 0.75;
+    } else if (x < 2.5 / d1) {
+      return n1 * (x -= 2.25 / d1) * x + 0.9375;
+    } else {
+      return n1 * (x -= 2.625 / d1) * x + 0.984375;
+    }
+  }
 
   // Determine button style based on type
   const getButtonStyle = (type) => {
@@ -145,6 +150,8 @@ const ButtonAlt = ({ label, click, type = ButtonType.DEFAULT, sound }) => {
     variants={parent}
     initial="initial"
     animate="initial"
+    onMouseEnter={() => setIsHovered(true)} // Set hover state to true on mouse enter
+    onMouseLeave={() => setIsHovered(false)} // Set hover state to false on mouse leave
     exit="exit"
     whileHover="animate"
       onClick={handleClick}
@@ -156,12 +163,49 @@ const ButtonAlt = ({ label, click, type = ButtonType.DEFAULT, sound }) => {
 
         </span>
       
-            <motion.span 
+            {/* <motion.span 
             variants={child}
             className="absolute left-0 z-10 w-full top-3 h-7"
             style={getButtonHighlightStyle(ButtonType.PRIMARY)}>
            
-           </motion.span>
+           </motion.span> */}
+
+                <motion.div
+                  className={`overflow-hidden relative w-6 h-6 rounded-full opacity-50 flex items-center justify-center ml-2 `}
+                  style={{
+                    backgroundColor: "var(--surface2)",
+                    transform: "translateY(8px)",
+                  }}
+                  animate={{
+                    x: isHovered ? [0, 20, 0] : 0, // Move to 300px and back to 0
+                  }}
+                  transition={{
+                    duration: 1,
+                    //ease: bounceEase
+                    ease: ["easeOut", bounceEase], // Different easings for each segment
+                    times: [0, 0.33, 1], // Control when each keyframe is reached
+                  }}
+                >
+                  <motion.img
+                    animate={{
+                      x: isHovered ? [0, 40, -40, 0] : 0,
+                      opacity: isHovered ? [1, 0, 0, 1] : 1,
+                    }}
+                    transition={{
+                      duration: 0.5,
+                      times: [0, 0.33, 0.65, 1],
+                      ease: "easeOut",
+                      // repeat: 1,
+                      // repeatType: "loop",
+                    }}
+                    src="arrow_forward.svg"
+                    viewBox="0 0 20 20"
+                    className="z-10 w-6 h-6"
+                    style={{
+                      color: "var(--accent-pri)",
+                    }}
+                  ></motion.img>
+                </motion.div>
     </motion.div>
 
 
@@ -169,12 +213,12 @@ const ButtonAlt = ({ label, click, type = ButtonType.DEFAULT, sound }) => {
 };
 
 // Define prop types
-ButtonAlt.propTypes = {
+ButtonMonks.propTypes = {
   label: PropTypes.string,
   click: PropTypes.func,
   type: PropTypes.oneOf(Object.values(ButtonType)),
   sound: PropTypes.oneOf(Object.values(ButtonSound))
 };
 
-export default ButtonAlt;
+export default ButtonMonks;
 export { ButtonType, ButtonSound };
