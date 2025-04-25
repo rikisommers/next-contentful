@@ -1,5 +1,3 @@
-
-
 const colorThemes = {
   light: {
     bodyBackgroundColor: '#fafafa',
@@ -19,6 +17,7 @@ const colorThemes = {
     gradStop: '#f4f4f5',
     textAccent:'#d946ef',
     stateSuccessBackground:'#d946ef',
+    accentImageBg: '#EF7801', // Matching accentPri
   },
   dark: {
     bodyBackgroundColor: '#271C1B',
@@ -37,6 +36,7 @@ const colorThemes = {
     gradStop: '#47362E',
     textAccent:'#99f6e4',
     stateSuccessBackground:'#d946ef',
+    accentImageBg: '#EF7801', // Matching accentPri
   },
   tokyo: {
     bodyBackgroundColor: '#F8FBF8',
@@ -56,6 +56,7 @@ const colorThemes = {
     gradStop: '#F7FCFE',
     textAccent:'#BED3CD',
     stateSuccessBackground:'#BED3CD',
+    accentImageBg: '#EF7801', // Matching accentPri
   },
   amberMonochrome: {
     key: 'amberMonochrome', // Key for the amber monochrome theme
@@ -76,6 +77,7 @@ const colorThemes = {
     stateSuccessBackground:'#4D3D00',
     gradStart: '#FFB000', // Using accentPri as gradStart
     gradStop: '#1A1A00',  // Using bodyBackgroundColor as gradStop
+    accentImageBg: '#FFB000', // Matching accentPri
   },
   greenPhosphor: {
     key: 'greenPhosphor', // Key for the green phosphor theme
@@ -96,6 +98,7 @@ const colorThemes = {
     stateSuccessBackground:'#004400',
     gradStart: '#00FF00', // Using accentPri as gradStart
     gradStop: '#002200',  // Using bodyBackgroundColor as gradStop
+    accentImageBg: '#00FF00', // Matching accentPri
   },
   ibmPcXt: {
     bodyBackgroundColor: '#000000',
@@ -115,6 +118,7 @@ const colorThemes = {
     stateSuccessBackground:'#55FF55',
     gradStart: '#FFFF55', // Using accentPri as gradStart
     gradStop: '#0000AA',  // Using bodyBackgroundColor as gradStop
+    accentImageBg: '#FFFF55', // Matching accentPri
   },
   commodore64: {
     bodyBackgroundColor: '#40318D',
@@ -134,6 +138,7 @@ const colorThemes = {
     stateSuccessBackground:'#A59FE6',
     gradStart: '#A59FE6', // Using accentPri as gradStart
     gradStop: '#7869C4',  // Using bodyBackgroundColor as gradStop
+    accentImageBg: '#A59FE6', // Matching accentPri
   },
   appleII: {
     bodyBackgroundColor: '#000000',
@@ -153,6 +158,7 @@ const colorThemes = {
     stateSuccessBackground:'#555555',
     gradStart: '#66FF66', // Using accentPri as gradStart
     gradStop: '#1B1B1B',  // Using bodyBackgroundColor as gradStop
+    accentImageBg: '#66FF66', // Matching accentPri
   },
   zxSpectrum: {
     bodyBackgroundColor: '#000000',
@@ -170,8 +176,9 @@ const colorThemes = {
     accentSec: '#FF00FF',
     textAccent:'#00FF00',
     stateSuccessBackground:'#00D8FF',
-    gradStart: '#FFFF00', // Using accentPri as gradStart
-    gradStop: '#0000D8',  // Using bodyBackgroundColor as gradStop
+    gradStart: '#FFFF00',
+    gradStop: '#0000D8',
+    accentImageBg: '#FFFF00', // Matching accentPri
   },
   atari8bit: {
     bodyBackgroundColor: '#000000',
@@ -189,8 +196,9 @@ const colorThemes = {
     accentSec: '#E05050',
     textAccent:'#E0E050',
     stateSuccessBackground:'#909090',
-    gradStart: '#50E080', // Using accentPri as gradStart
-    gradStop: '#404040',  // Using bodyBackgroundColor as gradStop
+    gradStart: '#50E080',
+    gradStop: '#404040',
+    accentImageBg: '#50E080', // Matching accentPri
   },
   msdos: {
     bodyBackgroundColor: '#000000',
@@ -208,8 +216,9 @@ const colorThemes = {
     accentSec: '#00FFFF',
     textAccent:'#FF00FF',
     stateSuccessBackground:'#0000F8',
-    gradStart: '#FFFF00', // Using accentPri as gradStart
-    gradStop: '#0000A8',  // Using bodyBackgroundColor as gradStop
+    gradStart: '#FFFF00',
+    gradStop: '#0000A8',
+    accentImageBg: '#FFFF00', // Matching accentPri
   },
   amigaWorkbench: {
     bodyBackgroundColor: '#0055AA',
@@ -227,8 +236,9 @@ const colorThemes = {
     accentSec: '#FFAA00',
     textAccent:'#00FFFF',
     stateSuccessBackground:'#00BBAA',
-    gradStart: '#FF8800', // Using accentPri as gradStart
-    gradStop: '#0077AA',  // Using bodyBackgroundColor as gradStop
+    gradStart: '#FF8800',
+    gradStop: '#0077AA',
+    accentImageBg: '#FF8800', // Matching accentPri
   },
   custom: {
     bodyBackgroundColor: '#F8FBF8',
@@ -248,6 +258,8 @@ const colorThemes = {
     stateSuccessBackground:'#BED3CD',
     gradStart: '#EF7801', // Using accentPri as gradStart
     gradStop: '#F8FBF8',  // Using bodyBackgroundColor as gradStop
+    accentImageBg: '#4D7EA8', // Matching accentPri
+
   },
   nes: {
     bodyBackgroundColor: '#000000',
@@ -268,6 +280,8 @@ const colorThemes = {
     stateSuccessBackground:'#00B800',
     gradStart: '#FC9838', // Using accentPri as gradStart
     gradStop: '#7C7C7C',  // Using bodyBackgroundColor as gradStop
+    accentImageBg: '#4D7EA8', // Matching accentPri
+
   },
   gameboy: {
     bodyBackgroundColor: '#0F380F',
@@ -287,6 +301,8 @@ const colorThemes = {
     stateSuccessBackground:'#8BAC0F',
     gradStart: '#9BBC0F', // Using accentPri as gradStart
     gradStop: '#306230',  // Using bodyBackgroundColor as gradStop
+    accentImageBg: '#4D7EA8', // Matching accentPri
+
   },
   sega: {
     bodyBackgroundColor: '#000000',
@@ -306,6 +322,8 @@ const colorThemes = {
     stateSuccessBackground:'#00FF00',
     gradStart: '#FFFF00', // Using accentPri as gradStart
     gradStop: '#0000FF',  // Using bodyBackgroundColor as gradStop
+    accentImageBg: '#4D7EA8', // Matching accentPri
+
   },
   mustang69: {
     bodyBackgroundColor: '#1C1C1C',
@@ -325,6 +343,9 @@ const colorThemes = {
     stateSuccessBackground: '#006400',
     gradStart: '#D4AF37', // Using accentPri as gradStart
     gradStop: '#2E2E2E',  // Using bodyBackgroundColor as gradStop
+    accentImageBg: '#D4AF37', // Matching accentPri
+    accentImageBg: '#4D7EA8', // Matching accentPri
+
   },
   camaro69: {
     bodyBackgroundColor: '#0F0F0F',
@@ -344,6 +365,7 @@ const colorThemes = {
     stateSuccessBackground: '#228B22',
     gradStart: '#FFA500', // Using accentPri as gradStart
     gradStop: '#1E1E1E',  // Using bodyBackgroundColor as gradStop
+    accentImageBg: '#FFA500', // Matching accentPri
   },
   corvette72: {
     bodyBackgroundColor: '#141414',
@@ -363,6 +385,7 @@ const colorThemes = {
     stateSuccessBackground: '#2E8B57',
     gradStart: '#C41E3A', // Using accentPri as gradStart
     gradStop: '#232323',  // Using bodyBackgroundColor as gradStop
+    accentImageBg: '#C41E3A', // Matching accentPri
   },
   beetle68: {
     bodyBackgroundColor: '#F2F2F2',
@@ -382,6 +405,7 @@ const colorThemes = {
     stateSuccessBackground: '#5CB85C',
     gradStart: '#4D7EA8', // Using accentPri as gradStart
     gradStop: '#E0E0E0',  // Using bodyBackgroundColor as gradStop
+    accentImageBg: '#4D7EA8', // Matching accentPri
   },
   audi80: {
     bodyBackgroundColor: '#1A1A1A',
@@ -401,6 +425,8 @@ const colorThemes = {
     stateSuccessBackground: '#4CAF50',
     gradStart: '#B30000', // Using accentPri as gradStart
     gradStop: '#2B2B2B',  // Using bodyBackgroundColor as gradStop
+    accentImageBg: '#4D7EA8', // Matching accentPri
+
   },
   porsche911: {
     bodyBackgroundColor: '#F0F0F0',
@@ -420,6 +446,8 @@ const colorThemes = {
     stateSuccessBackground: '#66BB6A',
     gradStart: '#FF5722', // Using accentPri as gradStart
     gradStop: '#E6E6E6',  // Using bodyBackgroundColor as gradStop
+    accentImageBg: '#4D7EA8', // Matching accentPri
+
   },
   spiritedAway: {
     bodyBackgroundColor: '#E6D7B9', // Light sand color from the bathhouse
@@ -439,6 +467,7 @@ const colorThemes = {
     stateSuccessBackground: '#98D98E', // Soft green from grassy areas
     gradStart: '#D4AF37', // Using accentSec as gradStart
     gradStop: '#B9D7E6',  // Using bodyBackgroundColor as gradStop
+    accentImageBg: '#D4AF37', // Matching accentPri
   },
 
   myNeighborTotoro: {
@@ -459,6 +488,8 @@ const colorThemes = {
     stateSuccessBackground: '#98FB98', // Pale green from grass
     gradStart: '#FAE03C', // Using accentSec as gradStart
     gradStop: '#B5D8E6',  // Using bodyBackgroundColor as gradStop
+    accentImageBg: '#9ED2C6', // Matching accentPri
+
   },
 
   howlsMovingCastle: {
@@ -479,6 +510,7 @@ const colorThemes = {
     stateSuccessBackground: '#90EE90', // Light green from grassy hills
     gradStart: '#FDFD96', // Using accentSec as gradStart
     gradStop: '#D6E6F2',  // Using bodyBackgroundColor as gradStop
+    accentImageBg: '#7FB7BE', // Matching accentPri
   },
 
   sakuraBreeze: {
@@ -499,6 +531,7 @@ const colorThemes = {
     stateSuccessBackground: '#90EE90', // Light green
     gradStart: '#DDA0DD', // Using accentPri as gradStart
     gradStop: '#FFE4E1',  // Using bodyBackgroundColor as gradStop
+    accentImageBg: '#DDA0DD', // Matching accentPri
   },
 
   zenGarden: {
@@ -519,6 +552,8 @@ const colorThemes = {
     stateSuccessBackground: '#98FB98', // Pale green
     gradStart: '#6B8E23', // Using accentPri as gradStart
     gradStop: '#E0F0E0',  // Using bodyBackgroundColor as gradStop
+    accentImageBg: '#4D7EA8', // Matching accentPri
+
   },
 
   pastelAnime: {
@@ -539,6 +574,8 @@ const colorThemes = {
     stateSuccessBackground: '#90EE90', // Light green
     gradStart: '#87CEFA', // Using accentPri as gradStart
     gradStop: '#FFE4E1',  // Using bodyBackgroundColor as gradStop
+    accentImageBg: '#4D7EA8', // Matching accentPri
+
   },
 
   deathNote: {
@@ -559,6 +596,8 @@ const colorThemes = {
     stateSuccessBackground: '#006400', // Dark green for success states
     gradStart: '#C41E3A', // Using accentPri as gradStart
     gradStop: '#2C2C2C',  // Using bodyBackgroundColor as gradStop
+    accentImageBg: '#4D7EA8', // Matching accentPri
+
   },
 
   attackOnTitan: {
@@ -579,6 +618,8 @@ const colorThemes = {
     stateSuccessBackground: '#556B2F', // Dark olive green for success states
     gradStart: '#8B4513', // Using accentPri as gradStart
     gradStop: '#3C3C3C',  // Using bodyBackgroundColor as gradStop
+    accentImageBg: '#4D7EA8', // Matching accentPri
+
   },
   tokyoGhoul: {
     bodyBackgroundColor: '#1C1C1C', // Very dark gray background
@@ -598,6 +639,8 @@ const colorThemes = {
     stateSuccessBackground: '#2E8B57', // Sea green for success states
     gradStart: '#DC143C', // Using accentPri as gradStart
     gradStop: '#2D2D2D',  // Using bodyBackgroundColor as gradStop
+    accentImageBg: '#4D7EA8', // Matching accentPri
+
   },
 
   akc12: {
@@ -618,6 +661,8 @@ const colorThemes = {
     stateSuccessBackground: '#008000', // Dark green
     gradStart: '#FF0000', // Using accentPri as gradStart
     gradStop: '#1A1A1A',  // Using bodyBackgroundColor as gradStop
+    accentImageBg: '#4D7EA8', // Matching accentPri
+
   },
 
   taikonColor24: {
@@ -638,6 +683,7 @@ const colorThemes = {
     stateSuccessBackground: '#6BFF74', // Light green
     gradStart: '#FF6B6B', // Using accentPri as gradStart
     gradStop: '#2D2D2D',  // Using bodyBackgroundColor as gradStop
+    accentImageBg: '#FF6B6B', // Matching accentPri
   },
 
   eightVision: {
@@ -656,8 +702,9 @@ const colorThemes = {
     accentSec: '#5555FF', // Blue
     textAccent: '#FFFFFF', // White
     stateSuccessBackground: '#00AA00', // Dark green
-    gradStart: '#FF55FF', // Using accentPri as gradStart
-    gradStop: '#21211F',  // Using bodyBackgroundColor as gradStop
+    gradStart: 'red', // Using accentPri as gradStart
+    gradStop: 'blue',  // Using bodyBackgroundColor as gradStop
+    accentImageBg: '#FF55FF', // Matching accentPri
   },
 
   cgaPalette0Low: {
@@ -673,11 +720,14 @@ const colorThemes = {
     textColorInv: '#000000', // Black
     navBg: '#0000AA', // Blue
     accentPri: '#AA0000', // Red
+    accentImageBg: '#AA0000', // Matching accentPri
     accentSec: '#00AA00', // Green
     textAccent: '#AA00AA', // Magenta
     stateSuccessBackground: '#00AA00', // Green
     gradStart: '#AA0000', // Using accentPri as gradStart
     gradStop: '#0000AA',  // Using bodyBackgroundColor as gradStop
+    accentImageBg: '#4D7EA8', // Matching accentPri
+
   },
   metallicChic: {
     bodyBackgroundColor: '#607D8B', // Blue gradient
@@ -697,6 +747,8 @@ const colorThemes = {
     stateSuccessBackground: '#81C784', // Light green
     gradStart: '#3F51B5', // Using accentPri as gradStart
     gradStop: '#D1C4E9',  // Using bodyBackgroundColor as gradStop
+    accentImageBg: '#4D7EA8', // Matching accentPri
+
   },
 
   deepVintageMood: {
@@ -717,6 +769,8 @@ const colorThemes = {
     stateSuccessBackground: '#4CAF50', // Green
     gradStart: '#D98E5D', // Using accentPri as gradStart
     gradStop: '#D98E5D',  // Using bodyBackgroundColor as gradStop
+    accentImageBg: '#4D7EA8', // Matching accentPri
+
   },
 
   coolAndCollected: {
@@ -737,6 +791,7 @@ const colorThemes = {
     stateSuccessBackground: '#4CAF50', // Green
     gradStart: '#3F51B5', // Using accentPri as gradStart
     gradStop: '#C5CAE9',  // Using bodyBackgroundColor as gradStop
+    accentImageBg: '#3F51B5', // Matching accentPri
   },
 
   earthyAndSerene: {
@@ -757,6 +812,7 @@ const colorThemes = {
     stateSuccessBackground: '#4CAF50', // Green
     gradStart: '#B37445', // Using accentPri as gradStart
     gradStop: '#6B6B6B',  // Using bodyBackgroundColor as gradStop
+    accentImageBg: '#B37445', // Matching accentPri
   },
 
   textureAndContrast: {
@@ -777,6 +833,7 @@ const colorThemes = {
     stateSuccessBackground: '#4CAF50', // Green
     gradStart: '#556B2F', // Using accentPri as gradStart
     gradStop: '#212121',  // Using bodyBackgroundColor as gradStop
+    accentImageBg: '#556B2F', // Matching accentPri
   },
 
   mechanicalAndFloaty: {
@@ -797,6 +854,7 @@ const colorThemes = {
     stateSuccessBackground: '#4CAF50', // Green
     gradStart: '#82B1FF', // Using accentPri as gradStart
     gradStop: '#212121',  // Using bodyBackgroundColor as gradStop
+    accentImageBg: '#448AFF', // Matching accentPri
   },
 
   pixelIntensity: {
@@ -817,6 +875,7 @@ const colorThemes = {
     stateSuccessBackground: '#4CAF50', // Green
     gradStart: '#0D47A1', // Using accentPri as gradStart
     gradStop: '#000000',  // Using bodyBackgroundColor as gradStop
+    accentImageBg: '#FF0000', // Matching accentPri
   },
 
   gradientPop: {
@@ -837,6 +896,7 @@ const colorThemes = {
     stateSuccessBackground: '#4CAF50', // Green
     gradStart: '#FF8A80', // Using accentPri as gradStart
     gradStop: '#FF8A80',  // Using bodyBackgroundColor as gradStop
+    accentImageBg: '#FF8A80', // Matching accentPri
   },
 
   cosmicArtistry: {
@@ -857,6 +917,7 @@ const colorThemes = {
     stateSuccessBackground: '#4CAF50', // Green
     gradStart: '#0D3B66', // Using accentPri as gradStart
     gradStop: '#0D3B66',  // Using bodyBackgroundColor as gradStop
+    accentImageBg: '#0D3B66', // Matching accentPri
   },
 
   vibrantButCalm: {
@@ -877,6 +938,7 @@ const colorThemes = {
     stateSuccessBackground: '#4CAF50', // Green
     gradStart: '#B71C1C', // Using accentPri as gradStart
     gradStop: '#B71C1C',  // Using bodyBackgroundColor as gradStop
+    accentImageBg: '#B71C1C', // Matching accentPri
   },
 
   livelyAndInviting: {
@@ -898,6 +960,7 @@ const colorThemes = {
     stateSuccessBackground: '#4CAF50', // Green
     gradStart: '#C8A2C8', // Using accentPri as gradStart
     gradStop: '#ADFF2F',  // Using bodyBackgroundColor as gradStop
+    accentImageBg: '#C8A2C8', // Matching accentPri
   },
 
   strikingAndSimple: {
@@ -918,6 +981,7 @@ const colorThemes = {
     stateSuccessBackground: '#4CAF50', // Green
     gradStart: '#2979FF', // Using accentPri as gradStart
     gradStop: '#2979FF',  // Using bodyBackgroundColor as gradStop
+    accentImageBg: '#2979FF', // Matching accentPri
   },
 
   redAndLively: {
@@ -938,6 +1002,7 @@ const colorThemes = {
     stateSuccessBackground: '#4CAF50', // Green
     gradStart: '#FF1493', // Using accentPri as gradStart
     gradStop: '#FF1493',  // Using bodyBackgroundColor as gradStop
+    accentImageBg: '#FF1493', // Matching accentPri
   },
 
   artsyAndCreative: {
@@ -958,6 +1023,7 @@ const colorThemes = {
     stateSuccessBackground: '#4CAF50', // Green
     gradStart: '#DAA520', // Using accentPri as gradStart
     gradStop: '#DAA520',  // Using bodyBackgroundColor as gradStop
+    accentImageBg: '#DAA520', // Matching accentPri
   },
 
   elegantYetApproachable: {
@@ -978,6 +1044,7 @@ const colorThemes = {
     stateSuccessBackground: '#4CAF50', // Green
     gradStart: '#9B111E', // Using accentPri as gradStart
     gradStop: '#1C1C3B',  // Using bodyBackgroundColor as gradStop
+    accentImageBg: '#9B111E', // Matching accentPri
   },
 
   sleekAndFuturistic: {
@@ -998,6 +1065,7 @@ const colorThemes = {
     stateSuccessBackground: '#4CAF50', // Green
     gradStart: '#0F4C81', // Using accentPri as gradStart
     gradStop: '#2F4F4F',  // Using bodyBackgroundColor as gradStop
+    accentImageBg: '#0F4C81', // Matching accentPri
   },
 
   innovativeAndAudacious: {
@@ -1018,6 +1086,7 @@ const colorThemes = {
     stateSuccessBackground: '#4CAF50', // Green
     gradStart: '#FF5A36', // Using accentPri as gradStart
     gradStop: '#FF5A36',  // Using bodyBackgroundColor as gradStop
+    accentImageBg: '#FF5A36', // Matching accentPri
   },
 
 };
@@ -1047,6 +1116,7 @@ export const textAnimationThemes = {
 export const textHighlightThemes = {
   text: "text",
   background: "background",
+  tabloid: "tabloid",
   underline: "underline",
   highlight: "highlight",
   figma:'figma',
@@ -1127,6 +1197,21 @@ export const cardThemes = {
   reone: 'reone',
   img: 'img',
 };
+
+
+export const imageTextureThemes = {
+  none: 'none',
+  noise: 'noise',
+  paper: 'paper',
+  grain: 'grain',
+  pixelated: 'pixelated',
+}
+
+export const imageTextureContrastThemes = {
+  contrast: '110%',
+  brightness: '110%',
+  opacity: '0.8',
+}
 
 export const mixBlendThemes = {
   normal: 'normal',
@@ -1321,6 +1406,10 @@ const themeContent = {
   cardHover:cardHoverThemes.none,
   cardGrid:gridThemes.bento1,
   imageParallax:false,
+  imageTexture:imageTextureThemes.noise,
+  imageTextureContrast:imageTextureContrastThemes.contrast,
+  imageTextureBrightness:imageTextureContrastThemes.brightness,
+  imageTextureOpacity:imageTextureContrastThemes.opacity,
   imageMixBlendMode:mixBlendThemes.luminosity,
   heroHeight:heroHeightThemes.full,
   heroType:heroTypeThemes.riki,

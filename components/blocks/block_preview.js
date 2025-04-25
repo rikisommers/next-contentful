@@ -21,10 +21,9 @@ export const BlockPreview = ({ component, code, title, description }) => {
 
   return (
     <div
-      className="relative flex flex-col w-full h-full overflow-hidden rounded-2xl group inset-shadow-xl"
+      className="relative flex flex-col w-full h-full overflow-hidden border rounded-2xl group inset-shadow-xl"
       style={{
-        backgroundColor: "var(--body-background-color)",
-        backgroundOpacity: "0.5",
+        borderColor: "var(--body-background-color)",
       }}
     >
       <div className="relative w-full h-full py-20 overflow-clip">

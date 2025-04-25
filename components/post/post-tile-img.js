@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import BlendImage from "../image/blend-image";
 import Link from "next/link";
 import { motion, cubicBezier } from "../../utils/motion";;
+import FadeInWhenVisible from "../utils/fade-in-visible";
 
 export default function PostTileImg({ post, index, size }) {
   const [isHovered, setIsHovered] = useState(false); // State to track hover
@@ -9,9 +10,6 @@ export default function PostTileImg({ post, index, size }) {
   return (
     <Link
       href={`/articles/${post.slug}`}
-      style={{
-        backgroundColor: post.color || "--accent-pri",
-      }}
       className="relative flex flex-col w-full h-full overflow-hidden rounded-2xl group"
       onMouseEnter={() => setIsHovered(true)} // Set hover state to true on mouse enter
       onMouseLeave={() => setIsHovered(false)} // Set hover state to false on mouse leave
@@ -99,12 +97,12 @@ export default function PostTileImg({ post, index, size }) {
           //   clipPath: "inset( 1rem 1rem 33% 1rem round 1rem )",
           // }}
         >
-          {/* <FadeInWhenVisible color={ 'var(--accent)'}> */}
+          <FadeInWhenVisible>
           <BlendImage
             alt={`Cover Image for ${post?.title}`}
             src={post.img.url}
           />
-          {/* </FadeInWhenVisible> */}
+          </FadeInWhenVisible>
         </motion.div>
       )}
     </Link>

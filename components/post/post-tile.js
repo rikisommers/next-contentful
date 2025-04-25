@@ -37,7 +37,7 @@ export default function PostTile({ post, index }) {
     <Link
       scroll={false}
       href={`/projects/${post.slug}`}
-      className="relative flex flex-col w-full h-full rounded-lg tile overflow-hidde "
+      className="relative flex flex-col w-full h-full overflow-hidden rounded-lg tile "
     >
       {/* <motion.div
         initial="initial"

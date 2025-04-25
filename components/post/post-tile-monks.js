@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import BlendImage from "../image/blend-image";
 import Link from "next/link";
 import { motion, useInView, useAnimation } from "../../utils/motion";
-
+import FadeInWhenVisible from "../utils/fade-in-visible";
 import AnimatedElement, { AnimStyleEl } from "../motion/animated-element";
 
 export default function PostTileMonks({ post, index, size }) {
@@ -74,12 +74,12 @@ export default function PostTileMonks({ post, index, size }) {
               ease: [0.16, 1, 0.3, 1], // direct array syntax
             }}
           >
-            {/* <FadeInWhenVisible color={ 'var(--accent)'}> */}
+            <FadeInWhenVisible color={ 'var(--accent)'}>
             <BlendImage
               alt={`Cover Image for ${post?.title}`}
               src={post.img.url}
             />
-            {/* </FadeInWhenVisible> */}
+            </FadeInWhenVisible>
           </motion.div>
         </motion.div>
       )}

@@ -17,8 +17,8 @@ export default function PostIntro({ title, content, tag }) {
             <div
               className="inline-flex px-2 py-1 mb-8 ml-2 text-xs font-medium uppercase rounded-full"
               style={{
-                color: "var(--text-accent)",
-                backgroundColor: "var(--body-background-color)",
+                color: "var(--text-color-inv)",
+                backgroundColor: "var(--accent-pri)",
               }}
             >
               {tag}

@@ -27,6 +27,8 @@ import {
   gridThemes,
   mixBlendThemes,
   textHighlightOutlineThemes,
+  imageTextureThemes,
+  imageTextureContrastThemes,
   textHighlightOutlineNeumorphicStartColor,
   textHighlightOutlineNeumorphicEndColor,
 } from "./theme";
@@ -149,6 +151,8 @@ export default function ThemeEditor({ customThemes }) {
     root.style.setProperty("--nav-bg", theme.data.navBg || "#ffffff");
     root.style.setProperty("--accent-pri", theme.data.accentPri || "#000000");
     root.style.setProperty("--accent-sec", theme.data.accentSec || "#000000");
+    root.style.setProperty("--accent-image-bg", theme.data.accentImageBg || "#000000");
+    
     root.style.setProperty("--grad-start", theme.data.gradStart || "#000000");
     root.style.setProperty("--grad-stop", theme.data.gradStop || "#000000");
 
@@ -191,6 +195,9 @@ export default function ThemeEditor({ customThemes }) {
     // Image properties
     root.style.setProperty("--image-parallax", theme.data.imageParallax || false);
     root.style.setProperty("--image-mix-blend-mode", theme.data.imageMixBlendMode || "normal");
+    root.style.setProperty("--image-texture", theme.data.imageTexture || "none");
+    root.style.setProperty("--image-texture-contrast", theme.data.imageTextureContrast || "100%");
+    root.style.setProperty("--image-texture-brightness", theme.data.imageTextureBrightness || "100%");
   };
 
   const setSingleStyleProperty = (key, value) => {
@@ -764,7 +771,7 @@ export default function ThemeEditor({ customThemes }) {
         onChange: (value) => updateThemeProp("cardGrid", value),
       },
     }),
-    Iamges: folder({
+    Images: folder({
       parallax: { 
         value: currentTheme?.data?.imageParallax || false,
         label: "parallax",
@@ -772,9 +779,45 @@ export default function ThemeEditor({ customThemes }) {
       },
       mixBlendMode: { 
         options: Object.keys(mixBlendThemes), 
-        value: currentTheme.data.imageMixBlendMode,
+        value: currentTheme.data.imageMixBlendMode || "normal",
         label: "Blend Mode",
         onChange: (value) => updateThemeProp("imageMixBlendMode", value),
+      },
+      imageTexture: { 
+        options: Object.keys(imageTextureThemes), 
+        value: currentTheme.data.imageTexture || "none",
+        label: "Texture",
+        onChange: (value) => updateThemeProp("imageTexture", value),
+      },
+      imageTextureContrast: {
+        value: Number(currentTheme.data.imageTextureContrast) || 100,
+        min: 0,
+        max: 1000,
+        step: 1,
+        label: "Contrast",
+        onChange: (value) => {
+          console.log('Contrast changed:', value);
+          // Make sure to append % to the value
+          updateThemeProp("imageTextureContrast", `${value}%`);
+        },
+        onEditStart: () => {}, // Empty function to enable continuous updates
+        joystick: false, // Disable joystick mode for more precise control
+        transient: true, // Enable real-time updates as the user drags
+      },
+      imageTextureBrightness: {
+        value: Number(currentTheme.data.imageTextureBrightness) || 100,
+        min: 0,
+        max: 1000,
+        step: 1,
+        label: "Brightness",
+        onChange: (value) => {
+          console.log('Brightness changed:', value);
+          // Make sure to append % to the value
+          updateThemeProp("imageTextureBrightness", `${value}%`);
+        },
+        onEditStart: () => {}, // Empty function to enable continuous updates
+        joystick: false, // Disable joystick mode for more precise control
+        transient: true, // Enable real-time updates as the user drags
       },
     }),
     Color: folder({
@@ -787,6 +830,11 @@ export default function ThemeEditor({ customThemes }) {
         value: currentTheme.data.accentSec,
         label: "Accent Secondary",
         onChange: (newValue) => updateThemeProp("accentSec", newValue),
+      },
+      accentImage: {
+        value: currentTheme.data.accentImageBg,
+        label: "asdasd",
+        onChange: (newValue) => updateThemeProp("accentImageBg", newValue),
       },
       backgroundColor: {
         value: currentTheme.data.backgroundColor,
@@ -859,6 +907,7 @@ export default function ThemeEditor({ customThemes }) {
         label: "Text Color Inverted",
         onChange: (newValue) => updateThemeProp("textColorInv", newValue),
       },
+      
     }),
 
     save: button(

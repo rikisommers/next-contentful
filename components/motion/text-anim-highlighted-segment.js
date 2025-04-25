@@ -2,6 +2,7 @@
 import React from "react";
 import { useThemeContext } from '../context/themeContext';
 import { processItalicText } from "../utils/textFormatting";
+import { motion } from "../../utils/motion";
 
 export const HighlightedSegment = ({ segment, highlight }) => {
     const { currentTheme } = useThemeContext();
@@ -21,11 +22,13 @@ export const HighlightedSegment = ({ segment, highlight }) => {
         case 'text':
           return { color: 'var(--text-accent)' };
         case 'background':
-          return { backgroundColor: 'var(--accent)' };
+          return { backgroundColor: 'var(--accent-pri)' ,color: 'var(--text-accent)' };
+          case 'tabloid':
+            return { backgroundColor: 'var(--accent-pri)',color: 'var(--text-accent)' };
         case 'underline':
-          return { textDecoration: 'underline', textDecorationColor: 'var(--accent)' };
+          return { textDecoration: 'underline', textDecorationColor: 'var(--accent-pri)' };
         case 'highlight':
-          return { backgroundColor: 'var(--accent)', filter: 'blur(20px)' };
+          return { backgroundColor: 'var(--accent-pri)', color: 'var(--text-color)', filter: 'blur(20px)' };
         case 'figma':
           return { backgroundColor: 'var(--surface1)' };
         case 'figma-neumorphic':
@@ -54,16 +57,58 @@ export const HighlightedSegment = ({ segment, highlight }) => {
       <span 
         className="relative inline-flex py-0"
       >
-        {highlight === 'underline' ? (
-          <span className="z-10 px-3" style={style}>{segment}</span>
-        ) : (
-          <>
-            <span className="z-10 px-3">{segment}</span>
-            <span className="absolute z-0 w-full h-[80%] top-[10%] rounded-xl"
-                  style={style}
-            ></span>
-          </>
-        )}
+        {(() => {
+          switch (highlight) {
+            case 'underline':
+              return (
+                <span className="z-10 px-3" style={style}>{segment}</span>
+              );
+            case 'background':
+              return (
+                <>
+                  <span className="z-10 px-3">{segment}</span>
+                  <span 
+                    className="absolute z-0 w-full h-[80%] top-[10%] rounded-xl"
+                    style={style}
+                  />
+                </>
+              );
+              case 'tabloid':
+                return (
+                    <>    
+                    <motion.span 
+                      id="tabloid-highlight"
+                      initial={{ width: 0 }}
+                      animate={{ width: '100%' }}
+                      transition={{ duration: 0.5 }}  
+                      className="absolute z-0 w-full h-[80%] top-[10%] rounded-xs"
+                      style={style}
+                    />
+                    <span className="relative z-10 px-3">{segment}</span>
+                    </>
+                );
+            case 'figma':
+              return (
+                <>
+                  <span className="z-10 px-3">{segment}</span>
+                  <span 
+                    className="absolute z-0 w-full h-[90%] top-[5%] rounded-lg"
+                    style={{
+                      ...style,
+                      opacity: 0.2,
+                      transform: 'skew(-12deg)',
+                    }}
+                  />
+                </>
+              );
+            default:
+              return <span className="z-10 px-3"
+              style={{
+                ...style,
+              }}
+              >{segment}</span>;
+          }
+        })()}
       </span>
     );
 };

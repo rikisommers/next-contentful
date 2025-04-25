@@ -7,10 +7,9 @@ export default function BlockHeader({ data  }) {
 
   return (
     <div
-      className={`flex flex-col justify-end relative px-8 ${data.primaryPageHeader === true ? "h-vhh" : "h-vh33"}`}
+      className={`flex flex-col justify-end relative px-8 pt-40`}
     >
-<PostIntro title={data.content}  tag={data.title}/>
-
+      <PostIntro title={data.content}  tag={data.title}/>
     </div>
   );
 }

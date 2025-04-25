@@ -208,16 +208,15 @@ export const TextAnimNavigators = ({
       ref={ref}
       variants={containerVariants}
       className="flex flex-wrap"
+      style={{
+        color: 'var(--heading-color)'
+      }}
       initial="hidden"
       animate={
         animateWhenInView ? (isInView ? "visible" : "hidden") : "visible"
       }
-   //  onAnimationComplete={handleContainerAnimationComplete}
-    >
-      <button onClick={handleContainerAnimationComplete}>CLICK</button>
-   
+    >   
         {renderContent(content)}
-   
     </motion.div>
   );
 };

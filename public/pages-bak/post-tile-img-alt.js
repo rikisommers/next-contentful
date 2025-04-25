@@ -1,5 +1,5 @@
 import React from "react";
-import BlendImage from "../image/blend-image";
+import BlendImage from "../../components/image/blend-image";
 
 export default function PostTileImgAlt({ img }) {
   return (

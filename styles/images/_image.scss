@@ -1,0 +1,54 @@
+  // Grainy gradient background
+  .grainy-gradient {
+ 
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('../../public/texture/noise.svg');
+      background-size: 400px;
+      opacity: 1;
+      pointer-events: none;
+      z-index: 1;
+      mix-blend-mode:color-burn;
+    }
+ 
+    
+    &--conic {
+      background-image: conic-gradient(var(--gradient-start, #000000), var(--gradient-end, #ffffff));
+     // filter: contrast(var(--image-texture-contrast)) brightness(var(--image-texture-brightness, 100%));
+    }
+    
+    &--linear {
+      background-image: linear-gradient(var(--gradient-angle, 45deg), var(--gradient-start, #000000), var(--gradient-end, #ffffff));
+    //  filter: contrast(var(--image-texture-contrast, 100%)) brightness(var(--image-texture-brightness, 100%));
+    }
+    
+    &--radial {
+      background-image: radial-gradient(circle, var(--gradient-start, #000000), var(--gradient-end, #ffffff));
+    //  filter: contrast(var(--image-texture-contrast, 100%)) brightness(var(--image-texture-brightness, 100%));
+    }
+  }
+  
+
+  .grainy{
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('../../public/texture/noise.svg');
+        background-size: 400px;
+        opacity: 0.3;
+        pointer-events: none;
+        z-index: 2;
+      }
+   
+  }

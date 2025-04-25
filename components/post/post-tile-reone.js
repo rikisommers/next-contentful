@@ -3,6 +3,7 @@ import BlendImage from "../image/blend-image";
 import Link from "next/link";
 import { motion, useInView } from "../../utils/motion";;
 import AnimatedElement,{ AnimStyleEl} from "../motion/animated-element";
+import FadeInWhenVisible from "../utils/fade-in-visible";
 
 export default function PostTileRe({ post, index, size }) {
   //   const [isHovered, setIsHovered] = useState(false); // State to track hover
@@ -117,12 +118,12 @@ export default function PostTileRe({ post, index, size }) {
               ease: [0.16, 1, 0.3, 1], // direct array syntax
             }}
           >
-            {/* <FadeInWhenVisible color={ 'var(--accent)'}> */}
+            <FadeInWhenVisible>
             <BlendImage
               alt={`Cover Image for ${post?.title}`}
               src={post.img.url}
             />
-            {/* </FadeInWhenVisible> */}
+            </FadeInWhenVisible>
           </motion.div>
         </motion.div>
       )}

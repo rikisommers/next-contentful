@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import BlendImage from "../image/blend-image";
 import Link from "next/link";
 import { motion } from "../../utils/motion";;
+import FadeInWhenVisible from "../utils/fade-in-visible";
 
 export default function PostTileLg({ post, index, size }) {
   const [isHovered, setIsHovered] = useState(false); // State to track hover
@@ -10,7 +11,7 @@ export default function PostTileLg({ post, index, size }) {
     <Link
       href={`/articles/${post.slug}`}
       style={{
-        backgroundColor: post.color || "--accent-pri",
+        backgroundColor: "var(--body-background-color)",
       }}
       className="relative flex flex-col w-full h-full overflow-hidden rounded-2xl group"
       onMouseEnter={() => setIsHovered(true)} // Set hover state to true on mouse enter
@@ -126,7 +127,7 @@ export default function PostTileLg({ post, index, size }) {
           }}
           transition={{
             duration: 0.55,
-            ease: [0.16, 1, 0.3, 1], // direct array syntax
+            ease: [0.16, 1, 0.3, 1], // direct array syntax'
           }}
         >
           <motion.div 
@@ -144,12 +145,12 @@ export default function PostTileLg({ post, index, size }) {
               ease: [0.16, 1, 0.3, 1], // direct array syntax
             }}
           >
-            {/* <FadeInWhenVisible color={ 'var(--accent)'}> */}
+            <FadeInWhenVisible>
             <BlendImage
               alt={`Cover Image for ${post?.title}`}
               src={post.img.url}
             />
-            {/* </FadeInWhenVisible> */}
+            </FadeInWhenVisible>
           </motion.div>
         </motion.div>
       )}

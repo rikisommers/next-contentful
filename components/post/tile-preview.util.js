@@ -1,13 +1,11 @@
 "use client"
 
 import React from "react"
-import PostTile from "./post-tile"
 import PostTileImg from "./post-tile-img"
 import PostTileLg from "./post-tile-lg"
 import PostTileCs from "./post-tile-cs"
 import PostTileReone from "./post-tile-reone"
 import PostTileMonks from "./post-tile-monks"
-import PostTileImgAlt from "./post-tile-img-alt"
 
 // Sample post data for previews
 const samplePost = {
@@ -159,25 +157,5 @@ export const createTileComponents = () => {
   index={0}
 />`
     },
-    imageAlt: {
-      title: "Alternative Image Post Tile",
-      description: "An alternative post tile with different image handling.",
-      component: <PostTileImgAlt post={samplePost} index={0} />,
-      code: `<PostTileImgAlt 
-  post={{
-    title: "Project Title",
-    subtitle: "A brief description of the project",
-    slug: "project-slug",
-    color: "var(--accent)",
-    img: {
-      url: "https://example.com/image.jpg",
-      width: 800,
-      height: 600,
-      description: "Project cover image"
-    }
-  }}
-  index={0}
-/>`
-    }
   }
 }

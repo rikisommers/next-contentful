@@ -143,7 +143,7 @@ export const TextAnimLineUp = ({
     >
       <span
         style={{
-          // color: "var(--heading-color)",
+          color: "var(--heading-color)",
           display: "inline-block",
         }}
       >
