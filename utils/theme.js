@@ -1143,13 +1143,21 @@ export const typographyThemes = {
   sans: 'sans-serif',
   serif: 'serif',
   mono: 'monospace',
-  interp: "interphase, sans-serif",
-  tron: "Tronica Mono, sans-serif",
-  aon: "Aeonik Pro, sans-serif",
+  interp: "interphase",
+  tron: "Tronica Mono",
+  aonMono: "Aeonik Pro",
+  aonBold: "Aeonik Bold",
+  aonRegular: "Aeonik Regular",
+  aonThin: "Aeonik Thin",
+  itcGaramonLightNarrow: "ITCGaramondStd-LtNarrow",
+  itcGaramondLight: "ITCGaramondStd-Lt",
   inter: 'inter', //Google/nextfont
   roboto: 'roboto', //Google/nextfont
   montserrat: 'Montserrat', //Google/nextfont
   poppins: 'Poppins', //Google/nextfont
+  milling: "MillingTrial-Duplex1mm",
+  jetBrains: "JetBrains Mono",
+  brett: "BrettTrial-Regular",
 
 };
 
