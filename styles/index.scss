@@ -2,7 +2,7 @@
 @use 'fontface';
 @use 'type';
 @use 'bento';
-@use 'images/image';
+@import 'images/image';
 
 @import 'tailwindcss';
 
@@ -126,3 +126,6 @@ display:none;
    background-color:var(--accent-pri);
  }
 
+
+
+ 

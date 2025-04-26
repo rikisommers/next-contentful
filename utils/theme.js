@@ -1204,6 +1204,7 @@ export const imageTextureThemes = {
   noise: 'noise',
   paper: 'paper',
   grain: 'grain',
+  dissolve: 'dissolve',
   pixelated: 'pixelated',
 }
 

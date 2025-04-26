@@ -4,11 +4,12 @@ import PostBody from "../components/post/post-body";
 import BlockFooter from "../components/blocks/block-footer";
 import { ClipContainer } from "../components/motion/clippath-container";
 import BackgroundGrad from "./background/background-grad";
-
+import TextureContainer from "./background/texture-container";
 export default function LandingPage({ data, footerData, tags }) {
 
   return (
-    <>
+   
+      <TextureContainer>  
       <ClipContainer background={<BackgroundGrad/>}>
         
           {data.csblocksCollection?.items && (
@@ -19,6 +20,7 @@ export default function LandingPage({ data, footerData, tags }) {
       </ClipContainer>
       
       {footerData && <BlockFooter data={footerData} />}
-    </>
+      </TextureContainer>
+   
   );
 }

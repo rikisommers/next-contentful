@@ -3,14 +3,13 @@
 import React from "react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import TransitionPage from "../components/transition/pageTransition";
-import PropTypes from "prop-types";
 
 //pageWidth = LayoutType.FLUID
 const Layout = ({ children }) => {
   return (
     <TransitionPage>
         <SpeedInsights />
-        {children}
+            {children}
     </TransitionPage>
   );
 }

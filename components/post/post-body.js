@@ -16,7 +16,6 @@ import { BlockPreviewGrid } from "../blocks/block_preview_grid";
 import AnimatedElement, { AnimStyleEl } from "../motion/animated-element";
 import { useThemeContext } from "../context/themeContext";
 import { pageWidthThemes } from "../../utils/theme";
-
 const customMarkdownOptions = (content) => ({
   renderNode: {
     [BLOCKS.EMBEDDED_ASSET]: (node) => (

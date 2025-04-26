@@ -471,6 +471,7 @@ export default function ThemeEditor({ customThemes }) {
     //   },
     // }),
     Audio: folder({
+      collapsed:true,
       audio: { 
         value: currentTheme.data.audioEnabled,
         label: "Audio",
@@ -486,6 +487,7 @@ export default function ThemeEditor({ customThemes }) {
       },
     }),
     Globals: folder({
+      collapsed:true,
       pageWidth: { 
         options: Object.keys(pageWidthThemes), 
         value: currentTheme.data.pageWidth,
@@ -498,8 +500,6 @@ export default function ThemeEditor({ customThemes }) {
         label: "Cursor",
         onChange: (value) => updateThemeProp("cursor", value), // Call existing handler
       },
-    }),
-   Transition: folder({
       pageTransition: { 
         options: Object.keys(pageTransitionThemes), 
         value: currentTheme.data.pageTransition,
@@ -508,6 +508,7 @@ export default function ThemeEditor({ customThemes }) {
       },
     }),
     Typography: folder({
+      collapsed:true,
       textAnimation: { 
         options: Object.keys(textAnimationThemes), 
         value: currentTheme.textAnimation, 
@@ -620,6 +621,7 @@ export default function ThemeEditor({ customThemes }) {
       }),
     }),
     Navigation: folder({
+      collapsed:true,
       navigationPosition: { 
         options: Object.keys(navigationPositionThemes), 
         value: currentTheme?.data?.navPosition || "topCenter",
@@ -683,6 +685,7 @@ export default function ThemeEditor({ customThemes }) {
       },
     }),
     Hero: folder({
+      collapsed:true,
         height: { 
           options: Object.keys(heroHeightThemes), 
         value: currentTheme.data.heroHeight,
@@ -752,6 +755,7 @@ export default function ThemeEditor({ customThemes }) {
       },
     }),
     Cards: folder({
+      collapsed:true,
       layout: { 
         options: Object.keys(cardThemes), 
         value: currentTheme.data.cardLayout || "reone",
@@ -821,6 +825,7 @@ export default function ThemeEditor({ customThemes }) {
       },
     }),
     Color: folder({
+      
       accentPri: {
         value: currentTheme.data.accentPri,
         label: "Accent Primary",
