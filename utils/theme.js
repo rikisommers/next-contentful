@@ -1254,6 +1254,8 @@ export const audioThemes = {
 export const navigationStyleThemes = {
   solid: 'solid',
   transparent: 'transparent',
+  awwwards: 'awwwards',
+  applause: 'applause',
 };
 
 export const navigationTextStyleThemes = {

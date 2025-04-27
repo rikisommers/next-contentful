@@ -5,6 +5,8 @@ import Button, { ButtonType, ButtonSound } from "../base/button/button";
 import { useThemeContext } from "../context/themeContext";
 import { useAudioControls } from "../navigation/audio-utils";
 import Link from "next/link";
+import NavBarAwwwards from "./navbar-awwwards";
+import NavBarApplause from "./navbar-applause";
 
 export default function NavBar({ containerRef, data }) {
   const { currentTheme } = useThemeContext();
@@ -213,6 +215,26 @@ export default function NavBar({ containerRef, data }) {
     setActivePage(pageId);
   };
 
+        {/* {currentTheme.data.navFloating && (
+        <div
+          ref={menuDragRef}
+          className="flex items-center w-2 h-2 px-2 text-lg text-white bg-white"
+          style={{ color: "var(--text-accent)" }}
+        ></div>
+      )} */}
+      {/* <p>{currentTheme.data.navigationOptions?.floating === true ? 'true' : 'false'}</p>
+      <p>{currentTheme.data.navigationOptions?.shadow === true ? 'true' : 'false'}</p> */}
+  
+                {/* <span className="relative flex items-center px-3 py-3 text-xs uppercase rounded-lg cursor-pointer">
+          
+            </span> */}
+          {/* <Button
+            label={page.title}
+            sound={ButtonSound.CLICK}
+            type={ButtonType.TRANSPARENT}
+            ></Button> */}
+
+
   return (
     <motion.div
       drag
@@ -228,23 +250,22 @@ export default function NavBar({ containerRef, data }) {
         }`,
         // boxShadow: `0 10px 15px -3px ${currentTheme.data.navShadow}, 0 4px 49px -4px ${currentTheme.data.navShadow}`,
       }}
-      //add orientation if floating  ${orientation}
       className={`
         ${getNavigationPositionClass(currentTheme.data.navPosition)} 
         ${getShadowSizeClass(currentTheme.data.navShadowSize)}
-       
-         flex self-center backdrop-blur-lg pointer-events-auto  z-50 gap-1 rounded-xl`}
+       z-50
+      `}
     >
-      {/* {currentTheme.data.navFloating && (
-        <div
-          ref={menuDragRef}
-          className="flex items-center w-2 h-2 px-2 text-lg text-white bg-white"
-          style={{ color: "var(--text-accent)" }}
-        ></div>
-      )} */}
-      {/* <p>{currentTheme.data.navigationOptions?.floating === true ? 'true' : 'false'}</p>
-      <p>{currentTheme.data.navigationOptions?.shadow === true ? 'true' : 'false'}</p> */}
-      {pages.map((page) => (
+
+
+
+          {currentTheme.data.navStyle === "awwwards" && (
+            <NavBarAwwwards pages={pages} activePage={activePage} currentTheme={currentTheme} handleNavClick={handleNavClick} />
+          )}
+          {currentTheme.data.navStyle === "applause" && (
+            <NavBarApplause pages={pages} activePage={activePage} currentTheme={currentTheme} handleNavClick={handleNavClick} />
+          )}
+      {/* {pages.map((page) => (
         <Link
           key={page.id}
           href={page.url}
@@ -268,19 +289,11 @@ export default function NavBar({ containerRef, data }) {
                     : "transparent"
                 }`,
 
-                // boxShadow: `0 10px 15px -3px ${currentTheme.data.navShadow}, 0 4px 49px -4px ${currentTheme.data.navShadow}`,
               }}
               className="absolute top-0 left-0 flex w-full h-full bg-opacity-50 rounded-xl"
             ></motion.div>
           )}
-          {/* <span className="relative flex items-center px-3 py-3 text-xs uppercase rounded-lg cursor-pointer">
-          
-            </span> */}
-          {/* <Button
-            label={page.title}
-            sound={ButtonSound.CLICK}
-            type={ButtonType.TRANSPARENT}
-            ></Button> */}
+
           <motion.div
             className="relative flex items-center px-3 py-3 text-xs uppercase rounded-lg cursor-pointer"
             style={{
@@ -294,33 +307,16 @@ export default function NavBar({ containerRef, data }) {
             {currentTheme.data.navLabelDisplay === "text" && 
             page.title
             }
-          {/* {currentTheme.data.navLabelDisplay === "icons" && 
-          renderDynamicIcon(page.icon, 20)
-          } */}
           {currentTheme.data.navLabelDisplay === "textAndIcons" && 
             <div className="flex items-center gap-2">
-            {/* {renderDynamicIcon(page.icon, 20)} */}
             {page.title}
             </div>
           }
           </motion.div>
         </Link>
-      ))}
+      ))} */}
 
-      <motion.div
-        className="relative flex items-center px-3 py-3 text-xs uppercase rounded-lg cursor-pointer"
-        style={{
-          color: "var(--text-color)",
-          writingMode:
-            currentTheme.data.navPosition === "leftCenter" ||
-            currentTheme.data.navPosition === "rightCenter"
-              ? "vertical-rl"
-              : "horizontal-tb",
-        }}
-        onClick={playClick}
-      >
-        Contact
-      </motion.div>
+
       {/* <Button
 
         label={"Contact"}
