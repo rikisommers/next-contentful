@@ -37,7 +37,7 @@ const Providers = ({ children, router }) => {
                 <Preloader />
               ) : (
                 <>
-                  <Navigation />
+                  {/* <Navigation /> */}
                   <AnimatePresence mode="wait">
                     {children}
                   </AnimatePresence>

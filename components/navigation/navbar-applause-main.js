@@ -15,7 +15,9 @@ import { Intersect } from "@phosphor-icons/react/dist/icons/Intersect";
 import { Panorama } from "@phosphor-icons/react/dist/icons/Panorama";
 import { Smiley } from "@phosphor-icons/react/dist/icons/Smiley";
 import { DiamondsFour } from "@phosphor-icons/react/dist/icons/DiamondsFour";
-export default function NavBarApplause({
+import TextAnimSwap from "../motion/text-anim-swap";
+
+export default function NavBarApplauseMain({
   pages,
   activePage,
   currentTheme,
@@ -25,7 +27,6 @@ export default function NavBarApplause({
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isMouseInContainer, setIsMouseInContainer] = useState(false);
   const containerRef = useRef(null);
-
 
   const getNavigationPositionClass = (navigationPosition) => {
     switch (navigationPosition) {
@@ -112,65 +113,22 @@ export default function NavBarApplause({
   );
 }
 
-// Helper function to calculate distance between two points
-const distancePoints = (x1, y1, x2, y2) => Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));
 
 // Separate component for each nav item to handle individual hover effects
 function NavItem({ page, activePage, handleNavClick, mousePosition, containerRect, isMouseInContainer, currentTheme }) {
-  const [scale, setScale] = useState(1);
   const divRef = useRef(null);
-  
-  // Base size (66px)
-  const baseSize = 66;
-  // Max size (90px)
-  const maxSize = 90;
-  // Maximum distance for scaling effect (in pixels)
-  const maxDistance = 200;
-  
-  // Update scale based on mouse position
-  useEffect(() => {
-    // If mouse is not in container, reset scale to 1
-    if (!isMouseInContainer) {
-      setScale(1);
-      return;
-    }
-    
-    if (!divRef.current || !containerRect) return;
-    
-    const rect = divRef.current.getBoundingClientRect();
-    
-    // Calculate the center of the element
-    const elementCenterX = rect.left + rect.width / 2;
-    const elementCenterY = rect.top + rect.height / 2;
-    
-    // Calculate the mouse position
-    const mouseX = containerRect.left + mousePosition.x;
-    const mouseY = containerRect.top + mousePosition.y;
-    
-    // Calculate the distance between the mouse and the element's center
-    const distance = distancePoints(mouseX, mouseY, elementCenterX, elementCenterY);
-    
-    // If the distance is greater than the maximum distance, return to initial size
-    if (distance >= maxDistance) {
-      setScale(1);
-      return;
-    }
-    
-    // Calculate the scale based on the distance
-    // Closer to center = larger scale
-    // At center (distance = 0) = maximum scale
-    // At maxDistance = minimum scale (1)
-    const distanceScale = 1 - (distance / maxDistance);
-    
-    // Calculate the new size based on the distance scale
-    const newSize = baseSize + (maxSize - baseSize) * distanceScale;
-    setScale(newSize / baseSize);
-  }, [mousePosition, containerRect, isMouseInContainer]);
-  
+  const contentRef = useRef(null);
+  const [isHover, setIsHover] = useState(false);
+  const [contentWidth, setContentWidth] = useState(0);
 
+  useEffect(() => {
+    if (contentRef.current) {
+      const width = contentRef.current.scrollWidth;
+      setContentWidth(width);
+    }
+  }, [page.title]);
 
   const renderDynamicIcon = (iconName, size = 20) => {
-      
     if (iconName === 'Brain') {
       return <Brain size={size} />;
     }
@@ -192,19 +150,19 @@ function NavItem({ page, activePage, handleNavClick, mousePosition, containerRec
     if (iconName === 'Panorama') {
       return <Panorama size={size} />;
     }
-      if (iconName === 'Smiley') {
-        return <Smiley size={size} />;
-      }
-      if (iconName === 'DiamondsFour') {
-        return <DiamondsFour size={size} />;
-      }
+    if (iconName === 'Smiley') {
+      return <Smiley size={size} />;
+    }
+    if (iconName === 'DiamondsFour') {
+      return <DiamondsFour size={size} />;
+    }
   };
   
   
   return (
     <motion.div 
       ref={divRef}
-      className="rounded-lg aspect-square"
+      className="overflow-hidden rounded-lg"
       style={{
         backgroundColor: `${
           currentTheme?.data?.navStyle === "solid"
@@ -213,16 +171,14 @@ function NavItem({ page, activePage, handleNavClick, mousePosition, containerRec
         }`,
         color: activePage === page.id ? "var(--text-accentPri)" : "var(--text-color)",
       }}
-      initial={{
-        width: "66px",
-        height: "66px",
+      initial={{ width: "66px" }}
+      animate={{ 
+        width: isHover ? `${contentWidth + 52}px` : "66px"
       }}
-      animate={{
-        width: `${Math.round(66 * scale)}px`,
-        height: `${Math.round(66 * scale)}px`,
-      }}
+      onMouseEnter={() => setIsHover(true)}
+      onMouseLeave={() => setIsHover(false)}
       transition={{
-        duration: 1,
+        duration: 0.3,
         ease: cubicBezier(0.16, 1, 0.3, 1)
       }}
     >
@@ -230,19 +186,16 @@ function NavItem({ page, activePage, handleNavClick, mousePosition, containerRec
         href={page.url}
         scroll={false}
         onClick={() => handleNavClick(page.id)}
-        className="relative flex items-center justify-center w-full h-full p-3 text-sm no-underline uppercase"
-
+        className="relative flex items-center justify-center p-5 text-sm no-underline uppercase"
       >
-            {currentTheme.data.navLabelDisplay === "text" && page.title}
-            {currentTheme.data.navLabelDisplay === "icons" && 
-              renderDynamicIcon(page.icon, 20)
-              }
-            {currentTheme.data.navLabelDisplay === "textAndIcons" && (
-              <div className="flex items-center gap-2">
-                {renderDynamicIcon(page.icon, 20)}
-                {page.title}
-              </div>
-            )}
+        <div className="relative flex items-center w-full gap-2 overflow-hidden text-center"
+         ref={contentRef}>
+            <TextAnimSwap 
+              icon={renderDynamicIcon(page.icon, 20)}
+              text={page.title}
+              isHover={isHover}
+            />
+        </div>
       </Link>
     </motion.div>
   );

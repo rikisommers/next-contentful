@@ -1254,9 +1254,15 @@ export const audioThemes = {
 export const navigationStyleThemes = {
   solid: 'solid',
   transparent: 'transparent',
+};
+
+export const navigationThemes = {
+  custom: 'custom',
   awwwards: 'awwwards',
   applause: 'applause',
+  applauseMain: 'applause-main',
 };
+
 
 export const navigationTextStyleThemes = {
   text: 'text',
@@ -1434,7 +1440,8 @@ const themeContent = {
   heroTextLayout:heroTextCompositionThemes.foo,
   heroTextImage:heroTextImageThemes.none,
   navPosition:navigationPositionThemes.topCenter,
-  navStyle:navigationStyleThemes.solid,
+  navStyle:navigationStyleThemes.applause,
+  navTheme:navigationThemes.applause,
   navTextStyle:navigationTextStyleThemes.icons,
   navFloating: navigationOptions.floating,
   navFixed: navigationOptions.fixed,

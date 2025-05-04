@@ -13,4 +13,9 @@ module.exports = {
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
   },
+  modularizeImports: {
+    "@phosphor-icons/react": {
+      transform: "@phosphor-icons/react/{{member}}",
+    },
+  },
 };

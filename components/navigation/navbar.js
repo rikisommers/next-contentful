@@ -7,6 +7,7 @@ import { useAudioControls } from "../navigation/audio-utils";
 import Link from "next/link";
 import NavBarAwwwards from "./navbar-awwwards";
 import NavBarApplause from "./navbar-applause";
+import NavBarApplauseMain from "./navbar-applause-main";
 
 export default function NavBar({ containerRef, data }) {
   const { currentTheme } = useThemeContext();
@@ -87,7 +88,7 @@ export default function NavBar({ containerRef, data }) {
       case "bottomLeft":
         return "col-start-1 col-span-1 row-span-1 row-start-5 w-fit";
       case "bottomCenter":
-        return "col-start-2 col-span-1 row-span-1 row-start-5 w-fit mx-auto";
+        return "col-start-3 col-span-1 row-span-1 row-start-5 w-fit mx-auto";
       case "bottomRight":
         return "col-start-3 col-span-1 row-span-1 row-start-5 w-fit";
       case "leftCenter":
@@ -234,95 +235,80 @@ export default function NavBar({ containerRef, data }) {
             type={ButtonType.TRANSPARENT}
             ></Button> */}
 
+  // const renderNavigation = () => {
+  //   if (!currentTheme?.data?.navTheme) return null;
+
+  //   switch (currentTheme.data.navTheme) {
+  //     case "awwwards":
+  //       return (
+  //         <NavBarAwwwards 
+  //           pages={pages} 
+  //           activePage={activePage} 
+  //           currentTheme={currentTheme} 
+  //           handleNavClick={handleNavClick} 
+  //         />
+  //       );
+  //     case "applause":
+  //       return (
+  //         <NavBarApplause 
+  //           pages={pages} 
+  //           activePage={activePage} 
+  //           currentTheme={currentTheme} 
+  //           handleNavClick={handleNavClick} 
+  //         />
+  //       );
+  //     case "applauseMain":
+  //       return (
+  //         <NavBarApplauseMain 
+  //           pages={pages} 
+  //           activePage={activePage} 
+  //           currentTheme={currentTheme} 
+  //           handleNavClick={handleNavClick} 
+  //         />
+  //       );
+  //     default:
+  //       return (
+  //         <NavBarAwwwards 
+  //           pages={pages} 
+  //           activePage={activePage} 
+  //           currentTheme={currentTheme} 
+  //           handleNavClick={handleNavClick} 
+  //         />
+  //       );
+  //   }
+  //};
 
   return (
-    <motion.div
-      drag
+    <div
       ref={menuRef}
-      dragMomentum={0}
-      dragConstraints={containerRef}
-      dragSnapToOrigin={false}
-      style={{
+      className={`
+        ${getNavigationPositionClass(currentTheme.data.navPosition)} 
+       z-50
+      `}
+    >
+        {/* {renderNavigation()} */}
+      <NavBarApplauseMain 
+            pages={pages} 
+            activePage={activePage} 
+            currentTheme={currentTheme} 
+            handleNavClick={handleNavClick} 
+          />
+    </div>
+  );
+}
+
+
+
+{/* 
+
+if custom
+style={{
         backgroundColor: `${
           currentTheme.data.navStyle === "solid"
             ? currentTheme.data.navBg
             : "transparent"
         }`,
-        // boxShadow: `0 10px 15px -3px ${currentTheme.data.navShadow}, 0 4px 49px -4px ${currentTheme.data.navShadow}`,
+        boxShadow: `0 10px 15px -3px ${currentTheme.data.navShadow}, 0 4px 49px -4px ${currentTheme.data.navShadow}`,
       }}
-      className={`
-        ${getNavigationPositionClass(currentTheme.data.navPosition)} 
-        ${getShadowSizeClass(currentTheme.data.navShadowSize)}
-       z-50
-      `}
-    >
-
-
-
-          {currentTheme.data.navStyle === "awwwards" && (
-            <NavBarAwwwards pages={pages} activePage={activePage} currentTheme={currentTheme} handleNavClick={handleNavClick} />
-          )}
-          {currentTheme.data.navStyle === "applause" && (
-            <NavBarApplause pages={pages} activePage={activePage} currentTheme={currentTheme} handleNavClick={handleNavClick} />
-          )}
-      {/* {pages.map((page) => (
-        <Link
-          key={page.id}
-          href={page.url}
-          scroll={false}
-          onClick={() => handleNavClick(page.id)}
-          className="relative flex items-center text-sm no-underline uppercase rounded-lg"
-          style={{
-            color:
-              activePage === page.id
-                ? "var(--text-color-inv)"
-                : "var(--text-color)",
-          }}
-        >
-          {activePage === page.id && (
-            <motion.div
-              layoutId="indicator"
-              style={{
-                backgroundColor: `${
-                  currentTheme.data.navStyle === "solid"
-                    ? currentTheme.data.accentPri
-                    : "transparent"
-                }`,
-
-              }}
-              className="absolute top-0 left-0 flex w-full h-full bg-opacity-50 rounded-xl"
-            ></motion.div>
-          )}
-
-          <motion.div
-            className="relative flex items-center px-3 py-3 text-xs uppercase rounded-lg cursor-pointer"
-            style={{
-              writingMode:
-                currentTheme.data.navPosition === "leftCenter" ||
-                currentTheme.data.navPosition === "rightCenter"
-                  ? "vertical-rl"
-                  : "horizontal-tb",
-            }}
-          >
-            {currentTheme.data.navLabelDisplay === "text" && 
-            page.title
-            }
-          {currentTheme.data.navLabelDisplay === "textAndIcons" && 
-            <div className="flex items-center gap-2">
-            {page.title}
-            </div>
-          }
-          </motion.div>
-        </Link>
-      ))} */}
-
-
-      {/* <Button
-
-        label={"Contact"}
-        sound={ButtonSound.ON}
-        type={ButtonType.TRANSPARENT}
-      ></Button> */}
-    </motion.div>
-  );
-}
+       */}
+{/* ${getShadowSizeClass(currentTheme.data.navShadowSize)} */}

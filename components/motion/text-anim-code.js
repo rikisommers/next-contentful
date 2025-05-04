@@ -8,9 +8,16 @@ const randomChar = () => chars[Math.floor(Math.random() * chars.length)];
 
 const AnimatedChar = ({ char, delay }) => {
   const controls = useAnimation();
-  const [displayChar, setDisplayChar] = useState(randomChar());
+  const [displayChar, setDisplayChar] = useState(char);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isMounted) return;
+
     const animate = async () => {
       // Start with opacity 0
       await controls.set({ opacity: 0 });
@@ -32,7 +39,7 @@ const AnimatedChar = ({ char, delay }) => {
     };
 
     animate();
-  }, [char, controls, delay]);
+  }, [char, controls, delay, isMounted]);
 
   return (
     <motion.span

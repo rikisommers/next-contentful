@@ -51,9 +51,11 @@ function MyApp({ Component, pageProps, router, globalData, customThemes }) {
               <MousePosProvider>
                 <ToastProvider>
                   <ThemeProvider theme={globalData?.currentTheme} customThemes={customThemes}>
-                    {globalData.menuCollection &&
+                    {/* {globalData.menuCollection &&
                     <Navigation data={globalData.menuCollection.items} logo={globalData.logo} customThemes={customThemes}/>
-                    }
+                    } */}
+                                        <Navigation data={globalData.menuCollection.items} logo={globalData.logo} customThemes={customThemes}/>
+
                     <AnimatePresence mode="wait" initial={false}>
                       <Component {...pageProps} key={router.asPath} />
                     </AnimatePresence>

@@ -4,6 +4,14 @@ import { useAudioControls } from "../navigation/audio-utils";
 import { motion } from "../../utils/motion";
 import { useEffect, useState } from "react";
 import Button, { ButtonType, ButtonSound } from "../base/button/button";
+import { Brain } from "@phosphor-icons/react/dist/icons/Brain";
+import { Barbell } from "@phosphor-icons/react/dist/icons/Barbell";
+import { BookOpenText } from "@phosphor-icons/react/dist/icons/BookOpenText";
+import { Eyes } from "@phosphor-icons/react/dist/icons/Eyes";
+import { Fingerprint } from "@phosphor-icons/react/dist/icons/Fingerprint";
+import { Intersect } from "@phosphor-icons/react/dist/icons/Intersect";
+import { Panorama } from "@phosphor-icons/react/dist/icons/Panorama";
+import { Smiley } from "@phosphor-icons/react/dist/icons/Smiley";
 
 export default function NavBarAwwwards({
   pages,
@@ -11,8 +19,39 @@ export default function NavBarAwwwards({
   currentTheme,
   handleNavClick,
 }) {
+
+
+
+    const renderDynamicIcon = (iconName, size = 20) => {
+      
+      if (iconName === 'Brain') {
+        return <Brain size={size} />;
+      }
+      if (iconName === 'Barbell') {
+        return <Barbell size={size} />;
+      }
+      if (iconName === 'BookOpenText') {
+        return <BookOpenText size={size} />;
+      } 
+      if (iconName === 'Eyes') {
+        return <Eyes size={size} />;
+      }
+      if (iconName === 'Fingerprint') {
+        return <Fingerprint size={size} />;
+      }
+      if (iconName === 'Intersect') {
+        return <Intersect size={size} />;
+      }
+      if (iconName === 'Panorama') {
+        return <Panorama size={size} />;
+      }
+      if (iconName === 'Smiley') {
+        return <Smiley size={size} />;
+      }
+    };
+
   return (
-    <div className="z-50 flex self-center gap-1 pointer-events-auto  backdrop-blur-lg rounded-xl">
+    <div className="z-50 flex self-center gap-1 pointer-events-auto backdrop-blur-lg rounded-xl">
                 
 
       {pages.map((page) => (
@@ -64,12 +103,12 @@ export default function NavBarAwwwards({
             }}
           >
             {currentTheme.data.navLabelDisplay === "text" && page.title}
-            {/* {currentTheme.data.navLabelDisplay === "icons" && 
+            {currentTheme.data.navLabelDisplay === "icons" && 
               renderDynamicIcon(page.icon, 20)
-              } */}
+              }
             {currentTheme.data.navLabelDisplay === "textAndIcons" && (
               <div className="flex items-center gap-2">
-                {/* {renderDynamicIcon(page.icon, 20)} */}
+                {renderDynamicIcon(page.icon, 20)}
                 {page.title}
               </div>
             )}

@@ -22,6 +22,7 @@ import {
   fontScaleThemes,
   bodyTextAlign,
   navigationStyleThemes,
+  navigationThemes,
   navigationOptions,
   cursorThemes,
   gridThemes,
@@ -163,6 +164,7 @@ export default function ThemeEditor({ customThemes }) {
     // Navigation properties
     root.style.setProperty("--nav-position", theme.data.navPosition || "topCenter");
     root.style.setProperty("--nav-style", theme.data.navStyle || "solid");
+    root.style.setProperty("--nav-theme", theme.data.navTheme || "applause");
     root.style.setProperty("--nav-floating", theme.data.navFloating || "false");
     root.style.setProperty("--nav-fixed", theme.data.navFixed || "false");
     root.style.setProperty("--nav-border", theme.data.navBorder || "none");
@@ -633,6 +635,12 @@ export default function ThemeEditor({ customThemes }) {
         value: currentTheme.data.navStyle,
         label: "Style",
         onChange: (value) => updateThemeProp("navStyle", value),
+      },
+      navigationTheme: { 
+        options: Object.keys(navigationThemes), 
+        value: currentTheme.data.navTheme,
+        label: "Theme",
+        onChange: (value) => updateThemeProp("navTheme", value),
       },
       labelDisplay: {
         options: Object.keys(navigationOptions?.labelDisplay),
