@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { motion, useAnimation } from "../../utils/motion";;
+import { motion, useAnimation } from "../../utils/motion";
 import PropTypes from "prop-types";
 
 // Use a wider range of characters for more varied animation
@@ -19,26 +19,42 @@ const AnimatedChar = ({ char, delay }) => {
     if (!isMounted) return;
 
     const animate = async () => {
-      // Start with opacity 0
-      await controls.set({ opacity: 0 });
-      
-      // Wait for the delay
-      await new Promise(resolve => setTimeout(resolve, delay));
-      
-      // Fade in while rotating through random chars
-      await controls.start({ opacity: 1, transition: { duration: 0.2 } });
-      
-      // Rotate through random chars
-      for (let i = 0; i < 5; i++) {
-        setDisplayChar(randomChar());
-        await new Promise(resolve => setTimeout(resolve, 50));
-      }
+      try {
+        // Start with opacity 0
+        await controls.set({ opacity: 0 });
+        
+        // Wait for the delay
+        await new Promise(resolve => setTimeout(resolve, delay));
+        
+        // Fade in while rotating through random chars
+        if (isMounted) {
+          await controls.start({ 
+            opacity: 1, 
+            transition: { duration: 0.2 } 
+          });
+        }
+        
+        // Rotate through random chars
+        for (let i = 0; i < 5; i++) {
+          if (!isMounted) break;
+          setDisplayChar(randomChar());
+          await new Promise(resolve => setTimeout(resolve, 50));
+        }
 
-      // Set to final char
-      setDisplayChar(char);
+        // Set to final char
+        if (isMounted) {
+          setDisplayChar(char);
+        }
+      } catch (error) {
+        console.error('Animation error:', error);
+      }
     };
 
     animate();
+
+    return () => {
+      setIsMounted(false);
+    };
   }, [char, controls, delay, isMounted]);
 
   return (

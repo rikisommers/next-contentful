@@ -164,16 +164,12 @@ function NavItem({ page, activePage, handleNavClick, mousePosition, containerRec
       ref={divRef}
       className="overflow-hidden rounded-lg"
       style={{
-        backgroundColor: `${
-          currentTheme?.data?.navStyle === "solid"
-            ? currentTheme?.data?.navBg
-            : "transparent"
-        }`,
-        color: activePage === page.id ? "var(--text-accentPri)" : "var(--text-color)",
+        backgroundColor: activePage === page.id ? "var(--accent-pri)" : "var(--surface1)",
+        color: activePage === page.id ? "var(--text-color)" : "var(--text-color)",
       }}
       initial={{ width: "66px" }}
       animate={{ 
-        width: isHover ? `${contentWidth + 52}px` : "66px"
+        width: isHover ? `${contentWidth + 60}px` : "66px"
       }}
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}

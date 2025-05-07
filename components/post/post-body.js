@@ -85,7 +85,9 @@ export default function PostBody({ content, tags }) {
                 </div>
               )}
               {item.__typename === "BlockPreview" && (
+                <div className="max-w-screen-xl mx-auto">
                   <BlockPreviewGrid />
+                </div>
               )}
               {item.__typename === "BlockArticle" && (
                 <div className="max-w-screen-xl mx-auto">

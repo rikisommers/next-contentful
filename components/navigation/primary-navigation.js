@@ -84,7 +84,7 @@ export default function Navigation({data, logo, customThemes}) {
           borderColor: "var(--nav-shadow-color)",
         }}
       >
-        <div className="z-50 flex col-start-1 row-span-1 row-start-1 w-fit"
+        <div className="z-50 flex items-start justify-start col-start-1 row-span-1 row-start-1 w-fit"
              onClick={toggleThemeEditor}>
           <Logo logo={logo} />
         </div>

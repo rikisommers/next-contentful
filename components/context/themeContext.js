@@ -14,15 +14,6 @@ const THEME_STORAGE_KEY = 'currentTheme';
 //   }
 // );
 
-// Default theme structure to ensure all required properties exist
-const defaultTheme = {
-  data: {
-    key: 'pixelIntensity',
-    name: 'Pixel Intensity',
-    // Add other default properties as needed
-  }
-};
-
 export const ThemeProvider = ({ children, theme, customThemes }) => {
 
   //console.log('theme from cms',theme, customThemes) 
@@ -35,38 +26,21 @@ export const ThemeProvider = ({ children, theme, customThemes }) => {
       const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
       if (savedTheme) {
         try {
-          const parsedTheme = JSON.parse(savedTheme);
-          // Validate the parsed theme has required structure
-          if (parsedTheme?.data?.key) {
-            return parsedTheme;
-          }
+          return JSON.parse(savedTheme);
         } catch (e) {
           console.error('Error parsing saved theme:', e);
         }
       }
     }
-    // Return theme from props or default theme
-    return theme?.data?.key ? theme : themes.pixelIntensity;
+    return theme || themes.pixelIntensity;
   });
 
   const updateTheme = useCallback((newTheme) => {
     setCurrentTheme(prevTheme => {
-      // Ensure we have a valid theme structure
-      const updatedTheme = {
-        ...prevTheme,
-        data: {
-          ...prevTheme?.data,
-          ...newTheme?.data
-        }
-      };
-      
+      const updatedTheme = { ...prevTheme, ...newTheme };
       // Save to localStorage whenever theme changes
       if (typeof window !== 'undefined') {
-        try {
-          localStorage.setItem(THEME_STORAGE_KEY, JSON.stringify(updatedTheme));
-        } catch (e) {
-          console.error('Error saving theme to localStorage:', e);
-        }
+        localStorage.setItem(THEME_STORAGE_KEY, JSON.stringify(updatedTheme));
       }
       return updatedTheme;
     });
@@ -79,10 +53,7 @@ export const ThemeProvider = ({ children, theme, customThemes }) => {
       if (savedTheme) {
         try {
           const parsedTheme = JSON.parse(savedTheme);
-          // Validate the parsed theme has required structure
-          if (parsedTheme?.data?.key) {
-            setCurrentTheme(parsedTheme);
-          }
+          setCurrentTheme(parsedTheme);
         } catch (e) {
           console.error('Error parsing saved theme:', e);
         }

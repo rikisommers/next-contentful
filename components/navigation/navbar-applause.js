@@ -206,12 +206,8 @@ function NavItem({ page, activePage, handleNavClick, mousePosition, containerRec
       ref={divRef}
       className="rounded-lg aspect-square"
       style={{
-        backgroundColor: `${
-          currentTheme?.data?.navStyle === "solid"
-            ? currentTheme?.data?.navBg
-            : "transparent"
-        }`,
-        color: activePage === page.id ? "var(--text-accentPri)" : "var(--text-color)",
+        backgroundColor: activePage === page.id ? "var(--accent-pri)" : "var(--surface1)",
+        color: activePage === page.id ? "var(--text-color)" : "var(--text-color-inv)",
       }}
       initial={{
         width: "66px",
@@ -233,16 +229,10 @@ function NavItem({ page, activePage, handleNavClick, mousePosition, containerRec
         className="relative flex items-center justify-center w-full h-full p-3 text-sm no-underline uppercase"
 
       >
-            {currentTheme.data.navLabelDisplay === "text" && page.title}
-            {currentTheme.data.navLabelDisplay === "icons" && 
-              renderDynamicIcon(page.icon, 20)
-              }
-            {currentTheme.data.navLabelDisplay === "textAndIcons" && (
-              <div className="flex items-center gap-2">
-                {renderDynamicIcon(page.icon, 20)}
-                {page.title}
-              </div>
-            )}
+            
+            {page.icon && renderDynamicIcon(page.icon, 20)}
+            {!page.icon && 'NO'}
+    
       </Link>
     </motion.div>
   );

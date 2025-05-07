@@ -10,6 +10,7 @@ import Button from "../base/button/button";
 import ButtonWipe from "../base/button/button-wipe";
 import ButtonMonks from "../base/button/button-monks";
 import { ButtonType, ButtonSound } from "../base/button/button.util";
+import ButtonSwap from "../base/button/button-swap";
 import { motion, useTransform, useScroll } from "../../utils/motion";
 
 export default function BlockFooter({ data }) {
@@ -104,7 +105,7 @@ export default function BlockFooter({ data }) {
   <ButtonWipe label={'Click Me'} type={ButtonType.PRIMARY} />
   <ButtonWipe label={'Click Me'} type={ButtonType.SECONDARY} />
   <ButtonWipe label={'Click Me'} type={ButtonType.TRANSPARENT} />
-
+<ButtonSwap label={'Click Me'} />
 
 
             {data?.ctalink && data?.cta && (

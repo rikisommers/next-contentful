@@ -16,6 +16,7 @@ export const BlockPreviewGrid = () => {
   const textAnimComponents = createTextAnimComponents(highlight)
   const tileComponents = createTileComponents()
   const navComponents = createNavComponents()
+
   return (  
     <>
     <div className="grid grid-cols-1 gap-6 mx-16 md:grid-cols-2 xl:grid-cols-3">
@@ -45,12 +46,12 @@ export const BlockPreviewGrid = () => {
     <div className="grid grid-cols-1 gap-6 mx-16 md:grid-cols-2 xl:grid-cols-3">
       {Object.entries(navComponents).map(([key, { title, description, component, code }]) => (
         <div className="grid-cols-1" key={key}>
-          <BlockPreview
+          {/* <BlockPreview
             title={title}
             description={description}
             component={component}
             code={code}
-          />
+          /> */}
         </div>
       ))}
     </div>

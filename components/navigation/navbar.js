@@ -235,48 +235,47 @@ export default function NavBar({ containerRef, data }) {
             type={ButtonType.TRANSPARENT}
             ></Button> */}
 
-  // const renderNavigation = () => {
-  //   if (!currentTheme?.data?.navTheme) return null;
+  const renderNavigation = (theme) => {
 
-  //   switch (currentTheme.data.navTheme) {
-  //     case "awwwards":
-  //       return (
-  //         <NavBarAwwwards 
-  //           pages={pages} 
-  //           activePage={activePage} 
-  //           currentTheme={currentTheme} 
-  //           handleNavClick={handleNavClick} 
-  //         />
-  //       );
-  //     case "applause":
-  //       return (
-  //         <NavBarApplause 
-  //           pages={pages} 
-  //           activePage={activePage} 
-  //           currentTheme={currentTheme} 
-  //           handleNavClick={handleNavClick} 
-  //         />
-  //       );
-  //     case "applauseMain":
-  //       return (
-  //         <NavBarApplauseMain 
-  //           pages={pages} 
-  //           activePage={activePage} 
-  //           currentTheme={currentTheme} 
-  //           handleNavClick={handleNavClick} 
-  //         />
-  //       );
-  //     default:
-  //       return (
-  //         <NavBarAwwwards 
-  //           pages={pages} 
-  //           activePage={activePage} 
-  //           currentTheme={currentTheme} 
-  //           handleNavClick={handleNavClick} 
-  //         />
-  //       );
-  //   }
-  //};
+    switch (theme) {
+      case "awwwards":
+        return (
+          <NavBarAwwwards 
+            pages={pages} 
+            activePage={activePage} 
+            currentTheme={currentTheme} 
+            handleNavClick={handleNavClick} 
+          />
+        );
+      case "applause":
+        return (
+          <NavBarApplause 
+            pages={pages} 
+            activePage={activePage} 
+            currentTheme={currentTheme} 
+            handleNavClick={handleNavClick} 
+          />
+        );
+      case "applauseMain":
+        return (
+          <NavBarApplauseMain 
+            pages={pages} 
+            activePage={activePage} 
+            currentTheme={currentTheme} 
+            handleNavClick={handleNavClick} 
+          />
+        );
+      default:
+        return (
+          <NavBarAwwwards 
+            pages={pages} 
+            activePage={activePage} 
+            currentTheme={currentTheme} 
+            handleNavClick={handleNavClick} 
+          />
+        );
+    }
+  };
 
   return (
     <div
@@ -286,13 +285,13 @@ export default function NavBar({ containerRef, data }) {
        z-50
       `}
     >
-        {/* {renderNavigation()} */}
-      <NavBarApplauseMain 
+        {renderNavigation(currentTheme?.data?.navTheme)}
+      {/* <NavBarApplauseMain 
             pages={pages} 
             activePage={activePage} 
             currentTheme={currentTheme} 
             handleNavClick={handleNavClick} 
-          />
+          /> */}
     </div>
   );
 }
