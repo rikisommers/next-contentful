@@ -130,7 +130,7 @@ export const TextAnimNavigators = ({
           </motion.span>
           <motion.span
             variants={previewVariants}
-            className="absolute top-0 left-0 inline-flex items-center justify-center w-full h-[90%] top-[5%] px-2 rounded-xl bg-slate-200/10"
+            className="absolute left-0 inline-flex items-center justify-center w-full h-[90%] top-[5%] px-2 rounded-xl bg-slate-200/10"
           >
           </motion.span>
         </div>
