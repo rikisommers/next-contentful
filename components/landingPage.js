@@ -11,7 +11,6 @@ export default function LandingPage({ data, footerData, tags }) {
    
       <TextureContainer>  
       <ClipContainer background={<BackgroundGrad/>}>
-        
           {data.csblocksCollection?.items && (
             <PostBody content={data.csblocksCollection} tags={tags} />
           )}

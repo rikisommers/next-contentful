@@ -15,13 +15,14 @@ export default function Post({ post, footerData }) {
   
   const { currentTheme } = useThemeContext();
 
-  //console.log("ppppp", post);
 
   const articlesNavList = post.csblocksCollection.items.filter(
-    (item) => item.type === "article"
+    (item) => item.__typename === "BlockArticle"
   );
+
   return (
     <ScrollContainer>
+      <h1>Articles page</h1>
       {articlesNavList.length > 0 && (
                   <div className="relative">
                   <nav className="fixed right-0 z-50 flex flex-col self-start justify-center h-screen">

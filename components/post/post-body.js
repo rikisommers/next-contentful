@@ -148,6 +148,7 @@ export default function PostBody({ content, tags }) {
               )}
               {item.__typename === "BlockIntro" && (
                 <div className="max-w-screen-xl mx-auto">
+                <h1>INTRO</h1>
                   <AnimatedElement type={AnimStyleEl.FADEIN}>
                     <BlockIntro key={item.id} data={item} id={item.id} />
                   </AnimatedElement>

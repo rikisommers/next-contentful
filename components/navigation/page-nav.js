@@ -130,7 +130,7 @@ const PageNav = ({ content }) => {
           //  onBlur={handleMenuMouseLeave} 
 
             style={{
-              backgroundColor: "var(--nav-bg)",
+              backgroundColor: "var(--surface2)",
             }}
           >
             {content &&
@@ -140,10 +140,10 @@ const PageNav = ({ content }) => {
                   <motion.li
                     variants={childVariants}
                     key={index}
-                    className={`px-2 py-1 text-sm rounded-md hover:bg-slate-200 relative transition-colors`}
-                    // whileHover={{
-                    //   backgroundColor: "var(--body-background-color)",
-                    // }}
+                    className={`px-2 py-1 text-sm rounded-md hover:bg-slate-200 relative transition-colors mb-1`}
+                    whileHover={{
+                      backgroundColor: "var(--body-background-color)",
+                    }}
                   >
                     {activeItem === item.title && (
                       <motion.div
@@ -151,7 +151,7 @@ const PageNav = ({ content }) => {
                         style={{
                           backgroundColor: "var(--body-background-color)",
                         }}
-                        className="absolute top-0 left-0 z-0 flex w-full h-full bg-opacity-50 rounded-md"
+                        className="absolute top-0 left-0 z-0 flex w-full h-full rounded-md bg-opacity-20"
                       ></motion.div>
                     )}
 
