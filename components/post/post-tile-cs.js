@@ -32,10 +32,11 @@ export default function PostTileCs({ post, index }) {
       style={{
         color: 'var(--background-color)'
       }}
-      className="relative flex flex-col w-full h-full rounded-lg tile overflow-hidde"
+      className="relative flex flex-col w-full h-full overflow-hidden rounded-lg tile"
     >
+      <h1 className="absolute top-0 left-0 z-10 text-amber-200">CS</h1>
       {post.img && (
-        <div className="relative flex flex-col flex-grow overflow-hidden rounded-lg img-post">
+        <div className="relative flex flex-col flex-grow overflow-hidden rounded-lg">
           <div className="absolute flex top-3 left-3"
            style={{
             color: 'var(--text-color-inv)'
@@ -84,13 +85,13 @@ export default function PostTileCs({ post, index }) {
           <motion.div style={{y}}>     
           </motion.div> */}
 
-          <FadeInWhenVisible>
+         
             <BlendImage
-              className="img-cover"
+              className="w-full h-full"
               alt={`Cover Image for ${post?.titlealt}`}
               src={post.img.url}
             />
-          </FadeInWhenVisible>
+       
         </div>
       )}
 

@@ -5,7 +5,7 @@ import { motion, useInView } from "../../utils/motion";;
 import AnimatedElement,{ AnimStyleEl} from "../motion/animated-element";
 import FadeInWhenVisible from "../utils/fade-in-visible";
 
-export default function PostTileRe({ post, index, size }) {
+export default function PostTileRe({ post, index, size, layout}) {
   //   const [isHovered, setIsHovered] = useState(false); // State to track hover
 
   const ref = useRef(null); // Unique ref for each instance
@@ -20,18 +20,19 @@ export default function PostTileRe({ post, index, size }) {
       style={{
         backgroundColor: "var(--surface1)",
       }}
-      className="relative flex flex-col w-full h-full overflow-hidden no-underline rounded-2xl group"
+      className={`relative flex w-full h-full overflow-hidden no-underline rounded-2xl group flex-${layout}`}
   
       onMouseEnter={() => setIsHovered(true)} // Set hover state to true on mouse enter
       onMouseLeave={() => setIsHovered(false)} // Set hover state to false on mouse leave
     >
-      <div className="flex flex-col gap-4 justify-start w-full row-span-1 p-4 !h-1/2">
+      <div className={`flex flex-col gap-4 justify-start w-full row-span-1 p-4 ${layout == "col" ? "!h-1/2" : "h-full"}`}>
         <div
           className="flex justify-between w-full"
           style={{
             color: "var(--subtext-color)",
           }}
         >
+          <span className="text-xs">{layout}</span>
           <span className="text-xs">{post.title}</span>
 
           {post.tags && (
@@ -103,7 +104,7 @@ export default function PostTileRe({ post, index, size }) {
       </div>
       {post.img && (
         <motion.div
-          className="w-full !h-1/2 overflow-clip"
+          className={`w-full ${layout == "col" ? "!h-1/2" : "h-full"} overflow-clip`}
           style={{
             backgroundColor: "var(--accent-pri)",
           }}

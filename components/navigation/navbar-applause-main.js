@@ -167,9 +167,9 @@ function NavItem({ page, activePage, handleNavClick, mousePosition, containerRec
         backgroundColor: activePage === page.id ? "var(--accent-pri)" : "var(--surface1)",
         color: activePage === page.id ? "var(--text-color)" : "var(--text-color)",
       }}
-      initial={{ width: "66px" }}
+      initial={{ width: "48px" }}
       animate={{ 
-        width: isHover ? `${contentWidth + 60}px` : "66px"
+        width: isHover ? `${contentWidth + 60}px` : "48px"
       }}
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
@@ -182,7 +182,7 @@ function NavItem({ page, activePage, handleNavClick, mousePosition, containerRec
         href={page.url}
         scroll={false}
         onClick={() => handleNavClick(page.id)}
-        className="relative flex items-center justify-center p-5 text-sm no-underline uppercase"
+        className="relative flex items-center justify-center p-4 text-sm no-underline uppercase"
       >
         <div className="relative flex items-center w-full gap-2 overflow-hidden text-center"
          ref={contentRef}>

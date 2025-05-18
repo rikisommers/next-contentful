@@ -24,7 +24,7 @@ export const BlockArticles = ({ data, tags }) => {
   const posts = data.articlesCollection?.items;
 
   // console.log("data", data.articlesCollection?.items);
-   console.log("data", data);
+     console.log("data", data);
 
   const [selectedTag, setSelectedTag] = useState(null);
   const [filteredPosts, setFilteredPosts] = useState(posts);
@@ -53,9 +53,7 @@ export const BlockArticles = ({ data, tags }) => {
         />
       )}
       <div className="flex flex-col w-full gap-6">
-        <ScaleContainer>
         {posts && <Grid type={currentTheme.data.cardGrid} data={filteredPosts} />}
-        </ScaleContainer>
       </div>
     </div>
   );

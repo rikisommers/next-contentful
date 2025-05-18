@@ -16,18 +16,18 @@ import { BlockPreviewGrid } from "../blocks/block_preview_grid";
 import AnimatedElement, { AnimStyleEl } from "../motion/animated-element";
 import { useThemeContext } from "../context/themeContext";
 import { pageWidthThemes } from "../../utils/theme";
-const customMarkdownOptions = (content) => ({
-  renderNode: {
-    [BLOCKS.EMBEDDED_ASSET]: (node) => (
-      <RichTextAsset
-        id={node.data.target.sys.id}
-        assets={content.links.assets.block}
-      />
-    ),
-  },
-});
 
-
+const ArticleWrapper = ({ children }) => {
+  const { currentTheme } = useThemeContext();
+  return (
+    <div className={`max-w-screen-xl mx-auto
+      ${currentTheme.data.navPosition === 'leftCenter' ? 'pl-32 pr-24' : ''}
+      ${currentTheme.data.navPosition === 'rightCenter' ? 'pr-32 pr-24' : ''}
+    `}>
+      {children}
+    </div>
+  )
+}
 
 
 export default function PostBody({ content, tags }) {
@@ -35,10 +35,9 @@ export default function PostBody({ content, tags }) {
   const pageWidth = currentTheme.data.pageWidth;
 
   console.log('currentTheme',currentTheme)
+  console.log('content',content)
   return (
     <div className={`flex flex-col gap-16 self-center pb-20
-       ${currentTheme.data.navPosition === 'leftCenter' ? 'pl-16' : ''}
-       ${currentTheme.data.navPosition === 'rightCenter' ? 'pr-16' : ''}
        ${(() => {
          // For Tailwind v4, max-width classes have changed
          const widthClasses = {
@@ -75,83 +74,88 @@ export default function PostBody({ content, tags }) {
                 </>
               )}
               {item.__typename === "BlockHeader" && (
-                <div className="">
+               <ArticleWrapper>
                 
                   <BlockHeader
                     key={item.id}
                     data={item}
                     id={item.title}
                   ></BlockHeader>
-                </div>
+                </ArticleWrapper>
               )}
               {item.__typename === "BlockPreview" && (
-                <div className="max-w-screen-xl mx-auto">
+                <ArticleWrapper>
                   <BlockPreviewGrid />
-                </div>
+                </ArticleWrapper>
               )}
               {item.__typename === "BlockArticle" && (
-                <div className="max-w-screen-xl mx-auto">
+                <ArticleWrapper>
                   <BlockArticle key={item.id} data={item} id={item.title} />
-                </div>
+                </ArticleWrapper>
                 // </AnimatedElement>
               )}
               {item.__typename === "BlockArticles" && (
-                <BlockArticles
-                  key={item.id}
-                  data={item}
-                  tags={tags}
-                  id={item.title}
-                />
+                <ArticleWrapper>
+                  <BlockArticles
+                    key={item.id}
+                    data={item}
+                    tags={tags}
+                    id={item.title}
+                  />
+                </ArticleWrapper>
               )}
               {item.__typename === "BlockImage" && (
                 // <AnimatedElement type={AnimStyleEl.FADEIN}>
-                <div className="max-w-screen-xl px-16 mx-auto">
+                <ArticleWrapper>
                   <BlockImg key={item.id} data={item} id={item.title} />
-                </div>
+                </ArticleWrapper>
                 // </AnimatedElement>
               )}
               {item.__typename === "BlockHotspotImage px-16" && (
                 // <AnimatedElement type={AnimStyleEl.FADEIN}>
-                <BlockHotspotImg key={item.id} data={item} id={item.title} />
+                <ArticleWrapper>
+                  <BlockHotspotImg key={item.id} data={item} id={item.title} />
+                </ArticleWrapper>
                 // </AnimatedElement>
               )}
               {item.__typename === "BlockIg" && (
                 // <AnimatedElement type={AnimStyleEl.FADEIN}>
-                <BlockImages key={item.id} data={item} id={item.title} />
+                <ArticleWrapper>
+                  <BlockImages key={item.id} data={item} id={item.title} />
+                </ArticleWrapper>
                 // </AnimatedElement>
               )}
               {item.__typename === "BlockQuote" && (
                 //  <AnimatedElement type={AnimStyleEl.FADEIN}>
-                <div className="max-w-screen-xl mx-auto">
+                <ArticleWrapper>
                   <BlockQuote key={item.id} data={item} id={item.title} />
-                </div>
+                </ArticleWrapper>
                 // </AnimatedElement>
               )}
               {item.__typename === "BlockEmbed" && (
-                <AnimatedElement type={AnimStyleEl.FADEIN}>
+                <ArticleWrapper>
                   <BlockEmbed key={item.id} data={item} id={item.title} />
-                </AnimatedElement>
+                </ArticleWrapper>
               )}
               {item.__typename === "BlockCode" && (
                 <div className="max-w-screen-xl mx-auto">
-                  <AnimatedElement type={AnimStyleEl.FADEIN}>
+                 <ArticleWrapper>
                     <BlockCode key={item.id} data={item} id={item.title} />
-                  </AnimatedElement>
+                  </ArticleWrapper>
                 </div>
               )}
               {item.__typename === "BlockList" && (
                 <div className="max-w-screen-xl mx-auto">
-                  <AnimatedElement type={AnimStyleEl.FADEIN}>
+                  <ArticleWrapper>
                     <BlockList key={item.id} data={item} id={item.title} />
-                  </AnimatedElement>
+                  </ArticleWrapper>
                 </div>
               )}
               {item.__typename === "BlockIntro" && (
                 <div className="max-w-screen-xl mx-auto">
-                <h1>INTRO</h1>
-                  <AnimatedElement type={AnimStyleEl.FADEIN}>
+                  <ArticleWrapper>
                     <BlockIntro key={item.id} data={item} id={item.id} />
-                  </AnimatedElement>
+                  </ArticleWrapper>
                 </div>
               )}
             </section>

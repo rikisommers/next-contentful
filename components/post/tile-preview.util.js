@@ -2,7 +2,7 @@
 
 import React from "react"
 import PostTileImg from "./post-tile-img"
-import PostTileLg from "./post-tile-lg"
+import PostTileLg from "./post-tile-funky"
 import PostTileCs from "./post-tile-cs"
 import PostTileReone from "./post-tile-reone"
 import PostTileMonks from "./post-tile-monks"

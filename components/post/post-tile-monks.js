@@ -5,7 +5,7 @@ import { motion, useInView, useAnimation } from "../../utils/motion";
 import FadeInWhenVisible from "../utils/fade-in-visible";
 import AnimatedElement, { AnimStyleEl } from "../motion/animated-element";
 
-export default function PostTileMonks({ post, index, size }) {
+export default function PostTileMonks({ post, index, size, layout }) {
   //   const [isHovered, setIsHovered] = useState(false); // State to track hover
 
   const ref = useRef(null); // Unique ref for each instance
@@ -58,12 +58,12 @@ export default function PostTileMonks({ post, index, size }) {
       style={{
         backgroundColor: "var(--surface1)",
       }}
-      className="relative flex flex-col w-full h-full overflow-hidden no-underline rounded-2xl group"
+      className={`relative flex flex-col w-full h-full overflow-hidden no-underline rounded-2xl group flex-${layout}`}
       onMouseEnter={() => setIsHovered(true)} // Set hover state to true on mouse enter
       onMouseLeave={() => setIsHovered(false)} // Set hover state to false on mouse leave
     >
       {post.img && (
-        <motion.div className="w-full h-full overflow-clip">
+        <motion.div className={`w-full ${layout == "col" ? "w-full" : "h-auto"} overflow-clip`}>
           <motion.div
             className="w-full h-full"
             animate={{
@@ -83,7 +83,7 @@ export default function PostTileMonks({ post, index, size }) {
           </motion.div>
         </motion.div>
       )}
-      <div className="flex flex-col gap-4 justify-start w-full row-span-1 p-4 !h-1/2">
+      <div className={`flex flex-col gap-4 justify-start w-full row-span-1 p-4 ${layout == "col" ? "!h-1/2" : "h-full"}`}>
         <div
           className="flex flex-col items-start w-full gap-4"
           style={{

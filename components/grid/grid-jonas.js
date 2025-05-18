@@ -15,18 +15,18 @@ const GridGroup = ({ items, templateSize, startIndex }) => {
     const groupItems = items.slice(0, templateSize);
     const remainingItems = items.slice(templateSize);
   
-    let nextTemplateSize;
-    if (templateSize === 6) nextTemplateSize = 4;
-    else if (templateSize === 4) nextTemplateSize = 4;
-    else if (templateSize === 2) nextTemplateSize = 2;
-    else nextTemplateSize = 6;
+    // let nextTemplateSize;
+    // if (templateSize === 6) nextTemplateSize = 4;
+    // else if (templateSize === 4) nextTemplateSize = 4;
+    // else if (templateSize === 2) nextTemplateSize = 2;
+    // else nextTemplateSize = 6;
   
     return (
       <>
-      <h1 className="text-amber-200">Bento</h1>
-        <div className={`grid-template-${templateSize}`}>
+      <h1 className="text-amber-200">Things</h1>
+        <div className={`grid-gallery`}>
           {groupItems.map((item, i) => (
-            <div key={startIndex + i} className={`my--${i + 1}`}>
+            <div key={startIndex + i}>
               <AnimatedElement type={AnimStyleEl.FADEIN} delay={i * 0.1}>
                 {currentTheme.data.cardLayout === 'formal' && <PostTileCs post={item} />}
                 {currentTheme.data.cardLayout === 'funky' && <PostTileLg post={item} />}
@@ -39,18 +39,15 @@ const GridGroup = ({ items, templateSize, startIndex }) => {
         </div>
         <GridGroup 
           items={remainingItems} 
-          templateSize={nextTemplateSize} 
-          startIndex={startIndex + templateSize} 
         />
       </>
     );
   };
 
-export default function GridBento({data}) {
+export default function GridJonas({data}) {
     return (
     <GridGroup 
         items={data} 
-        templateSize={6} 
         startIndex={0} 
     />
     );

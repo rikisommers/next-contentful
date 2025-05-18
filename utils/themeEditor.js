@@ -508,6 +508,12 @@ export default function ThemeEditor({ customThemes }) {
         label: "Page Transition",
         onChange: (value) => updateThemeProp("pageTransition", value), // Call existing handler
       },
+      grid: { 
+        options: Object.keys(gridThemes), 
+        value: currentTheme?.data?.cardGrid || "bento1",
+        label: "grid",
+        onChange: (value) => updateThemeProp("cardGrid", value),
+      },
     }),
     Typography: folder({
       collapsed:true,
@@ -775,12 +781,6 @@ export default function ThemeEditor({ customThemes }) {
         value: currentTheme.data.cardHover,
         label: "hover",
         onChange: (value) => updateThemeProp("cardHover", value),
-      },
-      grid: { 
-        options: Object.keys(gridThemes), 
-        value: currentTheme?.data?.cardGrid || "bento1",
-        label: "grid",
-        onChange: (value) => updateThemeProp("cardGrid", value),
       },
     }),
     Images: folder({

@@ -121,11 +121,11 @@ function NavItem({ page, activePage, handleNavClick, mousePosition, containerRec
   const divRef = useRef(null);
   
   // Base size (66px)
-  const baseSize = 66;
+  const baseSize = 48;
   // Max size (90px)
-  const maxSize = 90;
+  const maxSize = 66;
   // Maximum distance for scaling effect (in pixels)
-  const maxDistance = 200;
+  const maxDistance = 150;
   
   // Update scale based on mouse position
   useEffect(() => {
@@ -210,16 +210,16 @@ function NavItem({ page, activePage, handleNavClick, mousePosition, containerRec
         color: activePage === page.id ? "var(--text-color)" : "var(--text-color-inv)",
       }}
       initial={{
-        width: "66px",
-        height: "66px",
+        width: "48px",
+        height: "48px",
       }}
       animate={{
-        width: `${Math.round(66 * scale)}px`,
-        height: `${Math.round(66 * scale)}px`,
+        width: `${Math.round(48 * scale)}px`,
+        height: `${Math.round(48 * scale)}px`,
       }}
       transition={{
-        duration: 1,
-        ease: cubicBezier(0.16, 1, 0.3, 1)
+        duration: 0.1,
+        ease: 'easeOut'
       }}
     >
       <Link

@@ -1096,6 +1096,9 @@ const colorThemes = {
 export const gridThemes = {
   bento1: "bento1",
   list: "list",
+  basic: "basic",
+  things: "things",
+  jonas: "jonas",
 };
 
 
