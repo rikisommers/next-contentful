@@ -1101,6 +1101,10 @@ export const gridThemes = {
   jonas: "jonas",
 };
 
+export const gridGalleryThemes = {
+  gallery1: "gallery1",
+  gallery2: "gallery2",
+};
 
 // Text Animation themes
 export const textAnimationThemes = {
@@ -1425,6 +1429,7 @@ const themeContent = {
   cardLayout:cardThemes.reone,
   cardHover:cardHoverThemes.none,
   cardGrid:gridThemes.bento1,
+  gridGallery:gridGalleryThemes.gallery1,
   imageParallax:false,
   imageTexture:imageTextureThemes.noise,
   imageTextureContrast:imageTextureContrastThemes.contrast,

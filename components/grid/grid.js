@@ -3,6 +3,7 @@ import GridBento from "./grid-bento";
 import GridList from "./grid-list";
 import GridThings from "./grid-things";
 import GridBasic from "./grid-basic";
+import GridJonas from "./grid-jonas";
 import { gridThemes } from "../../utils/theme";
 
 const getGridType = (type, data) => {
@@ -15,6 +16,8 @@ const getGridType = (type, data) => {
             return <GridList data={data}/>;
         case gridThemes.things:
             return <GridThings data={data}/>;
+        case gridThemes.jonas:
+            return <GridJonas data={data}/>;
         default:
             return <GridBento data={data}/>;
     }
@@ -24,7 +27,7 @@ const Grid = ({
     type,
     data
 }) => {
-    return getGridType(type, data);
+    return <GridThings data={data}/>
 };
 
 export default Grid;

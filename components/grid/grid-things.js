@@ -1,54 +1,39 @@
 import React from "react";
-import AnimatedElement, { AnimStyleEl } from "../motion/animated-element";
-import { useThemeContext } from '../context/themeContext';
+import { useThemeContext } from "../context/themeContext";
 import PostTileCs from "../post/post-tile-cs";
 import PostTileLg from "../post/post-tile-funky";
 import PostTileImg from "../post/post-tile-img";
 import PostTileRe from "../post/post-tile-reone";
 import PostTileMonks from "../post/post-tile-monks";
+import AnimatedElement, { AnimStyleEl } from "../motion/animated-element";
 
-const GridGroup = ({ items, templateSize, startIndex }) => {
-    if (items.length === 0) return null;
-  
-    const { currentTheme } = useThemeContext();
+export default function GridThings({ data }) {
+  const { currentTheme } = useThemeContext();
 
-    const groupItems = items.slice(0, templateSize);
-    const remainingItems = items.slice(templateSize);
-  
-    // let nextTemplateSize;
-    // if (templateSize === 6) nextTemplateSize = 4;
-    // else if (templateSize === 4) nextTemplateSize = 4;
-    // else if (templateSize === 2) nextTemplateSize = 2;
-    // else nextTemplateSize = 6;
-  
-    return (
-      <>
-      <h1 className="text-amber-200">Things</h1>
-        <div className={`grid-gallery`}>
-          {groupItems.map((item, i) => (
-            <div key={startIndex + i}>
-              <AnimatedElement type={AnimStyleEl.FADEIN} delay={i * 0.1}>
-                {currentTheme.data.cardLayout === 'formal' && <PostTileCs post={item} />}
-                {currentTheme.data.cardLayout === 'funky' && <PostTileLg post={item} />}
-                {currentTheme.data.cardLayout === 'reone' && <PostTileRe post={item} />}
-                {currentTheme.data.cardLayout === 'monks' && <PostTileMonks post={item} />}
-                {currentTheme.data.cardLayout === 'img' && <PostTileImg post={item} />}
-              </AnimatedElement>
+  return (
+    <div className="@container">
+      <h1 className="text-amber-200">Grid Things</h1>
+      <div className={`${currentTheme.data.gridGallery === "gallery1" ? "grid-gallery" : "grid-gallery2"}`}>
+        {data.map((item, i) => (
+            <div key={i} className="grid__item">
+              {currentTheme.data.cardLayout === "formal" && (
+                <PostTileCs post={item} />
+              )}
+              {currentTheme.data.cardLayout === "funky" && (
+                <PostTileLg post={item} />
+              )}
+              {currentTheme.data.cardLayout === "reone" && (
+                <PostTileRe post={item} layout="col" />
+              )}
+              {currentTheme.data.cardLayout === "img" && (
+                <PostTileImg post={item} />
+              )}
+              {currentTheme.data.cardLayout === "monks" && (
+                <PostTileMonks post={item} />
+              )}
             </div>
-          ))}
-        </div>
-        <GridGroup 
-          items={remainingItems} 
-        />
-      </>
-    );
-  };
-
-export default function GridThings({data}) {
-    return (
-    <GridGroup 
-        items={data} 
-        startIndex={0} 
-    />
-    );
-};
+        ))}
+      </div>
+    </div>
+  );
+}

@@ -26,6 +26,7 @@ import {
   navigationOptions,
   cursorThemes,
   gridThemes,
+  gridGalleryThemes,
   mixBlendThemes,
   textHighlightOutlineThemes,
   imageTextureThemes,
@@ -193,6 +194,7 @@ export default function ThemeEditor({ customThemes }) {
     root.style.setProperty("--card-layout", theme.data.cardLayout || "default");
     root.style.setProperty("--card-hover", theme.data.cardHover || "none");
     root.style.setProperty("--card-grid", theme.data.cardGrid || "bento1");
+    root.style.setProperty("--grid-gallery", theme.data.gridGallery || "gallery1");
 
     // Image properties
     root.style.setProperty("--image-parallax", theme.data.imageParallax || false);
@@ -513,6 +515,12 @@ export default function ThemeEditor({ customThemes }) {
         value: currentTheme?.data?.cardGrid || "bento1",
         label: "grid",
         onChange: (value) => updateThemeProp("cardGrid", value),
+      },
+      gridGallery: {
+        options: Object.keys(gridGalleryThemes),
+        value: currentTheme?.data?.gridGallery || "gallery1",
+        label: "gridGallery",
+        onChange: (value) => updateThemeProp("gridGallery", value),
       },
     }),
     Typography: folder({
