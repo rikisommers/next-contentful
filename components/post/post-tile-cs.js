@@ -8,8 +8,42 @@ import {
   motion,
   useTransform,
   useScroll,
-} from "../../utils/motion";;
+} from "../../utils/motion";
 
+/**
+ * @component
+ * @description A post tile optimized for case studies with client information.
+ * @category tiles
+ * @param {object} post - The post data object.
+ * @param {string} post.title - The title of the post.
+ * @param {string} post.subtitle - The subtitle of the post.
+ * @param {string} post.slug - The slug for the post URL.
+ * @param {string} post.client - The client name for the project.
+ * @param {string} post.date - The date of the project.
+ * @param {array} post.tags - An array of tags for the post.
+ * @param {object} post.img - The image object for the post.
+ * @param {number} index - The index of the post, used for animation delay.
+ * @example
+ * // Case Study Post Tile
+ * <PostTileCs 
+ *   post={{
+ *     title: "Project Title",
+ *     subtitle: "A brief description of the project",
+ *     slug: "project-slug",
+ *     client: "Client Name",
+ *     date: "January 2023",
+ *     tags: ["Web Design", "Development"],
+ *     img: {
+ *       url: "https://example.com/image.jpg",
+ *       width: 800,
+ *       height: 600,
+ *       description: "Project cover image"
+ *     }
+ *   }}
+ *   index={0}
+ * />
+ * @exports PostTileCs
+ */
 export default function PostTileCs({ post, index }) {
   //  console.log("ss", post);
   

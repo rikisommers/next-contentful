@@ -2,59 +2,60 @@
 
 import React from "react"
 import { BlockPreview } from "./block_preview"
-import { createTextAnimComponents } from "../motion/utils/anim-text-preview.util"
-import { createTileComponents } from "../post/tile-preview.util"
-import { createNavComponents } from "../navigation/navigation-preview.util"
 import { useThemeContext } from "../context/themeContext"
+
+// Import the generated JSON data
+import previewData from "../../generated/component-preview-data.json"
+// Import the rendered examples
+import { exampleComponents } from "../../generated/component-examples.jsx"
 
 export const BlockPreviewGrid = () => {
   // Get the highlight value from the current theme
   const { currentTheme } = useThemeContext()
-  const highlight = currentTheme?.data?.textHighlight || "text"
-  
-  // Create the text animation components with the current theme
-  const textAnimComponents = createTextAnimComponents(highlight)
-  const tileComponents = createTileComponents()
-  const navComponents = createNavComponents()
 
   return (  
-    <>
-    <div className="grid grid-cols-1 gap-6 mx-16 md:grid-cols-2 xl:grid-cols-3">
-      {Object.entries(textAnimComponents).map(([key, { title, description, component, code }]) => (
-        <div className="grid-cols-1" key={key}>
-          <BlockPreview
-            title={title}
-            description={description}
-            component={component}
-            code={code}
-          />
+    <div className="space-y-12">
+      {Object.entries(previewData.categories).map(([categoryKey, categoryData]) => (
+        <div key={categoryKey} className="space-y-6">
+          {/* Category Title */}
+          <div className="mx-16">
+            <h2 className="mb-2 text-3xl font-bold capitalize">
+              {categoryData.title}
+            </h2>
+            <p className="text-gray-600 dark:text-gray-400">
+              {categoryData.description}
+            </p>
+          </div>
+
+          {/* Components Grid */}
+          <div className="grid grid-cols-1 gap-6 mx-16">
+            {categoryData.components.map((componentData) => (
+                <div className="grid-cols-1" key={componentData.id}>
+                  <BlockPreview
+                    title={componentData.title}
+                    description={componentData.description}
+                    component={exampleComponents[componentData.id] || <div>Preview not found</div>}
+                    code={componentData.code}
+                  />
+                </div>
+            ))}
+          </div>
         </div>
       ))}
-    </div>
-    <div className="grid grid-cols-1 gap-6 mx-16 md:grid-cols-2 xl:grid-cols-3">
-      {Object.entries(tileComponents).map(([key, { title, description, component, code }]) => (
-        <div className="grid-cols-1" key={key}>
-          <BlockPreview
-            title={title}
-            description={description}
-            component={component}
-            code={code}
-          />
+
+      {/* Show message if no components found */}
+      {Object.keys(previewData.categories).length === 0 && (
+        <div className="py-12 mx-16 text-center">
+          <h3 className="mb-2 text-xl font-semibold">No Components Found</h3>
+          <p className="text-gray-600 dark:text-gray-400">
+            Run the component generator to create examples: 
+            <code className="px-2 py-1 ml-2 bg-gray-100 rounded dark:bg-gray-800">
+              node components/utils/generate-component-examples.js
+            </code>
+          </p>
         </div>
-      ))}
+      )}
     </div>
-    <div className="grid grid-cols-1 gap-6 mx-16 md:grid-cols-2 xl:grid-cols-3">
-      {Object.entries(navComponents).map(([key, { title, description, component, code }]) => (
-        <div className="grid-cols-1" key={key}>
-          {/* <BlockPreview
-            title={title}
-            description={description}
-            component={component}
-            code={code}
-          /> */}
-        </div>
-      ))}
-    </div>
-    </>
   )
 }
+

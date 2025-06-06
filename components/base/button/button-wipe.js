@@ -6,6 +6,51 @@ import PropTypes from "prop-types";
 import { useAudioControls } from "../../navigation/audio-utils";
 import { ButtonType, ButtonSound } from "./button.util";
 
+/**
+ * Button component with wipe animation effect on hover
+ * @component
+ * @category buttons
+ * @param {Object} props - Component props
+ * @param {string} props.label - Button text
+ * @param {Function} props.click - Click handler function
+ * @param {ButtonType} props.type - Button style type
+ * @param {ButtonSound} props.sound - Sound effect type
+ * @example
+ * // Default wipe button with click sound
+ * <ButtonWipe 
+ *   label="Default Wipe" 
+ *   type={ButtonType.DEFAULT} 
+ *   sound={ButtonSound.CLICK} 
+ * />
+ * @example
+ * // Primary wipe button with handler
+ * <ButtonWipe 
+ *   label="Submit Form" 
+ *   type={ButtonType.PRIMARY} 
+ *   sound={ButtonSound.CLICK}
+ * />
+ * @example
+ * // Secondary wipe button with click sound
+ * <ButtonWipe 
+ *   label="Enable Feature" 
+ *   type={ButtonType.SECONDARY} 
+ *   sound={ButtonSound.CLICK}
+ * />
+ * @example
+ * // Transparent wipe button with click sound
+ * <ButtonWipe 
+ *   label="Disable" 
+ *   type={ButtonType.TRANSPARENT} 
+ *   sound={ButtonSound.CLICK}
+ * />
+ * @example
+ * // Wipe button with custom interaction
+ * <ButtonWipe 
+ *   label="Learn More" 
+ *   type={ButtonType.SECONDARY} 
+ *   sound={ButtonSound.CLICK}
+ * />
+ */
 
 const ButtonWipe = ({ label, click, type = ButtonType.DEFAULT, sound }) => {
   const { 
@@ -145,7 +190,7 @@ const ButtonWipe = ({ label, click, type = ButtonType.DEFAULT, sound }) => {
       
             <motion.span 
             variants={child}
-            className="absolute left-0 z-10 w-full top-3 h-8"
+            className="absolute left-0 z-10 w-full h-8 top-3"
             style={getButtonHighlightStyle(ButtonType.PRIMARY)}>
            
            </motion.span>

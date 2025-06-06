@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
 import { motion, useAnimation } from "../../utils/motion";
 import PropTypes from "prop-types";
@@ -68,7 +70,18 @@ const AnimatedChar = ({ char, delay }) => {
   );
 };
 
-const TextAnimCode = ({ content }) => {
+/**
+ * @component
+ * @description Text that animates like code being typed.
+ * @category animations
+ * @param {string} content - The text content to animate.
+ * @example
+ * // Code Text Animation
+ * <TextAnimCode 
+ *   content="A __modular__, __themable__ website template for __Designers__, __Developers__ and __Agencies__."
+ * />
+ */
+export const TextAnimCode = ({ content }) => {
   const [isComplete, setIsComplete] = useState(false);
   
   // Clean the content by removing image markdown and bold formatting
@@ -178,5 +191,3 @@ const TextAnimCode = ({ content }) => {
 TextAnimCode.propTypes = {
   content: PropTypes.string.isRequired,
 };
-
-export default TextAnimCode;

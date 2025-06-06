@@ -1,27 +1,33 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import { HighlightedSegment } from "./text-anim-highlighted-segment";
-import { motion } from "framer-motion";
+import { motion, useInView } from "../../utils/motion";
 import { processItalicText } from "../utils/textFormatting";
 
 /**
- * TextAnimWordMask component
- * Renders text with a word mask animation effect
- * 
- * @param {Object} props
- * @param {number} [props.delay=0] - Base delay for animations
- * @param {string} props.content - Text content to animate
- * @param {string} [props.highlight] - Highlight color for text
- * @param {string} [props.type="text"] - Type of animation
- * @returns {JSX.Element}
+ * @component
+ * @description Text that animates with a word mask effect.
+ * @category animations
+ * @param {string} content - The text content to animate. Supports markdown-like syntax for bold and italics.
+ * @param {number} [delay=0] - The delay in seconds before the animation starts.
+ * @param {string} [highlight=background] - The highlight style to apply to emphasized text.
+ * @example
+ * // Word Mask Text Animation
+ * <TextAnimWordMask 
+ *   content="Research ![logo](//images.ctfassets.net/4v0tb3n9jpvc/wsC8KQ6aNnu16eiHY37Uc/4ca8fe7f81ce8a6670039e76976e6492/star.svg) __design__"
+ *   delay={0}
+ *   highlight="background"
+ * />
  */
-export const TextAnimWordMask = ({ 
+export const TextAnimWordMask = ({
+  content,
   delay = 0,
-  content, 
   highlight,
-  type = "text"
+  animateWhenInView = false,
 }) => {
+  const ref = useRef(null);
+
   // Animation variants
   const segmentVariants = {
     hidden: { 

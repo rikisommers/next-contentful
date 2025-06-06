@@ -93,21 +93,6 @@ export default function BlockFooter({ data }) {
 
 
 
-<ButtonMonks label={'Click Me'} type={ButtonType.PRIMARY} />
-<Button label={'Click Me'} type={ButtonType.DEFAULT} />
-<Button label={'Click Me'} type={ButtonType.PRIMARY} />
-<Button label={'Click Me'} type={ButtonType.SECONDARY} />
-<Button label={'Click Me'} type={ButtonType.TRANSPARENT} />
-
-
-
-  <ButtonWipe label={'Click Me'} type={ButtonType.DEFAULT} />
-  <ButtonWipe label={'Click Me'} type={ButtonType.PRIMARY} />
-  <ButtonWipe label={'Click Me'} type={ButtonType.SECONDARY} />
-  <ButtonWipe label={'Click Me'} type={ButtonType.TRANSPARENT} />
-<ButtonSwap label={'Click Me'} />
-
-
             {data?.ctalink && data?.cta && (
               <Link href={data.ctalink} className="no-underline">
                 <ButtonWipe label={data.cta} type={ButtonType.PRIMARY} />

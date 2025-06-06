@@ -1,11 +1,45 @@
-import React, { useState } from "react";
+"use client"
+
+import React, { useState, useRef } from "react";
 import BlendImage from "../image/blend-image";
 import Link from "next/link";
-import { motion, cubicBezier } from "../../utils/motion";;
+import { motion, cubicBezier, useInView } from "../../utils/motion";
 import FadeInWhenVisible from "../utils/fade-in-visible";
 
+/**
+ * @component
+ * @description A post tile with animated image reveal on hover.
+ * @category tiles
+ * @param {object} post - The post data object.
+ * @param {string} post.title - The title of the post.
+ * @param {string} post.subtitle - The subtitle of the post.
+ * @param {string} post.slug - The slug for the post URL.
+ * @param {string} post.color - The accent color for the tile.
+ * @param {object} post.img - The image object for the post.
+ * @param {number} index - The index of the post, used for animation delay.
+ * @param {string} size - The size of the tile.
+ * @example
+ * // Image Post Tile
+ * <PostTileImg 
+ *   post={{
+ *     title: "Project Title",
+ *     subtitle: "A brief description of the project",
+ *     slug: "project-slug",
+ *     color: "var(--accent)",
+ *     img: {
+ *       url: "https://example.com/image.jpg",
+ *       width: 800,
+ *       height: 600,
+ *       description: "Project cover image"
+ *     }
+ *   }}
+ *   index={0}
+ * />
+ * @exports PostTileImg
+ */
 export default function PostTileImg({ post, index, size }) {
   const [isHovered, setIsHovered] = useState(false); // State to track hover
+  const ref = useRef(null)
 
   return (
     <Link

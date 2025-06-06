@@ -4,18 +4,26 @@ import React, { useEffect, useState } from "react";
 import { motion } from "../../utils/motion";
 
 /**
- * Text animation component with blur effect
- * @param {Object} props - Component props
- * @param {string} props.content - The text content to animate
- * @param {number} props.delay - Delay before animation starts (in seconds)
- * @param {string} props.highlight - Highlight style for the text
- * @param {string} props.trigger - What triggers the animation: 'hover', 'inview', or 'custom'
- * @param {Function} props.onTrigger - Custom function to trigger the animation (only used when trigger='custom')
- * @param {string} props.key - Key prop passed from parent to force re-render
+ * @component
+ * @description Text that animates with a blur effect.
+ * @category animations
+ * @param {string} content - The text content to animate. Supports markdown-like syntax for bold and italics.
+ * @param {number} [delay=0] - The delay in seconds before the animation starts.
+ * @param {string} [highlight=background] - The highlight style to apply to emphasized text.
+ * @param {string} [trigger=hover] - What triggers the animation: 'hover', 'inview', or 'custom'.
+ * @param {Function} [onTrigger] - Custom function to trigger the animation (only used when trigger='custom').
+ * @param {string} [key] - Key prop passed from parent to force re-render.
+ * @example
+ * // Blur Text Animation
+ * <TextAnimBlur 
+ *   content="Research ![logo](//images.ctfassets.net/4v0tb3n9jpvc/wsC8KQ6aNnu16eiHY37Uc/4ca8fe7f81ce8a6670039e76976e6492/star.svg) __design__"
+ *   delay={0}
+ *   highlight="background"
+ * />
  */
-export const TextAnimBlur = ({ 
-  content = '', // Provide default empty string
-  delay = 0, 
+export const TextAnimBlur = ({
+  content = '',
+  delay = 0,
   highlight = "background",
   trigger = "hover",
   onTrigger,

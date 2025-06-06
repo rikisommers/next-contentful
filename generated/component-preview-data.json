@@ -1,0 +1,497 @@
+{
+  "generatedAt": "2025-06-06T12:28:58.726Z",
+  "categories": {
+    "buttons": {
+      "title": "Buttons",
+      "description": "Interactive button components with various styles and animations",
+      "components": [
+        {
+          "id": "ButtonMonks_0",
+          "title": "Default Monks button with click sound",
+          "description": "Advanced button component with Monks-style animations and effects - Default Monks button with click sound",
+          "componentName": "ButtonMonks",
+          "importPath": "../../../base/button/button-monks",
+          "category": "buttons",
+          "code": "<ButtonMonks\nlabel=\"Discover\"\ntype={ButtonType.DEFAULT}\nsound={ButtonSound.CLICK}\n/>",
+          "parsedProps": {
+            "label": "Discover",
+            "type": "DEFAULT",
+            "sound": "CLICK"
+          }
+        },
+        {
+          "id": "ButtonMonks_1",
+          "title": "Primary Monks button with interaction",
+          "description": "Advanced button component with Monks-style animations and effects - Primary Monks button with interaction",
+          "componentName": "ButtonMonks",
+          "importPath": "../../../base/button/button-monks",
+          "category": "buttons",
+          "code": "<ButtonMonks\nlabel=\"Get Started\"\ntype={ButtonType.PRIMARY}\nsound={ButtonSound.CLICK}\n/>",
+          "parsedProps": {
+            "label": "Get Started",
+            "type": "PRIMARY",
+            "sound": "CLICK"
+          }
+        },
+        {
+          "id": "ButtonMonks_2",
+          "title": "Secondary Monks button with click sound",
+          "description": "Advanced button component with Monks-style animations and effects - Secondary Monks button with click sound",
+          "componentName": "ButtonMonks",
+          "importPath": "../../../base/button/button-monks",
+          "category": "buttons",
+          "code": "<ButtonMonks\nlabel=\"Activate\"\ntype={ButtonType.SECONDARY}\nsound={ButtonSound.CLICK}\n/>",
+          "parsedProps": {
+            "label": "Activate",
+            "type": "SECONDARY",
+            "sound": "CLICK"
+          }
+        },
+        {
+          "id": "ButtonMonks_3",
+          "title": "Transparent Monks button with click sound",
+          "description": "Advanced button component with Monks-style animations and effects - Transparent Monks button with click sound",
+          "componentName": "ButtonMonks",
+          "importPath": "../../../base/button/button-monks",
+          "category": "buttons",
+          "code": "<ButtonMonks\nlabel=\"Close\"\ntype={ButtonType.TRANSPARENT}\nsound={ButtonSound.CLICK}\n/>",
+          "parsedProps": {
+            "label": "Close",
+            "type": "TRANSPARENT",
+            "sound": "CLICK"
+          }
+        },
+        {
+          "id": "ButtonMonks_4",
+          "title": "Monks button with custom content and children",
+          "description": "Advanced button component with Monks-style animations and effects - Monks button with custom content and children",
+          "componentName": "ButtonMonks",
+          "importPath": "../../../base/button/button-monks",
+          "category": "buttons",
+          "code": "<ButtonMonks\ntype={ButtonType.PRIMARY}\nsound={ButtonSound.CLICK}\n>\n<span>🚀 Launch</span>\n</ButtonMonks>\n/",
+          "parsedProps": {
+            "type": "PRIMARY",
+            "sound": "CLICK",
+            "children": "🚀 Launch"
+          }
+        },
+        {
+          "id": "ButtonSwap_0",
+          "title": "Default swap button with click sound",
+          "description": "Button component with text swap animation on hover - Default swap button with click sound",
+          "componentName": "ButtonSwap",
+          "importPath": "../../../base/button/button-swap",
+          "category": "buttons",
+          "code": "<ButtonSwap\nlabel=\"Default Swap\"\ntype={ButtonType.DEFAULT}\nsound={ButtonSound.CLICK}\n/>",
+          "parsedProps": {
+            "label": "Default Swap",
+            "type": "DEFAULT",
+            "sound": "CLICK"
+          }
+        },
+        {
+          "id": "ButtonSwap_1",
+          "title": "Primary swap button with action",
+          "description": "Button component with text swap animation on hover - Primary swap button with action",
+          "componentName": "ButtonSwap",
+          "importPath": "../../../base/button/button-swap",
+          "category": "buttons",
+          "code": "<ButtonSwap\nlabel=\"Download Now\"\ntype={ButtonType.PRIMARY}\nsound={ButtonSound.CLICK}\n/>",
+          "parsedProps": {
+            "label": "Download Now",
+            "type": "PRIMARY",
+            "sound": "CLICK"
+          }
+        },
+        {
+          "id": "ButtonSwap_2",
+          "title": "Secondary swap button with click sound",
+          "description": "Button component with text swap animation on hover - Secondary swap button with click sound",
+          "componentName": "ButtonSwap",
+          "importPath": "../../../base/button/button-swap",
+          "category": "buttons",
+          "code": "<ButtonSwap\nlabel=\"Learn More\"\ntype={ButtonType.SECONDARY}\nsound={ButtonSound.CLICK}\n/>",
+          "parsedProps": {
+            "label": "Learn More",
+            "type": "SECONDARY",
+            "sound": "CLICK"
+          }
+        },
+        {
+          "id": "ButtonSwap_3",
+          "title": "Transparent swap button with click sound",
+          "description": "Button component with text swap animation on hover - Transparent swap button with click sound",
+          "componentName": "ButtonSwap",
+          "importPath": "../../../base/button/button-swap",
+          "category": "buttons",
+          "code": "<ButtonSwap\nlabel=\"Cancel\"\ntype={ButtonType.TRANSPARENT}\nsound={ButtonSound.CLICK}\n/>",
+          "parsedProps": {
+            "label": "Cancel",
+            "type": "TRANSPARENT",
+            "sound": "CLICK"
+          }
+        },
+        {
+          "id": "ButtonSwap_4",
+          "title": "Swap button with hover interaction",
+          "description": "Button component with text swap animation on hover - Swap button with hover interaction",
+          "componentName": "ButtonSwap",
+          "importPath": "../../../base/button/button-swap",
+          "category": "buttons",
+          "code": "<ButtonSwap\nlabel=\"Hover to Swap\"\ntype={ButtonType.PRIMARY}\nsound={ButtonSound.CLICK}\n/>\n/",
+          "parsedProps": {
+            "label": "Hover to Swap",
+            "type": "PRIMARY",
+            "sound": "CLICK"
+          }
+        },
+        {
+          "id": "ButtonWipe_0",
+          "title": "Default wipe button with click sound",
+          "description": "Button component with wipe animation effect on hover - Default wipe button with click sound",
+          "componentName": "ButtonWipe",
+          "importPath": "../../../base/button/button-wipe",
+          "category": "buttons",
+          "code": "<ButtonWipe\nlabel=\"Default Wipe\"\ntype={ButtonType.DEFAULT}\nsound={ButtonSound.CLICK}\n/>",
+          "parsedProps": {
+            "label": "Default Wipe",
+            "type": "DEFAULT",
+            "sound": "CLICK"
+          }
+        },
+        {
+          "id": "ButtonWipe_1",
+          "title": "Primary wipe button with handler",
+          "description": "Button component with wipe animation effect on hover - Primary wipe button with handler",
+          "componentName": "ButtonWipe",
+          "importPath": "../../../base/button/button-wipe",
+          "category": "buttons",
+          "code": "<ButtonWipe\nlabel=\"Submit Form\"\ntype={ButtonType.PRIMARY}\nsound={ButtonSound.CLICK}\n/>",
+          "parsedProps": {
+            "label": "Submit Form",
+            "type": "PRIMARY",
+            "sound": "CLICK"
+          }
+        },
+        {
+          "id": "ButtonWipe_2",
+          "title": "Secondary wipe button with click sound",
+          "description": "Button component with wipe animation effect on hover - Secondary wipe button with click sound",
+          "componentName": "ButtonWipe",
+          "importPath": "../../../base/button/button-wipe",
+          "category": "buttons",
+          "code": "<ButtonWipe\nlabel=\"Enable Feature\"\ntype={ButtonType.SECONDARY}\nsound={ButtonSound.CLICK}\n/>",
+          "parsedProps": {
+            "label": "Enable Feature",
+            "type": "SECONDARY",
+            "sound": "CLICK"
+          }
+        },
+        {
+          "id": "ButtonWipe_3",
+          "title": "Transparent wipe button with click sound",
+          "description": "Button component with wipe animation effect on hover - Transparent wipe button with click sound",
+          "componentName": "ButtonWipe",
+          "importPath": "../../../base/button/button-wipe",
+          "category": "buttons",
+          "code": "<ButtonWipe\nlabel=\"Disable\"\ntype={ButtonType.TRANSPARENT}\nsound={ButtonSound.CLICK}\n/>",
+          "parsedProps": {
+            "label": "Disable",
+            "type": "TRANSPARENT",
+            "sound": "CLICK"
+          }
+        },
+        {
+          "id": "ButtonWipe_4",
+          "title": "Wipe button with custom interaction",
+          "description": "Button component with wipe animation effect on hover - Wipe button with custom interaction",
+          "componentName": "ButtonWipe",
+          "importPath": "../../../base/button/button-wipe",
+          "category": "buttons",
+          "code": "<ButtonWipe\nlabel=\"Learn More\"\ntype={ButtonType.SECONDARY}\nsound={ButtonSound.CLICK}\n/>\n/",
+          "parsedProps": {
+            "label": "Learn More",
+            "type": "SECONDARY",
+            "sound": "CLICK"
+          }
+        },
+        {
+          "id": "Button_0",
+          "title": "Default button with click sound",
+          "description": "Basic button component with customizable styling and sound effects - Default button with click sound",
+          "componentName": "Button",
+          "importPath": "../../../base/button/button",
+          "category": "buttons",
+          "code": "<Button\nlabel=\"Default Button\"\ntype={ButtonType.DEFAULT}\nsound={ButtonSound.CLICK}\n/>",
+          "parsedProps": {
+            "label": "Default Button",
+            "type": "DEFAULT",
+            "sound": "CLICK"
+          }
+        },
+        {
+          "id": "Button_1",
+          "title": "Primary button with click handler",
+          "description": "Basic button component with customizable styling and sound effects - Primary button with click handler",
+          "componentName": "Button",
+          "importPath": "../../../base/button/button",
+          "category": "buttons",
+          "code": "<Button\nlabel=\"Submit Form\"\ntype={ButtonType.PRIMARY}\nsound={ButtonSound.CLICK}\n/>",
+          "parsedProps": {
+            "label": "Submit Form",
+            "type": "PRIMARY",
+            "sound": "CLICK"
+          }
+        },
+        {
+          "id": "Button_2",
+          "title": "Secondary button with click sound",
+          "description": "Basic button component with customizable styling and sound effects - Secondary button with click sound",
+          "componentName": "Button",
+          "importPath": "../../../base/button/button",
+          "category": "buttons",
+          "code": "<Button\nlabel=\"Secondary Action\"\ntype={ButtonType.SECONDARY}\nsound={ButtonSound.CLICK}\n/>",
+          "parsedProps": {
+            "label": "Secondary Action",
+            "type": "SECONDARY",
+            "sound": "CLICK"
+          }
+        },
+        {
+          "id": "Button_3",
+          "title": "Transparent button with click sound",
+          "description": "Basic button component with customizable styling and sound effects - Transparent button with click sound",
+          "componentName": "Button",
+          "importPath": "../../../base/button/button",
+          "category": "buttons",
+          "code": "<Button\nlabel=\"Cancel\"\ntype={ButtonType.TRANSPARENT}\nsound={ButtonSound.CLICK}\n/>",
+          "parsedProps": {
+            "label": "Cancel",
+            "type": "TRANSPARENT",
+            "sound": "CLICK"
+          }
+        },
+        {
+          "id": "Button_4",
+          "title": "Button with children content",
+          "description": "Basic button component with customizable styling and sound effects - Button with children content",
+          "componentName": "Button",
+          "importPath": "../../../base/button/button",
+          "category": "buttons",
+          "code": "<Button\ntype={ButtonType.PRIMARY}\nsound={ButtonSound.CLICK}\n>\n<span>🚀 Launch App</span>\n</Button>\n/",
+          "parsedProps": {
+            "type": "PRIMARY",
+            "sound": "CLICK",
+            "children": "🚀 Launch App"
+          }
+        }
+      ]
+    },
+    "grid": {
+      "title": "Grid",
+      "description": "Layout grid components for organizing content with different patterns",
+      "components": [
+        {
+          "id": "GridBasic_0",
+          "title": "GridBasic Example 1",
+          "description": " - Example",
+          "componentName": "GridBasic",
+          "importPath": "../../../grid/grid-basic",
+          "category": "grid",
+          "code": "<GridBasic\nitems={[\n{\ntitle: \"Interactive Web App\",\nsubtitle: \"Modern React application with seamless user experience\",\nslug: \"interactive-web-app\",\ncolor: \"#6366f1\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Interactive web application\"\n}\n},\n{\ntitle: \"E-commerce Platform\",\nsubtitle: \"Full-stack shopping experience with modern design\",\nslug: \"ecommerce-platform\",\ncolor: \"#f59e0b\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"E-commerce platform\"\n}\n},\n{\ntitle: \"Brand Identity System\",\nsubtitle: \"Complete visual identity and brand guidelines\",\nslug: \"brand-identity-system\",\ncolor: \"#ec4899\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Brand identity system\"\n}\n},\n{\ntitle: \"Mobile App Design\",\nsubtitle: \"Native iOS and Android application interface\",\nslug: \"mobile-app-design\",\ncolor: \"#10b981\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Mobile app design\"\n}\n},\n{\ntitle: \"Dashboard Analytics\",\nsubtitle: \"Data visualization and business intelligence tool\",\nslug: \"dashboard-analytics\",\ncolor: \"#8b5cf6\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Dashboard analytics\"\n}\n}\n]}\n/>\n/",
+          "parsedProps": {
+            "gridType": "basic"
+          }
+        },
+        {
+          "id": "GridBento_0",
+          "title": "GridBento Example 1",
+          "description": " - Example",
+          "componentName": "GridBento",
+          "importPath": "../../../grid/grid-bento",
+          "category": "grid",
+          "code": "<GridBento\nitems={[\n{\ntitle: \"Creative Portfolio\",\nsubtitle: \"Showcase of artistic and creative projects\",\nslug: \"creative-portfolio\",\ncolor: \"#f97316\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Creative portfolio\"\n}\n},\n{\ntitle: \"Tech Startup Landing\",\nsubtitle: \"Modern landing page for technology company\",\nslug: \"tech-startup-landing\",\ncolor: \"#3b82f6\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Tech startup landing\"\n}\n},\n{\ntitle: \"Restaurant Website\",\nsubtitle: \"Elegant dining experience with online reservations\",\nslug: \"restaurant-website\",\ncolor: \"#dc2626\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Restaurant website\"\n}\n},\n{\ntitle: \"Fitness App Interface\",\nsubtitle: \"Health tracking and workout planning application\",\nslug: \"fitness-app-interface\",\ncolor: \"#059669\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Fitness app interface\"\n}\n},\n{\ntitle: \"Financial Dashboard\",\nsubtitle: \"Investment tracking and portfolio management\",\nslug: \"financial-dashboard\",\ncolor: \"#7c3aed\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Financial dashboard\"\n}\n}\n]}\n/>\n/",
+          "parsedProps": {
+            "gridType": "bento"
+          }
+        },
+        {
+          "id": "GridList_0",
+          "title": "GridList Example 1",
+          "description": " - Example",
+          "componentName": "GridList",
+          "importPath": "../../../grid/grid-list",
+          "category": "grid",
+          "code": "<GridList\nitems={[\n{\ntitle: \"Photography Portfolio\",\nsubtitle: \"Professional photography showcase and gallery\",\nslug: \"photography-portfolio\",\ncolor: \"#6b7280\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Photography portfolio\"\n}\n},\n{\ntitle: \"Architecture Studio\",\nsubtitle: \"Modern architectural designs and concepts\",\nslug: \"architecture-studio\",\ncolor: \"#0f172a\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Architecture studio\"\n}\n},\n{\ntitle: \"Fashion Brand Website\",\nsubtitle: \"Luxury fashion e-commerce and brand experience\",\nslug: \"fashion-brand-website\",\ncolor: \"#be185d\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Fashion brand website\"\n}\n},\n{\ntitle: \"Music Streaming App\",\nsubtitle: \"Audio streaming platform with social features\",\nslug: \"music-streaming-app\",\ncolor: \"#1d4ed8\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Music streaming app\"\n}\n},\n{\ntitle: \"Travel Blog Platform\",\nsubtitle: \"Adventure stories and destination guides\",\nslug: \"travel-blog-platform\",\ncolor: \"#059669\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Travel blog platform\"\n}\n}\n]}\n/>\n/",
+          "parsedProps": {
+            "gridType": "list"
+          }
+        },
+        {
+          "id": "GridThings_0",
+          "title": "GridThings Example 1",
+          "description": " - Example",
+          "componentName": "GridThings",
+          "importPath": "../../../grid/grid-things",
+          "category": "grid",
+          "code": "<GridThings\nitems={[\n{\ntitle: \"Digital Art Gallery\",\nsubtitle: \"Contemporary digital artwork and installations\",\nslug: \"digital-art-gallery\",\ncolor: \"#7c2d12\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Digital art gallery\"\n}\n},\n{\ntitle: \"Product Design System\",\nsubtitle: \"Comprehensive design tokens and components\",\nslug: \"product-design-system\",\ncolor: \"#1e40af\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Product design system\"\n}\n},\n{\ntitle: \"Gaming Platform UI\",\nsubtitle: \"Interactive gaming interface and user experience\",\nslug: \"gaming-platform-ui\",\ncolor: \"#991b1b\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Gaming platform UI\"\n}\n},\n{\ntitle: \"SaaS Dashboard Design\",\nsubtitle: \"Enterprise software interface and workflow\",\nslug: \"saas-dashboard-design\",\ncolor: \"#065f46\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"SaaS dashboard design\"\n}\n},\n{\ntitle: \"Non-Profit Campaign\",\nsubtitle: \"Social impact website and donation platform\",\nslug: \"non-profit-campaign\",\ncolor: \"#7e22ce\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Non-profit campaign\"\n}\n}\n]}\n/>\n/",
+          "parsedProps": {
+            "gridType": "things"
+          }
+        }
+      ]
+    },
+    "animations": {
+      "title": "Animations",
+      "description": "Animation and motion components",
+      "components": [
+        {
+          "id": "TextAnimBlur_0",
+          "title": "Blur Text Animation",
+          "description": " - Blur Text Animation",
+          "componentName": "TextAnimBlur",
+          "importPath": "../../../motion/text-anim-blur",
+          "category": "animations",
+          "code": "<TextAnimBlur\ncontent=\"Research ![logo](//images.ctfassets.net/4v0tb3n9jpvc/wsC8KQ6aNnu16eiHY37Uc/4ca8fe7f81ce8a6670039e76976e6492/star.svg) __design__\"\ndelay={0}\nhighlight=\"background\"\n/>\n/",
+          "parsedProps": {}
+        },
+        {
+          "id": "TextAnimChar_0",
+          "title": "Character Text Animation",
+          "description": " - Character Text Animation",
+          "componentName": "TextAnimChar",
+          "importPath": "../../../motion/text-anim-char",
+          "category": "animations",
+          "code": "<TextAnimChar\ncontent=\"A __modular__, __themable__ website template for __Designers__, __Developers__ and __Agencies__.\"\ndelay={0}\n/>\n/",
+          "parsedProps": {}
+        },
+        {
+          "id": "TextAnimCode_0",
+          "title": "Code Text Animation",
+          "description": " - Code Text Animation",
+          "componentName": "TextAnimCode",
+          "importPath": "../../../motion/text-anim-code",
+          "category": "animations",
+          "code": "<TextAnimCode\ncontent=\"A __modular__, __themable__ website template for __Designers__, __Developers__ and __Agencies__.\"\n/>\n/",
+          "parsedProps": {}
+        },
+        {
+          "id": "TextAnimFigma_0",
+          "title": "Figma Text Animation",
+          "description": " - Figma Text Animation",
+          "componentName": "TextAnimFigma",
+          "importPath": "../../../motion/text-anim-figma",
+          "category": "animations",
+          "code": "<TextAnimFigma\ncontent=\"Research ![logo](//images.ctfassets.net/4v0tb3n9jpvc/wsC8KQ6aNnu16eiHY37Uc/4ca8fe7f81ce8a6670039e76976e6492/star.svg) __design__\"\ndelay={0}\nhighlight=\"background\"\n/>\n/",
+          "parsedProps": {}
+        },
+        {
+          "id": "TextAnimLineFadeIn_0",
+          "title": "Line Fade Text Animation",
+          "description": " - Line Fade Text Animation",
+          "componentName": "TextAnimLineFadeIn",
+          "importPath": "../../../motion/text-anim-line-fade",
+          "category": "animations",
+          "code": "<TextAnimLineFadeIn\ncontent=\"Research ![logo](//images.ctfassets.net/4v0tb3n9jpvc/wsC8KQ6aNnu16eiHY37Uc/4ca8fe7f81ce8a6670039e76976e6492/star.svg) __design__\"\ndelay={0}\nhighlight=\"background\"\n/>\n/",
+          "parsedProps": {}
+        },
+        {
+          "id": "TextAnimLinePosUp_0",
+          "title": "Line Position Up Text Animation",
+          "description": " - Line Position Up Text Animation",
+          "componentName": "TextAnimLinePosUp",
+          "importPath": "../../../motion/text-anim-line-pos-up",
+          "category": "animations",
+          "code": "<TextAnimLinePosUp\ncontent=\"Research ![logo](//images.ctfassets.net/4v0tb3n9jpvc/wsC8KQ6aNnu16eiHY37Uc/4ca8fe7f81ce8a6670039e76976e6492/star.svg) __design__\"\ndelay={0}\nhighlight=\"background\"\n/>\n/",
+          "parsedProps": {}
+        },
+        {
+          "id": "TextAnimLinear_0",
+          "title": "Linear Text Animation",
+          "description": " - Linear Text Animation",
+          "componentName": "TextAnimLinear",
+          "importPath": "../../../motion/text-anim-linear",
+          "category": "animations",
+          "code": "<TextAnimLinear\ncontent=\"Research ![logo](//images.ctfassets.net/4v0tb3n9jpvc/wsC8KQ6aNnu16eiHY37Uc/4ca8fe7f81ce8a6670039e76976e6492/star.svg) __design__\"\ndelay={0}\nhighlight=\"background\"\n/>\n/",
+          "parsedProps": {}
+        },
+        {
+          "id": "TextAnimNavigators_0",
+          "title": "Navigators Text Animation",
+          "description": " - Navigators Text Animation",
+          "componentName": "TextAnimNavigators",
+          "importPath": "../../../motion/text-anim-navigators",
+          "category": "animations",
+          "code": "<TextAnimNavigators\ncontent=\"Research ![logo](//images.ctfassets.net/4v0tb3n9jpvc/wsC8KQ6aNnu16eiHY37Uc/4ca8fe7f81ce8a6670039e76976e6492/star.svg) __design__\"\ndelay={0}\nhighlight=\"background\"\n/>\n/",
+          "parsedProps": {}
+        },
+        {
+          "id": "TextAnimRandom_0",
+          "title": "Random Text Animation",
+          "description": " - Random Text Animation",
+          "componentName": "TextAnimRandom",
+          "importPath": "../../../motion/text-anim-random",
+          "category": "animations",
+          "code": "<TextAnimRandom\ncontent=\"Research ![logo](//images.ctfassets.net/4v0tb3n9jpvc/wsC8KQ6aNnu16eiHY37Uc/4ca8fe7f81ce8a6670039e76976e6492/star.svg) __design__\"\n/>\n/",
+          "parsedProps": {}
+        },
+        {
+          "id": "TextAnimWordMask_0",
+          "title": "Word Mask Text Animation",
+          "description": " - Word Mask Text Animation",
+          "componentName": "TextAnimWordMask",
+          "importPath": "../../../motion/text-anim-word-mask",
+          "category": "animations",
+          "code": "<TextAnimWordMask\ncontent=\"Research ![logo](//images.ctfassets.net/4v0tb3n9jpvc/wsC8KQ6aNnu16eiHY37Uc/4ca8fe7f81ce8a6670039e76976e6492/star.svg) __design__\"\ndelay={0}\nhighlight=\"background\"\n/>\n/",
+          "parsedProps": {}
+        }
+      ]
+    },
+    "tiles": {
+      "title": "Tiles",
+      "description": "tiles components",
+      "components": [
+        {
+          "id": "PostTileCs_0",
+          "title": "Case Study Post Tile",
+          "description": " - Case Study Post Tile",
+          "componentName": "PostTileCs",
+          "importPath": "../../../post/post-tile-cs",
+          "category": "tiles",
+          "code": "<PostTileCs\npost={{\ntitle: \"Project Title\",\nsubtitle: \"A brief description of the project\",\nslug: \"project-slug\",\nclient: \"Client Name\",\ndate: \"January 2023\",\ntags: [\"Web Design\", \"Development\"],\nimg: {\nurl: \"https://example.com/image.jpg\",\nwidth: 800,\nheight: 600,\ndescription: \"Project cover image\"\n}\n}}\nindex={0}\n/>\n/",
+          "parsedProps": {}
+        },
+        {
+          "id": "PostTileFunky_0",
+          "title": "Large Post Tile",
+          "description": " - Large Post Tile",
+          "componentName": "PostTileFunky",
+          "importPath": "../../../post/post-tile-funky",
+          "category": "tiles",
+          "code": "<PostTileFunky\npost={{\ntitle: \"Project Title\",\nsubtitle: \"A brief description of the project\",\nslug: \"project-slug\",\nclient: \"Client Name\",\ntags: [\"Web Design\", \"Development\"],\nimg: {\nurl: \"https://example.com/image.jpg\",\nwidth: 800,\nheight: 600,\ndescription: \"Project cover image\"\n}\n}}\nindex={0}\n/>\n/",
+          "parsedProps": {}
+        },
+        {
+          "id": "PostTileImg_0",
+          "title": "Image Post Tile",
+          "description": " - Image Post Tile",
+          "componentName": "PostTileImg",
+          "importPath": "../../../post/post-tile-img",
+          "category": "tiles",
+          "code": "<PostTileImg\npost={{\ntitle: \"Project Title\",\nsubtitle: \"A brief description of the project\",\nslug: \"project-slug\",\ncolor: \"var(--accent)\",\nimg: {\nurl: \"https://example.com/image.jpg\",\nwidth: 800,\nheight: 600,\ndescription: \"Project cover image\"\n}\n}}\nindex={0}\n/>\n/",
+          "parsedProps": {}
+        },
+        {
+          "id": "PostTileReone_0",
+          "title": "Reone Post Tile",
+          "description": " - Reone Post Tile",
+          "componentName": "PostTileReone",
+          "importPath": "../../../post/post-tile-reone",
+          "category": "tiles",
+          "code": "<PostTileReone\npost={{\ntitle: \"Project Title\",\nsubtitle: \"A brief description of the project\",\nslug: \"project-slug\",\nclient: \"Client Name\",\ndate: \"January 2023\",\ntags: [\"Web Design\", \"Development\"],\nimg: {\nurl: \"https://example.com/image.jpg\",\nwidth: 800,\nheight: 600,\ndescription: \"Project cover image\"\n}\n}}\nindex={0}\n/>\n/",
+          "parsedProps": {}
+        }
+      ]
+    }
+  }
+}

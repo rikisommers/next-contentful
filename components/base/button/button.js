@@ -6,9 +6,53 @@ import PropTypes from "prop-types";
 import { useAudioControls } from "../../navigation/audio-utils";
 import { ButtonType, ButtonSound } from "./button.util";
 
-
-
-
+/**
+ * Basic button component with customizable styling and sound effects
+ * @component
+ * @category buttons
+ * @param {Object} props - Component props
+ * @param {string} props.label - Button text
+ * @param {Function} props.click - Click handler function
+ * @param {ButtonType} props.type - Button style type (DEFAULT, PRIMARY, SECONDARY, TRANSPARENT)
+ * @param {ButtonSound} props.sound - Sound effect type (CLICK, ON, OFF)
+ * @param {React.ReactNode} props.children - Child elements
+ * @example
+ * // Default button with click sound
+ * <Button 
+ *   label="Default Button" 
+ *   type={ButtonType.DEFAULT} 
+ *   sound={ButtonSound.CLICK} 
+ * />
+ * @example
+ * // Primary button with click handler
+ * <Button
+ *   label="Submit Form"
+ *   type={ButtonType.PRIMARY}
+ *   sound={ButtonSound.CLICK}
+ * />
+ * @example
+ * // Secondary button with click sound
+ * <Button
+ *   label="Secondary Action"
+ *   type={ButtonType.SECONDARY}
+ *   sound={ButtonSound.CLICK}
+ * />
+ * @example
+ * // Transparent button with click sound
+ * <Button
+ *   label="Cancel"
+ *   type={ButtonType.TRANSPARENT}
+ *   sound={ButtonSound.CLICK}
+ * />
+ * @example
+ * // Button with children content
+ * <Button
+ *   type={ButtonType.PRIMARY}
+ *   sound={ButtonSound.CLICK}
+ * >
+ *   <span>🚀 Launch App</span>
+ * </Button>
+ */
 const Button = ({ label, click, type = ButtonType.DEFAULT, sound, children  }) => {
   const { 
     playClick, 

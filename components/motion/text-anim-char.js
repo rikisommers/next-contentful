@@ -1,92 +1,69 @@
-import React, { useRef } from "react";
-import { motion, useInView } from "../../utils/motion";;
+"use client";
 
-const TextAnimationChar = ({ content, delay = 0 }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, {
-    once: true,
-    amount: 0.2,
-  });
+import React from "react";
+import { motion } from "../../utils/motion";
 
-  const container = {
+/**
+ * @component
+ * @description Text that animates character by character with a typing effect.
+ * @category animations
+ * @param {string} content - The text content to animate. Supports markdown-like syntax for bold and italics.
+ * @param {number} [delay=0] - The delay in seconds before the animation starts.
+ * @example
+ * // Character Text Animation
+ * <TextAnimChar 
+ *   content="A __modular__, __themable__ website template for __Designers__, __Developers__ and __Agencies__."
+ *   delay={0}
+ * />
+ */
+export const TextAnimChar = ({ content, delay = 0 }) => {
+  const characters = content.split("");
+
+  const containerVariants = {
     hidden: { opacity: 0 },
-    show: {
+    visible: (i = 1) => ({
       opacity: 1,
-      transition: {
-        delay: delay,
-        staggerChildren: 0.1,
-      },
-    },
+      transition: { staggerChildren: 0.03, delayChildren: i * delay },
+    }),
   };
 
-  const character = {
+  const childVariants = {
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        damping: 12,
+        stiffness: 100,
+      },
+    },
     hidden: {
       opacity: 0,
-    },
-    show: {
-      opacity: 1,
+      y: 20,
       transition: {
-        duration: 0.6,
-        ease: [0.33, 1, 0.68, 1],
+        type: "spring",
+        damping: 12,
+        stiffness: 100,
       },
     },
   };
 
-  const imageMatch = content.match(/!\[([^\]]*)\]\((.*?)\)/); // Check for image syntax
-  if (imageMatch) {
-    const altText = imageMatch[1]; // Get alt text
-    const imageUrl = imageMatch[2].startsWith("//")
-      ? `https:${imageMatch[2]}`
-      : imageMatch[2]; // Ensure the URL is complete
-    return (
-      <motion.div
-        variants={container}
-        initial="hidden"
-        animate={isInView ? "show" : "hidden"}
-        className="relative inline-block rounded-full w-[30px] h-[30px] overflow-hidden mx-1 leading-normal bg-slate-300"
-      >
-        <img
-          src={imageUrl}
-          alt={altText}
-          style={{
-            maxWidth: "60px",
-            height: "auto",
-            display: "inline-block",
-          }} // Adjust styles as needed
-        />
-      </motion.div>
-    );
-  }
-
   return (
-    <motion.span
-      ref={ref}
-      variants={container}
+    <motion.div
+      style={{ overflow: "hidden", display: "flex", fontSize: "2rem" }}
+      variants={containerVariants}
       initial="hidden"
-      animate={isInView ? "show" : "hidden"}
+      animate="visible"
     >
-      
-      {content &&
-        content.split(" ").map((word, index) => (
-          <motion.span key={index} 
-          style={{
-            color: "var(--heading-color)",
-            display: "inline-block",
-          }}
-          >
-            {word.split("").map((letter, letterIndex) => (
-              <motion.span
-               variants={character} 
-               key={letterIndex} 
-               style={{ display: "inline-block" }}>
-                {letter}
-              </motion.span>
-            ))}
-            &nbsp;
-          </motion.span>
-        ))}
-    </motion.span>
+      {characters.map((char, index) => (
+        <motion.span
+          key={index}
+          variants={childVariants}
+          style={{ marginRight: char === " " ? "0.25rem" : "0" }}
+        >
+          {char}
+        </motion.span>
+      ))}
+    </motion.div>
   );
 };
-
-export default TextAnimationChar;

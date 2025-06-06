@@ -105,9 +105,9 @@ export default function ThemeEditor({ customThemes }) {
   }, []);
 
   // State for slider values
-  // const [colorWeight, setColorWeight] = useState(5);
-  // const [vibranceWeight, setVibrancyWeight] = useState(5);
-  // const [funkynessWeight, setFunkynessWeight] = useState(5);
+  const [colorWeight, setColorWeight] = useState(5);
+  const [vibranceWeight, setVibrancyWeight] = useState(5);
+  const [funkynessWeight, setFunkynessWeight] = useState(5);
 
   const setStyleProperties = (theme) => {
     const root = document.documentElement;
@@ -386,8 +386,56 @@ export default function ThemeEditor({ customThemes }) {
     const bestTheme = getBestTheme(metricType, value);
     if (bestTheme) {
       updateTheme(bestTheme); // Ensure this is called for vibrancy and funkyness
+      setStyleProperties(bestTheme);
+      currentThemeRef.current = bestTheme;
     }
   };
+
+  // Theme cycling functionality
+  const [isCycling, setIsCycling] = useState(false);
+  const [cyclingInterval, setCyclingInterval] = useState(null);
+  const [currentCycleIndex, setCurrentCycleIndex] = useState(0);
+
+  const startThemeCycling = () => {
+    console.log('Starting theme cycling, current isCycling:', isCycling);
+    if (isCycling) return; // Prevent multiple intervals
+
+    setIsCycling(true);
+    const themeKeys = Object.keys(presetThemes);
+    console.log('Available theme keys:', themeKeys);
+    let index = 0;
+
+    const interval = setInterval(() => {
+      const themeKey = themeKeys[index];
+      console.log('Cycling to theme:', themeKey, 'at index:', index);
+      handleThemeChange(themeKey, presetThemes);
+      setCurrentCycleIndex(index);
+      index = (index + 1) % themeKeys.length; // Loop back to start
+    }, 300); // 300ms delay between theme changes
+
+    setCyclingInterval(interval);
+    console.log('Theme cycling started with interval:', interval);
+  };
+
+  const stopThemeCycling = () => {
+    console.log('Stopping theme cycling, current interval:', cyclingInterval);
+    if (cyclingInterval) {
+      clearInterval(cyclingInterval);
+      setCyclingInterval(null);
+    }
+    setIsCycling(false);
+    setCurrentCycleIndex(0);
+    console.log('Theme cycling stopped');
+  };
+
+  // Cleanup interval on component unmount
+  useEffect(() => {
+    return () => {
+      if (cyclingInterval) {
+        clearInterval(cyclingInterval);
+      }
+    };
+  }, [cyclingInterval]);
 
   // Define controls before using it in useControls
   const controls = {
@@ -441,6 +489,29 @@ export default function ThemeEditor({ customThemes }) {
         onChange: (value) => {
         handleThemeChange(value, presetThemes);
       },
+    },
+    testCycling: button(
+      () => {
+        if (isCycling) {
+          stopThemeCycling();
+        } else {
+          startThemeCycling();
+        }
+      },
+      {
+        label: isCycling ? "🛑 Stop Cycling" : "▶️ Start Cycling"
+      }
+    ),
+    themeCycler: {
+      value: isCycling,
+      label: isCycling ? `🎰 Cycling... (${Object.keys(presetThemes)[currentCycleIndex] || ''})` : "🎰 Start Theme Cycling",
+      onChange: (value) => {
+        if (value) {
+          startThemeCycling();
+        } else {
+          stopThemeCycling();
+        }
+      }
     },
     // "Theme Selection": folder({
     //   colorWeight: {

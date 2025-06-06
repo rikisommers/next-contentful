@@ -19,19 +19,10 @@ export const ThemeProvider = ({ children, theme, customThemes }) => {
   //console.log('theme from cms',theme, customThemes) 
 
   const [isThemeDialogOpen, setIsThemeDialogOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   
-  // Initialize theme from localStorage or props
+  // Initialize theme - use fallback during SSR, localStorage after mount
   const [currentTheme, setCurrentTheme] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
-      if (savedTheme) {
-        try {
-          return JSON.parse(savedTheme);
-        } catch (e) {
-          console.error('Error parsing saved theme:', e);
-        }
-      }
-    }
     return theme || themes.pixelIntensity;
   });
 
@@ -46,8 +37,10 @@ export const ThemeProvider = ({ children, theme, customThemes }) => {
     });
   }, []);
 
-  // Load theme from localStorage on mount
+  // Load theme from localStorage after component mounts to prevent hydration mismatch
   useEffect(() => {
+    setIsMounted(true);
+    
     if (typeof window !== 'undefined') {
       const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
       if (savedTheme) {
@@ -66,7 +59,8 @@ export const ThemeProvider = ({ children, theme, customThemes }) => {
       currentTheme, 
       updateTheme, 
       isThemeDialogOpen, 
-      setIsThemeDialogOpen 
+      setIsThemeDialogOpen,
+      isMounted
     }}>
       <ThemeEditor customThemes={customThemes}/>
       {children}

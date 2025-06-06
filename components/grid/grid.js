@@ -5,6 +5,7 @@ import GridThings from "./grid-things";
 import GridBasic from "./grid-basic";
 import GridJonas from "./grid-jonas";
 import { gridThemes } from "../../utils/theme";
+import { useThemeContext } from "../context/themeContext";
 
 const getGridType = (type, data) => {
     switch (type) {
@@ -27,7 +28,15 @@ const Grid = ({
     type,
     data
 }) => {
-    return <GridThings data={data}/>
+
+
+    const { currentTheme } = useThemeContext();
+
+    console.log("data", data);
+    return <>
+    <h1>Grid</h1>
+    {currentTheme.data.cardGrid}
+    {getGridType(currentTheme.data.cardGrid, data)}</>
 };
 
 export default Grid;

@@ -5,9 +5,24 @@ import { motion, useInView, useTransform } from "../../utils/motion";;
 import { HighlightedSegment } from "./text-anim-highlighted-segment";
 import { processItalicText } from "../utils/textFormatting";
 
+/**
+ * @component
+ * @description Text that animates with a navigator-like effect.
+ * @category animations
+ * @param {string} content - The text content to animate. Supports markdown-like syntax for bold and italics.
+ * @param {number} [delay=0] - The delay in seconds before the animation starts.
+ * @param {string} [highlight=background] - The highlight style to apply to emphasized text.
+ * @example
+ * // Navigators Text Animation
+ * <TextAnimNavigators 
+ *   content="Research ![logo](//images.ctfassets.net/4v0tb3n9jpvc/wsC8KQ6aNnu16eiHY37Uc/4ca8fe7f81ce8a6670039e76976e6492/star.svg) __design__"
+ *   delay={0}
+ *   highlight="background"
+ * />
+ */
 export const TextAnimNavigators = ({
-  delay,
   content,
+  delay,
   highlight,
   animateWhenInView = false,
   repeatWhenInView = false,

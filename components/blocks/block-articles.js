@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Grid from "../grid/grid";
 import { BlockTags } from "./block-tags";
 // import { useMousePos } from "../mousePosContext"
@@ -29,6 +29,10 @@ export const BlockArticles = ({ data, tags }) => {
   const [selectedTag, setSelectedTag] = useState(null);
   const [filteredPosts, setFilteredPosts] = useState(posts);
 
+  useEffect(() => {
+    setFilteredPosts(posts);
+  }, [posts]);
+
   const handleTagClick = (tag) => {
 
     console.log(tag)
@@ -45,6 +49,8 @@ export const BlockArticles = ({ data, tags }) => {
 
   return (
       <div className="px-8 pb-8">
+                          <h1>BlockArticles {data.title}{posts.length}{filteredPosts.length}</h1>
+
       {data.filter === true && tags?.length && (
         <BlockTags
           data={tags}

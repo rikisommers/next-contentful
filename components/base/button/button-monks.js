@@ -6,6 +6,53 @@ import PropTypes from "prop-types";
 import { useAudioControls } from "../../navigation/audio-utils";
 import { ButtonType, ButtonSound } from "./button.util";
 
+/**
+ * Advanced button component with Monks-style animations and effects
+ * @component
+ * @category buttons
+ * @param {Object} props - Component props
+ * @param {string} props.label - Button text
+ * @param {Function} props.click - Click handler function
+ * @param {ButtonType} props.type - Button style type
+ * @param {ButtonSound} props.sound - Sound effect type
+ * @param {React.ReactNode} props.children - Child elements
+ * @example
+ * // Default Monks button with click sound
+ * <ButtonMonks 
+ *   label="Discover" 
+ *   type={ButtonType.DEFAULT} 
+ *   sound={ButtonSound.CLICK} 
+ * />
+ * @example
+ * // Primary Monks button with interaction
+ * <ButtonMonks 
+ *   label="Get Started" 
+ *   type={ButtonType.PRIMARY} 
+ *   sound={ButtonSound.CLICK}
+ * />
+ * @example
+ * // Secondary Monks button with click sound
+ * <ButtonMonks 
+ *   label="Activate" 
+ *   type={ButtonType.SECONDARY} 
+ *   sound={ButtonSound.CLICK}
+ * />
+ * @example
+ * // Transparent Monks button with click sound
+ * <ButtonMonks 
+ *   label="Close" 
+ *   type={ButtonType.TRANSPARENT} 
+ *   sound={ButtonSound.CLICK}
+ * />
+ * @example
+ * // Monks button with custom content and children
+ * <ButtonMonks 
+ *   type={ButtonType.PRIMARY}
+ *   sound={ButtonSound.CLICK}
+ * >
+ *   <span>🚀 Launch</span>
+ * </ButtonMonks>
+ */
 
 const ButtonMonks = ({ label, click, type = ButtonType.DEFAULT, sound }) => {
   const { 

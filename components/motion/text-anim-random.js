@@ -1,7 +1,7 @@
 "use client";
 
-import React from "react";
-import { motion } from "../../utils/motion";
+import React, { useEffect, useState } from "react";
+import { motion, useAnimation } from "../../utils/motion";
 
 // Global animation configuration variables
 const ANIMATION_CONFIG = {
@@ -17,7 +17,19 @@ const ANIMATION_CONFIG = {
   CONTAINER_DURATION: 0.3, // Duration of container animation (in seconds)
 };
 
+/**
+ * @component
+ * @description Text that animates with random character effects.
+ * @category animations
+ * @param {string} content - The text content to animate.
+ * @example
+ * // Random Text Animation
+ * <TextAnimRandom 
+ *   content="Research ![logo](//images.ctfassets.net/4v0tb3n9jpvc/wsC8KQ6aNnu16eiHY37Uc/4ca8fe7f81ce8a6670039e76976e6492/star.svg) __design__"
+ * />
+ */
 export const TextAnimRandom = ({ content }) => {
+  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
   const renderCharacter = (char, index) => {
     const delay = Math.random() * ANIMATION_CONFIG.CHAR_DELAY_MAX;

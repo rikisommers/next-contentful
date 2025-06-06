@@ -1,9 +1,44 @@
+"use client"
+
 import React, { useState } from "react";
 import BlendImage from "../image/blend-image";
 import Link from "next/link";
 import { motion } from "../../utils/motion";
 import FadeInWhenVisible from "../utils/fade-in-visible";
 
+/**
+ * @component
+ * @description A larger post tile with more prominent image and text.
+ * @category tiles
+ * @param {object} post - The post data object.
+ * @param {string} post.title - The title of the post.
+ * @param {string} post.subtitle - The subtitle of the post.
+ * @param {string} post.slug - The slug for the post URL.
+ * @param {string} post.client - The client name for the project.
+ * @param {array} post.tags - An array of tags for the post.
+ * @param {object} post.img - The image object for the post.
+ * @param {number} index - The index of the post, used for animation delay.
+ * @param {string} size - The size of the tile.
+ * @example
+ * // Large Post Tile
+ * <PostTileFunky
+ *   post={{
+ *     title: "Project Title",
+ *     subtitle: "A brief description of the project",
+ *     slug: "project-slug",
+ *     client: "Client Name",
+ *     tags: ["Web Design", "Development"],
+ *     img: {
+ *       url: "https://example.com/image.jpg",
+ *       width: 800,
+ *       height: 600,
+ *       description: "Project cover image"
+ *     }
+ *   }}
+ *   index={0}
+ * />
+ * @exports PostTileFunky
+ */
 export default function PostTileFunky({ post, index, size }) {
   const [isHovered, setIsHovered] = useState(false); // State to track hover
 
@@ -17,7 +52,7 @@ export default function PostTileFunky({ post, index, size }) {
       onMouseEnter={() => setIsHovered(true)} // Set hover state to true on mouse enter
       onMouseLeave={() => setIsHovered(false)} // Set hover state to false on mouse leave
     >
-      {/* <h1 className="absolute top-0 left-0 z-10 text-amber-200">Funky</h1> */}
+      <h1 className="absolute top-0 left-0 z-10 text-amber-200">Funky</h1>
       <div
         className="absolute flex flex-col gap-4 top-3 left-3"
         style={{
