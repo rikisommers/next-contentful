@@ -57,9 +57,16 @@ export const ThemeProvider = ({ children, initialTheme: initialThemeName, custom
 
   return (
     <ThemeContext.Provider value={{ currentTheme, updateTheme }}>
-      <h1>Current Theme: {currentTheme.data.key}</h1>
-      <MemoizedThemeEditor customThemes={customThemes}/>
-      {children}
+      <div className='grid grid-cols-[400px_1fr] w-full h-full'>
+
+        <div className='flex flex-col w-full h-full p-16'>
+          <h1>Current Theme: {currentTheme.data.key}</h1>
+          <MemoizedThemeEditor customThemes={customThemes}/>
+        </div>
+
+        {children}
+        
+      </div>
     </ThemeContext.Provider>
   );
 };

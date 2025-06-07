@@ -65,6 +65,11 @@ import { useToast } from "../components/context/toastContext";
 import ThemeTrigger from "../components/base/theme-trigger";
 import { themeControlConfig } from "./themeControlConfig";
 import { generateControlsFromConfig } from "./controlGenerators";
+import TextInput from "../components/base/form/TextInput";
+import SelectInput from "../components/base/form/SelectInput";
+import CheckboxInput from "../components/base/form/CheckboxInput";
+import ColorInput from "../components/base/form/ColorInput";
+import SliderInput from "../components/base/form/SliderInput";
 
 
 const getBestTheme = (weightType, sliderValue) => {
@@ -300,43 +305,86 @@ export default function ThemeEditor({ customThemes }) {
     }
   };
 
+  // Helper to render a control based on config
+  const renderControl = (key, config, value) => {
+    switch (config.type) {
+      case "text":
+        return (
+          <TextInput
+            key={key}
+            label={config.label}
+            value={value ?? ""}
+            onChange={val => updateThemeProp(key, val)}
+          />
+        );
+      case "select":
+        // options can be array or object
+        let options = config.options;
+        if (options && !Array.isArray(options)) {
+          options = Object.keys(options).map(optKey => ({ value: optKey, label: optKey }));
+        } else if (options && Array.isArray(options)) {
+          options = options.map(opt => (typeof opt === 'object' ? opt : { value: opt, label: opt }));
+        }
+        return (
+          <SelectInput
+            key={key}
+            label={config.label}
+            value={value ?? ((options && options[0]?.value) || "")}
+            options={options || []}
+            onChange={val => updateThemeProp(key, val)}
+          />
+        );
+      case "boolean":
+        return (
+          <CheckboxInput
+            key={key}
+            label={config.label}
+            checked={!!value}
+            onChange={val => updateThemeProp(key, val)}
+          />
+        );
+      case "color":
+        return (
+          <ColorInput
+            key={key}
+            label={config.label}
+            value={value ?? "#000000"}
+            onChange={val => updateThemeProp(key, val)}
+          />
+        );
+      case "slider":
+        console.log("Slider config", key, config, value);
+        return (
+          <SliderInput
+            key={key}
+            label={config.label}
+            value={typeof value === 'number' ? value : 0}
+            min={config.min}
+            max={config.max}
+            step={config.step}
+            onChange={val => updateThemeProp(key, val)}
+          />
+        );
+      default:
+        return null;
+    }
+  };
 
-  useControls(() => {
-    const generatedControls = generateControlsFromConfig(
-      themeControlConfig,
-      currentTheme,
-      updateThemeProp
+  // Helper to render a section
+  const renderSection = (sectionName, sectionConfig) => {
+    return (
+      <fieldset key={sectionName} style={{ marginBottom: 24, border: '1px solid #eee', padding: 12 }}>
+        <legend style={{ fontWeight: 'bold', marginBottom: 8 }}>{sectionName}</legend>
+        {Object.entries(sectionConfig).map(([key, config]) => {
+          if (config.isFolder) {
+            // Nested folder
+            return renderSection(key, config);
+          }
+          return renderControl(key, config, currentTheme.data[key]);
+        })}
+      </fieldset>
     );
-
-    return {
-      saveTheme: button(
-        () => setIsSaveModalOpen(true), 
-        { label: "Save Current Theme" }
-      ),
-      deleteTheme: button(
-        () => setIsDeleteModalOpen(true), 
-        { label: "Delete Current Theme" }
-      ),
-      custom: {
-        options: Object.keys(customThemes).map(key => customThemes[key].data.key),
-        value: currentTheme.data.key,
-        label: "Custom",
-        onChange: (value) => handleThemeChange(value, customThemes),
-      },
-      presets: {
-        options: Object.keys(presetThemes),
-        value: currentTheme.data.key,
-        label: "Presets",
-        onChange: (value) => handleThemeChange(value, presetThemes),
-      },
-      ...generatedControls,
-      save: button(
-        () => handleApply(),
-        { label: "Save Theme to Custom?" }
-      ),
-    };
-  }, [currentTheme, customThemes, updateThemeProp]);
-
+  };
 
   const handleSave = (event) => {
     event.preventDefault(); // Prevent default form submission
@@ -411,16 +459,31 @@ export default function ThemeEditor({ customThemes }) {
         </form>
       </Modal>
 
+      {/* Theme Switchers and Actions */}
+      <div style={{ display: 'flex', gap: 16, marginBottom: 24, flexWrap: 'wrap', alignItems: 'center' }}>
+        <SelectInput
+          label="Custom"
+          value={currentTheme.data.key}
+          options={Object.keys(customThemes).map(key => ({ value: customThemes[key].data.key, label: customThemes[key].data.key }))}
+          onChange={val => handleThemeChange(val, customThemes)}
+        />
+        <SelectInput
+          label="Presets"
+          value={currentTheme.data.key}
+          options={Object.keys(presetThemes).map(key => ({ value: presetThemes[key].data.key, label: presetThemes[key].data.key }))}
+          onChange={val => handleThemeChange(val, presetThemes)}
+        />
+        <ButtonWipe type={ButtonType.DEFAULT} label="Save Current Theme" onClick={() => setIsSaveModalOpen(true)} />
+        <ButtonWipe type={ButtonType.DEFAULT} label="Delete Current Theme" onClick={() => setIsDeleteModalOpen(true)} />
+        <ButtonWipe type={ButtonType.PRIMARY} label="Save Theme to Custom?" onClick={handleApply} />
+      </div>
 
-      <Leva
-        fill={false} // Make the pane fill the parent DOM node
-        flat // Remove border radius and shadow
-        oneLineLabels={false} // Alternative layout for labels
-        hideTitleBar={false} // Hide the GUI header
-        collapsed={true}
-        // Start the GUI in collapsed state
-        hidden={false} // GUI is visible by default
-      />
+      {/* Theme Controls */}
+      <form style={{ maxWidth: 800, margin: '0 auto' }}>
+        {Object.entries(themeControlConfig).map(([sectionName, sectionConfig]) =>
+          renderSection(sectionName, sectionConfig)
+        )}
+      </form>
     </>
   );
 }

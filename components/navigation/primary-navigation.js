@@ -9,13 +9,7 @@ import ButtonWipe, { ButtonType } from '../base/button/button-wipe';
 import ThemeTrigger from "../base/theme-trigger";
 //import { useScrollPosition } from "../scrollPosContext";
 import ThemeEditor from "../../utils/themeEditor";
-const TweakpaneComponent = dynamic(
-  () => import('../../utils/tweakpane'),
-  { 
-    ssr: false,
-    loading: () => <p>Loading controls...</p>
-  }
-);
+
 
 // import ThemeEditor from "../../utils/themeEditor";
 
@@ -73,16 +67,6 @@ export default function Navigation({data, logo, customThemes}) {
         >Theme Editor</ButtonWipe>
 </div>
 
-            {/* <motion.div
-        onClick={toggleThemeEditor2}
-        style={{
-          zIndex: 9999,
-          backgroundColor:'var(--body-background-color)',
-          color:'var(--accent-pri)',
-        }}
-      >
-        theme icon
-      </motion.div> */}
       <div
         ref={containerRef}
         className={`${currentTheme.data.navFixed ? "fixed h-dvh grid grid-cols-[40px_1fr_1fr_1fr_40px] grid-rows-[auto_1fr_1fr_1fr_auto]" : "absolute"} ${
@@ -112,7 +96,7 @@ export default function Navigation({data, logo, customThemes}) {
 
       </div>
 
-      {/* <Modal
+      <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         direction={ModalDirection.RIGHT}
@@ -122,7 +106,7 @@ export default function Navigation({data, logo, customThemes}) {
         <div
           className="h-svh "
         >
-              <TweakpaneComponent customThemes={customThemes}/>
+              <ThemeEditor customThemes={customThemes}/>
 
           </div>
           <h2>Hello, I'm available for work!</h2>
@@ -132,21 +116,9 @@ export default function Navigation({data, logo, customThemes}) {
           </p>
           <button onClick={() => setIsModalOpen(false)}>Close</button>
         
-      </Modal> */}
+      </Modal>
 
-      {/* <Modal
-        isOpen={isThemeDialogOpen}
-        onClose={toggleThemeEditor}
-        direction={ModalDirection.RIGHT}
-        width={ModalWidth.PANEL_SM}
-        position={ModalPosition.BOTTOM_RIGHT}
-        bodyClass="theme-dialog-open"
-      >
-        <div className="w-full h-screen overflow-y-auto">
 
-          <ButtonWipe type={ButtonType.PRIMARY} onClick={toggleThemeEditor}>Theme Editor</ButtonWipe>
-        </div>
-      </Modal> */}
     </>
   );
 }
