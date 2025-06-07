@@ -34,8 +34,6 @@ const Grid = ({
 
     console.log("data", data);
     return <>
-    <h1>Grid</h1>
-    {currentTheme.data.cardGrid}
     {getGridType(currentTheme.data.cardGrid, data)}</>
 };
 

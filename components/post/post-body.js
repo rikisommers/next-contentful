@@ -95,7 +95,6 @@ export default function PostBody({ content, tags }) {
               )}
               {item.__typename === "BlockArticles" && (
                 <ArticleWrapper>
-                  <h1>BlockArticles</h1>
                   <BlockArticles
                     key={item.id}
                     data={item}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useThemeContext } from '../context/themeContext';
+import { gridGaps, gridGapClasses } from "../../utils/theme";
 import PostTileCs from "../post/post-tile-cs";
 import PostTileLg from "../post/post-tile-funky";
 import PostTileImg from "../post/post-tile-img";
@@ -93,15 +94,14 @@ export default function GridList({
 }) {
 
   const { currentTheme } = useThemeContext();
-
+  const gapClass = gridGapClasses[currentTheme.data.gridGap] || 'gap-4';
 
   return (
     <div 
-      className={`grid-list ${className}`}
+      className={`grid-list ${className} ${gapClass}`}
       style={{
         display: 'flex',
         flexDirection: 'column',
-        gap: '2rem',
         width: '100%',
         maxWidth: '800px',
         margin: '0 auto',
@@ -118,7 +118,6 @@ export default function GridList({
             transition: 'transform 0.3s ease',
           }}
         >
-          <h1>GridList</h1>
                 {currentTheme.data.cardLayout === 'formal' && <PostTileCs post={item} />}
                 {currentTheme.data.cardLayout === 'funky' && <PostTileLg post={item} />}
                 {currentTheme.data.cardLayout === 'reone' && <PostTileRe post={item} />}

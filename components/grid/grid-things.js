@@ -1,5 +1,6 @@
 import React from "react";
 import { useThemeContext } from "../context/themeContext";
+import { gridGaps, gridGapClasses } from "../../utils/theme";
 import PostTileCs from "../post/post-tile-cs";
 import PostTileLg from "../post/post-tile-funky";
 import PostTileImg from "../post/post-tile-img";
@@ -16,13 +17,13 @@ import PostTileFunky from '../post/post-tile-funky';
  * Features hover effects and smooth transitions
  * 
  * @param {Object} props - Component props
- * @param {Array} props.data - Array of items to display in the gallery
+ * @param {Array} props.items - Array of items to display in the gallery
  * @param {string} props.className - Additional CSS classes
  * @param {Object} props.style - Inline styles
  * 
  * @example
  * <GridThings 
- *   data={[
+ *   items={[
  *     {
  *       title: "Digital Art Gallery",
  *       subtitle: "Contemporary digital artwork and installations",
@@ -86,46 +87,96 @@ import PostTileFunky from '../post/post-tile-funky';
  *   ]}
  * />
  */
-export default function GridThings({ 
-  data: items = [], 
-  className = '', 
-  style = {},
-  ...props 
+// export default function GridThings({ 
+//   items = [], 
+//   className = '', 
+//   style = {},
+//   ...props 
+// }) {
+//   return (
+//     <div 
+//       className={`grid-things ${className}`}
+//       style={{
+//         display: 'grid',
+//         gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+//         gap: '1.5rem',
+//         width: '100%',
+//         ...style
+//       }}
+//       {...props}
+//     >
+//       {items.map((item, index) => (
+//         <div
+//           key={index}
+//           style={{
+//             aspectRatio: '4/3',
+//             borderRadius: '12px',
+//             overflow: 'hidden',
+//             transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+//             cursor: 'pointer',
+//           }}
+//           onMouseEnter={(e) => {
+//             e.currentTarget.style.transform = 'translateY(-4px)';
+//             e.currentTarget.style.boxShadow = '0 12px 24px rgba(0,0,0,0.15)';
+//           }}
+//           onMouseLeave={(e) => {
+//             e.currentTarget.style.transform = 'translateY(0)';
+//             e.currentTarget.style.boxShadow = '0 4px 8px rgba(0,0,0,0.1)';
+//           }}
+//         >
+//           <PostTileFunky post={item} index={index} />
+//         </div>
+//       ))}
+//     </div>
+//   );
+// }
+
+
+export default function GridThings({
+   data,
+   className = '', 
+   style = {},
+   ...props 
 }) {
+  const { currentTheme } = useThemeContext();
+  const gapClass = gridGapClasses[currentTheme.data.gridGap] || 'gap-4';
+  const themeData = currentTheme.data;
+  
+  const colClasses = [
+    themeData.gridColumnsSm && `grid-cols-${themeData.gridColumnsSm}`,
+    themeData.gridColumnsMd && `md:grid-cols-${themeData.gridColumnsMd}`,
+    themeData.gridColumnsLg && `lg:grid-cols-${themeData.gridColumnsLg}`,
+    themeData.gridColumnsXl && `xl:grid-cols-${themeData.gridColumnsXl}`
+  ].filter(Boolean).join(' ');
+
   return (
-    <div 
-      className={`grid-things ${className}`}
-      style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-        gap: '1.5rem',
-        width: '100%',
-        ...style
-      }}
-      {...props}
-    >
-      {items.map((item, index) => (
-        <div
-          key={index}
+    <div className="@container"
           style={{
-            aspectRatio: '4/3',
-            borderRadius: '12px',
-            overflow: 'hidden',
-            transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-            cursor: 'pointer',
+            ...style
           }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'translateY(-4px)';
-            e.currentTarget.style.boxShadow = '0 12px 24px rgba(0,0,0,0.15)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.boxShadow = '0 4px 8px rgba(0,0,0,0.1)';
-          }}
-        >
-          <PostTileFunky post={item} index={index} />
-        </div>
-      ))}
+          {...props}
+    >
+      <div className={`${currentTheme.data.gridGallery === "gallery1" ? "grid-gallery" : "grid-gallery2"} ${gapClass} ${colClasses}`}>
+        {data.map((item, i) => (
+            <div key={i} className="grid__item">
+              {currentTheme.data.cardLayout === "formal" && (
+                <PostTileCs post={item} />
+              )}
+              {currentTheme.data.cardLayout === "funky" && (
+                <PostTileLg post={item} />
+              )}
+              {currentTheme.data.cardLayout === "reone" && (
+                <PostTileRe post={item} layout="col" />
+              )}
+              {currentTheme.data.cardLayout === "img" && (
+                <PostTileImg post={item} />
+              )}
+              {currentTheme.data.cardLayout === "monks" && (
+                <PostTileMonks post={item} />
+              )}
+            </div>
+        ))}
+      </div>
     </div>
   );
 }

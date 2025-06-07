@@ -1,10 +1,12 @@
 import React from "react";
 import { useThemeContext } from "../context/themeContext";
+import { gridGapClasses } from "../../utils/theme";
 import PostTileCs from "../post/post-tile-cs";
 import PostTileLg from "../post/post-tile-funky";
 import PostTileImg from "../post/post-tile-img";
 import PostTileRe from "../post/post-tile-reone";
 import PostTileMonks from "../post/post-tile-monks";
+import classNames from 'classnames';
 
 /**
  * @component
@@ -87,25 +89,41 @@ import PostTileMonks from "../post/post-tile-monks";
  */
 export default function GridBasic({ 
   data: items = [], 
-  className = '', 
-  style = {},
-  ...props 
 }) {
   const { currentTheme } = useThemeContext();
+  const gapClass = gridGapClasses[currentTheme.data.gridGap] || 'gap-4';
+
+  const gridColsSm = {
+    1: 'grid-cols-1', 2: 'grid-cols-2', 3: 'grid-cols-3',
+    4: 'grid-cols-4', 5: 'grid-cols-5', 6: 'grid-cols-6',
+  };
+
+  const gridColsMd = {
+    1: 'md:grid-cols-1', 2: 'md:grid-cols-2', 3: 'md:grid-cols-3',
+    4: 'md:grid-cols-4', 5: 'md:grid-cols-5', 6: 'md:grid-cols-6',
+  };
+
+  const gridColsLg = {
+    1: 'lg:grid-cols-1', 2: 'lg:grid-cols-2', 3: 'lg:grid-cols-3',
+    4: 'lg:grid-cols-4', 5: 'lg:grid-cols-5', 6: 'lg:grid-cols-6',
+  };
+
+  const gridColsXl = {
+    1: 'xl:grid-cols-1', 2: 'xl:grid-cols-2', 3: 'xl:grid-cols-3',
+    4: 'xl:grid-cols-4', 5: 'xl:grid-cols-5', 6: 'xl:grid-cols-6',
+  };
+
+  const gridClassName = classNames(
+    'grid',
+    gapClass,
+    gridColsSm[currentTheme.data.gridColumnsSm],
+    gridColsMd[currentTheme.data.gridColumnsMd],
+    gridColsLg[currentTheme.data.gridColumnsLg],
+    gridColsXl[currentTheme.data.gridColumnsXl],
+  );
 
   return (
-    <div 
-      className={`grid-basic ${className}`}
-      style={{
-        display: 'grid',
-        gap: '1.5rem',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))',
-        containerType: 'inline-size',
-        width: '100%',
-        ...style
-      }}
-      {...props}
-    >
+    <div className={gridClassName}>
       {items.map((item, index) => (
         <div
           key={index}
@@ -114,11 +132,12 @@ export default function GridBasic({
             transition: 'transform 0.3s ease',
           }}
         >
-               {currentTheme.data.cardLayout === 'formal' && <PostTileCs post={item} />}
-                {currentTheme.data.cardLayout === 'funky' && <PostTileLg post={item} />}
-                {currentTheme.data.cardLayout === 'reone' && <PostTileRe post={item} />}
-                {currentTheme.data.cardLayout === 'monks' && <PostTileMonks post={item} />}
-                {currentTheme.data.cardLayout === 'img' && <PostTileImg post={item} />}        </div>
+          {currentTheme.data.cardLayout === 'formal' && <PostTileCs post={item} />}
+          {currentTheme.data.cardLayout === 'funky' && <PostTileLg post={item} />}
+          {currentTheme.data.cardLayout === 'reone' && <PostTileRe post={item} />}
+          {currentTheme.data.cardLayout === 'monks' && <PostTileMonks post={item} />}
+          {currentTheme.data.cardLayout === 'img' && <PostTileImg post={item} />}
+        </div>
       ))}
     </div>
   );

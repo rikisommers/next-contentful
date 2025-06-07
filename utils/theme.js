@@ -1092,13 +1092,40 @@ const colorThemes = {
 };
 
 
-// Text Animation themes
+// Grid layout
 export const gridThemes = {
   bento1: "bento1",
   list: "list",
   basic: "basic",
   things: "things",
   jonas: "jonas",
+};
+
+
+// colums
+export const gridColumns = {
+  1: 1,
+  2: 2,
+  3: 3,
+  4: 4
+};
+
+export const gridGap = {
+  none: 0,
+  xs: 4,
+  sm: 8,
+  md: 16,
+  lg: 24,
+  xl: 32,
+};
+
+export const gridGapClasses = {
+  none: "gap-0",
+  xs: "gap-1",
+  sm: "gap-2",
+  md: "gap-4",
+  lg: "gap-6",
+  xl: "gap-8",
 };
 
 export const gridGalleryThemes = {
@@ -1430,6 +1457,11 @@ const themeContent = {
   cardHover:cardHoverThemes.none,
   cardGrid:gridThemes.bento1,
   gridGallery:gridGalleryThemes.gallery1,
+  gridColumnsSm: 2,
+  gridColumnsMd: 3,
+  gridColumnsLg: 4,
+  gridColumnsXl: 4,
+  gridGap: "md",
   imageParallax:false,
   imageTexture:imageTextureThemes.noise,
   imageTextureContrast:imageTextureContrastThemes.contrast,
@@ -1920,5 +1952,130 @@ export const themes = {
       ...colorThemes.innovativeAndAudacious,
       ...themeContent,
     },
+  },
+};
+
+export const fontSizes = {
+  12: "12px",
+  14: "14px",
+  16: "16px",
+  18: "18px",
+  20: "20px",
+  24: "24px",
+  32: "32px",
+  48: "48px",
+  64: "64px",
+};
+
+export const fontFamilies = {
+  primary: "sans-serif",
+  secondary: "serif",
+  mono: "monospace",
+};
+
+export const fontWeights = {
+  thin: 100,
+  light: 300,
+  regular: 400,
+  medium: 500,
+  bold: 700,
+  black: 900,
+};
+
+export const lineHeights = {
+  tight: 1.2,
+  normal: 1.5,
+  loose: 1.8,
+};
+
+export const letterSpacings = {
+  tight: "-0.05em",
+  normal: "0",
+  wide: "0.05em",
+};
+
+export const colors = {
+  primary: "#0070f3",
+  secondary: "#ff4081",
+  background: "#ffffff",
+  text: "#333333",
+  black: "#000000",
+  white: "#ffffff",
+};
+
+export const spacing = {
+  xs: "4px",
+  sm: "8px",
+  md: "16px",
+  lg: "32px",
+  xl: "64px",
+};
+
+export const radii = {
+  sm: "4px",
+  md: "8px",
+  lg: "16px",
+  full: "9999px",
+};
+
+export const shadows = {
+  sm: "0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)",
+  md: "0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)",
+  lg: "0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23)",
+};
+
+export const defaultTheme = {
+  data: {
+    baseFontSize: fontSizes[16],
+    fontFamily: fontFamilies.primary,
+    h1: {
+      fontSize: fontSizes[32],
+      fontWeight: fontWeights.bold,
+      lineHeight: lineHeights.tight,
+      letterSpacing: letterSpacings.tight,
+    },
+    h2: {
+      fontSize: fontSizes[24],
+      fontWeight: fontWeights.bold,
+      lineHeight: lineHeights.tight,
+      letterSpacing: letterSpacings.tight,
+    },
+    h3: {
+      fontSize: fontSizes[20],
+      fontWeight: fontWeights.bold,
+      lineHeight: lineHeights.tight,
+      letterSpacing: letterSpacings.tight,
+    },
+    body: {
+      fontSize: fontSizes[16],
+      fontWeight: fontWeights.regular,
+      lineHeight: lineHeights.normal,
+      letterSpacing: letterSpacings.normal,
+    },
+    caption: {
+      fontSize: fontSizes[12],
+      fontWeight: fontWeights.regular,
+      lineHeight: lineHeights.normal,
+      letterSpacing: letterSpacings.normal,
+    },
+    colors: {
+      background: colors.white,
+      text: colors.black,
+      primary: colors.primary,
+      accent: colors.secondary,
+    },
+    spacing: spacing.md,
+    radii: radii.md,
+    shadows: shadows.md,
+    cardLayout: "formal",
+    cardGrid: gridThemes.basic,
+    gridGallery: gridGalleryThemes.gallery1,
+    gridColumns: { sm: 2, md: 3, lg: 4, xl: 4 },
+    gridGap: "md",
+    imageParallax: false,
+    imageTexture: imageTextureThemes.noise,
+    buttonStyle: "default",
+    buttonType: "primary",
+    buttonSound: "click",
   },
 };
