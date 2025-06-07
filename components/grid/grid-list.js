@@ -98,16 +98,13 @@ export default function GridList({
 
   return (
     <div 
-      className={`grid-list ${className} ${gapClass}`}
+      className={`grid grid-auto-rows-fr ${className} ${gapClass}`}
       style={{
         display: 'flex',
         flexDirection: 'column',
         width: '100%',
-        maxWidth: '800px',
-        margin: '0 auto',
-        ...style
+
       }}
-      {...props}
     >
       {items.map((item, index) => (
         <div

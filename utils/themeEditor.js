@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { 
   themes,
   typographyThemes,
@@ -62,6 +62,9 @@ import Modal, {
 } from "../components/base/modal";
 import ButtonWipe, { ButtonType } from "../components/base/button/button-wipe";
 import { useToast } from "../components/context/toastContext";
+import ThemeTrigger from "../components/base/theme-trigger";
+import { themeControlConfig } from "./themeControlConfig";
+import { generateControlsFromConfig } from "./controlGenerators";
 
 
 const getBestTheme = (weightType, sliderValue) => {
@@ -118,109 +121,12 @@ export default function ThemeEditor({ customThemes }) {
     console.log("custom", customThemes);
     updateTheme(currentTheme);
     currentThemeRef.current = currentTheme;
-    setStyleProperties(currentTheme);
   }, []);
 
   // State for slider values
   const [colorWeight, setColorWeight] = useState(5);
   const [vibranceWeight, setVibrancyWeight] = useState(5);
   const [funkynessWeight, setFunkynessWeight] = useState(5);
-
-  const setStyleProperties = (theme) => {
-    const root = document.documentElement;
-
-    if (theme && theme.data) {
-      // Color properties
-      root.style.setProperty("--text-highlight", theme.data.textHighlight || "text");
-      root.style.setProperty("--text-animation", theme.data.textAnimation || "linesup");
-      root.style.setProperty("--text-animation-sec", theme.data.textAnimationSec || "linesup");
-      root.style.setProperty("--page-transition", theme.data.pageTransition || "fade");
-      root.style.setProperty("--page-width", theme.data.pageWidth || "large");
-
-      // Non-color theme properties
-      root.style.setProperty("--cursor", theme.data.cursor || "dot");
-
-      root.style.setProperty("--font-family-primary", theme.data.fontFamilyPrimary || "sans-serif");
-      root.style.setProperty("--font-family-secondary", theme.data.fontFamilySecondary || "sans-serif");
-
-      root.style.setProperty("--font-scale", theme.data.fontScale || 'fluid');
-      root.style.setProperty("--font-ratio-min", theme.data.fluidFontRatioMin || 1.2);
-      root.style.setProperty("--font-ratio-max", theme.data.fluidFontRatioMax || 1.25);
-      root.style.setProperty("--body-text-indent", theme.data.bodyTextIndent || "false");
-
-      // Additional properties
-      root.style.setProperty("--body-background-color", theme.data.bodyBackgroundColor || "#ffffff");
-      root.style.setProperty("--background-color", theme.data.backgroundColor || "#ffffff");
-      root.style.setProperty("--surface1", theme.data.surface1 || "#ffffff");
-      root.style.setProperty("--surface2", theme.data.surface2 || "#ffffff");
-      root.style.setProperty("--surface3", theme.data.surface3 || "#ffffff");
-      root.style.setProperty("--heading-color", theme.data.headingColor || "#000000");
-      root.style.setProperty("--text-color", theme.data.textColor || "#000000");
-      root.style.setProperty("--text-accent", theme.data.textAccent || "#000000");
-
-      root.style.setProperty("--subtext-color", theme.data.subtextColor || "#000000");
-      root.style.setProperty("--text-color-inv", theme.data.textColorInv || "#000000");
-      root.style.setProperty("--nav-bg", theme.data.navBg || "#ffffff");
-      root.style.setProperty("--accent-pri", theme.data.accentPri || "#000000");
-      root.style.setProperty("--accent-sec", theme.data.accentSec || "#000000");
-      root.style.setProperty("--accent-image-bg", theme.data.accentImageBg || "#000000");
-      
-      root.style.setProperty("--grad-start", theme.data.gradStart || "#000000");
-      root.style.setProperty("--grad-stop", theme.data.gradStop || "#000000");
-
-      // Audio properties
-      root.style.setProperty("--audio-enabled", theme.data.audioEnabled || "false");
-      root.style.setProperty("--audio-volume", theme.data.audioVolume || 1);
-
-      // Navigation properties
-      root.style.setProperty("--nav-position", theme.data.navPosition || "topCenter");
-      root.style.setProperty("--nav-style", theme.data.navStyle || "solid");
-      root.style.setProperty("--nav-theme", theme.data.navTheme || "applause");
-      root.style.setProperty("--nav-floating", theme.data.navFloating || "false");
-      root.style.setProperty("--nav-fixed", theme.data.navFixed || "false");
-      root.style.setProperty("--nav-border", theme.data.navBorder || "none");
-      root.style.setProperty("--nav-shadow", theme.data.navShadow || "none");
-      root.style.setProperty("--nav-shadow-color", theme.data.navShadowColor || "#000000");
-      root.style.setProperty("--nav-shadow-size", theme.data.navShadowSize || "0px");
-      root.style.setProperty("--nav-label-display", theme.data.navLabelDisplay || "icons");
-      // Hero properties
-      root.style.setProperty("--hero-height", theme.data.heroHeight || heroHeightThemes.full);
-      root.style.setProperty("--hero-type", theme.data.heroType || heroTypeThemes.monks);
-      root.style.setProperty("--hero-background-style", theme.data.heroBackgroundStyle || heroBackgroundThemes.gradient);
-      root.style.setProperty("--hero-css-gradient", theme.data.heroCssGradient || heroCssGradientThemes.linearVertical);
-      root.style.setProperty("--hero-css-gradient-angle", theme.data.heroCssGradientAngle || '90');
-      root.style.setProperty("--hero-css-gradient-radial-position", theme.data.heroCssGradientRadialPosition || heroCssGradientRadialPositionThemes.center);
-      root.style.setProperty("--hero-grad-mid-point", theme.data.heroGradMidPoint || 0.5);
-      root.style.setProperty("--hero-text-image-style", theme.data.heroTextImageStyle || heroTextImageThemes.inline);
-      root.style.setProperty("--hero-text-position", theme.data.heroTextPosition || heroTextPositionThemes.bottomLeft);
-      root.style.setProperty("--hero-text-composition", theme.data.heroTextComposition || heroTextCompositionThemes.foo);
-      root.style.setProperty("--text-highlight-outline", theme.data.textHighlightOutline || textHighlightOutlineThemes.none);
-      root.style.setProperty("--text-highlight-outline-neumorphic-start-color", theme.data.textHighlightOutlineNeumorphicStartColor || '#FFFFFF');
-      root.style.setProperty("--text-highlight-outline-neumorphic-end-color", theme.data.textHighlightOutlineNeumorphicEndColor || '#000000');
-      root.style.setProperty("--text-animation", theme.data.textAnimation || textAnimationThemes.navigators);
-      root.style.setProperty("--text-animation-sec", theme.data.textAnimation || textAnimationThemes.navigators);
-
-      // Grid properties
-      root.style.setProperty("--card-layout", theme.data.cardLayout || "default");
-      root.style.setProperty("--card-hover", theme.data.cardHover || "none");
-      root.style.setProperty("--card-grid", theme.data.cardGrid || "bento1");
-      root.style.setProperty("--grid-columns-sm", theme.data.gridColumnsSm || 2);
-      root.style.setProperty("--grid-columns-md", theme.data.gridColumnsMd || 3);
-      root.style.setProperty("--grid-columns-lg", theme.data.gridColumnsLg || 4);
-      root.style.setProperty("--grid-columns-xl", theme.data.gridColumnsXl || 6);
-      root.style.setProperty("--grid-gap", theme.data.gridGap || "md");
-      root.style.setProperty("--grid-gallery", theme.data.gridGallery || "gallery1");
-
-      // Image properties
-      root.style.setProperty("--image-parallax", theme.data.imageParallax || false);
-      root.style.setProperty("--image-mix-blend-mode", theme.data.imageMixBlendMode || "normal");
-      root.style.setProperty("--image-texture", theme.data.imageTexture || "none");
-      root.style.setProperty("--image-texture-contrast", theme.data.imageTextureContrast || "100%");
-      root.style.setProperty("--image-texture-brightness", theme.data.imageTextureBrightness || "100%");
-    } else {
-      console.warn("Theme is not defined. Exiting setStyleProperties.");
-    }
-  };
 
   const setSingleStyleProperty = (key, value) => {
     const root = document.documentElement;
@@ -233,7 +139,7 @@ export default function ThemeEditor({ customThemes }) {
   // Live udates to the current theme.
   // These changes will be lost on global theme change
   // Save as custom thmeme to retain changes
-  const updateThemeProp = (key, value) => {
+  const updateThemeProp = useCallback((key, value) => {
     // This ref is used to store temp/live changes until save
     const { data, ...rest } = currentThemeRef.current; // Destructure to get data and rest
 
@@ -246,38 +152,24 @@ export default function ThemeEditor({ customThemes }) {
     };
 
     currentThemeRef.current = mergedTheme; // Update the ref with the new merged theme
-    setStyleProperties(mergedTheme); // Uncomment if you want to apply styles immediately
-    //setSingleStyleProperty(key, value); // Update the specific style property
+    setSingleStyleProperty(key, value); // Update the specific style property
     updateTheme(mergedTheme); // Update the theme in your state or context
 
     // console.log('-------merged-', mergedTheme);
     // console.log('-------current-', currentThemeRef.current);
     // console.log('-------current3-', currentTheme);
-  };
+  }, [updateTheme]);
 
   const handleThemeChange = (e, target) => {
     const selectedThemeKey = e;
 
-    console.log("key:", e);
-    // console.log("source:", target);
-    // Convert presetThemes object to an array and find the selected theme
     const selectedTheme = Object.values(target).find(
       (theme) => theme.data.key === selectedThemeKey
     );
-    //console.log('Available theme keys:', Object.values(target).map(theme => theme.data.key));
-
 
     if (selectedTheme) {
-      // Do something with the selected theme
       updateTheme(selectedTheme);
-      setStyleProperties(selectedTheme);
-
-      // Update the current theme reference only
       currentThemeRef.current = selectedTheme;
-      // console.log("Selected theme:", selectedTheme);
-      // console.log('Selected theme key:', selectedThemeKey);
-    } else {
-      console.error("Theme not found for key:", selectedThemeKey);
     }
   };
 
@@ -404,671 +296,47 @@ export default function ThemeEditor({ customThemes }) {
     const bestTheme = getBestTheme(metricType, value);
     if (bestTheme) {
       updateTheme(bestTheme); // Ensure this is called for vibrancy and funkyness
-      setStyleProperties(bestTheme);
       currentThemeRef.current = bestTheme;
     }
   };
 
-  // Theme cycling functionality
-  const [isCycling, setIsCycling] = useState(false);
-  const [cyclingInterval, setCyclingInterval] = useState(null);
-  const [currentCycleIndex, setCurrentCycleIndex] = useState(0);
 
-  const startThemeCycling = () => {
-    console.log('Starting theme cycling, current isCycling:', isCycling);
-    if (isCycling) return; // Prevent multiple intervals
+  useControls(() => {
+    const generatedControls = generateControlsFromConfig(
+      themeControlConfig,
+      currentTheme,
+      updateThemeProp
+    );
 
-    setIsCycling(true);
-    const themeKeys = Object.keys(presetThemes);
-    console.log('Available theme keys:', themeKeys);
-    let index = 0;
-
-    const interval = setInterval(() => {
-      const themeKey = themeKeys[index];
-      console.log('Cycling to theme:', themeKey, 'at index:', index);
-      handleThemeChange(themeKey, presetThemes);
-      setCurrentCycleIndex(index);
-      index = (index + 1) % themeKeys.length; // Loop back to start
-    }, 300); // 300ms delay between theme changes
-
-    setCyclingInterval(interval);
-    console.log('Theme cycling started with interval:', interval);
-  };
-
-  const stopThemeCycling = () => {
-    console.log('Stopping theme cycling, current interval:', cyclingInterval);
-    if (cyclingInterval) {
-      clearInterval(cyclingInterval);
-      setCyclingInterval(null);
-    }
-    setIsCycling(false);
-    setCurrentCycleIndex(0);
-    console.log('Theme cycling stopped');
-  };
-
-  // Cleanup interval on component unmount
-  useEffect(() => {
-    return () => {
-      if (cyclingInterval) {
-        clearInterval(cyclingInterval);
-      }
+    return {
+      saveTheme: button(
+        () => setIsSaveModalOpen(true), 
+        { label: "Save Current Theme" }
+      ),
+      deleteTheme: button(
+        () => setIsDeleteModalOpen(true), 
+        { label: "Delete Current Theme" }
+      ),
+      custom: {
+        options: Object.keys(customThemes).map(key => customThemes[key].data.key),
+        value: currentTheme.data.key,
+        label: "Custom",
+        onChange: (value) => handleThemeChange(value, customThemes),
+      },
+      presets: {
+        options: Object.keys(presetThemes),
+        value: currentTheme.data.key,
+        label: "Presets",
+        onChange: (value) => handleThemeChange(value, presetThemes),
+      },
+      ...generatedControls,
+      save: button(
+        () => handleApply(),
+        { label: "Save Theme to Custom?" }
+      ),
     };
-  }, [cyclingInterval]);
+  }, [currentTheme, customThemes, updateThemeProp]);
 
-  // Define controls before using it in useControls
-  const controls = {
-    //   themeName: {
-    //     value: themeName,
-    //     label: "Name",
-    //     onChange: (value) => { // Use onChange instead of onInput
-    //         console.log("Theme Name Updated:", value); // Debugging log
-    //         setThemeName(value); // Ensure this updates the state
-    //     },
-    // },
-    // themeKey: {
-    //     value: themeKey,
-    //     label: "Key",
-    //     onChange: (value) => { // Use onChange instead of oninput
-    //         console.log("Theme Key Updated:", value); // Debugging log
-    //         setThemeKey(value); // Ensure this updates the state
-    //     },
-    // },
-    saveTheme: button(
-      () => {
-        setIsSaveModalOpen(true);
-        // Call saveNewTheme with the latest values
-      },
-      {
-        label: "Save Current Theme",
-      }
-    ),
-
-    deleteTheme: button(
-      () => {
-        setIsDeleteModalOpen(true);
-        // Call saveNewTheme with the latest values
-      },
-      {
-        label: "Delete Current Theme",
-      }
-    ),
-    custom: {
-      options: Object.keys(customThemes).map(key => customThemes[key].data.key), // Map to get the data.key
-      value: customThemes[0].data.key || '',
-      label: "Custom",
-        onChange: (value) => {
-        handleThemeChange(value, customThemes);
-      },
-    },
-    presets: {
-      options: Object.keys(presetThemes),
-      value: currentTheme.data.key,
-      label: "Presets",
-        onChange: (value) => {
-        handleThemeChange(value, presetThemes);
-      },
-    },
-    testCycling: button(
-      () => {
-        if (isCycling) {
-          stopThemeCycling();
-        } else {
-          startThemeCycling();
-        }
-      },
-      {
-        label: isCycling ? "🛑 Stop Cycling" : "▶️ Start Cycling"
-      }
-    ),
-    themeCycler: {
-      value: isCycling,
-      label: isCycling ? `🎰 Cycling... (${Object.keys(presetThemes)[currentCycleIndex] || ''})` : "🎰 Start Theme Cycling",
-      onChange: (value) => {
-        if (value) {
-          startThemeCycling();
-        } else {
-          stopThemeCycling();
-        }
-      }
-    },
-    // "Theme Selection": folder({
-    //   colorWeight: {
-    //     value: colorWeight,
-    //     min: 1,
-    //     max: 10,
-    //     label: "Color Weight",
-    //     onChange: (value) => {
-    //       handleWeightChange(value);
-    //       // updateCurrentTheme(); // Call to update the theme based on new weight
-    //     },
-    //   },
-    //   vibranceWeight: {
-    //     value: vibranceWeight,
-    //     min: 1,
-    //     max: 10,
-    //     label: "Vibrance Weight",
-    //     onChange: (value) => {
-    //       handleWeightChange(value);
-    //       // updateCurrentTheme(); // Call to update the theme based on new weight
-    //     },
-    //   },
-    //   funkynessWeight: {
-    //     value: funkynessWeight,
-    //     min: 1,
-    //     max: 10,
-    //     label: "Funkyness Weight",
-    //     onChange: (value) => {
-    //       handleWeightChange(value);
-    //       //   updateCurrentTheme(); // Call to update the theme based on new weight
-    //     },
-    //   },
-    // }),
-    Audio: folder({
-      collapsed:true,
-      audio: { 
-        value: currentTheme.data.audioEnabled,
-        label: "Audio",
-        onChange: (value) => updateThemeProp("audioEnabled", value),
-      },
-      volume: { 
-        value: currentTheme.data.audioVolume,
-        min: 0, 
-        max: 1, 
-        step: 0.1, 
-        label: "Volume",
-        onChange: (value) => updateThemeProp("audioVolume", value), // Call existing handler
-      },
-    }),
-    Globals: folder({
-      collapsed:true,
-      pageWidth: { 
-        options: Object.keys(pageWidthThemes), 
-        value: currentTheme.data.pageWidth,
-        label: "Page Width",
-        onChange: (value) => updateThemeProp("pageWidth", value), // Call existing handler
-      },
-      cursor: { 
-        options: Object.keys(cursorThemes), 
-        value: currentTheme.data.cursor,
-        label: "Cursor",
-        onChange: (value) => updateThemeProp("cursor", value), // Call existing handler
-      },
-      pageTransition: { 
-        options: Object.keys(pageTransitionThemes), 
-        value: currentTheme.data.pageTransition,
-        label: "Page Transition",
-        onChange: (value) => updateThemeProp("pageTransition", value), // Call existing handler
-      },
-      grid: { 
-        options: Object.keys(gridThemes), 
-        value: currentTheme?.data?.cardGrid || "basic",
-        label: "grid",
-        onChange: (value) => updateThemeProp("cardGrid", value),
-      },
-      gridColumnsSm: { 
-        options: gridColumns, 
-        value: currentTheme?.data?.gridColumnsSm || 2,
-        label: "Sm",
-        onChange: (value) => updateThemeProp("gridColumnsSm", value),
-      },
-      gridColumnsMd: { 
-        options: gridColumns, 
-        value: currentTheme?.data?.gridColumnsMd || 3,
-        label: "Md",
-        onChange: (value) => updateThemeProp("gridColumnsMd", value),
-      },
-      gridColumnsLg: { 
-        options: gridColumns, 
-        value: currentTheme?.data?.gridColumnsLg || 4,
-        label: "Lg",
-        onChange: (value) => updateThemeProp("gridColumnsLg", value),
-      },
-      gridColumnsXl: { 
-        options: gridColumns, 
-        value: currentTheme?.data?.gridColumnsXl || 4,
-        label: "Xl",
-        onChange: (value) => updateThemeProp("gridColumnsXl", value),
-      },
-      gridGap: { 
-        options: Object.keys(gridGap), 
-        value: currentTheme?.data?.gridGap || "md",
-        label: "gridGap",
-        onChange: (value) => updateThemeProp("gridGap", value),
-      },
-      gridGallery: {
-        options: Object.keys(gridGalleryThemes),
-        value: currentTheme?.data?.gridGallery || "gallery1",
-        label: "gridGallery",
-        onChange: (value) => updateThemeProp("gridGallery", value),
-      },
-    }),
-    Typography: folder({
-      collapsed:true,
-      textAnimation: { 
-        options: Object.keys(textAnimationThemes), 
-        value: currentTheme.textAnimation, 
-        label: "Text Animation",
-        onChange: (value) => updateThemeProp("textAnimation", value), // Call existing handler
-      },
-      textAnimationSec: { 
-        options: Object.keys(textAnimationThemes), 
-        value: currentTheme.data.textAnimationSec,
-        label: "Text Anim Sec",
-        onChange: (value) => updateThemeProp("textAnimationSec", value), // Call existing handler
-      },
-      fontFamilyPrimary: { 
-        options: Object.values(typographyThemes), 
-        value: currentTheme.data.fontFamilyPrimary,
-        label: "Font Family Primary",
-        onChange: (value) => updateThemeProp("fontFamilyPrimary", value), // Call existing handler
-      },
-      fontFamilySecondary: { 
-        options: Object.values(typographyThemes), 
-        value: currentThemeRef.fontFamilySecondary,
-        label: "Font Family Secondary",
-        onChange: (value) => updateThemeProp("fontFamilySecondary", value), // Call existing handler
-      },
-      
-      
-      
-      fontScale: {
-        options: Object.keys(fontScaleThemes),
-        value: currentTheme.data.fontScale,
-        label: "Scale",
-        onChange: (value) => updateThemeProp("fontScale", value), // Call existing handler
-      },
-
-
-
-      fontSizeMax: {
-        value: currentTheme.data.fluidFontRatioMax,
-          min: 0, 
-          max: 1.3, 
-          step: 0.01, 
-        label: "Fluid Max",
-        onChange: (value) => updateThemeProp("fluidFontRatioMax", value), // Call existing handler
-      },
-      fontSizeMin: {
-        value: currentTheme.data.fluidFontRatioMin,
-        min: 0, 
-        max: 1.3, 
-        step: 0.01, 
-        label: "Fluid Min",
-        onChange: (value) => updateThemeProp("fluidFontRatioMin", value), // Call existing handler
-    },
-      textHighlight: { 
-        options: Object.values(textHighlightThemes), 
-        value: currentTheme.data.textHighlight || 'figma',
-        label: "Text Highlight",
-        onChange: (value) => updateThemeProp("textHighlight", value), // Call existing handler
-      },
-      textHighlightOutline: {
-        options: Object.values(textHighlightOutlineThemes),
-        value: currentTheme?.data?.textHighlightOutline || 'none',
-        label: "Text Highlight Outline",
-        onChange: (value) => updateThemeProp("textHighlightOutline", value), // Call existing handler
-      },
-      // textHighlightOutlineNeumorphicSize: {
-      //   type: 'slider',
-      //   min: 0,
-      //   max: 100,
-      //   step: 1,
-      //   value: currentTheme?.data?.textHighlightOutlineNeumorphicSize || 0,
-      //   label: "Text Highlight Outline Neumorphic Size",
-      //   onChange: (value) => updateThemeProp("textHighlightOutlineNeumorphicSize", Number(value)), // Convert to number
-      // },
-      // textHighlightOutlineNeumorphicStartColor: {
-      //   type: 'color',
-      //   value: currentTheme?.data?.textHighlightOutlineNeumorphicStartColor || '#ffffff',
-      //   label: "Text Highlight Outline Neumorphic Start Color",
-      //   onChange: (value) => updateThemeProp("textHighlightOutlineNeumorphicStartColor", value),
-      // },
-      // textHighlightOutlineNeumorphicEndColor: {
-      //   type: 'color',
-      //   value: currentTheme?.data?.textHighlightOutlineNeumorphicEndColor || '#000000',
-      //   label: "Text Highlight Outline Neumorphic End Color",
-      //   onChange: (value) => updateThemeProp("textHighlightOutlineNeumorphicEndColor", value),
-      // },
-      
-      
-      "Body Text": folder({
-        dropCap: { 
-          value: currentTheme.data.bodyTextDropCap, // Default to false
-          label: "Drop Cap",
-          onChange: (value) => updateThemeProp("bodyTextDropCap", value), // Update handler
-        },
-        indent: { 
-          value: currentTheme.data.bodyTextIndent, // Default to false
-          label: "Indent",
-          onChange: (value) => updateThemeProp("bodyTextIndent", value), // Update handler
-        },
-        highlight: { 
-          value: currentTheme?.data?.bodyTextHighlight || 'figma', // Default to false
-          label: "Highlight",
-          onChange: (value) => updateThemeProp("bodyTextHighlight", value), // Update handler
-        },
-       align: { 
-          value: currentTheme.data.bodyTextAlign, // Default to false
-          options: Object.values(bodyTextAlign), 
-          label: "Align",
-          onChange: (value) => updateThemeProp("bodyTextAlign", value), // Update handler
-        },
-      }),
-    }),
-    Navigation: folder({
-      collapsed:true,
-      navigationPosition: { 
-        options: Object.keys(navigationPositionThemes), 
-        value: currentTheme?.data?.navPosition || "topCenter",
-        label: "Position",
-        onChange: (value) => updateThemeProp("navPosition", value),
-      },
-      navigationStyle: { 
-        options: Object.keys(navigationStyleThemes), 
-        value: currentTheme.data.navStyle,
-        label: "Style",
-        onChange: (value) => updateThemeProp("navStyle", value),
-      },
-      navigationTheme: { 
-        options: Object.keys(navigationThemes), 
-        value: currentTheme.data.navTheme,
-        label: "Theme",
-        onChange: (value) => updateThemeProp("navTheme", value),
-      },
-      labelDisplay: {
-        options: Object.keys(navigationOptions?.labelDisplay),
-        value: currentTheme?.data?.navLabelDisplay || "icons",
-        label: "Label Display",
-        onChange: (value) => updateThemeProp("navLabelDisplay", value),
-      },
-      floating: { 
-        value: currentTheme.data.navFloating,
-        label: "floating",
-        onChange: (value) => updateThemeProp("navFloating", value),
-      },
-      fixed: { 
-        value: currentTheme.data.navFixed,
-        label: "fixed",
-        onChange: (value) => updateThemeProp("navFixed", value),
-      },
-      // logoFill: { 
-      //   value: currentTheme.data.logoFill,
-      //   label: 'logo fill',
-      //   onChange: (value) => updateThemeProp('logoFill',  value )
-      // },
-      border: { 
-        value: currentTheme.data.navBorder,
-        label: "border",
-        onChange: (value) => updateThemeProp("navBorder", value),
-      },
-      shadow: { 
-        value: currentTheme.data.navShadow,
-        label: "shadow",
-        onChange: (value) => updateThemeProp("navShadow", value),
-      },
-      shadowColor: { 
-        value: currentTheme.data.navShadowColor,
-        label: "shadow color",
-        onChange: (value) => updateThemeProp("navShadowColor", value),
-      },
-      shadowSize: { 
-        options: Object.keys(navigationOptions?.shadowSize), 
-        value: currentTheme.data.navShadowSize,
-        label: "sahdow size",
-        onChange: (value) => updateThemeProp("navShadowSize", value),
-      },
-    }),
-    Footer: folder({
-      footerFixed: {
-        value: currentTheme.data.footerFixed,
-        label: "fixed",
-        onChange: (value) => updateThemeProp("footerPosition", value),
-      },
-    }),
-    Hero: folder({
-      collapsed:true,
-        height: { 
-          options: Object.keys(heroHeightThemes), 
-        value: currentTheme.data.heroHeight,
-        label: "Height",
-        onChange: (value) => updateThemeProp("heroHeight", value),
-        },
-        heroType: { 
-          options: Object.keys(heroTypeThemes), 
-        value: currentTheme.data.heroType,
-        label: "Type",
-        onChange: (value) => updateThemeProp("heroType", value),
-        },
-        heroBackgroundStyle: { 
-          options: Object.keys(heroBackgroundThemes), 
-        value: currentTheme.data.heroBackgroundStyle,
-        label: "Bg",
-        onChange: (value) => updateThemeProp("heroBackgroundStyle", value),
-      },
-      heroCssGradient: {
-        options: Object.keys(heroCssGradientThemes),
-        value: currentTheme.data.heroCssGradient || heroCssGradientThemes.linear,
-        label: "Css Gradient type",
-        onChange: (value) => updateThemeProp("heroCssGradient", value),
-      },
-        heroCssGradientAngle: {
-          value: currentTheme.data.heroCssGradientAngle || 45,
-          min: 0,
-          max: 180,
-          step: 1,
-          label: "Css Gradient Angle",
-          onChange: (value) => updateThemeProp("heroCssGradientAngle", value),
-          onEditStart: () => {}, // Empty function to enable continuous updates
-          joystick: false, // Disable joystick mode for more precise control
-          transient: true, // Enable real-time updates as the user drags
-        },
-      heroCssGradientRadialPosition: {
-        options: Object.keys(heroCssGradientRadialPositionThemes),
-        value: currentTheme.data.heroCssGradientRadialPosition,
-        label: "Css Gradient Radial Position",
-        onChange: (value) => updateThemeProp("heroCssGradientRadialPosition", value),
-        },
-        heroGradMidPoint: { 
-        value: currentTheme.data.heroGradMidPoint,
-          min: 0, 
-          max: 1, 
-          step: 0.1, 
-        label: "Gradient Mid Point",
-        onChange: (value) => updateThemeProp("heroGradMidPoint", value),
-        },
-        heroTextImageStyle: { 
-          options: Object.keys(heroTextImageThemes), 
-        value: currentTheme.data.heroTextImageStyle,
-        label: "Images",
-        onChange: (value) => updateThemeProp("heroTextImageStyle", value),
-        },
-        heroTextLayoutStyle: { 
-          options: Object.keys(heroTextPositionThemes), 
-        value: currentTheme.data.heroTextPosition || "bottom-left",
-        label: "TextLayout",
-        onChange: (value) => updateThemeProp("heroTextPosition", value),
-        },
-        heroTextCompStyle: { 
-          options: Object.keys(heroTextCompositionThemes), 
-        value: currentTheme.data.heroTextComposition,
-        label: "Compo",
-        onChange: (value) => updateThemeProp("heroTextPosition", value),
-      },
-    }),
-    Cards: folder({
-      collapsed:true,
-      layout: { 
-        options: Object.keys(cardThemes), 
-        value: currentTheme.data.cardLayout || "reone",
-        label: "layout",
-        onChange: (value) => updateThemeProp("cardLayout", value),
-      },
-      hover: { 
-        options: Object.keys(cardHoverThemes), 
-        value: currentTheme.data.cardHover,
-        label: "hover",
-        onChange: (value) => updateThemeProp("cardHover", value),
-      },
-    }),
-    Images: folder({
-      parallax: { 
-        value: currentTheme?.data?.imageParallax || false,
-        label: "parallax",
-        onChange: (value) => updateThemeProp("imageParallax", value),
-      },
-      mixBlendMode: { 
-        options: Object.keys(mixBlendThemes), 
-        value: currentTheme.data.imageMixBlendMode || "normal",
-        label: "Blend Mode",
-        onChange: (value) => updateThemeProp("imageMixBlendMode", value),
-      },
-      imageTexture: { 
-        options: Object.keys(imageTextureThemes), 
-        value: currentTheme.data.imageTexture || "none",
-        label: "Texture",
-        onChange: (value) => updateThemeProp("imageTexture", value),
-      },
-      imageTextureContrast: {
-        value: Number(currentTheme.data.imageTextureContrast) || 100,
-        min: 0,
-        max: 1000,
-        step: 1,
-        label: "Contrast",
-        onChange: (value) => {
-          console.log('Contrast changed:', value);
-          // Make sure to append % to the value
-          updateThemeProp("imageTextureContrast", `${value}%`);
-        },
-        onEditStart: () => {}, // Empty function to enable continuous updates
-        joystick: false, // Disable joystick mode for more precise control
-        transient: true, // Enable real-time updates as the user drags
-      },
-      imageTextureBrightness: {
-        value: Number(currentTheme.data.imageTextureBrightness) || 100,
-        min: 0,
-        max: 1000,
-        step: 1,
-        label: "Brightness",
-        onChange: (value) => {
-          console.log('Brightness changed:', value);
-          // Make sure to append % to the value
-          updateThemeProp("imageTextureBrightness", `${value}%`);
-        },
-        onEditStart: () => {}, // Empty function to enable continuous updates
-        joystick: false, // Disable joystick mode for more precise control
-        transient: true, // Enable real-time updates as the user drags
-      },
-    }),
-    Color: folder({
-      
-      accentPri: {
-        value: currentTheme.data.accentPri,
-        label: "Accent Primary",
-        onChange: (newValue) => updateThemeProp("accentPri", newValue),
-      },
-      accentSec: {
-        value: currentTheme.data.accentSec,
-        label: "Accent Secondary",
-        onChange: (newValue) => updateThemeProp("accentSec", newValue),
-      },
-      accentImage: {
-        value: currentTheme.data.accentImageBg,
-        label: "asdasd",
-        onChange: (newValue) => updateThemeProp("accentImageBg", newValue),
-      },
-      backgroundColor: {
-        value: currentTheme.data.backgroundColor,
-        label: "Background Color",
-        onChange: (newValue) => updateThemeProp("backgroundColor", newValue),
-      },
-      backgroundColorInv: {
-        value: currentTheme.data.backgroundColorInv,
-        label: "Background Color Inverted",
-        onChange: (newValue) => updateThemeProp("backgroundColorInv", newValue),
-      },
-      bodyBackgroundColor: {
-        value: currentTheme.data.bodyBackgroundColor,
-        label: "Body Background Color",
-        onChange: (newValue) =>
-          updateThemeProp("bodyBackgroundColor", newValue),
-      },
-            gradStart: {
-        value: currentTheme.data.gradStart,
-        label: "Gradient Start",
-        onChange: (newValue) => updateThemeProp("gradStart", newValue),
-      },
-      gradStop: {
-        value: currentTheme.data.gradStop,
-        label: "Gradient Stop",
-        onChange: (newValue) => updateThemeProp("gradStop", newValue),
-      },
-      headingColor: {
-        value: currentTheme.data.headingColor,
-        label: "Heading Color",
-        onChange: (newValue) => updateThemeProp("headingColor", newValue),
-      },
-      navBg: {
-        value: currentTheme.data.navBg,
-        label: "Navigation Background",
-        onChange: (newValue) => updateThemeProp("navBg", newValue),
-      },
-      subtextColor: {
-        value: currentTheme.data.subtextColor,
-        label: "Subtext Color",
-        onChange: (newValue) => updateThemeProp("subtextColor", newValue),
-      },
-      surface1: {
-        value: currentTheme.data.surface1,
-        label: "Surface 1",
-        onChange: (newValue) => updateThemeProp("surface1", newValue),
-      },
-      surface2: {
-        value: currentTheme.data.surface2,
-        label: "Surface 2",
-        onChange: (newValue) => updateThemeProp("surface2", newValue),
-      },
-      surface3: {
-        value: currentTheme.data.surface3,
-        label: "Surface 3",
-        onChange: (newValue) => updateThemeProp("surface3", newValue),
-      },
-      textAccent: {
-        value: currentTheme.data.textAccent,
-        label: "Text Accent",
-        onChange: (newValue) => updateThemeProp("textAccent", newValue),
-      },
-      textColor: {
-        value: currentTheme.data.textColor,
-        label: "Text Color",
-        onChange: (newValue) => updateThemeProp("textColor", newValue),
-      },
-      textColorInv: {
-        value: currentTheme.data.textColorInv,
-        label: "Text Color Inverted",
-        onChange: (newValue) => updateThemeProp("textColorInv", newValue),
-      },
-      
-    }),
-
-    save: button(
-      () => {
-        handleApply();
-      },
-      {
-        label: "Save Theme to Custom?",
-      }
-    ),
-  };
-
-  //useControls must be defined
-  const values = useControls(() => controls);
-
-  useEffect(() => {
-    console.log("curret", currentTheme);
-    updateTheme(currentTheme);
-    setStyleProperties(currentTheme);
-    currentThemeRef.current = currentTheme;
-  }, [updateTheme]);
 
   const handleSave = (event) => {
     event.preventDefault(); // Prevent default form submission
@@ -1142,6 +410,7 @@ export default function ThemeEditor({ customThemes }) {
           </div>
         </form>
       </Modal>
+
 
       <Leva
         fill={false} // Make the pane fill the parent DOM node

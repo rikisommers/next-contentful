@@ -20,7 +20,7 @@ import { pageWidthThemes } from "../../utils/theme";
 const ArticleWrapper = ({ children }) => {
   const { currentTheme } = useThemeContext();
   return (
-    <div className={`max-w-screen-xl mx-auto
+    <div className={`max-w-screen-xl mx-auto pb-40
       ${currentTheme.data.navPosition === 'leftCenter' ? 'pl-32 pr-24' : ''}
       ${currentTheme.data.navPosition === 'rightCenter' ? 'pr-32 pr-24' : ''}
     `}>

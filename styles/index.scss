@@ -12,6 +12,7 @@
 
 body {
   background-color: var(--body-background-color);
+  transition: background-color 0.3s ease;
 }
 
 html,
@@ -252,4 +253,10 @@ display:none;
       }
     } 
   }
+}
+
+
+.animated-bg {
+  background-color: var(--body-background-color);
+  transition: background-color 0.6s ease-in-out;
 }

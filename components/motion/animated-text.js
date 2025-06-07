@@ -11,7 +11,7 @@ import { TextAnimBlur } from "./text-anim-blur";
 import { TextAnimLineFadeIn } from "./text-anim-line-fade";
 import { TextAnimWordMask } from "./text-anim-word-mask";
 import { TextAnimNone } from "./text-anim-none";
-import TextAnimCode from "../motion/text-anim-code";
+import { TextAnimCode } from "../motion/text-anim-code";
 import { TextAnimFigma } from "./text-anim-figma";
 import { useThemeContext } from "../context/themeContext";
 import { TextAnimNavigators } from "./text-anim-navigators";

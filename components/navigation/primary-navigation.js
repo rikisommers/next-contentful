@@ -5,6 +5,8 @@ import React, { useRef } from "react";
 import { motion } from "../../utils/motion";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import ButtonWipe, { ButtonType } from '../base/button/button-wipe';
+import ThemeTrigger from "../base/theme-trigger";
 //import { useScrollPosition } from "../scrollPosContext";
 import ThemeEditor from "../../utils/themeEditor";
 const TweakpaneComponent = dynamic(
@@ -61,9 +63,18 @@ export default function Navigation({data, logo, customThemes}) {
 
   return (
     <>
-            <motion.div
+
+<div className="fixed z-50 flex items-center top-4 right-4">
+
+<ThemeTrigger />
+<ButtonWipe type={ButtonType.PRIMARY} 
+    label="Theme Editor"
+        onClick={toggleThemeEditor}
+        >Theme Editor</ButtonWipe>
+</div>
+
+            {/* <motion.div
         onClick={toggleThemeEditor2}
-        className="fixed flex items-center gap-1 p-1 px-2 py-2 text-xs uppercase rounded-lg cursor-pointer top-4 right-4"
         style={{
           zIndex: 9999,
           backgroundColor:'var(--body-background-color)',
@@ -71,7 +82,7 @@ export default function Navigation({data, logo, customThemes}) {
         }}
       >
         theme icon
-      </motion.div>
+      </motion.div> */}
       <div
         ref={containerRef}
         className={`${currentTheme.data.navFixed ? "fixed h-dvh grid grid-cols-[40px_1fr_1fr_1fr_40px] grid-rows-[auto_1fr_1fr_1fr_auto]" : "absolute"} ${
@@ -90,6 +101,9 @@ export default function Navigation({data, logo, customThemes}) {
         </div>
 
         <NavBar containerRef={containerRef} data={data} />
+
+       
+
 {/* 
        <motion.div className="absolute z-50 flex items-center gap-1 p-1 bg-red-400 rounded-lg top-4 right-4">
             <img className="w-[30px] h-[30px]" src="./icons/change.svg" title="theme"/>
@@ -98,8 +112,7 @@ export default function Navigation({data, logo, customThemes}) {
 
       </div>
 
-      {/* Modal for "Available for work" */}
-      <Modal
+      {/* <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         direction={ModalDirection.RIGHT}
@@ -112,17 +125,16 @@ export default function Navigation({data, logo, customThemes}) {
               <TweakpaneComponent customThemes={customThemes}/>
 
           </div>
-          {/* <h2>Hello, I'm available for work!</h2>
+          <h2>Hello, I'm available for work!</h2>
           <p>
             This is some sample content for the modal. You can customize this as
             needed.
           </p>
           <button onClick={() => setIsModalOpen(false)}>Close</button>
-        </div> */}
-      </Modal>
+        
+      </Modal> */}
 
-      {/* Modal for ThemeEditor */}
-      <Modal
+      {/* <Modal
         isOpen={isThemeDialogOpen}
         onClose={toggleThemeEditor}
         direction={ModalDirection.RIGHT}
@@ -131,11 +143,10 @@ export default function Navigation({data, logo, customThemes}) {
         bodyClass="theme-dialog-open"
       >
         <div className="w-full h-screen overflow-y-auto">
-          {/* <ThemeEditor  customThemes={customThemes}/> */}
-          {/* <TweakpaneComponent/> */}
-          <button onClick={toggleThemeEditor}>Close</button>
+
+          <ButtonWipe type={ButtonType.PRIMARY} onClick={toggleThemeEditor}>Theme Editor</ButtonWipe>
         </div>
-      </Modal>
+      </Modal> */}
     </>
   );
 }

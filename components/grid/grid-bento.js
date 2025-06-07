@@ -1,7 +1,6 @@
 import React from "react";
 import AnimatedElement, { AnimStyleEl } from "../motion/animated-element";
 import { useThemeContext } from '../context/themeContext';
-import { gridGaps, gridGapClasses } from "../../utils/theme";
 import PostTileCs from "../post/post-tile-cs";
 import PostTileLg from "../post/post-tile-funky";
 import PostTileImg from "../post/post-tile-img";
@@ -94,17 +93,6 @@ export default function GridBento({
   style = {},
   ...props 
 }) {
-  const { currentTheme } = useThemeContext();
-  const gapClass = gridGapClasses[currentTheme.data.gridGap] || 'gap-4';
-  const themeData = currentTheme.data;
-  
-  const colClasses = [
-    themeData.gridColumnsSm && `grid-cols-${themeData.gridColumnsSm}`,
-    themeData.gridColumnsMd && `md:grid-cols-${themeData.gridColumnsMd}`,
-    themeData.gridColumnsLg && `lg:grid-cols-${themeData.gridColumnsLg}`,
-    themeData.gridColumnsXl && `xl:grid-cols-${themeData.gridColumnsXl}`
-  ].filter(Boolean).join(' ');
-
   const getItemSize = (index) => {
     const patterns = [
       { gridColumn: 'span 2', gridRow: 'span 2' }, // Large
@@ -118,10 +106,12 @@ export default function GridBento({
 
   return (
     <div 
-      className={`grid-bento ${className} ${gapClass} ${colClasses}`}
+      className={`grid-bento ${className}`}
       style={{
         display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
         gridAutoRows: '200px',
+        gap: '1rem',
         width: '100%',
         ...style
       }}

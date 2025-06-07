@@ -1364,7 +1364,7 @@ export const heroBackgroundThemes = {
 };
 
 export const heroCssGradientThemes = {
-  linearVertical: 'linear',
+  linear: 'linear',
   radial: 'radial',
   conic: 'conic',
 };
@@ -1400,7 +1400,7 @@ export const heroGradThemes = {
 
 export const heroTextCompositionThemes = {
   foo: 'foo',
-  foo: 'bar',
+  bar: 'bar',
 };
 
 export const heroTextImageThemes = {
@@ -1543,6 +1543,7 @@ export const themes = {
       key: "light",
       ...colorThemes.light,
       ...themeContent,
+      navTheme:navigationThemes.applause,
     },
   },
   dark: {
@@ -1551,6 +1552,7 @@ export const themes = {
       key: "dark",
       ...colorThemes.dark,
       ...themeContent,
+      navTheme:navigationThemes.applauseMain
     },
   },
   tokyo: {
@@ -1559,6 +1561,7 @@ export const themes = {
       key: "tokyo",
       ...colorThemes.tokyo,
       ...themeContent,
+      navTheme:navigationThemes.awwwards
     },
   },
   custom: {
@@ -1575,6 +1578,7 @@ export const themes = {
       key: "amberMonochrome",
       ...colorThemes.amberMonochrome,
       ...themeContent,
+      navTheme:navigationThemes.awwwards
     },
   },
   greenPhosphor: {
@@ -1665,126 +1669,126 @@ export const themes = {
       ...themeContent,
     },
   },
-  mustang69: {
-    name: "mustang69",
-    data: {
-      key: "mustang69",
-      ...colorThemes.mustang69,
-      ...themeContent,
-    },
-  },
-  camaro69: {
-    name: "camaro69",
-    data: {
-      key: "camaro69",
-      ...colorThemes.camaro69,
-      ...themeContent,
-    },
-  },
-  corvette72: {
-    name: "corvette72",
-    data: {
-      key: "corvette72",
-      ...colorThemes.corvette72,
-      ...themeContent,
-    },
-  },
-  beetle68: {
-    name: "beetle68",
-    data: {
-      key: "beetle68",
-      ...colorThemes.beetle68,
-      ...themeContent,
-    },
-  },
-  audi80: {
-    name: "audi80",
-    data: {
-      key: "audi80",
-      ...colorThemes.audi80,
-      ...themeContent,
-    },
-  },
-  porsche911: {
-    name: "porsche911",
-    data: {
-      key: "porsche911",
-      ...colorThemes.porsche911,
-      ...themeContent,
-    },
-  },
-  spiritedAway: {
-    name: "spiritedAway",
-    data: {
-      key: "spiritedAway",
-      ...colorThemes.spiritedAway,
-      ...themeContent,
-    },
-  },
-  myNeighborTotoro: {
-    name: "myNeighborTotoro",
-    data: {
-      key: "myNeighborTotoro",
-      ...colorThemes.myNeighborTotoro,
-      ...themeContent,
-    },
-  },
-  howlsMovingCastle: {
-    name: "howlsMovingCastle",
-    data: {
-      key: "howlsMovingCastle",
-      ...colorThemes.howlsMovingCastle,
-      ...themeContent,
-    },
-  },
-  sakuraBreeze: {
-    name: "sakuraBreeze",
-    data: {
-      key: "sakuraBreeze",
-      ...colorThemes.sakuraBreeze,
-      ...themeContent,
-    },
-  },
-  zenGarden: {
-    name: "zenGarden",
-    data: {
-      key: "zenGarden",
-      ...colorThemes.zenGarden,
-      ...themeContent,
-    },
-  },
-  pastelAnime: {
-    name: "pastelAnime",
-    data: {
-      key: "pastelAnime",
-      ...colorThemes.pastelAnime,
-      ...themeContent,
-    },
-  },
-  deathNote: {
-    name: "deathNote",
-    data: {
-      key: "deathNote",
-      ...colorThemes.deathNote,
-      ...themeContent,
-    },
-  },
-  attackOnTitan: {
-    name: "attackOnTitan",
-    data: {
-      key: "attackOnTitan",
-      ...colorThemes.attackOnTitan,
-      ...themeContent,
-    },
-  },
-  tokyoGhoul: {
-    name: "tokyoGhoul",
-    data: {
-      key: "tokyoGhoul",
-      ...colorThemes.tokyoGhoul,
-      ...themeContent,
-    },
-  },
+  // mustang69: {
+  //   name: "mustang69",
+  //   data: {
+  //     key: "mustang69",
+  //     ...colorThemes.mustang69,
+  //     ...themeContent,
+  //   },
+  // },
+  // camaro69: {
+  //   name: "camaro69",
+  //   data: {
+  //     key: "camaro69",
+  //     ...colorThemes.camaro69,
+  //     ...themeContent,
+  //   },
+  // },
+  // corvette72: {
+  //   name: "corvette72",
+  //   data: {
+  //     key: "corvette72",
+  //     ...colorThemes.corvette72,
+  //     ...themeContent,
+  //   },
+  // },
+  // beetle68: {
+  //   name: "beetle68",
+  //   data: {
+  //     key: "beetle68",
+  //     ...colorThemes.beetle68,
+  //     ...themeContent,
+  //   },
+  // },
+  // audi80: {
+  //   name: "audi80",
+  //   data: {
+  //     key: "audi80",
+  //     ...colorThemes.audi80,
+  //     ...themeContent,
+  //   },
+  // },
+  // porsche911: {
+  //   name: "porsche911",
+  //   data: {
+  //     key: "porsche911",
+  //     ...colorThemes.porsche911,
+  //     ...themeContent,
+  //   },
+  // },
+  // spiritedAway: {
+  //   name: "spiritedAway",
+  //   data: {
+  //     key: "spiritedAway",
+  //     ...colorThemes.spiritedAway,
+  //     ...themeContent,
+  //   },
+  // },
+  // myNeighborTotoro: {
+  //   name: "myNeighborTotoro",
+  //   data: {
+  //     key: "myNeighborTotoro",
+  //     ...colorThemes.myNeighborTotoro,
+  //     ...themeContent,
+  //   },
+  // },
+  // howlsMovingCastle: {
+  //   name: "howlsMovingCastle",
+  //   data: {
+  //     key: "howlsMovingCastle",
+  //     ...colorThemes.howlsMovingCastle,
+  //     ...themeContent,
+  //   },
+  // },
+  // sakuraBreeze: {
+  //   name: "sakuraBreeze",
+  //   data: {
+  //     key: "sakuraBreeze",
+  //     ...colorThemes.sakuraBreeze,
+  //     ...themeContent,
+  //   },
+  // },
+  // zenGarden: {
+  //   name: "zenGarden",
+  //   data: {
+  //     key: "zenGarden",
+  //     ...colorThemes.zenGarden,
+  //     ...themeContent,
+  //   },
+  // },
+  // pastelAnime: {
+  //   name: "pastelAnime",
+  //   data: {
+  //     key: "pastelAnime",
+  //     ...colorThemes.pastelAnime,
+  //     ...themeContent,
+  //   },
+  // },
+  // deathNote: {
+  //   name: "deathNote",
+  //   data: {
+  //     key: "deathNote",
+  //     ...colorThemes.deathNote,
+  //     ...themeContent,
+  //   },
+  // },
+  // attackOnTitan: {
+  //   name: "attackOnTitan",
+  //   data: {
+  //     key: "attackOnTitan",
+  //     ...colorThemes.attackOnTitan,
+  //     ...themeContent,
+  //   },
+  // },
+  // tokyoGhoul: {
+  //   name: "tokyoGhoul",
+  //   data: {
+  //     key: "tokyoGhoul",
+  //     ...colorThemes.tokyoGhoul,
+  //     ...themeContent,
+  //   },
+  // },
   akc12: {
     name: "akc12",
     data: {
@@ -1817,142 +1821,142 @@ export const themes = {
       ...themeContent,
     },
   },
-  metallicChic: {
-    name: "metallicChic",
-    data: {
-      key: "metallicChic",
-      ...colorThemes.metallicChic,
-      ...themeContent,
-    },
-  },
-  deepVintageMood: {
-    name: "deepVintageMood",
-    data: {
-      key: "deepVintageMood",
-      ...colorThemes.deepVintageMood,
-      ...themeContent,
-    },
-  },
-  coolAndCollected: {
-    name: "coolAndCollected",
-    data: {
-      key: "coolAndCollected",
-      ...colorThemes.coolAndCollected,
-      ...themeContent,
-    },
-  },
-  earthyAndSerene: {
-    name: "earthyAndSerene",
-    data: {
-      key: "earthyAndSerene",
-      ...colorThemes.earthyAndSerene,
-      ...themeContent,
-    },
-  },
-  textureAndContrast: {
-    name: "textureAndContrast",
-    data: {
-      key: "textureAndContrast",
-      ...colorThemes.textureAndContrast,
-      ...themeContent,
-    },
-  },
-  mechanicalAndFloaty: {
-    name: "mechanicalAndFloaty",
-    data: {
-      key: "mechanicalAndFloaty",
-      ...colorThemes.mechanicalAndFloaty,
-      ...themeContent,
-    },
-  },
-  pixelIntensity: {
-    name: "pixelIntensity",
-    data: {
-      key: "pixelIntensity",
-      ...colorThemes.pixelIntensity,
-      ...themeContent,
-    },
-  },
-  gradientPop: {
-    name: "gradientPop",
-    data: {
-      key: "gradientPop",
-      ...colorThemes.gradientPop,
-      ...themeContent,
-    },
-  },
-  cosmicArtistry: {
-    name: "cosmicArtistry",
-    data: {
-      key: "cosmicArtistry",
-      ...colorThemes.cosmicArtistry,
-      ...themeContent,
-    },
-  },
-  vibrantButCalm: {
-    name: "vibrantButCalm",
-    data: {
-      key: "vibrantButCalm",
-      ...colorThemes.vibrantButCalm,
-      ...themeContent,
-    },
-  },
-  livelyAndInviting: {
-    name: "livelyAndInviting",
-    data: {
-      key: "livelyAndInviting",
-      ...colorThemes.livelyAndInviting,
-      ...themeContent,
-    },
-  },
-  strikingAndSimple: {
-    name: "strikingAndSimple",
-    data: {
-      key: "strikingAndSimple",
-      ...colorThemes.strikingAndSimple,
-      ...themeContent,
-    },
-  },
-  redAndLively: {
-    name: "redAndLively",
-    data: {
-      key: "redAndLively",
-      ...colorThemes.redAndLively,
-      ...themeContent,
-    },
-  },
-  artsyAndCreative: {
-    name: "artsyAndCreative",
-    data: {
-      key: "artsyAndCreative",
-      ...colorThemes.artsyAndCreative,
-      ...themeContent,
-    },
-  },
-  elegantYetApproachable: {
-    name: "elegantYetApproachable",
-    data: {
-      key: "elegantYetApproachable",
-      ...colorThemes.elegantYetApproachable,
-      ...themeContent,
-    },
-  },
-  sleekAndFuturistic: {
-    name: "sleekAndFuturistic",
-    data: {
-      key: "sleekAndFuturistic",
-      ...colorThemes.sleekAndFuturistic,
-      ...themeContent,
-    },
-  },
-  innovativeAndAudacious: {
-    name: "innovativeAndAudacious",
-    data: {
-      key: "innovativeAndAudacious",
-      ...colorThemes.innovativeAndAudacious,
-      ...themeContent,
-    },
-  },
+  // metallicChic: {
+  //   name: "metallicChic",
+  //   data: {
+  //     key: "metallicChic",
+  //     ...colorThemes.metallicChic,
+  //     ...themeContent,
+  //   },
+  // },
+  // deepVintageMood: {
+  //   name: "deepVintageMood",
+  //   data: {
+  //     key: "deepVintageMood",
+  //     ...colorThemes.deepVintageMood,
+  //     ...themeContent,
+  //   },
+  // },
+  // coolAndCollected: {
+  //   name: "coolAndCollected",
+  //   data: {
+  //     key: "coolAndCollected",
+  //     ...colorThemes.coolAndCollected,
+  //     ...themeContent,
+  //   },
+  // },
+  // earthyAndSerene: {
+  //   name: "earthyAndSerene",
+  //   data: {
+  //     key: "earthyAndSerene",
+  //     ...colorThemes.earthyAndSerene,
+  //     ...themeContent,
+  //   },
+  // },
+  // textureAndContrast: {
+  //   name: "textureAndContrast",
+  //   data: {
+  //     key: "textureAndContrast",
+  //     ...colorThemes.textureAndContrast,
+  //     ...themeContent,
+  //   },
+  // },
+  // mechanicalAndFloaty: {
+  //   name: "mechanicalAndFloaty",
+  //   data: {
+  //     key: "mechanicalAndFloaty",
+  //     ...colorThemes.mechanicalAndFloaty,
+  //     ...themeContent,
+  //   },
+  // },
+  // pixelIntensity: {
+  //   name: "pixelIntensity",
+  //   data: {
+  //     key: "pixelIntensity",
+  //     ...colorThemes.pixelIntensity,
+  //     ...themeContent,
+  //   },
+  // },
+  // gradientPop: {
+  //   name: "gradientPop",
+  //   data: {
+  //     key: "gradientPop",
+  //     ...colorThemes.gradientPop,
+  //     ...themeContent,
+  //   },
+  // },
+  // cosmicArtistry: {
+  //   name: "cosmicArtistry",
+  //   data: {
+  //     key: "cosmicArtistry",
+  //     ...colorThemes.cosmicArtistry,
+  //     ...themeContent,
+  //   },
+  // },
+  // vibrantButCalm: {
+  //   name: "vibrantButCalm",
+  //   data: {
+  //     key: "vibrantButCalm",
+  //     ...colorThemes.vibrantButCalm,
+  //     ...themeContent,
+  //   },
+  // },
+  // livelyAndInviting: {
+  //   name: "livelyAndInviting",
+  //   data: {
+  //     key: "livelyAndInviting",
+  //     ...colorThemes.livelyAndInviting,
+  //     ...themeContent,
+  //   },
+  // },
+  // strikingAndSimple: {
+  //   name: "strikingAndSimple",
+  //   data: {
+  //     key: "strikingAndSimple",
+  //     ...colorThemes.strikingAndSimple,
+  //     ...themeContent,
+  //   },
+  // },
+  // redAndLively: {
+  //   name: "redAndLively",
+  //   data: {
+  //     key: "redAndLively",
+  //     ...colorThemes.redAndLively,
+  //     ...themeContent,
+  //   },
+  // },
+  // artsyAndCreative: {
+  //   name: "artsyAndCreative",
+  //   data: {
+  //     key: "artsyAndCreative",
+  //     ...colorThemes.artsyAndCreative,
+  //     ...themeContent,
+  //   },
+  // },
+  // elegantYetApproachable: {
+  //   name: "elegantYetApproachable",
+  //   data: {
+  //     key: "elegantYetApproachable",
+  //     ...colorThemes.elegantYetApproachable,
+  //     ...themeContent,
+  //   },
+  // },
+  // sleekAndFuturistic: {
+  //   name: "sleekAndFuturistic",
+  //   data: {
+  //     key: "sleekAndFuturistic",
+  //     ...colorThemes.sleekAndFuturistic,
+  //     ...themeContent,
+  //   },
+  // },
+  // innovativeAndAudacious: {
+  //   name: "innovativeAndAudacious",
+  //   data: {
+  //     key: "innovativeAndAudacious",
+  //     ...colorThemes.innovativeAndAudacious,
+  //     ...themeContent,
+  //   },
+  // },
 };
 
 export const fontSizes = {

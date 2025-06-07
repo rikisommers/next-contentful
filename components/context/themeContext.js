@@ -1,9 +1,12 @@
-import React, { createContext, useState, useContext, useEffect, useCallback } from 'react';
-import { themes } from "../../utils/theme";
+"use client";
+import React, { createContext, useContext, useState, useEffect, memo, useCallback } from 'react';
+import { themes } from '../../utils/theme';
+import { setStyleProperties } from '../../utils/styleUtils';
 import ThemeEditor from '../../utils/themeEditor'; 
 
-const ThemeContext = createContext(null);
-const THEME_STORAGE_KEY = 'currentTheme';
+const THEME_STORAGE_KEY = 'theme';
+
+const ThemeContext = createContext();
 
 // import dynamic from 'next/dynamic';
 // const TweakpaneComponent = dynamic(
@@ -14,64 +17,49 @@ const THEME_STORAGE_KEY = 'currentTheme';
 //   }
 // );
 
-export const ThemeProvider = ({ children, theme, customThemes }) => {
+export const useThemeContext = () => useContext(ThemeContext);
 
-  //console.log('theme from cms',theme, customThemes) 
+const MemoizedThemeEditor = memo(ThemeEditor);
 
-  const [isThemeDialogOpen, setIsThemeDialogOpen] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
-  
-  // Initialize theme - use fallback during SSR, localStorage after mount
+export const ThemeProvider = ({ children, initialTheme: initialThemeName, customThemes = [] }) => {
   const [currentTheme, setCurrentTheme] = useState(() => {
-    return theme || themes.pixelIntensity;
-  });
-
-  const updateTheme = useCallback((newTheme) => {
-    setCurrentTheme(prevTheme => {
-      const updatedTheme = { ...prevTheme, ...newTheme };
-      // Save to localStorage whenever theme changes
-      if (typeof window !== 'undefined') {
-        localStorage.setItem(THEME_STORAGE_KEY, JSON.stringify(updatedTheme));
-      }
-      return updatedTheme;
-    });
-  }, []);
-
-  // Load theme from localStorage after component mounts to prevent hydration mismatch
-  useEffect(() => {
-    setIsMounted(true);
-    
     if (typeof window !== 'undefined') {
       const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
       if (savedTheme) {
         try {
-          const parsedTheme = JSON.parse(savedTheme);
-          setCurrentTheme(parsedTheme);
+          return JSON.parse(savedTheme);
         } catch (e) {
           console.error('Error parsing saved theme:', e);
         }
       }
     }
+    return themes[initialThemeName] || themes.light;
+  });
+
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+    setStyleProperties(currentTheme);
+  }, [currentTheme]);
+
+  const updateTheme = useCallback((newTheme) => {
+    setCurrentTheme(newTheme);
+    setStyleProperties(newTheme);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(THEME_STORAGE_KEY, JSON.stringify(newTheme));
+    }
   }, []);
 
+  if (!isClient) {
+    return null;
+  }
+
   return (
-    <ThemeContext.Provider value={{ 
-      currentTheme, 
-      updateTheme, 
-      isThemeDialogOpen, 
-      setIsThemeDialogOpen,
-      isMounted
-    }}>
-      <ThemeEditor customThemes={customThemes}/>
+    <ThemeContext.Provider value={{ currentTheme, updateTheme }}>
+      <h1>Current Theme: {currentTheme.data.key}</h1>
+      <MemoizedThemeEditor customThemes={customThemes}/>
       {children}
     </ThemeContext.Provider>
   );
-};
-
-export const useThemeContext = () => {
-  const context = useContext(ThemeContext);
-  if (context === null) {
-    throw new Error('useThemeContext must be used within a ThemeProvider');
-  }
-  return context;
 };
