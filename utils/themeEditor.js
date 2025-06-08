@@ -1,58 +1,9 @@
 "use client";
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { 
-  themes,
-  typographyThemes,
-  textAnimationThemes,
-  textHighlightThemes, 
-  pageTransitionThemes, 
-  pageWidthThemes, 
-  cardThemes,
-  cardHoverThemes,
-  heroTypeThemes,
-  heroBackgroundThemes,
-  heroCssGradientThemes,
-  heroHeightThemes,
-  heroTextImageThemes,
-  heroTextCompositionThemes,
-  heroTextPositionThemes,
-  heroCssGradientRadialPositionThemes,
-  navigationPositionThemes,
-  navigationDragThemes,
-  fontScaleThemes,
-  bodyTextAlign,
-  navigationStyleThemes,
-  navigationThemes,
-  navigationOptions,
-  cursorThemes,
-  gridThemes,
-  gridColumnsSm,
-  gridColumnsMd,
-  gridColumnsLg,
-  gridColumnsXl,
-  gridGap,
-  gridGalleryThemes,
-  mixBlendThemes,
-  textHighlightOutlineThemes,
-  imageTextureThemes,
-  imageTextureContrastThemes,
-  textHighlightOutlineNeumorphicStartColor,
-  textHighlightOutlineNeumorphicEndColor,
-  fontSizes,
-  fontFamilies,
-  fontWeights,
-  lineHeights,
-  letterSpacings,
-  colors,
-  spacing,
-  radii,
-  shadows,
-  gridGaps,
-  gridColumnOptions,
-  gridColumns,
+  themes
 } from "./theme";
 import { useThemeContext } from "../components/context/themeContext";
-import { Leva, useControls, button, folder } from "leva";
 import ThemeModal from "../components/base/theme-modal";
 import { toCamelCase } from "../components/utils/toCamelCase";
 import Modal, {
@@ -60,17 +11,16 @@ import Modal, {
   ModalPosition,
   ModalWidth,
 } from "../components/base/modal";
-import ButtonWipe, { ButtonType } from "../components/base/button/button-wipe";
+import Button, { ButtonType } from "../components/base/button/button";
 import { useToast } from "../components/context/toastContext";
 import ThemeTrigger from "../components/base/theme-trigger";
 import { themeControlConfig } from "./themeControlConfig";
-import { generateControlsFromConfig } from "./controlGenerators";
 import TextInput from "../components/base/form/TextInput";
 import SelectInput from "../components/base/form/SelectInput";
 import CheckboxInput from "../components/base/form/CheckboxInput";
 import ColorInput from "../components/base/form/ColorInput";
 import SliderInput from "../components/base/form/SliderInput";
-
+import PositionInput from "../components/base/form/PositionInput";
 
 const getBestTheme = (weightType, sliderValue) => {
   let bestTheme = null;
@@ -317,20 +267,35 @@ export default function ThemeEditor({ customThemes }) {
             onChange={val => updateThemeProp(key, val)}
           />
         );
-      case "select":
-        // options can be array or object
-        let options = config.options;
-        if (options && !Array.isArray(options)) {
-          options = Object.keys(options).map(optKey => ({ value: optKey, label: optKey }));
-        } else if (options && Array.isArray(options)) {
-          options = options.map(opt => (typeof opt === 'object' ? opt : { value: opt, label: opt }));
+        case "select":
+          // options can be array or object
+          let options = config.options;
+          if (options && !Array.isArray(options)) {
+            options = Object.keys(options).map(optKey => ({ value: optKey, label: optKey }));
+          } else if (options && Array.isArray(options)) {
+            options = options.map(opt => (typeof opt === 'object' ? opt : { value: opt, label: opt }));
+          }
+          return (
+            <SelectInput
+              key={key}
+              label={config.label}
+              value={value ?? ((options && options[0]?.value) || "")}
+              options={options || []}
+              onChange={val => updateThemeProp(key, val)}
+            />
+          );
+      case "position":
+        // Always convert object to array of values (strings)
+        let positionOptions = config.options;
+        if (positionOptions && typeof positionOptions === "object" && !Array.isArray(positionOptions)) {
+          positionOptions = Object.values(positionOptions);
         }
         return (
-          <SelectInput
+          <PositionInput
             key={key}
             label={config.label}
-            value={value ?? ((options && options[0]?.value) || "")}
-            options={options || []}
+            value={value ?? ((positionOptions && positionOptions[0]) || "")}
+            options={positionOptions || []}
             onChange={val => updateThemeProp(key, val)}
           />
         );
@@ -375,6 +340,7 @@ export default function ThemeEditor({ customThemes }) {
     return (
       <fieldset key={sectionName} style={{ marginBottom: 24, border: '1px solid #eee', padding: 12 }}>
         <legend style={{ fontWeight: 'bold', marginBottom: 8 }}>{sectionName}</legend>
+        <div className="flex flex-col gap-2">
         {Object.entries(sectionConfig).map(([key, config]) => {
           if (config.isFolder) {
             // Nested folder
@@ -382,6 +348,7 @@ export default function ThemeEditor({ customThemes }) {
           }
           return renderControl(key, config, currentTheme.data[key]);
         })}
+        </div>
       </fieldset>
     );
   };
@@ -425,12 +392,8 @@ export default function ThemeEditor({ customThemes }) {
           />
 
           <div className="flex gap-1">
-            <button type="button" onClick={() => setIsSaveModalOpen(false)}>
-              <ButtonWipe type={ButtonType.DEFAULT} label="Cancel" />
-            </button>
-            <button type="submit">
-              <ButtonWipe type={ButtonType.PRIMARY} label="Save Theme" />
-            </button>
+              <Button type={ButtonType.SECONDARY} onClick={() => setIsSaveModalOpen(false)} label="Cancel" />
+              <Button type={ButtonType.PRIMARY} onClick={handleSave} label="Save Theme" />
           </div>
         </form>
       </Modal>
@@ -449,12 +412,8 @@ export default function ThemeEditor({ customThemes }) {
           <h1>{currentThemeRef.current?.data?.key}</h1>
 
           <div className="flex gap-1">
-            <button type="button" onClick={() => setIsDeleteModalOpen(false)}>
-              <ButtonWipe type={ButtonType.DEFAULT} label="Cancel" /> 
-            </button>
-            <button type="submit">
-              <ButtonWipe type={ButtonType.PRIMARY} label="Delete Theme" />
-            </button>
+            <Button type={ButtonType.SECONDARY} onClick={() => setIsDeleteModalOpen(false)} label="Cancel" />
+            <Button type={ButtonType.PRIMARY} onClick={handleDelete} label="Delete Theme" />
           </div>
         </form>
       </Modal>
@@ -473,9 +432,9 @@ export default function ThemeEditor({ customThemes }) {
           options={Object.keys(presetThemes).map(key => ({ value: presetThemes[key].data.key, label: presetThemes[key].data.key }))}
           onChange={val => handleThemeChange(val, presetThemes)}
         />
-        <ButtonWipe type={ButtonType.DEFAULT} label="Save Current Theme" onClick={() => setIsSaveModalOpen(true)} />
-        <ButtonWipe type={ButtonType.DEFAULT} label="Delete Current Theme" onClick={() => setIsDeleteModalOpen(true)} />
-        <ButtonWipe type={ButtonType.PRIMARY} label="Save Theme to Custom?" onClick={handleApply} />
+        <Button type={ButtonType.DEFAULT} label="Save Current Theme" onClick={() => setIsSaveModalOpen(true)} />
+        <Button type={ButtonType.DEFAULT} label="Delete Current Theme" onClick={() => setIsDeleteModalOpen(true)} />
+        <Button type={ButtonType.PRIMARY} label="Save Theme to Custom?" onClick={handleApply} />
       </div>
 
       {/* Theme Controls */}

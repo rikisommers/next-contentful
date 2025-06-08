@@ -157,7 +157,7 @@ export default function GridThings({
           {...props}
     >
       <div className={`${currentTheme.data.gridGallery === "gallery1" ? "grid-gallery" : "grid-gallery2"} ${gapClass} ${colClasses}`}>
-        {data.map((item, i) => (
+        {data?.map((item, i) => (
             <div key={i} className="grid__item">
               {currentTheme.data.cardLayout === "formal" && (
                 <PostTileCs post={item} />

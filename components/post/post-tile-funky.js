@@ -52,7 +52,6 @@ export default function PostTileFunky({ post, index, size }) {
       onMouseEnter={() => setIsHovered(true)} // Set hover state to true on mouse enter
       onMouseLeave={() => setIsHovered(false)} // Set hover state to false on mouse leave
     >
-      <h1 className="absolute top-0 left-0 z-10 text-amber-200">Funky</h1>
       <div
         className="absolute flex flex-col gap-4 top-3 left-3"
         style={{

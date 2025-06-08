@@ -2,9 +2,10 @@ import React from "react";
 
 export default function SelectInput({ label, value, options, onChange, ...props }) {
   return (
-    <label style={{ display: 'block', marginBottom: 8 }}>
-      {label && <span style={{ marginRight: 8 }}>{label}</span>}
+    <label  className="grid grid-cols-[1fr_100px] items-center justify-between gap-2">
+      {label && <span className="flex-grow text-xs">{label}</span>}
       <select
+        className="flex-grow text-xs"
         value={value}
         onChange={e => onChange(e.target.value)}
         {...props}

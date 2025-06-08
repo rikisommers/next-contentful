@@ -2,7 +2,8 @@ import React from "react";
 
 export default function CheckboxInput({ label, checked, onChange, ...props }) {
   return (
-    <label style={{ display: 'block', marginBottom: 8 }}>
+    <label  className="flex items-center gap-2">
+      {label && <span className="text-xs">{label}</span>}
       <input
         type="checkbox"
         checked={checked}
@@ -10,7 +11,6 @@ export default function CheckboxInput({ label, checked, onChange, ...props }) {
         {...props}
         style={{ marginRight: 8 }}
       />
-      {label}
     </label>
   );
 } 

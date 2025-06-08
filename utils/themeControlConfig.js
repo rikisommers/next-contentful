@@ -35,6 +35,15 @@ export const themeControlConfig = {
   Audio: {
     audioEnabled: { type: "boolean", label: "Audio" },
     audioVolume: { type: "slider", label: "Volume", min: 0, max: 1, step: 0.1 },
+    init: { type: "select", label: "Internal Link Hover", options: typographyThemes },
+    primaryButton: { type: "select", label: "Primary Button", options: typographyThemes },
+    secondaryButton: { type: "select", label: "Secondary Button", options: typographyThemes },
+    internalLink: { type: "select", label: "Primary Link", options: typographyThemes },
+    externalLink: { type: "select", label: "Secondary Link", options: typographyThemes },
+    pageTransitionStart: { type: "select", label: "Page Transition Start", options: typographyThemes },
+    pageTransitionEnd: { type: "select", label: "Page Transition End", options: typographyThemes },
+    modalOpen: { type: "select", label: "Modal Open", options: typographyThemes },
+    modalClose: { type: "select", label: "Modal Close", options: typographyThemes },
   },
   Globals: {
     pageWidth: { type: "select", label: "Page Width", options: pageWidthThemes },
@@ -92,8 +101,7 @@ export const themeControlConfig = {
     heroCssGradientRadialPosition: { type: "select", label: "CSS Gradient Radial Position", options: heroCssGradientRadialPositionThemes },
     heroGradMidPoint: { type: "slider", label: "Gradient Mid Point", min: 0, max: 1, step: 0.1 },
     heroTextImageStyle: { type: "select", label: "Images", options: heroTextImageThemes },
-    heroTextPosition: { type: "select", label: "Text Layout", options: heroTextPositionThemes },
-    heroTextComposition: { type: "select", label: "Compo", options: heroTextCompositionThemes },
+    heroTextPosition: { type: "position", label: "Text Layout", options: heroTextPositionThemes },
   },
   Images: {
     imageParallax: { type: "boolean", label: "Parallax" },

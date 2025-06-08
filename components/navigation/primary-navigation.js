@@ -61,10 +61,7 @@ export default function Navigation({data, logo, customThemes}) {
 <div className="fixed z-50 flex items-center top-4 right-4">
 
 <ThemeTrigger />
-<ButtonWipe type={ButtonType.PRIMARY} 
-    label="Theme Editor"
-        onClick={toggleThemeEditor}
-        >Theme Editor</ButtonWipe>
+
 </div>
 
       <div
@@ -104,17 +101,16 @@ export default function Navigation({data, logo, customThemes}) {
         position={ModalPosition.BOTTOM_RIGHT}
       >
         <div
-          className="h-svh "
+          className="h-screen overflow-y-auto w-[400px] "
+          style={{
+            backgroundColor: "var(--body-background-color)",
+          }}
         >
+                    <button onClick={() => setIsModalOpen(false)}>Close</button>
+
               <ThemeEditor customThemes={customThemes}/>
 
           </div>
-          <h2>Hello, I'm available for work!</h2>
-          <p>
-            This is some sample content for the modal. You can customize this as
-            needed.
-          </p>
-          <button onClick={() => setIsModalOpen(false)}>Close</button>
         
       </Modal>
 

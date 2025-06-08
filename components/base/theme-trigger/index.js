@@ -24,9 +24,21 @@ export default function ThemeTrigger() {
   };
 
   return (
-    <div onClick={selectNextTheme}>
+    <div className="flex items-center gap-2"
+    onClick={selectNextTheme}
+    >
+        <div className="flex items-center gap-2 p-2 text-sm rounded-md"
+        style={{
+            backgroundColor: currentTheme.data.accenPri,
+            color: currentTheme.data.textColor,
+    
+        }}
+        >
+        {currentTheme.name}
+        </div>
       <ButtonWipe 
-        label={`Theme: ${currentTheme.name}`} 
+      onClick={selectNextTheme}
+        icon={'theme'}
         type={ButtonType.PRIMARY} 
       />
     </div>

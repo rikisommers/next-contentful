@@ -49,7 +49,7 @@ export const ClipContainer = ({ children, background, scale }) => {
         clipPath: clipPathValue,
         backgroundColor: "var(--background-color)",
       }}
-      className={`relative min-w-screen overflow-hidden z-10`}
+      className={`relative w-full overflow-hidden z-10`}
     >
 
       {/* <div className="absolute top-0 left-0 w-full h-screen">

@@ -32,7 +32,7 @@ const Modal = ({
   direction = ModalDirection.RIGHT,
   width = ModalWidth.PANEL_SM,
   position = ModalPosition.BOTTOM_RIGHT,
-  bodyClass = "", // New prop for body class
+  bodyClass = "modal-active", // New prop for body class
 }) => {
   useEffect(() => {
     if (isOpen && bodyClass) {

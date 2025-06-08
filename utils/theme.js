@@ -1,3 +1,8 @@
+const soundThemes = {
+  default: "default",
+  click: "click",
+}
+
 const colorThemes = {
   light: {
     bodyBackgroundColor: '#fafafa',
@@ -1380,12 +1385,15 @@ export const heroCssGradientRadialPositionThemes = {
 };
 
 export const heroTextPositionThemes = {
-  center: 'center',
-  left: 'left',
-  topLeft:'top-left',
-  bottomLeft:'bottom-left',
-  topRight:'top-right',
-  bottomRight:'bottom-right',
+  topLeft: 'top-left',
+  topCenter: 'top-center',
+  topRight: 'top-right',
+  leftCenter: 'left-center',
+  centerCenter: 'center-center',
+  rightCenter: 'right-center',
+  bottomLeft: 'bottom-left',
+  bottomCenter: 'bottom-center',
+  bottomRight: 'bottom-right',
 };
 
 
@@ -1402,6 +1410,9 @@ export const heroTextCompositionThemes = {
   foo: 'foo',
   bar: 'bar',
 };
+
+
+
 
 export const heroTextImageThemes = {
   none: 'none',
@@ -1500,6 +1511,15 @@ const themeContent = {
   // textHighlightOutlineNeumorphicSize:textHighlightOutlineNeumorphic.size,
   textHighlightOutlineNeumorphicStartColor:'#FFFFFF',
   textHighlightOutlineNeumorphicEndColor:'#000000',
+  audioInit: soundThemes.default,
+  audioPrimaryButton: soundThemes.default,
+  audioSecondaryButton: soundThemes.default,
+  audioInternalLink: soundThemes.default,
+  audioExternalLink: soundThemes.default,
+  audioPageTransitionStart: soundThemes.default,
+  audioPageTransitionEnd: soundThemes.default,
+  audioModalOpen: soundThemes.default,
+  audioModalClose: soundThemes.default,
 }
 
 // Function to get theme by key
@@ -1552,7 +1572,7 @@ export const themes = {
       key: "dark",
       ...colorThemes.dark,
       ...themeContent,
-      navTheme:navigationThemes.applauseMain
+      navTheme:navigationThemes.applauseMain,
     },
   },
   tokyo: {
@@ -2078,8 +2098,8 @@ export const defaultTheme = {
     gridGap: "md",
     imageParallax: false,
     imageTexture: imageTextureThemes.noise,
-    buttonStyle: "default",
-    buttonType: "primary",
-    buttonSound: "click",
+      buttonStyle: "default",
+      buttonType: "primary",
+      buttonSound: "click",
   },
 };
