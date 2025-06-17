@@ -438,7 +438,7 @@ export default function ThemeEditor({ customThemes }) {
       </div>
 
       {/* Theme Controls */}
-      <form style={{ maxWidth: 800, margin: '0 auto' }}>
+      <form style={{ maxWidth: 800, margin: '0 auto' }} >
         {Object.entries(themeControlConfig).map(([sectionName, sectionConfig]) =>
           renderSection(sectionName, sectionConfig)
         )}

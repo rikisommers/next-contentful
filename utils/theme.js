@@ -1093,7 +1093,346 @@ const colorThemes = {
     gradStop: '#FF5A36',  // Using bodyBackgroundColor as gradStop
     accentImageBg: '#FF5A36', // Matching accentPri
   },
-
+  coastalMirage: {
+    bodyBackgroundColor: '#F7FCFA', // Drift White
+    backgroundColor: '#A3DAD9',     // Ocean Mist
+    surface1: '#5EC0B8',            // Seafoam Teal
+    surface2: '#FFA987',            // Coral Leaf
+    surface3: '#B28A6E',            // Driftwood Tan
+    backgroundColorInv: '#5EC0B8',  // Seafoam Teal
+    headingColor: '#B28A6E',        // Driftwood Tan
+    textColor: '#2D2D2D',           // Neutral dark
+    subtextColor: '#5EC0B8',        // Seafoam Teal
+    textColorInv: '#F7FCFA',        // Drift White
+    navBg: '#A3DAD9',               // Ocean Mist
+    accentPri: '#FFA987',           // Coral Leaf
+    accentSec: '#5EC0B8',           // Seafoam Teal
+    gradStart: '#A3DAD9',           // Ocean Mist
+    gradStop: '#FFA987',            // Coral Leaf
+    textAccent: '#B28A6E',          // Driftwood Tan
+    stateSuccessBackground: '#5EC0B8', // Seafoam Teal
+    accentImageBg: '#FFA987',       // Coral Leaf
+  },
+  velvetArchive: {
+    bodyBackgroundColor: '#F3ECD8', // Parchment Beige
+    backgroundColor: '#8C5A6E',     // Faded Plum
+    surface1: '#B9473E',            // Wax Red
+    surface2: '#355E7C',            // Bookbinder Blue
+    surface3: '#8F7150',            // Dusty Bronze
+    backgroundColorInv: '#355E7C',  // Bookbinder Blue
+    headingColor: '#B9473E',        // Wax Red
+    textColor: '#2D2D2D',           // Neutral dark
+    subtextColor: '#8C5A6E',        // Faded Plum
+    textColorInv: '#F3ECD8',        // Parchment Beige
+    navBg: '#8C5A6E',               // Faded Plum
+    accentPri: '#B9473E',           // Wax Red
+    accentSec: '#355E7C',           // Bookbinder Blue
+    gradStart: '#8C5A6E',           // Faded Plum
+    gradStop: '#8F7150',            // Dusty Bronze
+    textAccent: '#355E7C',          // Bookbinder Blue
+    stateSuccessBackground: '#B9473E', // Wax Red
+    accentImageBg: '#8F7150',       // Dusty Bronze
+  },
+  desertCinema: {
+    bodyBackgroundColor: '#E3CFA6', // Sand Fade
+    backgroundColor: '#D59E61',     // Ochre Heat
+    surface1: '#BF6248',            // Duststorm Coral
+    surface2: '#864332',            // Adobe Rust
+    surface3: '#3F2E24',            // Shadow Sienna
+    backgroundColorInv: '#BF6248',  // Duststorm Coral
+    headingColor: '#D59E61',        // Ochre Heat
+    textColor: '#3F2E24',           // Shadow Sienna
+    subtextColor: '#BF6248',        // Duststorm Coral
+    textColorInv: '#E3CFA6',        // Sand Fade
+    navBg: '#D59E61',               // Ochre Heat
+    accentPri: '#BF6248',           // Duststorm Coral
+    accentSec: '#864332',           // Adobe Rust
+    gradStart: '#D59E61',           // Ochre Heat
+    gradStop: '#BF6248',            // Duststorm Coral
+    textAccent: '#864332',          // Adobe Rust
+    stateSuccessBackground: '#3F2E24', // Shadow Sienna
+    accentImageBg: '#BF6248',       // Duststorm Coral
+  },
+  dataDream: {
+    bodyBackgroundColor: '#F9F9FE', // Void White
+    backgroundColor: '#45A8F0',     // Signal Blue
+    surface1: '#BB5FF9',            // Hyper Purple
+    surface2: '#56F5D2',            // Digital Mint
+    surface3: '#1C1C1F',            // Carbon Black
+    backgroundColorInv: '#56F5D2',  // Digital Mint
+    headingColor: '#45A8F0',        // Signal Blue
+    textColor: '#1C1C1F',           // Carbon Black
+    subtextColor: '#BB5FF9',        // Hyper Purple
+    textColorInv: '#F9F9FE',        // Void White
+    navBg: '#45A8F0',               // Signal Blue
+    accentPri: '#BB5FF9',           // Hyper Purple
+    accentSec: '#56F5D2',           // Digital Mint
+    gradStart: '#45A8F0',           // Signal Blue
+    gradStop: '#BB5FF9',            // Hyper Purple
+    textAccent: '#56F5D2',          // Digital Mint
+    stateSuccessBackground: '#45A8F0', // Signal Blue
+    accentImageBg: '#BB5FF9',       // Hyper Purple
+  },
+  forestFade: {
+    bodyBackgroundColor: '#DCE1D9', // Lichen Mist
+    backgroundColor: '#7CB86D',     // Pine Ash
+    surface1: '#AAC29C',            // Soft Fern
+    surface2: '#6B4F3D',            // Cedar Bark
+    surface3: '#9F8974',            // Clay Shadow
+    backgroundColorInv: '#AAC29C',  // Soft Fern
+    headingColor: '#7CB86D',        // Pine Ash
+    textColor: '#6B4F3D',           // Cedar Bark
+    subtextColor: '#AAC29C',        // Soft Fern
+    textColorInv: '#DCE1D9',        // Lichen Mist
+    navBg: '#7CB86D',               // Pine Ash
+    accentPri: '#AAC29C',           // Soft Fern
+    accentSec: '#9F8974',           // Clay Shadow
+    gradStart: '#7CB86D',           // Pine Ash
+    gradStop: '#AAC29C',            // Soft Fern
+    textAccent: '#6B4F3D',          // Cedar Bark
+    stateSuccessBackground: '#AAC29C', // Soft Fern
+    accentImageBg: '#9F8974',       // Clay Shadow
+  },
+  popFiction: {
+    bodyBackgroundColor: '#304FFE', // Retro Cobalt
+    backgroundColor: '#FF1D89',     // Blazing Pink
+    surface1: '#00E0B8',            // Teal Pop
+    surface2: '#FFEC00',            // Fizz Yellow
+    surface3: '#231F20',            // Comic Black
+    backgroundColorInv: '#00E0B8',  // Teal Pop
+    headingColor: '#304FFE',        // Retro Cobalt
+    textColor: '#231F20',           // Comic Black
+    subtextColor: '#FF1D89',        // Blazing Pink
+    textColorInv: '#FFEC00',        // Fizz Yellow
+    navBg: '#304FFE',               // Retro Cobalt
+    accentPri: '#FF1D89',           // Blazing Pink
+    accentSec: '#00E0B8',           // Teal Pop
+    gradStart: '#304FFE',           // Retro Cobalt
+    gradStop: '#FF1D89',            // Blazing Pink
+    textAccent: '#00E0B8',          // Teal Pop
+    stateSuccessBackground: '#FFEC00', // Fizz Yellow
+    accentImageBg: '#FF1D89',       // Blazing Pink
+  },
+  cloudcore: {
+    bodyBackgroundColor: '#F5F5FF', // Angel Cloud
+    backgroundColor: '#D3BDF2',     // Mood Lilac
+    surface1: '#ADA7FF',            // Baby Peri
+    surface2: '#A8E2FF',            // Opal Blue
+    surface3: '#FFE1DA',            // Fluffy Peach
+    backgroundColorInv: '#ADA7FF',  // Baby Peri
+    headingColor: '#D3BDF2',        // Mood Lilac
+    textColor: '#ADA7FF',           // Baby Peri
+    subtextColor: '#A8E2FF',        // Opal Blue
+    textColorInv: '#F5F5FF',        // Angel Cloud
+    navBg: '#D3BDF2',               // Mood Lilac
+    accentPri: '#ADA7FF',           // Baby Peri
+    accentSec: '#A8E2FF',           // Opal Blue
+    gradStart: '#D3BDF2',           // Mood Lilac
+    gradStop: '#FFE1DA',            // Fluffy Peach
+    textAccent: '#A8E2FF',          // Opal Blue
+    stateSuccessBackground: '#ADA7FF', // Baby Peri
+    accentImageBg: '#FFE1DA',       // Fluffy Peach
+  },
+  cosmicAurora: {
+    bodyBackgroundColor: '#0F1A2F', // Deep Space
+    backgroundColor: '#2CE6D6',     // Galactic Teal
+    surface1: '#FF4D8A',            // Plasma Pink
+    surface2: '#E9E9F0',            // Moon Dust
+    surface3: '#2CE6D6',            // Galactic Teal
+    backgroundColorInv: '#E9E9F0',  // Moon Dust
+    headingColor: '#FF4D8A',        // Plasma Pink
+    textColor: '#E9E9F0',           // Moon Dust
+    subtextColor: '#2CE6D6',        // Galactic Teal
+    textColorInv: '#0F1A2F',        // Deep Space
+    navBg: '#0F1A2F',               // Deep Space
+    accentPri: '#FF4D8A',           // Plasma Pink
+    accentSec: '#2CE6D6',           // Galactic Teal
+    gradStart: '#0F1A2F',           // Deep Space
+    gradStop: '#FF4D8A',            // Plasma Pink
+    textAccent: '#2CE6D6',          // Galactic Teal
+    stateSuccessBackground: '#FF4D8A', // Plasma Pink
+    accentImageBg: '#E9E9F0',       // Moon Dust
+  },
+  silentStorm: {
+    bodyBackgroundColor: '#6D6D7A', // Storm Gray
+    backgroundColor: '#3A506B',     // Thunder Blue
+    surface1: '#FFF9C4',            // Whisper Yellow
+    surface2: '#B3889E',            // Hush Mauve
+    surface3: '#3A506B',            // Thunder Blue
+    backgroundColorInv: '#FFF9C4',  // Whisper Yellow
+    headingColor: '#6D6D7A',        // Storm Gray
+    textColor: '#3A506B',           // Thunder Blue
+    subtextColor: '#B3889E',        // Hush Mauve
+    textColorInv: '#FFF9C4',        // Whisper Yellow
+    navBg: '#6D6D7A',               // Storm Gray
+    accentPri: '#FFF9C4',           // Whisper Yellow
+    accentSec: '#B3889E',           // Hush Mauve
+    gradStart: '#6D6D7A',           // Storm Gray
+    gradStop: '#FFF9C4',            // Whisper Yellow
+    textAccent: '#B3889E',          // Hush Mauve
+    stateSuccessBackground: '#3A506B', // Thunder Blue
+    accentImageBg: '#FFF9C4',       // Whisper Yellow
+  },
+  digitalMist: {
+    bodyBackgroundColor: '#D1FFE8', // Neon Fog
+    backgroundColor: '#6A7BFF',     // Hologram Blue
+    surface1: '#FF69D2',            // Glitch Pink
+    surface2: '#3C3C4D',            // Static Gray
+    surface3: '#6A7BFF',            // Hologram Blue
+    backgroundColorInv: '#FF69D2',  // Glitch Pink
+    headingColor: '#D1FFE8',        // Neon Fog
+    textColor: '#3C3C4D',           // Static Gray
+    subtextColor: '#6A7BFF',        // Hologram Blue
+    textColorInv: '#D1FFE8',        // Neon Fog
+    navBg: '#D1FFE8',               // Neon Fog
+    accentPri: '#FF69D2',           // Glitch Pink
+    accentSec: '#6A7BFF',           // Hologram Blue
+    gradStart: '#D1FFE8',           // Neon Fog
+    gradStop: '#FF69D2',            // Glitch Pink
+    textAccent: '#6A7BFF',          // Hologram Blue
+    stateSuccessBackground: '#FF69D2', // Glitch Pink
+    accentImageBg: '#3C3C4D',       // Static Gray
+  },
+  neonNoir: {
+    bodyBackgroundColor: '#1A1A1A', // Noir Void
+    backgroundColor: '#C4FF4D',     // Cyber Lime
+    surface1: '#BA8CFF',            // Vapor Violet
+    surface2: '#4D4D4D',            // Grid Gray
+    surface3: '#C4FF4D',            // Cyber Lime
+    backgroundColorInv: '#BA8CFF',  // Vapor Violet
+    headingColor: '#C4FF4D',        // Cyber Lime
+    textColor: '#4D4D4D',           // Grid Gray
+    subtextColor: '#BA8CFF',        // Vapor Violet
+    textColorInv: '#1A1A1A',        // Noir Void
+    navBg: '#1A1A1A',               // Noir Void
+    accentPri: '#C4FF4D',           // Cyber Lime
+    accentSec: '#BA8CFF',           // Vapor Violet
+    gradStart: '#1A1A1A',           // Noir Void
+    gradStop: '#C4FF4D',            // Cyber Lime
+    textAccent: '#BA8CFF',          // Vapor Violet
+    stateSuccessBackground: '#C4FF4D', // Cyber Lime
+    accentImageBg: '#4D4D4D',       // Grid Gray
+  },
+  retroFuture: {
+    bodyBackgroundColor: '#00CED1', // Vintage Cyan
+    backgroundColor: '#FF6F00',     // Hoverboard Orange
+    surface1: '#FAF0E6',            // CRT Beige
+    surface2: '#A020F0',            // Laser Purple
+    surface3: '#FF6F00',            // Hoverboard Orange
+    backgroundColorInv: '#FAF0E6',  // CRT Beige
+    headingColor: '#00CED1',        // Vintage Cyan
+    textColor: '#A020F0',           // Laser Purple
+    subtextColor: '#FF6F00',        // Hoverboard Orange
+    textColorInv: '#FAF0E6',        // CRT Beige
+    navBg: '#00CED1',               // Vintage Cyan
+    accentPri: '#FF6F00',           // Hoverboard Orange
+    accentSec: '#A020F0',           // Laser Purple
+    gradStart: '#00CED1',           // Vintage Cyan
+    gradStop: '#FF6F00',            // Hoverboard Orange
+    textAccent: '#A020F0',          // Laser Purple
+    stateSuccessBackground: '#FF6F00', // Hoverboard Orange
+    accentImageBg: '#FAF0E6',       // CRT Beige
+  },
+  zenGardenPalette: {
+    bodyBackgroundColor: '#E3E8D8', // Washed Bamboo
+    backgroundColor: '#2B4A3C',     // Moss Ink
+    surface1: '#8A9B8F',            // Stone Path
+    surface2: '#FFA7A7',            // Blossom Ash
+    surface3: '#2B4A3C',            // Moss Ink
+    backgroundColorInv: '#8A9B8F',  // Stone Path
+    headingColor: '#2B4A3C',        // Moss Ink
+    textColor: '#8A9B8F',           // Stone Path
+    subtextColor: '#FFA7A7',        // Blossom Ash
+    textColorInv: '#E3E8D8',        // Washed Bamboo
+    navBg: '#E3E8D8',               // Washed Bamboo
+    accentPri: '#FFA7A7',           // Blossom Ash
+    accentSec: '#8A9B8F',           // Stone Path
+    gradStart: '#E3E8D8',           // Washed Bamboo
+    gradStop: '#FFA7A7',            // Blossom Ash
+    textAccent: '#2B4A3C',          // Moss Ink
+    stateSuccessBackground: '#8A9B8F', // Stone Path
+    accentImageBg: '#FFA7A7',       // Blossom Ash
+  },
+  quantumFlora: {
+    bodyBackgroundColor: '#00FFA3', // Proton Green
+    backgroundColor: '#FF00D0',     // Quantum Fuchsia
+    surface1: '#2A2A3C',            // Dark Matter
+    surface2: '#FFFFFF',            // Void White
+    surface3: '#FF00D0',            // Quantum Fuchsia
+    backgroundColorInv: '#2A2A3C',  // Dark Matter
+    headingColor: '#00FFA3',        // Proton Green
+    textColor: '#2A2A3C',           // Dark Matter
+    subtextColor: '#FF00D0',        // Quantum Fuchsia
+    textColorInv: '#FFFFFF',        // Void White
+    navBg: '#00FFA3',               // Proton Green
+    accentPri: '#FF00D0',           // Quantum Fuchsia
+    accentSec: '#2A2A3C',           // Dark Matter
+    gradStart: '#00FFA3',           // Proton Green
+    gradStop: '#FF00D0',            // Quantum Fuchsia
+    textAccent: '#2A2A3C',          // Dark Matter
+    stateSuccessBackground: '#FF00D0', // Quantum Fuchsia
+    accentImageBg: '#FFFFFF',       // Void White
+  },
+  blueDianneNorway: {
+    bodyBackgroundColor: '#0C3D48', // Blue Dianne
+    backgroundColor: '#A4BF9D',     // Norway
+    surface1: '#0C3D48',            // Blue Dianne
+    surface2: '#A4BF9D',            // Norway
+    surface3: '#0C3D48',            // Blue Dianne
+    backgroundColorInv: '#A4BF9D',  // Norway
+    headingColor: '#A4BF9D',        // Norway
+    textColor: '#A4BF9D',           // Norway
+    subtextColor: '#0C3D48',        // Blue Dianne
+    textColorInv: '#0C3D48',        // Blue Dianne
+    navBg: '#0C3D48',               // Blue Dianne
+    accentPri: '#A4BF9D',           // Norway
+    accentSec: '#0C3D48',           // Blue Dianne
+    gradStart: '#0C3D48',           // Blue Dianne
+    gradStop: '#A4BF9D',            // Norway
+    textAccent: '#A4BF9D',          // Norway
+    stateSuccessBackground: '#A4BF9D', // Norway
+    accentImageBg: '#0C3D48',       // Blue Dianne
+  },
+  costaDelSolYuma: {
+    bodyBackgroundColor: '#D2C893', // Costa del Sol
+    backgroundColor: '#58541F',     // Yuma
+    surface1: '#D2C893',            // Costa del Sol
+    surface2: '#58541F',            // Yuma
+    surface3: '#D2C893',            // Costa del Sol
+    backgroundColorInv: '#58541F',  // Yuma
+    headingColor: '#58541F',        // Yuma
+    textColor: '#58541F',           // Yuma
+    subtextColor: '#D2C893',        // Costa del Sol
+    textColorInv: '#D2C893',        // Costa del Sol
+    navBg: '#D2C893',               // Costa del Sol
+    accentPri: '#58541F',           // Yuma
+    accentSec: '#D2C893',           // Costa del Sol
+    gradStart: '#D2C893',           // Costa del Sol
+    gradStop: '#58541F',            // Yuma
+    textAccent: '#58541F',          // Yuma
+    stateSuccessBackground: '#D2C893', // Costa del Sol
+    accentImageBg: '#58541F',       // Yuma
+  },
+  pearlBushTea: {
+    bodyBackgroundColor: '#C2B8AC', // Pearl Bush
+    backgroundColor: '#EAE4DD',     // Tea
+    surface1: '#C2B8AC',            // Pearl Bush
+    surface2: '#EAE4DD',            // Tea
+    surface3: '#C2B8AC',            // Pearl Bush
+    backgroundColorInv: '#EAE4DD',  // Tea
+    headingColor: '#C2B8AC',        // Pearl Bush
+    textColor: '#EAE4DD',           // Tea
+    subtextColor: '#C2B8AC',        // Pearl Bush
+    textColorInv: '#C2B8AC',        // Pearl Bush
+    navBg: '#EAE4DD',               // Tea
+    accentPri: '#C2B8AC',           // Pearl Bush
+    accentSec: '#EAE4DD',           // Tea
+    gradStart: '#C2B8AC',           // Pearl Bush
+    gradStop: '#EAE4DD',            // Tea
+    textAccent: '#C2B8AC',          // Pearl Bush
+    stateSuccessBackground: '#EAE4DD', // Tea
+    accentImageBg: '#C2B8AC',       // Pearl Bush
+  },
 };
 
 
@@ -1445,6 +1784,7 @@ export const helpers = {
     grid:false,
 };
 
+
 const themeContent = {
   audioEnabled:true,
   audioVolume:0.5,
@@ -1592,103 +1932,240 @@ export const themes = {
       ...themeContent,
     },
   },
-  amberMonochrome: {
-    name: "amberMonochrome",
+  coastalMirage: {
+    name: "coastalMirage",
     data: {
-      key: "amberMonochrome",
-      ...colorThemes.amberMonochrome,
-      ...themeContent,
-      navTheme:navigationThemes.awwwards
-    },
-  },
-  greenPhosphor: {
-    name: "greenPhosphor",
-    data: {
-      key: "greenPhosphor",
-      ...colorThemes.greenPhosphor,
+      key: "coastalMirage",
+      ...colorThemes.coastalMirage,
       ...themeContent,
     },
   },
-  ibmPcXt: {
-    name: "ibmPcXt",
+  velvetArchive: {
+    name: "velvetArchive",
     data: {
-      key: "ibmPcXt",
-      ...colorThemes.ibmPcXt,
+      key: "velvetArchive",
+      ...colorThemes.velvetArchive,
       ...themeContent,
     },
   },
-  commodore64: {
-    name: "commodore64",
+  desertCinema: {
+    name: "desertCinema",
     data: {
-      key: "commodore64",
-      ...colorThemes.commodore64,
+      key: "desertCinema",
+      ...colorThemes.desertCinema,
       ...themeContent,
     },
   },
-  appleII: {
-    name: "appleII",
+  dataDream: {
+    name: "dataDream",
     data: {
-      key: "appleII",
-      ...colorThemes.appleII,
+      key: "dataDream",
+      ...colorThemes.dataDream,
       ...themeContent,
     },
   },
-  zxSpectrum: {
-    name: "zxSpectrum",
+  forestFade: {
+    name: "forestFade",
     data: {
-      key: "zxSpectrum",
-      ...colorThemes.zxSpectrum,
+      key: "forestFade",
+      ...colorThemes.forestFade,
       ...themeContent,
     },
   },
-  atari8bit: {
-    name: "atari8bit",
+  popFiction: {
+    name: "popFiction",
     data: {
-      key: "atari8bit",
-      ...colorThemes.atari8bit,
+      key: "popFiction",
+      ...colorThemes.popFiction,
       ...themeContent,
     },
   },
-  msdos: {
-    name: "msdos",
+  cloudcore: {
+    name: "cloudcore",
     data: {
-      key: "msdos",
-      ...colorThemes.msdos,
+      key: "cloudcore",
+      ...colorThemes.cloudcore,
       ...themeContent,
     },
   },
-  amigaWorkbench: {
-    name: "amigaWorkbench",
+  cosmicAurora: {
+    name: "cosmicAurora",
     data: {
-      key: "amigaWorkbench",
-      ...colorThemes.amigaWorkbench,
+      key: "cosmicAurora",
+      ...colorThemes.cosmicAurora,
       ...themeContent,
     },
   },
-  nes: {
-    name: "nes",
+  silentStorm: {
+    name: "silentStorm",
     data: {
-      key: "nes",
-      ...colorThemes.nes,
+      key: "silentStorm",
+      ...colorThemes.silentStorm,
       ...themeContent,
     },
   },
-  gameboy: {
-    name: "gameboy",
+  digitalMist: {
+    name: "digitalMist",
     data: {
-      key: "gameboy",
-      ...colorThemes.gameboy,
+      key: "digitalMist",
+      ...colorThemes.digitalMist,
       ...themeContent,
     },
   },
-  sega: {
-    name: "sega",
+  neonNoir: {
+    name: "neonNoir",
     data: {
-      key: "sega",
-      ...colorThemes.sega,
+      key: "neonNoir",
+      ...colorThemes.neonNoir,
       ...themeContent,
     },
   },
+  retroFuture: {
+    name: "retroFuture",
+    data: {
+      key: "retroFuture",
+      ...colorThemes.retroFuture,
+      ...themeContent,
+    },
+  },
+  zenGardenPalette: {
+    name: "zenGardenPalette",
+    data: {
+      key: "zenGardenPalette",
+      ...colorThemes.zenGardenPalette,
+      ...themeContent,
+    },
+  },
+  quantumFlora: {
+    name: "quantumFlora",
+    data: {
+      key: "quantumFlora",
+      ...colorThemes.quantumFlora,
+      ...themeContent,
+    },
+  },
+  blueDianneNorway: {
+    name: "blueDianneNorway",
+    data: {
+      key: "blueDianneNorway",
+      ...colorThemes.blueDianneNorway,
+      ...themeContent,
+    },
+  },
+  costaDelSolYuma: {
+    name: "costaDelSolYuma",
+    data: {
+      key: "costaDelSolYuma",
+      ...colorThemes.costaDelSolYuma,
+      ...themeContent,
+    },
+  },
+  pearlBushTea: {
+    name: "pearlBushTea",
+    data: {
+      key: "pearlBushTea",
+      ...colorThemes.pearlBushTea,
+      ...themeContent,
+    },
+  },
+    
+  // amberMonochrome: {
+  //   name: "amberMonochrome",
+  //   data: {
+  //     key: "amberMonochrome",
+  //     ...colorThemes.amberMonochrome,
+  //     ...themeContent,
+  //     navTheme:navigationThemes.awwwards
+  //   },
+  // },
+  // greenPhosphor: {
+  //   name: "greenPhosphor",
+  //   data: {
+  //     key: "greenPhosphor",
+  //     ...colorThemes.greenPhosphor,
+  //     ...themeContent,
+  //   },
+  // },
+  // ibmPcXt: {
+  //   name: "ibmPcXt",
+  //   data: {
+  //     key: "ibmPcXt",
+  //     ...colorThemes.ibmPcXt,
+  //     ...themeContent,
+  //   },
+  // },
+  // commodore64: {
+  //   name: "commodore64",
+  //   data: {
+  //     key: "commodore64",
+  //     ...colorThemes.commodore64,
+  //     ...themeContent,
+  //   },
+  // },
+  // appleII: {
+  //   name: "appleII",
+  //   data: {
+  //     key: "appleII",
+  //     ...colorThemes.appleII,
+  //     ...themeContent,
+  //   },
+  // },
+  // zxSpectrum: {
+  //   name: "zxSpectrum",
+  //   data: {
+  //     key: "zxSpectrum",
+  //     ...colorThemes.zxSpectrum,
+  //     ...themeContent,
+  //   },
+  // },
+  // atari8bit: {
+  //   name: "atari8bit",
+  //   data: {
+  //     key: "atari8bit",
+  //     ...colorThemes.atari8bit,
+  //     ...themeContent,
+  //   },
+  // },
+  // msdos: {
+  //   name: "msdos",
+  //   data: {
+  //     key: "msdos",
+  //     ...colorThemes.msdos,
+  //     ...themeContent,
+  //   },
+  // },
+  // amigaWorkbench: {
+  //   name: "amigaWorkbench",
+  //   data: {
+  //     key: "amigaWorkbench",
+  //     ...colorThemes.amigaWorkbench,
+  //     ...themeContent,
+  //   },
+  // },
+  // nes: {
+  //   name: "nes",
+  //   data: {
+  //     key: "nes",
+  //     ...colorThemes.nes,
+  //     ...themeContent,
+  //   },
+  // },
+  // gameboy: {
+  //   name: "gameboy",
+  //   data: {
+  //     key: "gameboy",
+  //     ...colorThemes.gameboy,
+  //     ...themeContent,
+  //   },
+  // },
+  // sega: {
+  //   name: "sega",
+  //   data: {
+  //     key: "sega",
+  //     ...colorThemes.sega,
+  //     ...themeContent,
+  //   },
+  // },
   // mustang69: {
   //   name: "mustang69",
   //   data: {
@@ -1809,38 +2286,38 @@ export const themes = {
   //     ...themeContent,
   //   },
   // },
-  akc12: {
-    name: "akc12",
-    data: {
-      key: "akc12",
-      ...colorThemes.akc12,
-      ...themeContent,
-    },
-  },
-  taikonColor24: {
-    name: "taikonColor24",
-    data: {
-      key: "taikonColor24",
-      ...colorThemes.taikonColor24,
-      ...themeContent,
-    },
-  },
-  eightVision: {
-    name: "eightVision",
-    data: {
-      key: "eightVision",
-      ...colorThemes.eightVision,
-      ...themeContent,
-    },
-  },
-  cgaPalette0Low: {
-    name: "cgaPalette0Low",
-    data: {
-      key: "cgaPalette0Low",
-      ...colorThemes.cgaPalette0Low,
-      ...themeContent,
-    },
-  },
+  // akc12: {
+  //   name: "akc12",
+  //   data: {
+  //     key: "akc12",
+  //     ...colorThemes.akc12,
+  //     ...themeContent,
+  //   },
+  // },
+  // taikonColor24: {
+  //   name: "taikonColor24",
+  //   data: {
+  //     key: "taikonColor24",
+  //     ...colorThemes.taikonColor24,
+  //     ...themeContent,
+  //   },
+  // },
+  // eightVision: {
+  //   name: "eightVision",
+  //   data: {
+  //     key: "eightVision",
+  //     ...colorThemes.eightVision,
+  //     ...themeContent,
+  //   },
+  // },
+  // cgaPalette0Low: {
+  //   name: "cgaPalette0Low",
+  //   data: {
+  //     key: "cgaPalette0Low",
+  //     ...colorThemes.cgaPalette0Low,
+  //     ...themeContent,
+  //   },
+  // },
   // metallicChic: {
   //   name: "metallicChic",
   //   data: {
@@ -2102,4 +2579,64 @@ export const defaultTheme = {
       buttonType: "primary",
       buttonSound: "click",
   },
+};
+
+// Theme attribute configuration for intent-based selection
+export const themeAttributesConfig = {
+  mood: {
+    calm: 0,
+    energetic: 0,
+    warm: 0,
+    cool: 0,
+    neutral: 0,
+    playful: 0,
+    professional: 0,
+    retro: 0,
+    modern: 0,
+    pastel: 0,
+    duotone: 0,
+    dark: 0,
+    light: 0,
+    vibrant: 0,
+    muted: 0,
+    earthy: 0,
+    futuristic: 0,
+    minimal: 0,
+    maximal: 0,
+    elegant: 0,
+    bold: 0,
+    soft: 0,
+    highContrast: 0,
+    lowContrast: 0,
+  },
+  // High-level intent attributes
+  baseColor: {
+    blue: 0,
+    green: 0,
+    red: 0,
+    yellow: 0,
+    orange: 0,
+    purple: 0,
+    pink: 0,
+    brown: 0,
+    gray: 0,
+    black: 0,
+    white: 0,
+    beige: 0,
+    teal: 0,
+    cyan: 0,
+    gold: 0,
+    // Add more as needed
+  },
+  lightOrDark: {
+    light: 0,
+    dark: 0,
+    balanced: 0, // for mid-tone or flexible themes
+  },
+  contrast: {
+    high: 0,
+    medium: 0,
+    low: 0,
+  },
+  // Add more high-level intent categories as needed
 };
