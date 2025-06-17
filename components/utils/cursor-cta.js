@@ -4,6 +4,7 @@ import React, { useContext} from "react";
 import { motion, easeInOut } from "../../utils/motion";;
 import { MousePosContext } from "../context/mousePosContext";
 import { useMousePos } from '../context/mousePosContext'; // Adjust the import path as necessary
+import { useThemeContext } from "../context/themeContext";
 
 const CursorCta = ({content}) => {
   const { visible } = useMousePos(); // Access the visible state from context
@@ -20,6 +21,7 @@ const CursorCta = ({content}) => {
   };
 
   const rotation = getRotationAngle();
+  const { currentTheme } = useThemeContext();
 
 
   // useEffect(() => {
@@ -37,10 +39,14 @@ const CursorCta = ({content}) => {
           y: mousePosition?.y - 20,
         }}
         transition={{
-          ease: easeInOut,
-          duration: 0.2,
+          ease: "easeOut",
+          duration: 0.02,
         }}
-      className="fixed z-50 p-2 text-xs text-black bg-white shadow-md rounded-2xl shadow-emerald-300"
+      className="fixed z-50 p-2 text-xs rounded-full"
+      style={{
+        backgroundColor: currentTheme.data.backgroundColor,
+        color: currentTheme.data.textColor,
+      }}
     >
       {content}
     </motion.div>

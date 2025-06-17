@@ -19,8 +19,7 @@ import {
   heroHeightThemes,
   heroTypeThemes,
   heroBackgroundThemes,
-  heroCssGradientThemes
-  ,
+  heroCssGradientThemes,
   heroCssGradientRadialPositionThemes,
   heroTextImageThemes,
   heroTextPositionThemes,
@@ -58,6 +57,7 @@ export const themeControlConfig = {
     gridGallery: { type: "select", label: "Grid Gallery", options: gridGalleryThemes },
     cardLayout: { type: "select", label: "Layout", options: cardThemes },
     cardHover: { type: "select", label: "Hover", options: cardHoverThemes },
+    cursor: { type: "select", label: "Cursor", options: cursorThemes },
   },
   Typography: {
     textAnimation: { type: "select", label: "Text Animation", options: textAnimationThemes },

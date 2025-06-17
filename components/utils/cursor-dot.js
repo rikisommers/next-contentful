@@ -3,6 +3,7 @@ import React, { useState, useRef, useContext} from "react";
 import { motion, cubicBezier } from "../../utils/motion";;
 import { MousePosContext } from "../context/mousePosContext";
 //import { checkTouchDevice } from "./check-toucch-device";
+import { useThemeContext } from "../context/themeContext";
 
 const CursorDot = () => {
   const { mousePosition, direction, velocity } = useContext(MousePosContext);
@@ -12,6 +13,7 @@ const CursorDot = () => {
   const [cursorWithinViewport, setCursorWithinViewport] = useState(false);
 
   const hostRef = useRef(null);
+  const { currentTheme } = useThemeContext();
 
   // useEffect(() => {
   //   checkTouchDevice();
@@ -59,7 +61,7 @@ const CursorDot = () => {
   };
 
   const cursorClasses = () => {
-    let classes = "cursor";
+    let classes = "cursor w-4 h-4 rounded-full z-[9999] fixed";
 
     if (mouseClicked) {
       classes += " clicked";
@@ -117,6 +119,10 @@ const CursorDot = () => {
     <motion.div
       ref={hostRef}
       className={cursorClasses()}
+      style={{
+        backgroundColor: currentTheme.data.backgroundColor,
+        color: currentTheme.data.textColor,
+      }}
       animate={{
           zIndex: 9999,
          left: `${mousePosition.x}px`,
@@ -126,11 +132,11 @@ const CursorDot = () => {
 
      }}
       transition={{
-        easing: cubicBezier(0.35, 0.17, 0.3, 0.86),
-        duration: 0.3,
+        ease: "easeOut",
+        duration: 0.01,
       }}
     >
-      <motion.div className="circle"></motion.div>
+      {/* <motion.div className="w-16 h-16 bg-white rounded-full z-[9999]"></motion.div> */}
     </motion.div>
     </>
 

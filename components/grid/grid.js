@@ -32,7 +32,6 @@ const Grid = ({
 
     const { currentTheme } = useThemeContext();
 
-    console.log("data", data);
     return <>
     {getGridType(currentTheme.data.cardGrid, data)}</>
 };
