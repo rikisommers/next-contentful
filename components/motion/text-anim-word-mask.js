@@ -4,7 +4,7 @@ import React, { useRef } from "react";
 import { HighlightedSegment } from "./text-anim-highlighted-segment";
 import { motion, useInView } from "../../utils/motion";
 import { processItalicText } from "../utils/textFormatting";
-
+import { TextAnimImg } from "./text-anim-img";
 /**
  * @component
  * @description Text that animates with a word mask effect.
@@ -75,7 +75,7 @@ export const TextAnimWordMask = ({
     return (
       <motion.div
         key={lineIndex}
-        className="flex items-center gap-2 leading-snug"
+        className="flex gap-2 items-center leading-snug"
         initial="hidden"
         animate="visible"
       >
@@ -89,13 +89,12 @@ export const TextAnimWordMask = ({
             const altText = imageMatch[1]; 
             const imageUrl = imageMatch[2].startsWith("//") ? `https:${imageMatch[2]}` : imageMatch[2]; 
             return (
-              <motion.img
+                <TextAnimImg
                 key={segmentIndex}
-                className="inline h-[1em]"
-                src={imageUrl}
-                alt={altText}
-                variants={segmentVariants}
-                custom={segmentIndex}
+                imageUrl={imageUrl}
+                altText={altText}
+                index={segmentIndex}
+                delay={delay}
               />
             );
           }
@@ -107,7 +106,7 @@ export const TextAnimWordMask = ({
           if (italicParts.length === 1) {
             return (
               <motion.div 
-                className="relative flex overflow-hidden word-mask-container"
+                className="flex overflow-hidden relative word-mask-container"
                 initial={{
                   maskSize: "100% 100%",
                   skewX: -10,
@@ -156,7 +155,7 @@ export const TextAnimWordMask = ({
           // Handle segments with italic text
           return (
             <motion.div 
-              className="relative flex overflow-hidden word-mask-container"
+              className="flex overflow-hidden relative word-mask-container"
               initial={{
                 maskSize: "100% 100%",
                 skewX: -10,

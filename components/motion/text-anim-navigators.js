@@ -4,6 +4,7 @@ import React, { useRef } from "react";
 import { motion, useInView, useTransform } from "../../utils/motion";;
 import { HighlightedSegment } from "./text-anim-highlighted-segment";
 import { processItalicText } from "../utils/textFormatting";
+import { TextAnimImg } from "./text-anim-img";
 
 /**
  * @component
@@ -132,16 +133,18 @@ export const TextAnimNavigators = ({
       const imageUrl = url.startsWith("//") ? `https:${url}` : url;
       
       return (
-        <div className="relative inline-block mr-2" key={wordIndex}>
+        <div className="inline-block relative mr-2" key={wordIndex}>
           <motion.span
             variants={wordVariants}
             className="inline-block"
           >
-            <img
-              src={imageUrl}
-              alt={altText}
-              className="max-w-[40px] h-auto inline-block"
-            />
+                <TextAnimImg
+                key={wordIndex}
+                imageUrl={imageUrl}
+                altText={altText}
+                index={wordIndex}
+                delay={delay}
+              />
           </motion.span>
           <motion.span
             variants={previewVariants}
@@ -158,7 +161,7 @@ export const TextAnimNavigators = ({
     if (segments.length > 1) {
       // Word contains bold segments
       return (
-        <div className="relative inline-block mr-2" key={wordIndex}>
+        <div className="inline-block relative mr-2" key={wordIndex}>
           <motion.span
             variants={wordVariants}
             className="inline-block"
@@ -187,7 +190,7 @@ export const TextAnimNavigators = ({
     }
     
     return (
-      <div className="relative inline-block mr-2" key={wordIndex}>
+      <div className="inline-block relative mr-2" key={wordIndex}>
         <motion.span
           variants={wordVariants}
           className="inline-block"

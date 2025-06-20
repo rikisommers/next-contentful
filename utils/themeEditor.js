@@ -73,10 +73,10 @@ export default function ThemeEditor({ customThemes }) {
   //  Update the ref whenever currentTheme changes
   // TODO: Align theme format This needs to use dataa from custom or defaut
   useEffect(() => {
-    console.log("custom", customThemes);
-    updateTheme(currentTheme);
-    currentThemeRef.current = currentTheme;
-  }, []);
+    console.log("Theme updated:", currentTheme.data.key);
+    // Make a deep copy to avoid reference issues
+    currentThemeRef.current = JSON.parse(JSON.stringify(currentTheme));
+  }, [currentTheme]);
 
   // State for slider values
   const [colorWeight, setColorWeight] = useState(5);
@@ -95,6 +95,7 @@ export default function ThemeEditor({ customThemes }) {
   // These changes will be lost on global theme change
   // Save as custom thmeme to retain changes
   const updateThemeProp = useCallback((key, value) => {
+    console.log(`Updating theme property: ${key} with value: ${value}`); // Log the property being updated
     // This ref is used to store temp/live changes until save
     const { data, ...rest } = currentThemeRef.current; // Destructure to get data and rest
 
@@ -109,10 +110,6 @@ export default function ThemeEditor({ customThemes }) {
     currentThemeRef.current = mergedTheme; // Update the ref with the new merged theme
     setSingleStyleProperty(key, value); // Update the specific style property
     updateTheme(mergedTheme); // Update the theme in your state or context
-
-    // console.log('-------merged-', mergedTheme);
-    // console.log('-------current-', currentThemeRef.current);
-    // console.log('-------current3-', currentTheme);
   }, [updateTheme]);
 
   const handleThemeChange = (e, target) => {
@@ -123,8 +120,11 @@ export default function ThemeEditor({ customThemes }) {
     );
 
     if (selectedTheme) {
-      updateTheme(selectedTheme);
-      currentThemeRef.current = selectedTheme;
+      // Create a deep copy to avoid reference issues
+      const newTheme = JSON.parse(JSON.stringify(selectedTheme));
+      updateTheme(newTheme);
+      currentThemeRef.current = newTheme;
+      console.log("Theme changed to:", selectedThemeKey);
     }
   };
 
@@ -318,7 +318,7 @@ export default function ThemeEditor({ customThemes }) {
           />
         );
       case "slider":
-        console.log("Slider config", key, config, value);
+       // console.log("Slider config", key, config, value);
         return (
           <SliderInput
             key={key}
@@ -367,7 +367,7 @@ export default function ThemeEditor({ customThemes }) {
 
   return (
     <>
-      {/* <div className="fixed flex flex-col p-3 text-sm text-white bg-red-400 top-3 left-3 z-nav">
+      {/* <div className="flex fixed top-3 left-3 flex-col p-3 text-sm text-white bg-red-400 z-nav">
         <span>REF: {currentThemeRef.current?.data?.key}</span>
         <span>CUR: {currentTheme.data.key}</span>
         <span>NAM: {themeName}</span>
@@ -423,13 +423,19 @@ export default function ThemeEditor({ customThemes }) {
         <SelectInput
           label="Custom"
           value={currentTheme.data.key}
-          options={Object.keys(customThemes).map(key => ({ value: customThemes[key].data.key, label: customThemes[key].data.key }))}
+          options={Object.keys(customThemes).map(key => ({ 
+            value: customThemes[key].data.key, 
+            label: customThemes[key].name || customThemes[key].data.key 
+          }))}
           onChange={val => handleThemeChange(val, customThemes)}
         />
         <SelectInput
           label="Presets"
           value={currentTheme.data.key}
-          options={Object.keys(presetThemes).map(key => ({ value: presetThemes[key].data.key, label: presetThemes[key].data.key }))}
+          options={Object.keys(presetThemes).map(key => ({ 
+            value: presetThemes[key].data.key, 
+            label: presetThemes[key].name || presetThemes[key].data.key 
+          }))}
           onChange={val => handleThemeChange(val, presetThemes)}
         />
         <Button type={ButtonType.DEFAULT} label="Save Current Theme" onClick={() => setIsSaveModalOpen(true)} />

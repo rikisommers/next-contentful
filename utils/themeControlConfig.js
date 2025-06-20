@@ -28,6 +28,7 @@ import {
   cardHoverThemes,
   mixBlendThemes,
   imageTextureThemes,
+  shaderTypes,
 } from "./theme";
 
 export const themeControlConfig = {
@@ -69,6 +70,8 @@ export const themeControlConfig = {
     fluidFontRatioMin: { type: "slider", label: "Fluid Min", min: 0, max: 1.3, step: 0.01 },
     textHighlight: { type: "select", label: "Text Highlight", options: textHighlightThemes },
     textHighlightOutline: { type: "select", label: "Text Highlight Outline", options: textHighlightOutlineThemes },
+    heroTextImage: { type: "select", label: "Images", options: heroTextImageThemes },
+    heroTextPosition: { type: "position", label: "Text Layout", options: heroTextPositionThemes },
     BodyText: {
         isFolder: true,
         bodyTextDropCap: { type: "boolean", label: "Drop Cap" },
@@ -95,13 +98,11 @@ export const themeControlConfig = {
   Hero: {
     heroHeight: { type: "select", label: "Height", options: heroHeightThemes },
     heroType: { type: "select", label: "Type", options: heroTypeThemes },
-    heroBackgroundStyle: { type: "select", label: "Bg", options: heroBackgroundThemes },
+    heroBackground: { type: "select", label: "Bg", options: heroBackgroundThemes },
     heroCssGradient: { type: "select", label: "CSS Gradient Type", options: heroCssGradientThemes },
     heroCssGradientAngle: { type: "slider", label: "CSS Gradient Angle", min: 0, max: 180, step: 1 },
     heroCssGradientRadialPosition: { type: "select", label: "CSS Gradient Radial Position", options: heroCssGradientRadialPositionThemes },
     heroGradMidPoint: { type: "slider", label: "Gradient Mid Point", min: 0, max: 1, step: 0.1 },
-    heroTextImageStyle: { type: "select", label: "Images", options: heroTextImageThemes },
-    heroTextPosition: { type: "position", label: "Text Layout", options: heroTextPositionThemes },
   },
   Images: {
     imageParallax: { type: "boolean", label: "Parallax" },
@@ -128,5 +129,13 @@ export const themeControlConfig = {
     textAccent: { type: "color", label: "Text Accent" },
     textColor: { type: "color", label: "Text Color" },
     textColorInv: { type: "color", label: "Text Color Inverted" },
-  }
+  },
+  Effects: {
+    shaderType: { type: "select", label: "Shader Type", options: shaderTypes },
+    pixelDensity: { type: "slider", label: "Pixel Density", min: 1, max: 100, step: 1 },
+    halftoneSize: { type: "slider", label: "Halftone Size", min: 1, max: 20, step: 0.1 },
+    halftoneShape: { type: "select", label: "Halftone Shape", options: { circle: "Circle", square: "Square" } },
+    halftoneInvert: { type: "boolean", label: "Halftone Invert" },
+    dotScale: { type: "slider", label: "Dot Scale", min: 0.1, max: 1.0, step: 0.1 },
+  },
 }; 

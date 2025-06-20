@@ -4,7 +4,7 @@ import React, { useRef } from "react";
 import { motion, useInView } from "../../utils/motion";
 import { HighlightedSegment } from "./text-anim-highlighted-segment";
 import { processItalicText } from "../utils/textFormatting";
-
+import { TextAnimImg } from "./text-anim-img";
 /**
  * @component
  * @description Text that animates with lines moving up.
@@ -62,16 +62,12 @@ export const TextAnimLinePosUp = ({
       const [_, altText, url] = imageMatch;
       const imageUrl = url.startsWith("//") ? `https:${url}` : url;
       return (
-        <img
+        <TextAnimImg
           key={wordIndex}
-          src={imageUrl}
-          alt={altText}
-          className="w-[40px] h-0"
-          style={{
-            maxWidth: "40px",
-            height: "auto",
-            display: "inline-block",
-          }}
+          imageUrl={imageUrl}
+          altText={altText}
+          index={wordIndex}
+          delay={delay}
         />
       );
     }

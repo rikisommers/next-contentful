@@ -2,12 +2,16 @@ import React, { useState, useEffect } from "react";
 import { motion } from "../../utils/motion";
 import CanvasGradientBackground from "../background/canvasGradientBackground";
 import CanvasAnimatedGradient from "../background/canvasAnimatedGradient";
+import CanvasImageComponent from "../background/canvasImageComponent";
 import BackgroundCssGrad from "../background/bg-grad-css";
 import { useThemeContext } from "../context/themeContext";
 import BlendImage from "../image/blend-image";
 import { ClipContainer } from "../motion/clippath-container";
 import { ScaleContainer } from "../motion/scale-container";
 import PostIntro from "../post/post-intro";
+import Background from "../background/background";
+
+
 const getPositionClass = (position) => {
   switch (position) {
     case "left":
@@ -41,19 +45,42 @@ const getHeightClass = (height) => {
 };
 
 /**
- * Renders the appropriate background component based on the heroBackgroundStyle
- * @param {string} heroBackgroundStyle - The style of the hero background
+ * Renders the appropriate background component based on the heroBackground
+ * @param {string} heroBackground - The style of the hero background
  * @param {Object} image - The image object for image background
  * @returns {JSX.Element|null} - The rendered background component or null
  */
-const renderHeroBackground = (heroBackgroundStyle, image) => {
-  switch (heroBackgroundStyle) {
-    case "gradient":
+
+
+// export const heroBackgroundThemes = {
+//   none: 'none',
+//   video: 'video',
+//   canvas: 'canvas',
+//   image: 'image',
+//   gradient: 'gradient',
+//   cssgradient: 'cssgradient',
+//   animatedGradient: 'animated-gradient',
+// };
+
+
+
+const renderHeroBackground = (heroBackground, image) => {
+  switch (heroBackground) {
+    case "none":
+      return <h1>NONE</h1>;
+    case "canvasSphere":
+      return <Background />;
+      case "canvasGrad":
+        return <CanvasGradientBackground />;
+    case "canvasImage":
+      return <div className="flex justify-center items-center w-full h-full">
+        <div className="relative w-1/2 h-1/2 rounded-xl border-2 border-red-500">
+          <CanvasImageComponent src={image.url} /></div>
+          </div>;
+    case "canvasGradient":
       return <CanvasGradientBackground gradientType="conic" conicRotation={1} />;
     case "cssgradient":
       return <BackgroundCssGrad />;
-    case "video":
-      return <Background />;
     case "image":
       return image ? (
         <BlendImage
@@ -62,8 +89,9 @@ const renderHeroBackground = (heroBackgroundStyle, image) => {
           src={image.url}
         />
       ) : null;
+
     default:
-      return null;
+      return <BackgroundCssGrad />;
   }
 };
 
@@ -89,7 +117,7 @@ export default function BlockHero({ title, content, tag, image}) {
         )} relative flex flex-col justify-end left-0 top-0 z-50 w-full gap-8 px-16 py-16`}
       >
         {/* <h1>NO {clip ? "YES" : "NO"}</h1> */}
-        {renderHeroBackground(currentTheme.data.heroBackgroundStyle, image)}
+        {renderHeroBackground(currentTheme.data.heroBackground, image)}
 
         <ScaleContainer>
           <PostIntro title={title} content={content} tag={tag} />

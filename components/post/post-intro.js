@@ -10,7 +10,7 @@ export default function PostIntro({ title, content, tag }) {
   console.log('titlecontent---------',title)
   return (
     //pt-[16rem] pb-8
-    <div className="z-10 grid items-end content-end w-full grid-cols-12 gap-6">
+    <div className="grid z-10 grid-cols-12 gap-6 content-end items-end w-full">
       <div className="col-span-12 md:col-span-8 lg:col-span-8">
         <>
           {tag && (
@@ -37,7 +37,7 @@ export default function PostIntro({ title, content, tag }) {
         </>
       </div>
       <div className="col-span-12 text-left md:col-span-8 lg:col-span-4 text-balance">
-        <h4 className="text-sm font-normal"
+        <p className="text-sm font-normal"
                       style={{
                         color: "var(--subtext-color)",
                       }}
@@ -49,7 +49,7 @@ export default function PostIntro({ title, content, tag }) {
               delay={AnimTextOrder.THREE}
             />
           )}
-        </h4>
+        </p>
       </div>
     </div>
   );

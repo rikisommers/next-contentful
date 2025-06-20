@@ -14,7 +14,6 @@ const Index = ({ data, footerData }) => {
     <Layout>
       <ScrollContainer>
         <LandingPage data={data} footerData={footerData}  />
-
       </ScrollContainer>
     </Layout>
   );

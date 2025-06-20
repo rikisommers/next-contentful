@@ -58,7 +58,7 @@ export default function Navigation({data, logo, customThemes}) {
   return (
     <>
 
-<div className="fixed z-50 flex items-center top-4 right-4">
+<div className="flex fixed top-4 right-4 z-50 items-center pr-[400px]">
 
 <ThemeTrigger />
 
@@ -76,7 +76,7 @@ export default function Navigation({data, logo, customThemes}) {
           borderColor: "var(--nav-shadow-color)",
         }}
       >
-        <div className="z-50 flex items-start justify-start col-start-1 row-span-1 row-start-1 w-fit"
+        <div className="flex z-50 col-start-1 row-span-1 row-start-1 justify-start items-start w-fit"
              onClick={toggleThemeEditor}>
           <Logo logo={logo} />
         </div>
@@ -86,7 +86,7 @@ export default function Navigation({data, logo, customThemes}) {
        
 
 {/* 
-       <motion.div className="absolute z-50 flex items-center gap-1 p-1 bg-red-400 rounded-lg top-4 right-4">
+       <motion.div className="flex absolute top-4 right-4 z-50 gap-1 items-center p-1 bg-red-400 rounded-lg">
             <img className="w-[30px] h-[30px]" src="./icons/change.svg" title="theme"/>
         </motion.div>  */}
 

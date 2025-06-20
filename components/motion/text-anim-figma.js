@@ -4,7 +4,7 @@ import React from "react";
 import { HighlightedSegment } from "./text-anim-highlighted-segment";
 import { motion } from "framer-motion";
 import { processItalicText } from "../utils/textFormatting";
-
+import { TextAnimImg } from "./text-anim-img";
 /**
  * @component
  * @description Text that animates with a Figma-like effect.
@@ -50,15 +50,8 @@ export const TextAnimFigma = ({
     if (imageMatch) {
       const altText = imageMatch[1]; 
       const imageUrl = imageMatch[2].startsWith("//") ? `https:${imageMatch[2]}` : imageMatch[2]; 
-      return (
-        <motion.img
-          key={wordIndex}
-          className="inline h-[1em]"
-          src={imageUrl}
-          alt={altText}
-          variants={segmentVariants}
-          custom={wordIndex}
-        />
+      return (  
+        <TextAnimImg imageUrl={imageUrl} altText={altText} index={wordIndex} delay={delay}/>
       );
     }
 
@@ -116,7 +109,7 @@ export const TextAnimFigma = ({
     return (
       <motion.div
         key={lineIndex}
-        className="inline-flex items-center gap-2 leading-snug"
+        className="inline-flex gap-2 items-center leading-snug"
         initial="hidden"
         animate="visible"
       >

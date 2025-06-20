@@ -1636,6 +1636,8 @@ export const navigationStyleThemes = {
 export const navigationThemes = {
   custom: 'custom',
   awwwards: 'awwwards',
+  awwwardsGlass: 'awwwards-glass',
+  awwwards2: 'awwwards-2',
   applause: 'applause',
   applauseMain: 'applause-main',
 };
@@ -1695,15 +1697,17 @@ export const heroHeightThemes = {
   auto: 'auto',
 };
 
-
+// animatedGradient: 'animated-gradient',
+// blob: 'blob',
+//video: 'video',
 export const heroBackgroundThemes = {
   none: 'none',
-  video: 'video',
+  canvasGrad: 'canvasGrad',
+  canvasSphere: 'canvasSphere',
+  canvasImage: 'canvasImage',
   image: 'image',
-  gradient: 'gradient',
+  canvasGradient: 'canvasGradient',
   cssgradient: 'cssgradient',
-  animatedGradient: 'animated-gradient',
-  blob:'blob',
 };
 
 export const heroCssGradientThemes = {
@@ -1755,7 +1759,7 @@ export const heroTextCompositionThemes = {
 export const heroTextImageThemes = {
   none: 'none',
   inline: 'inline',
-  hover: 'hover',
+  pill: 'pill',
 };
 
 export const bodyTextAlign = {
@@ -1783,6 +1787,15 @@ export const helpers = {
     grid:false,
 };
 
+export const shaderTypes = {
+  watercolor: 'watercolor',
+  noise: 'noise',
+  pixel: 'pixel',
+  halftone: 'halftone',
+  moire: 'moire',
+  vintagePrint: 'vintagePrint',
+  vintageScreen: 'vintageScreen',
+};
 
 const themeContent = {
   audioEnabled:true,
@@ -1821,7 +1834,6 @@ const themeContent = {
   heroHeight:heroHeightThemes.full,
   heroType:heroTypeThemes.riki,
   heroBackground:heroBackgroundThemes.gradient,
-  heroTextImage:heroTextImageThemes.none,
   heroTextPosition:heroTextPositionThemes.center,
   heroGradMidPoint:heroGradThemes.gradMidPoint,
   heroCssGradient:heroCssGradientThemes.linear,
@@ -1859,6 +1871,12 @@ const themeContent = {
   audioPageTransitionEnd: soundThemes.default,
   audioModalOpen: soundThemes.default,
   audioModalClose: soundThemes.default,
+  shaderType: shaderTypes.vintagePrint, // Default shader type
+  pixelDensity: 20.0, // Default pixel density
+  halftoneSize: 8.0, // Default halftone size
+  halftoneShape: "circle", // Default halftone shape
+  halftoneInvert: false, // Default halftone invert
+  dotScale: 0.6, // Default dot scale
 }
 
 // Function to get theme by key

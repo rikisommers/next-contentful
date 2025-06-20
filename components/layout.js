@@ -19,7 +19,6 @@ const Layout = ({ children }) => {
         {currentTheme.data.cursor === "dot" && <CursorDot />}
         {currentTheme.data.cursor === "cta" && <CursorCta content="Hello" />}
 
-
             {children}
     </TransitionPage>
   );

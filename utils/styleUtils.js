@@ -62,14 +62,14 @@ export const setStyleProperties = (theme) => {
     // Hero properties
     root.style.setProperty("--hero-height", theme.data.heroHeight || heroHeightThemes.full);
     root.style.setProperty("--hero-type", theme.data.heroType || heroTypeThemes.monks);
-    root.style.setProperty("--hero-background-style", theme.data.heroBackgroundStyle || heroBackgroundThemes.gradient);
+    root.style.setProperty("--hero-background", theme.data.heroBackground || heroBackgroundThemes.gradient);
     root.style.setProperty("--hero-css-gradient", theme.data.heroCssGradient || heroCssGradientThemes.linearVertical);
     root.style.setProperty("--hero-css-gradient-angle", theme.data.heroCssGradientAngle || '90');
     root.style.setProperty("--hero-css-gradient-radial-position", theme.data.heroCssGradientRadialPosition || heroCssGradientRadialPositionThemes.center);
     root.style.setProperty("--hero-grad-mid-point", theme.data.heroGradMidPoint || 0.5);
-    root.style.setProperty("--hero-text-image-style", theme.data.heroTextImageStyle || heroTextImageThemes.inline);
+    root.style.setProperty("--hero-text-image", theme.data.heroTextImage || heroTextImageThemes.inline);
     root.style.setProperty("--hero-text-position", theme.data.heroTextPosition || heroTextPositionThemes.bottomLeft);
-    root.style.setProperty("--hero-text-composition", theme.data.heroTextComposition || heroTextCompositionThemes.foo);
+//    root.style.setProperty("--hero-text-composition", theme.data.heroTextComposition || heroTextCompositionThemes.foo);
     root.style.setProperty("--text-highlight-outline", theme.data.textHighlightOutline || textHighlightOutlineThemes.none);
     root.style.setProperty("--text-highlight-outline-neumorphic-start-color", theme.data.textHighlightOutlineNeumorphicStartColor || '#FFFFFF');
     root.style.setProperty("--text-highlight-outline-neumorphic-end-color", theme.data.textHighlightOutlineNeumorphicEndColor || '#000000');
@@ -93,6 +93,15 @@ export const setStyleProperties = (theme) => {
     root.style.setProperty("--image-texture", theme.data.imageTexture || "none");
     root.style.setProperty("--image-texture-contrast", theme.data.imageTextureContrast || "100%");
     root.style.setProperty("--image-texture-brightness", theme.data.imageTextureBrightness || "100%");
+
+    // Shader type property
+    root.style.setProperty("--shader-type", theme.data.shaderType || "watercolor");
+
+    // Halftone effect properties
+    root.style.setProperty("--halftone-size", theme.data.halftoneSize || 8.0);
+    root.style.setProperty("--halftone-shape", theme.data.halftoneShape || "circle");
+    root.style.setProperty("--halftone-invert", theme.data.halftoneInvert ? "true" : "false");
+    root.style.setProperty("--dot-scale", theme.data.dotScale || 0.6);
   } else {
     console.warn("Theme is not defined. Exiting setStyleProperties.");
   }

@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useContext} from "react";
 import { motion, cubicBezier } from "../../utils/motion";;
 import { MousePosContext } from "../context/mousePosContext";
@@ -127,13 +126,12 @@ const CursorDot = () => {
           zIndex: 9999,
          left: `${mousePosition.x}px`,
          top: `${mousePosition.y}px`,
-        // opacity: cursorWithinViewport ? 0 : 1,
-         backgroundColor: cursorWithinViewport ? 0 : 1,
-
+        opacity: cursorWithinViewport ? 0 : 1,
      }}
       transition={{
-        ease: "easeOut",
-        duration: 0.01,
+        type: "spring",
+        stiffness: 800,
+        damping: 35,
       }}
     >
       {/* <motion.div className="w-16 h-16 bg-white rounded-full z-[9999]"></motion.div> */}

@@ -135,13 +135,10 @@ export const TextAnimRandom = ({ content }) => {
           const lines = segment.split("\n");
           return lines.map((line, lineIndex) => {
             // Check for image markdown syntax
-            const imageMatch = line.match(/!\[([^\]]*)\]\((.*?)\)/);
+            const imageMatch = line.match(/!\[[^\]]*\]\((.*?)\)/);
             
             if (imageMatch) {
-              const [_, altText, url] = imageMatch;
-              const imageUrl = url.startsWith("//") ? `https:${url}` : url;
-              
-              // Extract text before and after the image
+              // Remove image rendering logic
               const beforeImage = line.substring(0, imageMatch.index).trim();
               const afterImage = line.substring(imageMatch.index + imageMatch[0].length).trim();
               
@@ -151,7 +148,6 @@ export const TextAnimRandom = ({ content }) => {
                   key={`${index}-${lineIndex}`}
                 >
                   {beforeImage && beforeImage.split('').map(renderCharacter)}
-                  {renderImage(altText, imageUrl, `${index}-${lineIndex}`)}
                   {afterImage && afterImage.split('').map(renderCharacter)}
                 </motion.span>
               );
