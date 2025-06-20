@@ -8,6 +8,8 @@ import Link from "next/link";
 import NavBarAwwwards from "./navbar-awwwards";
 import NavBarApplause from "./navbar-applause";
 import NavBarApplauseMain from "./navbar-applause-main";
+import NavBarAwwwards2 from "./navbar-awwwards2";
+import NavBarAwwwardsGlass from "./navbar-awwwards-glass";
 
 export default function NavBar({ containerRef, data }) {
   const { currentTheme } = useThemeContext();
@@ -219,14 +221,14 @@ export default function NavBar({ containerRef, data }) {
         {/* {currentTheme.data.navFloating && (
         <div
           ref={menuDragRef}
-          className="flex items-center w-2 h-2 px-2 text-lg text-white bg-white"
+          className="flex items-center px-2 w-2 h-2 text-lg text-white bg-white"
           style={{ color: "var(--text-accent)" }}
         ></div>
       )} */}
       {/* <p>{currentTheme.data.navigationOptions?.floating === true ? 'true' : 'false'}</p>
       <p>{currentTheme.data.navigationOptions?.shadow === true ? 'true' : 'false'}</p> */}
   
-                {/* <span className="relative flex items-center px-3 py-3 text-xs uppercase rounded-lg cursor-pointer">
+                {/* <span className="flex relative items-center px-3 py-3 text-xs uppercase rounded-lg cursor-pointer">
           
             </span> */}
           {/* <Button
@@ -247,6 +249,24 @@ export default function NavBar({ containerRef, data }) {
             handleNavClick={handleNavClick} 
           />
         );
+        case "awwwards2":
+          return (
+            <NavBarAwwwards2 
+              pages={pages} 
+              activePage={activePage} 
+              currentTheme={currentTheme} 
+              handleNavClick={handleNavClick} 
+            />
+          );
+          case "awwwardsGlass":
+            return (
+              <NavBarAwwwardsGlass 
+                pages={pages} 
+                activePage={activePage} 
+                currentTheme={currentTheme} 
+                handleNavClick={handleNavClick} 
+              />
+            );
       case "applause":
         return (
           <NavBarApplause 
