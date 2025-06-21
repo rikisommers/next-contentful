@@ -16,8 +16,7 @@ import FadeInWhenVisible from "../utils/fade-in-visible";
  * @param {string} post.slug - The slug for the post URL.
  * @param {string} post.color - The accent color for the tile.
  * @param {object} post.img - The image object for the post.
- * @param {number} index - The index of the post, used for animation delay.
- * @param {string} size - The size of the tile.
+ * @param {string} [aspect] - The aspect ratio of the tile (e.g., 'square', '16/9').
  * @example
  * // Image Post Tile
  * <PostTileImg 
@@ -33,23 +32,23 @@ import FadeInWhenVisible from "../utils/fade-in-visible";
  *       description: "Project cover image"
  *     }
  *   }}
- *   index={0}
+ *   aspect="16:9"
  * />
  * @exports PostTileImg
  */
-export default function PostTileImg({ post, index, size }) {
+export default function PostTileImg({ post, aspect }) {
   const [isHovered, setIsHovered] = useState(false); // State to track hover
   const ref = useRef(null)
 
   return (
     <Link
       href={`/articles/${post.slug}`}
-      className="relative flex flex-col w-full h-full overflow-hidden rounded-2xl group"
+      className={`relative flex flex-col w-full h-full overflow-hidden rounded-2xl group ${aspect ? `aspect-${aspect}` : ""}`}
       onMouseEnter={() => setIsHovered(true)} // Set hover state to true on mouse enter
       onMouseLeave={() => setIsHovered(false)} // Set hover state to false on mouse leave
     >
       <div
-        className="absolute flex flex-col gap-4 top-3 left-3"
+        className="flex absolute top-3 left-3 flex-col gap-4"
         style={{
           color: "var(--text-color-inv)",
           backgroundColor: post.color,
@@ -66,7 +65,7 @@ export default function PostTileImg({ post, index, size }) {
           duration: 0.33,
           ease: cubicBezier(0.16, 1, 0.3, 1),
         }}
-        className="absolute bottom-0 left-0 z-10 flex flex-col items-start w-full gap-2 p-4"
+        className="flex absolute bottom-0 left-0 z-10 flex-col gap-2 items-start p-4 w-full"
       >
         <div className="flex gap-2">
           <h2
@@ -79,7 +78,7 @@ export default function PostTileImg({ post, index, size }) {
             {post?.title}
           </h2>
           <div
-            className="w-10 h-10 rounded-lg "
+            className="w-10 h-10 rounded-lg"
             style={{
               backgroundColor: "var(--background-color)",
             }}

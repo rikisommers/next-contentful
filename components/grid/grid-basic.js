@@ -128,15 +128,15 @@ export default function GridBasic({
       {items.map((item, index) => {
         switch (currentTheme.data.cardLayout) {
           case 'formal':
-            return <PostTileCs key={index} post={item} />;
+            return <PostTileCs key={index} post={item} aspect={currentTheme.data.cardAspectRatio} />;
           case 'funky':
-            return <PostTileLg key={index} post={item} />;
+            return <PostTileLg key={index} post={item} aspect={currentTheme.data.cardAspectRatio} />;
           case 'reone':
-            return <PostTileRe key={index} post={item} aspect={aspectRatio} />;
+            return <PostTileRe key={index} post={item} aspect={currentTheme.data.cardAspectRatio} />;
           case 'monks':
-            return <PostTileMonks key={index} post={item} />;
+            return <PostTileMonks key={index} post={item} aspect={currentTheme.data.cardAspectRatio} />;
           case 'img':
-            return <PostTileImg key={index} post={item} />;
+            return <PostTileImg key={index} post={item} aspect={currentTheme.data.cardAspectRatio} />;
           default:
             return null;
         }

@@ -22,7 +22,7 @@ import {
  * @param {string} post.date - The date of the project.
  * @param {array} post.tags - An array of tags for the post.
  * @param {object} post.img - The image object for the post.
- * @param {number} index - The index of the post, used for animation delay.
+ * @param {string} [aspect] - The aspect ratio of the tile (e.g., 'square', '16/9').
  * @example
  * // Case Study Post Tile
  * <PostTileCs 
@@ -40,11 +40,11 @@ import {
  *       description: "Project cover image"
  *     }
  *   }}
- *   index={0}
+ *   aspect="4:3"
  * />
  * @exports PostTileCs
  */
-export default function PostTileCs({ post, index }) {
+export default function PostTileCs({ post, aspect }) {
   //  console.log("ss", post);
   
   const ref = useRef(null);
@@ -66,12 +66,12 @@ export default function PostTileCs({ post, index }) {
       style={{
         color: 'var(--background-color)'
       }}
-      className="relative flex flex-col w-full h-full overflow-hidden rounded-lg tile"
+      className={`relative flex flex-col w-full h-full overflow-hidden rounded-lg tile ${aspect ? `aspect-${aspect}` : ""}`}
     >
       <h1 className="absolute top-0 left-0 z-10 text-amber-200">CS</h1>
       {post.img && (
-        <div className="relative flex flex-col flex-grow overflow-hidden rounded-lg">
-          <div className="absolute flex top-3 left-3"
+        <div className="flex overflow-hidden relative flex-col flex-grow rounded-lg">
+          <div className="flex absolute top-3 left-3"
            style={{
             color: 'var(--text-color-inv)'
           }}
@@ -89,7 +89,7 @@ export default function PostTileCs({ post, index }) {
           </div>
           <div
             ref={ref}
-            className="absolute top-0 left-0 z-10 flex items-end justify-between w-full h-full gap-4 px-4 pb-4 text-white "
+            className="flex absolute top-0 left-0 z-10 gap-4 justify-between items-end px-4 pb-4 w-full h-full text-white"
           >
 
 
@@ -102,7 +102,7 @@ export default function PostTileCs({ post, index }) {
                       style={{
                         color:'var(--text-color)'
                       }}
-                      className="text-xs uppercase py-0.5 px-1.5 rounded-md"
+                      className="px-1.5 py-0.5 text-xs uppercase rounded-md"
                     >
                       {tag}
                     </div>
@@ -129,9 +129,9 @@ export default function PostTileCs({ post, index }) {
         </div>
       )}
 
-      <div className="flex items-start justify-between w-full py-3 asolute ">
+      <div className="flex justify-between items-start py-3 w-full asolute">
         <div className="flex flex-col gap-2">
-          <h2 className="font-mono text-sm font-medium "
+          <h2 className="font-mono text-sm font-medium"
                style={{
                 color:'var(--text-color)'
               }}

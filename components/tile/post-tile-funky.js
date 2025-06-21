@@ -17,8 +17,7 @@ import FadeInWhenVisible from "../utils/fade-in-visible";
  * @param {string} post.client - The client name for the project.
  * @param {array} post.tags - An array of tags for the post.
  * @param {object} post.img - The image object for the post.
- * @param {number} index - The index of the post, used for animation delay.
- * @param {string} size - The size of the tile.
+ * @param {string} [aspect] - The aspect ratio of the tile (e.g., 'square', '16/9').
  * @example
  * // Large Post Tile
  * <PostTileFunky
@@ -35,11 +34,11 @@ import FadeInWhenVisible from "../utils/fade-in-visible";
  *       description: "Project cover image"
  *     }
  *   }}
- *   index={0}
+ *   aspect="16:9"
  * />
  * @exports PostTileFunky
  */
-export default function PostTileFunky({ post, index, size }) {
+export default function PostTileFunky({ post, aspect }) {
   const [isHovered, setIsHovered] = useState(false); // State to track hover
 
   return (
@@ -48,19 +47,19 @@ export default function PostTileFunky({ post, index, size }) {
       style={{
         backgroundColor: "var(--body-background-color)",
       }}
-      className="relative flex flex-col w-full h-full overflow-hidden rounded-2xl group"
+      className={`relative flex flex-col w-full h-full overflow-hidden rounded-2xl group ${aspect ? `aspect-${aspect}` : ""}`}
       onMouseEnter={() => setIsHovered(true)} // Set hover state to true on mouse enter
       onMouseLeave={() => setIsHovered(false)} // Set hover state to false on mouse leave
     >
       <div
-        className="absolute flex flex-col gap-4 top-3 left-3"
+        className="flex absolute top-3 left-3 flex-col gap-4"
         style={{
           color: "var(--text-color-inv)",
           backgroundColor: post.color || "var(--accent)",
         }}
       ></div>
 
-      <div className="absolute flex justify-end gap-2 top-4 right-4">
+      <div className="flex absolute top-4 right-4 gap-2 justify-end">
         <motion.div
           className="z-10 px-4 py-2 text-sm rounded-full"
           animate={{
@@ -80,7 +79,7 @@ export default function PostTileFunky({ post, index, size }) {
         </motion.div>
 
         <motion.div
-          className="z-10 flex items-center px-2 py-1 text-sm rounded-full"
+          className="flex z-10 items-center px-2 py-1 text-sm rounded-full"
           animate={{
             scale: isHovered ? 1 : 1.2,
           }}

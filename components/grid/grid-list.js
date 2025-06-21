@@ -115,11 +115,11 @@ export default function GridList({
             transition: 'transform 0.3s ease',
           }}
         >
-                {currentTheme.data.cardLayout === 'formal' && <PostTileCs post={item} />}
-                {currentTheme.data.cardLayout === 'funky' && <PostTileLg post={item} />}
-                {currentTheme.data.cardLayout === 'reone' && <PostTileRe post={item} />}
-                {currentTheme.data.cardLayout === 'monks' && <PostTileMonks post={item} />}
-                {currentTheme.data.cardLayout === 'img' && <PostTileImg post={item} />}
+                {currentTheme.data.cardLayout === 'formal' && <PostTileCs post={item} aspect={currentTheme.data.cardAspectRatio} />}
+                {currentTheme.data.cardLayout === 'funky' && <PostTileLg post={item} aspect={currentTheme.data.cardAspectRatio} />}
+                {currentTheme.data.cardLayout === 'reone' && <PostTileRe post={item} aspect={currentTheme.data.cardAspectRatio} />}
+                {currentTheme.data.cardLayout === 'monks' && <PostTileMonks post={item} aspect={currentTheme.data.cardAspectRatio} />}
+                {currentTheme.data.cardLayout === 'img' && <PostTileImg post={item} aspect={currentTheme.data.cardAspectRatio} />}
         </div>
       ))}
     </div>
