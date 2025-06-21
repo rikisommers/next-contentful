@@ -78,6 +78,7 @@ export const setStyleProperties = (theme) => {
 
     // Grid properties
     root.style.setProperty("--card-layout", theme.data.cardLayout || "default");
+    root.style.setProperty("--card-aspect-ratio", theme.data.cardAspectRatio || "auto");
     root.style.setProperty("--card-hover", theme.data.cardHover || "none");
     root.style.setProperty("--card-grid", theme.data.cardGrid || "bento1");
     root.style.setProperty("--grid-columns-sm", theme.data.gridColumnsSm || 2);

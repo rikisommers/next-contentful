@@ -375,7 +375,7 @@
         },
         {
           "type": "Array",
-          "name": "props.items",
+          "name": "props.data",
           "description": "Array of items to display in the grid"
         },
         {
@@ -392,11 +392,9 @@
       "examples": [
         {
           "title": "",
-          "code": "<GridBasic\nitems={[\n{\ntitle: \"Interactive Web App\",\nsubtitle: \"Modern React application with seamless user experience\",\nslug: \"interactive-web-app\",\ncolor: \"#6366f1\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Interactive web application\"\n}\n},\n{\ntitle: \"E-commerce Platform\",\nsubtitle: \"Full-stack shopping experience with modern design\",\nslug: \"ecommerce-platform\",\ncolor: \"#f59e0b\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"E-commerce platform\"\n}\n},\n{\ntitle: \"Brand Identity System\",\nsubtitle: \"Complete visual identity and brand guidelines\",\nslug: \"brand-identity-system\",\ncolor: \"#ec4899\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Brand identity system\"\n}\n},\n{\ntitle: \"Mobile App Design\",\nsubtitle: \"Native iOS and Android application interface\",\nslug: \"mobile-app-design\",\ncolor: \"#10b981\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Mobile app design\"\n}\n},\n{\ntitle: \"Dashboard Analytics\",\nsubtitle: \"Data visualization and business intelligence tool\",\nslug: \"dashboard-analytics\",\ncolor: \"#8b5cf6\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Dashboard analytics\"\n}\n}\n]}\n/>\n/",
+          "code": "<GridBasic\ndata={[\n{\ntitle: \"Interactive Web App\",\nsubtitle: \"Modern React application with seamless user experience\",\nslug: \"interactive-web-app\",\ncolor: \"#6366f1\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Interactive web application\"\n}\n},\n{\ntitle: \"E-commerce Platform\",\nsubtitle: \"Full-stack shopping experience with modern design\",\nslug: \"ecommerce-platform\",\ncolor: \"#f59e0b\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"E-commerce platform\"\n}\n},\n{\ntitle: \"Brand Identity System\",\nsubtitle: \"Complete visual identity and brand guidelines\",\nslug: \"brand-identity-system\",\ncolor: \"#ec4899\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Brand identity system\"\n}\n},\n{\ntitle: \"Mobile App Design\",\nsubtitle: \"Native iOS and Android application interface\",\nslug: \"mobile-app-design\",\ncolor: \"#10b981\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Mobile app design\"\n}\n},\n{\ntitle: \"Dashboard Analytics\",\nsubtitle: \"Data visualization and business intelligence tool\",\nslug: \"dashboard-analytics\",\ncolor: \"#8b5cf6\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Dashboard analytics\"\n}\n}\n]}\n/>\n/",
           "id": "GridBasic_0",
-          "parsedProps": {
-            "gridType": "basic"
-          }
+          "parsedProps": {}
         }
       ]
     },
@@ -415,7 +413,7 @@
         },
         {
           "type": "Array",
-          "name": "props.items",
+          "name": "props.data",
           "description": "Array of items to display in the bento grid"
         },
         {
@@ -432,11 +430,9 @@
       "examples": [
         {
           "title": "",
-          "code": "<GridBento\nitems={[\n{\ntitle: \"Creative Portfolio\",\nsubtitle: \"Showcase of artistic and creative projects\",\nslug: \"creative-portfolio\",\ncolor: \"#f97316\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Creative portfolio\"\n}\n},\n{\ntitle: \"Tech Startup Landing\",\nsubtitle: \"Modern landing page for technology company\",\nslug: \"tech-startup-landing\",\ncolor: \"#3b82f6\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Tech startup landing\"\n}\n},\n{\ntitle: \"Restaurant Website\",\nsubtitle: \"Elegant dining experience with online reservations\",\nslug: \"restaurant-website\",\ncolor: \"#dc2626\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Restaurant website\"\n}\n},\n{\ntitle: \"Fitness App Interface\",\nsubtitle: \"Health tracking and workout planning application\",\nslug: \"fitness-app-interface\",\ncolor: \"#059669\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Fitness app interface\"\n}\n},\n{\ntitle: \"Financial Dashboard\",\nsubtitle: \"Investment tracking and portfolio management\",\nslug: \"financial-dashboard\",\ncolor: \"#7c3aed\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Financial dashboard\"\n}\n}\n]}\n/>\n/",
+          "code": "<GridBento\ndata={[\n{\ntitle: \"Creative Portfolio\",\nsubtitle: \"Showcase of artistic and creative projects\",\nslug: \"creative-portfolio\",\ncolor: \"#f97316\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Creative portfolio\"\n}\n},\n{\ntitle: \"Tech Startup Landing\",\nsubtitle: \"Modern landing page for technology company\",\nslug: \"tech-startup-landing\",\ncolor: \"#3b82f6\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Tech startup landing\"\n}\n},\n{\ntitle: \"Restaurant Website\",\nsubtitle: \"Elegant dining experience with online reservations\",\nslug: \"restaurant-website\",\ncolor: \"#dc2626\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Restaurant website\"\n}\n},\n{\ntitle: \"Fitness App Interface\",\nsubtitle: \"Health tracking and workout planning application\",\nslug: \"fitness-app-interface\",\ncolor: \"#059669\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Fitness app interface\"\n}\n},\n{\ntitle: \"Financial Dashboard\",\nsubtitle: \"Investment tracking and portfolio management\",\nslug: \"financial-dashboard\",\ncolor: \"#7c3aed\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Financial dashboard\"\n}\n}\n]}\n/>\n/",
           "id": "GridBento_0",
-          "parsedProps": {
-            "gridType": "bento"
-          }
+          "parsedProps": {}
         }
       ]
     },
@@ -455,7 +451,7 @@
         },
         {
           "type": "Array",
-          "name": "props.items",
+          "name": "props.data",
           "description": "Array of items to display in the list"
         },
         {
@@ -472,11 +468,9 @@
       "examples": [
         {
           "title": "",
-          "code": "<GridList\nitems={[\n{\ntitle: \"Photography Portfolio\",\nsubtitle: \"Professional photography showcase and gallery\",\nslug: \"photography-portfolio\",\ncolor: \"#6b7280\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Photography portfolio\"\n}\n},\n{\ntitle: \"Architecture Studio\",\nsubtitle: \"Modern architectural designs and concepts\",\nslug: \"architecture-studio\",\ncolor: \"#0f172a\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Architecture studio\"\n}\n},\n{\ntitle: \"Fashion Brand Website\",\nsubtitle: \"Luxury fashion e-commerce and brand experience\",\nslug: \"fashion-brand-website\",\ncolor: \"#be185d\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Fashion brand website\"\n}\n},\n{\ntitle: \"Music Streaming App\",\nsubtitle: \"Audio streaming platform with social features\",\nslug: \"music-streaming-app\",\ncolor: \"#1d4ed8\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Music streaming app\"\n}\n},\n{\ntitle: \"Travel Blog Platform\",\nsubtitle: \"Adventure stories and destination guides\",\nslug: \"travel-blog-platform\",\ncolor: \"#059669\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Travel blog platform\"\n}\n}\n]}\n/>\n/",
+          "code": "<GridList\ndata={[\n{\ntitle: \"Photography Portfolio\",\nsubtitle: \"Professional photography showcase and gallery\",\nslug: \"photography-portfolio\",\ncolor: \"#6b7280\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Photography portfolio\"\n}\n},\n{\ntitle: \"Architecture Studio\",\nsubtitle: \"Modern architectural designs and concepts\",\nslug: \"architecture-studio\",\ncolor: \"#0f172a\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Architecture studio\"\n}\n},\n{\ntitle: \"Fashion Brand Website\",\nsubtitle: \"Luxury fashion e-commerce and brand experience\",\nslug: \"fashion-brand-website\",\ncolor: \"#be185d\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Fashion brand website\"\n}\n},\n{\ntitle: \"Music Streaming App\",\nsubtitle: \"Audio streaming platform with social features\",\nslug: \"music-streaming-app\",\ncolor: \"#1d4ed8\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Music streaming app\"\n}\n},\n{\ntitle: \"Travel Blog Platform\",\nsubtitle: \"Adventure stories and destination guides\",\nslug: \"travel-blog-platform\",\ncolor: \"#059669\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Travel blog platform\"\n}\n}\n]}\n/>\n/",
           "id": "GridList_0",
-          "parsedProps": {
-            "gridType": "list"
-          }
+          "parsedProps": {}
         }
       ]
     },
@@ -847,8 +841,8 @@
     {
       "name": "PostTileCs",
       "isDefaultExport": true,
-      "filePath": "post/post-tile-cs.js",
-      "importPath": "../../../post/post-tile-cs",
+      "filePath": "tile/post-tile-cs.js",
+      "importPath": "../../../tile/post-tile-cs",
       "category": "tiles",
       "description": "",
       "parameters": [
@@ -910,8 +904,8 @@
     {
       "name": "PostTileFunky",
       "isDefaultExport": true,
-      "filePath": "post/post-tile-funky.js",
-      "importPath": "../../../post/post-tile-funky",
+      "filePath": "tile/post-tile-funky.js",
+      "importPath": "../../../tile/post-tile-funky",
       "category": "tiles",
       "description": "",
       "parameters": [
@@ -973,8 +967,8 @@
     {
       "name": "PostTileImg",
       "isDefaultExport": true,
-      "filePath": "post/post-tile-img.js",
-      "importPath": "../../../post/post-tile-img",
+      "filePath": "tile/post-tile-img.js",
+      "importPath": "../../../tile/post-tile-img",
       "category": "tiles",
       "description": "",
       "parameters": [
@@ -1031,8 +1025,8 @@
     {
       "name": "PostTileReone",
       "isDefaultExport": true,
-      "filePath": "post/post-tile-reone.js",
-      "importPath": "../../../post/post-tile-reone",
+      "filePath": "tile/post-tile-reone.js",
+      "importPath": "../../../tile/post-tile-reone",
       "category": "tiles",
       "description": "",
       "parameters": [

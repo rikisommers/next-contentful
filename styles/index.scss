@@ -6,6 +6,21 @@
 
 @import 'tailwindcss';
 
+
+    .aspect-video {
+      aspect-ratio: 16 / 9;
+    }
+    .aspect-auto {
+      aspect-ratio: auto;
+    }
+    .aspect-portrait {
+      aspect-ratio: 9 / 16;
+    }
+    .aspect-landscape {
+      aspect-ratio: 10 / 8;
+    }
+  
+
 // h1{
 //   font-weight: 600;
 // }

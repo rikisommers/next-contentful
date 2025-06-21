@@ -56,7 +56,7 @@ export const BlockArticles = ({ data, tags }) => {
           handleTagClick={handleTagClick}
         />
       )}
-      <div className="flex flex-col w-full gap-6">
+      <div className="flex flex-col gap-6 w-full">
         {posts && <Grid type={currentTheme.data.cardGrid} data={filteredPosts} />}
       </div>
     </div>

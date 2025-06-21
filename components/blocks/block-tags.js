@@ -46,11 +46,11 @@ export const BlockTags = ({ data, selected, handleTagClick }) => {
   };
 
   return (
-    <nav className="relative flex gap-1 mb-8">
+    <nav className="flex relative flex-wrap gap-1 mb-8">
     {[null, ...data.filter((tag) => tag !== null)].map((tag, index) => (
       <motion.button
         key={index}
-        className="relative z-50 flex items-center px-3 py-2 text-xs uppercase transition-colors rounded-md cursor-pointer"
+        className="flex relative z-50 items-center px-3 py-2 text-xs uppercase rounded-md transition-colors cursor-pointer"
         style={getButtonStyle(selected === tag ? ButtonType.ACTIVE : ButtonType.DEFAULT)}
         onClick={() => handleTagClick(tag)}
         layout
@@ -58,7 +58,7 @@ export const BlockTags = ({ data, selected, handleTagClick }) => {
         {selected === tag && (
           <motion.div
             layoutId="indicatorTag2"
-            className="absolute top-0 left-0 w-full h-full border border-solid rounded-md"
+            className="absolute top-0 left-0 w-full h-full rounded-md border border-solid"
             style={{ borderColor: currentTheme.data.accentPri }}
           />
         )}

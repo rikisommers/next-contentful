@@ -7,7 +7,7 @@ import GridJonas from "./grid-jonas";
 import { gridThemes } from "../../utils/theme";
 import { useThemeContext } from "../context/themeContext";
 
-const getGridType = (type, data) => {
+const getGridType = (type, data, aspectRatio) => {
     switch (type) {
         case gridThemes.bento1:
             return <GridBento data={data}/>;
@@ -17,8 +17,6 @@ const getGridType = (type, data) => {
             return <GridList data={data}/>;
         case gridThemes.things:
             return <GridThings data={data}/>;
-        case gridThemes.jonas:
-            return <GridJonas data={data}/>;
         default:
             return <GridBento data={data}/>;
     }
@@ -32,8 +30,7 @@ const Grid = ({
 
     const { currentTheme } = useThemeContext();
 
-    return <>
-    {getGridType(currentTheme.data.cardGrid, data)}</>
+    return getGridType(currentTheme.data.cardGrid, data)
 };
 
 export default Grid;

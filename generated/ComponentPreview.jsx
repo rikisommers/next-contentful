@@ -18,14 +18,14 @@ import TextAnimLinear from '../../motion/text-anim-linear';
 import TextAnimNavigators from '../../motion/text-anim-navigators';
 import TextAnimRandom from '../../motion/text-anim-random';
 import TextAnimWordMask from '../../motion/text-anim-word-mask';
-import PostTileCs from '../../post/post-tile-cs';
-import PostTileFunky from '../../post/post-tile-funky';
-import PostTileImg from '../../post/post-tile-img';
-import PostTileReone from '../../post/post-tile-reone';
+import PostTileCs from '../../tile/post-tile-cs';
+import PostTileFunky from '../../tile/post-tile-funky';
+import PostTileImg from '../../tile/post-tile-img';
+import PostTileReone from '../../tile/post-tile-reone';
 
 /**
  * Auto-generated component preview showcasing all marked components
- * Generated on: 2025-06-06T12:28:58.727Z
+ * Generated on: 2025-06-20T23:08:04.832Z
  */
 const ComponentPreview = () => {
   return (
@@ -294,7 +294,7 @@ const ComponentPreview = () => {
           <h4>{example.title || `Example ${index + 1}`}</h4>
           <div className="example-preview">
             {/*   <GridBasic
-  items={[
+  data={[
   {
   title: "Interactive Web App",
   subtitle: "Modern React application with seamless user experience",
@@ -371,7 +371,7 @@ const ComponentPreview = () => {
           <h4>{example.title || `Example ${index + 1}`}</h4>
           <div className="example-preview">
             {/*   <GridBento
-  items={[
+  data={[
   {
   title: "Creative Portfolio",
   subtitle: "Showcase of artistic and creative projects",
@@ -448,7 +448,7 @@ const ComponentPreview = () => {
           <h4>{example.title || `Example ${index + 1}`}</h4>
           <div className="example-preview">
             {/*   <GridList
-  items={[
+  data={[
   {
   title: "Photography Portfolio",
   subtitle: "Professional photography showcase and gallery",

@@ -43,7 +43,7 @@ import FadeInWhenVisible from "../utils/fade-in-visible";
  * />
  * @exports PostTileReone
  */
-export default function PostTileReone({ post, index, size, layout }) {
+export default function PostTileReone({ post, index, size, layout, aspect }) {
   //   const [isHovered, setIsHovered] = useState(false); // State to track hover
 
   const ref = useRef(null); // Unique ref for each instance
@@ -58,12 +58,11 @@ export default function PostTileReone({ post, index, size, layout }) {
       style={{
         backgroundColor: "var(--surface1)",
       }}
-      className={`relative flex w-full h-full overflow-hidden no-underline rounded-2xl group flex-${layout}`}
-  
+      className={`relative flex flex-col w-full no-underline rounded-2xl overflow-hidden group ${aspect ? `aspect-${aspect}` : ""}`}
       onMouseEnter={() => setIsHovered(true)} // Set hover state to true on mouse enter
       onMouseLeave={() => setIsHovered(false)} // Set hover state to false on mouse leave
     >
-      <div className={`flex flex-col gap-4 justify-start w-full row-span-1 p-4 ${layout == "col" ? "!h-1/2" : "h-full"}`}>
+      <div className={`flex flex-col row-span-1 gap-4 justify-start p-4 w-full h-auto`}>
         <div
           className="flex justify-between w-full"
           style={{
@@ -91,7 +90,7 @@ export default function PostTileReone({ post, index, size, layout }) {
         </div>
 
         <div
-          className="flex flex-col items-start w-full gap-4"
+          className="flex flex-col gap-4 items-start w-full"
           style={{
             color: "var(--text-color-inv)",
           }}
@@ -110,7 +109,7 @@ export default function PostTileReone({ post, index, size, layout }) {
             className="w-10 h-10 rounded-lg opacity-50"
           >
       
-                <motion.img
+            <motion.img
               animate={{
                 x: isHovered ? [0, 40, -40, 0] : 0,
                 opacity: isHovered ? [1, 0, 0, 1] : 1,
@@ -125,24 +124,17 @@ export default function PostTileReone({ post, index, size, layout }) {
               src="arrow_forward.svg"
               viewBox="0 0 20 20"
               className="z-10 w-6 h-6"
-              // style={{
-              //   color: "var(--accent-pri",
-              // }}
+              style={{
+                color: "var(--accent-pri",
+              }}
             ></motion.img>
           </div>
-          {/* <h3
-            className="text-sm"
-            style={{
-              color: "var(--subtext-color)",
-            }}
-          >
-            {post?.subtitle}
-          </h3> */}
+
         </div>
       </div>
       {post.img && (
         <motion.div
-          className={`w-full ${layout == "col" ? "!h-1/2" : "h-full"} overflow-clip`}
+          className={`overflow-hidden flex-grow w-full`}
           style={{
             backgroundColor: "var(--accent-pri)",
           }}

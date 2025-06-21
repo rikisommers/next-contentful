@@ -1,12 +1,12 @@
 import React from "react";
 import { useThemeContext } from "../context/themeContext";
 import { gridGaps, gridGapClasses } from "../../utils/theme";
-import PostTileCs from "../post/post-tile-cs";
-import PostTileLg from "../post/post-tile-funky";
-import PostTileImg from "../post/post-tile-img";
-import PostTileRe from "../post/post-tile-reone";
-import PostTileMonks from "../post/post-tile-monks";
-import PostTileFunky from '../post/post-tile-funky';
+import PostTileCs from "../tile/post-tile-cs";
+import PostTileLg from "../tile/post-tile-funky";
+import PostTileImg from "../tile/post-tile-img";
+import PostTileRe from "../tile/post-tile-reone";
+import PostTileMonks from "../tile/post-tile-monks";
+import PostTileFunky from '../tile/post-tile-funky';
 
 /**
  * @component

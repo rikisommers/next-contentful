@@ -1,169 +1,127 @@
-
 // @import "@fontsource/roboto-slab";
 // @import "@fontsource/rubik";
 
-@font-face {font-family: "Roobert-Regular";
-    src: url("./fonts/6228016f2b172c06410f3a2356d33f6c.eot"); /* IE9*/
-    src: url("./fonts/6228016f2b172c06410f3a2356d33f6c.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
-    url("./fonts/6228016f2b172c06410f3a2356d33f6c.woff2") format("woff2"), /* chrome、firefox */
-    url("./fonts/6228016f2b172c06410f3a2356d33f6c.woff") format("woff"), /* chrome、firefox */
-    url("./fonts/6228016f2b172c06410f3a2356d33f6c.ttf") format("truetype"), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
-    url("./fonts/6228016f2b172c06410f3a2356d33f6c.svg#Roobert-Regular") format("svg"); /* iOS 4.1- */
-  }
-  
-  @font-face {
-    font-family: 'interphase';
-    src: url('./fonts/interphase/TTInterphasesProTrlVariable.woff2') format('woff2'),
-        url('./fonts/interphase/TTInterphasesProTrlVariable.woff') format('woff');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-  }
-  
-  
-  @font-face {
-    font-family: 'Tronica Mono';
-    src: url('./fonts/TronicaMono-Regular.woff2') format('woff2'),
-        url('./fonts/TronicaMono-Regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-  }
-  
-  @font-face {
-    font-family: 'Aeonik Mono';
-    src: url('./fonts/AeonikMono-Light.woff2') format('woff2'),
-        url('./fonts/AeonikMono-Light.woff') format('woff');
-    font-weight: 300;
-    font-style: normal;
-    font-display: swap;
-  }
-  
-  @font-face {
-    font-family: 'Aeonik Mono';
-    src: url('./fonts/AeonikMono-Regular.woff2') format('woff2'),
-        url('./fonts/AeonikMono-Regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-  }
-  
-  @font-face {
-    font-family: 'Aeonik Mono';
-    src: url('./fonts/AeonikMono-Medium.woff2') format('woff2'),
-        url('./fonts/AeonikMono-Medium.woff') format('woff');
-    font-weight: 500;
-    font-style: normal;
-    font-display: swap;
-  }
-  
-  @font-face {
-    font-family: 'Aeonik Mono';
-    src: url('./fonts/AeonikMono-Thin.woff2') format('woff2'),
-        url('./fonts/AeonikMono-Thin.woff') format('woff');
-    font-weight: 100;
-    font-style: normal;
-    font-display: swap;
-  }
-  
-  @font-face {
-    font-family: 'Aeonik Pro';
-    src: url('./fonts/AeonikPro-Light.woff2') format('woff2'),
-        url('./fonts/AeonikPro-Light.woff') format('woff');
-    font-weight: 300;
-    font-style: normal;
-    font-display: swap;
-  }
-  
+@font-face {
+  font-family: 'roobertRegular';
+  src: url("./fonts/6228016f2b172c06410f3a2356d33f6c.eot"); /* IE9*/
+  src: url("./fonts/6228016f2b172c06410f3a2356d33f6c.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+      url("./fonts/6228016f2b172c06410f3a2356d33f6c.woff2") format("woff2"), /* chrome、firefox */
+      url("./fonts/6228016f2b172c06410f3a2356d33f6c.woff") format("woff"), /* chrome、firefox */
+      url("./fonts/6228016f2b172c06410f3a2356d33f6c.ttf") format("truetype"), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+      url("./fonts/6228016f2b172c06410f3a2356d33f6c.svg#Roobert-Regular") format("svg"); /* iOS 4.1- */
+}
 
-  
-  @font-face {
-    font-family: 'Aeonik Pro';
-    src: url('./fonts/AeonikMono-Medium.woff2') format('woff2'),
-        url('./fonts/AeonikMono-Medium.woff') format('woff');
-    font-weight: 500;
-    font-style: normal;
-    font-display: swap;
-  }
+@font-face {
+  font-family: 'interphase';
+  src: url('./fonts/interphase/TTInterphasesProTrlVariable.woff2') format('woff2'),
+      url('./fonts/interphase/TTInterphasesProTrlVariable.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
+@font-face {
+  font-family: 'tron';
+  src: url('./fonts/TronicaMono-Regular.woff2') format('woff2'),
+      url('./fonts/TronicaMono-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 
-  
-  @font-face {
-    font-family: 'Aeonik Pro';
-    src: url('./fonts/AeonikMono-Thin.woff2') format('woff2'),
-        url('./fonts/AeonikMono-Thin.woff') format('woff');
-    font-weight: 100;
-    font-style: normal;
-    font-display: swap;
-  }
-  
+@font-face {
+  font-family: 'mono';
+  src: url('./fonts/AeonikMono-Light.woff2') format('woff2'),
+      url('./fonts/AeonikMono-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
 
+@font-face {
+  font-family: 'aeonikMono';
+  src: url('./fonts/AeonikMono-Regular.woff2') format('woff2'),
+      url('./fonts/AeonikMono-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 
-  @font-face {
-    font-family: 'Aeonik Regular';
-    src: url('./fonts/Aeonik-Regular.woff2') format('woff2');
-    font-weight: 300;
-    font-style: italic;
-    font-display: swap;
-  }
+@font-face {
+  font-family: 'aonMono';
+  src: url('./fonts/AeonikMono-Medium.woff2') format('woff2'),
+      url('./fonts/AeonikMono-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
 
-  @font-face {
-    font-family: 'Aeonik Bold';
-    src: url('./fonts/Aeonik-Bold.woff2') format('woff2');
-    font-weight: 600;
-    font-style: normal;
-    font-display: swap;
-  }
+@font-face {
+  font-family: 'aonThin';
+  src: url('./fonts/AeonikMono-Thin.woff2') format('woff2'),
+      url('./fonts/AeonikMono-Thin.woff') format('woff');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
 
-  @font-face {
-    font-family: 'MillingTrial-Duplex1mm';
-    src: url('./fonts/MillingTrial-Duplex1mm.woff2') format('woff2');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-  }
+@font-face {
+  font-family: 'aonPro';
+  src: url('./fonts/AeonikPro-Light.woff2') format('woff2'),
+      url('./fonts/AeonikPro-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
 
-  @font-face {
-    font-family: 'JetBrains Mono';
-    src: url('./fonts/JetBrainsMono-Regular.woff2') format('woff2'),
-        url('./fonts/JetBrainsMono-Regular.woff') format('woff');
-    font-weight: 400;   
-    font-style: normal;
-    font-display: swap;
-  }
+@font-face {
+  font-family: 'aonBold';
+  src: url('./fonts/Aeonik-Bold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
 
-  @font-face {
-    font-family: 'JetBrains Mono';
-    src: url('./fonts/JetBrainsMono-Regular.woff2') format('woff2'),
-        url('./fonts/JetBrainsMono-Regular.woff') format('woff');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-  }
+@font-face {
+  font-family: 'aonRegular';
+  src: url('./fonts/Aeonik-Regular.woff2') format('woff2');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
 
+@font-face {
+  font-family: 'milling';
+  src: url('./fonts/MillingTrial-Duplex1mm.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
-  @font-face {
-    font-family: 'ITCGaramondStd-LtCondensed';
-    src: url('./fonts/ITCGaramondStd-LtCond.woff') format('woff');
-    font-weight: 300;
-    font-style: normal;
-    font-display: swap;
-  } 
-  @font-face {
-    font-family: 'ITCGaramondStd-LtNarrow';
-    src: url('./fonts/ITCGaramondStd-LtNarrow.woff') format('woff');
-    font-weight: 300;
-    font-style: normal;
-    font-display: swap;
-  }
+@font-face {
+  font-family: 'jetBrains';
+  src: url('./fonts/JetBrainsMono-Regular.woff2') format('woff2'),
+      url('./fonts/JetBrainsMono-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
-  @font-face {
-    font-family: 'BrettTrial-Regular';
-    src: url('./fonts/BrettTrial-Regular.woff2') format('woff2');
-    font-weight: 300;
-    font-style: normal;
-    font-display: swap;
-  }
+@font-face {
+  font-family: 'itcGaramonLightNarrow';
+  src: url('./fonts/ITCGaramondStd-LtNarrow.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'brett';
+  src: url('./fonts/BrettTrial-Regular.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
 
 
 

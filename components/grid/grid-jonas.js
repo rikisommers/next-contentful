@@ -1,11 +1,11 @@
 import React from "react";
 import AnimatedElement, { AnimStyleEl } from "../motion/animated-element";
 import { useThemeContext } from '../context/themeContext';
-import PostTileCs from "../post/post-tile-cs";
-import PostTileLg from "../post/post-tile-funky";
-import PostTileImg from "../post/post-tile-img";
-import PostTileRe from "../post/post-tile-reone";
-import PostTileMonks from "../post/post-tile-monks";
+import PostTileCs from "../tile/post-tile-cs";
+import PostTileLg from "../tile/post-tile-funky";
+import PostTileImg from "../tile/post-tile-img";
+import PostTileRe from "../tile/post-tile-reone";
+import PostTileMonks from "../tile/post-tile-monks";
 
 const GridGroup = ({ items, templateSize, startIndex }) => {
     if (items.length === 0) return null;

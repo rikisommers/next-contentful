@@ -1,11 +1,11 @@
 import React from "react";
 import { useThemeContext } from "../context/themeContext";
 import { gridGapClasses } from "../../utils/theme";
-import PostTileCs from "../post/post-tile-cs";
-import PostTileLg from "../post/post-tile-funky";
-import PostTileImg from "../post/post-tile-img";
-import PostTileRe from "../post/post-tile-reone";
-import PostTileMonks from "../post/post-tile-monks";
+import PostTileCs from "../tile/post-tile-cs";
+import PostTileLg from "../tile/post-tile-funky";
+import PostTileImg from "../tile/post-tile-img";
+import PostTileRe from "../tile/post-tile-reone";
+import PostTileMonks from "../tile/post-tile-monks";
 import classNames from 'classnames';
 
 /**
@@ -91,6 +91,7 @@ export default function GridBasic({
   data: items = [], 
 }) {
   const { currentTheme } = useThemeContext();
+  const aspectRatio = currentTheme.data.cardAspectRatio;
   const gapClass = gridGapClasses[currentTheme.data.gridGap] || 'gap-4';
 
   const gridColsSm = {
@@ -124,21 +125,22 @@ export default function GridBasic({
 
   return (
     <div className={gridClassName}>
-      {items.map((item, index) => (
-        <div
-          key={index}
-          style={{
-            minHeight: '400px',
-            transition: 'transform 0.3s ease',
-          }}
-        >
-          {currentTheme.data.cardLayout === 'formal' && <PostTileCs post={item} />}
-          {currentTheme.data.cardLayout === 'funky' && <PostTileLg post={item} />}
-          {currentTheme.data.cardLayout === 'reone' && <PostTileRe post={item} />}
-          {currentTheme.data.cardLayout === 'monks' && <PostTileMonks post={item} />}
-          {currentTheme.data.cardLayout === 'img' && <PostTileImg post={item} />}
-        </div>
-      ))}
+      {items.map((item, index) => {
+        switch (currentTheme.data.cardLayout) {
+          case 'formal':
+            return <PostTileCs key={index} post={item} />;
+          case 'funky':
+            return <PostTileLg key={index} post={item} />;
+          case 'reone':
+            return <PostTileRe key={index} post={item} aspect={aspectRatio} />;
+          case 'monks':
+            return <PostTileMonks key={index} post={item} />;
+          case 'img':
+            return <PostTileImg key={index} post={item} />;
+          default:
+            return null;
+        }
+      })}
     </div>
   );
 }

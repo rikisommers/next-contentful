@@ -21,6 +21,7 @@ import CheckboxInput from "../components/base/form/CheckboxInput";
 import ColorInput from "../components/base/form/ColorInput";
 import SliderInput from "../components/base/form/SliderInput";
 import PositionInput from "../components/base/form/PositionInput";
+import BlockTags from '../components/blocks/block-tags';
 
 const getBestTheme = (weightType, sliderValue) => {
   let bestTheme = null;
@@ -337,17 +338,18 @@ export default function ThemeEditor({ customThemes }) {
 
   // Helper to render a section
   const renderSection = (sectionName, sectionConfig) => {
+    if (!sectionConfig) return null; // Guard for undefined/null
     return (
       <fieldset key={sectionName} style={{ marginBottom: 24, border: '1px solid #eee', padding: 12 }}>
         <legend style={{ fontWeight: 'bold', marginBottom: 8 }}>{sectionName}</legend>
         <div className="flex flex-col gap-2">
-        {Object.entries(sectionConfig).map(([key, config]) => {
-          if (config.isFolder) {
-            // Nested folder
-            return renderSection(key, config);
-          }
-          return renderControl(key, config, currentTheme.data[key]);
-        })}
+          {Object.entries(sectionConfig).map(([key, config]) => {
+            if (config.isFolder) {
+              // Nested folder
+              return renderSection(key, config);
+            }
+            return renderControl(key, config, currentTheme.data[key]);
+          })}
         </div>
       </fieldset>
     );
@@ -364,6 +366,9 @@ export default function ThemeEditor({ customThemes }) {
     deleteTheme();
     setIsDeleteModalOpen(false);
   };
+
+  const categoryTabs = ['All', ...Object.keys(themeControlConfig)];
+  const [activeCategory, setActiveCategory] = React.useState(categoryTabs[0]);
 
   return (
     <>
@@ -418,36 +423,22 @@ export default function ThemeEditor({ customThemes }) {
         </form>
       </Modal>
 
-      {/* Theme Switchers and Actions */}
-      <div style={{ display: 'flex', gap: 16, marginBottom: 24, flexWrap: 'wrap', alignItems: 'center' }}>
-        <SelectInput
-          label="Custom"
-          value={currentTheme.data.key}
-          options={Object.keys(customThemes).map(key => ({ 
-            value: customThemes[key].data.key, 
-            label: customThemes[key].name || customThemes[key].data.key 
-          }))}
-          onChange={val => handleThemeChange(val, customThemes)}
+      {/* Tabset for theme categories using BlockTags */}
+      <div style={{ marginBottom: 24 }}>
+        <BlockTags
+          data={categoryTabs}
+          selected={activeCategory}
+          handleTagClick={setActiveCategory}
         />
-        <SelectInput
-          label="Presets"
-          value={currentTheme.data.key}
-          options={Object.keys(presetThemes).map(key => ({ 
-            value: presetThemes[key].data.key, 
-            label: presetThemes[key].name || presetThemes[key].data.key 
-          }))}
-          onChange={val => handleThemeChange(val, presetThemes)}
-        />
-        <Button type={ButtonType.DEFAULT} label="Save Current Theme" onClick={() => setIsSaveModalOpen(true)} />
-        <Button type={ButtonType.DEFAULT} label="Delete Current Theme" onClick={() => setIsDeleteModalOpen(true)} />
-        <Button type={ButtonType.PRIMARY} label="Save Theme to Custom?" onClick={handleApply} />
       </div>
 
-      {/* Theme Controls */}
+      {/* Theme Controls for selected category */}
       <form style={{ maxWidth: 800, margin: '0 auto' }} >
-        {Object.entries(themeControlConfig).map(([sectionName, sectionConfig]) =>
-          renderSection(sectionName, sectionConfig)
-        )}
+        {activeCategory === 'All'
+          ? Object.entries(themeControlConfig).map(([sectionName, sectionConfig]) =>
+              renderSection(sectionName, sectionConfig)
+            )
+          : renderSection(activeCategory, themeControlConfig[activeCategory])}
       </form>
     </>
   );

@@ -8,10 +8,10 @@ import GridBasic from '../components/grid/grid-basic';
 import GridBento from '../components/grid/grid-bento';
 import GridList from '../components/grid/grid-list';
 import GridThings from '../components/grid/grid-things';
-import PostTileCs from '../components/post/post-tile-cs';
-import PostTileFunky from '../components/post/post-tile-funky';
-import PostTileImg from '../components/post/post-tile-img';
-import PostTileReone from '../components/post/post-tile-reone';
+import PostTileCs from '../components/tile/post-tile-cs';
+import PostTileFunky from '../components/tile/post-tile-funky';
+import PostTileImg from '../components/tile/post-tile-img';
+import PostTileReone from '../components/tile/post-tile-reone';
 import { TextAnimBlur } from '../components/motion/text-anim-blur';
 import { TextAnimChar } from '../components/motion/text-anim-char';
 import { TextAnimCode } from '../components/motion/text-anim-code';
@@ -128,7 +128,7 @@ sound={ButtonSound.CLICK}
 <span>🚀 Launch App</span>
 </Button>),
   "GridBasic_0": (<GridBasic
-items={[
+data={[
 {
 title: "Interactive Web App",
 subtitle: "Modern React application with seamless user experience",
@@ -192,7 +192,7 @@ description: "Dashboard analytics"
 ]}
 />),
   "GridBento_0": (<GridBento
-items={[
+data={[
 {
 title: "Creative Portfolio",
 subtitle: "Showcase of artistic and creative projects",
@@ -256,7 +256,7 @@ description: "Financial dashboard"
 ]}
 />),
   "GridList_0": (<GridList
-items={[
+data={[
 {
 title: "Photography Portfolio",
 subtitle: "Professional photography showcase and gallery",

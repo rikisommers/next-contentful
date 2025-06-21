@@ -70,7 +70,7 @@ export default function Navigation({data, logo, customThemes}) {
           currentTheme.data.navBorder
             ? "border-solid border-b-[1px] border-t-0 border-l-0 border-r-0"
             : "border-none"
-        } bg-opacity-25 top-0 left-0 z-50  w-screen p-3 pointer-events-none grid grid-cols-3 `}
+        } bg-opacity-25 top-0 left-0 z-50  w-screen px-3 pt-3 pb-8 pointer-events-none grid grid-cols-3 `}
         style={{
           //  backgroundColor: currentTheme.data.navBorder ? 'var(--body-background-color)' : 'transparent',
           borderColor: "var(--nav-shadow-color)",
@@ -92,6 +92,7 @@ export default function Navigation({data, logo, customThemes}) {
 
 
       </div>
+   
 
       <Modal
         isOpen={isModalOpen}
@@ -101,11 +102,12 @@ export default function Navigation({data, logo, customThemes}) {
         position={ModalPosition.BOTTOM_RIGHT}
       >
         <div
-          className="h-screen overflow-y-auto w-[400px] "
+          className="h-screen overflow-y-auto w-[400px] bg-red-400"
           style={{
             backgroundColor: "var(--body-background-color)",
           }}
         >
+          asd
                     <button onClick={() => setIsModalOpen(false)}>Close</button>
 
               <ThemeEditor customThemes={customThemes}/>

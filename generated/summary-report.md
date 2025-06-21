@@ -1,6 +1,6 @@
 # Component Examples Summary
 
-Generated on: 2025-06-06T12:28:58.728Z
+Generated on: 2025-06-20T23:08:04.833Z
 
 ## Overview
 - **Total Components**: 22
@@ -65,7 +65,7 @@ Generated on: 2025-06-06T12:28:58.728Z
 - **Examples**: 1
 - **Parameters**:
   - `props` (Object): Component props
-  - `props.items` (Array): Array of items to display in the grid
+  - `props.data` (Array): Array of items to display in the grid
   - `props.className` (string): Additional CSS classes
   - `props.style` (Object): Inline styles
 
@@ -75,7 +75,7 @@ Generated on: 2025-06-06T12:28:58.728Z
 - **Examples**: 1
 - **Parameters**:
   - `props` (Object): Component props
-  - `props.items` (Array): Array of items to display in the bento grid
+  - `props.data` (Array): Array of items to display in the bento grid
   - `props.className` (string): Additional CSS classes
   - `props.style` (Object): Inline styles
 
@@ -85,7 +85,7 @@ Generated on: 2025-06-06T12:28:58.728Z
 - **Examples**: 1
 - **Parameters**:
   - `props` (Object): Component props
-  - `props.items` (Array): Array of items to display in the list
+  - `props.data` (Array): Array of items to display in the list
   - `props.className` (string): Additional CSS classes
   - `props.style` (Object): Inline styles
 
@@ -192,7 +192,7 @@ Generated on: 2025-06-06T12:28:58.728Z
 ### Tiles (4 components)
 
 #### PostTileCs
-- **File**: `post/post-tile-cs.js`
+- **File**: `tile/post-tile-cs.js`
 - **Description**: 
 - **Examples**: 1
 - **Parameters**:
@@ -207,7 +207,7 @@ Generated on: 2025-06-06T12:28:58.728Z
   - `index` (number): The index of the post, used for animation delay.
 
 #### PostTileFunky
-- **File**: `post/post-tile-funky.js`
+- **File**: `tile/post-tile-funky.js`
 - **Description**: 
 - **Examples**: 1
 - **Parameters**:
@@ -222,7 +222,7 @@ Generated on: 2025-06-06T12:28:58.728Z
   - `size` (string): The size of the tile.
 
 #### PostTileImg
-- **File**: `post/post-tile-img.js`
+- **File**: `tile/post-tile-img.js`
 - **Description**: 
 - **Examples**: 1
 - **Parameters**:
@@ -236,7 +236,7 @@ Generated on: 2025-06-06T12:28:58.728Z
   - `size` (string): The size of the tile.
 
 #### PostTileReone
-- **File**: `post/post-tile-reone.js`
+- **File**: `tile/post-tile-reone.js`
 - **Description**: 
 - **Examples**: 1
 - **Parameters**:

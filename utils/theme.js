@@ -1517,25 +1517,20 @@ export const textHighlightOutlineNeumorphic = {
 // Type Themes
 // using google fonts kndoif sucks really just need a way to select local dfonts and not include in prod
 export const typographyThemes = {
-  sans: 'sans-serif',
-  serif: 'serif',
-  mono: 'monospace',
-  interp: "interphase",
-  tron: "Tronica Mono",
-  aonMono: "Aeonik Pro",
-  aonBold: "Aeonik Bold",
-  aonRegular: "Aeonik Regular",
-  aonThin: "Aeonik Thin",
-  itcGaramonLightNarrow: "ITCGaramondStd-LtNarrow",
-  itcGaramondLight: "ITCGaramondStd-Lt",
-  inter: 'inter', //Google/nextfont
-  roboto: 'roboto', //Google/nextfont
-  montserrat: 'Montserrat', //Google/nextfont
-  poppins: 'Poppins', //Google/nextfont
-  milling: "MillingTrial-Duplex1mm",
-  jetBrains: "JetBrains Mono",
-  brett: "BrettTrial-Regular",
-
+  roobertRegular: 'Roobert-Regular',
+  interphase: 'Interphase',
+  tron: 'Tronica Mono',
+  mono: 'Aeonik Mono Light',
+  aeonikMono: 'Aeonik Mono Regular',
+  aonMono: 'Aeonik Mono Medium',
+  aonThin: 'Aeonik Mono Thin',
+  aonPro: 'Aeonik Pro Light',
+  aonBold: 'Aeonik Bold',
+  aonRegular: 'Aeonik Regular',
+  milling: 'MillingTrial-Duplex1mm',
+  jetBrains: 'JetBrains Mono',
+  itcGaramonLightNarrow: 'ITCGaramondStd-LtNarrow',
+  brett: 'BrettTrial-Regular',
 };
 
 // Type Themes
@@ -1581,6 +1576,14 @@ export const cardThemes = {
   monks: 'monks',
   reone: 'reone',
   img: 'img',
+};
+
+export const cardAspectRatio = {
+  square: 'square',
+  video: 'video',
+  landscape: 'landscape',
+  portrait: 'portrait',
+  auto: 'auto',
 };
 
 
@@ -1818,6 +1821,7 @@ const themeContent = {
   cursor:cursorThemes.none,
   cardLayout:cardThemes.reone,
   cardHover:cardHoverThemes.none,
+  cardAspectRatio:cardAspectRatio.auto,
   cardGrid:gridThemes.bento1,
   gridGallery:gridGalleryThemes.gallery1,
   gridColumnsSm: 2,
