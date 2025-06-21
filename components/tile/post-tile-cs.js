@@ -64,7 +64,7 @@ export default function PostTileCs({ post, aspect }) {
       data-name="show-cursor"
       href={`/articles/${post.slug}`}
       style={{
-        color: 'var(--background-color)'
+        color: 'var(--surface3)'
       }}
       className={`relative flex flex-col w-full h-full overflow-hidden rounded-lg tile ${aspect ? `aspect-${aspect}` : ""}`}
     >

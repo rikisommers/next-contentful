@@ -56,7 +56,7 @@ export default function PostTileReone({ post, index, size, layout, aspect }) {
       ref={ref}
       href={`/articles/${post.slug}`}
       style={{
-        backgroundColor: "var(--surface1)",
+        backgroundColor: "var(--surface3)",
       }}
       className={`relative flex flex-col w-full no-underline rounded-2xl overflow-hidden group ${aspect ? `aspect-${aspect}` : ""}`}
       onMouseEnter={() => setIsHovered(true)} // Set hover state to true on mouse enter

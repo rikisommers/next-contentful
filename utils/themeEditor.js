@@ -116,9 +116,22 @@ export default function ThemeEditor({ customThemes }) {
   const handleThemeChange = (e, target) => {
     const selectedThemeKey = e;
 
-    const selectedTheme = Object.values(target).find(
-      (theme) => theme.data.key === selectedThemeKey
-    );
+    // Check localStorage for saved theme data
+    const localThemeData = localStorage.getItem(`themeData_${selectedThemeKey}`);
+    let selectedTheme;
+    if (localThemeData) {
+      // Use the locally saved theme data
+      selectedTheme = {
+        name: selectedThemeKey,
+        data: JSON.parse(localThemeData)
+      };
+      console.log(`Loaded theme '${selectedThemeKey}' from localStorage.`);
+    } else {
+      // Fallback to static theme
+      selectedTheme = Object.values(target).find(
+        (theme) => theme.data.key === selectedThemeKey
+      );
+    }
 
     if (selectedTheme) {
       // Create a deep copy to avoid reference issues
@@ -423,6 +436,49 @@ export default function ThemeEditor({ customThemes }) {
         </form>
       </Modal>
 
+      {/* Theme Selection Controls */}
+      <div className="flex gap-4 items-center mb-6">
+        <label className="font-semibold">Theme:</label>
+        <SelectInput
+          label="Preset Theme"
+          value={currentTheme.data.key}
+          options={Object.keys(presetThemes).map(key => ({ value: key, label: key }))}
+          onChange={val => handleThemeChange(val, presetThemes)}
+        />
+        {customThemes && customThemes.length > 0 && (
+          <SelectInput
+            label="Custom Theme"
+            value={currentTheme.data.key}
+            options={customThemes.map(theme => ({ value: theme.data.key, label: theme.data.key }))}
+            onChange={val => handleThemeChange(val, customThemes)}
+          />
+        )}
+      </div>
+
+
+
+      {/* Action Buttons */}
+      <div className="flex gap-2 mb-6">
+        <Button
+          type={ButtonType.PRIMARY}
+          onClick={() => {
+            console.log('Save theme as button clicked');
+            setIsSaveModalOpen(true);
+          }}
+          label="Save theme as"
+        />
+        <Button
+          type={ButtonType.SECONDARY}
+          onClick={() => {
+            const themeKey = currentTheme.data.key;
+            const themeData = currentTheme.data;
+            localStorage.setItem(`themeData_${themeKey}`, JSON.stringify(themeData));
+            console.log(`Theme data for '${themeKey}' saved to localStorage as 'themeData_${themeKey}'.`);
+          }}
+          label="Save theme"
+        />
+      </div>
+
       {/* Tabset for theme categories using BlockTags */}
       <div style={{ marginBottom: 24 }}>
         <BlockTags
@@ -431,7 +487,7 @@ export default function ThemeEditor({ customThemes }) {
           handleTagClick={setActiveCategory}
         />
       </div>
-
+      
       {/* Theme Controls for selected category */}
       <form style={{ maxWidth: 800, margin: '0 auto' }} >
         {activeCategory === 'All'
@@ -440,6 +496,9 @@ export default function ThemeEditor({ customThemes }) {
             )
           : renderSection(activeCategory, themeControlConfig[activeCategory])}
       </form>
+
+      {/* Save Modal Debug Log */}
+      {isSaveModalOpen && console.log('Save Theme Modal should be open')}
     </>
   );
 }

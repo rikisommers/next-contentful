@@ -24,13 +24,13 @@ export default function ThemeTrigger() {
   };
 
   return (
-    <div className="flex items-center gap-2"
+    <div className="flex gap-2 items-center p-2 bg-gray-600 rounded-xl cursor-pointer"
     onClick={selectNextTheme}
     >
-        <div className="flex items-center gap-2 p-2 text-sm rounded-md"
+        <div className="flex gap-2 items-center text-sm rounded-md"
         style={{
             backgroundColor: currentTheme.data.accenPri,
-            color: currentTheme.data.textColor,
+            color: currentTheme.data.colorText,
     
         }}
         >
@@ -44,3 +44,16 @@ export default function ThemeTrigger() {
     </div>
   );
 } 
+
+
+// return (
+//   <div className="flex z-50 gap-1 self-center p-1 bg-gray-600 rounded-xl backdrop-blur-lg pointer-events-auto">
+//     <div className="flex gap-1 p-2 rounded-lg aspect-square"
+//     style={{
+//       backgroundColor: "var(--body-background-color)",
+//     }}
+//     >
+//       <Logo logo={logo} />
+//     </div>
+
+//     <div className="flex gap-1 p-1 rounded-lg border border-gray-600">

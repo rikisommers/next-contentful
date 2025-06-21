@@ -37,6 +37,7 @@ export const ThemeProvider = ({ children, initialTheme: initialThemeName, custom
   });
 
   const [isClient, setIsClient] = useState(false);
+  const [isThemeDialogOpen, setIsThemeDialogOpen] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
@@ -56,8 +57,32 @@ export const ThemeProvider = ({ children, initialTheme: initialThemeName, custom
   }
 
   return (
-    <ThemeContext.Provider value={{ currentTheme, updateTheme }}>
-        {children}  
+    <ThemeContext.Provider value={{ 
+      currentTheme, 
+      updateTheme, 
+      isThemeDialogOpen, 
+      setIsThemeDialogOpen 
+    }}>
+        {children}
+        {isThemeDialogOpen && (
+          <div className="fixed inset-0 z-[9999] bg-black/50 backdrop-blur-sm">
+            <div className="fixed right-0 top-0 h-full w-96 bg-white shadow-xl overflow-y-auto"
+                 style={{ backgroundColor: 'var(--body-background-color)' }}>
+              <div className="p-4">
+                <div className="flex justify-between items-center mb-4">
+                  <h2 className="text-lg font-semibold">Theme Editor</h2>
+                  <button 
+                    onClick={() => setIsThemeDialogOpen(false)}
+                    className="text-2xl hover:opacity-70"
+                  >
+                    ×
+                  </button>
+                </div>
+                <MemoizedThemeEditor customThemes={customThemes} />
+              </div>
+            </div>
+          </div>
+        )}  
     </ThemeContext.Provider>
   );
 };

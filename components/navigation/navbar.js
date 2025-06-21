@@ -11,7 +11,7 @@ import NavBarApplauseMain from "./navbar-applause-main";
 import NavBarAwwwards2 from "./navbar-awwwards2";
 import NavBarAwwwardsGlass from "./navbar-awwwards-glass";
 
-export default function NavBar({ containerRef, data }) {
+export default function NavBar({ containerRef, data ,logo}) {
   const { currentTheme } = useThemeContext();
   const { playClick } = useAudioControls();
   const menuRef = useRef(null);
@@ -256,6 +256,7 @@ export default function NavBar({ containerRef, data }) {
               activePage={activePage} 
               currentTheme={currentTheme} 
               handleNavClick={handleNavClick} 
+              logo={logo}
             />
           );
           case "awwwardsGlass":

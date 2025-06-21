@@ -92,7 +92,7 @@ export default function PostTileMonks({ post, aspect, layout }) {
       ref={ref}
       href={`/articles/${post.slug}`}
       style={{
-        backgroundColor: "var(--surface1)",
+        backgroundColor: "var(--surface3)",
       }}
       className={`relative flex flex-col w-full h-full overflow-hidden no-underline rounded-2xl group flex-${layout} ${aspect ? `aspect-${aspect}` : ""}`}
       onMouseEnter={() => setIsHovered(true)} // Set hover state to true on mouse enter

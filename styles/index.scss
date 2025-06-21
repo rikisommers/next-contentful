@@ -281,4 +281,14 @@ display:none;
   margin-right: 400px;
   position: relative;
   display: flex;
+
+  .theme-editor-active{
+    margin-right: 400px;
+  }
+
+  .theme-editor-active-nav{
+   width: calc(100% - 400px);
+  }
 }
+
+

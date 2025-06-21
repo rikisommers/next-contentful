@@ -1,6 +1,6 @@
 "use client";
 
-import { heroHeightThemes, heroTypeThemes, heroBackgroundThemes, heroCssGradientThemes, heroCssGradientRadialPositionThemes, heroTextImageThemes, heroTextPositionThemes, heroTextCompositionThemes, textHighlightOutlineThemes, textAnimationThemes } from './theme';
+import { heroHeightThemes, heroTypeThemes, heroBackgroundThemes, heroCssGradientThemes, heroCssGradientRadialPositionThemes, heroTextImageThemes, heroTextPositionThemes, textAlignThemes, textHighlightOutlineThemes, textAnimationThemes } from './theme';
 
 export const setStyleProperties = (theme) => {
   const root = document.documentElement;
@@ -30,6 +30,8 @@ export const setStyleProperties = (theme) => {
     root.style.setProperty("--surface1", theme.data.surface1 || "#ffffff");
     root.style.setProperty("--surface2", theme.data.surface2 || "#ffffff");
     root.style.setProperty("--surface3", theme.data.surface3 || "#ffffff");
+    root.style.setProperty("--surface-texture", theme.data.surfaceTexture || "color");
+
     root.style.setProperty("--heading-color", theme.data.headingColor || "#000000");
     root.style.setProperty("--text-color", theme.data.textColor || "#000000");
     root.style.setProperty("--text-accent", theme.data.textAccent || "#000000");
@@ -68,7 +70,10 @@ export const setStyleProperties = (theme) => {
     root.style.setProperty("--hero-css-gradient-radial-position", theme.data.heroCssGradientRadialPosition || heroCssGradientRadialPositionThemes.center);
     root.style.setProperty("--hero-grad-mid-point", theme.data.heroGradMidPoint || 0.5);
     root.style.setProperty("--hero-text-image", theme.data.heroTextImage || heroTextImageThemes.inline);
-    root.style.setProperty("--hero-text-position", theme.data.heroTextPosition || heroTextPositionThemes.bottomLeft);
+    root.style.setProperty("--hero-text-position", theme.data.heroTextPosition || heroTextPositionThemes[4]);
+    root.style.setProperty("--hero-subtext-position", theme.data.heroSubTextPosition || heroTextPositionThemes[4]);
+    root.style.setProperty("--hero-text-align", theme.data.heroTextAlign || textAlignThemes.center);
+    root.style.setProperty("--hero-subtext-align", theme.data.heroSubTextAlign || textAlignThemes.center);
 //    root.style.setProperty("--hero-text-composition", theme.data.heroTextComposition || heroTextCompositionThemes.foo);
     root.style.setProperty("--text-highlight-outline", theme.data.textHighlightOutline || textHighlightOutlineThemes.none);
     root.style.setProperty("--text-highlight-outline-neumorphic-start-color", theme.data.textHighlightOutlineNeumorphicStartColor || '#FFFFFF');

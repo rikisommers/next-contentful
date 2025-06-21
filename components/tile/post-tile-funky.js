@@ -45,7 +45,7 @@ export default function PostTileFunky({ post, aspect }) {
     <Link
       href={`/articles/${post.slug}`}
       style={{
-        backgroundColor: "var(--body-background-color)",
+        backgroundColor: "var(--surface3)",
       }}
       className={`relative flex flex-col w-full h-full overflow-hidden rounded-2xl group ${aspect ? `aspect-${aspect}` : ""}`}
       onMouseEnter={() => setIsHovered(true)} // Set hover state to true on mouse enter

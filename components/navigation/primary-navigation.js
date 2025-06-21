@@ -9,7 +9,7 @@ import ButtonWipe, { ButtonType } from '../base/button/button-wipe';
 import ThemeTrigger from "../base/theme-trigger";
 //import { useScrollPosition } from "../scrollPosContext";
 import ThemeEditor from "../../utils/themeEditor";
-
+import Texture from "./texture";
 
 // import ThemeEditor from "../../utils/themeEditor";
 
@@ -58,7 +58,7 @@ export default function Navigation({data, logo, customThemes}) {
   return (
     <>
 
-<div className="flex fixed top-4 right-4 z-50 items-center pr-[400px]">
+<div className="flex fixed top-4 right-4 z-50 items-center theme-editor-active">
 
 <ThemeTrigger />
 
@@ -66,7 +66,7 @@ export default function Navigation({data, logo, customThemes}) {
 
       <div
         ref={containerRef}
-        className={`${currentTheme.data.navFixed ? "fixed h-dvh grid grid-cols-[40px_1fr_1fr_1fr_40px] grid-rows-[auto_1fr_1fr_1fr_auto]" : "absolute"} ${
+        className={`theme-editor-active-nav ${currentTheme.data.navFixed ? "fixed h-dvh grid grid-cols-[40px_1fr_1fr_1fr_40px] grid-rows-[auto_1fr_1fr_1fr_auto]" : "absolute"} ${
           currentTheme.data.navBorder
             ? "border-solid border-b-[1px] border-t-0 border-l-0 border-r-0"
             : "border-none"
@@ -76,12 +76,18 @@ export default function Navigation({data, logo, customThemes}) {
           borderColor: "var(--nav-shadow-color)",
         }}
       >
-        <div className="flex z-50 col-start-1 row-span-1 row-start-1 justify-start items-start w-fit"
-             onClick={toggleThemeEditor}>
-          <Logo logo={logo} />
+
+
+
+        <div className="flex z-50 col-start-1 row-span-1 row-start-1 justify-start items-start w-fit" onClick={toggleThemeEditor} > 
+              {/* <Texture></Texture> */}
+                <Logo logo={logo} showTitle={true} />
+              
         </div>
 
-        <NavBar containerRef={containerRef} data={data} />
+
+
+        <NavBar containerRef={containerRef} data={data} logo={logo} />
 
        
 

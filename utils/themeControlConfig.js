@@ -23,13 +23,14 @@ import {
   heroCssGradientRadialPositionThemes,
   heroTextImageThemes,
   heroTextPositionThemes,
-  heroTextCompositionThemes,
+  textAlignThemes,
   cardThemes,
   cardHoverThemes,
   cardAspectRatio,
   mixBlendThemes,
   imageTextureThemes,
   shaderTypes,
+  surfaceTexture,
 } from "./theme";
 
 export const themeControlConfig = {
@@ -74,6 +75,9 @@ export const themeControlConfig = {
     textHighlightOutline: { type: "select", label: "Text Highlight Outline", options: textHighlightOutlineThemes },
     heroTextImage: { type: "select", label: "Images", options: heroTextImageThemes },
     heroTextPosition: { type: "position", label: "Text Layout", options: heroTextPositionThemes },
+    heroSubTextPosition: { type: "position", label: "Subtext Layout", options: heroTextPositionThemes },
+    heroTextAlign: { type: "select", label: "Text Align", options: textAlignThemes },
+    heroSubTextAlign: { type: "select", label: "Subtext Align", options: textAlignThemes },
     BodyText: {
         isFolder: true,
         bodyTextDropCap: { type: "boolean", label: "Drop Cap" },
@@ -131,6 +135,7 @@ export const themeControlConfig = {
     textAccent: { type: "color", label: "Text Accent" },
     textColor: { type: "color", label: "Text Color" },
     textColorInv: { type: "color", label: "Text Color Inverted" },
+    surfaceTexture: { type: "select", label: "Surface Texture", options: surfaceTexture },
   },
   Effects: {
     shaderType: { type: "select", label: "Shader Type", options: shaderTypes },

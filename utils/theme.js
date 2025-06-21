@@ -1533,6 +1533,9 @@ export const typographyThemes = {
   brett: 'BrettTrial-Regular',
 };
 
+
+
+
 // Type Themes
 export const fontScaleThemes = {
   fixed: 'fixed',
@@ -1585,6 +1588,15 @@ export const cardAspectRatio = {
   portrait: 'portrait',
   auto: 'auto',
 };
+
+
+export const surfaceTexture = {
+  none: 'none',
+  color: 'color',
+  metal: 'metal',
+  glass: 'glass',
+  paper: 'paper',
+}
 
 
 export const imageTextureThemes = {
@@ -1729,18 +1741,24 @@ export const heroCssGradientRadialPositionThemes = {
   bottomRight:'bottom-right',
 };
 
-export const heroTextPositionThemes = {
-  topLeft: 'top-left',
-  topCenter: 'top-center',
-  topRight: 'top-right',
-  leftCenter: 'left-center',
-  centerCenter: 'center-center',
-  rightCenter: 'right-center',
-  bottomLeft: 'bottom-left',
-  bottomCenter: 'bottom-center',
-  bottomRight: 'bottom-right',
-};
+export const heroTextPositionThemes = [
+  '0-0', // top-left
+  '0-1', // top-center
+  '0-2', // top-right
+  '1-0', // center-left
+  '1-1', // center-center
+  '1-2', // center-right
+  '2-0', // bottom-left
+  '2-1', // bottom-center
+  '2-2', // bottom-right
+];
 
+export const textAlignThemes = {
+  left: 'left',
+  center: 'center',
+  right: 'right',
+  split:'split',
+};
 
 export const heroTypeThemes = {
   monks: 'monks',
@@ -1838,12 +1856,16 @@ const themeContent = {
   heroHeight:heroHeightThemes.full,
   heroType:heroTypeThemes.riki,
   heroBackground:heroBackgroundThemes.gradient,
-  heroTextPosition:heroTextPositionThemes.center,
+  heroTextPosition:heroTextPositionThemes[4], // '1-1' center-center
+  heroSubTextPosition:heroTextPositionThemes[8], // '2-2' bottom-right
+
   heroGradMidPoint:heroGradThemes.gradMidPoint,
   heroCssGradient:heroCssGradientThemes.linear,
   heroCssGradientAngle:'90',
   heroCssGradientRadialPosition:heroCssGradientRadialPositionThemes.center,
   heroTextLayout:heroTextCompositionThemes.foo,
+  heroTextAlign:textAlignThemes.center,
+  heroSubTextAlign:textAlignThemes.center,
   heroTextImage:heroTextImageThemes.none,
   navPosition:navigationPositionThemes.topCenter,
   navStyle:navigationStyleThemes.applause,
@@ -1881,6 +1903,7 @@ const themeContent = {
   halftoneShape: "circle", // Default halftone shape
   halftoneInvert: false, // Default halftone invert
   dotScale: 0.6, // Default dot scale
+  surfaceTexture: surfaceTexture.color
 }
 
 // Function to get theme by key

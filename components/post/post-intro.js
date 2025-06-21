@@ -6,13 +6,13 @@ import { useThemeContext } from "../context/themeContext";
 
 export default function PostIntro({ title, content, tag }) {
   const { currentTheme } = useThemeContext();
+  const headingPosition = currentTheme.data.heroTextPosition;
 
   console.log('titlecontent---------',title)
   return (
     //pt-[16rem] pb-8
-    <div className="grid z-10 grid-cols-12 grid-rows-3 gap-6 content-end items-end w-full fluid-type">
+    <div className="grid z-10 grid-cols-12 gap-6 content-end items-end w-full fluid-type">
       <div className="col-span-12 md:col-span-8 lg:col-span-8">
-        asd
         <>
           {tag && (
             <div

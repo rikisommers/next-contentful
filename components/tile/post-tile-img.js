@@ -44,6 +44,9 @@ export default function PostTileImg({ post, aspect }) {
     <Link
       href={`/articles/${post.slug}`}
       className={`relative flex flex-col w-full h-full overflow-hidden rounded-2xl group ${aspect ? `aspect-${aspect}` : ""}`}
+      style={{
+        backgroundColor: "var(--surface3)",
+      }}
       onMouseEnter={() => setIsHovered(true)} // Set hover state to true on mouse enter
       onMouseLeave={() => setIsHovered(false)} // Set hover state to false on mouse leave
     >
@@ -51,7 +54,6 @@ export default function PostTileImg({ post, aspect }) {
         className="flex absolute top-3 left-3 flex-col gap-4"
         style={{
           color: "var(--text-color-inv)",
-          backgroundColor: post.color,
         }}
       ></div>
 

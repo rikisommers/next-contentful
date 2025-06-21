@@ -10,25 +10,19 @@ import { ClipContainer } from "../motion/clippath-container";
 import { ScaleContainer } from "../motion/scale-container";
 import PostIntro from "../post/post-intro";
 import Background from "../background/background";
-
+import AnimatedText, { AnimTextOrder } from "../motion/animated-text";
 
 const getPositionClass = (position) => {
-  switch (position) {
-    case "left":
-      return "col-start-2 col-span-8 row-span-3 row-start-3";
-    case "center":
-      return "text-center col-start-3 col-span-8 row-span-1 row-start-4";
-    case "topLeft":
-      return "col-start-2 col-span-8 row-span-1 row-start-3";
-    case "bottomLeft":
-      return "col-start-2 col-span-8 row-span-1 row-start-5";
-    case "topRight":
-      return "col-start-6 col-span-5 row-span-1 row-start-2";
-    case "bottomRight":
-      return "col-start-6 col-span-6 row-span-1 row-start-4";
-    default:
-      return ""; // Return an empty string if no match
+  // position is a string like '1-2'
+  if (!position || typeof position !== "string" || !position.includes("-")) {
+    return "";
   }
+  
+  const [row, col] = position.split("-").map(Number);
+  if (isNaN(row) || isNaN(col)) return "";
+  
+  // Add 1 to row/col for 1-based grid classes
+  return `row-start-${row + 1} col-start-${col + 1}`;
 };
 
 const getHeightClass = (height) => {
@@ -51,7 +45,6 @@ const getHeightClass = (height) => {
  * @returns {JSX.Element|null} - The rendered background component or null
  */
 
-
 // export const heroBackgroundThemes = {
 //   none: 'none',
 //   video: 'video',
@@ -62,23 +55,26 @@ const getHeightClass = (height) => {
 //   animatedGradient: 'animated-gradient',
 // };
 
-
-
 const renderHeroBackground = (heroBackground, image) => {
   switch (heroBackground) {
     case "none":
       return <h1>NONE</h1>;
     case "canvasSphere":
       return <Background />;
-      case "canvasGrad":
-        return <CanvasGradientBackground />;
+    case "canvasGrad":
+      return <CanvasGradientBackground />;
     case "canvasImage":
-      return <div className="flex justify-center items-center w-full h-full">
-        <div className="relative w-1/2 h-1/2 rounded-xl border-2 border-red-500">
-          <CanvasImageComponent src={image.url} /></div>
-          </div>;
+      return (
+        <div className="flex justify-center items-center w-full h-full">
+          <div className="relative w-1/2 h-1/2 rounded-xl border-2 border-red-500">
+            <CanvasImageComponent src={image.url} />
+          </div>
+        </div>
+      );
     case "canvasGradient":
-      return <CanvasGradientBackground gradientType="conic" conicRotation={1} />;
+      return (
+        <CanvasGradientBackground gradientType="conic" conicRotation={1} />
+      );
     case "cssgradient":
       return <BackgroundCssGrad />;
     case "image":
@@ -95,34 +91,76 @@ const renderHeroBackground = (heroBackground, image) => {
   }
 };
 
-export default function BlockHero({ title, content, tag, image}) {
+export default function BlockHero({ title, content, tag, image }) {
   const { currentTheme } = useThemeContext();
-  const [position, setPosition] = useState(null); // Default value
-
   const full = false;
-
-  useEffect(() => {
-    // Set the style value when the component mounts
-    const position = getPositionClass(currentTheme.data.heroTextPosition);
-    setPosition(position); // Set to the desired integer value
-  }, []);
 
   return (
     // TODO make clip path optional
     // grid grid-rows-[48px_48px_1fr_1fr_1fr_48px_48px] grid-cols-12
     <ClipContainer>
+        {renderHeroBackground(currentTheme.data.heroBackground, image)}
+
+<ScaleContainer>
+
       <div
         className={`${getHeightClass(
           currentTheme.data.heroHeight
-        )} relative flex flex-col justify-end left-0 top-0 z-50 w-full gap-8 px-16 py-16`}
+        )} relative grid grid-cols-3 grid-rows-3 justify-end left-0 top-0 z-50 w-full gap-0  px-16 py-16`}
       >
         {/* <h1>NO {clip ? "YES" : "NO"}</h1> */}
-        {renderHeroBackground(currentTheme.data.heroBackground, image)}
 
-        <ScaleContainer>
-          <PostIntro title={title} content={content} tag={tag} />
-        </ScaleContainer>
+        <div className={`${getPositionClass(currentTheme.data.heroTextPosition)}`}>
+  
+         
+    
+                  {tag && (
+                    <div
+                      className="inline-flex px-2 py-1 mb-8 ml-2 text-xs font-medium uppercase rounded-full"
+                      style={{
+                        color: "var(--text-color-inv)",
+                        backgroundColor: "var(--accent-pri)",
+                      }}
+                    >
+                      {tag}
+                    </div>
+                  )}
+                  {title && (
+                    <h1 className="text-4xl leading-normal text-balance">
+                      <AnimatedText
+                        content={title}
+                        type={currentTheme.data.textAnimation}
+                        delay={AnimTextOrder.ONE}
+                      />
+                      {/* <AnimatedText type={AnimStyle.LINEFADEIN} content={content} delay={AnimTextOrder.THREE}/> */}
+                    </h1>
+                  )}
+              </div>
+
+              <div className={`${getPositionClass(currentTheme.data.heroSubTextPosition)}`}>
+         
+                <p
+                  className="text-sm font-normal text-balance"
+                  style={{
+                    color: "var(--subtext-color)",
+                    textAlign: "var(--hero-subtext-align)",
+                  }}
+                >
+                  {content && (
+                    <AnimatedText
+                      type={currentTheme.data.textAnimationSec}
+                      content={content}
+                      delay={AnimTextOrder.THREE}
+                    />
+                  )}
+                </p>
+           
+
+              </div>
+
       </div>
+      </ScaleContainer>
+
     </ClipContainer>
   );
 }
