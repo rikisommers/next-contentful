@@ -1,6 +1,8 @@
-import React, { useRef, useEffect, Suspense } from 'react';
+import React, { useRef, useEffect, Suspense, useState } from 'react';
 import { Canvas, useFrame, extend, useThree } from '@react-three/fiber';
-import { OrbitControls, OrthographicCamera, useTexture, Edges, useAspect } from '@react-three/drei';
+import { OrbitControls, OrthographicCamera, useTexture, useAspect ,  useFBO} from '@react-three/drei';
+import { wrapEffect, EffectComposer } from "@react-three/postprocessing";
+
 import { v4 as uuidv4 } from 'uuid';
 import * as THREE from 'three';
 import { useThemeContext } from '../context/themeContext';
@@ -520,8 +522,144 @@ class VintageScreenMaterial extends THREE.ShaderMaterial {
   }
 }
 
-// Register the custom materials
-extend({ WaterColorMaterial, NoiseMaterial, PixelMaterial, HalftoneMaterial, MoireMaterial, VintagePrintMaterial, VintageScreenMaterial });
+// Custom dithered bitmap material
+class DitheredMaterial extends THREE.ShaderMaterial {
+  constructor() {
+    super({
+      uniforms: {
+        uColor: { value: new THREE.Color('hotpink') },
+        uTime: { value: 0 },
+        uResolution: { value: new THREE.Vector2(1.0, 1.0) },
+        uTexture: { value: null },
+        uUseTexture: { value: 0 },
+        uPixelSize: { value: 4.0 },
+        uAccentPrimary: { value: new THREE.Color('#ffffff') },
+        uAccentSecondary: { value: new THREE.Color('#000000') },
+        uDitherType: { value: 0 } // 0 for ordered, 1 for Floyd-Steinberg style
+      },
+      vertexShader: `
+        varying vec2 vUv;
+        varying vec3 vNormal;
+        
+        void main() {
+          vUv = uv;
+          vNormal = normalize(normalMatrix * normal);
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+      `,
+      fragmentShader: `
+        uniform vec3 uColor;
+        uniform float uTime;
+        uniform vec2 uResolution;
+        uniform sampler2D uTexture;
+        uniform int uUseTexture;
+        uniform float uPixelSize;
+        uniform vec3 uAccentPrimary;
+        uniform vec3 uAccentSecondary;
+        uniform int uDitherType;
+        
+        varying vec2 vUv;
+        varying vec3 vNormal;
+        
+        // Bayer matrix for ordered dithering (4x4)
+        float getBayerValue(vec2 coord) {
+          int x = int(mod(coord.x, 4.0));
+          int y = int(mod(coord.y, 4.0));
+          
+          // 4x4 Bayer matrix
+          float bayer[16];
+          bayer[0] = 0.0/16.0;   bayer[1] = 8.0/16.0;   bayer[2] = 2.0/16.0;   bayer[3] = 10.0/16.0;
+          bayer[4] = 12.0/16.0;  bayer[5] = 4.0/16.0;   bayer[6] = 14.0/16.0;  bayer[7] = 6.0/16.0;
+          bayer[8] = 3.0/16.0;   bayer[9] = 11.0/16.0;  bayer[10] = 1.0/16.0;  bayer[11] = 9.0/16.0;
+          bayer[12] = 15.0/16.0; bayer[13] = 7.0/16.0;  bayer[14] = 13.0/16.0; bayer[15] = 5.0/16.0;
+          
+          return bayer[y * 4 + x];
+        }
+        
+        // Pseudo-random function for better dithering
+        float random(vec2 st) {
+          return fract(sin(dot(st.xy, vec2(12.9898, 78.233))) * 43758.5453123);
+        }
+        
+        void main() {
+          // Calculate pixel grid coordinates
+          vec2 pixelCoord = floor(vUv * uResolution / uPixelSize) * uPixelSize;
+          vec2 pixelUV = pixelCoord / uResolution;
+          
+          // Sample the texture at the pixel center
+          vec3 texColor;
+          if (uUseTexture == 1) {
+            texColor = texture2D(uTexture, pixelUV + vec2(uPixelSize * 0.5) / uResolution).rgb;
+          } else {
+            // For mesh mode, create a gradient based on UV and surface normal for variation
+            float gradient = (vUv.x + vUv.y) * 0.5;
+            // Add lighting-based variation
+            vec3 lightDir = normalize(vec3(1.0, 1.0, 1.0));
+            float lighting = max(dot(normalize(vNormal), lightDir), 0.2);
+            gradient *= lighting;
+            // Add some spatial variation
+            gradient += sin(vUv.x * 8.0) * 0.1 + cos(vUv.y * 6.0) * 0.1;
+            texColor = vec3(gradient);
+          }
+          
+          // Calculate brightness
+          float brightness = dot(texColor, vec3(0.299, 0.587, 0.114));
+          
+          // Apply dithering
+          float threshold;
+          vec2 ditherCoord = floor(vUv * uResolution / uPixelSize);
+          
+          if (uDitherType == 0) {
+            // Ordered dithering using Bayer matrix
+            threshold = getBayerValue(ditherCoord);
+          } else {
+            // Random dithering with some noise
+            threshold = random(ditherCoord + uTime * 0.1) * 0.5 + 0.25;
+          }
+          
+          // Determine if pixel should be light or dark
+          float ditherResult = step(threshold, brightness);
+          
+          // Mix colors based on dither result
+          vec3 finalColor = mix(uAccentSecondary, uAccentPrimary, ditherResult);
+          
+          gl_FragColor = vec4(finalColor, 1.0);
+        }
+      `
+    });
+  }
+}
+
+// Custom gradient material for background
+class GradientMaterial extends THREE.ShaderMaterial {
+  constructor() {
+    super({
+      uniforms: {
+        uColorTop: { value: new THREE.Color('#ffffff') },
+        uColorBottom: { value: new THREE.Color('#cccccc') }
+      },
+      vertexShader: `
+        varying vec2 vUv;
+        
+        void main() {
+          vUv = uv;
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+      `,
+      fragmentShader: `
+        uniform vec3 uColorTop;
+        uniform vec3 uColorBottom;
+        
+        varying vec2 vUv;
+        
+        void main() {
+          vec3 color = mix(uColorBottom, uColorTop, vUv.y);
+          gl_FragColor = vec4(color, 1.0);
+        }
+      `
+    });
+  }
+}
 
 // Create a placeholder texture for when src is null
 const createPlaceholderTexture = () => {
@@ -536,13 +674,28 @@ const createPlaceholderTexture = () => {
   return texture;
 };
 
-// Fullscreen quad component
-const FullscreenQuad = ({ children }) => {
+// Fullscreen quad component with aspect ratio preservation (cover behavior)
+const FullscreenQuad = ({ children, aspectRatio = 1 }) => {
   const { viewport } = useThree();
+  
+  // Calculate dimensions to cover container while maintaining aspect ratio
+  const containerAspect = viewport.width / viewport.height;
+  
+  let width, height;
+  
+  if (containerAspect > aspectRatio) {
+    // Container is wider than content - fit to width, crop height
+    width = viewport.width;
+    height = width / aspectRatio;
+  } else {
+    // Container is taller than content - fit to height, crop width
+    height = viewport.height;
+    width = height * aspectRatio;
+  }
   
   return (
     <mesh>
-      <planeGeometry args={[viewport.width, viewport.height]} />
+      <planeGeometry args={[width, height]} />
       {children}
     </mesh>
   );
@@ -552,10 +705,11 @@ const FullscreenQuad = ({ children }) => {
 const Painting = ({ color = "hotpink", scale = 9.0, colorLevels = 4.0, src = null }) => {
   const materialRef = useRef();
   const { viewport, size } = useThree();
+  const { currentTheme } = useThemeContext();
   const paintNormalTexture = useTexture("https://cdn.maximeheckel.com/textures/paint-normal.jpg");
   const textures = useTexture(src ? { image: src } : {});
   const imageTexture = src ? textures.image : null;
-  const hasTexture = !!src;
+  const hasTexture = !!src && !currentTheme?.data?.shaderMesh;
 
   paintNormalTexture.minFilter = THREE.LinearMipmapLinearFilter;
   paintNormalTexture.magFilter = THREE.LinearFilter;
@@ -571,6 +725,7 @@ const Painting = ({ color = "hotpink", scale = 9.0, colorLevels = 4.0, src = nul
       materialRef.current.uniforms.uPaintNormalMap.value = paintNormalTexture;
       materialRef.current.uniforms.uTime.value = state.clock.getElapsedTime();
       materialRef.current.uniforms.uResolution.value.set(size.width, size.height);
+      materialRef.current.uniforms.uColor.value = new THREE.Color(color);
       
       if (hasTexture && imageTexture) {
         materialRef.current.uniforms.uTexture.value = imageTexture;
@@ -581,8 +736,11 @@ const Painting = ({ color = "hotpink", scale = 9.0, colorLevels = 4.0, src = nul
     }
   });
 
+  // Calculate aspect ratio from texture if available
+  const aspectRatio = hasTexture && imageTexture ? imageTexture.image.width / imageTexture.image.height : 1;
+
   return hasTexture ? (
-    <FullscreenQuad>
+    <FullscreenQuad aspectRatio={aspectRatio}>
       <waterColorMaterial
         ref={materialRef}
         key={uuidv4()}
@@ -592,8 +750,8 @@ const Painting = ({ color = "hotpink", scale = 9.0, colorLevels = 4.0, src = nul
       />
     </FullscreenQuad>
   ) : (
-    <mesh receiveShadow castShadow>
-      <torusKnotGeometry args={[0.5, 0.2, 256, 256]} />
+    <mesh receiveShadow castShadow position={[0, 0, 0]}>
+      <torusKnotGeometry args={[10, 3, 64, 16]} />
       <waterColorMaterial
         ref={materialRef}
         key={uuidv4()}
@@ -601,7 +759,6 @@ const Painting = ({ color = "hotpink", scale = 9.0, colorLevels = 4.0, src = nul
         uScale={scale}
         uColorLevels={colorLevels}
       />
-      <Edges />
     </mesh>
   );
 };
@@ -610,9 +767,10 @@ const Painting = ({ color = "hotpink", scale = 9.0, colorLevels = 4.0, src = nul
 const NoiseEffect = ({ color = "hotpink", noiseScale = 5.0, noiseIntensity = 0.15, src = null }) => {
   const materialRef = useRef();
   const { viewport, size } = useThree();
+  const { currentTheme } = useThemeContext();
   const textures = useTexture(src ? { image: src } : {});
   const imageTexture = src ? textures.image : null;
-  const hasTexture = !!src;
+  const hasTexture = !!src && !currentTheme?.data?.shaderMesh;
   
   if (imageTexture) {
     imageTexture.minFilter = THREE.LinearFilter;
@@ -623,6 +781,7 @@ const NoiseEffect = ({ color = "hotpink", noiseScale = 5.0, noiseIntensity = 0.1
     if (materialRef.current) {
       materialRef.current.uniforms.uTime.value = state.clock.getElapsedTime();
       materialRef.current.uniforms.uResolution.value.set(size.width, size.height);
+      materialRef.current.uniforms.uColor.value = new THREE.Color(color);
       
       if (hasTexture && imageTexture) {
         materialRef.current.uniforms.uTexture.value = imageTexture;
@@ -633,8 +792,11 @@ const NoiseEffect = ({ color = "hotpink", noiseScale = 5.0, noiseIntensity = 0.1
     }
   });
 
+  // Calculate aspect ratio from texture if available
+  const aspectRatio = hasTexture && imageTexture ? imageTexture.image.width / imageTexture.image.height : 1;
+
   return hasTexture ? (
-    <FullscreenQuad>
+    <FullscreenQuad aspectRatio={aspectRatio}>
       <noiseMaterial
         ref={materialRef}
         key={uuidv4()}
@@ -644,8 +806,8 @@ const NoiseEffect = ({ color = "hotpink", noiseScale = 5.0, noiseIntensity = 0.1
       />
     </FullscreenQuad>
   ) : (
-    <mesh receiveShadow castShadow>
-      <torusKnotGeometry args={[0.5, 0.2, 256, 256]} />
+    <mesh receiveShadow castShadow position={[0, 0, 0]}>
+      <torusKnotGeometry args={[10, 3, 64, 16]} />
       <noiseMaterial
         ref={materialRef}
         key={uuidv4()}
@@ -653,7 +815,6 @@ const NoiseEffect = ({ color = "hotpink", noiseScale = 5.0, noiseIntensity = 0.1
         uNoiseScale={noiseScale}
         uNoiseIntensity={noiseIntensity}
       />
-      <Edges />
     </mesh>
   );
 };
@@ -665,7 +826,7 @@ const PixelEffect = ({ color = "hotpink", pixelDensity = 8.0, src = null }) => {
   const { currentTheme } = useThemeContext();
   const textures = useTexture(src ? { image: src } : {});
   const imageTexture = src ? textures.image : null;
-  const hasTexture = !!src;
+  const hasTexture = !!src && !currentTheme?.data?.shaderMesh;
   
   const themeAccentPrimary = currentTheme?.data?.backgroundColor || "#ffffff";
   const themeAccentSecondary = currentTheme?.data?.accentSec || "#000000";
@@ -676,6 +837,7 @@ const PixelEffect = ({ color = "hotpink", pixelDensity = 8.0, src = null }) => {
       materialRef.current.uniforms.uPixelDensity.value = size.width / 16.0; // Calculate density based on desired pixel size
       materialRef.current.uniforms.uAccentPrimary.value = new THREE.Color(themeAccentPrimary);
       materialRef.current.uniforms.uAccentSecondary.value = new THREE.Color(themeAccentSecondary);
+      materialRef.current.uniforms.uColor.value = new THREE.Color(color);
       
       if (hasTexture && imageTexture) {
         materialRef.current.uniforms.uTexture.value = imageTexture;
@@ -686,8 +848,11 @@ const PixelEffect = ({ color = "hotpink", pixelDensity = 8.0, src = null }) => {
     }
   });
 
+  // Calculate aspect ratio from texture if available
+  const aspectRatio = hasTexture && imageTexture ? imageTexture.image.width / imageTexture.image.height : 1;
+
   return hasTexture ? (
-    <FullscreenQuad>
+    <FullscreenQuad aspectRatio={aspectRatio}>
       <pixelMaterial
         ref={materialRef}
         key={uuidv4()}
@@ -696,15 +861,14 @@ const PixelEffect = ({ color = "hotpink", pixelDensity = 8.0, src = null }) => {
       />
     </FullscreenQuad>
   ) : (
-    <mesh receiveShadow castShadow>
-      <torusKnotGeometry args={[0.5, 0.2, 256, 256]} />
+    <mesh receiveShadow castShadow position={[0, 0, 0]}>
+      <torusKnotGeometry args={[10, 3, 64, 16]} />
       <pixelMaterial
         ref={materialRef}
         key={uuidv4()}
         color={color}
         uPixelDensity={size.width / 8.0} // Set pixel density
       />
-      <Edges />
     </mesh>
   );
 };
@@ -725,7 +889,7 @@ const HalftoneEffect = ({
   const { currentTheme } = useThemeContext();
   const textures = useTexture(src ? { image: src } : {});
   const imageTexture = src ? textures.image : null;
-  const hasTexture = !!src;
+  const hasTexture = !!src && !currentTheme?.data?.shaderMesh;
   
   // Get accent colors from theme
   const themeAccentPrimary = currentTheme?.data?.backgroundColor || accentPrimary;
@@ -742,6 +906,7 @@ const HalftoneEffect = ({
       materialRef.current.uniforms.uResolution.value.set(size.width, size.height);
       materialRef.current.uniforms.uAccentPrimary.value = new THREE.Color(themeAccentPrimary);
       materialRef.current.uniforms.uAccentSecondary.value = new THREE.Color(themeAccentSecondary);
+      materialRef.current.uniforms.uColor.value = new THREE.Color(color);
       
       if (hasTexture && imageTexture) {
         materialRef.current.uniforms.uTexture.value = imageTexture;
@@ -752,8 +917,11 @@ const HalftoneEffect = ({
     }
   });
 
+  // Calculate aspect ratio from texture if available
+  const aspectRatio = hasTexture && imageTexture ? imageTexture.image.width / imageTexture.image.height : 1;
+
   return hasTexture ? (
-    <FullscreenQuad>
+    <FullscreenQuad aspectRatio={aspectRatio}>
       <halftoneMaterial
         ref={materialRef}
         key={uuidv4()}
@@ -765,8 +933,8 @@ const HalftoneEffect = ({
       />
     </FullscreenQuad>
   ) : (
-    <mesh receiveShadow castShadow>
-      <torusKnotGeometry args={[0.5, 0.2, 256, 256]} />
+    <mesh receiveShadow castShadow position={[0, 0, 0]}>
+      <torusKnotGeometry args={[10, 3, 64, 16]} />
       <halftoneMaterial
         ref={materialRef}
         key={uuidv4()}
@@ -776,7 +944,6 @@ const HalftoneEffect = ({
         uInvert={invert ? 1 : 0}
         uDotScale={dotScale}
       />
-      <Edges />
     </mesh>
   );
 };
@@ -785,9 +952,10 @@ const HalftoneEffect = ({
 const MoireEffect = ({ color = "hotpink", moireScale = 10.0, src = null }) => {
   const materialRef = useRef();
   const { viewport, size } = useThree();
+  const { currentTheme } = useThemeContext();
   const textures = useTexture(src ? { image: src } : {});
   const imageTexture = src ? textures.image : null;
-  const hasTexture = !!src;
+  const hasTexture = !!src && !currentTheme?.data?.shaderMesh;
   
   if (imageTexture) {
     imageTexture.minFilter = THREE.LinearFilter;
@@ -798,6 +966,7 @@ const MoireEffect = ({ color = "hotpink", moireScale = 10.0, src = null }) => {
     if (materialRef.current) {
       materialRef.current.uniforms.uTime.value = state.clock.getElapsedTime();
       materialRef.current.uniforms.uResolution.value.set(size.width, size.height);
+      materialRef.current.uniforms.uColor.value = new THREE.Color(color);
       
       if (hasTexture && imageTexture) {
         materialRef.current.uniforms.uTexture.value = imageTexture;
@@ -808,8 +977,11 @@ const MoireEffect = ({ color = "hotpink", moireScale = 10.0, src = null }) => {
     }
   });
 
+  // Calculate aspect ratio from texture if available
+  const aspectRatio = hasTexture && imageTexture ? imageTexture.image.width / imageTexture.image.height : 1;
+
   return hasTexture ? (
-    <FullscreenQuad>
+    <FullscreenQuad aspectRatio={aspectRatio}>
       <moireMaterial
         ref={materialRef}
         key={uuidv4()}
@@ -818,15 +990,14 @@ const MoireEffect = ({ color = "hotpink", moireScale = 10.0, src = null }) => {
       />
     </FullscreenQuad>
   ) : (
-    <mesh receiveShadow castShadow>
-      <torusKnotGeometry args={[0.5, 0.2, 256, 256]} />
+    <mesh receiveShadow castShadow position={[0, 0, 0]}>
+      <torusKnotGeometry args={[10, 3, 64, 16]} />
       <moireMaterial
         ref={materialRef}
         key={uuidv4()}
         color={color}
         uMoireScale={moireScale}
       />
-      <Edges />
     </mesh>
   );
 };
@@ -838,7 +1009,7 @@ const VintagePrintEffect = ({ color = "hotpink", dotSize = 5.0, src = null }) =>
   const { currentTheme } = useThemeContext();
   const textures = useTexture(src ? { image: src } : {});
   const imageTexture = src ? textures.image : null;
-  const hasTexture = !!src;
+  const hasTexture = !!src && !currentTheme?.data?.shaderMesh;
   
   const themeAccentPrimary = currentTheme?.data?.backgroundColor || "#ffffff";
   const themeAccentSecondary = currentTheme?.data?.accentSec || "#000000";
@@ -848,6 +1019,7 @@ const VintagePrintEffect = ({ color = "hotpink", dotSize = 5.0, src = null }) =>
       materialRef.current.uniforms.uResolution.value.set(size.width, size.height);
       materialRef.current.uniforms.uAccentPrimary.value = new THREE.Color(themeAccentPrimary);
       materialRef.current.uniforms.uAccentSecondary.value = new THREE.Color(themeAccentSecondary);
+      materialRef.current.uniforms.uColor.value = new THREE.Color(color);
       
       if (hasTexture && imageTexture) {
         materialRef.current.uniforms.uTexture.value = imageTexture;
@@ -858,8 +1030,11 @@ const VintagePrintEffect = ({ color = "hotpink", dotSize = 5.0, src = null }) =>
     }
   });
 
+  // Calculate aspect ratio from texture if available
+  const aspectRatio = hasTexture && imageTexture ? imageTexture.image.width / imageTexture.image.height : 1;
+
   return hasTexture ? (
-    <FullscreenQuad>
+    <FullscreenQuad aspectRatio={aspectRatio}>
       <vintagePrintMaterial
         ref={materialRef}
         key={uuidv4()}
@@ -868,15 +1043,14 @@ const VintagePrintEffect = ({ color = "hotpink", dotSize = 5.0, src = null }) =>
       />
     </FullscreenQuad>
   ) : (
-    <mesh receiveShadow castShadow>
-      <torusKnotGeometry args={[0.5, 0.2, 256, 256]} />
+    <mesh receiveShadow castShadow position={[0, 0, 0]}>
+      <torusKnotGeometry args={[10, 3, 64, 16]} />
       <vintagePrintMaterial
         ref={materialRef}
         key={uuidv4()}
         color={color}
         uDotSize={dotSize}
       />
-      <Edges />
     </mesh>
   );
 };
@@ -888,7 +1062,7 @@ const VintageScreenEffect = ({ color = "red", scanLineIntensity = 0.5, src = nul
   const { currentTheme } = useThemeContext();
   const textures = useTexture(src ? { image: src } : {});
   const imageTexture = src ? textures.image : null;
-  const hasTexture = !!src;
+  const hasTexture = !!src && !currentTheme?.data?.shaderMesh;
   
   // Get accent colors from theme
   const themeAccentPrimary = currentTheme?.data?.backgroundColor || "#ffffff";
@@ -904,6 +1078,7 @@ const VintageScreenEffect = ({ color = "red", scanLineIntensity = 0.5, src = nul
       materialRef.current.uniforms.uResolution.value.set(size.width, size.height);
       materialRef.current.uniforms.uAccentPrimary.value = new THREE.Color(themeAccentPrimary);
       materialRef.current.uniforms.uAccentSecondary.value = new THREE.Color(themeAccentSecondary);
+      materialRef.current.uniforms.uColor.value = new THREE.Color(color);
       
       if (hasTexture && imageTexture) {
         materialRef.current.uniforms.uTexture.value = imageTexture;
@@ -914,8 +1089,11 @@ const VintageScreenEffect = ({ color = "red", scanLineIntensity = 0.5, src = nul
     }
   });
 
+  // Calculate aspect ratio from texture if available
+  const aspectRatio = hasTexture && imageTexture ? imageTexture.image.width / imageTexture.image.height : 1;
+
   return hasTexture ? (
-    <FullscreenQuad>
+    <FullscreenQuad aspectRatio={aspectRatio}>
       <vintageScreenMaterial
         ref={materialRef}
         key={uuidv4()}
@@ -924,16 +1102,255 @@ const VintageScreenEffect = ({ color = "red", scanLineIntensity = 0.5, src = nul
       />
     </FullscreenQuad>
   ) : (
-    <mesh receiveShadow castShadow>
-      <torusKnotGeometry args={[0.5, 0.2, 256, 256]} />
+    <mesh receiveShadow castShadow position={[0, 0, 0]}>
+      <torusKnotGeometry args={[10, 3, 64, 16]} />
       <vintageScreenMaterial
         ref={materialRef}
         key={uuidv4()}
         color={color}
         uScanLineIntensity={scanLineIntensity}
       />
-      <Edges />
     </mesh>
+  );
+};
+
+// Scene capture material for dithering post-process
+class SceneDitherMaterial extends THREE.ShaderMaterial {
+  constructor() {
+    super({
+      uniforms: {
+        uSceneTexture: { value: null },
+        uResolution: { value: new THREE.Vector2(1.0, 1.0) },
+        uPixelSize: { value: 4.0 },
+        uAccentPrimary: { value: new THREE.Color('#ffffff') },
+        uAccentSecondary: { value: new THREE.Color('#000000') },
+        uDitherType: { value: 0 }
+      },
+      vertexShader: `
+        varying vec2 vUv;
+        
+        void main() {
+          vUv = uv;
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+      `,
+      fragmentShader: `
+        uniform sampler2D uSceneTexture;
+        uniform vec2 uResolution;
+        uniform float uPixelSize;
+        uniform vec3 uAccentPrimary;
+        uniform vec3 uAccentSecondary;
+        uniform int uDitherType;
+        
+        varying vec2 vUv;
+        
+        // Bayer matrix for ordered dithering (4x4)
+        float getBayerValue(vec2 coord) {
+          int x = int(mod(coord.x, 4.0));
+          int y = int(mod(coord.y, 4.0));
+          
+          // 4x4 Bayer matrix
+          float bayer[16];
+          bayer[0] = 0.0/16.0;   bayer[1] = 8.0/16.0;   bayer[2] = 2.0/16.0;   bayer[3] = 10.0/16.0;
+          bayer[4] = 12.0/16.0;  bayer[5] = 4.0/16.0;   bayer[6] = 14.0/16.0;  bayer[7] = 6.0/16.0;
+          bayer[8] = 3.0/16.0;   bayer[9] = 11.0/16.0;  bayer[10] = 1.0/16.0;  bayer[11] = 9.0/16.0;
+          bayer[12] = 15.0/16.0; bayer[13] = 7.0/16.0;  bayer[14] = 13.0/16.0; bayer[15] = 5.0/16.0;
+          
+          return bayer[y * 4 + x];
+        }
+        
+        // Pseudo-random function for random dithering
+        float random(vec2 st) {
+          return fract(sin(dot(st.xy, vec2(12.9898, 78.233))) * 43758.5453123);
+        }
+        
+        void main() {
+          // Calculate pixel grid coordinates
+          vec2 pixelCoord = floor(vUv * uResolution / uPixelSize) * uPixelSize;
+          vec2 pixelUV = pixelCoord / uResolution;
+          
+          // Sample the scene texture at the pixel center
+          vec3 sceneColor = texture2D(uSceneTexture, pixelUV + vec2(uPixelSize * 0.5) / uResolution).rgb;
+          
+          // Calculate brightness
+          float brightness = dot(sceneColor, vec3(0.299, 0.587, 0.114));
+          
+          // Apply dithering
+          float threshold;
+          vec2 ditherCoord = floor(vUv * uResolution / uPixelSize);
+          
+          if (uDitherType == 0) {
+            // Ordered dithering using Bayer matrix
+            threshold = getBayerValue(ditherCoord);
+          } else {
+            // Random dithering
+            threshold = random(ditherCoord) * 0.5 + 0.25;
+          }
+          
+          // Determine if pixel should be light or dark
+          float ditherResult = step(threshold, brightness);
+          
+          // Mix colors based on dither result
+          vec3 finalColor = mix(uAccentSecondary, uAccentPrimary, ditherResult);
+          
+          gl_FragColor = vec4(finalColor, 1.0);
+        }
+      `,
+      transparent: false,
+      depthTest: false,
+      depthWrite: false
+    });
+  }
+}
+
+// Register the custom materials
+extend({ WaterColorMaterial, NoiseMaterial, PixelMaterial, HalftoneMaterial, MoireMaterial, VintagePrintMaterial, VintageScreenMaterial, DitheredMaterial, GradientMaterial, SceneDitherMaterial });
+
+// Scene renderer component for dithered effect
+const SceneRenderer = ({ children, onRender }) => {
+  const { gl, scene, camera, size } = useThree();
+  const renderTarget = useRef();
+  const sceneRef = useRef();
+  
+  useEffect(() => {
+    // Create render target
+    renderTarget.current = new THREE.WebGLRenderTarget(size.width, size.height, {
+      minFilter: THREE.LinearFilter,
+      magFilter: THREE.LinearFilter,
+      format: THREE.RGBAFormat,
+      type: THREE.UnsignedByteType
+    });
+    
+    return () => {
+      if (renderTarget.current) {
+        renderTarget.current.dispose();
+      }
+    };
+  }, [size]);
+  
+  useFrame(() => {
+    if (renderTarget.current && sceneRef.current) {
+      // Render scene to texture
+      gl.setRenderTarget(renderTarget.current);
+      gl.render(sceneRef.current, camera);
+      gl.setRenderTarget(null);
+      
+      // Pass the rendered texture to parent
+      if (onRender) {
+        onRender(renderTarget.current.texture);
+      }
+    }
+  });
+  
+  return (
+    <scene ref={sceneRef}>
+      {children}
+    </scene>
+  );
+};
+
+// Dithered bitmap effect component with scene-wide dithering
+const DitheredEffect = ({ color = "hotpink", pixelSize = 1.0, ditherType = 0, src = null }) => {
+  const materialRef = useRef();
+  const backgroundMaterialRef = useRef();
+  const ditherMaterialRef = useRef();
+  const { viewport, size } = useThree();
+  const { currentTheme } = useThemeContext();
+  const textures = useTexture(src ? { image: src } : {});
+  const imageTexture = src ? textures.image : null;
+  const hasTexture = !!src && !currentTheme?.data?.shaderMesh;
+  const [sceneTexture, setSceneTexture] = React.useState(null);
+  
+  // Get accent colors from theme
+  const themeAccentPrimary = currentTheme?.data?.backgroundColor || "#ffffff";
+  const themeAccentSecondary = currentTheme?.data?.accentPri || "#000000";
+  
+  if (imageTexture) {
+    imageTexture.minFilter = THREE.LinearFilter;
+    imageTexture.magFilter = THREE.LinearFilter;
+  }
+
+  useFrame((state) => {
+    // Update background gradient
+    if (backgroundMaterialRef.current) {
+      backgroundMaterialRef.current.uniforms.uColorTop.value = new THREE.Color(themeAccentPrimary);
+      backgroundMaterialRef.current.uniforms.uColorBottom.value = new THREE.Color(themeAccentSecondary);
+    }
+    
+    // Update dither material
+    if (ditherMaterialRef.current && sceneTexture) {
+      ditherMaterialRef.current.uniforms.uSceneTexture.value = sceneTexture;
+      ditherMaterialRef.current.uniforms.uResolution.value.set(size.width, size.height);
+      ditherMaterialRef.current.uniforms.uPixelSize.value = pixelSize;
+      ditherMaterialRef.current.uniforms.uAccentPrimary.value = new THREE.Color(themeAccentPrimary);
+      ditherMaterialRef.current.uniforms.uAccentSecondary.value = new THREE.Color(themeAccentSecondary);
+      ditherMaterialRef.current.uniforms.uDitherType.value = ditherType;
+    }
+    
+    // Update material for texture mode
+    if (materialRef.current && hasTexture) {
+      materialRef.current.uniforms.uResolution.value.set(size.width, size.height);
+      materialRef.current.uniforms.uAccentPrimary.value = new THREE.Color(themeAccentPrimary);
+      materialRef.current.uniforms.uAccentSecondary.value = new THREE.Color(themeAccentSecondary);
+      materialRef.current.uniforms.uColor.value = new THREE.Color(color);
+      
+      if (imageTexture) {
+        materialRef.current.uniforms.uTexture.value = imageTexture;
+        materialRef.current.uniforms.uUseTexture.value = 1;
+      } else {
+        materialRef.current.uniforms.uUseTexture.value = 0;
+      }
+    }
+  });
+
+  // Calculate aspect ratio from texture if available
+  const aspectRatio = hasTexture && imageTexture ? imageTexture.image.width / imageTexture.image.height : 0.01;
+
+  const handleSceneRender = (texture) => {
+    setSceneTexture(texture);
+  };
+
+  return hasTexture ? (
+    <FullscreenQuad aspectRatio={aspectRatio}>
+      <ditheredMaterial
+        ref={materialRef}
+        key={uuidv4()}
+        color={color}
+        uPixelSize={pixelSize}
+        uDitherType={ditherType}
+      />
+    </FullscreenQuad>
+  ) : (
+    <>
+      {/* Render the scene to texture */}
+      <SceneRenderer onRender={handleSceneRender}>
+        {/* Background plane with gradient */}
+        <mesh position={[0, 0, -20]} receiveShadow>
+          <planeGeometry args={[50, 50]} />
+          <gradientMaterial 
+            ref={backgroundMaterialRef}
+            key={uuidv4()}
+          />
+        </mesh>
+        
+        {/* Torus mesh */}
+        <mesh receiveShadow castShadow position={[0, 0, 0]}>
+          <torusKnotGeometry args={[10, 3, 64, 16]} />
+          <meshStandardMaterial color={currentTheme?.data?.accentPri || color} />
+        </mesh>
+      </SceneRenderer>
+      
+      {/* Fullscreen dithering overlay */}
+      {sceneTexture && (
+        <mesh position={[0, 0, 15]} renderOrder={1000}>
+          <planeGeometry args={[viewport.width * 1, viewport.height * 1]} />
+          <sceneDitherMaterial
+            ref={ditherMaterialRef}
+            key={uuidv4()}
+          />
+        </mesh>
+      )}
+    </>
   );
 };
 
@@ -960,6 +1377,10 @@ export default function CanvasImageComponent({ src = null }) {
   const [halftoneShape, setHalftoneShape] = React.useState("circle");
   const [halftoneInvert, setHalftoneInvert] = React.useState(false);
   const [dotScale, setDotScale] = React.useState(0.6);
+  
+  // Dithered specific settings
+  const [ditherPixelSize, setDitherPixelSize] = React.useState(0.1);
+  const [ditherType, setDitherType] = React.useState(0);
   
   // Update effect settings when theme changes
   useEffect(() => {
@@ -993,6 +1414,10 @@ export default function CanvasImageComponent({ src = null }) {
       setHalftoneShape(currentTheme.data.halftoneShape || "circle");
       setHalftoneInvert(currentTheme.data.halftoneInvert || false);
       setDotScale(currentTheme.data.dotScale || 0.6);
+      
+      // Dithered specific settings
+      setDitherPixelSize(currentTheme.data.ditherPixelSize || 4.0);
+      setDitherType(currentTheme.data.ditherType || 0);
     }
     console.log("currentTheme", currentTheme);
   }, [currentTheme, src]);
@@ -1061,6 +1486,15 @@ export default function CanvasImageComponent({ src = null }) {
             src={imageSrc}
           />
         );
+      case 'dithered':
+        return (
+          <DitheredEffect 
+            color={effectColor}
+            pixelSize={ditherPixelSize}
+            ditherType={ditherType}
+            src={imageSrc}
+          />
+        );
       default:
         return (
           <Painting 
@@ -1074,8 +1508,15 @@ export default function CanvasImageComponent({ src = null }) {
   };
 
   return (
-    <div className="overflow-hidden z-10 w-1/2 h-1/2 rounded-2xl" style={{ position: 'fixed' }}>
-      <Canvas dpr={[1, 2]}>
+      <Canvas 
+      className="overflow-hidden absolute top-0 left-0 w-screen h-screen bg-red-500"
+        dpr={[1, 2]}
+        gl={{ 
+          antialias: true,
+          alpha: false,
+          scissorTest: true // Enable scissor test for clipping
+        }}
+      >
         <Suspense fallback={null}>
           <ambientLight intensity={1.25} />
           <directionalLight position={[-5, 5, 5]} intensity={7} />
@@ -1084,13 +1525,12 @@ export default function CanvasImageComponent({ src = null }) {
           <OrbitControls enableZoom={false} enablePan={false} />
           <OrthographicCamera
             makeDefault
-            position={[0, 0, 5]}
-            zoom={1}
+            position={[0, 0, 105]}
+            zoom={10}
             near={0.01}
             far={500}
           />
         </Suspense>
       </Canvas>
-    </div>
   );
 } 

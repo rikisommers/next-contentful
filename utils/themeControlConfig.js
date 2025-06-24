@@ -139,6 +139,7 @@ export const themeControlConfig = {
   },
   Effects: {
     shaderType: { type: "select", label: "Shader Type", options: shaderTypes },
+    shaderMesh: { type: "boolean", label: "Mesh" }, 
     pixelDensity: { type: "slider", label: "Pixel Density", min: 1, max: 100, step: 1 },
     halftoneSize: { type: "slider", label: "Halftone Size", min: 1, max: 20, step: 0.1 },
     halftoneShape: { type: "select", label: "Halftone Shape", options: { circle: "Circle", square: "Square" } },

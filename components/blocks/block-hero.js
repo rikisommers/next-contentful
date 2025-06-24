@@ -11,6 +11,19 @@ import { ScaleContainer } from "../motion/scale-container";
 import PostIntro from "../post/post-intro";
 import Background from "../background/background";
 import AnimatedText, { AnimTextOrder } from "../motion/animated-text";
+import NoiseDither from "../background/shaders/dither/noise-dither";
+import OrderedDither from "../background/shaders/dither/ordered-dither";
+import BlueNoiseDither from "../background/shaders/dither/blue-noise-dither";
+import ColorQuantDither from "../background/shaders/dither/color-quant-dither";
+import ColorQuantDither2 from "../background/shaders/dither/color-quant-dither2";
+import Rect from "../background/shaders/halftone/rect";
+import Dots from "../background/shaders/halftone/dots";
+import Ascii from "../background/shaders/halftone/ascii";
+import Ascii2 from "../background/shaders/halftone/ascii2";
+import Luma from "../background/shaders/halftone/luma";
+import Led from "../background/shaders/halftone/led";
+import Lego from "../background/shaders/halftone/lego";
+import Progress from "../background/shaders/dynamic/progress";
 
 const getPositionClass = (position) => {
   // position is a string like '1-2'
@@ -63,12 +76,23 @@ const renderHeroBackground = (heroBackground, image) => {
       return <Background />;
     case "canvasGrad":
       return <CanvasGradientBackground />;
-    case "canvasImage":
+    case "canvasImage" || "canvasMesh":
       return (
-        <div className="flex justify-center items-center w-full h-full">
-          <div className="relative w-1/2 h-1/2 rounded-xl border-2 border-red-500">
-            <CanvasImageComponent src={image.url} />
-          </div>
+        <div className="absolute w-screen h-screen">
+            {/* <CanvasImageComponent src={image.url} /> */}
+            {/* <NoiseDither/> */}
+            {/* <OrderedDither/> */}
+            {/* <BlueNoiseDither/> */}
+            {/* <ColorQuantDither/> */}
+            {/* <ColorQuantDither2/> */}
+            {/* <Rect/> */}
+            {/* <Dots/> */}
+            <Ascii/>
+            {/* <Ascii2/> */}
+            {/* <Luma/> */}
+            {/* <Led/> */}
+            {/* <Lego/> */}
+            {/* <Progress/> */}
         </div>
       );
     case "canvasGradient":
@@ -99,6 +123,7 @@ export default function BlockHero({ title, content, tag, image }) {
     // TODO make clip path optional
     // grid grid-rows-[48px_48px_1fr_1fr_1fr_48px_48px] grid-cols-12
     <ClipContainer>
+
         {renderHeroBackground(currentTheme.data.heroBackground, image)}
 
 <ScaleContainer>
@@ -106,13 +131,10 @@ export default function BlockHero({ title, content, tag, image }) {
       <div
         className={`${getHeightClass(
           currentTheme.data.heroHeight
-        )} relative grid grid-cols-3 grid-rows-3 justify-end left-0 top-0 z-50 w-full gap-0  px-16 py-16`}
+        )} relative grid grid-cols-3 grid-rows-3 justify-end left-0 top-0 z-50 w-full gap-0  px-16 py-16 pointer-events-none`}
       >
-        {/* <h1>NO {clip ? "YES" : "NO"}</h1> */}
 
         <div className={`${getPositionClass(currentTheme.data.heroTextPosition)}`}>
-  
-         
     
                   {tag && (
                     <div
@@ -132,7 +154,6 @@ export default function BlockHero({ title, content, tag, image }) {
                         type={currentTheme.data.textAnimation}
                         delay={AnimTextOrder.ONE}
                       />
-                      {/* <AnimatedText type={AnimStyle.LINEFADEIN} content={content} delay={AnimTextOrder.THREE}/> */}
                     </h1>
                   )}
               </div>
@@ -156,7 +177,7 @@ export default function BlockHero({ title, content, tag, image }) {
                 </p>
            
 
-              </div>
+          </div>
 
       </div>
       </ScaleContainer>

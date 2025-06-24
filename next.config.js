@@ -18,4 +18,11 @@ module.exports = {
       transform: "@phosphor-icons/react/{{member}}",
     },
   },
+  webpack: (config) => {
+    config.module.rules.push({
+      test: /\.(glsl|vs|fs|vert|frag)$/,
+      use: ['raw-loader'],
+    });
+    return config;
+  },
 };

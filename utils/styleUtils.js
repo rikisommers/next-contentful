@@ -102,7 +102,7 @@ export const setStyleProperties = (theme) => {
 
     // Shader type property
     root.style.setProperty("--shader-type", theme.data.shaderType || "watercolor");
-
+    root.style.setProperty("--shader-mesh", theme.data.shaderMesh || false);
     // Halftone effect properties
     root.style.setProperty("--halftone-size", theme.data.halftoneSize || 8.0);
     root.style.setProperty("--halftone-shape", theme.data.halftoneShape || "circle");

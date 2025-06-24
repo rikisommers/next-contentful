@@ -1816,6 +1816,7 @@ export const shaderTypes = {
   moire: 'moire',
   vintagePrint: 'vintagePrint',
   vintageScreen: 'vintageScreen',
+  dithered: 'dithered',
 };
 
 const themeContent = {
@@ -1898,6 +1899,9 @@ const themeContent = {
   audioModalOpen: soundThemes.default,
   audioModalClose: soundThemes.default,
   shaderType: shaderTypes.vintagePrint, // Default shader type
+  
+  shaderMesh: false,
+
   pixelDensity: 20.0, // Default pixel density
   halftoneSize: 8.0, // Default halftone size
   halftoneShape: "circle", // Default halftone shape

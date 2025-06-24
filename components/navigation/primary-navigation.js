@@ -9,7 +9,6 @@ import ButtonWipe, { ButtonType } from '../base/button/button-wipe';
 import ThemeTrigger from "../base/theme-trigger";
 //import { useScrollPosition } from "../scrollPosContext";
 import ThemeEditor from "../../utils/themeEditor";
-import Texture from "./texture";
 
 // import ThemeEditor from "../../utils/themeEditor";
 
