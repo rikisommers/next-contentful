@@ -1614,6 +1614,7 @@ export const imageTextureContrastThemes = {
   opacity: '0.8',
 }
 
+
 export const mixBlendThemes = {
   normal: 'normal',
   multiply: 'multiply',
@@ -1809,14 +1810,27 @@ export const helpers = {
 };
 
 export const shaderTypes = {
-  watercolor: 'watercolor',
-  noise: 'noise',
-  pixel: 'pixel',
-  halftone: 'halftone',
-  moire: 'moire',
-  vintagePrint: 'vintagePrint',
-  vintageScreen: 'vintageScreen',
-  dithered: 'dithered',
+  // watercolor: 'watercolor',
+  // noise: 'noise',
+  // pixel: 'pixel',
+  // halftone: 'halftone',
+  // moire: 'moire',
+  // vintagePrint: 'vintagePrint',
+  // vintageScreen: 'vintageScreen',
+  // dithered: 'dithered',
+  blueNoise: 'blueNoise',
+  noiseDither: 'noiseDither',
+  orderedDither: 'orderedDither',
+  colorQuant: 'colorQuant',
+  colorQuant2: 'colorQuant2',
+  rect: 'rect',
+  dots: 'dots',
+  ascii: 'ascii',
+  ascii2: 'ascii2',
+  luma: 'luma',
+  led: 'led',
+  lego: 'lego',
+  progress: 'progress',
 };
 
 const themeContent = {
@@ -1898,7 +1912,7 @@ const themeContent = {
   audioPageTransitionEnd: soundThemes.default,
   audioModalOpen: soundThemes.default,
   audioModalClose: soundThemes.default,
-  shaderType: shaderTypes.vintagePrint, // Default shader type
+  shaderType: shaderTypes.blueNoise, // Default shader type
   
   shaderMesh: false,
 

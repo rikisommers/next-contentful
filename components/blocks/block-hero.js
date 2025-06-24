@@ -24,6 +24,7 @@ import Luma from "../background/shaders/halftone/luma";
 import Led from "../background/shaders/halftone/led";
 import Lego from "../background/shaders/halftone/lego";
 import Progress from "../background/shaders/dynamic/progress";
+import CanvasShader from "../background/canvasShader";
 
 const getPositionClass = (position) => {
   // position is a string like '1-2'
@@ -87,12 +88,13 @@ const renderHeroBackground = (heroBackground, image) => {
             {/* <ColorQuantDither2/> */}
             {/* <Rect/> */}
             {/* <Dots/> */}
-            <Ascii/>
+            {/* <Ascii/> */}
             {/* <Ascii2/> */}
             {/* <Luma/> */}
             {/* <Led/> */}
             {/* <Lego/> */}
             {/* <Progress/> */}
+            <CanvasShader/>
         </div>
       );
     case "canvasGradient":
@@ -138,7 +140,7 @@ export default function BlockHero({ title, content, tag, image }) {
     
                   {tag && (
                     <div
-                      className="inline-flex px-2 py-1 mb-8 ml-2 text-xs font-medium uppercase rounded-full"
+                      className="inline-flex px-2 py-1 mb-8 ml-2 text-xs font-medium uppercase rounded-full pointer-events-auto"
                       style={{
                         color: "var(--text-color-inv)",
                         backgroundColor: "var(--accent-pri)",
@@ -148,7 +150,7 @@ export default function BlockHero({ title, content, tag, image }) {
                     </div>
                   )}
                   {title && (
-                    <h1 className="text-4xl leading-normal text-balance">
+                    <h1 className="text-4xl leading-normal pointer-events-auto text-balance">
                       <AnimatedText
                         content={title}
                         type={currentTheme.data.textAnimation}
@@ -161,7 +163,7 @@ export default function BlockHero({ title, content, tag, image }) {
               <div className={`${getPositionClass(currentTheme.data.heroSubTextPosition)}`}>
          
                 <p
-                  className="text-sm font-normal text-balance"
+                  className="text-sm font-normal pointer-events-auto text-balance"
                   style={{
                     color: "var(--subtext-color)",
                     textAlign: "var(--hero-subtext-align)",

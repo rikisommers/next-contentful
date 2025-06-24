@@ -28,7 +28,7 @@ export const ScaleContainer = ({ children }) => {
 
       <motion.div
             ref={containerRef}
-        className="flex relative flex-col justify-center w-full h-full"
+        className="flex relative flex-col justify-center w-full h-full pointer-events-none"
         style={{
           scale: scaleValue,
           y:yMotionValue
