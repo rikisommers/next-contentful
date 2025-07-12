@@ -5,6 +5,7 @@ import BlendImage from "../image/blend-image";
 import Link from "next/link";
 import { motion } from "../../utils/motion";
 import FadeInWhenVisible from "../utils/fade-in-visible";
+import { useRouteAudio } from "../audio/audio-trigger";
 
 /**
  * @component
@@ -38,8 +39,14 @@ import FadeInWhenVisible from "../utils/fade-in-visible";
  * />
  * @exports PostTileFunky
  */
-export default function PostTileFunky({ post, aspect }) {
+export default function PostTileFunky({ post, aspect, 'data-audio-click': clickSound, 'data-audio-hover': hoverSound, ...props }) {
   const [isHovered, setIsHovered] = useState(false); // State to track hover
+  
+  // Use audio hook with data attribute sounds
+  const audioProps = useRouteAudio({
+    clickSound: clickSound,
+    hoverSound: hoverSound
+  });
 
   return (
     <Link
@@ -48,8 +55,13 @@ export default function PostTileFunky({ post, aspect }) {
         backgroundColor: "var(--surface3)",
       }}
       className={`relative flex flex-col w-full h-full overflow-hidden rounded-2xl group ${aspect ? `aspect-${aspect}` : ""}`}
-      onMouseEnter={() => setIsHovered(true)} // Set hover state to true on mouse enter
-      onMouseLeave={() => setIsHovered(false)} // Set hover state to false on mouse leave
+      onMouseEnter={(e) => {
+        setIsHovered(true);
+        audioProps.onMouseEnter?.(e);
+      }}
+      onMouseLeave={() => setIsHovered(false)}
+      onClick={audioProps.onClick}
+      {...props}
     >
       <div
         className="flex absolute top-3 left-3 flex-col gap-4"

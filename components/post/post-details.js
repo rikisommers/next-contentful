@@ -1,9 +1,10 @@
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import { RichTextOptions } from "../rich-text/rich-text";
+import { useRichTextOptions } from "../rich-text/rich-text";
 
 export default function PostDetails({ post }) {
   // Destructure the properties from the post object
   const { description, intro, duration, client, role } = post || {};
+  const richTextOptions = useRichTextOptions();
 
   return (
     <div className="px-16 mb-36 xl:px-0">
@@ -22,7 +23,7 @@ export default function PostDetails({ post }) {
           <div style={{ color: 'var(--text-color)' }}>
             {intro && (
               <>
-                {documentToReactComponents(intro.json, RichTextOptions)}
+                {documentToReactComponents(intro.json, richTextOptions)}
               </>
             )}
           </div>

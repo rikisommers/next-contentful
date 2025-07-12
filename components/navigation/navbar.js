@@ -3,7 +3,7 @@ import { motion } from "../../utils/motion";
 import { useEffect, useState } from "react";
 import Button, { ButtonType, ButtonSound } from "../base/button/button";
 import { useThemeContext } from "../context/themeContext";
-import { useAudioControls } from "../navigation/audio-utils";
+import { useAudioControls, playAudio } from "../navigation/audio-utils";
 import Link from "next/link";
 import NavBarAwwwards from "./navbar-awwwards";
 import NavBarApplause from "./navbar-applause";
@@ -13,7 +13,10 @@ import NavBarAwwwardsGlass from "./navbar-awwwards-glass";
 
 export default function NavBar({ containerRef, data ,logo}) {
   const { currentTheme } = useThemeContext();
-  const { playClick } = useAudioControls();
+  const sound = currentTheme.data.audioPageTransitionStart || 'click'; // fallback to 'click'
+  const { audioRefs } = useAudioControls();
+
+
   const menuRef = useRef(null);
   const menuDragRef = useRef("menuDragRef");
   //const { scrollPosition } = useScrollPosition();
@@ -212,9 +215,24 @@ export default function NavBar({ containerRef, data ,logo}) {
     //   }
     // };
 
+
+    const getSound = (soundName) => {
+      // Use the public playAudio function directly
+      console.log('playing sound', soundName);
+      console.log('theme sound', currentTheme.data.audioPrimaryButton);
+  
+      const audioRef = audioRefs[soundName];
+      if (audioRef) {
+        console.log('playing sound', soundName);
+        playAudio(audioRef, currentTheme.data.audioVolume, currentTheme.data.audioEnabled);
+      }
+    };
+  
+    
+
   // Handle navigation link click with sound
   const handleNavClick = (pageId) => {
-    playClick();
+    getSound(sound);
     setActivePage(pageId);
   };
 

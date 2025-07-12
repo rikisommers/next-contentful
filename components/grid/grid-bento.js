@@ -7,6 +7,7 @@ import PostTileImg from "../tile/post-tile-img";
 import PostTileRe from "../tile/post-tile-reone";
 import PostTileMonks from "../tile/post-tile-monks";
 import PostTileFunky from '../tile/post-tile-funky';
+import { useDeclarativeAudio } from '../audio/audio-trigger';
 
 /**
  * @component
@@ -117,6 +118,7 @@ export default function GridBento({
       }}
       {...props}
     >
+      <h1>Grid Group 2</h1>
       {items.map((item, index) => (
         <div
           key={index}
@@ -126,7 +128,12 @@ export default function GridBento({
             minHeight: '200px',
           }}
         >
-          <PostTileFunky post={item} index={index} />
+          <PostTileFunky 
+            post={item} 
+            index={index}
+            data-audio-click="beepOn"
+            data-audio-hover="plink"
+          />
         </div>
       ))}
     </div>
@@ -140,7 +147,7 @@ const GridGroup = ({ items, templateSize, startIndex }) => {
 
     const groupItems = items.slice(0, templateSize);
     const remainingItems = items.slice(templateSize);
-  
+
     let nextTemplateSize;
     if (templateSize === 6) nextTemplateSize = 4;
     else if (templateSize === 4) nextTemplateSize = 4;
@@ -149,15 +156,46 @@ const GridGroup = ({ items, templateSize, startIndex }) => {
   
     return (
       <>
+        <h1>Grid Group </h1>
         <div className={`grid-template-${templateSize}`}>
           {groupItems.map((item, i) => (
             <div key={startIndex + i} className={`my--${i + 1}`}>
               <AnimatedElement type={AnimStyleEl.FADEIN} delay={i * 0.1}>
-                {currentTheme.data.cardLayout === 'formal' && <PostTileCs post={item} />}
-                {currentTheme.data.cardLayout === 'funky' && <PostTileLg post={item} />}
-                {currentTheme.data.cardLayout === 'reone' && <PostTileRe post={item} />}
-                {currentTheme.data.cardLayout === 'monks' && <PostTileMonks post={item} />}
-                {currentTheme.data.cardLayout === 'img' && <PostTileImg post={item} />}
+                {currentTheme.data.cardLayout === 'formal' && (
+                  <PostTileCs 
+                    post={item} 
+                    data-audio-click="beepOn"
+                    data-audio-hover="plink"
+                  />
+                )}
+                {currentTheme.data.cardLayout === 'funky' && (
+                  <PostTileLg 
+                    post={item} 
+                    data-audio-click="beepOn"
+                    data-audio-hover="plink"
+                  />
+                )}
+                {currentTheme.data.cardLayout === 'reone' && (
+                  <PostTileRe 
+                    post={item} 
+                    data-audio-click="beepOn"
+                    data-audio-hover="plink"
+                  />
+                )}
+                {currentTheme.data.cardLayout === 'monks' && (
+                  <PostTileMonks 
+                    post={item} 
+                    data-audio-click="beepOn"
+                    data-audio-hover="plink"
+                  />
+                )}
+                {currentTheme.data.cardLayout === 'img' && (
+                  <PostTileImg 
+                    post={item} 
+                    data-audio-click="beepOn"
+                    data-audio-hover="plink"
+                  />
+                )}
               </AnimatedElement>
             </div>
           ))}

@@ -6,6 +6,7 @@ import Link from "next/link";
 import { motion, useInView } from "../../utils/motion";
 import AnimatedElement,{ AnimStyleEl} from "../motion/animated-element";
 import FadeInWhenVisible from "../utils/fade-in-visible";
+import { useRouteAudio } from "../audio/audio-trigger";
 
 /**
  * @component
@@ -43,12 +44,18 @@ import FadeInWhenVisible from "../utils/fade-in-visible";
  * />
  * @exports PostTileReone
  */
-export default function PostTileReone({ post, index, size, layout, aspect }) {
+export default function PostTileReone({ post, index, size, layout, aspect, 'data-audio-click': clickSound, 'data-audio-hover': hoverSound, ...props }) {
   //   const [isHovered, setIsHovered] = useState(false); // State to track hover
 
   const ref = useRef(null); // Unique ref for each instance
   const inView = useInView(ref, {once:true, threshold: 0.5 }); // Trigger when 50% of the element is visible
   const [isHovered, setIsHovered] = useState(false); // State to track hover
+  
+  // Use audio hook with data attribute sounds
+  const audioProps = useRouteAudio({
+    clickSound: clickSound,
+    hoverSound: hoverSound
+  });
 
 
   return (
@@ -59,8 +66,13 @@ export default function PostTileReone({ post, index, size, layout, aspect }) {
         backgroundColor: "var(--surface3)",
       }}
       className={`relative flex flex-col w-full no-underline rounded-2xl overflow-hidden group ${aspect ? `aspect-${aspect}` : ""}`}
-      onMouseEnter={() => setIsHovered(true)} // Set hover state to true on mouse enter
-      onMouseLeave={() => setIsHovered(false)} // Set hover state to false on mouse leave
+      onMouseEnter={(e) => {
+        setIsHovered(true);
+        audioProps.onMouseEnter?.(e);
+      }}
+      onMouseLeave={() => setIsHovered(false)}
+      onClick={audioProps.onClick}
+      {...props}
     >
       <div className={`flex flex-col row-span-1 gap-4 justify-start p-4 w-full h-auto`}>
         <div

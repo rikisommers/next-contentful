@@ -1,12 +1,13 @@
 import React from "react";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import { RichTextOptions } from "../rich-text/rich-text";
+import { useRichTextOptions } from "../rich-text/rich-text";
 import ContentfulImage from "../image/contentful-image";
 import { useThemeContext } from "../context/themeContext";
 
 export const BlockArticle = ({ data }) => {
 
   const { currentTheme } = useThemeContext();
+  const richTextOptions = useRichTextOptions();
 
   const getContentClass = (height) => {
     switch (height) {
@@ -40,7 +41,7 @@ export const BlockArticle = ({ data }) => {
           <div style={{color:'var(--text-color)'}} className={`leading-normal text-balance ${currentTheme.data.bodyTextIndent ? "[&>p:first-of-type]:indent-12" : ""}`}>
             {documentToReactComponents(
               data.contentRich.json,
-              RichTextOptions
+              richTextOptions
             )} 
           </div>
         )}
