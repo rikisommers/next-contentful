@@ -1,19 +1,48 @@
 "use client";
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useToast } from "../context/toastContext";
 import Prism from "prismjs"; // Import Prism.js
 import "prismjs/components/prism-javascript.min.js"; // Import the language you want to highlight
+import Modal, { ModalDirection, ModalPosition, ModalWidth } from "../base/modal";
+import Button, { ButtonType } from "../base/button/button";
 
-export const BlockCode = ({ data }) => {
+/**
+ * @component BlockCode
+ * @description Interactive code block with syntax highlighting, copy functionality, and expandable modal view
+ * @category blocks
+ * 
+ * @param {Object} data - Code block data
+ * @param {string} data.code - The code content to display
+ * @param {string} data.title - Optional title for the code block
+ * @param {string} data.type - Programming language for syntax highlighting (default: "javascript")
+ * @param {string} data.embedurl - Optional embed URL for iframe
+ * @param {number} maxHeight - Maximum height in pixels before showing expand button (default: 400)
+ * 
+ * @example
+ * <BlockCode 
+ *   data={{
+ *     code: "console.log('Hello World');",
+ *     title: "Basic JavaScript",
+ *     type: "javascript"
+ *   }}
+ *   maxHeight={300}
+ * />
+ */
+export const BlockCode = ({ data, maxHeight = 400 }) => {
 
   const codeRef = useRef(null);
+  const preRef = useRef(null);
+  const [isExpanded, setIsExpanded] = useState(false);
   const showToast = useToast();
+  
+  // Generate unique ID for view transition
+  const uniqueId = useRef(`code-${Math.random().toString(36).substr(2, 9)}`).current;
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
         Prism.highlightAll();
     }
-}, []);
+}, [maxHeight]);
 
   const copyToClipboard = () => {
     if (codeRef.current) {
@@ -27,45 +56,131 @@ export const BlockCode = ({ data }) => {
     }
   };
 
-  return (
-<>
-      {data.embedurl &&       
-      <iframe src="embedurl"></iframe>
+  const handleExpand = () => {
+    // Use View Transition API if available
+    if (document.startViewTransition) {
+      document.startViewTransition(() => {
+        setIsExpanded(true);
+      });
+    } else {
+      setIsExpanded(true);
+    }
+  };
+
+  const handleCollapse = () => {
+    // Use View Transition API if available
+    if (document.startViewTransition) {
+      document.startViewTransition(() => {
+        setIsExpanded(false);
+      });
+    } else {
+      setIsExpanded(false);
+    }
+  };
+
+  // Handle escape key to close expanded view
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === 'Escape' && isExpanded) {
+        handleCollapse();
       }
-        <div className="relative mx-auto max-w-prose">
-          <div className="p-4 rounded-md" >
-            {/* style={{ backgroundColor: 'var(--surface1)', color: 'var(--text-color)', }} */}
-            <div className="flex justify-between items-center mb-2">
-              {data.title && (
-                <span style={{ color: 'var(--subtext-color)', }}>
-                  {data.title}
-                </span>
+    };
+
+    if (isExpanded) {
+      document.addEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'hidden'; // Prevent body scroll
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'unset';
+    };
+  }, [isExpanded]);
+
+  return (
+    <>
+      {data.embedurl && <iframe src="embedurl"></iframe>}
+      
+      <div 
+        className={`
+          ${isExpanded 
+            ? 'fixed inset-0 z-50 bg-black/80 backdrop-blur-sm' 
+            : 'relative mx-auto max-w-prose'
+          }
+        `}
+        style={{
+          viewTransitionName: `code-container-${uniqueId}`
+        }}
+      >
+        <div 
+          className={`
+            p-4 rounded-md transition-all duration-300
+            ${isExpanded 
+              ? 'h-full w-full max-w-none m-4' 
+              : ''
+            }
+          `}
+        >
+          <div className="flex justify-between items-center mb-2">
+            {data.title && (
+              <span style={{ color: 'var(--subtext-color)' }}>
+                {data.title}
+              </span>
+            )}
+            <div className="flex gap-2">
+              {isExpanded ? (
+                <button
+                  className="px-3 py-1 text-sm rounded-md"
+                  onClick={handleCollapse}
+                  style={{
+                    color: 'var(--accent-pri)',
+                    backgroundColor: 'var(--surface1)',
+                  }}
+                >
+                  Collapse
+                </button>
+              ) : (
+                <button
+                  className="px-3 py-1 text-sm rounded-md"
+                  onClick={handleExpand}
+                  style={{
+                    color: 'var(--accent-pri)',
+                    backgroundColor: 'var(--surface1)',
+                  }}
+                >
+                  Expand
+                </button>
               )}
               <button
-                className="px-3 py-1 rounded-md code"
+                className="px-3 py-1 text-sm rounded-md"
                 onClick={copyToClipboard}
                 style={{
-                  color: 'var(-accent)',
-                  backgroundColor: 'var(-body-background-color)',
+                  color: 'var(--accent-pri)',
+                  backgroundColor: 'var(--surface1)',
                 }}
               >
                 Copy
               </button>
             </div>
-            <div className="overflow-x-auto">
-              {data.code && (
-                <pre  
+          </div>
+          
+          <div className="overflow-hidden">
+            {data.code && (
+              <pre  
+                ref={preRef}
                 style={{
                   backgroundColor: 'var(--body-background-color)',
+                  maxHeight: isExpanded ? 'calc(100vh - 120px)' : `${maxHeight}px`,
+                  viewTransitionName: `code-block-${uniqueId}`
                 }}
-                className={`p-4 rounded-md text-sm language-${data.type ? data.type : "javascript"}`} ref={codeRef} >
-                   <code>{data.code}</code>
-                </pre>
-              )}
-            </div>
+                className={`p-4 rounded-md text-sm overflow-y-auto language-${data.type || "javascript"}`}
+              >
+                <code ref={codeRef}>{data.code}</code>
+              </pre>
+            )}
           </div>
         </div>
-
+      </div>
     </>
   );
 };

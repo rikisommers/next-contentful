@@ -19,12 +19,23 @@ const initializeAudioRefs = () => {
 
 // Play audio function
 export const playAudio = (audioRef, volume, isAudio) => {
-
-    if (audioRef) {
+    if (audioRef && isAudio) {
       try {
         audioRef.volume = volume ? volume : 0;
         audioRef.currentTime = 0;
-        audioRef.play();
+        
+        // Handle browser autoplay policy
+        const playPromise = audioRef.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(error => {
+            // Autoplay was prevented - this is normal on first page load
+            if (error.name === 'NotAllowedError') {
+              console.log('Audio autoplay prevented - user interaction required');
+            } else {
+              console.error("Error playing audio:", error);
+            }
+          });
+        }
       } catch (error) {
         console.error("Error playing audio:", error);
       }
