@@ -1833,9 +1833,42 @@ export const shaderTypes = {
   progress: 'progress',
 };
 
-const themeContent = {
+export const sounds = {
+  click: 'click',
+  beepOn: 'beepOn',
+  beepOff: 'beepOff',
+  plink: 'plink',
+  drip: 'drip',
+  marimba: 'marimba',
+} 
+
+// export const soundTriggers = {
+//   init: 'init',
+//   internalLinkHover: 'internalLinkHover',
+//   primaryButton: 'primaryButton',
+//   secondaryButton: 'secondaryButton',
+//   internalLink: 'internalLink',
+//   externalLink: 'externalLink',
+//   pageTransitionStart: 'pageTransitionStart',
+//   pageTransitionEnd: 'pageTransitionEnd',
+//   modalOpen: 'modalOpen',
+//   modalClose: 'modalClose',
+// }
+
+export const themeContent = {
   audioEnabled:true,
   audioVolume:0.5,
+  audioInit:sounds.click,
+  audioInternalLinkHover:sounds.click,
+  audioPrimaryButton:sounds.click,
+  audioSecondaryButton:sounds.click,
+  audioInternalLink:sounds.click,
+  audioExternalLink:sounds.click,
+  audioPageTransitionStart:sounds.click,
+  audioPageTransitionEnd:sounds.click,
+  audioModalOpen:sounds.click,
+  audioModalClose:sounds.click,
+
   fontFamilyPrimary:typographyThemes.sans,
   fontFamilySecondary:typographyThemes.sans,
   fontScale:fontScaleThemes.fluid,
@@ -1903,17 +1936,9 @@ const themeContent = {
   // textHighlightOutlineNeumorphicSize:textHighlightOutlineNeumorphic.size,
   textHighlightOutlineNeumorphicStartColor:'#FFFFFF',
   textHighlightOutlineNeumorphicEndColor:'#000000',
-  audioInit: soundThemes.default,
-  audioPrimaryButton: soundThemes.default,
-  audioSecondaryButton: soundThemes.default,
-  audioInternalLink: soundThemes.default,
-  audioExternalLink: soundThemes.default,
-  audioPageTransitionStart: soundThemes.default,
-  audioPageTransitionEnd: soundThemes.default,
-  audioModalOpen: soundThemes.default,
-  audioModalClose: soundThemes.default,
+
   shaderType: shaderTypes.blueNoise, // Default shader type
-  
+
   shaderMesh: false,
 
   pixelDensity: 20.0, // Default pixel density
@@ -2131,87 +2156,87 @@ export const themes = {
     },
   },
     
-  // amberMonochrome: {
-  //   name: "amberMonochrome",
-  //   data: {
-  //     key: "amberMonochrome",
-  //     ...colorThemes.amberMonochrome,
-  //     ...themeContent,
-  //     navTheme:navigationThemes.awwwards
-  //   },
-  // },
-  // greenPhosphor: {
-  //   name: "greenPhosphor",
-  //   data: {
-  //     key: "greenPhosphor",
-  //     ...colorThemes.greenPhosphor,
-  //     ...themeContent,
-  //   },
-  // },
-  // ibmPcXt: {
-  //   name: "ibmPcXt",
-  //   data: {
-  //     key: "ibmPcXt",
-  //     ...colorThemes.ibmPcXt,
-  //     ...themeContent,
-  //   },
-  // },
-  // commodore64: {
-  //   name: "commodore64",
-  //   data: {
-  //     key: "commodore64",
-  //     ...colorThemes.commodore64,
-  //     ...themeContent,
-  //   },
-  // },
-  // appleII: {
-  //   name: "appleII",
-  //   data: {
-  //     key: "appleII",
-  //     ...colorThemes.appleII,
-  //     ...themeContent,
-  //   },
-  // },
-  // zxSpectrum: {
-  //   name: "zxSpectrum",
-  //   data: {
-  //     key: "zxSpectrum",
-  //     ...colorThemes.zxSpectrum,
-  //     ...themeContent,
-  //   },
-  // },
-  // atari8bit: {
-  //   name: "atari8bit",
-  //   data: {
-  //     key: "atari8bit",
-  //     ...colorThemes.atari8bit,
-  //     ...themeContent,
-  //   },
-  // },
-  // msdos: {
-  //   name: "msdos",
-  //   data: {
-  //     key: "msdos",
-  //     ...colorThemes.msdos,
-  //     ...themeContent,
-  //   },
-  // },
-  // amigaWorkbench: {
-  //   name: "amigaWorkbench",
-  //   data: {
-  //     key: "amigaWorkbench",
-  //     ...colorThemes.amigaWorkbench,
-  //     ...themeContent,
-  //   },
-  // },
-  // nes: {
-  //   name: "nes",
-  //   data: {
-  //     key: "nes",
-  //     ...colorThemes.nes,
-  //     ...themeContent,
-  //   },
-  // },
+  amberMonochrome: {
+    name: "amberMonochrome",
+    data: {
+      key: "amberMonochrome",
+      ...colorThemes.amberMonochrome,
+      ...themeContent,
+      navTheme:navigationThemes.awwwards
+    },
+  },
+  greenPhosphor: {
+    name: "greenPhosphor",
+    data: {
+      key: "greenPhosphor",
+      ...colorThemes.greenPhosphor,
+      ...themeContent,
+    },
+  },
+  ibmPcXt: {
+    name: "ibmPcXt",
+    data: {
+      key: "ibmPcXt",
+      ...colorThemes.ibmPcXt,
+      ...themeContent,
+    },
+  },
+  commodore64: {
+    name: "commodore64",
+    data: {
+      key: "commodore64",
+      ...colorThemes.commodore64,
+      ...themeContent,
+    },
+  },
+  appleII: {
+    name: "appleII",
+    data: {
+      key: "appleII",
+      ...colorThemes.appleII,
+      ...themeContent,
+    },
+  },
+  zxSpectrum: {
+    name: "zxSpectrum",
+    data: {
+      key: "zxSpectrum",
+      ...colorThemes.zxSpectrum,
+      ...themeContent,
+    },
+  },
+  atari8bit: {
+    name: "atari8bit",
+    data: {
+      key: "atari8bit",
+      ...colorThemes.atari8bit,
+      ...themeContent,
+    },
+  },
+  msdos: {
+    name: "msdos",
+    data: {
+      key: "msdos",
+      ...colorThemes.msdos,
+      ...themeContent,
+    },
+  },
+  amigaWorkbench: {
+    name: "amigaWorkbench",
+    data: {
+      key: "amigaWorkbench",
+      ...colorThemes.amigaWorkbench,
+      ...themeContent,
+    },
+  },
+  nes: {
+    name: "nes",
+    data: {
+      key: "nes",
+      ...colorThemes.nes,
+      ...themeContent,
+    },
+  },
   // gameboy: {
   //   name: "gameboy",
   //   data: {

@@ -16,8 +16,8 @@ import NoiseDither from './shaders/dither/noise-dither';
 export default function CanvasShader() {
   const { currentTheme } = useThemeContext();
   const activeEffect = currentTheme.data.shaderType;
-
-
+    const accentPrimary = currentTheme.data.accentPrimary;
+    const accentSecondary = currentTheme.data.accentSecondary;
 
 
   // Render different effects based on active effect
@@ -25,7 +25,7 @@ export default function CanvasShader() {
     switch (activeEffect) {
       case 'blueNoise':
         return (
-          <BlueNoise />
+          <BlueNoise theme={currentTheme} />
         );
       case 'noiseDither':
         return (
@@ -33,39 +33,39 @@ export default function CanvasShader() {
         );
       case 'orderedDither':
         return (
-          <OrderedDither />
+          <OrderedDither theme={currentTheme} />
         );
       case 'colorQuant':
         return (
-          <ColorQuant />
+          <ColorQuant theme={currentTheme} />
         );
       case 'colorQuant2':
         return (
-          <ColorQuant2 />
+          <ColorQuant2 theme={currentTheme} />
         );
       case 'rect':
         return (
-          <Rect />
+          <Rect theme={currentTheme} />
         );
       case 'dots':
         return (
-          <Dots />
+          <Dots theme={currentTheme} />
         );
       case 'ascii':
         return (
-          <Ascii />
+          <Ascii theme={currentTheme} />
         );
       case 'ascii2':
         return (
-          <Ascii2 />
+          <Ascii2 theme={currentTheme} />
         );
       case 'luma':
         return (
-          <Luma />
+          <Luma theme={currentTheme} />
         );
       case 'led':
         return (
-          <Led />
+          <Led theme={currentTheme} />
         );
       case 'lego':
         return (

@@ -22,12 +22,11 @@ export default function Post({ post, footerData }) {
 
   return (
     <ScrollContainer>
-      <h1>Articles page</h1>
       {articlesNavList.length > 0 && (
                   <div className="relative">
-                  <nav className="fixed right-0 z-50 flex flex-col self-start justify-center h-screen">
+                  <nav className="flex fixed right-0 z-50 flex-col justify-center self-start h-screen">
           
-        <PageNav content={articlesNavList}></PageNav>
+        {/* <PageNav content={articlesNavList}></PageNav> */}
         </nav>
         </div>
       )}
@@ -46,7 +45,7 @@ export default function Post({ post, footerData }) {
             )}
 
             {currentTheme.data.heroType === "riki" && (
-              <div className="max-w-screen-xl mx-auto">
+              <div className="mx-auto max-w-screen-xl">
                 <PostHeaderRiki
                   title={post.title}
                   subtitle={post.titlealt}

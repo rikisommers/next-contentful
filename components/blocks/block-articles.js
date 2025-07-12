@@ -24,7 +24,7 @@ export const BlockArticles = ({ data, tags }) => {
   const posts = data.articlesCollection?.items;
 
   // console.log("data", data.articlesCollection?.items);
-     console.log("data", data);
+   //  console.log("data", data);
 
   const [selectedTag, setSelectedTag] = useState(null);
   const [filteredPosts, setFilteredPosts] = useState(posts);
@@ -35,7 +35,7 @@ export const BlockArticles = ({ data, tags }) => {
 
   const handleTagClick = (tag) => {
 
-    console.log(tag)
+   // console.log(tag)
     setSelectedTag(tag);
     if (tag) {
       const filtered = posts.filter(

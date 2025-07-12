@@ -33,7 +33,9 @@ export const RichTextOptions = {
     [BLOCKS.PARAGRAPH]: (node, children) => {
       return <p className="mb-4">{children}</p>;
     },
-
+    // [BLOCKS.TABLE]: (node, children) => {
+    //   return <table className="table-auto">{children}</table>;
+    // },
     // [BLOCKS.EMBEDDED_ASSET]: (node) => {
     //   const { gatsbyImageData, description } = node.data.target;
     //   return (

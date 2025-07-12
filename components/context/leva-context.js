@@ -12,19 +12,19 @@ export const LevaProvider = ({ children }) => {
   });
 
   const addControls = useCallback((folder, newControls) => {
-    console.log('addControls called with:', folder, newControls);
+   // console.log('addControls called with:', folder, newControls);
     setControlsSchema(prevSchema => {
       const updatedSchema = {
         ...prevSchema,
         [folder]: { ...prevSchema[folder], ...newControls }
       };
-      console.log('Updated schema:', updatedSchema);
+   //   console.log('Updated schema:', updatedSchema);
       return updatedSchema;
     });
   }, []);
 
   useEffect(() => {
-    console.log('controlsSchema updated:', controlsSchema);
+  //  console.log('controlsSchema updated:', controlsSchema);
   }, [controlsSchema]);
 
   const values = useControls(controlsSchema);

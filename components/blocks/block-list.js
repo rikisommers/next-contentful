@@ -27,32 +27,34 @@ export default function BlockList({ data }) {
     switch (data.type[0].trim()) {
       case "content":
         return (
-          <article className="flex flex-col gap-3 " id={data.title}>
+          <article className="flex flex-col gap-4" id={data.title}>
               <div
-                className="flex flex-col w-full gap-3 p-4 rounded"
-                style={{ backgroundColor: "var(--surface1)" }}
+                className="flex flex-col gap-2 p-4 w-full rounded"
+              
               >
                 {data.title && (
                   <h2
                     className="mb-4 text-sm"
-                    style={{ color: "var(--heading-color)" }}
+                    style={{ color: "var(--subtext-color)" }}
                   >
                     {data.title}
                   </h2>
                 )}
                 {data.itemsCollection &&
                   data.itemsCollection.items.map((item, index) => (
-                    <div key={index} className="mb-3">
+                    <div key={index} className="p-4 mb-3 rounded-b-lg"
+                    style={{ backgroundColor: "var(--surface2)" }}
+                    >
                       {item.title && (
                         <h3
                           className="mb-2 text-h4"
-                          style={{ color: "var(--text-color)" }}
+                          style={{ color: "var(--heading-color)" }}
                         >
                           {item.title}
                         </h3>
                       )}
                       {item.content && (
-                        <p style={{ color: "var(--subtext-color)" }}>
+                        <p className="text-sm" style={{ color: "var(--text-color)" }}>
                           {item.content}
                         </p>
                       )}
@@ -114,14 +116,14 @@ export default function BlockList({ data }) {
         return (
           <article className="flex flex-col gap-3" id={data.title}>
             <div className="flex flex-col gap-3 justfy-between">
-              <div className="flex flex-col w-full gap-2 rounded">
+              <div className="flex flex-col gap-2 w-full rounded">
                 {data.title && (
                   <h2 className="mb-4 text-sm font-normal" style={{color: 'var(--subtext-color)'}}>{data.title}</h2>
                 )}
                 {data.itemsCollection &&
                   data.itemsCollection.items.map((item, index) => (
-                    <div key={index} className="relative flex pl-16">
-                      <div className="absolute left-0 flex flex-col flex-1 h-full">
+                    <div key={index} className="flex relative pl-16">
+                      <div className="flex absolute left-0 flex-col flex-1 h-full">
                         {item.number && (
                           <span
                             className="pb-2"
@@ -167,7 +169,7 @@ export default function BlockList({ data }) {
         return (
           <article className="flex flex-col gap-3" id={data.title}>
               <div
-                className="flex flex-col w-full gap-3 p-6 pb-8 rounded"
+                className="flex flex-col gap-3 p-6 pb-8 w-full rounded"
                 style={{ backgroundColor: "var(--surface1)" }}
               >
                 {data.title && (
@@ -228,7 +230,7 @@ export default function BlockList({ data }) {
                       </h3>
                     )}
                     {item.number && (
-                      <span className="text-6xl font-semibold ">
+                      <span className="text-6xl font-semibold">
                         {item.number}
                       </span>
                     )}

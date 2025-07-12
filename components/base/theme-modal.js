@@ -4,7 +4,7 @@ const ThemeModal = ({ isOpen, onClose, onSubmit }) => {
     const [themeName, setThemeName] = React.useState('');
 
     const handleSubmit = () => {
-        console.log('theme modal')
+        //console.log('theme modal')
         onSubmit(themeName);
         onClose(); // Close the modal after submission
     };

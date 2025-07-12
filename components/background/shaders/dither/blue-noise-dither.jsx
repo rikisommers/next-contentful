@@ -12,7 +12,7 @@ import {
   import * as THREE from "three";
   import { v4 as uuidv4 } from "uuid";
   
-  import fragmentShader from "./blue-noise-dither.glsl";
+  import { blueNoiseDitherShader as fragmentShader } from "./blue-noise-dither-shader.js";
   
   class RetroEffectImpl extends Effect {
     constructor({ bias = 0.85 }) {

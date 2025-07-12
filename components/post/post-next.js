@@ -17,10 +17,10 @@ export default function NextPost({ post }) {
     // console.log('rese' ,windowSize[0] - boundingRect.top);
 
     if (boundingRect.y < 448) {
-      console.log("1P---", 448 - boundingRect.y);
+      // console.log("1P---", 448 - boundingRect.y);
       setFinalPos(448 - boundingRect.y);
     } else {
-      console.log("2P---", boundingRect.y - 448);
+    //  console.log("2P---", boundingRect.y - 448);
       setFinalPos(-(boundingRect.y - 448));
     }
   };
@@ -40,20 +40,20 @@ export default function NextPost({ post }) {
 
   return (
     <motion.div
-      className="relative flex flex-col py-24 h-vhh o-content"
+      className="flex relative flex-col py-24 h-vhh o-content"
       // ref={nextRef}
     >
       <span className="uppercase text-slate-400">Next</span>
 
       {/* style={{backgroundColor:post?.color}}  */}
 
-      <div className="grid w-full grid-cols-12 gap-6">
+      <div className="grid grid-cols-12 gap-6 w-full">
       <Link href={`/projects/${post.slug}`} scroll={false} className="col-span-8">
         <div
-          className="z-20 grid flex-grow w-full h-full grid-cols-12 gap-3 bg-slate-200 rounded-xl"
+          className="grid z-20 flex-grow grid-cols-12 gap-3 w-full h-full rounded-xl bg-slate-200"
           style={{ backgroundColor: post?.color }}
         >
-          <div className="z-50 flex flex-col items-start col-span-12 gap-6 p-8 md:col-span-6">
+          <div className="flex z-50 flex-col col-span-12 gap-6 items-start p-8 md:col-span-6">
             <h2 className="font-light text-slate-50 text-1xl text-balance">
               {post?.title && post?.title}
             </h2>

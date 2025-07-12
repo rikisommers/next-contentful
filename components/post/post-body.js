@@ -20,7 +20,7 @@ import { pageWidthThemes } from "../../utils/theme";
 const ArticleWrapper = ({ children }) => {
   const { currentTheme } = useThemeContext();
   return (
-    <div className={`max-w-screen-xl mx-auto pb-40
+    <div className={`max-w-screen-xl mx-auto pb-12
       ${currentTheme.data.navPosition === 'leftCenter' ? 'pl-32 pr-24' : ''}
       ${currentTheme.data.navPosition === 'rightCenter' ? 'pr-32 pr-24' : ''}
     `}>
@@ -34,8 +34,8 @@ export default function PostBody({ content, tags }) {
   const { currentTheme } = useThemeContext();
   const pageWidth = currentTheme.data.pageWidth;
 
-  console.log('currentTheme',currentTheme)
-  console.log('content',content)
+  // console.log('currentTheme',currentTheme)
+  // console.log('content',content)
   return (
     <div className={`flex flex-col gap-16 self-center
        ${(() => {
@@ -137,21 +137,20 @@ export default function PostBody({ content, tags }) {
                 </ArticleWrapper>
               )}
               {item.__typename === "BlockCode" && (
-                <div className="max-w-screen-xl mx-auto">
+             
                  <ArticleWrapper>
                     <BlockCode key={item.id} data={item} id={item.title} />
                   </ArticleWrapper>
-                </div>
               )}
               {item.__typename === "BlockList" && (
-                <div className="max-w-screen-xl mx-auto">
+                <div className="mx-auto max-w-screen-xl">
                   <ArticleWrapper>
                     <BlockList key={item.id} data={item} id={item.title} />
                   </ArticleWrapper>
                 </div>
               )}
               {item.__typename === "BlockIntro" && (
-                <div className="max-w-screen-xl mx-auto">
+                <div className="mx-auto max-w-screen-xl">
                   <ArticleWrapper>
                     <BlockIntro key={item.id} data={item} id={item.id} />
                   </ArticleWrapper>

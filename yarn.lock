@@ -65,7 +65,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@contentful/rich-text-types@npm:^16.0.3, @contentful/rich-text-types@npm:^16.6.1, @contentful/rich-text-types@npm:^16.8.5":
+"@contentful/rich-text-types@npm:17.0.1":
+  version: 17.0.1
+  resolution: "@contentful/rich-text-types@npm:17.0.1"
+  dependencies:
+    is-plain-obj: "npm:^3.0.0"
+  checksum: 10c0/0d2c0150568d427e0e16da548c0217b0e67626fdedd99ddb160e3bff937b40da532f899313934b621e080979e7bb9b42e3df54af5d5454e22f2b888efbe99cb4
+  languageName: node
+  linkType: hard
+
+"@contentful/rich-text-types@npm:^16.6.1, @contentful/rich-text-types@npm:^16.8.5":
   version: 16.8.5
   resolution: "@contentful/rich-text-types@npm:16.8.5"
   checksum: 10c0/0af82d501bb26d854fa3bc68136db1f0738428135066876062370637f219cd51f10abecf8e02a72c2cf9eb012523add21f4a3f72af4981a7ad4c95a9bbcb237f
@@ -5504,6 +5513,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"is-plain-obj@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "is-plain-obj@npm:3.0.0"
+  checksum: 10c0/8e6483bfb051d42ec9c704c0ede051a821c6b6f9a6c7a3e3b55aa855e00981b0580c8f3b1f5e2e62649b39179b1abfee35d6f8086d999bfaa32c1908d29b07bc
+  languageName: node
+  linkType: hard
+
 "is-plain-object@npm:^2.0.3, is-plain-object@npm:^2.0.4":
   version: 2.0.4
   resolution: "is-plain-object@npm:2.0.4"
@@ -8285,7 +8301,7 @@ __metadata:
   resolution: "root-workspace-0b6124@workspace:."
   dependencies:
     "@contentful/rich-text-react-renderer": "npm:^15.16.3"
-    "@contentful/rich-text-types": "npm:^16.0.3"
+    "@contentful/rich-text-types": "npm:17.0.1"
     "@phosphor-icons/react": "npm:^2.0.8"
     "@react-three/drei": "npm:^9.122.0"
     "@react-three/fiber": "npm:^8.18.0"

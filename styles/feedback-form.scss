@@ -1,0 +1,92 @@
+:root{
+    --bs-root-font-size:13px;
+}
+
+body {
+    margin: 0 auto;
+    background-color: white !important;
+  }
+  
+  .webform-submission-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .form-item label {
+    font-weight: 500 !important;
+    font-size: 0.8571rem !important;
+    color: #0f172a !important;
+    margin-bottom: 2px !important;
+    white-space: nowrap !important;
+    text-transform: capitalize !important;
+  }
+  
+  .form-floating {
+    display:flex;
+    flex-direction:column-reverse;
+  }
+  
+  .form-text,
+  .form-email,
+  .form-textarea,
+  .form-control {
+    display: flex !important;
+    align-items: center !important;
+    position: relative !important;
+    width: 100% !important;
+    min-height: 36px !important;
+    padding: 6px 8px !important;
+    border: 1px solid #ced4da !important;
+    border-radius: 0.15rem !important;
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+    font-size: 1rem !important;
+    font-weight: 400 !important;
+    box-sizing: border-box !important;
+  }
+  
+  .form-textarea {
+    resize: vertical !important;
+    min-height: 100px;
+  }
+  
+  .form-text:focus,
+  .form-email:focus,
+  .form-textarea:focus,
+  .form-control:focus {
+    outline: none !important;
+    border-color: #066AFF !important;
+  }
+  
+  input[type="submit"].form-submit {
+    display: inline-flex !important;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    border-radius: 0.3rem;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    font-size: 1rem;
+    height: 36px;
+    line-height: 36px;
+    padding: 0 11px;
+    min-width: 36px;
+    background-color: #066AFF;
+    color: #ffffff;
+    border: none;
+  }
+  
+  
+  .captcha__element,
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    text-align: right;
+  }
+  
+  .form-item__subscribe label {
+    margin-left: 6px;
+  }

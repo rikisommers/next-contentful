@@ -13,8 +13,8 @@ export const RouteProvider = ({ children }) => {
     const sourceRoute = router.asPath;
     setRouteInfo({ destRoute:url, sourceRoute });
 
-    console.log("Incoming Route:", url);
-    console.log("Outgoing Route:", sourceRoute);
+   // console.log("Incoming Route:", url);
+   // console.log("Outgoing Route:", sourceRoute);
   };
 
   useEffect(() => {

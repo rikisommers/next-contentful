@@ -7,7 +7,7 @@ import ScrollContainer from "../components/utils/scroll-container";
 const HomePage = ({ data, footerData, tags }) => {
   // Render your home page using the fetched data
 
-  console.log('tagsa',tags)
+  // console.log('tagsa',tags)
   return (
     <Layout>
       <ScrollContainer>

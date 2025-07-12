@@ -22,13 +22,13 @@ export const HighlightedSegment = ({ segment, highlight }) => {
         case 'text':
           return { color: 'var(--text-accent)' };
         case 'background':
-          return { backgroundColor: 'var(--accent-pri)' ,color: 'var(--text-accent)' };
+          return { backgroundColor: 'var(--surface1)' ,color: 'var(--text-accent)' };
           case 'tabloid':
-            return { backgroundColor: 'var(--accent-pri)',color: 'var(--text-accent)' };
+            return { backgroundColor: 'var(--accent-sec)',color: 'var(--text-accent)' };
         case 'underline':
           return { textDecoration: 'underline', textDecorationColor: 'var(--accent-pri)' };
         case 'highlight':
-          return { backgroundColor: 'var(--accent-pri)', color: 'var(--text-color)', filter: 'blur(20px)' };
+          return { backgroundColor: 'var(--accent-sec)', color: 'var(--text-color)', filter: 'blur(20px)' };
         case 'figma':
           return { backgroundColor: 'var(--surface1)' };
         case 'figma-neumorphic':
@@ -43,6 +43,8 @@ export const HighlightedSegment = ({ segment, highlight }) => {
       }
     };
 
+ 
+
     // Get the computed style
     const style = getHighlightStyle();
   
@@ -55,7 +57,7 @@ export const HighlightedSegment = ({ segment, highlight }) => {
       />
     ) : (
       <span 
-        className="relative inline-flex py-0"
+        className="inline-flex relative py-0"
       >
         {(() => {
           switch (highlight) {
@@ -66,7 +68,7 @@ export const HighlightedSegment = ({ segment, highlight }) => {
             case 'background':
               return (
                 <>
-                  <span className="z-10 px-3">{segment}</span>
+                  <span style={{ color: 'var(--text-accent)'}} className="z-10 px-3">{segment}</span>
                   <span 
                     className="absolute z-0 w-full h-[80%] top-[10%] rounded-xl"
                     style={style}
@@ -84,13 +86,13 @@ export const HighlightedSegment = ({ segment, highlight }) => {
                       className="absolute z-0 w-full h-[80%] top-[10%] rounded-xs"
                       style={style}
                     />
-                    <span className="relative z-10 px-3">{segment}</span>
+                    <span className="relative z-10 px-3"  style={{ color: 'var(--text-accent)'}}>{segment}</span>
                     </>
                 );
             case 'figma':
               return (
                 <>
-                  <span className="z-10 px-3">{segment}</span>
+                  <span className="z-10 px-3"  style={{ color: 'var(--text-accent)'}}>{segment}</span>
                   <span 
                     className="absolute z-0 w-full h-[90%] top-[5%] rounded-lg"
                     style={{

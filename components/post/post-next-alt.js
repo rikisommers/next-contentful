@@ -8,7 +8,7 @@ export default function NextPostAlt({ post }) {
 
   const getPosition = () => {
     const boundingRect = nextRef.current.getBoundingClientRect();
-    console.log("el", boundingRect);
+   // console.log("el", boundingRect);
     //console.log('scroll' ,scrollValue);
     // console.log('size' ,windowSize[0])
     // console.log('rese' ,windowSize[0] - boundingRect.top);
@@ -37,7 +37,7 @@ export default function NextPostAlt({ post }) {
 
   return (
     <motion.div
-      className="relative flex flex-col h-vhh o-content "
+      className="flex relative flex-col h-vhh o-content"
       ref={nextRef}
     >
 {/* 
@@ -48,7 +48,7 @@ export default function NextPostAlt({ post }) {
         className="col-span-8"
       > */}
         {/* <FadeInWhenVisible> */}
-          <div className="grid items-end grid-cols-12 gap-3 h-header ">
+          <div className="grid grid-cols-12 gap-3 items-end h-header">
             <div className="col-span-12 mb-10 md:col-span-6">
               <TextAnimation content={post.title} />
               
@@ -56,7 +56,7 @@ export default function NextPostAlt({ post }) {
           </div>
 
           <motion.div
-            className="relative overflow-hidden h-vhh rounded-xl bg-slate-100"
+            className="overflow-hidden relative rounded-xl h-vhh bg-slate-100"
             
           >
             {/* <FadeInWhenVisible color={post?.color}> */}

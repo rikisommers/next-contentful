@@ -3,8 +3,10 @@
 import React from "react";
 import { motion } from "../../../utils/motion";
 import PropTypes from "prop-types";
-import { useAudioControls } from "../../navigation/audio-utils";
+import { useAudioControls, playAudio } from "../../navigation/audio-utils";
 import { ButtonType, ButtonSound } from "./button.util";
+import { useThemeContext } from "../../context/themeContext";
+import { sounds } from "../../../utils/theme";
 
 /**
  * Basic button component with customizable styling and sound effects
@@ -53,12 +55,13 @@ import { ButtonType, ButtonSound } from "./button.util";
  *   <span>🚀 Launch App</span>
  * </Button>
  */
-const Button = ({ label, click, type = ButtonType.DEFAULT, sound, children  }) => {
-  const { 
-    playClick, 
-    playBeepOn, 
-    playBeepOff, 
-  } = useAudioControls();
+const Button = ({ label, onClick, type = ButtonType.DEFAULT, children  }) => {
+
+  const { currentTheme } = useThemeContext();
+  console.log('currentTheme.data:', currentTheme.data);
+  const sound = currentTheme.data.audioPrimaryButton || 'click'; // fallback to 'click'
+
+  const { audioRefs } = useAudioControls();
 
   // Determine button style based on type
   const getButtonStyle = (type) => {
@@ -91,30 +94,29 @@ const Button = ({ label, click, type = ButtonType.DEFAULT, sound, children  }) =
     }
   };
 
-  const getButtonAudio = (sound) => {
-    switch (sound) {
-      case ButtonSound.ON:
-        return playBeepOn();
-      case ButtonSound.OFF:
-        return playBeepOff();
-      case ButtonSound.CLICK:
-        return playClick();
-      default:
-        return playClick();
+  const getSound = (soundName) => {
+    // Use the public playAudio function directly
+    console.log('playing sound', soundName);
+    console.log('theme sound', currentTheme.data.audioPrimaryButton);
+
+    const audioRef = audioRefs[soundName];
+    if (audioRef) {
+      console.log('playing sound', soundName);
+      playAudio(audioRef, currentTheme.data.audioVolume, currentTheme.data.audioEnabled);
     }
   };
   
   const handleClick = () => {
-    getButtonAudio(sound);
-    if (click) {
-      click();
+    getSound(sound);
+    if (onClick) {
+      onClick();
     }
   };
 
   return (
     <motion.div
       onClick={handleClick}
-      className="relative flex items-center px-3 py-3 text-xs uppercase rounded-lg cursor-pointer"
+      className="flex relative items-center px-3 py-3 text-xs uppercase rounded-lg cursor-pointer"
       style={getButtonStyle(type)}
     >
       {label}
@@ -126,7 +128,7 @@ const Button = ({ label, click, type = ButtonType.DEFAULT, sound, children  }) =
 // Define prop types
 Button.propTypes = {
   label: PropTypes.string,
-  click: PropTypes.func,
+  onClick: PropTypes.func,
   type: PropTypes.oneOf(Object.values(ButtonType)),
   sound: PropTypes.oneOf(Object.values(ButtonSound))
 };

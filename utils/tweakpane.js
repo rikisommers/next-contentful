@@ -96,6 +96,20 @@ export default function ThemeEditor({ customThemes }) {
       return;
     }
 
+
+    root.style.setProperty("--audio-enabled", theme.data.audioEnabled || "false");
+    root.style.setProperty("--audio-volume", theme.data.audioVolume || 1);
+    root.style.setProperty("--audio-init", theme.data.audioInit || "click");
+    root.style.setProperty("--audio-internal-link-hover", theme.data.audioInternalLinkHover || "click");
+    root.style.setProperty("--audio-primary-button", theme.data.audioPrimaryButton || "click");
+    root.style.setProperty("--audio-secondary-button", theme.data.audioSecondaryButton || "click");
+    root.style.setProperty("--audio-internal-link", theme.data.audioInternalLink || "click");
+    root.style.setProperty("--audio-external-link", theme.data.audioExternalLink || "click");
+    root.style.setProperty("--audio-page-transition-start", theme.data.audioPageTransitionStart || "click");
+    root.style.setProperty("--audio-page-transition-end", theme.data.audioPageTransitionEnd || "click");
+    root.style.setProperty("--audio-modal-open", theme.data.audioModalOpen || "click");
+    root.style.setProperty("--audio-modal-close", theme.data.audioModalClose || "click");
+
     root.style.setProperty("--text-highlight", theme.data.textHighlight || "text");
     root.style.setProperty("--text-animation", theme.data.textAnimation || "linesup");
     root.style.setProperty("--text-animation-sec", theme.data.textAnimationSec || "linesup");

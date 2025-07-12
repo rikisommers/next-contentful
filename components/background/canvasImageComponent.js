@@ -1419,7 +1419,7 @@ export default function CanvasImageComponent({ src = null }) {
       setDitherPixelSize(currentTheme.data.ditherPixelSize || 4.0);
       setDitherType(currentTheme.data.ditherType || 0);
     }
-    console.log("currentTheme", currentTheme);
+    //console.log("currentTheme", currentTheme);
   }, [currentTheme, src]);
 
   // Render different effects based on active effect

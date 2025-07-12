@@ -17,7 +17,7 @@ export const ClipPathElement = ({ children, offset}) => {
 
         offset: ["start end", "end end"],
         onChange: (latest) => {
-            console.log("Latest scroll position:", latest);
+          //  console.log("Latest scroll position:", latest);
             // You can perform any other actions or state updates here
         },
     });
@@ -46,7 +46,7 @@ export const ClipPathElement = ({ children, offset}) => {
         transition={{
 
         }}
-        className={`relative flex flex-col z-100 w-full h-full`}
+        className={`flex relative flex-col w-full h-full z-100`}
         ref={elemRef}
       >
         {children}

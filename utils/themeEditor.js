@@ -1,7 +1,8 @@
 "use client";
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { 
-  themes
+  themes,
+  themeContent
 } from "./theme";
 import { useThemeContext } from "../components/context/themeContext";
 import ThemeModal from "../components/base/theme-modal";
@@ -44,6 +45,14 @@ const getBestTheme = (weightType, sliderValue) => {
   }
 
   return bestTheme ? themes[bestTheme] : null; // Return the theme object instead of just the name
+};
+
+// Utility function to merge theme data with all defaults
+const mergeWithDefaults = (themeData) => {
+  return {
+    ...themeContent, // All defaults first
+    ...themeData,    // Theme data overrides defaults
+  };
 };
 
 export default function ThemeEditor({ customThemes }) {
@@ -136,6 +145,10 @@ export default function ThemeEditor({ customThemes }) {
     if (selectedTheme) {
       // Create a deep copy to avoid reference issues
       const newTheme = JSON.parse(JSON.stringify(selectedTheme));
+      
+      // Merge with all defaults to ensure no fields are missing
+      newTheme.data = mergeWithDefaults(newTheme.data);
+      
       updateTheme(newTheme);
       currentThemeRef.current = newTheme;
       console.log("Theme changed to:", selectedThemeKey);
@@ -153,13 +166,13 @@ export default function ThemeEditor({ customThemes }) {
 
       const { key, ...rest } = currentThemeRef.current.data; // Destructure from currentThemeRef.current.data
 
-      // Create a new object for saving
+      // Create a new object for saving with all defaults merged
       const themeToSave = {
         name: themeName, // Use the latest theme name
-        data: {
+        data: mergeWithDefaults({
           ...rest, // Include all properties except the key
           key: customKey, // Set the new key
-        },
+        }),
       };
 
       // Log the theme object before saving
@@ -220,7 +233,11 @@ export default function ThemeEditor({ customThemes }) {
 
   const saveThemeToContentful = async () => {
     try {
-      const themeToSave = currentThemeRef.current; // Use the ref to get the latest theme
+      // Merge with defaults before saving to ensure all fields are present
+      const themeToSave = {
+        ...currentThemeRef.current,
+        data: mergeWithDefaults(currentThemeRef.current.data)
+      };
       console.log("Saving theme to Contentful:", themeToSave);
 
       const response = await fetch("/api/save-theme", {
@@ -368,14 +385,14 @@ export default function ThemeEditor({ customThemes }) {
     );
   };
 
-  const handleSave = (event) => {
-    event.preventDefault(); // Prevent default form submission
+  const handleSave = () => {
+  //  event.preventDefault(); // Prevent default form submission
     saveNewTheme();
     setIsSaveModalOpen(false);
   };
 
-  const handleDelete = (event) => {
-    event.preventDefault(); // Prevent default form submission
+  const handleDelete = () => {
+//    event.preventDefault(); // Prevent default form submission
     deleteTheme();
     setIsDeleteModalOpen(false);
   };
@@ -459,6 +476,7 @@ export default function ThemeEditor({ customThemes }) {
 
       {/* Action Buttons */}
       <div className="flex gap-2 mb-6">
+        {/* Save theme as */}
         <Button
           type={ButtonType.PRIMARY}
           onClick={() => {
@@ -471,9 +489,10 @@ export default function ThemeEditor({ customThemes }) {
           type={ButtonType.SECONDARY}
           onClick={() => {
             const themeKey = currentTheme.data.key;
-            const themeData = currentTheme.data;
+            const themeData = mergeWithDefaults(currentTheme.data);
             localStorage.setItem(`themeData_${themeKey}`, JSON.stringify(themeData));
             console.log(`Theme data for '${themeKey}' saved to localStorage as 'themeData_${themeKey}'.`);
+            showToast("Theme saved to localStorage", themeKey);
           }}
           label="Save theme"
         />

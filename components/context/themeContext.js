@@ -36,6 +36,8 @@ export const ThemeProvider = ({ children, initialTheme: initialThemeName, custom
     return themes[initialThemeName] || themes.light;
   });
 
+  console.log('currentTheme', currentTheme);
+  
   const [isClient, setIsClient] = useState(false);
   const [isThemeDialogOpen, setIsThemeDialogOpen] = useState(false);
 
@@ -66,7 +68,7 @@ export const ThemeProvider = ({ children, initialTheme: initialThemeName, custom
         {children}
         {isThemeDialogOpen && (
           <div className="fixed inset-0 z-[9999] bg-black/50 backdrop-blur-sm">
-            <div className="fixed right-0 top-0 h-full w-96 bg-white shadow-xl overflow-y-auto"
+            <div className="overflow-y-auto fixed top-0 right-0 w-96 h-full bg-white shadow-xl"
                  style={{ backgroundColor: 'var(--body-background-color)' }}>
               <div className="p-4">
                 <div className="flex justify-between items-center mb-4">

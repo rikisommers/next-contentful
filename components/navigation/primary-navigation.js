@@ -42,15 +42,15 @@ export default function Navigation({data, logo, customThemes}) {
   const [orientation, setOrientation] = useState("");
 
 
-  console.log('menu:',data)
+  // console.log('menu:',data)
   // Function to toggle the ThemeEditor modal
   const toggleThemeEditor = () => {
-    console.log("sdd");
+  //  console.log("sdd");
     setIsModalOpen((prev) => !prev);
   };
 
   const toggleThemeEditor2 = () => {
-    console.log("sdd");
+  //  console.log("sdd");
     setIsThemeDialogOpen((prev) => !prev);
   };
 

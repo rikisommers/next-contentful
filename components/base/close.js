@@ -8,12 +8,12 @@ const Close = ({ isActive, onClick }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const handleHoverStart = () => {
-    console.log("start");
+    //console.log("start");
     setIsHovered(true);
   };
 
   const handleHoverEnd = () => {
-    console.log("end");
+    //console.log("end");
 
     setIsHovered(false);
   };
@@ -47,7 +47,7 @@ const Close = ({ isActive, onClick }) => {
       variants={variants}
       onHoverStart={handleHoverStart}
       onHoverEnd={handleHoverEnd}
-      className="fixed z-50 flex flex-row items-center px-3 py-2 text-white bg-black cursor-pointer top-8 right-36 rounded-3xl"
+      className="flex fixed top-8 right-36 z-50 flex-row items-center px-3 py-2 text-white bg-black rounded-3xl cursor-pointer"
     >
       <motion.img
         className="w-4 h-4 close-icon"

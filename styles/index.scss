@@ -292,3 +292,50 @@ display:none;
 }
 
 
+.richtext{
+  code{
+    display: block;
+    width: 100%;
+    background-color: var(--body-background-color);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-family: var(--font-mono);
+    color: var(--text-color);
+  }
+
+  table{
+    // display: flex;
+    // flex-direction: column;
+    width: 100%;
+    border: 1px solid var(--surface2);
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+border-collapse:initial;
+
+    thead{
+      background-color: var(--surface2);
+    }
+
+    tr:not(:last-child){
+      th, td{
+        border-bottom: 1px solid var(--surface2);
+      }
+     
+        
+    }
+    th{color: var(--heading-color);}
+    th, td{
+     // white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+
+      &:not(:last-child){
+        border-right: 1px solid var(--surface2);
+      }
+     // border: 1px solid var(--text-color);
+      padding: 0.3rem;
+    }
+  }
+}
+

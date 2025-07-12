@@ -18,7 +18,7 @@ const initializeAudioRefs = () => {
 };
 
 // Play audio function
-const playAudio = (audioRef, volume, isAudio) => {
+export const playAudio = (audioRef, volume, isAudio) => {
 
     if (audioRef) {
       try {

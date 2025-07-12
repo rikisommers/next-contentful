@@ -7,9 +7,12 @@ export const ButtonType = {
   };
   
   export const ButtonSound = {
-    ON: "on",
-    OFF: "off",
+    ON: "beepOn",
+    OFF: "beepOff",
     CLICK: "click",
+    PLINK: "plink",
+    DRIP: "drip",
+    MARIMBA: "marimba",
   };
   
   

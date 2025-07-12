@@ -71,7 +71,7 @@ export const TextAnimImg = ({ imageUrl, altText, index = 0 }) => {
     const { currentTheme } = useThemeContext();
     const theme = currentTheme?.data?.heroTextImage || 'pill';
 
-    console.log("Rendering with theme:", theme);
+    //console.log("Rendering with theme:", theme);
 
     return <>
     {getImgStyle(imageUrl, index, theme, index * delayInterval, altText)}

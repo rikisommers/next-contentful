@@ -32,10 +32,10 @@ export const BlockCode = ({ data }) => {
       {data.embedurl &&       
       <iframe src="embedurl"></iframe>
       }
-        <div className="relative w-full">
+        <div className="relative mx-auto max-w-prose">
           <div className="p-4 rounded-md" >
             {/* style={{ backgroundColor: 'var(--surface1)', color: 'var(--text-color)', }} */}
-            <div className="flex items-center justify-between mb-2">
+            <div className="flex justify-between items-center mb-2">
               {data.title && (
                 <span style={{ color: 'var(--subtext-color)', }}>
                   {data.title}
@@ -54,7 +54,11 @@ export const BlockCode = ({ data }) => {
             </div>
             <div className="overflow-x-auto">
               {data.code && (
-                <pre className={`language-${data.type ? data.type : "javascript"}`} ref={codeRef} >
+                <pre  
+                style={{
+                  backgroundColor: 'var(--body-background-color)',
+                }}
+                className={`p-4 rounded-md text-sm language-${data.type ? data.type : "javascript"}`} ref={codeRef} >
                    <code>{data.code}</code>
                 </pre>
               )}
