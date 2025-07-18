@@ -94,6 +94,9 @@ export default function GridBento({
   style = {},
   ...props 
 }) {
+  
+  const { currentTheme } = useThemeContext();
+
   const getItemSize = (index) => {
     const patterns = [
       { gridColumn: 'span 2', gridRow: 'span 2' }, // Large

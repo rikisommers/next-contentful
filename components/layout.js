@@ -4,6 +4,7 @@ import React from "react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import TransitionPage from "../components/transition/pageTransition";
 import CursorDot from "../components/utils/cursor-dot";
+import CursorGabriel from "../components/utils/cursor-gabriel";
 import CursorCta from "../components/utils/cursor-cta";
 import { useThemeContext } from "./context/themeContext";
 
@@ -17,6 +18,7 @@ const Layout = ({ children }) => {
         <SpeedInsights />
 
         {currentTheme.data.cursor === "dot" && <CursorDot />}
+        {currentTheme.data.cursor === "gabriel" && <CursorGabriel />}
         {currentTheme.data.cursor === "cta" && <CursorCta content="Hello" />}
 
             {children}

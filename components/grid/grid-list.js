@@ -5,6 +5,7 @@ import { gridGaps, gridGapClasses } from "../../utils/theme";
 import PostTileHovertext from "../tile/post-tile-hovertext";
 import PostTileText from "../tile/post-tile-text";
 import PostTileProjects from "../tile/post-tile-projects";
+import CursorImage from "../utils/cursor-image";
 /**
  * @component
  * @category grid
@@ -96,20 +97,15 @@ export default function GridList({
   return (
     <div
       className={`grid grid-auto-rows-fr ${className}`}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        width: "100%",
-      }}
     >
       {items.map((item, index) => (
-        <div
+        <div className="relative"
           key={index}
-          style={{
-            width: "100%",
-            transition: "transform 0.3s ease",
-          }}
+      
         >
+
+          <CursorImage />
+
           {currentTheme.data.listLayout === "hovertext" && (
             <PostTileProjects post={item} />
           )}

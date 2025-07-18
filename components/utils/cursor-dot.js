@@ -130,8 +130,9 @@ const CursorDot = () => {
      }}
       transition={{
         type: "spring",
-        stiffness: 800,
-        damping: 35,
+        stiffness: 1200,
+        damping: 40,
+        mass: 0.5,
       }}
     >
       {/* <motion.div className="w-16 h-16 bg-white rounded-full z-[9999]"></motion.div> */}

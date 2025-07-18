@@ -1571,6 +1571,7 @@ export const pageTransitionThemes = {
 
 export const pageWidthThemes = {
   small:'small',
+  medium: 'medium',
   large: 'large',
   fluid: 'fluid'
 };
@@ -1578,7 +1579,8 @@ export const pageWidthThemes = {
 export const cursorThemes = {
   none: 'none',
   dot: 'dot',
-  cta:'cta'
+  cta:'cta',
+  gabriel:'gabriel'
 };
 
 export const cardThemes = {
@@ -1898,7 +1900,7 @@ export const themeContent = {
   cardLayout:cardThemes.reone,
   cardHover:cardHoverThemes.none,
   cardAspectRatio:cardAspectRatio.auto,
-  cardGrid:gridThemes.bento1,
+  cardGrid:gridThemes.basic,
   gridGallery:gridGalleryThemes.gallery1,
   gridColumnsSm: 2,
   gridColumnsMd: 3,

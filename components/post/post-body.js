@@ -41,20 +41,21 @@ export default function PostBody({ content, tags }) {
        ${(() => {
          // For Tailwind v4, max-width classes have changed
          const widthClasses = {
-           'fluid': "w-full ", // No max width constraint
-           'large': "max-w-[1280px]", // Equivalent to previous max-w-screen-xl
-           'small': "max-w-[768px]", // Equivalent to previous max-w-screen-md
-           'medium': "max-w-[1024px]" // Equivalent to previous max-w-screen-lg
+           'fluid': "w-full mx-auto", // No max width constraint
+           'large': "max-w-[1280px] mx-auto", // Equivalent to previous max-w-screen-xl
+           'small': "max-w-[768px] mx-auto", // Equivalent to previous max-w-screen-md
+           'medium': "max-w-[1024px] mx-auto" // Equivalent to previous max-w-screen-lg
          };
          
          // Get the width value, defaulting to 'medium'
          const width = currentTheme.data.pageWidth || 'medium';
          
          // Return the matching class or default
-         return widthClasses[width] || "max-w-[1024px] mx-auto";
+         return widthClasses[width];
        })()}
     
     `}>
+      <h1>ssss{pageWidth.toString()}sss</h1>
 
       {/* max-w-6xl gap-32 mx-auto */}
       {content.items &&
@@ -94,14 +95,14 @@ export default function PostBody({ content, tags }) {
                 // </AnimatedElement>
               )}
               {item.__typename === "BlockArticles" && (
-                <ArticleWrapper>
+            
                   <BlockArticles
                     key={item.id}
                     data={item}
                     tags={tags}
                     id={item.title}
                   />
-                </ArticleWrapper>
+        
               )}
               {item.__typename === "BlockImage" && (
                 // <AnimatedElement type={AnimStyleEl.FADEIN}>

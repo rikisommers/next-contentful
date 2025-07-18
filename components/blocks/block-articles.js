@@ -50,23 +50,29 @@ export const BlockArticles = ({ data, tags }) => {
   };
 
   return (
-      <div className="px-8 pb-8">
+    <>
       {data.filter === true && tags?.length && (
+        <div className="px-8 pb-8">
         <BlockTags
           data={tags}
           selected={selectedTag}
           handleTagClick={handleTagClick}
         />
+        </div>
       )}
-      <div className="flex flex-col gap-6 w-full">
+  
         {data.type == "list" && (
+              <div className="flex flex-col gap-6 w-full pb-8">
           <GridList data={filteredPosts} />
+          </div>
         )}
         {data.type == "bento" && (
+           <div className="flex flex-col gap-6 px-8 pb-8 w-full">
           <Grid type={currentTheme.data.cardGrid} data={filteredPosts} />
+          </div>
         )}
-      </div>
-    </div>
+      
+    </>
   );
 };
 

@@ -7,37 +7,7 @@ module.exports = {
   ],
   theme: {
     extend: {
-      colors: {
-        'theme': {
-          'body-bg': 'var(--body-background-color)',
-          'bg': 'var(--background-color)',
-          'surface-1': 'var(--surface-1)',
-          'surface-2': 'var(--surface-2)',
-          'surface-3': 'var(--surface-3)',
-          'bg-inv': 'var(--background-color-inv)',
-          'heading': 'var(--heading-color)',
-          'text': 'var(--text-color)',
-          'subtext': 'var(--subtext-color)',
-          'text-inv': 'var(--text-color-inv)',
-          'nav-bg': 'var(--nav-bg)',
-          'accent-pri': 'var(--accent-pri)',
-          'accent-sec': 'var(--accent-sec)',
-          'grad-start': 'var(--grad-start)',
-          'grad-stop': 'var(--grad-stop)',
-          'text-accent': 'var(--text-accent)',
-          'state-success': 'var(--state-success-background)',
-          'accent-img': 'var(--accent-image-bg)',
-        }
-      },
-      backgroundColor: theme => ({
-        ...theme('colors.theme')
-      }),
-      textColor: theme => ({
-        ...theme('colors.theme')
-      }),
-      borderColor: theme => ({
-        ...theme('colors.theme')
-      }),
+     
       gradientColorStops: theme => ({
         ...theme('colors.theme')
       }),

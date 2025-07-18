@@ -80,12 +80,7 @@ export default function PostTileProjects({
     <Link
       ref={ref}
       href={`/articles/${post.slug}`}
-      className={`grid relative grid-cols-2 p-8 w-full no-underline rounded-lg border-b group hover:bg-opacity-100 hover:bg-slate-700 border-slate-700`}
-      style={{
-        "&:hover": {
-          backgroundColor: "var(--accent-pri)",
-        },
-      }}
+      className={`grid relative grid-cols-2 px-16 py-6 w-full no-underline rounded-lg border-b group hover:bg-opacity-100 hover:bg-slate-700 border-slate-700`}
       onMouseEnter={(e) => {
         setIsHovered(true);
         audioProps.onMouseEnter?.(e);
@@ -93,30 +88,33 @@ export default function PostTileProjects({
       onMouseLeave={() => setIsHovered(false)}
       onClick={audioProps.onClick}
       {...props}
+      style={{
+        "--hover-text": "var(--text-accent)",
+       
+      }}
     >
-
-        <div className="absolute top-0 left-0 z-10 w-full h-0 transition-all duration-300 group-hover:h-full"
-        
+      <div
+        className="absolute top-0 left-0 z-10 w-full h-0 transition-all duration-300 group-hover:h-full"
         style={{
           backgroundColor: "var(--accent-pri)",
         }}
+      ></div>
+      <div className="grid z-20 grid-cols-3 col-span-2 gap-3 justify-between w-full text-[var(--text-color)] group-hover:text-[var(--hover-text)]"
+       
+      >
+
+        <h2 className="text-lg font-normal transition-colors duration-300 text-balance bg-theme-accent-pri"
+
         >
 
-
-
-
-
-        </div>
-      <div className="grid z-20 grid-cols-3 col-span-2 gap-3 justify-between w-full">
-
-
-        <h2 className="text-lg font-light transition-colors duration-300 text-balance bg-theme-accent-pri group-hover:text-red-500">
           {post?.title}
         </h2>
+
         {/* <h2 className="text-lg font-light transition-colors duration-300 text-balance bg-theme-accent-pri group-hover:text-red-500">
           {post?.role}
         </h2> */}
-        <h2 className="text-lg font-light transition-colors duration-300 text-balance bg-theme-accent-pri group-hover:text-red-500">
+
+        <h2 className="text-lg font-normal transition-colors duration-300 text-balance bg-theme-accent-pri">
           {post?.subtitle}
         </h2>
 
@@ -142,6 +140,8 @@ export default function PostTileProjects({
           )}
         </div>
       </div>
+
+  
 
       {/* {post.img && (
         <motion.div
