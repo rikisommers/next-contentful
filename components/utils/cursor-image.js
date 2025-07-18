@@ -12,6 +12,7 @@ const CursorImage = () => {
   const [cursorWithinViewport, setCursorWithinViewport] = useState(false);
 
   const hostRef = useRef(null);
+  const animationFrameRef = useRef(null);
   const { currentTheme } = useThemeContext();
 
 //   useEffect(() => {
@@ -53,17 +54,36 @@ const CursorImage = () => {
         backgroundColor: currentTheme.data.accentPri,
         color: currentTheme.data.textColor,
       }}
+      initial={{ 
+        opacity: 0, 
+        scale: 0.8,
+        left: `${mousePosition.x - 150}px`,
+        top: `${mousePosition.y - 150}px`,
+      }}
       animate={{
         zIndex: 1,
          left: `${mousePosition.x - 150}px`,
          top: `${mousePosition.y - 150}px`,
         opacity: cursorWithinViewport ? 0 : 1,
+        scale: 1,
      }}
+      style={{
+        willChange: 'transform, opacity'
+      }}
+      exit={{ opacity: 0, scale: 0.8 }}
       transition={{
         type: "spring",
         stiffness: 1200,
         damping: 40,
         mass: 0.5,
+        opacity: { 
+          duration: 0.2,
+          ease: "easeInOut"
+        },
+        scale: { 
+          duration: 0.2,
+          ease: "easeInOut" 
+        },
       }}
     >
       {/* <motion.div className="w-16 h-16 bg-white rounded-full z-[9999]"></motion.div> */}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useThemeContext } from "../context/themeContext";
 import { gridGaps, gridGapClasses } from "../../utils/theme";
 
@@ -93,27 +93,30 @@ export default function GridList({
 }) {
   const { currentTheme } = useThemeContext();
   const gapClass = gridGapClasses[currentTheme.data.gridGap] || "gap-4";
+  const [showCursor, setShowCursor] = useState(false);
 
   return (
-    <div
-      className={`grid grid-auto-rows-fr ${className}`}
-    >
-      {items.map((item, index) => (
-        <div className="relative"
-          key={index}
-      
-        >
-
-          <CursorImage />
-
-          {currentTheme.data.listLayout === "hovertext" && (
-            <PostTileProjects post={item} />
-          )}
-          {currentTheme.data.listLayout === "text" && (
-            <PostTileText post={item} />
-          )}
-        </div>
-      ))}
-    </div>
+    <>
+      {showCursor && <CursorImage />}
+      <div
+        className={`grid grid-auto-rows-fr ${className}`}
+      >
+        {items.map((item, index) => (
+          <div 
+            className="relative"
+            key={index}
+            onMouseEnter={() => setShowCursor(true)}
+            onMouseLeave={() => setShowCursor(false)}
+          >
+            {currentTheme.data.listLayout === "hovertext" && (
+              <PostTileProjects post={item} />
+            )}
+            {currentTheme.data.listLayout === "text" && (
+              <PostTileText post={item} />
+            )}
+          </div>
+        ))}
+      </div>
+    </>
   );
 }
