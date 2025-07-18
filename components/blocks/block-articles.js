@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Grid from "../grid/grid";
+import List from "../grid/list";
+import GridList from "../grid/grid-list";
 import { BlockTags } from "./block-tags";
 // import { useMousePos } from "../mousePosContext"
 import { useThemeContext } from "../context/themeContext";
@@ -57,7 +59,12 @@ export const BlockArticles = ({ data, tags }) => {
         />
       )}
       <div className="flex flex-col gap-6 w-full">
-        {posts && <Grid type={currentTheme.data.cardGrid} data={filteredPosts} />}
+        {data.type == "list" && (
+          <GridList data={filteredPosts} />
+        )}
+        {data.type == "bento" && (
+          <Grid type={currentTheme.data.cardGrid} data={filteredPosts} />
+        )}
       </div>
     </div>
   );

@@ -1441,8 +1441,16 @@ export const gridThemes = {
   bento1: "bento1",
   list: "list",
   basic: "basic",
-  things: "things"
+  things: "things",
 };
+
+
+// List layout
+export const listThemes = {
+  text: "text",
+  hovertext: "hovertext",
+};
+
 
 
 // colums
@@ -1579,6 +1587,8 @@ export const cardThemes = {
   monks: 'monks',
   reone: 'reone',
   img: 'img',
+  text: "text",
+  hovertext: "hovertext",
 };
 
 export const cardAspectRatio = {

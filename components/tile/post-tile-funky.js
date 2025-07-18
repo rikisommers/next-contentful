@@ -39,7 +39,24 @@ import { useRouteAudio } from "../audio/audio-trigger";
  * />
  * @exports PostTileFunky
  */
-export default function PostTileFunky({ post, aspect, 'data-audio-click': clickSound, 'data-audio-hover': hoverSound, ...props }) {
+export default function PostTileFunky({ 
+  post = {
+    title: '',
+    subtitle: '',
+    slug: '',
+    img: null
+  }, 
+  aspect, 
+  'data-audio-click': clickSound, 
+  'data-audio-hover': hoverSound, 
+  ...props 
+}) {
+  // Early return if no post is provided
+  if (!post) {
+    console.warn('PostTileFunky: No post data provided');
+    return null;
+  }
+
   const [isHovered, setIsHovered] = useState(false); // State to track hover
   
   // Use audio hook with data attribute sounds

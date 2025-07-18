@@ -2,10 +2,16 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useToast } from "../context/toastContext";
 import Prism from "prismjs"; // Import Prism.js
-import "prismjs/components/prism-javascript.min.js"; // Import the language you want to highlight
+import "prismjs/themes/prism-tomorrow.css"; // Dark theme
+import "prismjs/components/prism-javascript.min.js"; 
+import "prismjs/components/prism-typescript.min.js";
+import "prismjs/components/prism-jsx.min.js";
+import "prismjs/components/prism-tsx.min.js";
+import "prismjs/components/prism-css.min.js";
+import "prismjs/components/prism-json.min.js";
+import "prismjs/components/prism-bash.min.js";
 import Modal, { ModalDirection, ModalPosition, ModalWidth } from "../base/modal";
 import Button, { ButtonType } from "../base/button/button";
-
 /**
  * @component BlockCode
  * @description Interactive code block with syntax highlighting, copy functionality, and expandable modal view
@@ -40,9 +46,13 @@ export const BlockCode = ({ data, maxHeight = 400 }) => {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-        Prism.highlightAll();
+        // Delay highlighting to ensure DOM is ready
+        setTimeout(() => {
+          Prism.highlightAll();
+        }, 0);
+        
     }
-}, [maxHeight]);
+}, [data.code]);
 
   const copyToClipboard = () => {
     if (codeRef.current) {

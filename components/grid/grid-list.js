@@ -1,27 +1,25 @@
-import React from 'react';
-import { useThemeContext } from '../context/themeContext';
+import React from "react";
+import { useThemeContext } from "../context/themeContext";
 import { gridGaps, gridGapClasses } from "../../utils/theme";
-import PostTileCs from "../tile/post-tile-cs";
-import PostTileLg from "../tile/post-tile-funky";
-import PostTileImg from "../tile/post-tile-img";
-import PostTileRe from "../tile/post-tile-reone";
-import PostTileMonks from "../tile/post-tile-monks";
 
+import PostTileHovertext from "../tile/post-tile-hovertext";
+import PostTileText from "../tile/post-tile-text";
+import PostTileProjects from "../tile/post-tile-projects";
 /**
  * @component
  * @category grid
- * 
+ *
  * A vertical list-style grid layout
  * Optimized for content that should be displayed in a single column
  * Perfect for articles, blog posts, or sequential content
- * 
+ *
  * @param {Object} props - Component props
  * @param {Array} props.data - Array of items to display in the list
  * @param {string} props.className - Additional CSS classes
  * @param {Object} props.style - Inline styles
- * 
+ *
  * @example
- * <GridList 
+ * <GridList
  *   data={[
  *     {
  *       title: "Photography Portfolio",
@@ -86,40 +84,38 @@ import PostTileMonks from "../tile/post-tile-monks";
  *   ]}
  * />
  */
-export default function GridList({ 
-  data: items = [], 
-  className = '', 
+export default function GridList({
+  data: items = [],
+  className = "",
   style = {},
-  ...props 
+  ...props
 }) {
-
   const { currentTheme } = useThemeContext();
-  const gapClass = gridGapClasses[currentTheme.data.gridGap] || 'gap-4';
+  const gapClass = gridGapClasses[currentTheme.data.gridGap] || "gap-4";
 
   return (
-    <div 
-      className={`grid grid-auto-rows-fr ${className} ${gapClass}`}
+    <div
+      className={`grid grid-auto-rows-fr ${className}`}
       style={{
-        display: 'flex',
-        flexDirection: 'column',
-        width: '100%',
-
+        display: "flex",
+        flexDirection: "column",
+        width: "100%",
       }}
     >
       {items.map((item, index) => (
         <div
           key={index}
           style={{
-            width: '100%',
-            minHeight: '300px',
-            transition: 'transform 0.3s ease',
+            width: "100%",
+            transition: "transform 0.3s ease",
           }}
         >
-                {currentTheme.data.cardLayout === 'formal' && <PostTileCs post={item} aspect={currentTheme.data.cardAspectRatio} />}
-                {currentTheme.data.cardLayout === 'funky' && <PostTileLg post={item} aspect={currentTheme.data.cardAspectRatio} />}
-                {currentTheme.data.cardLayout === 'reone' && <PostTileRe post={item} aspect={currentTheme.data.cardAspectRatio} />}
-                {currentTheme.data.cardLayout === 'monks' && <PostTileMonks post={item} aspect={currentTheme.data.cardAspectRatio} />}
-                {currentTheme.data.cardLayout === 'img' && <PostTileImg post={item} aspect={currentTheme.data.cardAspectRatio} />}
+          {currentTheme.data.listLayout === "hovertext" && (
+            <PostTileProjects post={item} />
+          )}
+          {currentTheme.data.listLayout === "text" && (
+            <PostTileText post={item} />
+          )}
         </div>
       ))}
     </div>

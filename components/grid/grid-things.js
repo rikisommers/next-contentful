@@ -163,7 +163,7 @@ export default function GridThings({
                 <PostTileCs post={item} />
               )}
               {currentTheme.data.cardLayout === "funky" && (
-                <PostTileLg post={item} />
+                <PostTileFunky post={item} />
               )}
               {currentTheme.data.cardLayout === "reone" && (
                 <PostTileRe post={item} layout="col" />

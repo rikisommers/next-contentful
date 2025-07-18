@@ -118,7 +118,6 @@ export default function GridBento({
       }}
       {...props}
     >
-      <h1>Grid Group 2</h1>
       {items.map((item, index) => (
         <div
           key={index}
@@ -128,12 +127,41 @@ export default function GridBento({
             minHeight: '200px',
           }}
         >
-          <PostTileFunky 
-            post={item} 
-            index={index}
-            data-audio-click="beepOn"
-            data-audio-hover="plink"
-          />
+{currentTheme.data.cardLayout === 'formal' && (
+                  <PostTileCs 
+                    post={item} 
+                    data-audio-click="beepOn"
+                    data-audio-hover="plink"
+                  />
+                )}
+                {currentTheme.data.cardLayout === 'funky' && (
+                  <PostTileLg 
+                    post={item} 
+                    data-audio-click="beepOn"
+                    data-audio-hover="plink"
+                  />
+                )}
+                {currentTheme.data.cardLayout === 'reone' && (
+                  <PostTileRe 
+                    post={item} 
+                    data-audio-click="beepOn"
+                    data-audio-hover="plink"
+                  />
+                )}
+                {currentTheme.data.cardLayout === 'monks' && (
+                  <PostTileMonks 
+                    post={item} 
+                    data-audio-click="beepOn"
+                    data-audio-hover="plink"
+                  />
+                )}
+                {currentTheme.data.cardLayout === 'img' && (
+                  <PostTileImg 
+                    post={item} 
+                    data-audio-click="beepOn"
+                    data-audio-hover="plink"
+                  />
+                )}
         </div>
       ))}
     </div>
@@ -156,7 +184,6 @@ const GridGroup = ({ items, templateSize, startIndex }) => {
   
     return (
       <>
-        <h1>Grid Group </h1>
         <div className={`grid-template-${templateSize}`}>
           {groupItems.map((item, i) => (
             <div key={startIndex + i} className={`my--${i + 1}`}>

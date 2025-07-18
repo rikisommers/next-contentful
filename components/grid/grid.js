@@ -3,7 +3,6 @@ import GridBento from "./grid-bento";
 import GridList from "./grid-list";
 import GridThings from "./grid-things";
 import GridBasic from "./grid-basic";
-import GridJonas from "./grid-jonas";
 import { gridThemes } from "../../utils/theme";
 import { useThemeContext } from "../context/themeContext";
 
