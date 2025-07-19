@@ -102,7 +102,7 @@ export default function PostTileText({
           
           
           <h2
-            className="text-2xl font-light transition-colors duration-300 text-balance bg-theme-accent-pri group-hover:text-red-500"
+            className="text-2xl font-light transition-colors duration-300 text-balance bg-theme-accent-pri"
            
           >
             {post?.subtitle}

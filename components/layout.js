@@ -3,9 +3,9 @@
 import React from "react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import TransitionPage from "../components/transition/pageTransition";
-import CursorDot from "../components/utils/cursor-dot";
-import CursorGabriel from "../components/utils/cursor-gabriel";
-import CursorCta from "../components/utils/cursor-cta";
+import CursorDot from "../components/cursor/cursor-dot";
+import CursorGabriel from "../components/cursor/cursor-gabriel";
+import CursorCta from "./cursor/cursor-cta";
 import { useThemeContext } from "./context/themeContext";
 
 //pageWidth = LayoutType.FLUID

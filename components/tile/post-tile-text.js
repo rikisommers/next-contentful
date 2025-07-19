@@ -58,7 +58,7 @@ export default function PostTileText({
   aspect, 
   'data-audio-click': clickSound, 
   'data-audio-hover': hoverSound, 
-  ...props 
+  ...props
 }) {
   // Early return if no post is provided
   if (!post) {
@@ -81,7 +81,7 @@ export default function PostTileText({
     <Link
       ref={ref}
       href={`/articles/${post.slug}`}
-      className={`flex relative flex-col p-4 w-full no-underline`}
+      className={`flex relative z-20 flex-col gap-3 justify-between p-4 w-full no-underline fluid-type group`}
       onMouseEnter={(e) => {
         setIsHovered(true);
         audioProps.onMouseEnter?.(e);
@@ -89,17 +89,13 @@ export default function PostTileText({
       onMouseLeave={() => setIsHovered(false)}
       onClick={audioProps.onClick}
       {...props}
+      style={{
+        "--hover-text": "var(--text-accent)",
+      }}
     >
-      {/* fluid-type */}
-     
-        <div
-          className="flex flex-col gap-3 justify-between w-full fluid-type group"
 
-        >
-          
-          
           <h2
-            className="text-2xl font-light transition-colors duration-300 text-balance bg-theme-accent-pri group-hover:text-red-500"
+            className="text-2xl font-light transition-colors duration-300 text-balance  text-[var(--text-color)] group-hover:text-[var(--hover-text)]"
            
           >
             {post?.subtitle}
@@ -122,7 +118,6 @@ export default function PostTileText({
               </div>
             )}
             </div>
-        </div>
 
        
      

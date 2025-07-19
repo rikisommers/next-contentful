@@ -3,6 +3,23 @@ import { motion } from "../../utils/motion";
 import { MousePosContext } from "../context/mousePosContext";
 import { useThemeContext } from "../context/themeContext";
 
+/**
+ * Advanced cursor component with SVG motion trail inspired by gabrielveres.com
+ * @component
+ * @category cursor
+ * 
+ * A sophisticated cursor with two-layer animation: a trailing circle and foreground dot
+ * with mix-blend-mode effects, plus an SVG path trail that follows mouse movement.
+ * Features hover scaling, blend modes, and smooth spring physics.
+ * 
+ * @example
+ * // Basic Gabriel-style cursor
+ * <CursorGabriel />
+ * 
+ * @example
+ * // Used in layout with theme-based cursor selection
+ * {currentTheme.data.cursor === "gabriel" && <CursorGabriel />}
+ */
 const CursorGabriel = () => {
   const { mousePosition } = useContext(MousePosContext);
   const { currentTheme } = useThemeContext();

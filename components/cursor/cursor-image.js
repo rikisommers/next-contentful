@@ -4,6 +4,22 @@ import { MousePosContext } from "../context/mousePosContext";
 //import { checkTouchDevice } from "./check-toucch-device";
 import { useThemeContext } from "../context/themeContext";
 
+/**
+ * Large animated cursor image component with fade transitions
+ * @component
+ * @category cursor
+ * 
+ * A large rectangular cursor that appears on hover with smooth fade animations.
+ * Designed for use in grid layouts to provide visual feedback on interactive elements.
+ * 
+ * @example
+ * // Basic cursor image
+ * <CursorImage />
+ * 
+ * @example
+ * // Conditional rendering based on hover state
+ * {showCursor && <CursorImage />}
+ */
 const CursorImage = () => {
   const { mousePosition, direction, velocity } = useContext(MousePosContext);
 

@@ -4,6 +4,22 @@ import { MousePosContext } from "../context/mousePosContext";
 //import { checkTouchDevice } from "./check-toucch-device";
 import { useThemeContext } from "../context/themeContext";
 
+/**
+ * Animated cursor dot component with smooth spring physics
+ * @component
+ * @category cursor
+ * 
+ * A circular cursor that follows mouse movement with spring animations.
+ * Features click states, hover effects, and theme-aware styling.
+ * 
+ * @example
+ * // Basic cursor dot
+ * <CursorDot />
+ * 
+ * @example
+ * // Used in layout with theme context
+ * {currentTheme.data.cursor === "dot" && <CursorDot />}
+ */
 const CursorDot = () => {
   const { mousePosition, direction, velocity } = useContext(MousePosContext);
 

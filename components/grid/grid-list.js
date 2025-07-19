@@ -5,7 +5,7 @@ import { gridGaps, gridGapClasses } from "../../utils/theme";
 import PostTileHovertext from "../tile/post-tile-hovertext";
 import PostTileText from "../tile/post-tile-text";
 import PostTileProjects from "../tile/post-tile-projects";
-import CursorImage from "../utils/cursor-image";
+import CursorImage from "../cursor/cursor-image";
 /**
  * @component
  * @category grid
@@ -112,7 +112,9 @@ export default function GridList({
               <PostTileProjects post={item} />
             )}
             {currentTheme.data.listLayout === "text" && (
-              <PostTileText post={item} />
+              <div className="flex flex-col gap-24 py-4 mx-auto max-w-screen-xl">
+                <PostTileText post={item} />
+              </div>
             )}
           </div>
         ))}

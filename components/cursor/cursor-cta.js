@@ -6,6 +6,25 @@ import { MousePosContext } from "../context/mousePosContext";
 import { useMousePos } from '../context/mousePosContext'; // Adjust the import path as necessary
 import { useThemeContext } from "../context/themeContext";
 
+/**
+ * Call-to-action cursor component with rotation and visibility effects
+ * @component
+ * @category cursor
+ * 
+ * A text-based cursor that displays custom content and rotates based on mouse movement direction.
+ * Features velocity-based rotation, theme-aware styling, and visibility controls.
+ * 
+ * @param {Object} props - Component props
+ * @param {string} props.content - Text content to display in the cursor
+ * 
+ * @example
+ * // Basic CTA cursor with custom text
+ * <CursorCta content="Click me" />
+ * 
+ * @example
+ * // Used in layout with theme context
+ * {currentTheme.data.cursor === "cta" && <CursorCta content="Hello" />}
+ */
 const CursorCta = ({content}) => {
   const { visible } = useMousePos(); // Access the visible state from context
   const { mousePosition, direction, velocity } = useContext(MousePosContext);
