@@ -11,19 +11,7 @@ import { ScaleContainer } from "../motion/scale-container";
 import PostIntro from "../post/post-intro";
 import Background from "../background/background";
 import AnimatedText, { AnimTextOrder } from "../motion/animated-text";
-import NoiseDither from "../background/shaders/dither/noise-dither";
-import OrderedDither from "../background/shaders/dither/ordered-dither";
-import BlueNoiseDither from "../background/shaders/dither/blue-noise-dither";
-import ColorQuantDither from "../background/shaders/dither/color-quant-dither";
-import ColorQuantDither2 from "../background/shaders/dither/color-quant-dither2";
-import Rect from "../background/shaders/halftone/rect";
-import Dots from "../background/shaders/halftone/dots";
-import Ascii from "../background/shaders/halftone/ascii";
-import Ascii2 from "../background/shaders/halftone/ascii2";
-import Luma from "../background/shaders/halftone/luma";
-import Led from "../background/shaders/halftone/led";
-import Lego from "../background/shaders/halftone/lego";
-import Progress from "../background/shaders/dynamic/progress";
+
 import CanvasShader from "../background/canvasShader";
 
 const getPositionClass = (position) => {
@@ -133,7 +121,7 @@ export default function BlockHero({ title, content, tag, image }) {
       <div
         className={`${getHeightClass(
           currentTheme.data.heroHeight
-        )} relative grid grid-cols-3 grid-rows-3 justify-end left-0 top-0 z-50 w-full gap-0  px-16 py-16 pointer-events-none`}
+        )} relative grid grid-cols-3 grid-rows-3 justify-end left-0 top-0 z-50 w-full gap-0  px-16 py-16 pointer-events-none fluid-type`}
       >
 
         <div className={`${getPositionClass(currentTheme.data.heroTextPosition)}`}>

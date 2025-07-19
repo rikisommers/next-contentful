@@ -16,14 +16,14 @@ export default function Background() {
             outputColorSpace: THREE.SRGBColorSpace,
           }}
           camera={{
-            fov: 75,
-            near: 0.1,
-            far: 2000,
-            position: [0, 1, 2],
+              fov: 20,
+              near: 0.1,
+              far: 100,
+              position: [0.2, -5, 3],
           }}
         >
-          <ambientLight color={0x00ff00} intensity={0.5} />
-          <directionalLight color={0x00ff00} intensity={1} position={[10, 10, 10]} />
+          {/* <ambientLight color={0x00ff00} intensity={0.5} />
+          <directionalLight color={0x00ff00} intensity={1} position={[10, 10, 10]} /> */}
           <Experience2 />
         </Canvas>
       </Suspense>

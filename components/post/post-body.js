@@ -55,7 +55,6 @@ export default function PostBody({ content, tags }) {
        })()}
     
     `}>
-      <h1>ssss{pageWidth.toString()}sss</h1>
 
       {/* max-w-6xl gap-32 mx-auto */}
       {content.items &&

@@ -9,18 +9,18 @@ import { useThemeContext } from '../context/themeContext';
 
 const WaterMaterial = shaderMaterial(
   {
-    uBigWavesElevation: 0.2,
-    uBigWavesFrequency: new THREE.Vector2(4, 1.5),
+    uBigWavesElevation: 0.12,
+    uBigWavesFrequency: new THREE.Vector2(2.15, 1.5),
     uTime: 0,
     uBigWavesSpeed: 0.75,
     uDepthColor: new THREE.Color("#6600ff"),
     uSurfaceColor: new THREE.Color("#ffa200"),
     uColorOffset: 0.074,
-    uColorMultiplier: 3.372,
-    uSmallWavesElevation: 0.15,
-    uSmallWavesFrequency: 3,
-    uSmallWavesSpeed: 0.2,
-    uSmallIterations: 4,
+    uColorMultiplier: 6.45,
+    uSmallWavesElevation: 0.32,
+    uSmallWavesFrequency: 0.29,
+    uSmallWavesSpeed: 0.20,
+    uSmallIterations: 0.8,
   },
   vertexShader,
   fragmentShader
@@ -43,16 +43,16 @@ function Water() {
     uSmallWavesSpeed,
     uSmallIterations,
   } = useControls({
-    uBigWavesElevation: { value: 0.2, min: 0, max: 1, step: 0.001 },
-    uBigWavesFrequencyX: { value: 4, min: 0, max: 10, step: 0.001 },
-    uBigWavesFrequencyY: { value: 1.5, min: 0, max: 10, step: 0.001 },
-    uBigWavesSpeed: { value: 0.75, min: 0, max: 4, step: 0.001 },
-    uColorOffset: { value: 0.074, min: 0, max: 1, step: 0.001 },
-    uColorMultiplier: { value: 3.372, min: 0, max: 10, step: 0.001 },
-    uSmallWavesElevation: { value: 0.15, min: 0, max: 5, step: 0.001 },
-    uSmallWavesFrequency: { value: 3, min: 0, max: 30, step: 0.001 },
-    uSmallWavesSpeed: { value: 0.2, min: 0, max: 4, step: 0.001 },
-    uSmallIterations: { value: 4, min: 0, max: 5, step: 1 },
+    uBigWavesElevation: { value: 0.07, min: 0, max: 1, step: 0.001 },
+    uBigWavesFrequencyX: { value: 0.44, min: 0, max: 10, step: 0.001 },
+    uBigWavesFrequencyY: { value: 0.4, min: 0, max: 10, step: 0.001 },
+    uBigWavesSpeed: { value: 0.20, min: 0, max: 4, step: 0.001 },
+    uColorOffset: { value: 0.07, min: 0, max: 1, step: 0.001 },
+    uColorMultiplier: { value: 2.98, min: 0, max: 10, step: 0.001 },
+    uSmallWavesElevation: { value: 0.31, min: 0, max: 5, step: 0.001 },
+    uSmallWavesFrequency: { value: 1.74, min: 0, max: 30, step: 0.001 },
+    uSmallWavesSpeed: { value: 0.1, min: 0, max: 4, step: 0.001 },
+    uSmallIterations: { value: 1.2, min: 0, max: 5, step: 0.1 },
   });
 
   useFrame((state, delta) => {
@@ -74,8 +74,10 @@ function Water() {
   });
 
   return (
-    <mesh rotation-x={-Math.PI * 0.5}>
-      <planeGeometry args={[2, 2, 512, 512]} />
+    <mesh rotation-x={-Math.PI / 2} 
+          rotation-y={0} 
+          rotation-z={0}>
+      <planeGeometry args={[4, 3, 100, 100]} />
       <waterMaterial ref={waterMaterial} side={THREE.DoubleSide} />
     </mesh>
   );
@@ -84,7 +86,7 @@ function Water() {
 export default function Experience2() {
   return (
     <>
-      <OrbitControls enableDamping />
+      {/* <OrbitControls enableDamping /> */}
       <Water />
     </>
   );

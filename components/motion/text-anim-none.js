@@ -1,12 +1,9 @@
-"use client";
-
-import React from "react";
-import { HighlightedSegment } from "./text-anim-highlighted-segment";
 import { processItalicText } from "../utils/textFormatting";
+import HighlightedSegment from "./text-anim-highlighted-segment";
 
 export const TextAnimNone = ({ 
-  delay,
-  content, 
+  text, 
+  className,
   highlight,
   type = 'text'
 }) => {
@@ -20,38 +17,36 @@ export const TextAnimNone = ({
         style={{ 
           overflow: 'hidden',
           position: 'relative',
+          display: 'block' // This is acceptable as it's at the line level
         }}
-        className="block leading-snug"
+        className="leading-snug"
       >
-        <div
+        <span
           style={{ 
             position: 'relative',
-            display: 'inline-block'
+            display: 'inline'
           }}
         >
           {segments.map((segment, segmentIndex) => {
                 // Handle image markdown
                 const imageMatch = segment.match(/!\[([^\]]*)\]\((.*?)\)/);
                 if (imageMatch) {
-                  const altText = imageMatch[1]; // Get alt text
-                  const imageUrl = imageMatch[2].startsWith('//') ? `https:${imageMatch[2]}` : imageMatch[2]; // Ensure the URL is complete
+                  const altText = imageMatch[1];
+                  const imageUrl = imageMatch[2].startsWith('//') ? `https:${imageMatch[2]}` : imageMatch[2];
                   return (
                     <img
-                      className="absolute w-[40px] h-0"
                       key={segmentIndex}
                       src={imageUrl}
                       alt={altText}
-                      style={{ maxWidth: "40px", height: "auto", display: "inline-block" }} // Adjust styles as needed
+                      style={{ maxWidth: "40px", height: "auto", display: "inline-block", verticalAlign: 'middle' }}
+                      className="inline-block align-middle"
                     />
                   );
                 }
 
                 // Handle regular text vs highlighted text
                 if (segmentIndex % 2 === 0) {
-                  // Process the segment for italic text
                   const { processed: processedSegment, hasItalic } = processItalicText(segment);
-
-                  // If segment has italic formatting, use dangerouslySetInnerHTML
                   if (hasItalic) {
                     return (
                       <span 
@@ -60,11 +55,9 @@ export const TextAnimNone = ({
                       />
                     );
                   } else {
-                    // If no italic formatting, use regular children
                     return <span key={segmentIndex}>{segment}</span>;
                   }
                 } else {
-                  // For highlighted segments, let HighlightedSegment handle the italic formatting
                   return (
                     <HighlightedSegment
                       key={segmentIndex}
@@ -74,7 +67,7 @@ export const TextAnimNone = ({
                   );
                 }
           })}
-        </div>
+        </span>
       </span>
     );
   };
@@ -87,15 +80,8 @@ export const TextAnimNone = ({
   };
 
   return (
-    <div>
-      <span
-        style={{
-          //color: 'var(--heading-color)',
-          display: 'inline-block'
-        }}
-      >
-        {renderContent(content)}
-      </span>
-    </div>
+    <span className={className}>
+      {renderContent(text)}
+    </span>
   );
-}
+};
