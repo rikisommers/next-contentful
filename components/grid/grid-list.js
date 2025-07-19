@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useThemeContext } from "../context/themeContext";
 import { gridGaps, gridGapClasses } from "../../utils/theme";
-
+import { listThemes } from "../../utils/theme";
 import PostTileHovertext from "../tile/post-tile-hovertext";
 import PostTileText from "../tile/post-tile-text";
 import PostTileProjects from "../tile/post-tile-projects";
@@ -95,12 +95,24 @@ export default function GridList({
   const gapClass = gridGapClasses[currentTheme.data.gridGap] || "gap-4";
   const [showCursor, setShowCursor] = useState(false);
 
+  const getListType = (type, data) => {
+    switch (type) {
+        case listThemes.text:
+            return <div className="flex flex-col gap-24 py-4 mx-auto max-w-screen-xl"><PostTileText post={data} /></div>;
+        case listThemes.hovertext:
+            return <PostTileProjects post={data} />;
+        default:
+            return <PostTileProjects post={data} />;
+    }
+};
+
   return (
     <>
       {showCursor && <CursorImage />}
       <div
         className={`grid grid-auto-rows-fr ${className}`}
       >
+       
         {items.map((item, index) => (
           <div 
             className="relative"
@@ -108,14 +120,8 @@ export default function GridList({
             onMouseEnter={() => setShowCursor(true)}
             onMouseLeave={() => setShowCursor(false)}
           >
-            {currentTheme.data.listLayout === "hovertext" && (
-              <PostTileProjects post={item} />
-            )}
-            {currentTheme.data.listLayout === "text" && (
-              <div className="flex flex-col gap-24 py-4 mx-auto max-w-screen-xl">
-                <PostTileText post={item} />
-              </div>
-            )}
+            {getListType(currentTheme.data.listLayout, item)}
+
           </div>
         ))}
       </div>
