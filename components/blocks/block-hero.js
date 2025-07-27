@@ -24,7 +24,7 @@ const getPositionClass = (position) => {
   if (isNaN(row) || isNaN(col)) return "";
   
   // Add 1 to row/col for 1-based grid classes
-  return `row-start-${row + 1} col-start-${col + 1}`;
+  return `row-start-${row + 1} col-start-${col + 1} col-span-2`;
 };
 
 const getHeightClass = (height) => {
@@ -116,6 +116,20 @@ export default function BlockHero({ title, content, tag, image }) {
 
         {renderHeroBackground(currentTheme.data.heroBackground, image)}
 
+        <div className="flex absolute right-4 top-20 flex-col gap-4">
+          <div className="max-w-[200px] bg-[var(--background-color)] rounded-lg shadow-2xl p-4">
+          <p className="text-[var(--text-color)] text-xs">Hello this is anbasiz shader examples from <a className="text-[var(--text-accent)]" href="https://threejs-journey.com/" target="_blank" rel="noopener noreferrer">threejs journey</a> tou should check it out. <a className="text-[var(--text-accent)]" href="https://threejs-journey.com/lessons/1" target="_blank" rel="noopener noreferrer">Tweak params here</a> Mmmkaayy</p>
+          <button className="text-[var(--text-color)] text-xs">Cool man</button>
+          </div>
+          <div className="max-w-[200px] bg-[var(--background-color)] rounded-lg shadow-2xl p-4">
+          <p className="text-[var(--text-color)] text-xs">This is a tex animntion variant insired by <a className="text-[var(--text-accent)]" href="https://www.youtube.com/watch?v=0fKg7e37JgU" target="_blank" rel="noopener noreferrer">this video</a> Mmmkaayy </p>
+          <button className="text-[var(--text-color)] text-xs">Cool man</button>
+          </div>
+          <div className="max-w-[200px] bg-[var(--background-color)] rounded-lg shadow-2xl p-4">
+          <p className="text-[var(--text-color)] text-xs">This site is a ongoing collection of components. Mess with the theme and save you own. Content and themes are saved in local storage and CMS. Get you own <a className="text-[var(--text-accent)]" href="https://www.youtube.com/watch?v=0fKg7e37JgU" target="_blank" rel="noopener noreferrer">this video</a> Mmmkaayy </p>
+          <button className="text-[var(--text-color)] text-xs">Cool man</button>
+          </div>
+        </div>
 <ScaleContainer>
 
       <div

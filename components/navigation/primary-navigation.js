@@ -9,8 +9,9 @@ import ButtonWipe, { ButtonType } from '../base/button/button-wipe';
 import ThemeTrigger from "../base/theme-trigger";
 //import { useScrollPosition } from "../scrollPosContext";
 import ThemeEditor from "../../utils/themeEditor";
-
+import Button from "../base/button/button";
 // import ThemeEditor from "../../utils/themeEditor";
+import Audio from "./audio";
 
 import Modal, {
   ModalDirection,
@@ -59,7 +60,7 @@ export default function Navigation({data, logo, customThemes}) {
 
 <div className="flex fixed top-4 right-4 z-50 items-center theme-editor-active">
 
-<ThemeTrigger />
+<ThemeTrigger toggleThemeEditor={toggleThemeEditor} />
 
 </div>
 
@@ -79,7 +80,6 @@ export default function Navigation({data, logo, customThemes}) {
 
 
         <div className="flex z-50 col-start-1 row-span-1 row-start-1 justify-start items-start w-fit" onClick={toggleThemeEditor} > 
-              {/* <Texture></Texture> */}
                 <Logo logo={logo} showTitle={true} />
               
         </div>
@@ -90,9 +90,10 @@ export default function Navigation({data, logo, customThemes}) {
 
        
 
-{/* 
-       <motion.div className="flex absolute top-4 right-4 z-50 gap-1 items-center p-1 bg-red-400 rounded-lg">
+
+       {/* <motion.div className="flex absolute top-4 right-4 z-50 gap-1 items-center p-1 bg-red-400 rounded-lg">
             <img className="w-[30px] h-[30px]" src="./icons/change.svg" title="theme"/>
+            <Audio />
         </motion.div>  */}
 
 
@@ -103,18 +104,18 @@ export default function Navigation({data, logo, customThemes}) {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         direction={ModalDirection.RIGHT}
-        width={ModalWidth.PANEL_SM}
         position={ModalPosition.BOTTOM_RIGHT}
       >
         <div
-          className="h-screen overflow-y-auto w-[400px] bg-red-400"
+          className="h-screen overflow-y-auto w-[300px] flex flex-col gap-3 p-2 bg-[var(--background-color)]"
           style={{
-            backgroundColor: "var(--body-background-color)",
+            // backgroundColor: "var(--background-color)",
           }}
         >
-          asd
-                    <button onClick={() => setIsModalOpen(false)}>Close</button>
-
+      
+      <div className="flex justify-start">
+              <Button type={ButtonType.SECONDARY} onClick={() => setIsModalOpen(false)}>Close</Button>
+              </div>
               <ThemeEditor customThemes={customThemes}/>
 
           </div>

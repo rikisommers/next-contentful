@@ -77,7 +77,7 @@ function Water() {
     <mesh rotation-x={-Math.PI / 2} 
           rotation-y={0} 
           rotation-z={0}>
-      <planeGeometry args={[4, 3, 100, 100]} />
+      <planeGeometry args={[5, 3, 100, 100]} />
       <waterMaterial ref={waterMaterial} side={THREE.DoubleSide} />
     </mesh>
   );

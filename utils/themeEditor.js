@@ -21,6 +21,7 @@ import SelectInput from "../components/base/form/SelectInput";
 import CheckboxInput from "../components/base/form/CheckboxInput";
 import ColorInput from "../components/base/form/ColorInput";
 import SliderInput from "../components/base/form/SliderInput";
+import RotaryInput from "../components/base/form/RotaryInput";
 import PositionInput from "../components/base/form/PositionInput";
 import BlockTags from '../components/blocks/block-tags';
 
@@ -68,6 +69,7 @@ export default function ThemeEditor({ customThemes }) {
   const presetThemes = themes;
   const showToast = useToast();
 
+  const [value, setValue] = useState(0);
   
   const handleCloseSaveModal = () => {
     setIsSaveModalOpen(false);
@@ -351,6 +353,7 @@ export default function ThemeEditor({ customThemes }) {
       case "slider":
        // console.log("Slider config", key, config, value);
         return (
+          <>
           <SliderInput
             key={key}
             label={config.label}
@@ -359,7 +362,11 @@ export default function ThemeEditor({ customThemes }) {
             max={config.max}
             step={config.step}
             onChange={val => updateThemeProp(key, val)}
+            className="my-slider"
+
           />
+      
+          </>
         );
       default:
         return null;
@@ -370,8 +377,10 @@ export default function ThemeEditor({ customThemes }) {
   const renderSection = (sectionName, sectionConfig) => {
     if (!sectionConfig) return null; // Guard for undefined/null
     return (
-      <fieldset key={sectionName} style={{ marginBottom: 24, border: '1px solid #eee', padding: 12 }}>
-        <legend style={{ fontWeight: 'bold', marginBottom: 8 }}>{sectionName}</legend>
+      <fieldset key={sectionName}
+        className="flex flex-col gap-2 rounded-lg bg-[var(--surface2)] mb-4 p-2 w-full"
+   >
+        <legend className="mb-2 uppercase text-xs text-[var(--text-accent)]">{sectionName}</legend>
         <div className="flex flex-col gap-2">
           {Object.entries(sectionConfig).map(([key, config]) => {
             if (config.isFolder) {
@@ -416,6 +425,7 @@ export default function ThemeEditor({ customThemes }) {
         position={ModalPosition.CENTER}
         bodyClass="custom-modal-body" // Example of using the bodyClass prop
       >
+
         <h3 className="text-md">Save theme</h3>
 
         <form onSubmit={handleSave} className="flex flex-col gap-3">
@@ -441,6 +451,7 @@ export default function ThemeEditor({ customThemes }) {
         position={ModalPosition.CENTER}
         bodyClass="custom-modal-body" // Example of using the bodyClass prop
       >
+  
         <h3 className="text-md">Delete theme</h3>
 
         <form onSubmit={handleDelete} className="flex flex-col gap-3">
@@ -453,18 +464,32 @@ export default function ThemeEditor({ customThemes }) {
         </form>
       </Modal>
 
+
+
+
+      <RotaryInput
+  label="Rotate"
+  value={value}
+  onChange={setValue}
+  sensitivity={0.5} // Adjust for faster/slower rotation
+/>
+
+
       {/* Theme Selection Controls */}
-      <div className="flex gap-4 items-center mb-6">
-        <label className="font-semibold">Theme:</label>
+      <div className="grid grid-cols-2 gap-4 items-center mb-6">
+        <span className="text-xs">Preset</span>
+        <span className="text-xs">Custom</span>
+      </div>
+      <div className="grid grid-cols-2 gap-4 items-center mb-6">
         <SelectInput
-          label="Preset Theme"
+          
           value={currentTheme.data.key}
           options={Object.keys(presetThemes).map(key => ({ value: key, label: key }))}
           onChange={val => handleThemeChange(val, presetThemes)}
         />
         {customThemes && customThemes.length > 0 && (
           <SelectInput
-            label="Custom Theme"
+            
             value={currentTheme.data.key}
             options={customThemes.map(theme => ({ value: theme.data.key, label: theme.data.key }))}
             onChange={val => handleThemeChange(val, customThemes)}

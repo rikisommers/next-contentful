@@ -113,7 +113,7 @@ const CursorGabriel = () => {
         <path 
           d={pathData}
           fill="none" 
-          stroke={currentTheme.data.accentPri} 
+          stroke={currentTheme.data.textAccent} 
           strokeWidth="2" 
           strokeLinecap="round" 
           strokeLinejoin="round"
@@ -124,7 +124,7 @@ const CursorGabriel = () => {
         ref={trailRef}
         className="fixed pointer-events-none z-[9998] w-8 h-8 rounded-full"
         style={{
-          backgroundColor: currentTheme.data.accentPri,
+          backgroundColor: currentTheme.data.textAccent,
           left: mousePosition.x - 16,
           top: mousePosition.y - 16,
         }}
@@ -141,8 +141,8 @@ const CursorGabriel = () => {
       <motion.div
         ref={cursorRef}
         className="fixed pointer-events-none z-[9999] w-3 h-3 rounded-full"
-        style={{
-          backgroundColor: currentTheme.data.backgroundColor,
+        style={{    
+          backgroundColor: currentTheme.data.textAccent,
           left: mousePosition.x - 6,
           top: mousePosition.y - 6,
           mixBlendMode: "difference",

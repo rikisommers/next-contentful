@@ -2,7 +2,7 @@ import React from "react";
 
 export default function TextInput({ label, value, onChange, ...props }) {
   return (
-    <div className="flex items-center justify-between gap-2">
+    <div className="flex gap-2 justify-between items-center">
     <label>
       {label && <span className="flex-grow text-xs">{label}</span>}
       <input

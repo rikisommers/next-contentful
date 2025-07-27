@@ -53,8 +53,22 @@ export const HighlightedSegment = ({ segment, highlight }) => {
       <span 
         className="inline-flex px-4 py-0 rounded-xl"
         style={style}
-        dangerouslySetInnerHTML={{ __html: processedSegment }}
-      />
+      >
+        {segment.split(/(\*[^*]+\*)/g).map((part, partIndex) => {
+          if (part.startsWith('*') && part.endsWith('*')) {
+            // Remove asterisks and render as italic
+            const italicText = part.substring(1, part.length - 1);
+            return (
+              <span key={`italic-${partIndex}`} className="italic">
+                {italicText}
+              </span>
+            );
+          } else {
+            // Render as normal text
+            return part;
+          }
+        })}
+      </span>
     ) : (
       <span 
         className="inline-flex relative py-0"

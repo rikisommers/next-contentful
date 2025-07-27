@@ -1,4 +1,5 @@
 import React from "react";
+import './position-input.module.css';
 
 const defaultOptions = [
   '0-0', '0-1', '0-2',
@@ -34,7 +35,7 @@ export default function PositionInput({ label, value, onChange, options = defaul
   return (
     <div className="flex gap-2 justify-between items-start">
       {label && <div style={{ marginBottom: 4, fontSize: 12 }}>{label}</div>}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 16px)', gap: 4 }}>
+      <div className="position-input" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 16px)', gap: 4 }}>
         {gridOptions.map((opt, idx) => (
           <button
             key={opt}
