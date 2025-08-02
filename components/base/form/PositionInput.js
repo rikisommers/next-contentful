@@ -1,5 +1,6 @@
-import React from "react";
-import './position-input.module.css';
+import React from "react";  
+import { motion } from "../../../utils/motion";
+import './position-input.css';
 
 const defaultOptions = [
   '0-0', '0-1', '0-2',
@@ -7,7 +8,9 @@ const defaultOptions = [
   '2-0', '2-1', '2-2'
 ];
 
-export default function PositionInput({ label, value, onChange, options = defaultOptions }) {
+export default function PositionInput({ label, value, onChange, options = defaultOptions, id }) {
+  // Generate unique ID if not provided
+  const layoutId = id ? `positionIndicator-${id}` : `positionIndicator-${Math.random().toString(36).substr(2, 9)}`;
   // Convert options object to array of matrix coordinates if needed
   let gridOptions = defaultOptions;
   if (options && typeof options === 'object' && !Array.isArray(options)) {
@@ -33,29 +36,36 @@ export default function PositionInput({ label, value, onChange, options = defaul
   }
 
   return (
-    <div className="flex gap-2 justify-between items-start">
+    <div className="flex flex-col gap-2 justify-between items-start">
       {label && <div style={{ marginBottom: 4, fontSize: 12 }}>{label}</div>}
-      <div className="position-input" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 16px)', gap: 4 }}>
+      <div className="grid grid-cols-3 gap-[1px] rounded-sm overflow-hidden" 
+      
+      >
         {gridOptions.map((opt, idx) => (
           <button
             key={opt}
             type="button"
             onClick={() => onChange(opt)}
+            className="relative flex justify-center items-center w-[24px] h-[24px] bg-[var(--surface3)] cursor-pointer"
             style={{
-              width: 16,
-              height: 16,
-              border: selectedOption === opt ? '2px solid #0070f3' : '1px solid #ccc',
-              background: selectedOption === opt ? '#e0f0ff' : '#fff',
-              borderRadius: 4,
-              cursor: 'pointer',
-              fontSize: 10,
-              fontWeight: selectedOption === opt ? 'bold' : 'normal',
-              outline: 'none',
-              transition: 'border 0.2s, background 0.2s',
+     
+             
             }}
             aria-label={opt}
           >
-            {selectedOption === opt ? '●' : ''}
+            
+            {selectedOption === opt && (
+              <motion.div
+                layoutId={layoutId}
+                className="absolute inset-0 bg-gray-200 rounded-sm dark:bg-gray-700"
+                transition={{ 
+                  type: "spring",
+                  stiffness: 100,
+                  damping: 15
+                }}
+              />
+            )}
+            <span className="relative z-10">{selectedOption === opt ? '' : ''}</span>
           </button>
         ))}
       </div>

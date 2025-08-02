@@ -4,7 +4,7 @@ import React from "react";
 import { motion } from "../../../utils/motion";
 import PropTypes from "prop-types";
 import { useAudioControls, playAudio } from "../../navigation/audio-utils";
-import { ButtonType, ButtonSound } from "./button.util";
+import { ButtonType, ButtonSound, ButtonSize } from "./button.util";
 import { useThemeContext } from "../../context/themeContext";
 import { sounds } from "../../../utils/theme";
 
@@ -18,6 +18,7 @@ import { sounds } from "../../../utils/theme";
  * @param {ButtonType} props.type - Button style type (DEFAULT, PRIMARY, SECONDARY, TRANSPARENT)
  * @param {ButtonSound} props.sound - Sound effect type (CLICK, ON, OFF)
  * @param {React.ReactNode} props.children - Child elements
+ * @param {ButtonSize} props.size - Button size (SM, MD, LG)
  * @example
  * // Default button with click sound
  * <Button 
@@ -55,16 +56,15 @@ import { sounds } from "../../../utils/theme";
  *   <span>🚀 Launch App</span>
  * </Button>
  */
-const Button = ({ label, onClick, type = ButtonType.DEFAULT, children  }) => {
+const Button = ({ label, onClick, type = ButtonType.DEFAULT, children, size = ButtonSize.MD }) => {
 
   const { currentTheme } = useThemeContext();
-  console.log('currentTheme.data:', currentTheme.data);
-  const sound = currentTheme.data.audioPrimaryButton || 'click'; // fallback to 'click'
+  const sound = currentTheme?.data?.audioPrimaryButton || 'click';
 
   const { audioRefs } = useAudioControls();
 
   // Determine button style based on type
-  const getButtonStyle = (type) => {
+  const getButtonTheme = (type) => {
     switch (type) {
       case ButtonType.DEFAULT:
         return {
@@ -94,15 +94,24 @@ const Button = ({ label, onClick, type = ButtonType.DEFAULT, children  }) => {
     }
   };
 
+  const getButtonClasses = (size) => {
+    const baseClasses = 'flex relative items-center rounded-lg cursor-pointer uppercase';
+    const sizeClasses = {
+      [ButtonSize.SM]: 'text-xs px-2 py-1',
+      [ButtonSize.MD]: 'text-sm px-3 py-2',
+      [ButtonSize.LG]: 'text-base px-4 py-3'
+    };
+    return `${baseClasses} ${sizeClasses[size] || sizeClasses[ButtonSize.MD]}`;
+  };
   const getSound = (soundName) => {
     // Use the public playAudio function directly
-    console.log('playing sound', soundName);
-    console.log('theme sound', currentTheme.data.audioPrimaryButton);
-
     const audioRef = audioRefs[soundName];
     if (audioRef) {
-      console.log('playing sound', soundName);
-      playAudio(audioRef, currentTheme.data.audioVolume, currentTheme.data.audioEnabled);
+      playAudio(
+        audioRef, 
+        currentTheme?.data?.audioVolume || 1, 
+        currentTheme?.data?.audioEnabled ?? true
+      );
     }
   };
   
@@ -116,8 +125,8 @@ const Button = ({ label, onClick, type = ButtonType.DEFAULT, children  }) => {
   return (
     <motion.div
       onClick={handleClick}
-      className="flex relative items-center px-3 py-3 text-xs uppercase rounded-lg cursor-pointer"
-      style={getButtonStyle(type)}
+      className={getButtonClasses(size)}
+      style={getButtonTheme(type)}
     >
       {label}
       {children}
@@ -130,8 +139,9 @@ Button.propTypes = {
   label: PropTypes.string,
   onClick: PropTypes.func,
   type: PropTypes.oneOf(Object.values(ButtonType)),
-  sound: PropTypes.oneOf(Object.values(ButtonSound))
+  sound: PropTypes.oneOf(Object.values(ButtonSound)),
+  size: PropTypes.oneOf(Object.values(ButtonSize)),
 };
 
 export default Button;
-export { ButtonType, ButtonSound };
+export { ButtonType, ButtonSound, ButtonSize };

@@ -27,7 +27,7 @@ export default function ThemeTrigger({ toggleThemeEditor }) {
   };
 
   return (
-    <div className="goo group">
+    <div className="col-span-1 col-start-5 row-start-1 justify-self-end pointer-events-auto goo group">
       <div className="flex relative gap-2 items-center">
         <div
           className="flex gap-2 items-center p-2 bg-gray-600 rounded-xl transition-all cursor-pointer duration-600"

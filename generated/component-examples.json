@@ -1,13 +1,254 @@
 {
-  "generatedAt": "2025-06-20T23:08:04.828Z",
-  "totalComponents": 22,
+  "generatedAt": "2025-08-02T10:23:26.191Z",
+  "totalComponents": 34,
   "categories": [
-    "buttons",
     "grid",
+    "hoc/audio",
+    "buttons",
+    "blocks",
+    "cursor",
     "animations",
     "tiles"
   ],
   "components": [
+    {
+      "name": "GridBasic",
+      "isDefaultExport": true,
+      "filePath": "articleList/grid-basic.js",
+      "importPath": "../../../articleList/grid-basic",
+      "category": "grid",
+      "description": "",
+      "parameters": [
+        {
+          "type": "Object",
+          "name": "props",
+          "description": "Component props"
+        },
+        {
+          "type": "Array",
+          "name": "props.data",
+          "description": "Array of items to display in the grid"
+        },
+        {
+          "type": "string",
+          "name": "props.className",
+          "description": "Additional CSS classes"
+        },
+        {
+          "type": "Object",
+          "name": "props.style",
+          "description": "Inline styles"
+        }
+      ],
+      "examples": [
+        {
+          "title": "",
+          "code": "<GridBasic\ndata={[\n{\ntitle: \"Interactive Web App\",\nsubtitle: \"Modern React application with seamless user experience\",\nslug: \"interactive-web-app\",\ncolor: \"#6366f1\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Interactive web application\"\n}\n},\n{\ntitle: \"E-commerce Platform\",\nsubtitle: \"Full-stack shopping experience with modern design\",\nslug: \"ecommerce-platform\",\ncolor: \"#f59e0b\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"E-commerce platform\"\n}\n},\n{\ntitle: \"Brand Identity System\",\nsubtitle: \"Complete visual identity and brand guidelines\",\nslug: \"brand-identity-system\",\ncolor: \"#ec4899\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Brand identity system\"\n}\n},\n{\ntitle: \"Mobile App Design\",\nsubtitle: \"Native iOS and Android application interface\",\nslug: \"mobile-app-design\",\ncolor: \"#10b981\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Mobile app design\"\n}\n},\n{\ntitle: \"Dashboard Analytics\",\nsubtitle: \"Data visualization and business intelligence tool\",\nslug: \"dashboard-analytics\",\ncolor: \"#8b5cf6\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Dashboard analytics\"\n}\n}\n]}\n/>\n/",
+          "id": "GridBasic_0",
+          "parsedProps": {}
+        }
+      ]
+    },
+    {
+      "name": "GridBento",
+      "isDefaultExport": true,
+      "filePath": "articleList/grid-bento.js",
+      "importPath": "../../../articleList/grid-bento",
+      "category": "grid",
+      "description": "",
+      "parameters": [
+        {
+          "type": "Object",
+          "name": "props",
+          "description": "Component props"
+        },
+        {
+          "type": "Array",
+          "name": "props.data",
+          "description": "Array of items to display in the bento grid"
+        },
+        {
+          "type": "string",
+          "name": "props.className",
+          "description": "Additional CSS classes"
+        },
+        {
+          "type": "Object",
+          "name": "props.style",
+          "description": "Inline styles"
+        }
+      ],
+      "examples": [
+        {
+          "title": "",
+          "code": "<GridBento\ndata={[\n{\ntitle: \"Creative Portfolio\",\nsubtitle: \"Showcase of artistic and creative projects\",\nslug: \"creative-portfolio\",\ncolor: \"#f97316\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Creative portfolio\"\n}\n},\n{\ntitle: \"Tech Startup Landing\",\nsubtitle: \"Modern landing page for technology company\",\nslug: \"tech-startup-landing\",\ncolor: \"#3b82f6\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Tech startup landing\"\n}\n},\n{\ntitle: \"Restaurant Website\",\nsubtitle: \"Elegant dining experience with online reservations\",\nslug: \"restaurant-website\",\ncolor: \"#dc2626\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Restaurant website\"\n}\n},\n{\ntitle: \"Fitness App Interface\",\nsubtitle: \"Health tracking and workout planning application\",\nslug: \"fitness-app-interface\",\ncolor: \"#059669\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Fitness app interface\"\n}\n},\n{\ntitle: \"Financial Dashboard\",\nsubtitle: \"Investment tracking and portfolio management\",\nslug: \"financial-dashboard\",\ncolor: \"#7c3aed\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Financial dashboard\"\n}\n}\n]}\n/>\n/",
+          "id": "GridBento_0",
+          "parsedProps": {}
+        }
+      ]
+    },
+    {
+      "name": "GridThings",
+      "isDefaultExport": true,
+      "filePath": "articleList/grid-things.js",
+      "importPath": "../../../articleList/grid-things",
+      "category": "grid",
+      "description": "",
+      "parameters": [
+        {
+          "type": "Object",
+          "name": "props",
+          "description": "Component props"
+        },
+        {
+          "type": "Array",
+          "name": "props.items",
+          "description": "Array of items to display in the gallery"
+        },
+        {
+          "type": "string",
+          "name": "props.className",
+          "description": "Additional CSS classes"
+        },
+        {
+          "type": "Object",
+          "name": "props.style",
+          "description": "Inline styles"
+        }
+      ],
+      "examples": [
+        {
+          "title": "",
+          "code": "<GridThings\nitems={[\n{\ntitle: \"Digital Art Gallery\",\nsubtitle: \"Contemporary digital artwork and installations\",\nslug: \"digital-art-gallery\",\ncolor: \"#7c2d12\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Digital art gallery\"\n}\n},\n{\ntitle: \"Product Design System\",\nsubtitle: \"Comprehensive design tokens and components\",\nslug: \"product-design-system\",\ncolor: \"#1e40af\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Product design system\"\n}\n},\n{\ntitle: \"Gaming Platform UI\",\nsubtitle: \"Interactive gaming interface and user experience\",\nslug: \"gaming-platform-ui\",\ncolor: \"#991b1b\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Gaming platform UI\"\n}\n},\n{\ntitle: \"SaaS Dashboard Design\",\nsubtitle: \"Enterprise software interface and workflow\",\nslug: \"saas-dashboard-design\",\ncolor: \"#065f46\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"SaaS dashboard design\"\n}\n},\n{\ntitle: \"Non-Profit Campaign\",\nsubtitle: \"Social impact website and donation platform\",\nslug: \"non-profit-campaign\",\ncolor: \"#7e22ce\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Non-profit campaign\"\n}\n}\n]}\n/>\n/",
+          "id": "GridThings_0",
+          "parsedProps": {
+            "gridType": "things"
+          }
+        }
+      ]
+    },
+    {
+      "name": "ListTextHover",
+      "isDefaultExport": true,
+      "filePath": "articleList/list-text-hover.js",
+      "importPath": "../../../articleList/list-text-hover",
+      "category": "grid",
+      "description": "",
+      "parameters": [
+        {
+          "type": "Object",
+          "name": "props",
+          "description": "Component props"
+        },
+        {
+          "type": "Array",
+          "name": "props.data",
+          "description": "Array of items to display in the list"
+        },
+        {
+          "type": "string",
+          "name": "props.className",
+          "description": "Additional CSS classes"
+        },
+        {
+          "type": "Object",
+          "name": "props.style",
+          "description": "Inline styles"
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "ListTextImage",
+      "isDefaultExport": true,
+      "filePath": "articleList/list-text-image.js",
+      "importPath": "../../../articleList/list-text-image",
+      "category": "grid",
+      "description": "",
+      "parameters": [
+        {
+          "type": "Object",
+          "name": "props",
+          "description": "Component props"
+        },
+        {
+          "type": "Array",
+          "name": "props.data",
+          "description": "Array of items to display in the list"
+        },
+        {
+          "type": "string",
+          "name": "props.className",
+          "description": "Additional CSS classes"
+        },
+        {
+          "type": "Object",
+          "name": "props.style",
+          "description": "Inline styles"
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "ListText",
+      "isDefaultExport": true,
+      "filePath": "articleList/list-text.js",
+      "importPath": "../../../articleList/list-text",
+      "category": "grid",
+      "description": "",
+      "parameters": [
+        {
+          "type": "Object",
+          "name": "props",
+          "description": "Component props"
+        },
+        {
+          "type": "Array",
+          "name": "props.data",
+          "description": "Array of items to display in the list"
+        },
+        {
+          "type": "string",
+          "name": "props.className",
+          "description": "Additional CSS classes"
+        },
+        {
+          "type": "Object",
+          "name": "props.style",
+          "description": "Inline styles"
+        }
+      ],
+      "examples": []
+    },
+    {
+      "name": "PostTile",
+      "isDefaultExport": false,
+      "filePath": "audio/audio-trigger.js",
+      "importPath": "../../../audio/audio-trigger",
+      "category": "hoc/audio",
+      "description": "",
+      "parameters": [
+        {
+          "type": "React.Component",
+          "name": "Component",
+          "description": "The component to wrap with audio functionality"
+        }
+      ],
+      "examples": [
+        {
+          "title": "Wrap your component",
+          "code": "const AudioPostTile = withDeclarativeAudio(PostTile);\n// Use with data attributes as props\n<AudioPostTile\npost={post}\ndata-audio-click=\"beepOn\"\ndata-audio-hover=\"plink\"\n/>",
+          "id": "PostTile_0",
+          "parsedProps": {}
+        },
+        {
+          "title": "Create an audio-enabled grid component",
+          "code": "const AudioGridTile = withDeclarativeAudio(({ post, children, ...props }) => (\n<Link href={`/posts/${post.slug}`} {...props}>\n{children}\n</Link>\n));\n// Usage in grid\nconst GridBento = ({ items }) => (\n<div className=\"grid\">\n{items.map((item, index) => (\n<AudioGridTile\nkey={index}\npost={item}\ndata-audio-click=\"beepOn\"\ndata-audio-hover=\"plink\"\n>\n<PostContent post={item} />\n</AudioGridTile>\n))}\n</div>\n);\n/",
+          "id": "PostTile_1",
+          "parsedProps": {}
+        }
+      ]
+    },
     {
       "name": "ButtonMonks",
       "isDefaultExport": true,
@@ -311,6 +552,11 @@
           "type": "React.ReactNode",
           "name": "props.children",
           "description": "Child elements"
+        },
+        {
+          "type": "ButtonSize",
+          "name": "props.size",
+          "description": "Button size (SM, MD, LG)"
         }
       ],
       "examples": [
@@ -367,50 +613,60 @@
       ]
     },
     {
-      "name": "GridBasic",
+      "name": "BlockCode",
       "isDefaultExport": true,
-      "filePath": "grid/grid-basic.js",
-      "importPath": "../../../grid/grid-basic",
-      "category": "grid",
+      "filePath": "blocks/block-code.js",
+      "importPath": "../../../blocks/block-code",
+      "category": "blocks",
       "description": "",
       "parameters": [
         {
           "type": "Object",
-          "name": "props",
-          "description": "Component props"
-        },
-        {
-          "type": "Array",
-          "name": "props.data",
-          "description": "Array of items to display in the grid"
+          "name": "data",
+          "description": "Code block data"
         },
         {
           "type": "string",
-          "name": "props.className",
-          "description": "Additional CSS classes"
+          "name": "data.code",
+          "description": "The code content to display"
         },
         {
-          "type": "Object",
-          "name": "props.style",
-          "description": "Inline styles"
+          "type": "string",
+          "name": "data.title",
+          "description": "Optional title for the code block"
+        },
+        {
+          "type": "string",
+          "name": "data.type",
+          "description": "Programming language for syntax highlighting (default: \"javascript\")"
+        },
+        {
+          "type": "string",
+          "name": "data.embedurl",
+          "description": "Optional embed URL for iframe"
+        },
+        {
+          "type": "number",
+          "name": "maxHeight",
+          "description": "Maximum height in pixels before showing expand button (default: 400)"
         }
       ],
       "examples": [
         {
           "title": "",
-          "code": "<GridBasic\ndata={[\n{\ntitle: \"Interactive Web App\",\nsubtitle: \"Modern React application with seamless user experience\",\nslug: \"interactive-web-app\",\ncolor: \"#6366f1\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Interactive web application\"\n}\n},\n{\ntitle: \"E-commerce Platform\",\nsubtitle: \"Full-stack shopping experience with modern design\",\nslug: \"ecommerce-platform\",\ncolor: \"#f59e0b\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"E-commerce platform\"\n}\n},\n{\ntitle: \"Brand Identity System\",\nsubtitle: \"Complete visual identity and brand guidelines\",\nslug: \"brand-identity-system\",\ncolor: \"#ec4899\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Brand identity system\"\n}\n},\n{\ntitle: \"Mobile App Design\",\nsubtitle: \"Native iOS and Android application interface\",\nslug: \"mobile-app-design\",\ncolor: \"#10b981\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Mobile app design\"\n}\n},\n{\ntitle: \"Dashboard Analytics\",\nsubtitle: \"Data visualization and business intelligence tool\",\nslug: \"dashboard-analytics\",\ncolor: \"#8b5cf6\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Dashboard analytics\"\n}\n}\n]}\n/>\n/",
-          "id": "GridBasic_0",
+          "code": "<BlockCode\ndata={{\ncode: \"console.log('Hello World');\",\ntitle: \"Basic JavaScript\",\ntype: \"javascript\"\n}}\nmaxHeight={300}\n/>\n/",
+          "id": "BlockCode_0",
           "parsedProps": {}
         }
       ]
     },
     {
-      "name": "GridBento",
+      "name": "CursorCta",
       "isDefaultExport": true,
-      "filePath": "grid/grid-bento.js",
-      "importPath": "../../../grid/grid-bento",
-      "category": "grid",
-      "description": "",
+      "filePath": "cursor/cursor-cta.js",
+      "importPath": "../../../cursor/cursor-cta",
+      "category": "cursor",
+      "description": "Call-to-action cursor component with rotation and visibility effects",
       "parameters": [
         {
           "type": "Object",
@@ -418,105 +674,92 @@
           "description": "Component props"
         },
         {
-          "type": "Array",
-          "name": "props.data",
-          "description": "Array of items to display in the bento grid"
-        },
-        {
           "type": "string",
-          "name": "props.className",
-          "description": "Additional CSS classes"
-        },
-        {
-          "type": "Object",
-          "name": "props.style",
-          "description": "Inline styles"
+          "name": "props.content",
+          "description": "Text content to display in the cursor"
         }
       ],
       "examples": [
         {
-          "title": "",
-          "code": "<GridBento\ndata={[\n{\ntitle: \"Creative Portfolio\",\nsubtitle: \"Showcase of artistic and creative projects\",\nslug: \"creative-portfolio\",\ncolor: \"#f97316\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Creative portfolio\"\n}\n},\n{\ntitle: \"Tech Startup Landing\",\nsubtitle: \"Modern landing page for technology company\",\nslug: \"tech-startup-landing\",\ncolor: \"#3b82f6\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Tech startup landing\"\n}\n},\n{\ntitle: \"Restaurant Website\",\nsubtitle: \"Elegant dining experience with online reservations\",\nslug: \"restaurant-website\",\ncolor: \"#dc2626\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Restaurant website\"\n}\n},\n{\ntitle: \"Fitness App Interface\",\nsubtitle: \"Health tracking and workout planning application\",\nslug: \"fitness-app-interface\",\ncolor: \"#059669\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Fitness app interface\"\n}\n},\n{\ntitle: \"Financial Dashboard\",\nsubtitle: \"Investment tracking and portfolio management\",\nslug: \"financial-dashboard\",\ncolor: \"#7c3aed\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Financial dashboard\"\n}\n}\n]}\n/>\n/",
-          "id": "GridBento_0",
+          "title": "Basic CTA cursor with custom text",
+          "code": "<CursorCta content=\"Click me\" />",
+          "id": "CursorCta_0",
+          "parsedProps": {}
+        },
+        {
+          "title": "Used in layout with theme context",
+          "code": "{currentTheme.data.cursor === \"cta\" && <CursorCta content=\"Hello\" />}\n/",
+          "id": "CursorCta_1",
           "parsedProps": {}
         }
       ]
     },
     {
-      "name": "GridList",
+      "name": "CursorDot",
       "isDefaultExport": true,
-      "filePath": "grid/grid-list.js",
-      "importPath": "../../../grid/grid-list",
-      "category": "grid",
-      "description": "",
-      "parameters": [
-        {
-          "type": "Object",
-          "name": "props",
-          "description": "Component props"
-        },
-        {
-          "type": "Array",
-          "name": "props.data",
-          "description": "Array of items to display in the list"
-        },
-        {
-          "type": "string",
-          "name": "props.className",
-          "description": "Additional CSS classes"
-        },
-        {
-          "type": "Object",
-          "name": "props.style",
-          "description": "Inline styles"
-        }
-      ],
+      "filePath": "cursor/cursor-dot.js",
+      "importPath": "../../../cursor/cursor-dot",
+      "category": "cursor",
+      "description": "Animated cursor dot component with smooth spring physics",
+      "parameters": [],
       "examples": [
         {
-          "title": "",
-          "code": "<GridList\ndata={[\n{\ntitle: \"Photography Portfolio\",\nsubtitle: \"Professional photography showcase and gallery\",\nslug: \"photography-portfolio\",\ncolor: \"#6b7280\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Photography portfolio\"\n}\n},\n{\ntitle: \"Architecture Studio\",\nsubtitle: \"Modern architectural designs and concepts\",\nslug: \"architecture-studio\",\ncolor: \"#0f172a\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Architecture studio\"\n}\n},\n{\ntitle: \"Fashion Brand Website\",\nsubtitle: \"Luxury fashion e-commerce and brand experience\",\nslug: \"fashion-brand-website\",\ncolor: \"#be185d\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Fashion brand website\"\n}\n},\n{\ntitle: \"Music Streaming App\",\nsubtitle: \"Audio streaming platform with social features\",\nslug: \"music-streaming-app\",\ncolor: \"#1d4ed8\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Music streaming app\"\n}\n},\n{\ntitle: \"Travel Blog Platform\",\nsubtitle: \"Adventure stories and destination guides\",\nslug: \"travel-blog-platform\",\ncolor: \"#059669\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Travel blog platform\"\n}\n}\n]}\n/>\n/",
-          "id": "GridList_0",
+          "title": "Basic cursor dot",
+          "code": "<CursorDot />",
+          "id": "CursorDot_0",
+          "parsedProps": {}
+        },
+        {
+          "title": "Used in layout with theme context",
+          "code": "{currentTheme.data.cursor === \"dot\" && <CursorDot />}\n/",
+          "id": "CursorDot_1",
           "parsedProps": {}
         }
       ]
     },
     {
-      "name": "GridThings",
+      "name": "CursorGabriel",
       "isDefaultExport": true,
-      "filePath": "grid/grid-things.js",
-      "importPath": "../../../grid/grid-things",
-      "category": "grid",
-      "description": "",
-      "parameters": [
-        {
-          "type": "Object",
-          "name": "props",
-          "description": "Component props"
-        },
-        {
-          "type": "Array",
-          "name": "props.items",
-          "description": "Array of items to display in the gallery"
-        },
-        {
-          "type": "string",
-          "name": "props.className",
-          "description": "Additional CSS classes"
-        },
-        {
-          "type": "Object",
-          "name": "props.style",
-          "description": "Inline styles"
-        }
-      ],
+      "filePath": "cursor/cursor-gabriel.js",
+      "importPath": "../../../cursor/cursor-gabriel",
+      "category": "cursor",
+      "description": "Advanced cursor component with SVG motion trail inspired by gabrielveres.com",
+      "parameters": [],
       "examples": [
         {
-          "title": "",
-          "code": "<GridThings\nitems={[\n{\ntitle: \"Digital Art Gallery\",\nsubtitle: \"Contemporary digital artwork and installations\",\nslug: \"digital-art-gallery\",\ncolor: \"#7c2d12\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Digital art gallery\"\n}\n},\n{\ntitle: \"Product Design System\",\nsubtitle: \"Comprehensive design tokens and components\",\nslug: \"product-design-system\",\ncolor: \"#1e40af\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Product design system\"\n}\n},\n{\ntitle: \"Gaming Platform UI\",\nsubtitle: \"Interactive gaming interface and user experience\",\nslug: \"gaming-platform-ui\",\ncolor: \"#991b1b\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Gaming platform UI\"\n}\n},\n{\ntitle: \"SaaS Dashboard Design\",\nsubtitle: \"Enterprise software interface and workflow\",\nslug: \"saas-dashboard-design\",\ncolor: \"#065f46\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"SaaS dashboard design\"\n}\n},\n{\ntitle: \"Non-Profit Campaign\",\nsubtitle: \"Social impact website and donation platform\",\nslug: \"non-profit-campaign\",\ncolor: \"#7e22ce\",\nimg: {\nurl: \"https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75\",\nwidth: 800,\nheight: 600,\ndescription: \"Non-profit campaign\"\n}\n}\n]}\n/>\n/",
-          "id": "GridThings_0",
-          "parsedProps": {
-            "gridType": "things"
-          }
+          "title": "Basic Gabriel-style cursor",
+          "code": "<CursorGabriel />",
+          "id": "CursorGabriel_0",
+          "parsedProps": {}
+        },
+        {
+          "title": "Used in layout with theme-based cursor selection",
+          "code": "{currentTheme.data.cursor === \"gabriel\" && <CursorGabriel />}\n/",
+          "id": "CursorGabriel_1",
+          "parsedProps": {}
+        }
+      ]
+    },
+    {
+      "name": "CursorImage",
+      "isDefaultExport": true,
+      "filePath": "cursor/cursor-image.js",
+      "importPath": "../../../cursor/cursor-image",
+      "category": "cursor",
+      "description": "Large animated cursor image component with fade transitions",
+      "parameters": [],
+      "examples": [
+        {
+          "title": "Basic cursor image",
+          "code": "<CursorImage />",
+          "id": "CursorImage_0",
+          "parsedProps": {}
+        },
+        {
+          "title": "Conditional rendering based on hover state",
+          "code": "{showCursor && <CursorImage />}\n/",
+          "id": "CursorImage_1",
+          "parsedProps": {}
         }
       ]
     },
@@ -889,15 +1132,15 @@
           "description": "The image object for the post."
         },
         {
-          "type": "number",
-          "name": "index",
-          "description": "The index of the post, used for animation delay."
+          "type": "string",
+          "name": "[aspect]",
+          "description": "The aspect ratio of the tile (e.g., 'square', '16/9')."
         }
       ],
       "examples": [
         {
           "title": "Case Study Post Tile",
-          "code": "<PostTileCs\npost={{\ntitle: \"Project Title\",\nsubtitle: \"A brief description of the project\",\nslug: \"project-slug\",\nclient: \"Client Name\",\ndate: \"January 2023\",\ntags: [\"Web Design\", \"Development\"],\nimg: {\nurl: \"https://example.com/image.jpg\",\nwidth: 800,\nheight: 600,\ndescription: \"Project cover image\"\n}\n}}\nindex={0}\n/>\n/",
+          "code": "<PostTileCs\npost={{\ntitle: \"Project Title\",\nsubtitle: \"A brief description of the project\",\nslug: \"project-slug\",\nclient: \"Client Name\",\ndate: \"January 2023\",\ntags: [\"Web Design\", \"Development\"],\nimg: {\nurl: \"https://example.com/image.jpg\",\nwidth: 800,\nheight: 600,\ndescription: \"Project cover image\"\n}\n}}\naspect=\"4:3\"\n/>\n/",
           "id": "PostTileCs_0",
           "parsedProps": {}
         }
@@ -947,21 +1190,89 @@
           "description": "The image object for the post."
         },
         {
+          "type": "string",
+          "name": "[aspect]",
+          "description": "The aspect ratio of the tile (e.g., 'square', '16/9')."
+        }
+      ],
+      "examples": [
+        {
+          "title": "Large Post Tile",
+          "code": "<PostTileFunky\npost={{\ntitle: \"Project Title\",\nsubtitle: \"A brief description of the project\",\nslug: \"project-slug\",\nclient: \"Client Name\",\ntags: [\"Web Design\", \"Development\"],\nimg: {\nurl: \"https://example.com/image.jpg\",\nwidth: 800,\nheight: 600,\ndescription: \"Project cover image\"\n}\n}}\naspect=\"16:9\"\n/>\n/",
+          "id": "PostTileFunky_0",
+          "parsedProps": {}
+        }
+      ]
+    },
+    {
+      "name": "PostTileText",
+      "isDefaultExport": true,
+      "filePath": "tile/post-tile-hovertext.js",
+      "importPath": "../../../tile/post-tile-hovertext",
+      "category": "tiles",
+      "description": "",
+      "parameters": [
+        {
+          "type": "object",
+          "name": "post",
+          "description": "The post data object."
+        },
+        {
+          "type": "string",
+          "name": "post.title",
+          "description": "The title of the post."
+        },
+        {
+          "type": "string",
+          "name": "post.subtitle",
+          "description": "The subtitle of the post."
+        },
+        {
+          "type": "string",
+          "name": "post.slug",
+          "description": "The slug for the post URL."
+        },
+        {
+          "type": "string",
+          "name": "post.client",
+          "description": "The client name for the project."
+        },
+        {
+          "type": "string",
+          "name": "post.date",
+          "description": "The date of the project."
+        },
+        {
+          "type": "array",
+          "name": "post.tags",
+          "description": "An array of tags for the post."
+        },
+        {
+          "type": "object",
+          "name": "post.img",
+          "description": "The image object for the post."
+        },
+        {
           "type": "number",
           "name": "index",
           "description": "The index of the post, used for animation delay."
         },
         {
           "type": "string",
-          "name": "size",
+          "name": "[size]",
           "description": "The size of the tile."
+        },
+        {
+          "type": "string",
+          "name": "[layout]",
+          "description": "The layout style of the tile."
         }
       ],
       "examples": [
         {
-          "title": "Large Post Tile",
-          "code": "<PostTileFunky\npost={{\ntitle: \"Project Title\",\nsubtitle: \"A brief description of the project\",\nslug: \"project-slug\",\nclient: \"Client Name\",\ntags: [\"Web Design\", \"Development\"],\nimg: {\nurl: \"https://example.com/image.jpg\",\nwidth: 800,\nheight: 600,\ndescription: \"Project cover image\"\n}\n}}\nindex={0}\n/>\n/",
-          "id": "PostTileFunky_0",
+          "title": "Hovertext Post Tile",
+          "code": "<PostTileText\npost={{\ntitle: \"Project Title\",\nsubtitle: \"A brief description of the project\",\nslug: \"project-slug\",\nclient: \"Client Name\",\ndate: \"January 2023\",\ntags: [\"Web Design\", \"Development\"],\nimg: {\nurl: \"https://example.com/image.jpg\",\nwidth: 800,\nheight: 600,\ndescription: \"Project cover image\"\n}\n}}\nindex={0}\n/>\n/",
+          "id": "PostTileText_0",
           "parsedProps": {}
         }
       ]
@@ -1005,21 +1316,157 @@
           "description": "The image object for the post."
         },
         {
+          "type": "string",
+          "name": "[aspect]",
+          "description": "The aspect ratio of the tile (e.g., 'square', '16/9')."
+        }
+      ],
+      "examples": [
+        {
+          "title": "Image Post Tile",
+          "code": "<PostTileImg\npost={{\ntitle: \"Project Title\",\nsubtitle: \"A brief description of the project\",\nslug: \"project-slug\",\ncolor: \"var(--accent)\",\nimg: {\nurl: \"https://example.com/image.jpg\",\nwidth: 800,\nheight: 600,\ndescription: \"Project cover image\"\n}\n}}\naspect=\"16:9\"\n/>\n/",
+          "id": "PostTileImg_0",
+          "parsedProps": {}
+        }
+      ]
+    },
+    {
+      "name": "PostTileMonks",
+      "isDefaultExport": true,
+      "filePath": "tile/post-tile-monks.js",
+      "importPath": "../../../tile/post-tile-monks",
+      "category": "tiles",
+      "description": "",
+      "parameters": [
+        {
+          "type": "object",
+          "name": "post",
+          "description": "The post data object."
+        },
+        {
+          "type": "string",
+          "name": "post.title",
+          "description": "The title of the post."
+        },
+        {
+          "type": "string",
+          "name": "post.subtitle",
+          "description": "The subtitle of the post."
+        },
+        {
+          "type": "string",
+          "name": "post.slug",
+          "description": "The slug for the post URL."
+        },
+        {
+          "type": "string",
+          "name": "post.client",
+          "description": "The client name for the project."
+        },
+        {
+          "type": "string",
+          "name": "post.date",
+          "description": "The date of the project."
+        },
+        {
+          "type": "array",
+          "name": "post.tags",
+          "description": "An array of tags for the post."
+        },
+        {
+          "type": "object",
+          "name": "post.img",
+          "description": "The image object for the post."
+        },
+        {
+          "type": "string",
+          "name": "[aspect]",
+          "description": "The aspect ratio of the tile (e.g., 'square', '16/9')."
+        },
+        {
+          "type": "string",
+          "name": "[layout]",
+          "description": "The layout style of the tile."
+        }
+      ],
+      "examples": [
+        {
+          "title": "Monks Post Tile",
+          "code": "<PostTileMonks\npost={{\ntitle: \"Project Title\",\nsubtitle: \"A brief description of the project\",\nslug: \"project-slug\",\nclient: \"Client Name\",\ndate: \"January 2023\",\ntags: [\"Web Design\", \"Development\"],\nimg: {\nurl: \"https://example.com/image.jpg\",\nwidth: 800,\nheight: 600,\ndescription: \"Project cover image\"\n}\n}}\naspect=\"16:9\"\nlayout=\"col\"\n/>\n/",
+          "id": "PostTileMonks_0",
+          "parsedProps": {}
+        }
+      ]
+    },
+    {
+      "name": "PostTileProjects",
+      "isDefaultExport": true,
+      "filePath": "tile/post-tile-projects.js",
+      "importPath": "../../../tile/post-tile-projects",
+      "category": "tiles",
+      "description": "",
+      "parameters": [
+        {
+          "type": "object",
+          "name": "post",
+          "description": "The post data object."
+        },
+        {
+          "type": "string",
+          "name": "post.title",
+          "description": "The title of the post."
+        },
+        {
+          "type": "string",
+          "name": "post.subtitle",
+          "description": "The subtitle of the post."
+        },
+        {
+          "type": "string",
+          "name": "post.slug",
+          "description": "The slug for the post URL."
+        },
+        {
+          "type": "string",
+          "name": "post.client",
+          "description": "The client name for the project."
+        },
+        {
+          "type": "string",
+          "name": "post.date",
+          "description": "The date of the project."
+        },
+        {
+          "type": "array",
+          "name": "post.tags",
+          "description": "An array of tags for the post."
+        },
+        {
+          "type": "object",
+          "name": "post.img",
+          "description": "The image object for the post."
+        },
+        {
           "type": "number",
           "name": "index",
           "description": "The index of the post, used for animation delay."
         },
         {
           "type": "string",
-          "name": "size",
+          "name": "[size]",
           "description": "The size of the tile."
+        },
+        {
+          "type": "string",
+          "name": "[layout]",
+          "description": "The layout style of the tile."
         }
       ],
       "examples": [
         {
-          "title": "Image Post Tile",
-          "code": "<PostTileImg\npost={{\ntitle: \"Project Title\",\nsubtitle: \"A brief description of the project\",\nslug: \"project-slug\",\ncolor: \"var(--accent)\",\nimg: {\nurl: \"https://example.com/image.jpg\",\nwidth: 800,\nheight: 600,\ndescription: \"Project cover image\"\n}\n}}\nindex={0}\n/>\n/",
-          "id": "PostTileImg_0",
+          "title": "Hovertext Post Tile",
+          "code": "<PostTileText\npost={{\ntitle: \"Project Title\",\nsubtitle: \"A brief description of the project\",\nslug: \"project-slug\",\nclient: \"Client Name\",\ndate: \"January 2023\",\ntags: [\"Web Design\", \"Development\"],\nimg: {\nurl: \"https://example.com/image.jpg\",\nwidth: 800,\nheight: 600,\ndescription: \"Project cover image\"\n}\n}}\nindex={0}\n/>\n/",
+          "id": "PostTileProjects_0",
           "parsedProps": {}
         }
       ]
@@ -1093,6 +1540,79 @@
           "title": "Reone Post Tile",
           "code": "<PostTileReone\npost={{\ntitle: \"Project Title\",\nsubtitle: \"A brief description of the project\",\nslug: \"project-slug\",\nclient: \"Client Name\",\ndate: \"January 2023\",\ntags: [\"Web Design\", \"Development\"],\nimg: {\nurl: \"https://example.com/image.jpg\",\nwidth: 800,\nheight: 600,\ndescription: \"Project cover image\"\n}\n}}\nindex={0}\n/>\n/",
           "id": "PostTileReone_0",
+          "parsedProps": {}
+        }
+      ]
+    },
+    {
+      "name": "PostTileText",
+      "isDefaultExport": true,
+      "filePath": "tile/post-tile-text.js",
+      "importPath": "../../../tile/post-tile-text",
+      "category": "tiles",
+      "description": "",
+      "parameters": [
+        {
+          "type": "object",
+          "name": "post",
+          "description": "The post data object."
+        },
+        {
+          "type": "string",
+          "name": "post.title",
+          "description": "The title of the post."
+        },
+        {
+          "type": "string",
+          "name": "post.subtitle",
+          "description": "The subtitle of the post."
+        },
+        {
+          "type": "string",
+          "name": "post.slug",
+          "description": "The slug for the post URL."
+        },
+        {
+          "type": "string",
+          "name": "post.client",
+          "description": "The client name for the project."
+        },
+        {
+          "type": "string",
+          "name": "post.date",
+          "description": "The date of the project."
+        },
+        {
+          "type": "array",
+          "name": "post.tags",
+          "description": "An array of tags for the post."
+        },
+        {
+          "type": "object",
+          "name": "post.img",
+          "description": "The image object for the post."
+        },
+        {
+          "type": "number",
+          "name": "index",
+          "description": "The index of the post, used for animation delay."
+        },
+        {
+          "type": "string",
+          "name": "[size]",
+          "description": "The size of the tile."
+        },
+        {
+          "type": "string",
+          "name": "[layout]",
+          "description": "The layout style of the tile."
+        }
+      ],
+      "examples": [
+        {
+          "title": "Reone Post Tile",
+          "code": "<PostTileText\npost={{\ntitle: \"Project Title\",\nsubtitle: \"A brief description of the project\",\nslug: \"project-slug\",\nclient: \"Client Name\",\ndate: \"January 2023\",\ntags: [\"Web Design\", \"Development\"],\nimg: {\nurl: \"https://example.com/image.jpg\",\nwidth: 800,\nheight: 600,\ndescription: \"Project cover image\"\n}\n}}\nindex={0}\n/>\n/",
+          "id": "PostTileText_0",
           "parsedProps": {}
         }
       ]

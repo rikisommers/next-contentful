@@ -95,13 +95,12 @@ export const setStyleProperties = (theme) => {
     root.style.setProperty("--card-layout", theme.data.cardLayout || "default");
     root.style.setProperty("--card-aspect-ratio", theme.data.cardAspectRatio || "auto");
     root.style.setProperty("--card-hover", theme.data.cardHover || "none");
-    root.style.setProperty("--card-grid", theme.data.cardGrid || "bento1");
+    root.style.setProperty("--article-list-layout", theme.data.articleListLayout || "gridBasic");
     root.style.setProperty("--grid-columns-sm", theme.data.gridColumnsSm || 2);
     root.style.setProperty("--grid-columns-md", theme.data.gridColumnsMd || 3);
     root.style.setProperty("--grid-columns-lg", theme.data.gridColumnsLg || 4);
     root.style.setProperty("--grid-columns-xl", theme.data.gridColumnsXl || 6);
     root.style.setProperty("--grid-gap", theme.data.gridGap || "md");
-    root.style.setProperty("--grid-gallery", theme.data.gridGallery || "gallery1");
 
     // Image properties
     root.style.setProperty("--image-parallax", theme.data.imageParallax || false);

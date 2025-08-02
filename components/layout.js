@@ -16,12 +16,10 @@ const Layout = ({ children }) => {
   return (
     <TransitionPage>
         <SpeedInsights />
-
         {currentTheme.data.cursor === "dot" && <CursorDot />}
         {currentTheme.data.cursor === "gabriel" && <CursorGabriel />}
         {currentTheme.data.cursor === "cta" && <CursorCta content="Hello" />}
-
-            {children}
+        {children}
     </TransitionPage>
   );
 }

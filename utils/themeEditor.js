@@ -1,9 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { 
-  themes,
-  themeContent
-} from "./theme";
+import { themes, themeContent } from "./theme";
 import { useThemeContext } from "../components/context/themeContext";
 import ThemeModal from "../components/base/theme-modal";
 import { toCamelCase } from "../components/utils/toCamelCase";
@@ -12,7 +9,7 @@ import Modal, {
   ModalPosition,
   ModalWidth,
 } from "../components/base/modal";
-import Button, { ButtonType } from "../components/base/button/button";
+import Button, { ButtonType, ButtonSize } from "../components/base/button/button";
 import { useToast } from "../components/context/toastContext";
 import ThemeTrigger from "../components/base/theme-trigger";
 import { themeControlConfig } from "./themeControlConfig";
@@ -21,14 +18,13 @@ import SelectInput from "../components/base/form/SelectInput";
 import CheckboxInput from "../components/base/form/CheckboxInput";
 import ColorInput from "../components/base/form/ColorInput";
 import SliderInput from "../components/base/form/SliderInput";
-import RotaryInput from "../components/base/form/RotaryInput";
+//import RotaryInput from "../components/base/form/RotaryInput";
 import PositionInput from "../components/base/form/PositionInput";
-import BlockTags from '../components/blocks/block-tags';
+import BlockTags from "../components/blocks/block-tags";
 
 const getBestTheme = (weightType, sliderValue) => {
   let bestTheme = null;
   let closestScoreDiff = Infinity; // Start with a large difference
-
 
   for (const [themeName, metrics] of Object.entries(themes)) {
     // Get the weight based on the specified type
@@ -52,15 +48,11 @@ const getBestTheme = (weightType, sliderValue) => {
 const mergeWithDefaults = (themeData) => {
   return {
     ...themeContent, // All defaults first
-    ...themeData,    // Theme data overrides defaults
+    ...themeData, // Theme data overrides defaults
   };
 };
 
 export default function ThemeEditor({ customThemes }) {
-
-
-
-
   const { currentTheme, updateTheme } = useThemeContext();
   const [themeName, setThemeName] = useState("");
   const [isSaveModalOpen, setIsSaveModalOpen] = useState(false);
@@ -70,7 +62,7 @@ export default function ThemeEditor({ customThemes }) {
   const showToast = useToast();
 
   const [value, setValue] = useState(0);
-  
+
   const handleCloseSaveModal = () => {
     setIsSaveModalOpen(false);
   };
@@ -97,7 +89,7 @@ export default function ThemeEditor({ customThemes }) {
 
   const setSingleStyleProperty = (key, value) => {
     const root = document.documentElement;
-        const cssVar = `--${key.replace(/([A-Z])/g, "-$1").toLowerCase()}`;
+    const cssVar = `--${key.replace(/([A-Z])/g, "-$1").toLowerCase()}`;
 
     // Set the CSS variable regardless of the value type
     root.style.setProperty(cssVar, value);
@@ -106,35 +98,40 @@ export default function ThemeEditor({ customThemes }) {
   // Live udates to the current theme.
   // These changes will be lost on global theme change
   // Save as custom thmeme to retain changes
-  const updateThemeProp = useCallback((key, value) => {
-    console.log(`Updating theme property: ${key} with value: ${value}`); // Log the property being updated
-    // This ref is used to store temp/live changes until save
-    const { data, ...rest } = currentThemeRef.current; // Destructure to get data and rest
+  const updateThemeProp = useCallback(
+    (key, value) => {
+      console.log(`Updating theme property: ${key} with value: ${value}`); // Log the property being updated
+      // This ref is used to store temp/live changes until save
+      const { data, ...rest } = currentThemeRef.current; // Destructure to get data and rest
 
-    const mergedTheme = {
+      const mergedTheme = {
         ...rest, // Keep the existing properties except for data
         data: {
-            ...data, // Spread the existing data properties
-            [key]: value, // Update the specific key with the new value
+          ...data, // Spread the existing data properties
+          [key]: value, // Update the specific key with the new value
         },
-    };
+      };
 
-    currentThemeRef.current = mergedTheme; // Update the ref with the new merged theme
-    setSingleStyleProperty(key, value); // Update the specific style property
-    updateTheme(mergedTheme); // Update the theme in your state or context
-  }, [updateTheme]);
+      currentThemeRef.current = mergedTheme; // Update the ref with the new merged theme
+      setSingleStyleProperty(key, value); // Update the specific style property
+      updateTheme(mergedTheme); // Update the theme in your state or context
+    },
+    [updateTheme]
+  );
 
   const handleThemeChange = (e, target) => {
     const selectedThemeKey = e;
 
     // Check localStorage for saved theme data
-    const localThemeData = localStorage.getItem(`themeData_${selectedThemeKey}`);
+    const localThemeData = localStorage.getItem(
+      `themeData_${selectedThemeKey}`
+    );
     let selectedTheme;
     if (localThemeData) {
       // Use the locally saved theme data
       selectedTheme = {
         name: selectedThemeKey,
-        data: JSON.parse(localThemeData)
+        data: JSON.parse(localThemeData),
       };
       console.log(`Loaded theme '${selectedThemeKey}' from localStorage.`);
     } else {
@@ -147,10 +144,10 @@ export default function ThemeEditor({ customThemes }) {
     if (selectedTheme) {
       // Create a deep copy to avoid reference issues
       const newTheme = JSON.parse(JSON.stringify(selectedTheme));
-      
+
       // Merge with all defaults to ensure no fields are missing
       newTheme.data = mergeWithDefaults(newTheme.data);
-      
+
       updateTheme(newTheme);
       currentThemeRef.current = newTheme;
       console.log("Theme changed to:", selectedThemeKey);
@@ -188,7 +185,6 @@ export default function ThemeEditor({ customThemes }) {
         },
         body: JSON.stringify(themeToSave), // Send the updated theme data
       });
-
 
       if (!response.ok) throw new Error("Failed to save theme");
       console.log("Theme saved successfully", themeToSave);
@@ -229,7 +225,6 @@ export default function ThemeEditor({ customThemes }) {
     } catch (error) {
       console.error("Error deleting theme:", error);
       showToast("Error deleting theme:", error);
-
     }
   };
 
@@ -238,7 +233,7 @@ export default function ThemeEditor({ customThemes }) {
       // Merge with defaults before saving to ensure all fields are present
       const themeToSave = {
         ...currentThemeRef.current,
-        data: mergeWithDefaults(currentThemeRef.current.data)
+        data: mergeWithDefaults(currentThemeRef.current.data),
       };
       console.log("Saving theme to Contentful:", themeToSave);
 
@@ -280,7 +275,7 @@ export default function ThemeEditor({ customThemes }) {
       default:
         console.warn(`Unknown metric type: ${metricType}`);
     }
-  
+
     const bestTheme = getBestTheme(metricType, value);
     if (bestTheme) {
       updateTheme(bestTheme); // Ensure this is called for vibrancy and funkyness
@@ -297,30 +292,39 @@ export default function ThemeEditor({ customThemes }) {
             key={key}
             label={config.label}
             value={value ?? ""}
-            onChange={val => updateThemeProp(key, val)}
+            onChange={(val) => updateThemeProp(key, val)}
           />
         );
-        case "select":
-          // options can be array or object
-          let options = config.options;
-          if (options && !Array.isArray(options)) {
-            options = Object.keys(options).map(optKey => ({ value: optKey, label: optKey }));
-          } else if (options && Array.isArray(options)) {
-            options = options.map(opt => (typeof opt === 'object' ? opt : { value: opt, label: opt }));
-          }
-          return (
-            <SelectInput
-              key={key}
-              label={config.label}
-              value={value ?? ((options && options[0]?.value) || "")}
-              options={options || []}
-              onChange={val => updateThemeProp(key, val)}
-            />
+      case "select":
+        // options can be array or object
+        let options = config.options;
+        if (options && !Array.isArray(options)) {
+          options = Object.keys(options).map((optKey) => ({
+            value: optKey,
+            label: optKey,
+          }));
+        } else if (options && Array.isArray(options)) {
+          options = options.map((opt) =>
+            typeof opt === "object" ? opt : { value: opt, label: opt }
           );
+        }
+        return (
+          <SelectInput
+            key={key}
+            label={config.label}
+            value={value ?? ((options && options[0]?.value) || "")}
+            options={options || []}
+            onChange={(val) => updateThemeProp(key, val)}
+          />
+        );
       case "position":
         // Always convert object to array of values (strings)
         let positionOptions = config.options;
-        if (positionOptions && typeof positionOptions === "object" && !Array.isArray(positionOptions)) {
+        if (
+          positionOptions &&
+          typeof positionOptions === "object" &&
+          !Array.isArray(positionOptions)
+        ) {
           positionOptions = Object.values(positionOptions);
         }
         return (
@@ -329,7 +333,7 @@ export default function ThemeEditor({ customThemes }) {
             label={config.label}
             value={value ?? ((positionOptions && positionOptions[0]) || "")}
             options={positionOptions || []}
-            onChange={val => updateThemeProp(key, val)}
+            onChange={(val) => updateThemeProp(key, val)}
           />
         );
       case "boolean":
@@ -338,7 +342,7 @@ export default function ThemeEditor({ customThemes }) {
             key={key}
             label={config.label}
             checked={!!value}
-            onChange={val => updateThemeProp(key, val)}
+            onChange={(val) => updateThemeProp(key, val)}
           />
         );
       case "color":
@@ -347,25 +351,23 @@ export default function ThemeEditor({ customThemes }) {
             key={key}
             label={config.label}
             value={value ?? "#000000"}
-            onChange={val => updateThemeProp(key, val)}
+            onChange={(val) => updateThemeProp(key, val)}
           />
         );
       case "slider":
-       // console.log("Slider config", key, config, value);
+        // console.log("Slider config", key, config, value);
         return (
           <>
-          <SliderInput
-            key={key}
-            label={config.label}
-            value={typeof value === 'number' ? value : 0}
-            min={config.min}
-            max={config.max}
-            step={config.step}
-            onChange={val => updateThemeProp(key, val)}
-            className="my-slider"
-
-          />
-      
+            <SliderInput
+              key={key}
+              label={config.label}
+              value={typeof value === "number" ? value : 0}
+              min={config.min}
+              max={config.max}
+              step={config.step}
+              onChange={(val) => updateThemeProp(key, val)}
+              className="my-slider"
+            />
           </>
         );
       default:
@@ -377,10 +379,13 @@ export default function ThemeEditor({ customThemes }) {
   const renderSection = (sectionName, sectionConfig) => {
     if (!sectionConfig) return null; // Guard for undefined/null
     return (
-      <fieldset key={sectionName}
+      <fieldset
+        key={sectionName}
         className="flex flex-col gap-2 rounded-lg bg-[var(--surface2)] mb-4 p-2 w-full"
-   >
-        <legend className="mb-2 uppercase text-xs text-[var(--text-accent)]">{sectionName}</legend>
+      >
+        <legend className="mb-2 uppercase text-xs text-[var(--text-accent)]">
+          {sectionName}
+        </legend>
         <div className="flex flex-col gap-2">
           {Object.entries(sectionConfig).map(([key, config]) => {
             if (config.isFolder) {
@@ -395,22 +400,22 @@ export default function ThemeEditor({ customThemes }) {
   };
 
   const handleSave = () => {
-  //  event.preventDefault(); // Prevent default form submission
+    //  event.preventDefault(); // Prevent default form submission
     saveNewTheme();
     setIsSaveModalOpen(false);
   };
 
   const handleDelete = () => {
-//    event.preventDefault(); // Prevent default form submission
+    //    event.preventDefault(); // Prevent default form submission
     deleteTheme();
     setIsDeleteModalOpen(false);
   };
 
-  const categoryTabs = ['All', ...Object.keys(themeControlConfig)];
+  const categoryTabs = ["All", ...Object.keys(themeControlConfig)];
   const [activeCategory, setActiveCategory] = React.useState(categoryTabs[0]);
 
   return (
-    <>
+    <div className="flex flex-col gap-2 p-2">
       {/* <div className="flex fixed top-3 left-3 flex-col p-3 text-sm text-white bg-red-400 z-nav">
         <span>REF: {currentThemeRef.current?.data?.key}</span>
         <span>CUR: {currentTheme.data.key}</span>
@@ -423,9 +428,8 @@ export default function ThemeEditor({ customThemes }) {
         direction={ModalDirection.BOTTOM}
         width={ModalWidth.PANEL_SM}
         position={ModalPosition.CENTER}
-        bodyClass="custom-modal-body" // Example of using the bodyClass prop
+        bodyClass="custom-modal-body"
       >
-
         <h3 className="text-md">Save theme</h3>
 
         <form onSubmit={handleSave} className="flex flex-col gap-3">
@@ -437,8 +441,18 @@ export default function ThemeEditor({ customThemes }) {
           />
 
           <div className="flex gap-1">
-              <Button type={ButtonType.SECONDARY} onClick={() => setIsSaveModalOpen(false)} label="Cancel" />
-              <Button type={ButtonType.PRIMARY} onClick={handleSave} label="Save Theme" />
+            <Button
+              type={ButtonType.PRIMARY}
+              size={ButtonSize.SM}
+              onClick={() => setIsSaveModalOpen(false)}
+              label="Cancel"
+            />
+            <Button
+              type={ButtonType.PRIMARY}
+              size={ButtonSize.SM}
+              onClick={handleSave}
+              label="Save Theme"
+            />
           </div>
         </form>
       </Modal>
@@ -449,74 +463,89 @@ export default function ThemeEditor({ customThemes }) {
         direction={ModalDirection.BOTTOM}
         width={ModalWidth.PANEL_SM}
         position={ModalPosition.CENTER}
-        bodyClass="custom-modal-body" // Example of using the bodyClass prop
+        bodyClass="custom-modal-body"
       >
-  
         <h3 className="text-md">Delete theme</h3>
 
         <form onSubmit={handleDelete} className="flex flex-col gap-3">
           <h1>{currentThemeRef.current?.data?.key}</h1>
 
           <div className="flex gap-1">
-            <Button type={ButtonType.SECONDARY} onClick={() => setIsDeleteModalOpen(false)} label="Cancel" />
-            <Button type={ButtonType.PRIMARY} onClick={handleDelete} label="Delete Theme" />
+            <Button
+              type={ButtonType.PRIMARY}
+              size={ButtonSize.SM}
+              onClick={() => setIsDeleteModalOpen(false)}
+              label="Cancel"
+            />
+            <Button
+              type={ButtonType.PRIMARY}
+              size={ButtonSize.SM}
+              onClick={handleDelete}
+              label="Delete Theme"
+            />
           </div>
         </form>
       </Modal>
 
-
-
-
-      <RotaryInput
-  label="Rotate"
-  value={value}
-  onChange={setValue}
-  sensitivity={0.5} // Adjust for faster/slower rotation
-/>
-
+      {/* <RotaryInput
+        label="Rotate"
+        value={value}
+        onChange={setValue}
+        sensitivity={0.5} // Adjust for faster/slower rotation
+      /> */}
 
       {/* Theme Selection Controls */}
-      <div className="grid grid-cols-2 gap-4 items-center mb-6">
-        <span className="text-xs">Preset</span>
-        <span className="text-xs">Custom</span>
-      </div>
-      <div className="grid grid-cols-2 gap-4 items-center mb-6">
-        <SelectInput
-          
-          value={currentTheme.data.key}
-          options={Object.keys(presetThemes).map(key => ({ value: key, label: key }))}
-          onChange={val => handleThemeChange(val, presetThemes)}
-        />
-        {customThemes && customThemes.length > 0 && (
+      <div className="flex flex-col gap-1">
+        <div className="grid grid-cols-2 gap-4 items-center mb-0">
+          <span className="mb-0 text-xs">Preset</span>
+          <span className="text-xs">User</span>
+        </div>
+        <div className="grid grid-cols-2 gap-4 items-center mb-0">
           <SelectInput
-            
             value={currentTheme.data.key}
-            options={customThemes.map(theme => ({ value: theme.data.key, label: theme.data.key }))}
-            onChange={val => handleThemeChange(val, customThemes)}
+            options={Object.keys(presetThemes).map((key) => ({
+              value: key,
+              label: key,
+            }))}
+            onChange={(val) => handleThemeChange(val, presetThemes)}
           />
-        )}
+          {customThemes && customThemes.length > 0 && (
+            <SelectInput
+              value={currentTheme.data.key}
+              options={customThemes.map((theme) => ({
+                value: theme.data.key,
+                label: theme.data.key,
+              }))}
+              onChange={(val) => handleThemeChange(val, customThemes)}
+            />
+          )}
+        </div>
       </div>
-
-
-
       {/* Action Buttons */}
-      <div className="flex gap-2 mb-6">
+      <div className="flex gap-2 mb-0">
         {/* Save theme as */}
         <Button
           type={ButtonType.PRIMARY}
+          size={ButtonSize.SM}
           onClick={() => {
-            console.log('Save theme as button clicked');
+            console.log("Save theme as button clicked");
             setIsSaveModalOpen(true);
           }}
           label="Save theme as"
         />
         <Button
-          type={ButtonType.SECONDARY}
+          type={ButtonType.PRIMARY}
+          size={ButtonSize.SM}
           onClick={() => {
             const themeKey = currentTheme.data.key;
             const themeData = mergeWithDefaults(currentTheme.data);
-            localStorage.setItem(`themeData_${themeKey}`, JSON.stringify(themeData));
-            console.log(`Theme data for '${themeKey}' saved to localStorage as 'themeData_${themeKey}'.`);
+            localStorage.setItem(
+              `themeData_${themeKey}`,
+              JSON.stringify(themeData)
+            );
+            console.log(
+              `Theme data for '${themeKey}' saved to localStorage as 'themeData_${themeKey}'.`
+            );
             showToast("Theme saved to localStorage", themeKey);
           }}
           label="Save theme"
@@ -524,25 +553,33 @@ export default function ThemeEditor({ customThemes }) {
       </div>
 
       {/* Tabset for theme categories using BlockTags */}
-      <div style={{ marginBottom: 24 }}>
-        <BlockTags
-          data={categoryTabs}
-          selected={activeCategory}
-          handleTagClick={setActiveCategory}
-        />
-      </div>
-      
+    
+      {/* <BlockTags
+        data={categoryTabs}
+        selected={activeCategory}
+        handleTagClick={setActiveCategory}
+      /> */}
+
+      <SelectInput
+      value={activeCategory}
+      options={categoryTabs.map((key) => ({
+          value: key,
+          label: key,
+        }))}
+        onChange={(val) => setActiveCategory(val, presetThemes)}
+      />
+
+
       {/* Theme Controls for selected category */}
-      <form style={{ maxWidth: 800, margin: '0 auto' }} >
-        {activeCategory === 'All'
-          ? Object.entries(themeControlConfig).map(([sectionName, sectionConfig]) =>
-              renderSection(sectionName, sectionConfig)
+      <form className="flex flex-col gap-2 w-full">
+        {activeCategory === "All"
+          ? Object.entries(themeControlConfig).map(
+              ([sectionName, sectionConfig]) =>
+                renderSection(sectionName, sectionConfig)
             )
           : renderSection(activeCategory, themeControlConfig[activeCategory])}
       </form>
 
-      {/* Save Modal Debug Log */}
-      {isSaveModalOpen && console.log('Save Theme Modal should be open')}
-    </>
+    </div>
   );
 }

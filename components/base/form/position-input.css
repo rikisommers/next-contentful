@@ -1,0 +1,25 @@
+.c-position-input {
+  display: grid;
+  grid-template-columns: repeat(3, 16px);
+  border:1px solid red;
+  overflow: hidden;
+  gap: 1px;
+  &:nth-child(1) {
+    border-top-left-radius: 4px;
+  }
+  &:nth-child(3) {
+    border-right: 1px solid red;
+  }
+  
+
+} 
+
+.c-position-input__item {
+    width: 16px;
+    height: 16px;
+
+    background: #fff;
+    border-radius: 0px;
+    cursor: pointer;
+
+  }

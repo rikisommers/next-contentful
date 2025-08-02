@@ -2,7 +2,6 @@
 import React, { createContext, useContext, useState, useEffect, memo, useCallback } from 'react';
 import { themes } from '../../utils/theme';
 import { setStyleProperties } from '../../utils/styleUtils';
-import ThemeEditor from '../../utils/themeEditor'; 
 
 const THEME_STORAGE_KEY = 'theme';
 
@@ -19,7 +18,6 @@ const ThemeContext = createContext();
 
 export const useThemeContext = () => useContext(ThemeContext);
 
-const MemoizedThemeEditor = memo(ThemeEditor);
 
 export const ThemeProvider = ({ children, initialTheme: initialThemeName, customThemes = [] }) => {
   const [currentTheme, setCurrentTheme] = useState(() => {
@@ -65,26 +63,7 @@ export const ThemeProvider = ({ children, initialTheme: initialThemeName, custom
       isThemeDialogOpen, 
       setIsThemeDialogOpen 
     }}>
-        {children}
-        {isThemeDialogOpen && (
-          <div className="fixed inset-0 z-[9999] bg-black/50 backdrop-blur-sm">
-            <div className="overflow-y-auto fixed top-0 right-0 w-96 h-full bg-white shadow-xl"
-                 style={{ backgroundColor: 'var(--body-background-color)' }}>
-              <div className="p-4">
-                <div className="flex justify-between items-center mb-4">
-                  <h2 className="text-lg font-semibold">Theme Editor</h2>
-                  <button 
-                    onClick={() => setIsThemeDialogOpen(false)}
-                    className="text-2xl hover:opacity-70"
-                  >
-                    ×
-                  </button>
-                </div>
-                <MemoizedThemeEditor customThemes={customThemes} />
-              </div>
-            </div>
-          </div>
-        )}  
+        {children}  
     </ThemeContext.Provider>
   );
 };

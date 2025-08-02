@@ -1,17 +1,28 @@
 // Auto-generated file with rendered component examples
 import React from 'react';
+import GridBasic from '../components/articleList/grid-basic';
+import GridBento from '../components/articleList/grid-bento';
+import GridThings from '../components/articleList/grid-things';
+import ListTextHover from '../components/articleList/list-text-hover';
+import ListTextImage from '../components/articleList/list-text-image';
+import ListText from '../components/articleList/list-text';
 import ButtonMonks from '../components/base/button/button-monks';
 import ButtonSwap from '../components/base/button/button-swap';
 import ButtonWipe from '../components/base/button/button-wipe';
 import Button from '../components/base/button/button';
-import GridBasic from '../components/grid/grid-basic';
-import GridBento from '../components/grid/grid-bento';
-import GridList from '../components/grid/grid-list';
-import GridThings from '../components/grid/grid-things';
+import BlockCode from '../components/blocks/block-code';
+import CursorCta from '../components/cursor/cursor-cta';
+import CursorDot from '../components/cursor/cursor-dot';
+import CursorGabriel from '../components/cursor/cursor-gabriel';
+import CursorImage from '../components/cursor/cursor-image';
 import PostTileCs from '../components/tile/post-tile-cs';
 import PostTileFunky from '../components/tile/post-tile-funky';
+import PostTileHoverText from '../components/tile/post-tile-hovertext';
 import PostTileImg from '../components/tile/post-tile-img';
+import PostTileMonks from '../components/tile/post-tile-monks';
+import PostTileProjects from '../components/tile/post-tile-projects';
 import PostTileReone from '../components/tile/post-tile-reone';
+import PostTileTextBasic from '../components/tile/post-tile-text';
 import { TextAnimBlur } from '../components/motion/text-anim-blur';
 import { TextAnimChar } from '../components/motion/text-anim-char';
 import { TextAnimCode } from '../components/motion/text-anim-code';
@@ -22,111 +33,47 @@ import { TextAnimLinear } from '../components/motion/text-anim-linear';
 import { TextAnimNavigators } from '../components/motion/text-anim-navigators';
 import { TextAnimRandom } from '../components/motion/text-anim-random';
 import { TextAnimWordMask } from '../components/motion/text-anim-word-mask';
-import { ButtonType, ButtonSound } from '../components/base/button/button.util';
+import Link from 'next/link';
+import { withDeclarativeAudio, PostTile as AudioPostTileBase } from '../components/audio/audio-trigger';
+
+// Define button enums
+const ButtonType = {
+  DEFAULT: 'default',
+  PRIMARY: 'primary',
+  SECONDARY: 'secondary',
+  TRANSPARENT: 'transparent'
+};
+
+const ButtonSound = {
+  CLICK: 'click',
+  HOVER: 'hover',
+  NONE: 'none'
+};
+
+// Define HOC components
+const AudioPostTile = withDeclarativeAudio(AudioPostTileBase);
+
+const AudioGridTile = withDeclarativeAudio(({ post, children, ...props }) => (
+  <Link href={`/posts/${post.slug}`} {...props}>
+    {children}
+  </Link>
+));
+
+const PostContent = ({ post }) => (
+  <div>
+    <h2>{post.title}</h2>
+    <p>{post.subtitle}</p>
+  </div>
+);
+
+// Create example data
+const examplePost = {
+  title: "Example Post",
+  slug: "example-post",
+  subtitle: "Example description"
+};
 
 export const exampleComponents = {
-  "ButtonMonks_0": (<ButtonMonks
-label="Discover"
-type={ButtonType.DEFAULT}
-sound={ButtonSound.CLICK}
-/>),
-  "ButtonMonks_1": (<ButtonMonks
-label="Get Started"
-type={ButtonType.PRIMARY}
-sound={ButtonSound.CLICK}
-/>),
-  "ButtonMonks_2": (<ButtonMonks
-label="Activate"
-type={ButtonType.SECONDARY}
-sound={ButtonSound.CLICK}
-/>),
-  "ButtonMonks_3": (<ButtonMonks
-label="Close"
-type={ButtonType.TRANSPARENT}
-sound={ButtonSound.CLICK}
-/>),
-  "ButtonMonks_4": (<ButtonMonks
-type={ButtonType.PRIMARY}
-sound={ButtonSound.CLICK}
->
-<span>🚀 Launch</span>
-</ButtonMonks>),
-  "ButtonSwap_0": (<ButtonSwap
-label="Default Swap"
-type={ButtonType.DEFAULT}
-sound={ButtonSound.CLICK}
-/>),
-  "ButtonSwap_1": (<ButtonSwap
-label="Download Now"
-type={ButtonType.PRIMARY}
-sound={ButtonSound.CLICK}
-/>),
-  "ButtonSwap_2": (<ButtonSwap
-label="Learn More"
-type={ButtonType.SECONDARY}
-sound={ButtonSound.CLICK}
-/>),
-  "ButtonSwap_3": (<ButtonSwap
-label="Cancel"
-type={ButtonType.TRANSPARENT}
-sound={ButtonSound.CLICK}
-/>),
-  "ButtonSwap_4": (<ButtonSwap
-label="Hover to Swap"
-type={ButtonType.PRIMARY}
-sound={ButtonSound.CLICK}
-/>),
-  "ButtonWipe_0": (<ButtonWipe
-label="Default Wipe"
-type={ButtonType.DEFAULT}
-sound={ButtonSound.CLICK}
-/>),
-  "ButtonWipe_1": (<ButtonWipe
-label="Submit Form"
-type={ButtonType.PRIMARY}
-sound={ButtonSound.CLICK}
-/>),
-  "ButtonWipe_2": (<ButtonWipe
-label="Enable Feature"
-type={ButtonType.SECONDARY}
-sound={ButtonSound.CLICK}
-/>),
-  "ButtonWipe_3": (<ButtonWipe
-label="Disable"
-type={ButtonType.TRANSPARENT}
-sound={ButtonSound.CLICK}
-/>),
-  "ButtonWipe_4": (<ButtonWipe
-label="Learn More"
-type={ButtonType.SECONDARY}
-sound={ButtonSound.CLICK}
-/>),
-  "Button_0": (<Button
-label="Default Button"
-type={ButtonType.DEFAULT}
-sound={ButtonSound.CLICK}
-/>),
-  "Button_1": (<Button
-label="Submit Form"
-type={ButtonType.PRIMARY}
-sound={ButtonSound.CLICK}
-/>),
-  "Button_2": (<Button
-label="Secondary Action"
-type={ButtonType.SECONDARY}
-sound={ButtonSound.CLICK}
-/>),
-  "Button_3": (<Button
-label="Cancel"
-type={ButtonType.TRANSPARENT}
-sound={ButtonSound.CLICK}
-/>),
-  "Button_4": (<Button
-type={ButtonType.PRIMARY}
-sound={ButtonSound.CLICK}
->
-<span>🚀 Launch App</span>
-</Button>),
   "GridBasic_0": (<GridBasic
 data={[
 {
@@ -255,72 +202,8 @@ description: "Financial dashboard"
 }
 ]}
 />),
-  "GridList_0": (<GridList
-data={[
-{
-title: "Photography Portfolio",
-subtitle: "Professional photography showcase and gallery",
-slug: "photography-portfolio",
-color: "#6b7280",
-img: {
-url: "https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75",
-width: 800,
-height: 600,
-description: "Photography portfolio"
-}
-},
-{
-title: "Architecture Studio",
-subtitle: "Modern architectural designs and concepts",
-slug: "architecture-studio",
-color: "#0f172a",
-img: {
-url: "https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75",
-width: 800,
-height: 600,
-description: "Architecture studio"
-}
-},
-{
-title: "Fashion Brand Website",
-subtitle: "Luxury fashion e-commerce and brand experience",
-slug: "fashion-brand-website",
-color: "#be185d",
-img: {
-url: "https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75",
-width: 800,
-height: 600,
-description: "Fashion brand website"
-}
-},
-{
-title: "Music Streaming App",
-subtitle: "Audio streaming platform with social features",
-slug: "music-streaming-app",
-color: "#1d4ed8",
-img: {
-url: "https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75",
-width: 800,
-height: 600,
-description: "Music streaming app"
-}
-},
-{
-title: "Travel Blog Platform",
-subtitle: "Adventure stories and destination guides",
-slug: "travel-blog-platform",
-color: "#059669",
-img: {
-url: "https://images.ctfassets.net/4v0tb3n9jpvc/6VsWqYUjrhXErXIzbCbqdR/0693ad01ab5d19a8ff2c4acb6b47bd88/kula.png?w=1920&q=75",
-width: 800,
-height: 600,
-description: "Travel blog platform"
-}
-}
-]}
-/>),
   "GridThings_0": (<GridThings
-items={[
+data={[
 {
 title: "Digital Art Gallery",
 subtitle: "Contemporary digital artwork and installations",
@@ -383,6 +266,138 @@ description: "Non-profit campaign"
 }
 ]}
 />),
+  "PostTile_0": (<AudioPostTile
+            post={examplePost}
+            data-audio-click="beepOn"
+            data-audio-hover="plink"
+          />),
+  "PostTile_1": (<div className="grid">
+            <AudioGridTile
+              post={examplePost}
+              data-audio-click="beepOn"
+              data-audio-hover="plink"
+            >
+              <PostContent post={examplePost} />
+            </AudioGridTile>
+          </div>),
+  "ButtonMonks_0": (<ButtonMonks
+label="Discover"
+type={ButtonType.DEFAULT}
+sound={ButtonSound.CLICK}
+/>),
+  "ButtonMonks_1": (<ButtonMonks
+label="Get Started"
+type={ButtonType.PRIMARY}
+sound={ButtonSound.CLICK}
+/>),
+  "ButtonMonks_2": (<ButtonMonks
+label="Activate"
+type={ButtonType.SECONDARY}
+sound={ButtonSound.CLICK}
+/>),
+  "ButtonMonks_3": (<ButtonMonks
+label="Close"
+type={ButtonType.TRANSPARENT}
+sound={ButtonSound.CLICK}
+/>),
+  "ButtonMonks_4": (<ButtonMonks
+type={ButtonType.PRIMARY}
+sound={ButtonSound.CLICK}
+>
+<span>🚀 Launch</span>
+</ButtonMonks>),
+  "ButtonSwap_0": (<ButtonSwap
+label="Default Swap"
+type={ButtonType.DEFAULT}
+sound={ButtonSound.CLICK}
+/>),
+  "ButtonSwap_1": (<ButtonSwap
+label="Download Now"
+type={ButtonType.PRIMARY}
+sound={ButtonSound.CLICK}
+/>),
+  "ButtonSwap_2": (<ButtonSwap
+label="Learn More"
+type={ButtonType.SECONDARY}
+sound={ButtonSound.CLICK}
+/>),
+  "ButtonSwap_3": (<ButtonSwap
+label="Cancel"
+type={ButtonType.TRANSPARENT}
+sound={ButtonSound.CLICK}
+/>),
+  "ButtonSwap_4": (<ButtonSwap
+label="Hover to Swap"
+type={ButtonType.PRIMARY}
+sound={ButtonSound.CLICK}
+/>),
+  "ButtonWipe_0": (<ButtonWipe
+label="Default Wipe"
+type={ButtonType.DEFAULT}
+sound={ButtonSound.CLICK}
+/>),
+  "ButtonWipe_1": (<ButtonWipe
+label="Submit Form"
+type={ButtonType.PRIMARY}
+sound={ButtonSound.CLICK}
+/>),
+  "ButtonWipe_2": (<ButtonWipe
+label="Enable Feature"
+type={ButtonType.SECONDARY}
+sound={ButtonSound.CLICK}
+/>),
+  "ButtonWipe_3": (<ButtonWipe
+label="Disable"
+type={ButtonType.TRANSPARENT}
+sound={ButtonSound.CLICK}
+/>),
+  "ButtonWipe_4": (<ButtonWipe
+label="Learn More"
+type={ButtonType.SECONDARY}
+sound={ButtonSound.CLICK}
+/>),
+  "Button_0": (<Button
+label="Default Button"
+type={ButtonType.DEFAULT}
+sound={ButtonSound.CLICK}
+/>),
+  "Button_1": (<Button
+label="Submit Form"
+type={ButtonType.PRIMARY}
+sound={ButtonSound.CLICK}
+/>),
+  "Button_2": (<Button
+label="Secondary Action"
+type={ButtonType.SECONDARY}
+sound={ButtonSound.CLICK}
+/>),
+  "Button_3": (<Button
+label="Cancel"
+type={ButtonType.TRANSPARENT}
+sound={ButtonSound.CLICK}
+/>),
+  "Button_4": (<Button
+type={ButtonType.PRIMARY}
+sound={ButtonSound.CLICK}
+>
+<span>🚀 Launch App</span>
+</Button>),
+  "BlockCode_0": (<BlockCode
+data={{
+code: "console.log('Hello World');",
+title: "Basic JavaScript",
+type: "javascript"
+}}
+maxHeight={300}
+/>),
+  "CursorCta_0": (<CursorCta content="Click me" />),
+  "CursorCta_1": (<CursorCta content="Example" />),
+  "CursorDot_0": (<CursorDot />),
+  "CursorDot_1": (<CursorDot content="Example" />),
+  "CursorGabriel_0": (<CursorGabriel />),
+  "CursorGabriel_1": (<CursorGabriel content="Example" />),
+  "CursorImage_0": (<CursorImage />),
+  "CursorImage_1": (<CursorImage content="Example" />),
   "TextAnimBlur_0": (<TextAnimBlur
 content="Research ![logo](//images.ctfassets.net/4v0tb3n9jpvc/wsC8KQ6aNnu16eiHY37Uc/4ca8fe7f81ce8a6670039e76976e6492/star.svg) __design__"
 delay={0}
@@ -443,7 +458,7 @@ height: 600,
 description: "Project cover image"
 }
 }}
-index={0}
+aspect="4:3"
 />),
   "PostTileFunky_0": (<PostTileFunky
 post={{
@@ -451,6 +466,23 @@ title: "Project Title",
 subtitle: "A brief description of the project",
 slug: "project-slug",
 client: "Client Name",
+tags: ["Web Design", "Development"],
+img: {
+url: "https://example.com/image.jpg",
+width: 800,
+height: 600,
+description: "Project cover image"
+}
+}}
+aspect="16:9"
+/>),
+  "PostTileText_0": (<PostTileTextBasic
+post={{
+title: "Project Title",
+subtitle: "A brief description of the project",
+slug: "project-slug",
+client: "Client Name",
+date: "January 2023",
 tags: ["Web Design", "Development"],
 img: {
 url: "https://example.com/image.jpg",
@@ -474,9 +506,61 @@ height: 600,
 description: "Project cover image"
 }
 }}
+aspect="16:9"
+/>),
+  "PostTileMonks_0": (<PostTileMonks
+post={{
+title: "Project Title",
+subtitle: "A brief description of the project",
+slug: "project-slug",
+client: "Client Name",
+date: "January 2023",
+tags: ["Web Design", "Development"],
+img: {
+url: "https://example.com/image.jpg",
+width: 800,
+height: 600,
+description: "Project cover image"
+}
+}}
+aspect="16:9"
+layout="col"
+/>),
+  "PostTileProjects_0": (<PostTileTextBasic
+post={{
+title: "Project Title",
+subtitle: "A brief description of the project",
+slug: "project-slug",
+client: "Client Name",
+date: "January 2023",
+tags: ["Web Design", "Development"],
+img: {
+url: "https://example.com/image.jpg",
+width: 800,
+height: 600,
+description: "Project cover image"
+}
+}}
 index={0}
 />),
   "PostTileReone_0": (<PostTileReone
+post={{
+title: "Project Title",
+subtitle: "A brief description of the project",
+slug: "project-slug",
+client: "Client Name",
+date: "January 2023",
+tags: ["Web Design", "Development"],
+img: {
+url: "https://example.com/image.jpg",
+width: 800,
+height: 600,
+description: "Project cover image"
+}
+}}
+index={0}
+/>),
+  "PostTileText_0": (<PostTileTextBasic
 post={{
 title: "Project Title",
 subtitle: "A brief description of the project",

@@ -32,7 +32,7 @@ const Modal = ({
   direction = ModalDirection.RIGHT,
   width = ModalWidth.PANEL_SM,
   position = ModalPosition.BOTTOM_RIGHT,
-  bodyClass = "modal-active", // New prop for body class
+  bodyClass = "modal-active",
 }) => {
   useEffect(() => {
     if (isOpen && bodyClass) {
@@ -94,14 +94,14 @@ const Modal = ({
           exit="exit"
           variants={selectedVariant}
           transition={{
-            duration: 0.6,
+            duration: 0,
             ease: [0.33, 1, 0.68, 1],
           }}
           className={modalClasses}
         >
           <Close onClick={onClose} />
 
-          <motion.div className="z-10 flex flex-col flex-grow gap-3 rounded-lg">
+          <motion.div className="flex z-10 flex-col flex-grow gap-3 rounded-lg">
               {children}
           </motion.div>
         </motion.div>

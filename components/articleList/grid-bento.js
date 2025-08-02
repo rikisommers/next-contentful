@@ -123,6 +123,7 @@ export default function GridBento({
     >
       {items.map((item, index) => (
         <div
+          className="h-full"
           key={index}
           style={{
             ...getItemSize(index),

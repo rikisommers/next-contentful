@@ -1,15 +1,17 @@
 import React, { useRef, useState } from "react";
-import styles from './rotary-input.module.css';
+import { RotarySize, getRotaryClasses, getRotarySize } from './rotary-input.util';
 
 export default function RotaryInput({ 
   label,
   value = 0,
   onChange,
-  radius = 50,
+  size = RotarySize.MD,
   sensitivity = 0.5,
   className = "",
   ...props 
 }) {
+  const classes = getRotaryClasses({ size, className });
+  const radius = getRotarySize(size);
   const [rotation, setRotation] = useState(0);
   const isDragging = useRef(false);
   const lastY = useRef(0);
@@ -79,10 +81,10 @@ export default function RotaryInput({
   };
 
   return (
-    <div className={styles.container}>
-      {label && <span className={styles.label}>{label}</span>}
+    <div className={classes.container}>
+      {label && <span className={classes.label}>{label}</span>}
       <div 
-        className={`${styles.rotaryContainer} ${className}`}
+        className={classes.rotaryContainer}
         style={{
           width: radius * 2,
           height: radius * 2
@@ -90,15 +92,15 @@ export default function RotaryInput({
       >
         <div 
           ref={knobRef}
-          className={styles.rotaryKnob}
+          className={classes.rotaryKnob}
           onMouseDown={handleMouseDown}
           style={{
             transform: `rotate(${rotation}deg)`
           }}
         >
-          <div className={styles.knobIndicator} />
+          <div className={classes.knobIndicator} />
         </div>
-        <div className={styles.rotaryTrack} />
+        <div className={classes.rotaryTrack} />
       </div>
     </div>
   );

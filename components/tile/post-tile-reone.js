@@ -65,7 +65,7 @@ export default function PostTileReone({ post, index, size, layout, aspect, 'data
       style={{
         backgroundColor: "var(--surface3)",
       }}
-      className={`relative flex flex-col w-full no-underline rounded-2xl overflow-hidden group ${aspect ? `aspect-${aspect}` : ""}`}
+      className={`relative flex flex-col w-full h-full no-underline rounded-2xl overflow-hidden group ${aspect ? `aspect-${aspect}` : ""}`}
       onMouseEnter={(e) => {
         setIsHovered(true);
         audioProps.onMouseEnter?.(e);

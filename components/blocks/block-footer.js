@@ -63,11 +63,11 @@ export default function BlockFooter({ data }) {
         clipPath: "inset( 1rem round 1rem )",
         backgroundColor: "var(--body-background-color)",
       }}
-      className="flex z-10 flex-col justify-between w-screen overflow-clip"
+      className="flex z-10 flex-col justify-between w-full overflow-clip"
     >
       {/* pt-32 pb-16 */}
 
-      <motion.div className="grid z-20 grid-cols-12 gap-8 px-16 pt-16 pb-8 w-full h-full">
+      <motion.div className="grid z-20 grid-cols-12 gap-8 px-6 pt-16 pb-8 w-full h-full">
         <div className="flex col-span-12 md:col-span-7">
           <div className="flex flex-col gap-4 items-start">
             {data?.title && (

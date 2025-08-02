@@ -1437,20 +1437,15 @@ const colorThemes = {
 
 
 // Grid layout
-export const gridThemes = {
-  bento1: "bento1",
-  list: "list",
-  basic: "basic",
-  things: "things",
+export const articleListLayoutThemes = {
+  gridBasic: "gridBasic",
+  gridBento: "gridBento",
+ // gridBento2: "gridBento2",
+  gridThings: "gridThings",
+  textList: "textList",
+  textHoverList: "textHoverList",
+  textImageList: "textImageList",
 };
-
-
-// List layout
-export const listThemes = {
-  text: "text",
-  hovertext: "hovertext",
-};
-
 
 
 // colums
@@ -1900,8 +1895,7 @@ export const themeContent = {
   cardLayout:cardThemes.reone,
   cardHover:cardHoverThemes.none,
   cardAspectRatio:cardAspectRatio.auto,
-  cardGrid:gridThemes.basic,
-  gridGallery:gridGalleryThemes.gallery1,
+  articleListLayout:articleListLayoutThemes.gridBasic,
   gridColumnsSm: 2,
   gridColumnsMd: 3,
   gridColumnsLg: 4,
@@ -2668,8 +2662,7 @@ export const defaultTheme = {
     radii: radii.md,
     shadows: shadows.md,
     cardLayout: "formal",
-    cardGrid: gridThemes.basic,
-    gridGallery: gridGalleryThemes.gallery1,
+    articleListLayout: articleListLayoutThemes.gridBasic,
     gridColumns: { sm: 2, md: 3, lg: 4, xl: 4 },
     gridGap: "md",
     imageParallax: false,

@@ -6,13 +6,17 @@ export const ButtonType = {
     TRANSPARENT: "transparent",
   };
   
-  export const ButtonSound = {
-    ON: "beepOn",
-    OFF: "beepOff",
-    CLICK: "click",
-    PLINK: "plink",
-    DRIP: "drip",
-    MARIMBA: "marimba",
-  };
-  
-  
+    export const ButtonSound = {
+      ON: "beepOn",
+      OFF: "beepOff",
+      CLICK: "click",
+      PLINK: "plink",
+      DRIP: "drip",
+      MARIMBA: "marimba",
+    };
+    
+    export const ButtonSize = {
+      SM: "sm",
+      MD: "md",
+      LG: "lg",
+    };

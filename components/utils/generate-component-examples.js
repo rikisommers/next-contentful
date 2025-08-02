@@ -1,12 +1,6 @@
 const fs = require('fs');
 const path = require('path');
 
-/**
- * Recursively finds all JS/JSX files in a directory
- * @param {string} dir - Directory to search
- * @param {Array} fileList - Accumulator for file paths
- * @returns {Array} Array of file paths
- */
 function findComponentFiles(dir, fileList = []) {
   const files = fs.readdirSync(dir);
   
@@ -15,7 +9,6 @@ function findComponentFiles(dir, fileList = []) {
     const stat = fs.statSync(filePath);
     
     if (stat.isDirectory()) {
-      // Skip node_modules and other irrelevant directories
       if (!['node_modules', '.git', '.next', 'dist', 'build', 'generated'].includes(file)) {
         findComponentFiles(filePath, fileList);
       }
@@ -27,139 +20,6 @@ function findComponentFiles(dir, fileList = []) {
   return fileList;
 }
 
-/**
- * Extracts JSDoc comments from file content using regex
- * @param {string} content - File content
- * @returns {Array} Array of JSDoc comment blocks
- */
-function extractJSDocComments(content) {
-  const jsDocRegex = /\/\*\*[\s\S]*?\*\//g;
-  const comments = content.match(jsDocRegex) || [];
-  return comments;
-}
-
-/**
- * Parses JSDoc comment for specific tags
- * @param {string} jsDocComment - Raw JSDoc comment
- * @returns {Object} Parsed JSDoc data
- */
-function parseJSDocComment(jsDocComment) {
-  const lines = jsDocComment.split('\n').map(line => line.trim());
-  
-  const result = {
-    description: '',
-    isComponent: false,
-    category: 'uncategorized',
-    params: [],
-    examples: []
-  };
-  
-  let currentSection = 'description';
-  let currentExample = null;
-  
-  lines.forEach(line => {
-    // Clean up the line
-    const cleanLine = line.replace(/^\s*\*\s?/, '').trim();
-    
-    if (cleanLine === '/**' || cleanLine === '*/') return;
-    
-    // Check for tags
-    if (cleanLine.startsWith('@component')) {
-      result.isComponent = true;
-      currentSection = 'component';
-    } else if (cleanLine.startsWith('@category')) {
-      result.category = cleanLine.replace('@category', '').trim();
-      currentSection = 'category';
-    } else if (cleanLine.startsWith('@param')) {
-      const paramMatch = cleanLine.match(/@param\s+\{([^}]+)\}\s+([^\s]+)\s*-?\s*(.*)/);
-      if (paramMatch) {
-        result.params.push({
-          type: paramMatch[1],
-          name: paramMatch[2],
-          description: paramMatch[3]
-        });
-      }
-      currentSection = 'param';
-    } else if (cleanLine.startsWith('@example')) {
-      if (currentExample) {
-        result.examples.push(currentExample);
-      }
-      currentExample = {
-        title: '',
-        code: ''
-      };
-      currentSection = 'example';
-    } else if (currentSection === 'description' && cleanLine && !cleanLine.startsWith('@')) {
-      result.description += (result.description ? ' ' : '') + cleanLine;
-    } else if (currentSection === 'example' && currentExample) {
-      if (cleanLine.startsWith('//') && !currentExample.title) {
-        currentExample.title = cleanLine.replace('//', '').trim();
-      } else if (cleanLine && !cleanLine.startsWith('@')) {
-        currentExample.code += (currentExample.code ? '\n' : '') + cleanLine;
-      }
-    }
-  });
-  
-  // Add the last example if exists
-  if (currentExample) {
-    result.examples.push(currentExample);
-  }
-  
-  return result;
-}
-
-/**
- * Extracts component name from file content
- * @param {string} content - File content
- * @param {string} filePath - File path for context
- * @returns {string|null} Component name
- */
-function extractComponentInfo(content, filePath) {
-  let componentName = null;
-  let isDefault = false;
-
-  // Pattern for default export: export default function ComponentName | export default ComponentName
-  const defaultExportMatch = content.match(/export\s+default\s+(?:function\s+)?([A-Z]\w*)/);
-  if (defaultExportMatch) {
-    componentName = defaultExportMatch[1];
-    isDefault = true;
-  } else {
-    // Pattern for named exports: export function ComponentName | export const ComponentName
-    const namedExportMatch = content.match(/export\s+(?:const|function)\s+([A-Z]\w*)/);
-    if (namedExportMatch) {
-      componentName = namedExportMatch[1];
-      isDefault = false;
-    }
-  }
-
-  // Fallback if no export keyword is found (e.g., const Component = ...; export default Component;)
-  if (!componentName) {
-    const componentNameMatch = content.match(/const\s+([A-Z]\w*)\s*=\s*\(|function\s+([A-Z]\w*)\s*\(/);
-    if (componentNameMatch) {
-      componentName = componentNameMatch[1] || componentNameMatch[2];
-      // Check if this component is the default export
-      if (new RegExp(`export\\s+default\\s+${componentName}`).test(content)) {
-        isDefault = true;
-      }
-    }
-  }
-
-  // Final fallback to filename if no component name is found
-  if (!componentName) {
-    const filename = path.basename(filePath, path.extname(filePath));
-    componentName = filename.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join('');
-    // Assume default export as a last resort
-    isDefault = true;
-  }
-  
-  return { name: componentName, isDefault };
-}
-
-/**
- * Parses props from example code
- * @param {string} exampleCode - Example code string
- * @returns {Object} Parsed props
- */
 function parsePropsFromCode(exampleCode) {
   const props = {};
   
@@ -201,17 +61,114 @@ function parsePropsFromCode(exampleCode) {
   return props;
 }
 
-/**
- * Processes a single component file
- * @param {string} filePath - Path to component file
- * @returns {Object|null} Component data or null if not a marked component
- */
+function extractJSDocComments(content) {
+  const jsDocRegex = /\/\*\*[\s\S]*?\*\//g;
+  const comments = content.match(jsDocRegex) || [];
+  return comments;
+}
+
+function parseJSDocComment(jsDocComment) {
+  const lines = jsDocComment.split('\n').map(line => line.trim());
+  
+  const result = {
+    description: '',
+    isComponent: false,
+    category: 'uncategorized',
+    params: [],
+    examples: []
+  };
+  
+  let currentSection = 'description';
+  let currentExample = null;
+  
+  lines.forEach(line => {
+    const cleanLine = line.replace(/^\s*\*\s?/, '').trim();
+    
+    if (cleanLine === '/**' || cleanLine === '*/') return;
+    
+    if (cleanLine.startsWith('@component')) {
+      result.isComponent = true;
+      currentSection = 'component';
+    } else if (cleanLine.startsWith('@category')) {
+      result.category = cleanLine.replace('@category', '').trim();
+      currentSection = 'category';
+    } else if (cleanLine.startsWith('@param')) {
+      const paramMatch = cleanLine.match(/@param\s+\{([^}]+)\}\s+([^\s]+)\s*-?\s*(.*)/);
+      if (paramMatch) {
+        result.params.push({
+          type: paramMatch[1],
+          name: paramMatch[2],
+          description: paramMatch[3]
+        });
+      }
+      currentSection = 'param';
+    } else if (cleanLine.startsWith('@example')) {
+      if (currentExample) {
+        result.examples.push(currentExample);
+      }
+      currentExample = {
+        title: '',
+        code: ''
+      };
+      currentSection = 'example';
+    } else if (currentSection === 'description' && cleanLine && !cleanLine.startsWith('@')) {
+      result.description += (result.description ? ' ' : '') + cleanLine;
+    } else if (currentSection === 'example' && currentExample) {
+      if (cleanLine.startsWith('//') && !currentExample.title) {
+        currentExample.title = cleanLine.replace('//', '').trim();
+      } else if (cleanLine && !cleanLine.startsWith('@')) {
+        currentExample.code += (currentExample.code ? '\n' : '') + cleanLine;
+      }
+    }
+  });
+  
+  if (currentExample) {
+    result.examples.push(currentExample);
+  }
+  
+  return result;
+}
+
+function extractComponentInfo(content, filePath) {
+  let componentName = null;
+  let isDefault = false;
+
+  const defaultExportMatch = content.match(/export\s+default\s+(?:function\s+)?([A-Z]\w*)/);
+  if (defaultExportMatch) {
+    componentName = defaultExportMatch[1];
+    isDefault = true;
+  } else {
+    const namedExportMatch = content.match(/export\s+(?:const|function)\s+([A-Z]\w*)/);
+    if (namedExportMatch) {
+      componentName = namedExportMatch[1];
+      isDefault = false;
+    }
+  }
+
+  if (!componentName) {
+    const componentNameMatch = content.match(/const\s+([A-Z]\w*)\s*=\s*\(|function\s+([A-Z]\w*)\s*\(/);
+    if (componentNameMatch) {
+      componentName = componentNameMatch[1] || componentNameMatch[2];
+      if (new RegExp(`export\\s+default\\s+${componentName}`).test(content)) {
+        isDefault = true;
+      }
+    }
+  }
+
+  if (!componentName) {
+    const filename = path.basename(filePath, path.extname(filePath));
+    componentName = filename.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join('');
+    isDefault = true;
+  }
+  
+  return { name: componentName, isDefault };
+}
+
 function processComponentFile(filePath) {
   try {
     const content = fs.readFileSync(filePath, 'utf-8');
     const jsDocComments = extractJSDocComments(content);
     
-    // Find JSDoc comment with @component tag
     let componentDoc = null;
     for (const comment of jsDocComments) {
       const parsed = parseJSDocComment(comment);
@@ -222,13 +179,12 @@ function processComponentFile(filePath) {
     }
     
     if (!componentDoc) {
-      return null; // Not a marked component
+      return null;
     }
     
     const componentInfo = extractComponentInfo(content, filePath);
     const relativePath = path.relative('components', filePath);
     
-    // Process examples with parsed props
     const processedExamples = componentDoc.examples
       .filter(ex => ex.code.trim() !== '')
       .map((example, index) => ({
@@ -253,9 +209,6 @@ function processComponentFile(filePath) {
   }
 }
 
-/**
- * Generates component examples from all marked components
- */
 function generateComponentExamples() {
   console.log('🔍 Scanning for marked components...');
   
@@ -272,7 +225,6 @@ function generateComponentExamples() {
     if (componentData) {
       markedComponents.push(componentData);
       
-      // Group by category
       if (!categorizedComponents[componentData.category]) {
         categorizedComponents[componentData.category] = [];
       }
@@ -283,13 +235,11 @@ function generateComponentExamples() {
   console.log(`✅ Found ${markedComponents.length} marked components`);
   console.log(`📊 Categories found: ${Object.keys(categorizedComponents).join(', ')}`);
   
-  // Generate outputs
   const outputDir = './generated';
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
   }
   
-  // 1. Complete component data
   const completeData = {
     generatedAt: new Date().toISOString(),
     totalComponents: markedComponents.length,
@@ -302,34 +252,29 @@ function generateComponentExamples() {
     JSON.stringify(completeData, null, 2)
   );
   
-  // 2. Categorized components (legacy format)
   fs.writeFileSync(
     path.join(outputDir, 'components-by-category.json'),
     JSON.stringify(categorizedComponents, null, 2)
   );
   
-  // 3. NEW: Combined preview data for BlockPreview
   const previewData = generatePreviewData(categorizedComponents);
   fs.writeFileSync(
     path.join(outputDir, 'component-preview-data.json'),
     JSON.stringify(previewData, null, 2)
   );
   
-  // 4. Generate React component for preview
   const previewComponent = generatePreviewComponent(categorizedComponents);
   fs.writeFileSync(
     path.join(outputDir, 'ComponentPreview.jsx'),
     previewComponent
   );
   
-  // 5. Generate summary report
   const summaryReport = generateSummaryReport(markedComponents, categorizedComponents);
   fs.writeFileSync(
     path.join(outputDir, 'summary-report.md'),
     summaryReport
   );
   
-  // NEW: Generate rendered examples
   const exampleRenderer = generateExampleRenderer(categorizedComponents);
   fs.writeFileSync(
     path.join(outputDir, 'component-examples.jsx'),
@@ -345,11 +290,6 @@ function generateComponentExamples() {
   console.log('  - component-examples.jsx');
 }
 
-/**
- * Generates preview data optimized for BlockPreview component
- * @param {Object} categorizedComponents - Components grouped by category
- * @returns {Object} Preview data structure
- */
 function generatePreviewData(categorizedComponents) {
   const previewData = {
     generatedAt: new Date().toISOString(),
@@ -382,11 +322,6 @@ function generatePreviewData(categorizedComponents) {
   return previewData;
 }
 
-/**
- * Get description for a category
- * @param {string} category - Category name
- * @returns {string} Category description
- */
 function getCategoryDescription(category) {
   const descriptions = {
     buttons: 'Interactive button components with various styles and animations',
@@ -400,11 +335,6 @@ function getCategoryDescription(category) {
   return descriptions[category] || `${category} components`;
 }
 
-/**
- * Generates a React component for previewing all examples
- * @param {Object} categorizedComponents - Components grouped by category
- * @returns {string} React component code
- */
 function generatePreviewComponent(categorizedComponents) {
   const imports = [];
   const categoryComponents = [];
@@ -464,12 +394,6 @@ export default ComponentPreview;
 `;
 }
 
-/**
- * Generates a markdown summary report
- * @param {Array} markedComponents - All marked components
- * @param {Object} categorizedComponents - Components grouped by category
- * @returns {string} Markdown report
- */
 function generateSummaryReport(markedComponents, categorizedComponents) {
   const categories = Object.keys(categorizedComponents);
   
@@ -509,21 +433,30 @@ Generated on: ${new Date().toISOString()}
   return report;
 }
 
-/**
- * Generates a file that exports an object of rendered component examples.
- * @param {Object} categorizedComponents - Components grouped by category
- * @returns {string} React component code
- */
 function generateExampleRenderer(categorizedComponents) {
   const allComponents = Object.values(categorizedComponents).flat();
 
   const defaultImports = [];
   const namedImports = {};
+  const importedNames = new Set();
 
   allComponents.forEach(comp => {
     const importPath = `../components/${comp.filePath.replace(/\.js$/, '')}`;
     if (comp.isDefaultExport) {
-      defaultImports.push(`import ${comp.name} from '${importPath}';`);
+      // Handle duplicate component names
+      let componentName = comp.name;
+      if (importPath.includes('post-tile-hovertext')) {
+        componentName = 'PostTileHoverText';
+      } else if (importPath.includes('post-tile-text')) {
+        componentName = 'PostTileTextBasic';
+      }
+      
+      if (importedNames.has(componentName)) {
+        console.warn(`Warning: Duplicate component name ${componentName} from ${importPath}`);
+      } else {
+        defaultImports.push(`import ${componentName} from '${importPath}';`);
+        importedNames.add(componentName);
+      }
     } else {
       if (!namedImports[importPath]) {
         namedImports[importPath] = new Set();
@@ -532,21 +465,118 @@ function generateExampleRenderer(categorizedComponents) {
     }
   });
 
-  const imports = [...defaultImports];
+  let imports = [...defaultImports];
   for (const [path, names] of Object.entries(namedImports)) {
     imports.push(`import { ${[...names].join(', ')} } from '${path}';`);
   }
 
-  const hasButtons = allComponents.some(c => c.category === 'buttons');
-  if (hasButtons) {
-    imports.push(`import { ButtonType, ButtonSound } from '../components/base/button/button.util';`);
+  // Filter out duplicates and button utils
+  imports = imports.filter(imp => !imp.includes('button.util'));
+  
+  // Remove duplicate PostTileText import
+  const textImports = imports.filter(imp => imp.includes('post-tile-text'));
+  if (textImports.length > 1) {
+    imports = imports.filter(imp => !imp.includes('post-tile-text'));
+    imports.push(`import PostTileTextBasic from '../components/tile/post-tile-text';`);
   }
+  
+  // Remove duplicate PostTile import
+  imports = imports.filter(imp => !imp.includes('audio-trigger'));
+
+  // Add Link import for examples that use it
+  imports.push(`import Link from 'next/link';`);
+
+  // Add HOC imports
+  imports.push(`import { withDeclarativeAudio, PostTile as AudioPostTileBase } from '../components/audio/audio-trigger';`);
+
+  // Define HOC components and enums at the top level
+  const hocDefinitions = `
+// Define button enums
+const ButtonType = {
+  DEFAULT: 'default',
+  PRIMARY: 'primary',
+  SECONDARY: 'secondary',
+  TRANSPARENT: 'transparent'
+};
+
+const ButtonSound = {
+  CLICK: 'click',
+  HOVER: 'hover',
+  NONE: 'none'
+};
+
+// Define HOC components
+const AudioPostTile = withDeclarativeAudio(AudioPostTileBase);
+
+const AudioGridTile = withDeclarativeAudio(({ post, children, ...props }) => (
+  <Link href={\`/posts/\${post.slug}\`} {...props}>
+    {children}
+  </Link>
+));
+
+const PostContent = ({ post }) => (
+  <div>
+    <h2>{post.title}</h2>
+    <p>{post.subtitle}</p>
+  </div>
+);
+
+// Create example data
+const examplePost = {
+  title: "Example Post",
+  slug: "example-post",
+  subtitle: "Example description"
+};`;
 
   const exampleEntries = [];
   allComponents.forEach(comp => {
     comp.examples.forEach(example => {
-      // Clean up the code string to be valid JSX
-      const jsxCode = example.code.replace(/\/\s*$/, '').trim(); // Remove trailing slash and trim
+      let jsxCode = example.code.replace(/\/\s*$/, '').trim();
+      
+      // Handle special cases
+      if (example.id.startsWith('PostTile_')) {
+        if (example.id === 'PostTile_0') {
+          jsxCode = `<AudioPostTile
+            post={examplePost}
+            data-audio-click="beepOn"
+            data-audio-hover="plink"
+          />`;
+        } else if (example.id === 'PostTile_1') {
+          jsxCode = `<div className="grid">
+            <AudioGridTile
+              post={examplePost}
+              data-audio-click="beepOn"
+              data-audio-hover="plink"
+            >
+              <PostContent post={examplePost} />
+            </AudioGridTile>
+          </div>`;
+        }
+      }
+      // Handle conditional rendering examples
+      else if (jsxCode.includes('currentTheme.data.cursor') || jsxCode.includes('showCursor')) {
+        const componentMatch = jsxCode.match(/<([A-Za-z]+)[^>]*>/);
+        if (componentMatch) {
+          const componentName = componentMatch[1];
+          jsxCode = `<${componentName} content="Example" />`;
+        }
+      }
+      // For other components, if they contain component definitions, extract just the JSX part
+      else if (jsxCode.includes('const') && jsxCode.includes('=')) {
+        const jsxMatch = jsxCode.match(/<.*>.*<\/.*>|<.*\/>/s);
+        if (jsxMatch) {
+          jsxCode = jsxMatch[0];
+        }
+      }
+      
+      // Update prop names for grid components
+      if (comp.category === 'grid' && jsxCode.includes('items={')) {
+        jsxCode = jsxCode.replace('items={', 'data={');
+      }
+      
+      // Update component names in examples
+      jsxCode = jsxCode.replace(/PostTileText/g, 'PostTileTextBasic');
+      
       exampleEntries.push(`  "${example.id}": (${jsxCode})`);
     });
   });
@@ -554,6 +584,7 @@ function generateExampleRenderer(categorizedComponents) {
   return `// Auto-generated file with rendered component examples
 import React from 'react';
 ${[...imports].join('\n')}
+${hocDefinitions}
 
 export const exampleComponents = {
 ${exampleEntries.join(',\n')}
@@ -561,7 +592,6 @@ ${exampleEntries.join(',\n')}
 `;
 }
 
-// Run the generator if this script is executed directly
 if (require.main === module) {
   generateComponentExamples();
 }
@@ -570,4 +600,4 @@ module.exports = {
   generateComponentExamples,
   findComponentFiles,
   processComponentFile
-}; 
+};

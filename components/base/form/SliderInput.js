@@ -1,3 +1,5 @@
+import "./slider-input.css";
+
 export default function SliderInput({
   label,
   value,
@@ -12,12 +14,15 @@ export default function SliderInput({
 
   const styleVars = {
     "--progress": `${progressPercent}%`,
-    "--track-filled": "#1597ff",
-    "--track-empty": "#ddd"
+    "--track-filled": "var(--accent-pri, red)",
+    "--track-empty": "var(--surface3, white)",
+    "--track-height": "16px",
+
+    "--thumb-color": "var(--accent-sec, transparent)"
   };
 
   return (
-    <label className="grid grid-cols-[1fr_100px_30px] items-center gap-2">
+    <label className="grid grid-cols-[1fr_100px_30px] items-center gap-0">
       {label && <span className="text-xs">{label}</span>}
       <input
         type="range"

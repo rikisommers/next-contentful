@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
-import Grid from "../grid/grid";
-import List from "../grid/list";
-import GridList from "../grid/grid-list";
 import { BlockTags } from "./block-tags";
 // import { useMousePos } from "../mousePosContext"
 import { useThemeContext } from "../context/themeContext";
-import { ScaleContainer } from "../motion/scale-container";
+import { ScaleContainer } from "../motion/scale-container"
+import { articleListLayoutThemes } from "../../utils/theme";
+import GridBasic from "../articleList/grid-basic";
+import GridBento from "../articleList/grid-bento";
+import GridThings from "../articleList/grid-things";
+import ListTextHover from "../articleList/list-text-hover";
+import ListTextImage from "../articleList/list-text-image";
+import ListText from "../articleList/list-text";
 export const BlockArticles = ({ data, tags }) => {
   // const { setVisible, setContent } = useMousePos();
 
@@ -25,8 +29,10 @@ export const BlockArticles = ({ data, tags }) => {
 
   const posts = data.articlesCollection?.items;
 
-  // console.log("data", data.articlesCollection?.items);
-   //  console.log("data", data);
+  console.log("data.type:", data.type, typeof data.type);
+  console.log("textHoverList:", articleListLayoutThemes.textHoverList, typeof articleListLayoutThemes.textHoverList);
+  console.log("Strict equal?", data.type === articleListLayoutThemes.textHoverList);
+  console.log("Length check:", data.type?.length, articleListLayoutThemes.textHoverList?.length);
 
   const [selectedTag, setSelectedTag] = useState(null);
   const [filteredPosts, setFilteredPosts] = useState(posts);
@@ -49,30 +55,54 @@ export const BlockArticles = ({ data, tags }) => {
     }
   };
 
+  const getGridType = (type, data, aspectRatio) => {
+    console.log("getGridType called with:", {
+      type,
+      typeType: typeof type,
+      textHoverList: articleListLayoutThemes.textHoverList,
+      textHoverListType: typeof articleListLayoutThemes.textHoverList,
+      equal: type === articleListLayoutThemes.textHoverList,
+      typeJSON: JSON.stringify(type),
+      textHoverListJSON: JSON.stringify(articleListLayoutThemes.textHoverList)
+    });
+
+    switch (type) {
+        case articleListLayoutThemes.gridBasic:
+            return <GridBasic data={data}/>;
+        case articleListLayoutThemes.gridBento:
+            return <GridBento data={data}/>;
+        case articleListLayoutThemes.gridThings:
+            return <GridThings data={data}/>;
+        case articleListLayoutThemes.textHoverList:
+            return <ListTextHover data={data}/>;
+        case articleListLayoutThemes.textImageList:
+            return <ListTextImage data={data}/>;
+        case articleListLayoutThemes.textList:
+            return <ListText data={data}/>;
+        default:
+            return <GridBasic data={data}/>;
+    }
+};
+
+  // Extract the type from the array
+  const gridType = getGridType(data.type[0], filteredPosts); 
   return (
-    <>
+    <div className="flex flex-col gap-2 px-8 pb-10 w-full">
       {data.filter === true && tags?.length && (
-        <div className="px-8 pb-8">
+      
         <BlockTags
           data={tags}
           selected={selectedTag}
           handleTagClick={handleTagClick}
         />
-        </div>
       )}
   
-        {data.type == "list" && (
-          <div className="flex flex-col gap-6 pb-8 w-full">
-            <List data={filteredPosts} />
-          </div>
-        )}
-        {data.type == "bento" && (
-           <div className="flex flex-col gap-6 px-8 pb-8 w-full">
-             <Grid type={currentTheme.data.cardGrid} data={filteredPosts} />
-          </div>
-        )}
+      <p>Current type: {data.type[0]}</p>
+      <p>Expected type: {articleListLayoutThemes.textHoverList}</p>
+      {gridType}
+  
       
-    </>
+    </div>
   );
 };
 
