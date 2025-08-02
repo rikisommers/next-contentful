@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PostTileProjects from "../tile/post-tile-projects";
 import CursorImage from "../cursor/cursor-image";
-
+import { motion } from "../../utils/motion"
 /**
  * @component
  * @category grid
@@ -22,10 +22,11 @@ export default function ListTextHover({
   ...props
 }) {
   const [showCursor, setShowCursor] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState(0);
 
   return (
     <>
-      {showCursor && <CursorImage />}
+      {showCursor && <CursorImage img={items[hoveredIndex].img} />}
       <div
         className={`grid grid-auto-rows-fr ${className}`}
         style={style}
@@ -35,9 +36,15 @@ export default function ListTextHover({
           <div 
             className="relative"
             key={index}
-            onMouseEnter={() => setShowCursor(true)}
+            onMouseEnter={() => {
+              setShowCursor(true);
+              setHoveredIndex(index);
+            }}
             onMouseLeave={() => setShowCursor(false)}
           >
+
+            {/* <motion.div className="absolute w-full h-full inset-0 z-10 bg-[var(--accent-pri)]" /> */}
+            
             <PostTileProjects post={item} />
           </div>
         ))}

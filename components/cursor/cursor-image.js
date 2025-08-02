@@ -3,6 +3,7 @@ import { motion, cubicBezier } from "../../utils/motion";;
 import { MousePosContext } from "../context/mousePosContext";
 //import { checkTouchDevice } from "./check-toucch-device";
 import { useThemeContext } from "../context/themeContext";
+import BlendImage from "../image/blend-image";
 
 /**
  * Large animated cursor image component with fade transitions
@@ -20,7 +21,7 @@ import { useThemeContext } from "../context/themeContext";
  * // Conditional rendering based on hover state
  * {showCursor && <CursorImage />}
  */
-const CursorImage = () => {
+const CursorImage = ({img}) => {
   const { mousePosition, direction, velocity } = useContext(MousePosContext);
 
   const [touchDevice, setTouchDevice] = useState(false);
@@ -65,9 +66,8 @@ const CursorImage = () => {
   
     <motion.div
       ref={hostRef}
-      className="overflow-hidden fixed pointer-events-none top-0 right-0 w-[300px] h-[300px] opacity-40 aspect-video bg-amber-400"
+      className="overflow-hidden fixed pointer-events-none top-0 right-0 opacity-40  rounded-lg bg-[var(--surface1)] w-[300px] h-[300px] aspect-square"
       style={{
-        backgroundColor: currentTheme.data.accentPri,
         color: currentTheme.data.textColor,
       }}
       initial={{ 
@@ -83,9 +83,9 @@ const CursorImage = () => {
         opacity: cursorWithinViewport ? 0 : 1,
         scale: 1,
      }}
-      style={{
-        willChange: 'transform, opacity'
-      }}
+      // style={{
+      //   willChange: 'transform, opacity'
+      // }}
       exit={{ opacity: 0, scale: 0.8 }}
       transition={{
         type: "spring",
@@ -102,8 +102,20 @@ const CursorImage = () => {
         },
       }}
     >
+
+          {img && (
+
+         
+              <BlendImage
+                alt={`Cover Image for ${img.title}`}
+                src={img.url}
+              />
+          )}
+        
+        </motion.div>
+        
       {/* <motion.div className="w-16 h-16 bg-white rounded-full z-[9999]"></motion.div> */}
-    </motion.div>
+   
     </>
 
   );

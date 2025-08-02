@@ -93,12 +93,12 @@ export default function PostTileProjects({
        
       }}
     >
-      <div
+      {/* <div
         className="absolute top-0 left-0 z-10 w-full h-0 transition-all duration-300 group-hover:h-full"
         style={{
           backgroundColor: "var(--accent-pri)",
         }}
-      ></div>
+      ></div> */}
       <div className="grid z-20 grid-cols-3 col-span-2 gap-3 justify-between w-full text-[var(--text-color)] group-hover:text-[var(--hover-text)]"
        
       >
