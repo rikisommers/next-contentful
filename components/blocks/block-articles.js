@@ -96,9 +96,7 @@ export const BlockArticles = ({ data, tags }) => {
           handleTagClick={handleTagClick}
         />
       )}
-  
-      <p>Current type: {data.type[0]}</p>
-      <p>Expected type: {articleListLayoutThemes.textHoverList}</p>
+
       {gridType}
   
       

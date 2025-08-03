@@ -1,5 +1,5 @@
 import React from "react";
-import PostTileText from "../tile/post-tile-text";
+import PostTileImg from "../tile/post-tile-img";
 
 /**
  * @component
@@ -22,13 +22,13 @@ export default function ListTextImage({
 }) {
   return (
     <div
-      className={`grid grid-auto-rows-fr ${className}`}
+      className={`grid w-full grid-auto-rows-fr ${className}`}
       style={style}
       {...props}
     >
-      <div className="flex flex-col gap-24 py-4 mx-auto max-w-screen-xl">
+      <div className="flex flex-col gap-1 py-4 mx-auto w-full">
         {items.map((item, index) => (
-          <PostTileText key={index} post={item} />
+          <PostTileImg key={index} post={item} />
         ))}
       </div>
     </div>
