@@ -1,6 +1,6 @@
 "use client";
 
-import { heroHeightThemes, heroTypeThemes, heroBackgroundThemes, heroCssGradientThemes, heroCssGradientRadialPositionThemes, heroTextImageThemes, heroTextPositionThemes, textAlignThemes, textHighlightOutlineThemes, textAnimationThemes } from './theme';
+import { heroHeightThemes, heroBackgroundThemes, heroCssGradientThemes, heroCssGradientRadialPositionThemes, heroTextImageThemes, heroTextPositionThemes, textAlignThemes, textAnimationThemes } from './theme';
 
 export const setStyleProperties = (theme) => {
   const root = document.documentElement;
@@ -73,7 +73,6 @@ export const setStyleProperties = (theme) => {
     root.style.setProperty("--nav-label-display", theme.data.navLabelDisplay || "icons");
     // Hero properties
     root.style.setProperty("--hero-height", theme.data.heroHeight || heroHeightThemes.full);
-    root.style.setProperty("--hero-type", theme.data.heroType || heroTypeThemes.monks);
     root.style.setProperty("--hero-background", theme.data.heroBackground || heroBackgroundThemes.gradient);
     root.style.setProperty("--hero-css-gradient", theme.data.heroCssGradient || heroCssGradientThemes.linearVertical);
     root.style.setProperty("--hero-css-gradient-angle", theme.data.heroCssGradientAngle || '90');
@@ -84,10 +83,6 @@ export const setStyleProperties = (theme) => {
     root.style.setProperty("--hero-subtext-position", theme.data.heroSubTextPosition || heroTextPositionThemes[4]);
     root.style.setProperty("--hero-text-align", theme.data.heroTextAlign || textAlignThemes.center);
     root.style.setProperty("--hero-subtext-align", theme.data.heroSubTextAlign || textAlignThemes.center);
-//    root.style.setProperty("--hero-text-composition", theme.data.heroTextComposition || heroTextCompositionThemes.foo);
-    root.style.setProperty("--text-highlight-outline", theme.data.textHighlightOutline || textHighlightOutlineThemes.none);
-    root.style.setProperty("--text-highlight-outline-neumorphic-start-color", theme.data.textHighlightOutlineNeumorphicStartColor || '#FFFFFF');
-    root.style.setProperty("--text-highlight-outline-neumorphic-end-color", theme.data.textHighlightOutlineNeumorphicEndColor || '#000000');
     root.style.setProperty("--text-animation", theme.data.textAnimation || textAnimationThemes.navigators);
     root.style.setProperty("--text-animation-sec", theme.data.textAnimation || textAnimationThemes.navigators);
 

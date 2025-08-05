@@ -35,25 +35,6 @@ export default function Post({ post, footerData }) {
       <TransitionPage>
         {post && (
           <ClipContainer>
-            {/* {currentTheme.data.heroType === "monks" && (
-              <PostHeaderMonks
-                title={post.title}
-                subtitle={post.titlealt}
-                tags={post.tags}
-                img={post.img}
-              />
-            )}
-
-            {currentTheme.data.heroType === "riki" && (
-              <div className="mx-auto max-w-screen-xl">
-                <PostHeaderRiki
-                  title={post.title}
-                  subtitle={post.titlealt}
-                  img={post.img}
-                />
-              </div>
-            )} */}
-
             
               {post.csblocksCollection && (
                 <PostBody content={post.csblocksCollection} />

@@ -184,7 +184,7 @@ export default function PostTileFunky({
           className="w-full h-full"
           animate={{
             clipPath: isHovered
-              ? "inset(0.5rem 0.5rem 33% 0.5rem round 0.6rem)"
+              ? "inset(0rem 0rem 33% 0rem round 1rem)"
               : "inset(0rem 0rem 0rem 0rem round 1rem)",
           }}
           initial={{

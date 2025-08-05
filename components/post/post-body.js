@@ -38,7 +38,7 @@ export default function PostBody({ content, tags }) {
   // console.log('currentTheme',currentTheme)
   // console.log('content',content)
   return (
-    <div className={`flex flex-col gap-16 self-center
+    <div className={`flex flex-col gap-16 self-center pb-20
        ${(() => {
          // For Tailwind v4, max-width classes have changed
          const widthClasses = {

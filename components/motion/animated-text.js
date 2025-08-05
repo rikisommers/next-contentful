@@ -54,35 +54,6 @@ const AnimTextOrder = {
 };
 
 const AnimatedText = ({ type, highlight, content, delay }) => {
-  //TODO: Support primary and secondary
-
-  //TODO: make this a util
-  //     const [highlight, setHighlight] = useState('text'); // Default value
-
-  //   useEffect(() => {
-  //     const getTextHighlight = () => {
-  //       const root = document.documentElement;
-  //       const computedStyle = getComputedStyle(root);
-  //       return computedStyle.getPropertyValue('--text-highlight').trim() || 'text';
-  //     };
-
-  //     setHighlight(getTextHighlight());
-
-  //     // Optional: Add a MutationObserver to watch for changes in the data-theme attribute
-  //     const observer = new MutationObserver(() => {
-  //       setHighlight(getTextHighlight());
-  //     });
-
-  //     observer.observe(document.documentElement, {
-  //       attributes: true,
-  //       attributeFilter: ['data-theme']
-  //     });
-
-  //     return () => observer.disconnect();
-  //   }, []);
-
-  // Function to remove image syntax from content
-
   //    return getAnimatedComponent(content, delay);
   const { currentTheme } = useThemeContext();
   const highlight2 = currentTheme.data.textHighlight;
@@ -92,9 +63,7 @@ const AnimatedText = ({ type, highlight, content, delay }) => {
   if (content) {
     switch (type) {
       case AnimStyle.NAVIGATORS:
-        return <TextAnimNavigators 
-                content={content}
-                highlight={highlight2} />;
+        return <TextAnimNavigators content={content} highlight={highlight2} />;
       case AnimStyle.FIGMA:
         return <TextAnimFigma content={content} highlight={highlight2} />;
       case AnimStyle.NONE:

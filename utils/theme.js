@@ -1499,23 +1499,8 @@ export const textHighlightThemes = {
   tabloid: "tabloid",
   underline: "underline",
   highlight: "highlight",
-  figma:'figma',
-  figmaNeumorphic: "figma-neumorphic",
   none: "none"
 };
-
-export const textHighlightOutlineThemes = {
-  none: "none",
-  shadow: "shadow",
-  nuemorphic: "nuemorphic",
-};
-
-export const textHighlightOutlineNeumorphic = {
-  size: "15px 15px 30px",
-  startColor: "#FFFFFF",
-  endColor: "#000000",
-};
-
 
 // Type Themes
 // using google fonts kndoif sucks really just need a way to select local dfonts and not include in prod
@@ -1768,11 +1753,6 @@ export const textAlignThemes = {
   split:'split',
 };
 
-export const heroTypeThemes = {
-  monks: 'monks',
-  riki: 'riki',
-};
-
 export const heroGradThemes = {
   gradMidPoint: 0.5
 };
@@ -1886,20 +1866,26 @@ export const themeContent = {
   fluidFontWidthMin: fluidFontSizeThemes.fontWidthMin,
   fluidFontWidthMax: fluidFontSizeThemes.fontWidthMax,
   fluidVariableUnit: fluidFontSizeThemes.variableUnit,
+  bodyTextIndent: bodyTextThemes.indent,
+  bodyTextHightlight: bodyTextThemes.hightlight,
+  bodyTextAlign:bodyTextAlign.center,
+
   textHighlight:textHighlightThemes.text,
   textAnimation:textAnimationThemes.navigators,
   textAnimationSec:textAnimationThemes.none,
+
   pageTransition:pageTransitionThemes.fade,
   pageWidth:pageWidthThemes.fluid,
   cursor:cursorThemes.none,
+
   cardLayout:cardThemes.reone,
   cardHover:cardHoverThemes.none,
-  cardAspectRatio:cardAspectRatio.auto,
+  cardAspectRatio:cardAspectRatio.square,
   articleListLayout:articleListLayoutThemes.gridBasic,
-  gridColumnsSm: 2,
-  gridColumnsMd: 3,
-  gridColumnsLg: 4,
-  gridColumnsXl: 4,
+  gridColumnsSm: 1,
+  gridColumnsMd: 2,
+  gridColumnsLg: 2,
+  gridColumnsXl: 2,
   gridGap: "md",
   imageParallax:false,
   imageTexture:imageTextureThemes.noise,
@@ -1907,8 +1893,8 @@ export const themeContent = {
   imageTextureBrightness:imageTextureContrastThemes.brightness,
   imageTextureOpacity:imageTextureContrastThemes.opacity,
   imageMixBlendMode:mixBlendThemes.luminosity,
+
   heroHeight:heroHeightThemes.full,
-  heroType:heroTypeThemes.riki,
   heroBackground:heroBackgroundThemes.gradient,
   heroTextPosition:heroTextPositionThemes[4], // '1-1' center-center
   heroSubTextPosition:heroTextPositionThemes[8], // '2-2' bottom-right
@@ -1921,9 +1907,10 @@ export const themeContent = {
   heroTextAlign:textAlignThemes.center,
   heroSubTextAlign:textAlignThemes.center,
   heroTextImage:heroTextImageThemes.none,
+
   navPosition:navigationPositionThemes.topCenter,
   navStyle:navigationStyleThemes.applause,
-  navTheme:navigationThemes.applause,
+  navTheme:navigationThemes.awwwardsGlass,
   navTextStyle:navigationTextStyleThemes.icons,
   navFloating: navigationOptions.floating,
   navFixed: navigationOptions.fixed,
@@ -1932,21 +1919,13 @@ export const themeContent = {
   navShadow: false,
   navShadowColor: navigationOptions.shadowColor.default,
   navShadowSize:navigationOptions.shadowSize.sm,
+  
   logoBackground:logoBackground.solid,
   footerFixed: footerOptions.fixed,
   bodyTextDropCap: bodyTextThemes.dropCap,
-  bodyTextIndent: bodyTextThemes.indent,
-  bodyTextHightlight: bodyTextThemes.hightlight,
-  bodyTextAlign:bodyTextAlign.center,
-  textHighlightOutline:textHighlightOutlineThemes.none,
-  // textHighlightOutlineNeumorphicSize:textHighlightOutlineNeumorphic.size,
-  textHighlightOutlineNeumorphicStartColor:'#FFFFFF',
-  textHighlightOutlineNeumorphicEndColor:'#000000',
 
-  shaderType: shaderTypes.blueNoise, // Default shader type
-
+  shaderType: shaderTypes.blueNoise, // Default shader type 
   shaderMesh: false,
-
   pixelDensity: 20.0, // Default pixel density
   halftoneSize: 8.0, // Default halftone size
   halftoneShape: "circle", // Default halftone shape

@@ -9,10 +9,9 @@ export const BlockQuote = ({ data }) => {
   console.log(data)
   
   return (
-    <blockquote className="grid grid-cols-6">
-      <div className="flex flex-col col-span-4 col-start-2 gap-4">
+    <blockquote className="p-10 mx-auto flex flex-col gap-4 max-w-prose fluid-type bg-[var(--surface1)]/20 rounded-2xl">
         {data.title && (
-          <span style={{ color: "var(--heading-color)" }}>
+          <span className="text-sm text-[var(--subtext-color)]">
             {/* <AnimatedText
               type={AnimStyle.LINESUP}
               content={data.title}
@@ -22,16 +21,15 @@ export const BlockQuote = ({ data }) => {
         )}
 
         {data.content && (
-          <h2 className="text-2xl font-normal leading-relaxed text-balance" style={{ color: "var(--text-color)" }}>
+          <h3 className="text-2xl font-light leading-relaxed text-balance text-[var(--text-color)]">
             <AnimatedText
               type={currentTheme.data.textAnimation}
               content={data.content}
             />
            {/* {data.content} */}
-          </h2>
+          </h3>
 
         )}
-      </div>
     </blockquote>
   );
 };

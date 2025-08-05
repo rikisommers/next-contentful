@@ -9,14 +9,12 @@ import {
   typographyThemes,
   fontScaleThemes,
   textHighlightThemes,
-  textHighlightOutlineThemes,
   bodyTextAlign,
   navigationPositionThemes,
   navigationStyleThemes,
   navigationThemes,
   navigationOptions,
   heroHeightThemes,
-  heroTypeThemes,
   heroBackgroundThemes,
   heroCssGradientThemes,
   heroCssGradientRadialPositionThemes,
@@ -76,20 +74,11 @@ export const themeControlConfig = {
     cursor: { type: "select", label: "Cursor", options: cursorThemes },
   },
   Typography: {
-    textAnimation: { type: "select", label: "Text Animation", options: textAnimationThemes },
-    textAnimationSec: { type: "select", label: "Text Anim Sec", options: textAnimationThemes },
     fontFamilyPrimary: { type: "select", label: "Font Family Primary", options: typographyThemes },
     fontFamilySecondary: { type: "select", label: "Font Family Secondary", options: typographyThemes },
     fontScale: { type: "select", label: "Scale", options: fontScaleThemes },
     fluidFontRatioMax: { type: "slider", label: "Fluid Max", min: 0, max: 1.3, step: 0.01 },
     fluidFontRatioMin: { type: "slider", label: "Fluid Min", min: 0, max: 1.3, step: 0.01 },
-    textHighlight: { type: "select", label: "Text Highlight", options: textHighlightThemes },
-    textHighlightOutline: { type: "select", label: "Text Highlight Outline", options: textHighlightOutlineThemes },
-    heroTextImage: { type: "select", label: "Images", options: heroTextImageThemes },
-    heroTextPosition: { type: "position", label: "Text Layout", options: heroTextPositionThemes },
-    heroSubTextPosition: { type: "position", label: "Subtext Layout", options: heroTextPositionThemes },
-    heroTextAlign: { type: "select", label: "Text Align", options: textAlignThemes },
-    heroSubTextAlign: { type: "select", label: "Subtext Align", options: textAlignThemes },
     BodyText: {
         isFolder: true,
         bodyTextDropCap: { type: "boolean", label: "Drop Cap" },
@@ -97,6 +86,25 @@ export const themeControlConfig = {
         bodyTextHighlight: { type: "select", label: "Highlight", options: textHighlightThemes },
         bodyTextAlign: { type: "select", label: "Align", options: bodyTextAlign },
     }
+  },
+  TypographyAnimation: {
+    textAnimation: { type: "select", label: "Text Animation", options: textAnimationThemes },
+    textAnimationSec: { type: "select", label: "Text Anim Sec", options: textAnimationThemes },
+    textHighlight: { type: "select", label: "Text Highlight", options: textHighlightThemes },
+
+  },
+  Hero: {
+    heroHeight: { type: "select", label: "Height", options: heroHeightThemes },
+    heroBackground: { type: "select", label: "Bg", options: heroBackgroundThemes },
+    heroCssGradient: { type: "select", label: "CSS Gradient Type", options: heroCssGradientThemes },
+    heroCssGradientAngle: { type: "slider", label: "CSS Gradient Angle", min: 0, max: 180, step: 1 },
+    heroCssGradientRadialPosition: { type: "select", label: "CSS Gradient Radial Position", options: heroCssGradientRadialPositionThemes },
+    heroGradMidPoint: { type: "slider", label: "Gradient Mid Point", min: 0, max: 1, step: 0.1 },
+    heroTextImage: { type: "select", label: "Images", options: heroTextImageThemes },
+    heroTextPosition: { type: "position", label: "Text Layout", options: heroTextPositionThemes },
+    heroSubTextPosition: { type: "position", label: "Subtext Layout", options: heroTextPositionThemes },
+    heroTextAlign: { type: "select", label: "Text Align", options: textAlignThemes },
+    heroSubTextAlign: { type: "select", label: "Subtext Align", options: textAlignThemes },
   },
   Navigation: {
     navPosition: { type: "select", label: "Position", options: navigationPositionThemes },
@@ -113,15 +121,7 @@ export const themeControlConfig = {
   Footer: {
     footerFixed: { type: "boolean", label: "Fixed" },
   },
-  Hero: {
-    heroHeight: { type: "select", label: "Height", options: heroHeightThemes },
-    heroType: { type: "select", label: "Type", options: heroTypeThemes },
-    heroBackground: { type: "select", label: "Bg", options: heroBackgroundThemes },
-    heroCssGradient: { type: "select", label: "CSS Gradient Type", options: heroCssGradientThemes },
-    heroCssGradientAngle: { type: "slider", label: "CSS Gradient Angle", min: 0, max: 180, step: 1 },
-    heroCssGradientRadialPosition: { type: "select", label: "CSS Gradient Radial Position", options: heroCssGradientRadialPositionThemes },
-    heroGradMidPoint: { type: "slider", label: "Gradient Mid Point", min: 0, max: 1, step: 0.1 },
-  },
+
   Images: {
     imageParallax: { type: "boolean", label: "Parallax" },
     imageMixBlendMode: { type: "select", label: "Blend Mode", options: mixBlendThemes },

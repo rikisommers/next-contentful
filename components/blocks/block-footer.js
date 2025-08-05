@@ -5,7 +5,7 @@ import AnimatedText, {
   AnimStyle,
   AnimTextOrder,
 } from "../motion/animated-text";
-
+import PostTileImg from "../tile/post-tile-img";
 import Button from "../base/button/button";
 import ButtonWipe from "../base/button/button-wipe";
 import ButtonMonks from "../base/button/button-monks";
@@ -23,7 +23,7 @@ export default function BlockFooter({ data }) {
 
     offset: ["start end", "end end"],
     onChange: (latest) => {
-    //  console.log("Latest scroll position:", latest);
+      //  console.log("Latest scroll position:", latest);
       // You can perform any other actions or state updates here
     },
   });
@@ -72,28 +72,25 @@ export default function BlockFooter({ data }) {
           <div className="flex flex-col gap-4 items-start">
             {data?.title && (
               <p className="text-xs" style={{ color: "var(--subtext-color)" }}>
-                {data?.title}sd
+                {data?.title}
               </p>
             )}
 
             {data?.content && (
               <div className="fluid-type">
-            <h2 className="text-2xl font-normal">{data.content}</h2>
-              <h2
-                className="text-3xl font-normal leading-normal text-balance"
-                style={{ color: "var(--text-color)" }}
-              >
-                <AnimatedText
-                  type={AnimStyle.NONE}
-                  content={data.content}
-                  delay={AnimTextOrder.ONE}
-                />
-              </h2>
+                <h2 className="text-2xl font-normal">{data.content}</h2>
+                {/* <h2
+                  className="text-3xl font-normal leading-normal text-balance"
+                  style={{ color: "var(--text-color)" }}
+                >
+                  <AnimatedText
+                    type={AnimStyle.NONE}
+                    content={data.content}
+                    delay={AnimTextOrder.ONE}
+                  />
+                </h2> */}
               </div>
             )}
-
-
-
 
             {data?.ctalink && data?.cta && (
               <Link href={data.ctalink} className="no-underline">
@@ -115,17 +112,16 @@ export default function BlockFooter({ data }) {
                 className="mb-4 text-sm font-normal"
                 style={{ color: "var(--subtext-color)" }}
               >
-                contact
+                Pages
                 {/* {data?.description} */}
               </h3>
               <div className="flex flex-col col-span-1 gap-2">
                 {pages.map((page) => (
                   <Link
-                    className="text-sm no-underline"
+                    className="text-sm no-underline text-[var(--text-color)]"
                     key={page.id}
                     href={page.url}
                     scroll={false}
-                    style={{ color: "var(--text-color)" }}
                   >
                     {page.title}
                   </Link>
@@ -143,40 +139,73 @@ export default function BlockFooter({ data }) {
                   className="mb-4 text-sm font-normal"
                   style={{ color: "var(--subtext-color)" }}
                 >
-                  Services
+                  Links
                   {/* {data?.description} */}
                 </h3>
 
                 <div className="flex flex-col col-span-1 gap-2">
-                  {pages.map((page) => (
-                    <Link
-                      className="text-sm no-underline"
-                      key={page.id}
-                      href={page.url}
-                      scroll={false}
-                      style={{ color: "var(--text-color)" }}
-                    >
-                      {page.title}
-                    </Link>
-                  ))}
+                  {data.socialCollection &&
+                    data.socialCollection.items?.length &&
+                    data.socialCollection.items.map((item, i) => (
+                      <Link
+                        href={item.url}
+                        key={i}
+                        className="text-sm no-underline text-[var(--text-color)]"
+                      >
+                        {item.title}
+                      </Link>
+                    ))}
                 </div>
-              </div>
-              <div
-                className="flex flex-col p-8 rounded-lg"
-                style={{ backgroundColor: "var(--surface1)" }}
-              >
-                <h3
-                  className="mb-4 text-sm font-normal"
-                  style={{ color: "var(--text-color)" }}
-                >
-                  Product
-                  {/* {data?.description} */}
-                </h3>
               </div>
             </div>
           </div>
         </div>
-
+        <div className="grid grid-cols-12 col-span-12 gap-2 w-full">
+          <div
+            className="flex flex-col col-span-3 p-8 rounded-lg"
+            style={{ backgroundColor: "var(--surface1)" }}
+          >
+            <h3
+              className="mb-4 text-sm font-normal"
+              style={{ color: "var(--text-color)" }}
+            >
+              Product
+            </h3>
+          </div>
+          <div
+            className="flex flex-col col-span-3 p-8 rounded-lg"
+            style={{ backgroundColor: "var(--surface1)" }}
+          >
+            <h3
+              className="mb-4 text-sm font-normal"
+              style={{ color: "var(--text-color)" }}
+            >
+              Product
+            </h3>
+          </div>
+          <div
+            className="flex flex-col col-span-3 p-8 rounded-lg"
+            style={{ backgroundColor: "var(--surface1)" }}
+          >
+            <h3
+              className="mb-4 text-sm font-normal"
+              style={{ color: "var(--text-color)" }}
+            >
+              Product
+            </h3>
+          </div>
+          <div
+            className="flex flex-col col-span-3 p-8 rounded-lg"
+            style={{ backgroundColor: "var(--surface1)" }}
+          >
+            <h3
+              className="mb-4 text-sm font-normal"
+              style={{ color: "var(--text-color)" }}
+            >
+              Product
+            </h3>
+          </div>
+        </div>
         <div className="flex col-span-12 gap-2 w-full">
           <div
             className="flex flex-grow gap-4 items-center px-5 rounded-lg"

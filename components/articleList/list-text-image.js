@@ -1,6 +1,6 @@
 import React from "react";
 import PostTileImg from "../tile/post-tile-img";
-
+import PostTileListImg from "../tile/post-tile-list-img";
 /**
  * @component
  * @category grid
@@ -28,7 +28,7 @@ export default function ListTextImage({
     >
       <div className="flex flex-col gap-1 py-4 mx-auto w-full">
         {items.map((item, index) => (
-          <PostTileImg key={index} post={item} />
+          <PostTileListImg key={index} post={item} />
         ))}
       </div>
     </div>

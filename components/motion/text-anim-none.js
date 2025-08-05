@@ -1,8 +1,8 @@
 import { processItalicText } from "../utils/textFormatting";
-import HighlightedSegment from "./text-anim-highlighted-segment";
+import { HighlightedSegment } from "./text-anim-highlighted-segment";
 
 export const TextAnimNone = ({ 
-  text, 
+  content, 
   className,
   highlight,
   type = 'text'
@@ -17,7 +17,7 @@ export const TextAnimNone = ({
         style={{ 
           overflow: 'hidden',
           position: 'relative',
-          display: 'block' // This is acceptable as it's at the line level
+          display: 'block'
         }}
         className="leading-snug"
       >
@@ -72,16 +72,16 @@ export const TextAnimNone = ({
     );
   };
 
-  const renderContent = (text) => {
-    if (text) {
-      const lines = text.split('\n');
+  const renderContent = (content) => {
+    if (content) {
+      const lines = content.split('\n');  
       return lines.map((line, lineIndex) => renderLine(line, lineIndex));
     }
   };
 
   return (
     <span className={className}>
-      {renderContent(text)}
+      {renderContent(content)}
     </span>
   );
 };
