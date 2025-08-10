@@ -5,15 +5,21 @@ import ScrollContainer from "../components/utils/scroll-container";
 import LandingPage from "../components/landingPage";
 
 const Index = ({ data, footerData }) => {
-  const date = new Date(data.sys.publishedAt);
-  const options = { year: "numeric", month: "2-digit", day: "2-digit" };
-  const dateString = date.toLocaleDateString("en-US", options);
-
+  // If no data is available, show a message
+  if (!data) {
+    return (
+      <Layout>
+        <div className="flex justify-center items-center min-h-screen">
+          <p className="text-lg">No content available for the current space.</p>
+        </div>
+      </Layout>
+    );
+  }
 
   return (
     <Layout>
       <ScrollContainer>
-        <LandingPage data={data} footerData={footerData}  />
+        <LandingPage data={data} footerData={footerData} />
       </ScrollContainer>
     </Layout>
   );

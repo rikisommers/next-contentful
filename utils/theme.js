@@ -1895,7 +1895,7 @@ export const themeContent = {
   imageMixBlendMode:mixBlendThemes.luminosity,
 
   heroHeight:heroHeightThemes.full,
-  heroBackground:heroBackgroundThemes.gradient,
+  heroBackground:heroBackgroundThemes.image,
   heroTextPosition:heroTextPositionThemes[4], // '1-1' center-center
   heroSubTextPosition:heroTextPositionThemes[8], // '2-2' bottom-right
 

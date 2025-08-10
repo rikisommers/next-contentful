@@ -17,7 +17,7 @@ import { motion } from "../utils/motion";
 
 function MyApp({ Component, pageProps, router, globalData, customThemes }) {
   const [isLoading, setIsLoading] = useState(true);
-
+  console.log('globalData',globalData)
   useEffect(() => {
     window.addEventListener("load", () => {
       setIsLoading(false);
@@ -77,6 +77,7 @@ function MyApp({ Component, pageProps, router, globalData, customThemes }) {
                   {globalData?.menuCollection?.items &&
                     globalData?.menuCollection?.items.length > 0 && (
                       <Navigation
+                        title={globalData.sitetitle}
                         data={globalData.menuCollection.items}
                         logo={globalData.logo}
                         customThemes={customThemes}

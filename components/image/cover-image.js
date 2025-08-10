@@ -22,7 +22,7 @@ export default function CoverImage({ title, url, slug, layout }) {
   const image = (
       <motion.div
         ref={ref}
-        className="flex flex-col content-end align-bottom w-full bg-gray-500 relative grid aspect-[16/9] overflow-hidden flex justify-end"
+        className="flex grid overflow-hidden relative flex-col justify-end content-end w-full align-bottom bg-gray-500"
         // initial={{ clipPath: clipPathInitial }}
         // animate={{ clipPath: clipPathInitial }}
         // exit={{ clipPath: clipPathInitial }}
@@ -33,7 +33,7 @@ export default function CoverImage({ title, url, slug, layout }) {
       >
         <div className="bsolute w-full h-[calc(100%+200px)] -top-[10px] left-0 bg-purple-700 flex flex-col justify-center items-center">
         {/* style={{ y }} */}
-          <motion.div className="w-full h-full py-6" style={{ y }} >
+          <motion.div className="py-6 w-full h-full" style={{ y }} >
             <ContentfulImage
               width={1920}
               height={1280}

@@ -24,7 +24,7 @@ const getPositionClass = (position) => {
   if (isNaN(row) || isNaN(col)) return "";
   
   // Add 1 to row/col for 1-based grid classes
-  return `row-start-${row + 1} col-start-${col + 1} col-span-2`;
+  return `row-start-${row + 1} col-start-${col + 1} col-span-2 self-end`;
 };
 
 const getHeightClass = (height) => {
@@ -92,12 +92,14 @@ const renderHeroBackground = (heroBackground, image) => {
     case "cssgradient":
       return <BackgroundCssGrad />;
     case "image":
-      return image ? (
+      return image ? ( 
+        <div className="absolute top-0 left-0 w-full h-full -z-10 bg-[var(--background-color)]">
         <BlendImage
-          className="absolute w-full h-full img-cover"
+          className="img-cover"
           alt={`Cover Image for ${image?.title}`}
           src={image.url}
         />
+</div>
       ) : null;
 
     default:
@@ -116,7 +118,7 @@ export default function BlockHero({ title, content, tag, image }) {
 
         {renderHeroBackground(currentTheme.data.heroBackground, image)}
 
-        <div className="flex absolute right-4 top-20 flex-col gap-4">
+        {/* <div className="flex absolute right-4 top-20 flex-col gap-4">
           <div className="max-w-[200px] bg-[var(--background-color)] rounded-lg shadow-2xl p-4">
           <p className="text-[var(--text-color)] text-xs">Hello this is anbasiz shader examples from <a className="text-[var(--text-accent)]" href="https://threejs-journey.com/" target="_blank" rel="noopener noreferrer">threejs journey</a> tou should check it out. <a className="text-[var(--text-accent)]" href="https://threejs-journey.com/lessons/1" target="_blank" rel="noopener noreferrer">Tweak params here</a> Mmmkaayy</p>
           <button className="text-[var(--text-color)] text-xs">Cool man</button>
@@ -129,13 +131,13 @@ export default function BlockHero({ title, content, tag, image }) {
           <p className="text-[var(--text-color)] text-xs">This site is a ongoing collection of components. Mess with the theme and save you own. Content and themes are saved in local storage and CMS. Get you own <a className="text-[var(--text-accent)]" href="https://www.youtube.com/watch?v=0fKg7e37JgU" target="_blank" rel="noopener noreferrer">this video</a> Mmmkaayy </p>
           <button className="text-[var(--text-color)] text-xs">Cool man</button>
           </div>
-        </div>
-<ScaleContainer>
+        </div> */}
+{/* <ScaleContainer> */}
 
       <div
         className={`${getHeightClass(
           currentTheme.data.heroHeight
-        )} relative grid grid-cols-3 grid-rows-3 justify-end left-0 top-0 z-50 w-full gap-0  px-16 py-16 pointer-events-none fluid-type`}
+        )} relative grid grid-cols-4 grid-rows-3 justify-end left-0 top-0 z-50 w-full gap-0  px-16 py-16 pointer-events-none fluid-type`}
       >
 
         <div className={`${getPositionClass(currentTheme.data.heroTextPosition)}`}>
@@ -163,13 +165,12 @@ export default function BlockHero({ title, content, tag, image }) {
               </div>
 
               <div className={`${getPositionClass(currentTheme.data.heroSubTextPosition)}`}>
-         
+              {/* <figcaption className="flex absolute right-4 bottom-4 flex-col gap-4 max-w-[200px] bg-[var(--background-color)]/40  rounded-lg shadow-2xl p-4">
+          <p className="text-[var(--text-color)] text-xs">{data.title}</p>
+          </figcaption> */}
+
                 <p
-                  className="text-sm font-normal pointer-events-auto text-balance"
-                  style={{
-                    color: "var(--subtext-color)",
-                    textAlign: "var(--hero-subtext-align)",
-                  }}
+                  className=" text-sm font-normal pointer-events-auto text-balance text-[var(--subtext-color)]"
                 >
                   {content && (
                     <AnimatedText
@@ -184,7 +185,7 @@ export default function BlockHero({ title, content, tag, image }) {
           </div>
 
       </div>
-      </ScaleContainer>
+      {/* </ScaleContainer> */}
 
     </ClipContainer>
   );

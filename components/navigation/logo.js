@@ -5,7 +5,7 @@ import { motion, cubicBezier } from "../../utils/motion";
 import { useThemeContext } from "../context/themeContext";
 import { usePathname } from "next/navigation";
 
-export default function Logo({logo, showTitle}) {
+export default function Logo({logo, showTitle, title}) {
     const { currentTheme } = useThemeContext();
     const pathname = usePathname();
 
@@ -41,7 +41,7 @@ export default function Logo({logo, showTitle}) {
           easing: cubicBezier(0.35, 0.17, 0.3, 0.86),
         }}
       >
-        Riki Sommers
+        {title?title:''}
       </motion.span>
       )}
     </motion.div>

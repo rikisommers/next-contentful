@@ -20,7 +20,7 @@ import { pageWidthThemes } from "../../utils/theme";
 const ArticleWrapper = ({ children }) => {
   const { currentTheme } = useThemeContext();
   return (
-    <div className={`mx-auto pb-12
+    <div className={`mx-auto pb-12 px-8
       ${currentTheme.data.navPosition === 'leftCenter' ? 'pl-32 pr-24' : ''}
       ${currentTheme.data.navPosition === 'rightCenter' ? 'pr-32 pr-24' : ''}
     `}>
@@ -118,7 +118,7 @@ export default function PostBody({ content, tags }) {
                 </ArticleWrapper>
                 // </AnimatedElement>
               )}
-              {item.__typename === "BlockIg" && (
+              {item.__typename === "BlockImages" && (
                 // <AnimatedElement type={AnimStyleEl.FADEIN}>
                 <ArticleWrapper>
                   <BlockImages key={item.id} data={item} id={item.title} />

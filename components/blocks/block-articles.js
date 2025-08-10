@@ -85,7 +85,7 @@ export const BlockArticles = ({ data, tags }) => {
 };
 
   // Extract the type from the array
-  const gridType = getGridType(data.type[0], filteredPosts); 
+  const gridType = getGridType(currentTheme.data.articleListLayout, filteredPosts); 
   return (
     <div className="flex flex-col gap-2 px-8 pb-10 w-full">
       {data.filter === true && tags?.length && (

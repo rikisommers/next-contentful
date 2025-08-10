@@ -71,14 +71,17 @@ export default function BlockFooter({ data }) {
         <div className="flex col-span-12 md:col-span-7">
           <div className="flex flex-col gap-4 items-start">
             {data?.title && (
-              <p className="text-xs" style={{ color: "var(--subtext-color)" }}>
+              <h1
+                className="text-8xl text-[var(--subtext-color)]"
+                
+              >
                 {data?.title}
-              </p>
+              </h1>
             )}
 
             {data?.content && (
-              <div className="fluid-type">
-                <h2 className="text-2xl font-normal">{data.content}</h2>
+              <div >
+                <h2 className="text-sm font-normal">{data.content}</h2>
                 {/* <h2
                   className="text-3xl font-normal leading-normal text-balance"
                   style={{ color: "var(--text-color)" }}

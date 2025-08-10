@@ -22,7 +22,7 @@ import NavBar from "./navbar";
 import Logo from "./logo";
 import { X } from "@phosphor-icons/react/dist/icons/X";
 
-export default function Navigation({ data, logo, customThemes }) {
+export default function Navigation({ data, logo, customThemes, title }) {
   const router = useRouter();
   const containerRef = useRef(null);
 
@@ -76,7 +76,7 @@ export default function Navigation({ data, logo, customThemes }) {
           className="flex z-50 col-start-1 row-span-1 row-start-1 justify-start items-start w-fit"
           onClick={toggleThemeEditor}
         >
-          <Logo logo={logo} showTitle={true} />
+          <Logo logo={logo} showTitle={true} title={title} />
         </div>
 
         <NavBar containerRef={containerRef} data={data} logo={logo} />
