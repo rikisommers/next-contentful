@@ -1,6 +1,6 @@
 import React from "react";  
 import { motion } from "../../../utils/motion";
-import './position-input.css';
+import styles from './position-input.module.css';
 
 const defaultOptions = [
   '0-0', '0-1', '0-2',
@@ -11,6 +11,7 @@ const defaultOptions = [
 export default function PositionInput({ label, value, onChange, options = defaultOptions, id }) {
   // Generate unique ID if not provided
   const layoutId = id ? `positionIndicator-${id}` : `positionIndicator-${Math.random().toString(36).substr(2, 9)}`;
+  
   // Convert options object to array of matrix coordinates if needed
   let gridOptions = defaultOptions;
   if (options && typeof options === 'object' && !Array.isArray(options)) {
@@ -21,8 +22,6 @@ export default function PositionInput({ label, value, onChange, options = defaul
   }
 
   // Determine the current selected option
-  // If value is a matrix coordinate string, use it directly
-  // If value is something else, try to find it in the options object
   let selectedOption = value;
   if (options && typeof options === 'object' && !Array.isArray(options)) {
     // If value is a key in options that maps to a matrix coordinate, use the mapped value
@@ -37,27 +36,20 @@ export default function PositionInput({ label, value, onChange, options = defaul
 
   return (
     <div className="flex flex-col gap-2 justify-between items-start">
-      {label && <div style={{ marginBottom: 4, fontSize: 12 }}>{label}</div>}
-      <div className="grid grid-cols-3 gap-[1px] rounded-sm overflow-hidden" 
-      
-      >
-        {gridOptions.map((opt, idx) => (
+      {label && <div className="mb-1 text-xs">{label}</div>}
+      <div className={styles.positionInput}>
+        {gridOptions.map((opt) => (
           <button
             key={opt}
             type="button"
             onClick={() => onChange(opt)}
-            className="relative flex justify-center items-center w-[24px] h-[24px] bg-[var(--surface3)] cursor-pointer"
-            style={{
-     
-             
-            }}
+            className={`${styles.positionInputItem} ${selectedOption === opt ? styles.positionInputItemSelected : ''}`}
             aria-label={opt}
           >
-            
             {selectedOption === opt && (
               <motion.div
                 layoutId={layoutId}
-                className="absolute inset-0 bg-gray-200 rounded-sm dark:bg-gray-700"
+                className={styles.indicator}
                 transition={{ 
                   type: "spring",
                   stiffness: 100,
@@ -65,10 +57,9 @@ export default function PositionInput({ label, value, onChange, options = defaul
                 }}
               />
             )}
-            <span className="relative z-10">{selectedOption === opt ? '' : ''}</span>
           </button>
         ))}
       </div>
     </div>
   );
-} 
+}

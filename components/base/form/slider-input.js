@@ -1,4 +1,4 @@
-import "./slider-input.css";
+import styles from './slider-input.module.css';
 
 export default function SliderInput({
   label,
@@ -17,13 +17,15 @@ export default function SliderInput({
     "--track-filled": "var(--accent-pri, red)",
     "--track-empty": "var(--surface3, white)",
     "--track-height": "16px",
-
     "--thumb-color": "var(--accent-sec, transparent)"
   };
 
   return (
-    <label className="grid grid-cols-[1fr_100px_30px] items-center gap-0">
+    <label className="grid grid-cols-[1fr_30px_100px] items-center gap-0">
+      
       {label && <span className="text-xs">{label}</span>}
+      <span className="pr-2 text-xs text-right">{value}</span>
+
       <input
         type="range"
         value={value}
@@ -31,11 +33,10 @@ export default function SliderInput({
         max={max}
         step={step}
         onChange={(e) => onChange(Number(e.target.value))}
-        className={`modern-slider ${className}`}
+        className={`${styles.slider} ${className}`}
         style={styleVars}
         {...props}
       />
-      <span className="text-xs text-right">{value}</span>
     </label>
   );
 }

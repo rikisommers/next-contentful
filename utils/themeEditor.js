@@ -14,12 +14,12 @@ import { useToast } from "../components/context/toastContext";
 import ThemeTrigger from "../components/base/theme-trigger";
 import { themeControlConfig } from "./themeControlConfig";
 import TextInput from "../components/base/form/TextInput";
-import SelectInput from "../components/base/form/SelectInput";
-import CheckboxInput from "../components/base/form/CheckboxInput";
-import ColorInput from "../components/base/form/ColorInput";
-import SliderInput from "../components/base/form/SliderInput";
+import SelectInput from "../components/base/form/select-input";
+import CheckboxInput from "../components/base/form/checkbox-input";
+import ColorInput from "../components/base/form/color-input";
+import SliderInput from "../components/base/form/slider-input";
 //import RotaryInput from "../components/base/form/RotaryInput";
-import PositionInput from "../components/base/form/PositionInput";
+import PositionInput from "../components/base/form/position-input";
 import BlockTags from "../components/blocks/block-tags";
 
 const getBestTheme = (weightType, sliderValue) => {

@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "../../utils/motion";
 import CanvasGradientBackground from "../background/canvasGradientBackground";
-import CanvasAnimatedGradient from "../background/canvasAnimatedGradient";
-import CanvasImageComponent from "../background/canvasImageComponent";
 import BackgroundCssGrad from "../background/bg-grad-css";
 import { useThemeContext } from "../context/themeContext";
 import BlendImage from "../image/blend-image";
 import { ClipContainer } from "../motion/clippath-container";
 import { ScaleContainer } from "../motion/scale-container";
-import PostIntro from "../post/post-intro";
 import Background from "../background/background";
 import AnimatedText, { AnimTextOrder } from "../motion/animated-text";
 
@@ -63,28 +60,6 @@ const renderHeroBackground = (heroBackground, image) => {
       return <h1>NONE</h1>;
     case "canvasSphere":
       return <Background />;
-    case "canvasGrad":
-      return <CanvasGradientBackground />;
-    case "canvasImage" || "canvasMesh":
-      return (
-        <div className="absolute w-screen h-screen">
-            {/* <CanvasImageComponent src={image.url} /> */}
-            {/* <NoiseDither/> */}
-            {/* <OrderedDither/> */}
-            {/* <BlueNoiseDither/> */}
-            {/* <ColorQuantDither/> */}
-            {/* <ColorQuantDither2/> */}
-            {/* <Rect/> */}
-            {/* <Dots/> */}
-            {/* <Ascii/> */}
-            {/* <Ascii2/> */}
-            {/* <Luma/> */}
-            {/* <Led/> */}
-            {/* <Lego/> */}
-            {/* <Progress/> */}
-            <CanvasShader/>
-        </div>
-      );
     case "canvasGradient":
       return (
         <CanvasGradientBackground gradientType="conic" conicRotation={1} />

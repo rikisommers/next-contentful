@@ -7,7 +7,7 @@ export const BlockImg = ({ data }) => {
   return (
     <figure>
       {data.image && data.title && (
-        <div className="relative">
+        <div className="overflow-hidden relative rounded-lg">
                 <BlendImage
           className="absolute w-full h-full img-cover"
           alt={`Cover Image for ${data.image?.title}`}

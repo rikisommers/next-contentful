@@ -1924,14 +1924,14 @@ export const themeContent = {
   footerFixed: footerOptions.fixed,
   bodyTextDropCap: bodyTextThemes.dropCap,
 
-  shaderType: shaderTypes.blueNoise, // Default shader type 
-  shaderMesh: false,
-  pixelDensity: 20.0, // Default pixel density
-  halftoneSize: 8.0, // Default halftone size
-  halftoneShape: "circle", // Default halftone shape
-  halftoneInvert: false, // Default halftone invert
-  dotScale: 0.6, // Default dot scale
-  surfaceTexture: surfaceTexture.color
+  // shaderType: shaderTypes.blueNoise, // Default shader type 
+  // shaderMesh: false,
+  // pixelDensity: 20.0, // Default pixel density
+  // halftoneSize: 8.0, // Default halftone size
+  // halftoneShape: "circle", // Default halftone shape
+  // halftoneInvert: false, // Default halftone invert
+  // dotScale: 0.6, // Default dot scale
+  // surfaceTexture: surfaceTexture.color
 }
 
 // Function to get theme by key

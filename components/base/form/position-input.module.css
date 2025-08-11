@@ -1,0 +1,41 @@
+.positionInput {
+  display: grid;
+  grid-template-columns: repeat(3, 16px);
+  border: 1px solid var(--surface3);
+  overflow: hidden;
+  gap: 1px;
+  background: var(--surface3);
+  border-radius: 4px;
+}
+
+.positionInputItem {
+  width: 16px;
+  height: 16px;
+  background: var(--surface1);
+  border-radius: 0;
+  cursor: pointer;
+  position: relative;
+  padding: 0;
+  border: none;
+  outline: none;
+  transition: background-color 0.2s ease;
+}
+
+.positionInputItem:hover {
+  background: var(--surface2);
+}
+
+.positionInputItemSelected {
+  background: var(--surface1);
+}
+
+.indicator {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: var(--accent-pri);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

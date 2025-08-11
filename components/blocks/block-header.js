@@ -6,8 +6,7 @@ export default function BlockHeader({ data  }) {
   const { currentTheme } = useThemeContext();
 
   return (
-    <div
-      className={`flex flex-col justify-end relative px-8 pt-40`}
+    <div className={`flex relative flex-col justify-end pt-40`}
     >
       <PostIntro title={data.content}  tag={data.title}/>
     </div>
@@ -16,7 +15,7 @@ export default function BlockHeader({ data  }) {
     // <div
     //   className={`flex flex-col justify-end relative px-8 ${data.primaryPageHeader === true ? "h-vhh" : "h-vh33"}`}
     // >
-    //   <div className="grid items-end content-end w-full grid-cols-12 gap-6">
+    //   <div className="grid grid-cols-12 gap-6 content-end items-end w-full">
     //     <div className="col-span-12 md:col-span-8 lg:col-span-8">
     //       {data.title && (
     //         <h4

@@ -12,7 +12,7 @@ export default function PostIntro({ title, content, tag }) {
   return (
     //pt-[16rem] pb-8
     <div className="grid z-10 grid-cols-12 gap-6 content-end items-end w-full fluid-type">
-      <div className="col-span-12 md:col-span-8 lg:col-span-8">
+      <div className="col-span-12 md:col-span-8 lg:col-span-6">
         <>
           {tag && (
             <div

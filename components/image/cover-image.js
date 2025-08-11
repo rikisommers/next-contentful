@@ -22,7 +22,7 @@ export default function CoverImage({ title, url, slug, layout }) {
   const image = (
       <motion.div
         ref={ref}
-        className="flex grid overflow-hidden relative flex-col justify-end content-end w-full align-bottom bg-gray-500"
+        className="grid overflow-hidden relative flex-col justify-end content-end w-full align-bottom bg-gray-500"
         // initial={{ clipPath: clipPathInitial }}
         // animate={{ clipPath: clipPathInitial }}
         // exit={{ clipPath: clipPathInitial }}

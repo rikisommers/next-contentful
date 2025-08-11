@@ -34,7 +34,8 @@ import { TextAnimNavigators } from '../components/motion/text-anim-navigators';
 import { TextAnimRandom } from '../components/motion/text-anim-random';
 import { TextAnimWordMask } from '../components/motion/text-anim-word-mask';
 import Link from 'next/link';
-import { withDeclarativeAudio, PostTile as AudioPostTileBase } from '../components/audio/audio-trigger';
+import { withDeclarativeAudio } from '../components/audio/audio-trigger';
+import PostTile from '../components/tile/post-tile';
 
 // Define button enums
 const ButtonType = {
@@ -51,7 +52,7 @@ const ButtonSound = {
 };
 
 // Define HOC components
-const AudioPostTile = withDeclarativeAudio(AudioPostTileBase);
+const AudioPostTile = withDeclarativeAudio(PostTile);
 
 const AudioGridTile = withDeclarativeAudio(({ post, children, ...props }) => (
   <Link href={`/posts/${post.slug}`} {...props}>

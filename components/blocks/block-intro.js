@@ -8,9 +8,9 @@ export default function BlockIntro({ data }) {
       }`}
     >
       <div className="grid grid-cols-12 gap-3 py-10">
-        
+      
         {data.overview && (
-          <div className="flex flex-col self-start col-span-10 gap-3 rounded-lg md:col-span-7 lg:col-span-8">
+          <div className="flex flex-col col-span-10 gap-3 self-start rounded-lg md:col-span-7 lg:col-span-8">
             <div style={{ color: "var(--text-color)" }}>
               <span
                 className="inline mr-3 italic"
