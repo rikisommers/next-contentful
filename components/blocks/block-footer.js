@@ -28,7 +28,7 @@ export default function BlockFooter({ data }) {
     },
   });
 
-  const yTransform = useTransform(scrollYProgress, [0, 1], [-500, 0]);
+  const yTransform = useTransform(scrollYProgress, [0, 1], [-300, 0]);
   const scaleTransform = useTransform(scrollYProgress, [0, 1], [0.95, 1]);
 
   const pages = [
@@ -163,7 +163,7 @@ export default function BlockFooter({ data }) {
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-12 col-span-12 gap-2 w-full">
+        {/* <div className="grid grid-cols-12 col-span-12 gap-2 w-full">
           <div
             className="flex flex-col col-span-3 p-8 rounded-lg"
             style={{ backgroundColor: "var(--surface1)" }}
@@ -208,7 +208,7 @@ export default function BlockFooter({ data }) {
               Product
             </h3>
           </div>
-        </div>
+        </div> */}
         <div className="flex col-span-12 gap-2 w-full">
           <div
             className="flex flex-grow gap-4 items-center px-5 rounded-lg"

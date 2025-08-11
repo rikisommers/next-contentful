@@ -3,6 +3,7 @@ import Layout from "../components/layout";
 import { getHomePage, getFooter, getLandingPage } from "../lib/api";
 import ScrollContainer from "../components/utils/scroll-container";
 import LandingPage from "../components/landingPage";
+import BlockFooter from "../components/blocks/block-footer";
 
 const Index = ({ data, footerData }) => {
   // If no data is available, show a message
@@ -20,6 +21,7 @@ const Index = ({ data, footerData }) => {
     <Layout>
       <ScrollContainer>
         <LandingPage data={data} footerData={footerData} />
+        {/* <BlockFooter data={footerData} /> */}
       </ScrollContainer>
     </Layout>
   );

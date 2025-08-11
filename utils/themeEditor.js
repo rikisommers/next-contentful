@@ -536,9 +536,11 @@ export default function ThemeEditor({ customThemes }) {
         <Button
           type={ButtonType.PRIMARY}
           size={ButtonSize.SM}
-          onClick={() => {
+          onClick={async () => {
             const themeKey = currentTheme.data.key;
             const themeData = mergeWithDefaults(currentTheme.data);
+            
+            // Save to localStorage
             localStorage.setItem(
               `themeData_${themeKey}`,
               JSON.stringify(themeData)
@@ -546,7 +548,9 @@ export default function ThemeEditor({ customThemes }) {
             console.log(
               `Theme data for '${themeKey}' saved to localStorage as 'themeData_${themeKey}'.`
             );
-            showToast("Theme saved to localStorage", themeKey);
+            
+            // Save to Contentful
+            await saveThemeToContentful();
           }}
           label="Save theme"
         />
