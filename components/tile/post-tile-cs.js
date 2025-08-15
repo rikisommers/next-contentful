@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import BlendImage from "../image/blend-image";
 import Link from "next/link";
 import FadeInWhenVisible from "../utils/fade-in-visible";
@@ -9,6 +9,7 @@ import {
   useTransform,
   useScroll,
 } from "../../utils/motion";
+import { useRouteAudio } from "../audio/audio-trigger";
 
 /**
  * @component
@@ -44,7 +45,18 @@ import {
  * />
  * @exports PostTileCs
  */
-export default function PostTileCs({ post, aspect }) {
+export default function PostTileCs({ 
+  post = {
+    title: '',
+    subtitle: '',
+    slug: '',
+    img: null
+  }, 
+  aspect, 
+  'data-audio-click': clickSound, 
+  'data-audio-hover': hoverSound, 
+  ...props 
+}) {
   //  console.log("ss", post);
   
   const ref = useRef(null);
@@ -57,7 +69,16 @@ export default function PostTileCs({ post, aspect }) {
   });
 
   const y = useTransform(scrollYProgress, [0, 1], [-50, 0]);
+  const [isHovered, setIsHovered] = useState(false); // State to track hover
 
+    
+  // Use audio hook with data attribute sounds
+  const audioProps = useRouteAudio({
+    clickSound: clickSound,
+    hoverSound: hoverSound
+  });
+
+  
   return (
     <Link
       scroll={false}
@@ -66,33 +87,61 @@ export default function PostTileCs({ post, aspect }) {
       style={{
         color: 'var(--surface3)'
       }}
+      onMouseEnter={(e) => {
+        setIsHovered(true);
+        audioProps.onMouseEnter?.(e);
+      }}
+      onMouseLeave={() => setIsHovered(false)}
       className={`relative flex flex-col w-full h-full overflow-hidden rounded-lg tile ${aspect ? `aspect-${aspect}` : ""}`}
     >
-      <h1 className="absolute top-0 left-0 z-10 text-amber-200">CS</h1>
       {post.img && (
         <div className="flex overflow-hidden relative flex-col flex-grow rounded-lg">
-          <div className="flex absolute top-3 left-3"
-           style={{
-            color: 'var(--text-color-inv)'
+         
+  <div className="flex absolute top-4 right-4 gap-2 justify-end">
+        <motion.div
+          className="z-10 px-4 py-2 text-sm rounded-full"
+          animate={{
+            x: isHovered ? 0 : -20,
+            opacity: isHovered ? 1 : 0,
           }}
-          >
-            {/* <p>{post.type }</p> */}
+          transition={{
+            duration: 0.55,
+            ease: [0.16, 1, 0.3, 1], // direct array syntax
+          }}
+          style={{
+            color: "var(--text-color)",
+            backgroundColor: "var(--background-color)",
+          }}
+        >
+          Open Link
+        </motion.div>
 
-            {post?.type && post?.type[0] === "case study" && (
-              <span className="text-lg material-icons">
-                inventory_alt
-              </span>
-            )}
-            {post?.type && post?.type[0] === "blog post" && (
-              <span className="material-icons">article</span>
-            )}
-          </div>
-          <div
-            ref={ref}
-            className="flex absolute top-0 left-0 z-10 gap-4 justify-between items-end px-4 pb-4 w-full h-full text-white"
-          >
+        <motion.div
+          className="flex z-10 items-center px-2 py-1 text-sm rounded-full"
+          animate={{
+            scale: isHovered ? 1 : 1.2,
+          }}
+          transition={{
+            duration: 0.55,
+            ease: [0.16, 1, 0.3, 1], // direct array syntax
+          }}
+          style={{
+            color: "var(--text-color)",
+            backgroundColor: "var(--background-color)",
+          }}
+        >
+          <img
+            src="arrow_forward.svg"
+            viewBox="0 0 20 20"
+            className="z-10 w-5 h-5"
+            style={{
+              color: "var(--accent-pri)",
+            }}
+          ></img>
+        </motion.div>
+      </div>
 
-
+<div className="flex gap-4 text-xs">
             {post.tags && (
               <div className="flex gap-1">
                 {post.tags.slice(0, 2).map((tag, index) => {
@@ -111,9 +160,7 @@ export default function PostTileCs({ post, aspect }) {
               </div>
             )}
 
-            <div className="flex gap-4 text-xs">
-              <span>DATE</span>
-            </div>
+       
           </div>
           {/* 
           <motion.div style={{y}}>     
@@ -128,20 +175,22 @@ export default function PostTileCs({ post, aspect }) {
        
         </div>
       )}
-
-      <div className="flex justify-between items-start py-3 w-full asolute">
+{/* fluid-type */}
+      <div className="flex justify-between items-start py-3 w-full">
         <div className="flex flex-col gap-2">
-          <h2 className="font-mono text-sm font-medium"
+          <h3 className="font-mono text-xl font-medium"
                style={{
                 color:'var(--text-color)'
               }}
-          >{post?.title}</h2>
-          <motion.p className="font-mono text-xs opacity-1"
-                style={{
-                color: 'var(--subtext-color)'
-              }}
-          >{post?.subtitle}</motion.p>
-                        
+            >{post?.title}</h3>
+          {/* {post?.subtitle && (
+          <motion.p className="font-mono text-xs text-[var(--subtext-color)]"
+              
+              >
+              {post?.subtitle}
+            </motion.p>
+          )}
+                         */}
                      
       
           {/* <button className="inline-flex mt-8 text-sm text-slate-400">

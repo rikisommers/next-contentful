@@ -90,7 +90,8 @@ export const setStyleProperties = (theme) => {
     root.style.setProperty("--card-layout", theme.data.cardLayout || "default");
     root.style.setProperty("--card-aspect-ratio", theme.data.cardAspectRatio || "auto");
     root.style.setProperty("--card-hover", theme.data.cardHover || "none");
-    root.style.setProperty("--article-list-layout", theme.data.articleListLayout || "gridBasic");
+    root.style.setProperty("--grid-primary", theme.data.gridPrimary || "gridPrimary");
+    root.style.setProperty("--grid-secondary", theme.data.gridSecondary || "gridSecondary");
     root.style.setProperty("--grid-columns-sm", theme.data.gridColumnsSm || 2);
     root.style.setProperty("--grid-columns-md", theme.data.gridColumnsMd || 3);
     root.style.setProperty("--grid-columns-lg", theme.data.gridColumnsLg || 4);

@@ -10,7 +10,8 @@ import GridThings from "../articleList/grid-things";
 import ListTextHover from "../articleList/list-text-hover";
 import ListTextImage from "../articleList/list-text-image";
 import ListText from "../articleList/list-text";
-export const BlockArticles = ({ data, tags }) => {
+import PostIntro from "../post/post-intro"
+export const BlockArticles = ({ data, tags, type }) => {
   // const { setVisible, setContent } = useMousePos();
 
   // const handleShowCursor = ({content}) => {
@@ -67,8 +68,14 @@ export const BlockArticles = ({ data, tags }) => {
     });
 
     switch (type) {
-        case articleListLayoutThemes.gridBasic:
-            return <GridBasic data={data}/>;
+        case articleListLayoutThemes.gridPrimary:
+            return (
+                <GridBasic data={data} theme="primary" />
+            )
+        case articleListLayoutThemes.gridSecondary:
+            return (
+                <GridBasic data={data} theme="secondary" />
+            )
         case articleListLayoutThemes.gridBento:
             return <GridBento data={data}/>;
         case articleListLayoutThemes.gridThings:
@@ -80,14 +87,52 @@ export const BlockArticles = ({ data, tags }) => {
         case articleListLayoutThemes.textList:
             return <ListText data={data}/>;
         default:
-            return <GridBasic data={data}/>;
+            return (
+              <div className="flex flex-col gap-2 px-8 pb-10 w-full">
+                <h1>Default-----</h1>
+                <GridBasic data={data} />
+              </div>
+            )
     }
 };
 
-  // Extract the type from the array
-  const gridType = getGridType(currentTheme.data.articleListLayout, filteredPosts); 
+  // Normalize layout type to enum keys
+  const normalizeLayoutType = (t) => {
+    const key = String(t ?? '')
+      .toLowerCase()
+      .replace(/[^a-z]/g, ''); // remove spaces, dashes, underscores
+    switch (key) {
+      case 'gridprimary':
+        return articleListLayoutThemes.gridPrimary;
+      case 'gridsecondary':
+        return articleListLayoutThemes.gridSecondary;
+      case 'gridbento':
+        return articleListLayoutThemes.gridBento;
+      case 'gridthings':
+        return articleListLayoutThemes.gridThings;
+      case 'texthoverlist':
+        return articleListLayoutThemes.textHoverList;
+      case 'textimagelist':
+        return articleListLayoutThemes.textImageList;
+      case 'textlist':
+        return articleListLayoutThemes.textList;
+      default:
+        return articleListLayoutThemes.gridPrimary;
+    }
+  };
+
+  // Resolve layout type: prefer prop `type`, then `data.type`, then theme setting
+  const resolvedTypeRaw = (type ?? data?.type ?? currentTheme?.data?.articleListLayout);
+  const normalizedType = normalizeLayoutType(resolvedTypeRaw);
+  const gridType = getGridType(normalizedType, filteredPosts); 
   return (
     <div className="flex flex-col gap-2 px-8 pb-10 w-full">
+
+        <div className="grid grid-cols-12 gap-6">{data.type}</div>
+      <header className="mb-10">
+      <PostIntro  title={data.title ? data.title : null}  description={data.description ? data.description : null}/>
+      </header>
+
       {data.filter === true && tags?.length && (
       
         <BlockTags

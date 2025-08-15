@@ -95,14 +95,16 @@ export default function PostBody({ content, tags }) {
                 // </AnimatedElement>
               )}
               {item.__typename === "BlockArticles" && (
-            
+                <ArticleWrapper>
+                  <h1>BlockArticles body</h1>
                   <BlockArticles
                     key={item.id}
+                    type={item.type}
                     data={item}
                     tags={tags}
                     id={item.title}
                   />
-        
+                </ArticleWrapper>        
               )}
               {item.__typename === "BlockImage" && (
                 // <AnimatedElement type={AnimStyleEl.FADEIN}>

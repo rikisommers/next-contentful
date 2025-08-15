@@ -1438,7 +1438,8 @@ const colorThemes = {
 
 // Grid layout
 export const articleListLayoutThemes = {
-  gridBasic: "gridBasic",
+  gridPrimary: "gridPrimary",
+  gridSecondary: "gridSecondary",
   gridBento: "gridBento",
  // gridBento2: "gridBento2",
   gridThings: "gridThings",
@@ -1474,10 +1475,6 @@ export const gridGapClasses = {
   xl: "gap-8",
 };
 
-export const gridGalleryThemes = {
-  gallery1: "gallery1",
-  gallery2: "gallery2",
-};
 
 // Text Animation themes
 export const textAnimationThemes = {
@@ -1879,13 +1876,19 @@ export const themeContent = {
   cursor:cursorThemes.none,
 
   cardLayout:cardThemes.reone,
+
   cardHover:cardHoverThemes.none,
   cardAspectRatio:cardAspectRatio.square,
-  articleListLayout:articleListLayoutThemes.gridBasic,
+  gridPrimary:articleListLayoutThemes.gridPrimary,
+  gridSecondary:articleListLayoutThemes.gridSecondary,
   gridColumnsSm: 1,
   gridColumnsMd: 2,
   gridColumnsLg: 2,
   gridColumnsXl: 2,
+  gridSecColumnsSm: 1,
+  gridSecColumnsMd: 2,
+  gridSecColumnsLg: 2,
+  gridSecColumnsXl: 2,
   gridGap: "md",
   imageParallax:false,
   imageTexture:imageTextureThemes.noise,
@@ -2641,7 +2644,7 @@ export const defaultTheme = {
     radii: radii.md,
     shadows: shadows.md,
     cardLayout: "formal",
-    articleListLayout: articleListLayoutThemes.gridBasic,
+    articleListLayout: articleListLayoutThemes.gridPrimary,
     gridColumns: { sm: 2, md: 3, lg: 4, xl: 4 },
     gridGap: "md",
     imageParallax: false,

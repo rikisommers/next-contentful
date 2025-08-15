@@ -89,10 +89,12 @@ import classNames from 'classnames';
  */
 export default function GridBasic({ 
   data: items = [], 
+  theme
 }) {
   const { currentTheme } = useThemeContext();
   const aspectRatio = currentTheme.data.cardAspectRatio;
   const gapClass = gridGapClasses[currentTheme.data.gridGap] || 'gap-4';
+
 
   const gridColsSm = {
     1: 'grid-cols-1', 2: 'grid-cols-2', 3: 'grid-cols-3',
@@ -114,7 +116,8 @@ export default function GridBasic({
     4: 'xl:grid-cols-4', 5: 'xl:grid-cols-5', 6: 'xl:grid-cols-6',
   };
 
-  const gridClassName = classNames(
+  const gridClassNamePrimary = classNames(
+    theme,
     'grid',
     gapClass,
     gridColsSm[currentTheme.data.gridColumnsSm],
@@ -123,8 +126,18 @@ export default function GridBasic({
     gridColsXl[currentTheme.data.gridColumnsXl],
   );
 
+  const gridClassNameSecondary = classNames(
+    theme,
+    'grid',
+    gapClass,
+    gridColsSm[currentTheme.data.gridSecColumnsSm],
+    gridColsMd[currentTheme.data.gridSecColumnsMd],
+    gridColsLg[currentTheme.data.gridSecColumnsLg],
+    gridColsXl[currentTheme.data.gridSecColumnsXl],
+  );
+
   return (
-    <div className={gridClassName}>
+    <div className={theme === 'primary' ? gridClassNamePrimary : gridClassNameSecondary}>
       {items.map((item, index) => {
         switch (currentTheme.data.cardLayout) {
           case 'formal':
