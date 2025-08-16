@@ -4,7 +4,7 @@ import AnimatedText, {
 } from "../motion/animated-text";
 import { useThemeContext } from "../context/themeContext";
 
-export default function PostIntro({ title, content, tag }) {
+export default function   PostIntro({ title, content, tag }) {
   const { currentTheme } = useThemeContext();
   const headingPosition = currentTheme.data.heroTextPosition;
 

@@ -1446,6 +1446,7 @@ export const articleListLayoutThemes = {
   textList: "textList",
   textHoverList: "textHoverList",
   textImageList: "textImageList",
+  articlesListStack: "articlesListStack",
 };
 
 

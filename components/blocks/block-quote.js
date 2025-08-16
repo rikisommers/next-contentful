@@ -3,6 +3,12 @@
 import React from "react";
 import AnimatedText from "../motion/animated-text";
 import { useThemeContext } from "../context/themeContext";
+import Link from "next/link";
+import Button from "../base/button/button";
+import ButtonWipe from "../base/button/button-wipe"
+import ButtonMonks from "../base/button/button-monks"
+import ButtonSwap from "../base/button/button-swap"
+import { ButtonType,ButtonSound } from "../base/button/button.util";
 
 export const BlockQuote = ({ data }) => {
   const { currentTheme } = useThemeContext();
@@ -29,6 +35,13 @@ export const BlockQuote = ({ data }) => {
            {/* {data.content} */}
           </h3>
 
+        )}
+        {data.callToAction && (
+          <div className="flex justify-start">
+            <Link href={data.callToAction.slug}>
+              <Button label={data.callToAction.title} type={ButtonType.DEFAULT} sound={ButtonSound.CLICK} />
+            </Link>
+          </div>
         )}
     </blockquote>
   );

@@ -98,26 +98,10 @@ export default function PostTileListImg({
         <p className="text-xs text-[var(--subtext-color)]">{post.title}</p>
         {/* <span className="text-xs">Date: {post.date}</span> */}
 
-        <h3 className="text-2xl font-light transition-colors duration-300 text-balance  text-[var(--text-color)] group-hover:text-[var(--hover-text)]">
+        <h3 className="text-2xl font-light transition-colors duration-300 text-balance  text-[var(--text-color)]">
           {post?.subtitle}
         </h3>
-        <div className="flex gap-2 items-center">
-          {post.tags && (
-            <div className="flex gap-1">
-              {post.tags.slice(0, 2).map((tag, index) => {
-                return (
-                  <div
-                    key={index}
-                    className="px-2 py-1 text-xs rounded-full bg-[var(--surface2)] text-[var(--text-color)]"
-                   
-                  >
-                    {tag}
-                  </div>
-                );
-              })}
-            </div>
-          )}
-        </div>
+      
       </div>
       {post.img && (
         <motion.div
@@ -154,7 +138,23 @@ export default function PostTileListImg({
               ></img>
             </div>
           </div>
-
+          <div className="flex absolute bottom-4 left-4 gap-1">
+          {post.tags && (
+            <div className="flex gap-1">
+              {post.tags.slice(0, 2).map((tag, index) => {
+                return (
+                  <div
+                    key={index}
+                    className="px-2 py-1 text-xs rounded-full bg-[var(--surface2)] text-[var(--text-color)]"
+                   
+                  >
+                    {tag}
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
           <motion.div
             className="w-full h-full"
             animate={{

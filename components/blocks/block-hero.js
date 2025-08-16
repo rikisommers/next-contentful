@@ -129,8 +129,9 @@ export default function BlockHero({ title, content, tag, image }) {
                     </div>
                   )}
                   {title && (
-                    <h1 className="text-4xl leading-normal pointer-events-auto text-balance">
+                    <h1 className="text-4xl !text-[var(--text-color-inv)] leading-normal pointer-events-auto text-balance">
                       <AnimatedText
+                        className="!text-[var(--text-color-inv)]"
                         content={title}
                         type={currentTheme.data.textAnimation}
                         delay={AnimTextOrder.ONE}

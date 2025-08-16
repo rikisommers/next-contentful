@@ -18,7 +18,7 @@ export default function Logo({logo, showTitle, title}) {
       }}
       className={`flex relative z-50 items-center rounded-xl cursor-pointer pointer-events-auto`}
     >
-      <div className={`flex justify-center items-center w-[32px] h-[32px]`}>
+      <div className={`flex justify-center items-center p-1 w-[32px] h-[32px]`}>
         {logo && (
           <img
             src={logo.url}

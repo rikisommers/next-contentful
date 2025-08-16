@@ -10,15 +10,9 @@ import { useThemeContext } from "../context/themeContext";
 const getGridType = (type, data, aspectRatio) => {
     switch (type) {
         case articleListLayoutThemes.gridPrimary:
-            return <div className="flex flex-col gap-2 px-8 pb-10 w-full">
-              <h1 className="text-2xl font-bold">Grid Primary-----</h1>
-              <GridBasic data={data} theme={currentTheme.data.gridPrimary}/>;
-            </div>
+            return <GridBasic data={data} theme={currentTheme.data.gridPrimary}/>;
         case articleListLayoutThemes.gridSecondary:
-            return <div className="flex flex-col gap-2 px-8 pb-10 w-full">
-              <h1>Grid Secondary-----</h1>
-              <GridBasic data={data} theme={currentTheme.data.gridSecondary}/>;
-            </div>
+            return <GridBasic data={data} theme={currentTheme.data.gridSecondary}/>;
         case articleListLayoutThemes.gridBento:
             return <GridBento data={data}/>;
         case articleListLayoutThemes.gridThings:

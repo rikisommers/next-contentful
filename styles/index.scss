@@ -34,7 +34,7 @@ html,
 body,
 #__next{
   height  : 100%;
-  overflow: hidden;
+ // overflow: hidden;
 }
 
 body{
@@ -383,4 +383,8 @@ border-collapse:initial;
 //   background: red;
 //   border: none;
 //   cursor: pointer;
+// }
+// .articles-list-stack * {
+//   overflow: visible !important;
+//   transform: none !important;
 // }

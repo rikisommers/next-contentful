@@ -226,9 +226,9 @@ export const TextAnimNavigators = ({
       ref={ref}
       variants={containerVariants}
       className="flex flex-wrap"
-      style={{
-        color: 'var(--heading-color)'
-      }}
+      // style={{
+      //   color: 'var(--heading-color)'
+      // }}
       initial="hidden"
       animate={
         animateWhenInView ? (isInView ? "visible" : "hidden") : "visible"

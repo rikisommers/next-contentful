@@ -37,17 +37,17 @@ export default function PostTile({ post, index }) {
     <Link
       scroll={false}
       href={`/projects/${post.slug}`}
-      className="relative flex flex-col w-full h-full overflow-hidden rounded-lg tile "
+      className="flex overflow-hidden relative flex-col w-full h-full rounded-lg tile"
     >
       {/* <motion.div
         initial="initial"
         whileHover="hover"
         exit="initial"
         key={post?.title}
-        className="relative z-20 flex flex-1 w-full h-full bg-zinc-900/30"
+        className="flex relative z-20 flex-1 w-full h-full bg-zinc-900/30"
       >
         
-        <h2 className="absolute bottom-0 left-0 w-full px-8 pb-5 text-white">
+        <h2 className="absolute bottom-0 left-0 px-8 pb-5 w-full text-white">
           {post?.title}
         </h2>
 
@@ -65,20 +65,22 @@ export default function PostTile({ post, index }) {
       </motion.div> */}
 
       {post.img && (
-        <div className="relative flex flex-grow overflow-hidden rounded-lg img-portrait ">
-          <div
-            ref={ref}
-            className="absolute top-0 left-0 z-50 flex items-end justify-between w-full h-full gap-4 px-4 pb-4 text-white "
-          >
-            {/* <div className="flex flex-col gap-1">
-              <span className="text-xs uppercase">{post?.client}</span>
-              <p className="">{post?.subtitle}</p>
-            </div> */}
-
-            <div className="flex gap-4">
-              <span>DATE</span>
-            </div>
+        <div className="flex overflow-hidden relative flex-grow rounded-lg img-portrait">
+      
+          {post.tags && (
+          <div className="flex absolute bottom-4 left-4 gap-1">
+            {post.tags.slice(0, 2).map((tag, index) => {
+              return (
+                <div
+                  key={index}
+                  className="px-1.5 py-0.5 text-xs uppercase rounded-md bg-[var(--accent-image-bg)] text-[var(--text-color-inv)]"
+                >
+                  {tag}
+                </div>
+              );
+            })}
           </div>
+        )}
 
           {/* <motion.div style={{y}}>     </motion.div> */}
           <ContentfulImage
@@ -89,29 +91,16 @@ export default function PostTile({ post, index }) {
         </div>
       )}
 
-      <div className="flex items-start justify-between py-4 ">
+      <div className="flex justify-between items-start py-4">
         <div className="flex flex-col gap-2">
-          <h2 className="z-50 text-2xl text-black ">{post?.title}</h2>
+          <h2 className="z-50 text-2xl text-black">{post?.title}</h2>
           <p className="text-md">{post?.subtitle}</p>
           {/* <button className="inline-flex mt-8 text-sm text-slate-400">
             View Case Study
           </button>{" "} */}
         </div>
 
-        {post.tags && (
-          <div className="flex gap-1">
-            {post.tags.slice(0, 2).map((tag, index) => {
-              return (
-                <div
-                  key={index}
-                  className="text-xs text-slate-400 uppercase py-0.5 px-1.5 bg-slate-200 rounded-md"
-                >
-                  {tag}
-                </div>
-              );
-            })}
-          </div>
-        )}
+       
       </div>
     </Link>
   );

@@ -63,7 +63,7 @@ export default function PostBody({ content, tags }) {
           return (
             <section key={index} className="w-full">
               {item.__typename === "BlockHero" && (
-                <>
+                
                 <BlockHero
                   // clip={content.items.length === 1 ? false : true}
                   intro={item.intro}
@@ -72,7 +72,7 @@ export default function PostBody({ content, tags }) {
                   content={item.content}
                   image={item.image}
                 />
-                </>
+                
               )}
               {item.__typename === "BlockHeader" && (
                <ArticleWrapper>
@@ -95,8 +95,7 @@ export default function PostBody({ content, tags }) {
                 // </AnimatedElement>
               )}
               {item.__typename === "BlockArticles" && (
-                <ArticleWrapper>
-                  <h1>BlockArticles body</h1>
+
                   <BlockArticles
                     key={item.id}
                     type={item.type}
@@ -104,7 +103,7 @@ export default function PostBody({ content, tags }) {
                     tags={tags}
                     id={item.title}
                   />
-                </ArticleWrapper>        
+      
               )}
               {item.__typename === "BlockImage" && (
                 // <AnimatedElement type={AnimStyleEl.FADEIN}>

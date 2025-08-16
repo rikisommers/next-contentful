@@ -73,7 +73,7 @@ const TransitionTilt = ({active, children }) => {
     exit='exit'
     >
     <motion.div
-        className="z-40 w-full overflow-auto origin-bottom-right [transform-origin:bottom_right_60px]"
+        className="z-40 w-full origin-bottom-right [transform-origin:bottom_right_60px]"
        variants={active ? blur : null}
        initial="initial"
        animate="show"

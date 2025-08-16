@@ -97,6 +97,24 @@ export default function PostTileCs({
       {post.img && (
         <div className="flex overflow-hidden relative flex-col flex-grow rounded-lg">
          
+
+
+         {/* {post.tags && (
+            <div className="flex absolute bottom-4 left-4 gap-1">
+              {post.tags.slice(0, 2).map((tag, index) => {
+                return (
+                  <div key={index} className="px-2 py-1 text-xs rounded-full"
+                  style={{
+                   backgroundColor: "var(--body-background-color)",
+                  }}
+                  >
+                    {tag}
+                  </div>
+                );
+              })}
+            </div>
+          )} */}
+
   <div className="flex absolute top-4 right-4 gap-2 justify-end">
         <motion.div
           className="z-10 px-4 py-2 text-sm rounded-full"
@@ -141,17 +159,13 @@ export default function PostTileCs({
         </motion.div>
       </div>
 
-<div className="flex gap-4 text-xs">
             {post.tags && (
-              <div className="flex gap-1">
+              <div className="flex absolute bottom-4 left-4 z-10 gap-1">
                 {post.tags.slice(0, 2).map((tag, index) => {
                   return (
                     <div
                       key={index}
-                      style={{
-                        color:'var(--text-color)'
-                      }}
-                      className="px-1.5 py-0.5 text-xs uppercase rounded-md"
+                      className="px-1.5 py-0.5 text-xs capitalize rounded-md bg-[var(--accent-image-bg)] text-[var(--text-color-inv)]"
                     >
                       {tag}
                     </div>
@@ -161,7 +175,6 @@ export default function PostTileCs({
             )}
 
        
-          </div>
           {/* 
           <motion.div style={{y}}>     
           </motion.div> */}

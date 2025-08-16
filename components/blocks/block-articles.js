@@ -10,6 +10,7 @@ import GridThings from "../articleList/grid-things";
 import ListTextHover from "../articleList/list-text-hover";
 import ListTextImage from "../articleList/list-text-image";
 import ListText from "../articleList/list-text";
+import ArticlesListStack from "../articleList/articles-list-stack";
 import PostIntro from "../post/post-intro"
 export const BlockArticles = ({ data, tags, type }) => {
   // const { setVisible, setContent } = useMousePos();
@@ -86,12 +87,11 @@ export const BlockArticles = ({ data, tags, type }) => {
             return <ListTextImage data={data}/>;
         case articleListLayoutThemes.textList:
             return <ListText data={data}/>;
+        case articleListLayoutThemes.articlesListStack:
+            return <ArticlesListStack data={data}/>;
         default:
             return (
-              <div className="flex flex-col gap-2 px-8 pb-10 w-full">
-                <h1>Default-----</h1>
-                <GridBasic data={data} />
-              </div>
+    <GridBasic data={data} />
             )
     }
 };
@@ -116,6 +116,8 @@ export const BlockArticles = ({ data, tags, type }) => {
         return articleListLayoutThemes.textImageList;
       case 'textlist':
         return articleListLayoutThemes.textList;
+      case 'articlesliststack':
+        return articleListLayoutThemes.articlesListStack;
       default:
         return articleListLayoutThemes.gridPrimary;
     }
@@ -126,26 +128,28 @@ export const BlockArticles = ({ data, tags, type }) => {
   const normalizedType = normalizeLayoutType(resolvedTypeRaw);
   const gridType = getGridType(normalizedType, filteredPosts); 
   return (
-    <div className="flex flex-col gap-2 px-8 pb-10 w-full">
-
-        <div className="grid grid-cols-12 gap-6">{data.type}</div>
-      <header className="mb-10">
+<>
+      <header className="px-8 mb-4">
       <PostIntro  title={data.title ? data.title : null}  description={data.description ? data.description : null}/>
-      </header>
 
       {data.filter === true && tags?.length && (
       
-        <BlockTags
-          data={tags}
-          selected={selectedTag}
-          handleTagClick={handleTagClick}
-        />
-      )}
+      <BlockTags
+        data={tags}
+        selected={selectedTag}
+        handleTagClick={handleTagClick}
+      />
+    )}
+      </header>
 
-      {gridType}
   
-      
-    </div>
+
+
+      <div className={`flex flex-col gap-4 px-8 pb-10 w-full`}>
+      {gridType}
+      </div>
+  
+      </>
   );
 };
 
