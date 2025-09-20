@@ -20,7 +20,7 @@ import TextAnimBlur from '../../motion/text-anim-blur';
 import TextAnimChar from '../../motion/text-anim-char';
 import TextAnimCode from '../../motion/text-anim-code';
 import TextAnimFigma from '../../motion/text-anim-figma';
-import TextAnimLineFadeIn from '../../motion/text-anim-line-fade';
+import { TextAnimLineFadeInUp } from '../../motion/text-anim-line-fade-in-up';
 import TextAnimLinePosUp from '../../motion/text-anim-line-pos-up';
 import TextAnimLinear from '../../motion/text-anim-linear';
 import TextAnimNavigators from '../../motion/text-anim-navigators';
@@ -783,13 +783,13 @@ const ComponentPreview = () => {
         </div>
       </div>
       <div className="component-section">
-        <h3>TextAnimLineFadeIn</h3>
+        <h3>TextAnimLineFadeInUp</h3>
         <p></p>
         <div className="examples">
         <div key="0" className="example-item">
           <h4>{example.title || `Example ${index + 1}`}</h4>
           <div className="example-preview">
-            {/*   <TextAnimLineFadeIn
+            {/*   <TextAnimLineFadeInUp
   content="Research ![logo](//images.ctfassets.net/4v0tb3n9jpvc/wsC8KQ6aNnu16eiHY37Uc/4ca8fe7f81ce8a6670039e76976e6492/star.svg) __design__"
   delay={0}
   highlight="background"

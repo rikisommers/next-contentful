@@ -9,6 +9,7 @@
       url("./fonts/6228016f2b172c06410f3a2356d33f6c.woff") format("woff"), /* chrome、firefox */
       url("./fonts/6228016f2b172c06410f3a2356d33f6c.ttf") format("truetype"), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
       url("./fonts/6228016f2b172c06410f3a2356d33f6c.svg#Roobert-Regular") format("svg"); /* iOS 4.1- */
+  font-display: swap;
 }
 
 @font-face {

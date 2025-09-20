@@ -27,7 +27,7 @@ import { TextAnimBlur } from '../components/motion/text-anim-blur';
 import { TextAnimChar } from '../components/motion/text-anim-char';
 import { TextAnimCode } from '../components/motion/text-anim-code';
 import { TextAnimFigma } from '../components/motion/text-anim-figma';
-import { TextAnimLineFadeIn } from '../components/motion/text-anim-line-fade';
+import { TextAnimLineFadeInUp } from '../components/motion/text-anim-line-fade-in-up';
 import { TextAnimLinePosUp } from '../components/motion/text-anim-line-pos-up';
 import { TextAnimLinear } from '../components/motion/text-anim-linear';
 import { TextAnimNavigators } from '../components/motion/text-anim-navigators';
@@ -416,7 +416,7 @@ content="Research ![logo](//images.ctfassets.net/4v0tb3n9jpvc/wsC8KQ6aNnu16eiHY3
 delay={0}
 highlight="background"
 />),
-  "TextAnimLineFadeIn_0": (<TextAnimLineFadeIn
+  "TextAnimLineFadeIn_0": (<TextAnimLineFadeInUp
 content="Research ![logo](//images.ctfassets.net/4v0tb3n9jpvc/wsC8KQ6aNnu16eiHY37Uc/4ca8fe7f81ce8a6670039e76976e6492/star.svg) __design__"
 delay={0}
 highlight="background"

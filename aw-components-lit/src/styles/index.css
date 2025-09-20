@@ -1,0 +1,232 @@
+/**
+ * AW Components - Global Styles
+ * ITCSS Architecture: Organized by layer specificity
+ */
+
+/* ITCSS Layer 1: Settings - Design tokens and variables */
+@import './aw-theme-variables.css';
+
+/* ITCSS Layer 2: Tools - Mixins and functions would go here if using a preprocessor */
+
+/* ITCSS Layer 3: Generic - Normalize, reset, box-sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: var(--aw-font-family-primary, system-ui, -apple-system, sans-serif);
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  tab-size: 4;
+}
+
+body {
+  margin: 0;
+  font-family: inherit;
+  line-height: inherit;
+  background-color: var(--aw-color-background-body, #fafafa);
+  color: var(--aw-color-text-primary, #09090b);
+}
+
+/* ITCSS Layer 4: Elements - Base HTML element styling */
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-weight: var(--aw-font-weight-bold, 700);
+  line-height: var(--aw-line-height-lg, 1.75);
+  color: var(--aw-color-text-heading, #52525b);
+}
+
+h1 {
+  font-size: var(--aw-font-size-4xl, 2.25rem);
+}
+
+h2 {
+  font-size: var(--aw-font-size-3xl, 1.875rem);
+}
+
+h3 {
+  font-size: var(--aw-font-size-2xl, 1.5rem);
+}
+
+h4 {
+  font-size: var(--aw-font-size-xl, 1.25rem);
+}
+
+h5 {
+  font-size: var(--aw-font-size-lg, 1.125rem);
+}
+
+h6 {
+  font-size: var(--aw-font-size-base, 1rem);
+}
+
+p {
+  margin: 0 0 var(--aw-spacing-lg, 1rem) 0;
+  line-height: var(--aw-line-height-base, 1.5);
+}
+
+a {
+  color: var(--aw-color-primary-600, #ef7801);
+  text-decoration: none;
+  transition: color var(--aw-transition-duration-default, 0.2s) var(--aw-transition-timing-ease, ease-in-out);
+}
+
+a:hover {
+  color: var(--aw-color-primary-700, #c2410c);
+  text-decoration: underline;
+}
+
+a:focus-visible {
+  outline: 2px solid var(--aw-color-primary-600, #ef7801);
+  outline-offset: 2px;
+  border-radius: var(--aw-border-radius-sm, 0.125rem);
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* ITCSS Layer 5: Objects - Design patterns and layout constructs */
+
+/* Fluid typography utility - matches source fluid type system */
+.aw-fluid-type {
+  font-size: clamp(
+    calc(var(--aw-font-size-base, 1rem) * var(--font-ratio-min, 1.2)),
+    4vw,
+    calc(var(--aw-font-size-base, 1rem) * var(--font-ratio-max, 1.25))
+  );
+}
+
+/* Container utility */
+.aw-container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 var(--aw-spacing-lg, 1rem);
+}
+
+/* Grid utilities - matching source grid system */
+.aw-grid {
+  display: grid;
+  gap: var(--aw-spacing-lg, 1rem);
+}
+
+.aw-grid--cols-2 { grid-template-columns: repeat(2, 1fr); }
+.aw-grid--cols-3 { grid-template-columns: repeat(3, 1fr); }
+.aw-grid--cols-4 { grid-template-columns: repeat(4, 1fr); }
+.aw-grid--cols-6 { grid-template-columns: repeat(6, 1fr); }
+
+@media (max-width: 768px) {
+  .aw-grid--cols-2,
+  .aw-grid--cols-3,
+  .aw-grid--cols-4,
+  .aw-grid--cols-6 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Flex utilities */
+.aw-flex {
+  display: flex;
+}
+
+.aw-flex--center {
+  align-items: center;
+  justify-content: center;
+}
+
+.aw-flex--between {
+  justify-content: space-between;
+}
+
+.aw-flex--column {
+  flex-direction: column;
+}
+
+/* ITCSS Layer 6: Components - UI components will be defined in their own files */
+
+/* ITCSS Layer 7: Utilities - Helper classes */
+
+/* Visibility utilities */
+.aw-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Spacing utilities - following BEM naming */
+.aw-mt-0 { margin-top: 0; }
+.aw-mt-1 { margin-top: var(--aw-spacing-xs, 0.25rem); }
+.aw-mt-2 { margin-top: var(--aw-spacing-sm, 0.5rem); }
+.aw-mt-3 { margin-top: var(--aw-spacing-md, 0.75rem); }
+.aw-mt-4 { margin-top: var(--aw-spacing-lg, 1rem); }
+.aw-mt-8 { margin-top: var(--aw-spacing-3xl, 2rem); }
+
+.aw-mb-0 { margin-bottom: 0; }
+.aw-mb-1 { margin-bottom: var(--aw-spacing-xs, 0.25rem); }
+.aw-mb-2 { margin-bottom: var(--aw-spacing-sm, 0.5rem); }
+.aw-mb-3 { margin-bottom: var(--aw-spacing-md, 0.75rem); }
+.aw-mb-4 { margin-bottom: var(--aw-spacing-lg, 1rem); }
+.aw-mb-8 { margin-bottom: var(--aw-spacing-3xl, 2rem); }
+
+/* Text utilities */
+.aw-text-center { text-align: center; }
+.aw-text-left { text-align: left; }
+.aw-text-right { text-align: right; }
+
+.aw-font-bold { font-weight: var(--aw-font-weight-bold, 700); }
+.aw-font-semibold { font-weight: var(--aw-font-weight-semibold, 600); }
+.aw-font-medium { font-weight: var(--aw-font-weight-medium, 500); }
+.aw-font-normal { font-weight: var(--aw-font-weight-normal, 400); }
+
+/* Animation utilities */
+.aw-animate-fade-in {
+  animation: aw-fade-in var(--aw-transition-duration-slow, 0.3s) var(--aw-transition-timing-ease, ease-in-out);
+}
+
+@keyframes aw-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.aw-animate-scale-in {
+  animation: aw-scale-in var(--aw-transition-duration-slow, 0.3s) var(--aw-transition-timing-ease, ease-in-out);
+}
+
+@keyframes aw-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Responsive utilities */
+@media (max-width: 640px) {
+  .aw-hidden-sm { display: none; }
+}
+
+@media (max-width: 768px) {
+  .aw-hidden-md { display: none; }
+}
+
+@media (max-width: 1024px) {
+  .aw-hidden-lg { display: none; }
+}

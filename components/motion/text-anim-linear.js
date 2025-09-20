@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "../../utils/motion";
 import { HighlightedSegment } from "./text-anim-highlighted-segment";
+import { processTextWithBoldAndLineBreaks } from "../utils/text-processing";
 
 /**
  * @component
@@ -22,22 +23,11 @@ import { HighlightedSegment } from "./text-anim-highlighted-segment";
 export const TextAnimLinear = ({ content, delay, highlight }) => {
   const [isComplete, setIsComplete] = useState(false);
   
-  // Clean the content by removing formatting
-  const cleanContent = content
-    .replace(/__([^_]+)__/g, '$1') // Remove bold formatting
-    .replace(/\*([^*]+)\*/g, '$1') // Remove italic formatting
-    .replace(/!\[([^\]]*)\]\((.*?)\)/g, ''); // Remove image markdown
-  
-  const lines = cleanContent.split('\n');
-  
   // Calculate total characters for timing
-  const totalChars = lines.reduce((acc, line) => {
-    return acc + line.length;
-  }, 0);
+  const totalChars = (typeof content === 'string' ? content : '').length;
   
   // Calculate completion time based on animation sequence
-  const completionTime = totalChars * 20 + // Character delays
-                        300; // Buffer for final character settling
+  const completionTime = totalChars * 20 + 300;
 
   const characterVariants = {
     hidden: { opacity: 0 },
@@ -76,31 +66,61 @@ export const TextAnimLinear = ({ content, delay, highlight }) => {
     </motion.span>
   );
 
-  const renderLine = (line, lineIndex) => {
-    // Calculate the starting index for this line's characters
-    const startIndex = lines.slice(0, lineIndex).reduce((acc, l) => acc + l.length, 0);
-    
+  const renderColoredText = (text, index) => {
+    let charIndex = index;
     return (
-      <div 
-        key={lineIndex} 
-        className={lineIndex === 0 ? "inline" : "block"}
+      <motion.span
         style={{
-          color: "var(--heading-color)",
+          color: 'var(--text-accent)',
         }}
+        key={index}
       >
-        {line.split("").map((char, charIndex) => (
-          <motion.span
-            key={charIndex}
-            custom={startIndex + charIndex}
-            variants={characterVariants}
-            initial="hidden"
-            animate="visible"
-          >
-            {char}
-          </motion.span>
-        ))}
-      </div>
+        {text.split('').map((char, localIndex) => {
+          const renderedChar = renderCharacter(char, charIndex);
+          charIndex++;
+          return renderedChar;
+        })}
+      </motion.span>
     );
+  };
+
+  const renderTextWithBoldAndLineBreaks = (text) => {
+    if (!text || typeof text !== 'string') {
+      return null;
+    }
+    
+    const boldSegments = processTextWithBoldAndLineBreaks(text);
+    let globalCharIndex = 0;
+    
+    return boldSegments.map((segmentData, index) => {
+      const segment = segmentData.content;
+      const isBold = segmentData.isBold;
+      
+      if (isBold) {
+        // Bold text with highlighting - each character animates individually
+        const coloredText = renderColoredText(segment, globalCharIndex);
+        globalCharIndex += segment.length;
+        return coloredText;
+      } else {
+        // Regular text - each character animates individually
+        const lines = segment.split("\\n");
+        return lines.map((line, lineIndex) => (
+          <motion.span
+            className={lineIndex === 0 ? "inline" : "block"}
+            key={`${index}-${lineIndex}`}
+            style={{
+              color: 'var(--heading-color)',
+            }}
+          >
+            {line.split('').map((char, charIndex) => {
+              const renderedChar = renderCharacter(char, globalCharIndex);
+              globalCharIndex++;
+              return renderedChar;
+            })}
+          </motion.span>
+        ));
+      }
+    });
   };
 
   return (
@@ -109,7 +129,7 @@ export const TextAnimLinear = ({ content, delay, highlight }) => {
       animate="visible"
       variants={containerVariants}
     >
-      {lines.map((line, lineIndex) => renderLine(line, lineIndex))}
+      {renderTextWithBoldAndLineBreaks(content)}
     </motion.div>
   );
 };

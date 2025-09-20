@@ -140,18 +140,18 @@ const PageNav = ({ content }) => {
                   <motion.li
                     variants={childVariants}
                     key={index}
-                    className={`px-2 py-1 text-sm rounded-md hover:bg-slate-200 relative transition-colors mb-1`}
+                    className={`relative px-2 py-1 mb-1 text-sm rounded-md transition-colors hover:bg-slate-200`}
                     whileHover={{
                       backgroundColor: "var(--body-background-color)",
                     }}
                   >
                     {activeItem === item.title && (
                       <motion.div
-                        layoutId="indicatorSection"
+                        layoutid="indicatorSection"
                         style={{
                           backgroundColor: "var(--body-background-color)",
                         }}
-                        className="absolute top-0 left-0 z-0 flex w-full h-full rounded-md bg-opacity-20"
+                        className="flex absolute top-0 left-0 z-0 w-full h-full bg-opacity-20 rounded-md"
                       ></motion.div>
                     )}
 
@@ -174,7 +174,7 @@ const PageNav = ({ content }) => {
 
           <motion.ul
             id="trigger"
-            className="relative z-50 flex flex-col items-end col-start-2 col-end-3 row-span-1 row-start-1 gap-4 px-3 py-4 transition-all rounded-lg pointer-events-none trigger"
+            className="flex relative z-50 flex-col col-start-2 col-end-3 row-span-1 row-start-1 gap-4 items-end px-3 py-4 rounded-lg transition-all pointer-events-none trigger"
            // style={{ backgroundColor: "var(--nav-bg)" }}
             variants={indicatorAnimate}
             animate={controls}
@@ -201,7 +201,7 @@ const PageNav = ({ content }) => {
                           backgroundColor: "var(--accent-pri)",
                           x:'-50%'
                         }}
-                        className="absolute top-0 right-0 z-0 flex w-5 h-5 bg-opacity-50 rounded-xs"
+                        className="flex absolute top-0 right-0 z-0 w-5 h-5 bg-opacity-50 rounded-xs"
                       ></motion.div>
                     )} */}
 

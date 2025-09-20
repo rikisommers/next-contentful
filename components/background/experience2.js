@@ -56,8 +56,8 @@ function Water() {
   });
 
   useFrame((state, delta) => {
-    const depthColor = currentTheme?.data?.accentPri || "#6600ff";
-    const surfaceColor = currentTheme?.data?.accentSec || "#ffa200";
+    const depthColor = currentTheme?.data?.gradStart || "#6600ff";
+    const surfaceColor = currentTheme?.data?.gradStop || "#ffa200";
 
     waterMaterial.current.uTime += delta;
     waterMaterial.current.uDepthColor.set(depthColor);
@@ -74,10 +74,10 @@ function Water() {
   });
 
   return (
-    <mesh rotation-x={-Math.PI / 2} 
+    <mesh rotation-x={-Math.PI/2.99} 
           rotation-y={0} 
           rotation-z={0}>
-      <planeGeometry args={[5, 3, 100, 100]} />
+      <planeGeometry args={[10, 10, 100, 100]} />
       <waterMaterial ref={waterMaterial} side={THREE.DoubleSide} />
     </mesh>
   );

@@ -38,14 +38,8 @@ function MyApp({ Component, pageProps, router, globalData, customThemes }) {
           logo={globalData.logo}
         />
       )}
-      <motion.div
-        className="w-full h-full"
-        initial={{ y: 100 }}
-        animate={isLoading ? { y: 100 } : { y: 0 }}
-        transition={{ duration: 0.5 }}
-        //  onAnimationComplete={() => {
-        //   position:'unset'
-        //  }}
+      <div
+        className={`${isLoading ? 'opacity-0' : 'opacity-100'} transition-opacity duration-500 ease-in-out w-full h-full`}
       >
         <svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="svg-filter">
           <defs>
@@ -91,7 +85,7 @@ function MyApp({ Component, pageProps, router, globalData, customThemes }) {
             </MousePosProvider>
           </ScrollPositionProvider>
         </RouteProvider>
-      </motion.div>
+      </div>
     </>
   );
 }

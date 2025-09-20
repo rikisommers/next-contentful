@@ -116,4 +116,126 @@ export const setStyleProperties = (theme) => {
   } else {
     console.warn("Theme is not defined. Exiting setStyleProperties.");
   }
+};
+
+/**
+ * Utility function to get Tailwind justify classes based on text alignment
+ * @param {string} align - Text alignment value ('left', 'center', 'right', 'split')
+ * @returns {string} Corresponding Tailwind justify class
+ */
+export const getJustifyClass = (align) => {
+  switch (align) {
+    case "left":
+      return "justify-start";
+    case "center":
+      return "justify-center";
+    case "right":
+      return "justify-end";
+    case "split":
+      return "justify-between";
+    default:
+      return "justify-start";
+  }
+};
+
+/**
+ * Utility function to get Tailwind text alignment classes
+ * @param {string} align - Text alignment value ('left', 'center', 'right')
+ * @returns {string} Corresponding Tailwind text alignment class
+ */
+export const getTextAlignClass = (align) => {
+  switch (align) {
+    case "left":
+      return "text-left";
+    case "center":
+      return "text-center";
+    case "right":
+      return "text-right";
+    default:
+      return "text-left";
+  }
+};
+
+/**
+ * Utility function to get Tailwind items alignment classes
+ * @param {string} align - Items alignment value ('start', 'center', 'end', 'stretch')
+ * @returns {string} Corresponding Tailwind items alignment class
+ */
+export const getItemsAlignClass = (align) => {
+  switch (align) {
+    case "start":
+      return "items-start";
+    case "center":
+      return "items-center";
+    case "end":
+      return "items-end";
+    case "stretch":
+      return "items-stretch";
+    default:
+      return "items-start";
+  }
+};
+
+/**
+ * Utility function to get Tailwind grid position classes from position string
+ * @param {string} position - Position string in format "row-col" (e.g., "1-2")
+ * @param {Object} options - Additional options for responsive classes
+ * @returns {string} Corresponding Tailwind grid position classes
+ */
+export const getGridPositionClass = (position, options = {}) => {
+  // position is a string like '1-2'
+  if (!position || typeof position !== "string" || !position.includes("-")) {
+    return "";
+  }
+  
+  const [row, col] = position.split("-").map(Number);
+  if (isNaN(row) || isNaN(col)) return "";
+  
+  // Use predefined classes to ensure they're included in Tailwind build (up to 12)
+  const rowClasses = {
+    1: "row-start-1",
+    2: "row-start-2", 
+    3: "row-start-3",
+    4: "row-start-4",
+    5: "row-start-5",
+    6: "row-start-6",
+    7: "row-start-7",
+    8: "row-start-8",
+    9: "row-start-9",
+    10: "row-start-10",
+    11: "row-start-11",
+    12: "row-start-12",
+  };
+  
+  const colClasses = {
+    1: "col-start-1",
+    2: "col-start-2",
+    3: "col-start-3", 
+    4: "col-start-4",
+    5: "col-start-5",
+    6: "col-start-6",
+    7: "col-start-7",
+    8: "col-start-8",
+    9: "col-start-9",
+    10: "col-start-10",
+    11: "col-start-11",
+    12: "col-start-12",
+  };
+  // Support both 0-based ("0-0") and 1-based ("1-2") inputs
+  const maxRows = Number.isFinite(options.maxRows) ? options.maxRows : 12;
+  const maxCols = Number.isFinite(options.maxCols) ? options.maxCols : 12;
+  const clampRow = (val) => Math.max(1, Math.min(maxRows, val));
+  const clampCol = (val) => Math.max(1, Math.min(maxCols, val));
+  const rowLine = clampRow(row >= 1 ? row : row + 1);
+  const colLine = clampCol(col >= 1 ? col : col + 1);
+
+  const rowClass = rowClasses[rowLine] || ``;
+  const colClass = colClasses[colLine] || ``;
+
+  // By default, avoid adding any col-span classes that can conflict with grid-cols count
+  const responsiveClasses = options.responsive ?? ``;
+  // Keep a sensible default alignment
+  const alignment = options.alignment ?? "self-end";
+
+  return `${rowClass} ${colClass} ${responsiveClasses} ${alignment}`.trim();
 }; 

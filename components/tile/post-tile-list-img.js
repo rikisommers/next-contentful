@@ -93,14 +93,14 @@ export default function PostTileListImg({
       }}
     >
       <div
-        className={`flex relative z-20 flex-col col-span-7 gap-3 justify-start p-14 w-full no-underline rounded-2xl transition-colors duration-300 fluid-type bg-[var(--surface1)] group-hover:bg-[var(--surface2)]`}
+        className={`flex relative z-20 flex-col col-span-7 gap-3 justify-start p-14 w-full no-underline rounded-2xl transition-colors duration-300 fluid-type bg-[var(--surface1)]`}
       >
         <p className="text-xs text-[var(--subtext-color)]">{post.title}</p>
         {/* <span className="text-xs">Date: {post.date}</span> */}
 
-        <h3 className="text-2xl font-light transition-colors duration-300 text-balance  text-[var(--text-color)]">
+        <h5 className="text-1xl font-light transition-colors duration-300 text-balance  text-[var(--text-color)]">
           {post?.subtitle}
-        </h3>
+        </h5>
       
       </div>
       {post.img && (

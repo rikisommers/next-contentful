@@ -6,7 +6,7 @@ import { TextAnimBlur } from "../text-anim-blur"
 import { TextAnimChar } from "../text-anim-char"
 import { TextAnimCode } from "../text-anim-code"
 import { TextAnimFigma } from "../text-anim-figma"
-import { TextAnimLineFadeIn } from "../text-anim-line-fade"
+import { TextAnimLineFadeInUp } from "../text-anim-line-fade-in-up"
 import { TextAnimLinePosUp } from "../text-anim-line-pos-up"
 import { TextAnimNavigators } from "../text-anim-navigators"
 import { TextAnimRandom } from "../text-anim-random"
@@ -78,8 +78,8 @@ export const createTextAnimComponents = (highlight = defaultHighlight) => {
     lineFade: {
       title: "Line Fade Text Animation",
       description: "Text that animates line by line with a fade effect.",
-      component: <h2 className="text-3xl leading-normal text-balance"><TextAnimLineFadeIn content={sampleText} delay={0} highlight={highlight} /></h2>,
-      code: `<TextAnimLineFadeIn 
+      component: <h2 className="text-3xl leading-normal text-balance"><TextAnimLineFadeInUp content={sampleText} delay={0} highlight={highlight} /></h2>,
+      code: `<TextAnimLineFadeInUp 
   content="Research ![logo](//images.ctfassets.net/4v0tb3n9jpvc/wsC8KQ6aNnu16eiHY37Uc/4ca8fe7f81ce8a6670039e76976e6492/star.svg) __design__"
   delay={0}
   highlight={highlight}

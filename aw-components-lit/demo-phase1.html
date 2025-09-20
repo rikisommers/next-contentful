@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AW Components Lit - Phase 1 Components Demo</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 2rem;
+            background-color: #f8fafc;
+        }
+        
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .demo-section {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .demo-section:last-child {
+            border-bottom: none;
+        }
+        
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .demo-item {
+            padding: 1rem;
+            background: #f1f5f9;
+            border-radius: 0.375rem;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .demo-title {
+            color: #1e293b;
+            margin: 0 0 0.5rem 0;
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+        
+        .demo-description {
+            color: #64748b;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+        
+        h1 {
+            color: #0f172a;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            color: #64748b;
+            margin-bottom: 2rem;
+        }
+        
+        /* Component specific demo styles */
+        .button-group {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .form-demo {
+            max-width: 400px;
+        }
+        
+        .form-demo > * {
+            margin-bottom: 1rem;
+        }
+        
+        .modal-demo {
+            text-align: center;
+        }
+        
+        .navbar-container {
+            position: relative;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+        
+        /* Custom CSS Variables for theming */
+        :root {
+            --aw-color-primary-600: #2563eb;
+            --aw-color-primary-700: #1d4ed8;
+            --aw-color-primary-100: #dbeafe;
+            --aw-color-neutral-white: #ffffff;
+            --aw-color-neutral-700: #374151;
+            --aw-color-neutral-300: #d1d5db;
+            --aw-color-danger-500: #ef4444;
+            --aw-color-danger-600: #dc2626;
+            --aw-spacing-sm: 0.5rem;
+            --aw-spacing-md: 0.75rem;
+            --aw-spacing-lg: 1rem;
+            --aw-border-radius-md: 0.375rem;
+            --aw-border-radius-lg: 0.5rem;
+            --aw-font-size-sm: 0.875rem;
+            --aw-font-size-xs: 0.75rem;
+            --aw-transition-duration-default: 0.2s;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <h1>AW Components Lit - Phase 1 Components</h1>
+        <p class="subtitle">Demonstrating the converted React components to Lit equivalents</p>
+        
+        <!-- Button Component -->
+        <div class="demo-section">
+            <h2>aw-button Component</h2>
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <h3 class="demo-title">Button Variants</h3>
+                    <p class="demo-description">Different button variants and sizes</p>
+                    <div class="button-group">
+                        <aw-button label_text="Primary" variant="primary" size="sm"></aw-button>
+                        <aw-button label_text="Secondary" variant="secondary" size="md"></aw-button>
+                        <aw-button label_text="Tertiary" variant="tertiary" size="lg"></aw-button>
+                        <aw-button label_text="Danger" variant="danger"></aw-button>
+                        <aw-button label_text="Disabled" variant="primary" disabled></aw-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Text Input Component -->
+        <div class="demo-section">
+            <h2>aw-text-input Component</h2>
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <h3 class="demo-title">Text Input Variations</h3>
+                    <p class="demo-description">Text input with different states and sizes</p>
+                    <div class="form-demo">
+                        <aw-text-input 
+                            label_text="Name"
+                            placeholder="Enter your name"
+                            size="md">
+                        </aw-text-input>
+                        
+                        <aw-text-input 
+                            label_text="Email"
+                            input_type="email"
+                            placeholder="you@example.com"
+                            size="md">
+                        </aw-text-input>
+                        
+                        <aw-text-input 
+                            label_text="Error Example"
+                            input_value="invalid input"
+                            has_error="true"
+                            error_message="This field has an error">
+                        </aw-text-input>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Checkbox Component -->
+        <div class="demo-section">
+            <h2>aw-checkbox Component</h2>
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <h3 class="demo-title">Checkbox States</h3>
+                    <p class="demo-description">Various checkbox states and sizes</p>
+                    <div class="form-demo">
+                        <aw-checkbox 
+                            label_text="Accept terms and conditions"
+                            size="md">
+                        </aw-checkbox>
+                        
+                        <aw-checkbox 
+                            label_text="Checked by default"
+                            checked="true"
+                            size="md">
+                        </aw-checkbox>
+                        
+                        <aw-checkbox 
+                            label_text="Small checkbox"
+                            size="sm">
+                        </aw-checkbox>
+                        
+                        <aw-checkbox 
+                            label_text="Large checkbox"
+                            size="lg">
+                        </aw-checkbox>
+                        
+                        <aw-checkbox 
+                            label_text="Disabled checkbox"
+                            disabled="true">
+                        </aw-checkbox>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Select Component -->
+        <div class="demo-section">
+            <h2>aw-select Component</h2>
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <h3 class="demo-title">Select Dropdown</h3>
+                    <p class="demo-description">Select component with various options</p>
+                    <div class="form-demo">
+                        <aw-select 
+                            label_text="Choose your country"
+                            placeholder="Select a country">
+                        </aw-select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal Component -->
+        <div class="demo-section">
+            <h2>aw-modal Component</h2>
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <h3 class="demo-title">Modal Dialog</h3>
+                    <p class="demo-description">Modal component with various configurations</p>
+                    <div class="modal-demo">
+                        <aw-button 
+                            label_text="Open Modal" 
+                            variant="primary"
+                            onclick="document.getElementById('demo-modal').is_open = true">
+                        </aw-button>
+                        
+                        <aw-modal 
+                            id="demo-modal"
+                            direction="right"
+                            modal_width="panel-sm"
+                            position="bottom-right">
+                            <h3>Modal Content</h3>
+                            <p>This is a demo modal with some content.</p>
+                            <aw-button 
+                                label_text="Close" 
+                                variant="secondary"
+                                onclick="document.getElementById('demo-modal').is_open = false">
+                            </aw-button>
+                        </aw-modal>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Logo Component -->
+        <div class="demo-section">
+            <h2>aw-logo Component</h2>
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <h3 class="demo-title">Logo Display</h3>
+                    <p class="demo-description">Logo component with text and image combinations</p>
+                    <div>
+                        <aw-logo 
+                            logo_type="text"
+                            site_title="Awwwards"
+                            background_style="solid">
+                        </aw-logo>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navbar Component -->
+        <div class="demo-section">
+            <h2>aw-navbar Component</h2>
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <h3 class="demo-title">Navigation Bar</h3>
+                    <p class="demo-description">Navbar with different themes and positions</p>
+                    <div class="navbar-container">
+                        <aw-navbar 
+                            nav_position="topRight"
+                            nav_theme="awwwards"
+                            floating="true">
+                        </aw-navbar>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script type="module" src="./dist/aw-components.es.js"></script>
+    <script>
+        // Add some demo data for select component
+        document.addEventListener('DOMContentLoaded', function() {
+            const selectComponent = document.querySelector('aw-select');
+            selectComponent.options = [
+                { value: 'us', label: 'United States' },
+                { value: 'ca', label: 'Canada' },
+                { value: 'uk', label: 'United Kingdom' },
+                { value: 'fr', label: 'France' },
+                { value: 'de', label: 'Germany' }
+            ];
+            
+            // Add demo navigation pages
+            const navbarComponent = document.querySelector('aw-navbar');
+            navbarComponent.pages = [
+                { id: 'home', title: 'Home', url: '/' },
+                { id: 'about', title: 'About', url: '/about' },
+                { id: 'portfolio', title: 'Portfolio', url: '/portfolio' },
+                { id: 'contact', title: 'Contact', url: '/contact' }
+            ];
+            navbarComponent.active_page = 'home';
+            
+            // Add event listeners for demo purposes
+            document.querySelectorAll('aw-button').forEach(button => {
+                button.addEventListener('aw-button-click', (e) => {
+                    console.log('Button clicked:', e.detail);
+                });
+            });
+            
+            document.querySelectorAll('aw-text-input').forEach(input => {
+                input.addEventListener('aw-text-input-input', (e) => {
+                    console.log('Input changed:', e.detail.value);
+                });
+            });
+            
+            document.querySelectorAll('aw-checkbox').forEach(checkbox => {
+                checkbox.addEventListener('aw-checkbox-change', (e) => {
+                    console.log('Checkbox changed:', e.detail.checked);
+                });
+            });
+            
+            document.querySelectorAll('aw-select').forEach(select => {
+                select.addEventListener('aw-select-change', (e) => {
+                    console.log('Select changed:', e.detail.value);
+                });
+            });
+            
+            document.querySelectorAll('aw-navbar').forEach(navbar => {
+                navbar.addEventListener('aw-navbar-navigate', (e) => {
+                    console.log('Navigation clicked:', e.detail.page);
+                    e.currentTarget.active_page = e.detail.page.id;
+                });
+            });
+            
+            document.querySelector('#demo-modal').addEventListener('aw-modal-close', (e) => {
+                e.currentTarget.is_open = false;
+            });
+        });
+    </script>
+</body>
+</html>

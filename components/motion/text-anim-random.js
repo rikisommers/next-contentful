@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { motion, useAnimation } from "../../utils/motion";
+import { processTextWithBoldAndLineBreaks } from "../utils/text-processing";
 
 // Global animation configuration variables
 const ANIMATION_CONFIG = {
@@ -129,9 +130,11 @@ export const TextAnimRandom = ({ content }) => {
 
   const renderTextWithBoldAndLineBreaks = (text) => {
     if (text) {
-      const boldSegments = text.split("__");
-      return boldSegments.map((segment, index) => {
-        if (index % 2 === 0) {
+      const boldSegments = processTextWithBoldAndLineBreaks(text);
+      return boldSegments.map((segmentData, index) => {
+        const segment = segmentData.content;
+        const isBold = segmentData.isBold;
+        if (!isBold) {
           const lines = segment.split("\n");
           return lines.map((line, lineIndex) => {
             // Check for image markdown syntax

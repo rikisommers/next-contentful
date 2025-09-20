@@ -57,7 +57,7 @@ export const BlockTags = ({ data, selected, handleTagClick }) => {
       >
         {selected === tag && (
           <motion.div
-            layoutId="indicatorTag2"
+            layoutid="indicatorTag2"
             className="absolute top-0 left-0 w-full h-full rounded-md border border-solid"
             style={{ borderColor: currentTheme.data.accentPri }}
           />

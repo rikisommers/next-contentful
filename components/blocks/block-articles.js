@@ -130,8 +130,12 @@ export const BlockArticles = ({ data, tags, type }) => {
   return (
 <>
       <header className="px-8 mb-4">
-      <PostIntro  title={data.title ? data.title : null}  description={data.description ? data.description : null}/>
+      {/* <PostIntro  title={data.title ? data.title : null}  description={data.description ? data.description : null}/> */}
 
+      <h1 className="text-2xl font-light transition-colors duration-300 text-balance  text-[var(--subtext-color)]">
+        {data.title ? data.title : null}
+      </h1>
+      {/* <p className="text-sm text-[var(--subtext-color)]"> {data.description ? data.description : null} </p> */}
       {data.filter === true && tags?.length && (
       
       <BlockTags

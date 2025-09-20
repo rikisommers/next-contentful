@@ -30,7 +30,7 @@ function ArticleStackItem({ item, index, totalItems }) {
       ref={itemRef}
       style={{
         position: 'sticky',
-        top: 0,
+        top: 80,
         zIndex,
       }}
     >

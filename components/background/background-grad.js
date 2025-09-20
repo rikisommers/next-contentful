@@ -7,9 +7,10 @@ export default function BackgroundGrad() {
 
     return (
     <div
-    className="absolute top-0 left-0 flex items-center justify-end w-full h-full pointer-events-none z-1"
+    className="flex absolute top-0 left-0 justify-end items-center w-full h-full pointer-events-none z-1"
   >
-  
+      <h1 className="fixed top-0 left-0 z-40 text-white">CNA GRad</h1>
+
     {currentTheme.data.heroBackgroundStyle === "gradient" && (
       <CanvasGradientBackground />
     )}

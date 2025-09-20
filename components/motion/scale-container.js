@@ -31,7 +31,8 @@ export const ScaleContainer = ({ children }) => {
         className="flex relative flex-col justify-center w-full h-full pointer-events-none"
         style={{
           scale: scaleValue,
-          y:yMotionValue
+          y:yMotionValue,
+          position: "relative" // Ensures proper scroll offset calculation
         }}
         transition={{
           duration: 4,

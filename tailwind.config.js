@@ -4,6 +4,7 @@ module.exports = {
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './utils/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
@@ -151,6 +152,11 @@ module.exports = {
     },
     {
       pattern: /^(animate)-.+/,
+    }
+    ,
+    // Ensure grid start utilities are not purged when generated via utils
+    {
+      pattern: /^(col-start|row-start)-(1|2|3|4|5|6|7|8|9|10|11|12)$/,
     }
   ]
 } 

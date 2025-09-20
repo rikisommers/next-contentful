@@ -1,34 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "../../utils/motion";
-import CanvasGradientBackground from "../background/canvasGradientBackground";
 import BackgroundCssGrad from "../background/bg-grad-css";
 import { useThemeContext } from "../context/themeContext";
 import BlendImage from "../image/blend-image";
 import { ClipContainer } from "../motion/clippath-container";
 import { ScaleContainer } from "../motion/scale-container";
-import Background from "../background/background";
 import AnimatedText, { AnimTextOrder } from "../motion/animated-text";
-
-import CanvasShader from "../background/canvasShader";
-
-const getPositionClass = (position) => {
-  // position is a string like '1-2'
-  if (!position || typeof position !== "string" || !position.includes("-")) {
-    return "";
-  }
-  
-  const [row, col] = position.split("-").map(Number);
-  if (isNaN(row) || isNaN(col)) return "";
-  
-  // Add 1 to row/col for 1-based grid classes
-  return `row-start-${row + 1} col-start-${col + 1} col-span-2 self-end`;
-};
+import { getGridPositionClass } from "../../utils/styleUtils";
+// Lazy imports for heavy components - only load when needed
+const UnifiedCanvas = React.lazy(() => import("../background/unified-canvas"));
 
 const getHeightClass = (height) => {
   switch (height) {
     case "full":
       return "h-screen";
-    case "half":
+    case "half":        
       return "min-h-[50vh]";
     case "auto":
       return "min-h-fit";
@@ -54,27 +40,85 @@ const getHeightClass = (height) => {
 //   animatedGradient: 'animated-gradient',
 // };
 
-const renderHeroBackground = (heroBackground, image) => {
+const renderHeroBackground = (heroBackground, image, shaderEffect, theme) => {
+  // Helper function to create effect object with theme-based sizing
+  const createEffect = (effectType) => {
+    const effect = { type: effectType };
+    
+    // Add size parameters based on effect type and theme values
+    switch (effectType) {
+      case 'halftone-dots':
+      case 'halftone_dots':
+      case 'halftone-led':
+      case 'halftone_led':
+      case 'halftone-lego':
+      case 'halftone_lego':
+      case 'halftone-rect':
+      case 'halftone_rect':
+        effect.pixelSize = theme?.data?.halftoneSize || 6.0;
+        break;
+      case 'halftone-ascii':
+      case 'halftone_ascii':
+        effect.pixelSize = theme?.data?.asciiSize || 12.0;
+        break;
+      case 'dither-color-quant':
+      case 'dither_color_quant':
+        effect.levels = theme?.data?.ditherLevels || 4;
+        break;
+      case 'pixelation':
+        effect.pixelSize = theme?.data?.pixelationSize || 8.0;
+        break;
+      case 'noise':
+        effect.intensity = theme?.data?.noiseIntensity || 0.1;
+        break;
+      case 'dither-blue-noise':
+      case 'dither_blue_noise':
+        effect.intensity = theme?.data?.noiseIntensity || 1.0;
+        break;
+      case 'dither-ordered':
+      case 'dither_ordered':
+        effect.intensity = theme?.data?.noiseIntensity || 1.0;
+        effect.ditherSize = theme?.data?.ditherSize || 4;
+        break;
+    }
+    
+    return effect;
+  };
+
   switch (heroBackground) {
     case "none":
-      return <h1>NONE</h1>;
-    case "canvasSphere":
-      return <Background />;
-    case "canvasGradient":
+      return null;
+    case "canvasPlaneShader":
       return (
-        <CanvasGradientBackground gradientType="conic" conicRotation={1} />
+        <React.Suspense fallback={<BackgroundCssGrad />}>
+          <UnifiedCanvas 
+            type="shader" 
+            shaderType="water"
+            effects={shaderEffect && shaderEffect !== 'none' ? [createEffect(shaderEffect)] : []}
+          />
+        </React.Suspense>
+      );
+    case "canvasImage":
+      return (
+        <React.Suspense fallback={<BackgroundCssGrad />}>
+          <UnifiedCanvas 
+            type="image" 
+            src={image?.url}
+            effects={shaderEffect && shaderEffect !== 'none' ? [createEffect(shaderEffect)] : []}
+          />
+        </React.Suspense>
       );
     case "cssgradient":
       return <BackgroundCssGrad />;
     case "image":
       return image ? ( 
         <div className="absolute top-0 left-0 w-full h-full -z-10 bg-[var(--background-color)]">
-        <BlendImage
-          className="img-cover"
-          alt={`Cover Image for ${image?.title}`}
-          src={image.url}
-        />
-</div>
+          <BlendImage
+            className="img-cover"
+            alt={`Cover Image for ${image?.title}`}
+            src={image.url}
+          />
+        </div>
       ) : null;
 
     default:
@@ -90,8 +134,9 @@ export default function BlockHero({ title, content, tag, image }) {
     // TODO make clip path optional
     // grid grid-rows-[48px_48px_1fr_1fr_1fr_48px_48px] grid-cols-12
     <ClipContainer>
+      <main id="main-content" role="main" aria-label="Hero section">
 
-        {renderHeroBackground(currentTheme.data.heroBackground, image)}
+        {renderHeroBackground(currentTheme.data.heroBackground, image, currentTheme.data.heroShaderEffect, currentTheme)}
 
         {/* <div className="flex absolute right-4 top-20 flex-col gap-4">
           <div className="max-w-[200px] bg-[var(--background-color)] rounded-lg shadow-2xl p-4">
@@ -112,10 +157,10 @@ export default function BlockHero({ title, content, tag, image }) {
       <div
         className={`${getHeightClass(
           currentTheme.data.heroHeight
-        )} relative grid grid-cols-4 grid-rows-3 justify-end left-0 top-0 z-50 w-full gap-0  px-16 py-16 pointer-events-none fluid-type`}
+        )} relative grid grid-cols-4 grid-rows-3 justify-end left-0 top-0 z-50 w-full gap-0  px-16 mt-16 mb-16 pointer-events-none fluid-type`}
       >
 
-        <div className={`${getPositionClass(currentTheme.data.heroTextPosition)}`}>
+        <div className={`justify-${currentTheme.data.heroTextAlign}  ${getGridPositionClass(currentTheme.data.heroTextPosition)} col-span-4 md:col-span-3 xl:col-span-3`}>
     
                   {tag && (
                     <div
@@ -124,14 +169,20 @@ export default function BlockHero({ title, content, tag, image }) {
                         color: "var(--text-color-inv)",
                         backgroundColor: "var(--accent-pri)",
                       }}
+                      role="banner"
+                      aria-label={`Page category: ${tag}`}
                     >
                       {tag}
                     </div>
                   )}
                   {title && (
-                    <h1 className="text-4xl !text-[var(--text-color-inv)] leading-normal pointer-events-auto text-balance">
+                    <h1 
+                      className={`text-4xl !text-[var(--text-color-inv)] leading-normal pointer-events-auto text-balance`}
+                      tabIndex="0"
+                      aria-describedby={content ? "hero-content" : undefined}
+                    >
                       <AnimatedText
-                        className="!text-[var(--text-color-inv)]"
+                        align={currentTheme.data.heroTextAlign}
                         content={title}
                         type={currentTheme.data.textAnimation}
                         delay={AnimTextOrder.ONE}
@@ -140,13 +191,16 @@ export default function BlockHero({ title, content, tag, image }) {
                   )}
               </div>
 
-              <div className={`${getPositionClass(currentTheme.data.heroSubTextPosition)}`}>
+              <div className={`${getGridPositionClass(currentTheme.data.heroSubTextPosition)} col-span-4 md:col-span-3 xl:col-span-1`}>
               {/* <figcaption className="flex absolute right-4 bottom-4 flex-col gap-4 max-w-[200px] bg-[var(--background-color)]/40  rounded-lg shadow-2xl p-4">
           <p className="text-[var(--text-color)] text-xs">{data.title}</p>
           </figcaption> */}
 
                 <p
+                  id="hero-content"
                   className=" text-sm font-normal pointer-events-auto text-balance text-[var(--subtext-color)]"
+                  role="doc-subtitle"
+                  aria-label="Hero section description"
                 >
                   {content && (
                     <AnimatedText
@@ -162,7 +216,7 @@ export default function BlockHero({ title, content, tag, image }) {
 
       </div>
       {/* </ScaleContainer> */}
-
+      </main>
     </ClipContainer>
   );
 }

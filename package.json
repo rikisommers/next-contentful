@@ -5,7 +5,9 @@
     "build": "next build",
     "start": "next start",
     "setup": "node ./contentful/setup.js",
-    "generate-examples": "node ./components/utils/generate-component-examples.js"
+    "generate-examples": "node ./components/utils/generate-component-examples.js",
+    "analyze": "ANALYZE=true npm run build",
+    "lighthouse": "npm run build && npm start & sleep 5 && npx lighthouse http://localhost:3000 --only-categories=performance --output=json --output-path=./lighthouse-report.json --chrome-flags='--headless' && pkill -f 'next start'"
   },
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^15.16.3",
@@ -53,6 +55,7 @@
     "sass": "^1.60.0",
     "tailwindcss": "^4.1.4",
     "universal-cookie": "^7.2.2",
-    "url-loader": "^4.1.1"
+    "url-loader": "^4.1.1",
+    "webpack-bundle-analyzer": "^4.10.2"
   }
 }

@@ -49,7 +49,7 @@ export default function NavBarAwwwards2({
   };
 
   return (
-    <div className="flex z-50 gap-1 self-center p-1 bg-gray-600 rounded-xl backdrop-blur-lg pointer-events-auto">
+    <div className="flex z-50 gap-1 self-center p-1 bg-[var(--surface-2)] rounded-xl backdrop-blur-lg pointer-events-auto">
       <div className="flex gap-1 p-2 rounded-lg aspect-square"
       style={{
         backgroundColor: "var(--body-background-color)",
@@ -75,7 +75,7 @@ export default function NavBarAwwwards2({
           >
             {activePage === page.id && (
               <motion.div
-                layoutId="indicator"
+                layoutd="indicator"
                 style={{
                   borderColor: currentTheme.data.accentPri,
                   // boxShadow: `0 10px 15px -3px ${currentTheme.data.navShadow}, 0 4px 49px -4px ${currentTheme.data.navShadow}`,

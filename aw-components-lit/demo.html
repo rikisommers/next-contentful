@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AW Components Demo - Milestone 1 Results</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background-color: #fafafa;
+            color: #09090b;
+        }
+
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .demo-section {
+            margin-bottom: 4rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+
+        .demo-section h2 {
+            color: #ef7801;
+            border-bottom: 2px solid #ef7801;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .code-preview {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            overflow-x: auto;
+        }
+
+        .theme-demo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .theme-card {
+            padding: 1rem;
+            border-radius: 8px;
+            border: 2px solid;
+        }
+
+        .theme-card.light {
+            background-color: #f4f4f5;
+            border-color: #ef7801;
+            color: #09090b;
+        }
+
+        .theme-card.dark {
+            background-color: #47362e;
+            border-color: #ef7801;
+            color: #fafafa;
+        }
+
+        aw-hero-block {
+            margin: 2rem 0;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        /* Import theme variables */
+        @import url('./src/styles/aw-theme-variables.css');
+    </style>
+    <script type="module" src="./dist/aw-components.es.js"></script>
+</head>
+<body>
+    <div class="demo-container">
+        <!-- Header -->
+        <header class="demo-section">
+            <h1>AW Components - Milestone 1 Demo</h1>
+            <p>Lit-based component library with AW naming conventions, BEM+ITCSS methodology, and vanilla motion animations.</p>
+            
+            <aw-logo 
+                logo_type="imageAndText"
+                site_title="Awwwards Components"
+                background_style="solid"
+                href="/">
+            </aw-logo>
+        </header>
+
+        <!-- Button Component Demo -->
+        <section class="demo-section">
+            <h2>AW Button Component</h2>
+            <p>Demonstrates proper AW naming conventions and BEM methodology:</p>
+            
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin: 1rem 0;">
+                <aw-button 
+                    label_text="Primary Button" 
+                    variant="primary" 
+                    size="md">
+                </aw-button>
+                
+                <aw-button 
+                    label_text="Secondary Button" 
+                    variant="secondary" 
+                    size="md">
+                </aw-button>
+                
+                <aw-button 
+                    label_text="Large Success" 
+                    variant="success" 
+                    size="lg">
+                </aw-button>
+                
+                <aw-button 
+                    label_text="Disabled" 
+                    variant="primary" 
+                    size="md" 
+                    disabled>
+                </aw-button>
+            </div>
+
+            <div class="code-preview">
+&lt;aw-button 
+    label_text="Primary Button" 
+    variant="primary" 
+    size="md"&gt;
+&lt;/aw-button&gt;
+            </div>
+        </section>
+
+        <!-- Animated Text Component Demo -->
+        <section class="demo-section">
+            <h2>AW Animated Text Component</h2>
+            <p>Vanilla @motionone/dom animations replacing Framer Motion:</p>
+            
+            <div style="margin: 2rem 0;">
+                <h3>Navigator Animation (Staggered Reveal)</h3>
+                <aw-animated-text 
+                    animation_type="navigators" 
+                    content="Research ![star](data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJMMTUuMDkgOC4yNkwyMiA5TDE3IDEzLjc0TDE4LjE4IDIyTDEyIDE4LjVMNS44MiAyMkw3IDE0TDIgOUw4LjkxIDguMjZMMTIgMloiIGZpbGw9IiNlZjc4MDEiLz4KPHN2Zz4K) __design__ and build amazing experiences"
+                    highlight_style="background"
+                    text_align="center"
+                    animation_delay="0">
+                </aw-animated-text>
+            </div>
+
+            <div style="margin: 2rem 0;">
+                <h3>Lines Up Animation</h3>
+                <aw-animated-text 
+                    animation_type="linesup" 
+                    content="Beautiful components with smooth animations"
+                    highlight_style="underline"
+                    text_align="left"
+                    animation_delay="0.2">
+                </aw-animated-text>
+            </div>
+
+            <div style="margin: 2rem 0;">
+                <h3>Character Fade Animation</h3>
+                <aw-animated-text 
+                    animation_type="charfade" 
+                    content="Each character animates individually"
+                    highlight_style="text"
+                    text_align="center"
+                    animation_delay="0.4">
+                </aw-animated-text>
+            </div>
+
+            <div class="code-preview">
+&lt;aw-animated-text 
+    animation_type="navigators" 
+    content="Research __design__ and build amazing experiences"
+    highlight_style="background"
+    text_align="center"
+    animation_delay="0"&gt;
+&lt;/aw-animated-text&gt;
+            </div>
+        </section>
+
+        <!-- Hero Block Component Demo -->
+        <section class="demo-section">
+            <h2>AW Hero Block Component</h2>
+            <p>Complete hero section with background options and animated text:</p>
+            
+            <aw-hero-block 
+                title="Welcome to __AW Components__"
+                content="A modern component library built with Lit, featuring BEM+ITCSS methodology and vanilla motion animations"
+                tag="Milestone 1"
+                height_style="half"
+                background_type="cssgradient"
+                text_position="2-2"
+                subtext_position="3-2"
+                text_align="center"
+                title_animation="navigators"
+                content_animation="linesup">
+            </aw-hero-block>
+
+            <div class="code-preview">
+&lt;aw-hero-block 
+    title="Welcome to __AW Components__"
+    content="A modern component library built with Lit"
+    tag="Milestone 1"
+    background_type="cssgradient"
+    text_align="center"&gt;
+&lt;/aw-hero-block&gt;
+            </div>
+        </section>
+
+        <!-- Theme System Demo -->
+        <section class="demo-section">
+            <h2>AW Theme System</h2>
+            <p>CSS Custom Properties with AW naming conventions:</p>
+            
+            <div class="theme-demo">
+                <div class="theme-card light">
+                    <h3>Light Theme</h3>
+                    <p>--aw-color-primary-600: #ef7801</p>
+                    <p>--aw-color-background-primary: #f4f4f5</p>
+                    <p>--aw-color-text-primary: #09090b</p>
+                    <aw-button label_text="Test Button" variant="primary"></aw-button>
+                </div>
+                
+                <div class="theme-card dark" data-theme="dark">
+                    <h3>Dark Theme</h3>
+                    <p>--aw-color-background-primary: #47362e</p>
+                    <p>--aw-color-text-primary: #fafafa</p>
+                    <p>--aw-color-text-accent: #99f6e4</p>
+                    <aw-button label_text="Test Button" variant="primary"></aw-button>
+                </div>
+            </div>
+
+            <div class="code-preview">
+/* Theme Variables */
+:root {
+    --aw-color-primary-600: #ef7801;
+    --aw-color-background-primary: #f4f4f5;
+    --aw-spacing-md: 0.75rem;
+    --aw-font-size-base: 1rem;
+}
+
+[data-theme="dark"] {
+    --aw-color-background-primary: #47362e;
+    --aw-color-text-primary: #fafafa;
+}
+            </div>
+        </section>
+
+        <!-- Technical Implementation -->
+        <section class="demo-section">
+            <h2>Technical Implementation Summary</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                <div>
+                    <h3>✅ AW Naming Conventions</h3>
+                    <ul>
+                        <li>All components use <code>aw-*</code> prefix</li>
+                        <li>Props use <code>snake_case</code> naming</li>
+                        <li>CSS custom properties use <code>--aw-*</code> prefix</li>
+                        <li>BEM classes follow <code>aw-component__element--modifier</code> pattern</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3>✅ BEM + ITCSS Methodology</h3>
+                    <ul>
+                        <li>Settings: Design tokens and variables</li>
+                        <li>Generic: Normalize and reset styles</li>
+                        <li>Elements: Base HTML element styling</li>
+                        <li>Objects: Layout patterns and constructs</li>
+                        <li>Components: UI component styles</li>
+                        <li>Utilities: Helper classes</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3>✅ Vanilla Motion Integration</h3>
+                    <ul>
+                        <li>@motionone/dom replaces Framer Motion</li>
+                        <li>Staggered animations for text reveals</li>
+                        <li>Intersection Observer for scroll triggers</li>
+                        <li>Smooth easing curves matching source</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3>✅ Visual Style Matching</h3>
+                    <ul>
+                        <li>Color palette matches source theme system</li>
+                        <li>Typography scales preserved</li>
+                        <li>Spacing system consistent</li>
+                        <li>Animation timings replicated</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dependencies -->
+        <section class="demo-section">
+            <h2>Dependencies Added</h2>
+            <div class="code-preview">
+{
+  "dependencies": {
+    "lit": "^3.3.1",
+    "@motionone/dom": "^10.16.4",
+    "three": "^0.167.1"
+  }
+}
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Add some interactive behavior
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('AW Components Demo loaded');
+            console.log('Available components:', Object.keys(customElements.getName ? customElements : window.customElements.registry || {}));
+            
+            // Add click handlers for buttons
+            document.querySelectorAll('aw-button').forEach(button => {
+                button.addEventListener('aw-button-click', (event) => {
+                    console.log('Button clicked:', event.detail);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

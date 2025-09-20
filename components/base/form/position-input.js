@@ -48,7 +48,7 @@ export default function PositionInput({ label, value, onChange, options = defaul
           >
             {selectedOption === opt && (
               <motion.div
-                layoutId={layoutId}
+                layoutid={layoutId}
                 className={styles.indicator}
                 transition={{ 
                   type: "spring",

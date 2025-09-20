@@ -1,3 +1,4 @@
+
 const soundThemes = {
   default: "default",
   click: "click",
@@ -1482,7 +1483,7 @@ export const textAnimationThemes = {
   none: "none",
   figma: "figma",
   linesup: "linesup",
-  linefadein: "linefadein",
+  linefadeinup: "linefadeinup",
   charfade: "charfade",
   charblur: "charblur",
   charrandom: "charrandom",
@@ -1569,6 +1570,7 @@ export const cardThemes = {
   img: 'img',
   text: "text",
   hovertext: "hovertext",
+  colabs: "colabs",
 };
 
 export const cardAspectRatio = {
@@ -1654,6 +1656,14 @@ export const navigationTextStyleThemes = {
   icons: 'icons',
 };
 
+
+export const logoStyle = {
+  none: 'none',
+  image: 'image',
+  text: 'text',
+  imageAndText: 'imageAndText',
+};
+
 export const logoBackground = {
   solid: 'solid',
   transparent: 'transparent',
@@ -1662,12 +1672,15 @@ export const logoBackground = {
 
 export const navigationOptions = {
   logoFill:true,
-  floating: true,
-  fixed: true,
   bordered: false,
   shadowColor: {
     default: 'default',
     accent: 'accent',
+  },
+  position: {
+    fixed: 'fixed',
+    floating: 'floating',
+    none: 'none',
   },
   shadowSize:{
     sm:'sm',
@@ -1693,7 +1706,10 @@ export const navigationPositionThemes = {
 };
 
 export const footerOptions = {
-  fixed: true,
+  position: {
+    fixed: 'fixed',
+    none: 'none',
+  },
 };
 
 
@@ -1708,12 +1724,25 @@ export const heroHeightThemes = {
 //video: 'video',
 export const heroBackgroundThemes = {
   none: 'none',
-  canvasGrad: 'canvasGrad',
-  canvasSphere: 'canvasSphere',
+  canvasPlaneShader: 'canvasPlaneShader', // Water shader
   canvasImage: 'canvasImage',
   image: 'image',
-  canvasGradient: 'canvasGradient',
   cssgradient: 'cssgradient',
+};
+
+// Separate effects that can be applied to canvas backgrounds
+export const heroShaderEffectThemes = {
+  none: 'none',
+  halftone_dots: 'halftone-dots',
+  halftone_ascii: 'halftone-ascii',
+  halftone_led: 'halftone-led',
+  halftone_lego: 'halftone-lego',
+  halftone_rect: 'halftone-rect',
+  noise: 'noise',
+  pixelation: 'pixelation',
+  dither_blue_noise: 'dither-blue-noise',
+  dither_ordered: 'dither-ordered',
+  dither_color_quant: 'dither-color-quant',
 };
 
 export const heroCssGradientThemes = {
@@ -1743,6 +1772,13 @@ export const heroTextPositionThemes = [
   '2-1', // bottom-center
   '2-2', // bottom-right
 ];
+
+export const headerTextPositionThemes = [
+  '0-0', // center-left
+  '0-1', // center-center
+  '0-2', // center-right
+];
+
 
 export const textAlignThemes = {
   left: 'left',
@@ -1794,7 +1830,7 @@ export const helpers = {
     grid:false,
 };
 
-export const shaderTypes = {
+export const shaderEffect = {
   // watercolor: 'watercolor',
   // noise: 'noise',
   // pixel: 'pixel',
@@ -1899,7 +1935,7 @@ export const themeContent = {
   imageMixBlendMode:mixBlendThemes.luminosity,
 
   heroHeight:heroHeightThemes.full,
-  heroBackground:heroBackgroundThemes.image,
+
   heroTextPosition:heroTextPositionThemes[4], // '1-1' center-center
   heroSubTextPosition:heroTextPositionThemes[8], // '2-2' bottom-right
 
@@ -1908,16 +1944,30 @@ export const themeContent = {
   heroCssGradientAngle:'90',
   heroCssGradientRadialPosition:heroCssGradientRadialPositionThemes.center,
   heroTextLayout:heroTextCompositionThemes.foo,
-  heroTextAlign:textAlignThemes.center,
-  heroSubTextAlign:textAlignThemes.center,
+  heroBackground:heroBackgroundThemes.image,
+  heroShaderEffect: shaderEffect.blueNoise, // Default shader type 
+
+  // Effect size controls
+  halftoneSize: 6.0,
+  asciiSize: 12.0,
+  ditherLevels: 4,
+  ditherSize: 4,
+  pixelationSize: 8.0,
+  noiseIntensity: 0.1,
+
+  heroTextAlign:textAlignThemes.left,
+  headerTextAlign:textAlignThemes.left,
+  blockquoteTextAlign:textAlignThemes.left,
+  heroSubTextAlign:textAlignThemes.left,
   heroTextImage:heroTextImageThemes.none,
 
   navPosition:navigationPositionThemes.topCenter,
   navStyle:navigationStyleThemes.applause,
   navTheme:navigationThemes.awwwardsGlass,
   navTextStyle:navigationTextStyleThemes.icons,
-  navFloating: navigationOptions.floating,
-  navFixed: navigationOptions.fixed,
+  navLayoutPosition: navigationOptions.position.fixed,
+  
+
   navBorder: navigationOptions.bordered,
   navLabelDisplay:navigationOptions.labelDisplay.text,
   navShadow: false,
@@ -1925,10 +1975,11 @@ export const themeContent = {
   navShadowSize:navigationOptions.shadowSize.sm,
   
   logoBackground:logoBackground.solid,
-  footerFixed: footerOptions.fixed,
+  logoStyle:logoStyle.imageAndText,
+
+  footerPosition: footerOptions.position.none,
   bodyTextDropCap: bodyTextThemes.dropCap,
 
-  // shaderType: shaderTypes.blueNoise, // Default shader type 
   // shaderMesh: false,
   // pixelDensity: 20.0, // Default pixel density
   // halftoneSize: 8.0, // Default halftone size

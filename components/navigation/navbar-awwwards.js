@@ -51,7 +51,7 @@ export default function NavBarAwwwards({
     };
 
   return (
-    <div className="z-50 flex self-center gap-1 pointer-events-auto backdrop-blur-lg rounded-xl">
+    <div className="flex z-50 gap-1 self-center rounded-xl backdrop-blur-lg pointer-events-auto">
                 
 
       {pages.map((page) => (
@@ -60,7 +60,7 @@ export default function NavBarAwwwards({
           href={page.url}
           scroll={false}
           onClick={() => handleNavClick(page.id)}
-          className="relative flex items-center text-sm no-underline uppercase rounded-lg"
+          className="flex relative items-center text-sm no-underline uppercase rounded-lg"
           
           style={{
             color:
@@ -71,7 +71,7 @@ export default function NavBarAwwwards({
         >
           {activePage === page.id && (
             <motion.div
-              layoutId="indicator"
+              layoutid="indicator"
               style={{
                 backgroundColor: `${
                   currentTheme.data.navStyle === "solid"
@@ -81,10 +81,10 @@ export default function NavBarAwwwards({
 
                 // boxShadow: `0 10px 15px -3px ${currentTheme.data.navShadow}, 0 4px 49px -4px ${currentTheme.data.navShadow}`,
               }}
-              className="absolute top-0 left-0 flex w-full h-full bg-opacity-50 rounded-xl"
+              className="flex absolute top-0 left-0 w-full h-full bg-opacity-50 rounded-xl"
             ></motion.div>
           )}
-          {/* <span className="relative flex items-center px-3 py-3 text-xs uppercase rounded-lg cursor-pointer">
+          {/* <span className="flex relative items-center px-3 py-3 text-xs uppercase rounded-lg cursor-pointer">
               
                 </span> */}
           {/* <Button
@@ -93,7 +93,7 @@ export default function NavBarAwwwards({
                 type={ButtonType.TRANSPARENT}
                 ></Button> */}
           <motion.div
-            className="relative flex items-center px-3 py-3 text-xs uppercase rounded-lg cursor-pointer"
+            className="flex relative items-center px-3 py-3 text-xs uppercase rounded-lg cursor-pointer"
             style={{
               writingMode:
                 currentTheme.data.navPosition === "leftCenter" ||
@@ -107,7 +107,7 @@ export default function NavBarAwwwards({
               renderDynamicIcon(page.icon, 20)
               }
             {currentTheme.data.navLabelDisplay === "textAndIcons" && (
-              <div className="flex items-center gap-2">
+              <div className="flex gap-2 items-center">
                 {renderDynamicIcon(page.icon, 20)}
                 {page.title}
               </div>
@@ -117,7 +117,7 @@ export default function NavBarAwwwards({
       ))}
 
       <motion.div
-        className="relative flex items-center px-3 py-3 text-xs uppercase rounded-lg cursor-pointer"
+        className="flex relative items-center px-3 py-3 text-xs uppercase rounded-lg cursor-pointer"
         style={{
           color: "var(--text-color)",
           writingMode:

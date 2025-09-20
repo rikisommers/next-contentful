@@ -5,6 +5,8 @@ import { motion, useInView, useTransform } from "../../utils/motion";;
 import { HighlightedSegment } from "./text-anim-highlighted-segment";
 import { processItalicText } from "../utils/textFormatting";
 import { TextAnimImg } from "./text-anim-img";
+import { getJustifyClass } from "../../utils/styleUtils";
+
 
 /**
  * @component
@@ -28,6 +30,7 @@ export const TextAnimNavigators = ({
   animateWhenInView = false,
   repeatWhenInView = false,
   type = "text",
+  align = "center"
 }) => {
   const ref = useRef(null);
   const [textAnimationState, setTextAnimationState] = React.useState("visible");
@@ -124,6 +127,7 @@ export const TextAnimNavigators = ({
     },
   };
 
+
   const renderWord = (word, wordIndex) => {
     // Check if the word contains an image markdown syntax
     const imageMatch = word.match(/!\[([^\]]*)\]\((.*?)\)/);
@@ -214,7 +218,8 @@ export const TextAnimNavigators = ({
         variants={containerVariants}
         initial="hidden"
         animate={textAnimationState}
-        className="flex flex-wrap"
+        className={`flex flex-wrap ${getJustifyClass(align)}`}
+        
       >
         {words.map((word, wordIndex) => renderWord(word, wordIndex))}
       </motion.div>
@@ -226,9 +231,9 @@ export const TextAnimNavigators = ({
       ref={ref}
       variants={containerVariants}
       className="flex flex-wrap"
-      // style={{
-      //   color: 'var(--heading-color)'
-      // }}
+      style={{
+        position: "relative" // Ensures proper scroll offset calculation for useInView
+      }}
       initial="hidden"
       animate={
         animateWhenInView ? (isInView ? "visible" : "hidden") : "visible"

@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { motion } from "../../utils/motion";
+import { processTextWithBoldAndLineBreaks } from "../utils/text-processing";
 
 /**
  * @component
@@ -32,18 +33,8 @@ export const TextAnimBlur = ({
   const [isComplete, setIsComplete] = useState(false);
   const [isTriggered, setIsTriggered] = useState(true);
   
-  // Ensure content is a string and clean it
-  const cleanContent = (typeof content === 'string' ? content : '')
-    .replace(/__([^_]+)__/g, '$1')
-    .replace(/\*([^*]+)\*/g, '$1')
-    .replace(/!\[([^\]]*)\]\((.*?)\)/g, '');
-  
-  const lines = cleanContent.split('\n').filter(line => line !== null && line !== undefined);
-  
   // Calculate total characters for timing with null checks
-  const totalChars = lines.reduce((acc, line) => {
-    return acc + (line && typeof line === 'string' ? line.length : 0);
-  }, 0);
+  const totalChars = (typeof content === 'string' ? content : '').length;
   
   // Calculate completion time based on animation sequence
   const completionTime = totalChars * 20 + 300;
@@ -119,30 +110,61 @@ export const TextAnimBlur = ({
     </motion.span>
   );
 
-  const renderLine = (line, lineIndex) => {
-    // Calculate the starting index for this line's characters with null checks
-    const startIndex = lines.slice(0, lineIndex).reduce((acc, l) => {
-      return acc + (l && typeof l === 'string' ? l.length : 0);
-    }, 0);
-    
+  const renderColoredText = (text, index) => {
+    let charIndex = index;
     return (
-      <div 
-        key={lineIndex} 
-        className={lineIndex === 0 ? "inline" : "block"}
+      <motion.span
+        style={{
+          color: 'var(--text-accent)',
+        }}
+        key={index}
       >
-        {line && typeof line === 'string' ? line.split("").map((char, charIndex) => (
-          <motion.span
-            key={charIndex}
-            custom={startIndex + charIndex}
-            variants={characterVariants}
-            initial="hidden"
-            animate={isTriggered ? "visible" : "hidden"}
-          >
-            {char}
-          </motion.span>
-        )) : null}
-      </div>
+        {text.split('').map((char, localIndex) => {
+          const renderedChar = renderCharacter(char, charIndex);
+          charIndex++;
+          return renderedChar;
+        })}
+      </motion.span>
     );
+  };
+
+  const renderTextWithBoldAndLineBreaks = (text) => {
+    if (!text || typeof text !== 'string') {
+      return null;
+    }
+    
+    const boldSegments = processTextWithBoldAndLineBreaks(text);
+    let globalCharIndex = 0;
+    
+    return boldSegments.map((segmentData, index) => {
+      const segment = segmentData.content;
+      const isBold = segmentData.isBold;
+      
+      if (isBold) {
+        // Bold text with highlighting - each character animates individually
+        const coloredText = renderColoredText(segment, globalCharIndex);
+        globalCharIndex += segment.length;
+        return coloredText;
+      } else {
+        // Regular text - each character animates individually
+        const lines = segment.split("\\n");
+        return lines.map((line, lineIndex) => (
+          <motion.span
+            className={lineIndex === 0 ? "inline" : "block"}
+            key={`${index}-${lineIndex}`}
+            style={{
+              color: 'var(--heading-color)',
+            }}
+          >
+            {line.split('').map((char, charIndex) => {
+              const renderedChar = renderCharacter(char, globalCharIndex);
+              globalCharIndex++;
+              return renderedChar;
+            })}
+          </motion.span>
+        ));
+      }
+    });
   };
   
   // If no content, return null
@@ -160,7 +182,7 @@ export const TextAnimBlur = ({
       }}
       onMouseEnter={handleMouseEnter}
     >
-      {lines.map((line, lineIndex) => renderLine(line, lineIndex))}
+      {renderTextWithBoldAndLineBreaks(content)}
     </motion.span>
   );
 };

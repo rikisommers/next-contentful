@@ -22,6 +22,8 @@ const nextConfig = {
     loader: 'akamai',
     path: '',
     domains: ['images.ctfassets.net'], // Add Contentful domain
+    formats: ['image/webp', 'image/avif'],
+    minimumCacheTTL: 31536000, // 1 year
   },
   swcMinify: false,
   experimental: {
@@ -35,6 +37,8 @@ const nextConfig = {
       transform: "@phosphor-icons/react/{{member}}",
     },
   },
+  compress: true,
+  poweredByHeader: false,
   webpack: (config, { dev, isServer }) => {
     // GLSL shader support
     config.module.rules.push({
@@ -46,6 +50,17 @@ const nextConfig = {
     if (!dev && !isServer) {
       // Enable terser for production builds
       config.optimization.minimize = true;
+      
+      // Bundle analyzer
+      if (process.env.ANALYZE === 'true') {
+        const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+        config.plugins.push(
+          new BundleAnalyzerPlugin({
+            analyzerMode: 'static',
+            openAnalyzer: false,
+          })
+        );
+      }
     }
 
     // Handle specific file types
@@ -63,6 +78,50 @@ const nextConfig = {
   // Add redirects if needed
   async redirects() {
     return [];
+  },
+  // Add security headers
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'X-Frame-Options',
+            value: 'DENY',
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'origin-when-cross-origin',
+          },
+          {
+            key: 'Permissions-Policy',
+            value: 'camera=(), microphone=(), geolocation=()',
+          },
+        ],
+      },
+      {
+        source: '/fonts/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/images/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+    ];
   },
   // Environment variables that should be available to the browser
   env: {

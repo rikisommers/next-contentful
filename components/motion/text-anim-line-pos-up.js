@@ -5,6 +5,7 @@ import { motion, useInView } from "../../utils/motion";
 import { HighlightedSegment } from "./text-anim-highlighted-segment";
 import { processItalicText } from "../utils/textFormatting";
 import { TextAnimImg } from "./text-anim-img";
+import { processTextWithBoldAndLineBreaks } from "../utils/text-processing";
 /**
  * @component
  * @description Text that animates with lines moving up.
@@ -72,20 +73,6 @@ export const TextAnimLinePosUp = ({
       );
     }
 
-    // Check for bold text (wrapped with __)
-    const boldMatch = word.match(/^__(.*)__$/);
-    if (boldMatch) {
-      // Extract the text inside the __ markers
-      const boldText = boldMatch[1];
-      return (
-        <HighlightedSegment
-          key={wordIndex}
-          segment={boldText}
-          highlight={highlight}
-        />
-      );
-    }
-
     // Process the word for italic text
     const { processed: processedWord, hasItalic } = processItalicText(word);
 
@@ -103,43 +90,96 @@ export const TextAnimLinePosUp = ({
     }
   };
 
-  const renderLine = (line, lineIndex) => {
-    // Split the line into words and filter out empty strings
-    const words = line.split(" ").filter(word => word.trim() !== "");
-
-    return (
-      <div
-        key={lineIndex}
-        style={{ 
-          overflow: 'hidden',
-          position: 'relative',
-        }}
-        className="block leading-snug"
-      >
-        <motion.div
-          variants={lineVariants}
-          style={{
-            fontFamily: "var(--font-family-primary)",
-            position: "relative",
-            display: "inline-block",
-          }}
-        >
-          {words.map((word, wordIndex) => (
-            <React.Fragment key={wordIndex}>
-              {renderWord(word, wordIndex)}
-              {wordIndex < words.length - 1 && " "}
-            </React.Fragment>
-          ))}
-        </motion.div>
-      </div>
-    );
-  };
-
-  const renderContent = (text) => {
-    if (text) {
-      const lines = text.split("\n");
-      return lines.map((line, lineIndex) => renderLine(line, lineIndex));
+  const renderTextWithBoldAndLineBreaks = (text) => {
+    if (!text || typeof text !== 'string') {
+      return null;
     }
+    
+    // First split by actual line breaks in the content
+    const lines = text.split('\n').filter(line => line && line.trim() !== '');
+    
+    return lines.map((line, lineIndex) => {
+      // Process each line for bold text
+      const boldSegments = processTextWithBoldAndLineBreaks(line);
+      
+      return (
+        <div
+          key={lineIndex}
+          style={{ 
+            overflow: 'hidden',
+            position: 'relative',
+          }}
+          className="block leading-snug"
+        >
+          <motion.div
+            variants={lineVariants}
+            style={{
+              fontFamily: "var(--font-family-primary)",
+              position: "relative",
+              display: "inline-block",
+            }}
+          >
+            {boldSegments.map((segmentData, segmentIndex) => {
+              const segment = segmentData.content;
+              const isBold = segmentData.isBold;
+              
+              if (isBold) {
+                // Bold text
+                return (
+                  <HighlightedSegment
+                    key={`bold-${segmentIndex}`}
+                    segment={segment}
+                    highlight={highlight}
+                  />
+                );
+              } else {
+                // Regular text - process words individually
+                // Check for image markdown syntax first
+                const imageMatch = segment.match(/!\[[^\]]*\]\((.*?)\)/);
+                
+                if (imageMatch) {
+                  // Handle images in regular text
+                  const beforeImage = segment.substring(0, imageMatch.index).trim();
+                  const afterImage = segment.substring(imageMatch.index + imageMatch[0].length).trim();
+                  
+                  return (
+                    <React.Fragment key={`img-${segmentIndex}`}>
+                      {beforeImage && beforeImage.split(' ').map((word, wordIndex) => (
+                        <React.Fragment key={`before-${wordIndex}`}>
+                          {renderWord(word, wordIndex)}
+                          {wordIndex < beforeImage.split(' ').length - 1 && " "}
+                        </React.Fragment>
+                      ))}
+                      {afterImage && afterImage.split(' ').map((word, wordIndex) => (
+                        <React.Fragment key={`after-${wordIndex}`}>
+                          {renderWord(word, wordIndex)}
+                          {wordIndex < afterImage.split(' ').length - 1 && " "}
+                        </React.Fragment>
+                      ))}
+                    </React.Fragment>
+                  );
+                } else {
+                  // Regular text processing
+                  const words = segment.split(" ").filter(word => word && word.trim() !== "");
+                  
+                  return (
+                    <React.Fragment key={`text-${segmentIndex}`}>
+                      {words.map((word, wordIndex) => (
+                        <React.Fragment key={wordIndex}>
+                          {renderWord(word, wordIndex)}
+                          {wordIndex < words.length - 1 && " "}
+                        </React.Fragment>
+                      ))}
+                      {segmentIndex < boldSegments.length - 1 && " "}
+                    </React.Fragment>
+                  );
+                }
+              }
+            })}
+          </motion.div>
+        </div>
+      );
+    });
   };
 
   return (
@@ -151,13 +191,14 @@ export const TextAnimLinePosUp = ({
         animateWhenInView ? (isInView ? "visible" : "hidden") : "visible"
       }
     >
+      
       <span
         style={{
           color: "var(--heading-color)",
           display: "inline-block",
         }}
       >
-        {renderContent(content)}
+        {renderTextWithBoldAndLineBreaks(content)}
       </span>
     </motion.div>
   );

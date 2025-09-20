@@ -48,6 +48,7 @@ export const ClipContainer = ({ children, background, scale }) => {
       style={{
         clipPath: clipPathValue,
         backgroundColor: "var(--background-color)",
+        position: "relative", // Ensures proper scroll offset calculation
       }}
       className={`relative z-10 w-full`}
     >

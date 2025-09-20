@@ -3,6 +3,7 @@ import AnimatedText, {
   AnimTextOrder,
 } from "../motion/animated-text";
 import { useThemeContext } from "../context/themeContext";
+import { getGridPositionClass, getJustifyClass } from "../../utils/styleUtils";
 
 export default function   PostIntro({ title, content, tag }) {
   const { currentTheme } = useThemeContext();
@@ -11,8 +12,8 @@ export default function   PostIntro({ title, content, tag }) {
 //  console.log('titlecontent---------',title)
   return (
     //pt-[16rem] pb-8
-    <div className="grid z-10 grid-cols-12 gap-6 content-end items-end w-full fluid-type">
-      <div className="col-span-12 md:col-span-8 lg:col-span-6">
+    <div className="grid z-10 grid-cols-4 gap-6 content-end items-end w-full fluid-type">
+       <div className={`col-span-2 ${getJustifyClass(currentTheme.data.headerTextAlign)} ${getGridPositionClass(currentTheme.data.headerTextPosition, { maxCols: 4, responsive: "", alignment: "" })}`}>
         <>
           {tag && (
             <div
@@ -29,6 +30,7 @@ export default function   PostIntro({ title, content, tag }) {
             <h1 className="text-4xl leading-normal text-balance">
               <AnimatedText
                 content={title}
+                align={currentTheme.data.headerTextAlign}
                 type={currentTheme.data.textAnimation}
                 delay={AnimTextOrder.ONE}
               />
@@ -45,6 +47,7 @@ export default function   PostIntro({ title, content, tag }) {
         >
           {content && (
             <AnimatedText
+              align={currentTheme.data.headerTextAlign}
               type={currentTheme.data.textAnimationSec}
               content={content}
               delay={AnimTextOrder.THREE}

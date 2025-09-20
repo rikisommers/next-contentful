@@ -6,6 +6,7 @@ import PostTileLg from "../tile/post-tile-funky";
 import PostTileImg from "../tile/post-tile-img";
 import PostTileRe from "../tile/post-tile-reone";
 import PostTileMonks from "../tile/post-tile-monks";
+import PostTileColabs from "../tile/post-tile-colabs";
 import classNames from 'classnames';
 
 /**
@@ -140,6 +141,8 @@ export default function GridBasic({
     <div className={theme === 'primary' ? gridClassNamePrimary : gridClassNameSecondary}>
       {items.map((item, index) => {
         switch (currentTheme.data.cardLayout) {
+          case 'colabs':
+            return <PostTileColabs key={index} post={item} aspect={currentTheme.data.cardAspectRatio} />;
           case 'formal':
             return <PostTileCs key={index} post={item} aspect={currentTheme.data.cardAspectRatio} />;
           case 'funky':

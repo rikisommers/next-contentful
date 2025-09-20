@@ -1,58 +1,54 @@
 'use client';
 
 import React from "react";
-import { motion, cubicBezier } from "../../utils/motion";
-import { useThemeContext } from "../context/themeContext";
-import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { logoStyle, logoBackground } from "../../utils/theme";
 
-export default function Logo({logo, showTitle, title}) {
-    const { currentTheme } = useThemeContext();
-    const pathname = usePathname();
-
-  const LogoContent = () => (
-    <motion.div
-      style={{
-        backgroundColor: currentTheme.data.logoFill ? "var(--accent)" : "transparent",
-        color: pathname === "/" ? "var(--text-color)" : "var(--heading-color)",
-      }}
-      className={`flex relative z-50 items-center rounded-xl cursor-pointer pointer-events-auto`}
-    >
-      <div className={`flex justify-center items-center p-1 w-[32px] h-[32px]`}>
-        {logo && (
-          <img
-            src={logo.url}
-            alt={logo.title}
-            title={logo.title}
-            className="h-full"
-          />
-        )}
-      </div>
-      {showTitle && (
-        <motion.span
-          className="self-center p-3 font-medium whitespace-nowrap"
-          style={{ color: "var(--text-color)" }}
-          layoutId="title"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{
-            duration: 1,
-            delay: 0,
-            easing: cubicBezier(0.35, 0.17, 0.3, 0.86),
-          }}
-        >
-          {title || ''}
-        </motion.span>
-      )}
-    </motion.div>
+export function LogoImage({logo}) {
+  return (
+    <div className={`flex justify-center items-center p-1 w-[32px] h-[32px]`}>
+      <img src={logo.url} alt={logo.title} title={logo.title} className="h-full" />
+    </div>
   );
+}
 
-  return pathname === "/" ? (
-    <LogoContent />
-  ) : (
+export function LogoText({title}) {
+  return (
+    <span className="pr-2 text-base font-semibold text-[var(--text-color)]">{title}</span>
+  );
+}
+
+export function LogoImageAndText({logo, title}) {
+  return (
+    <div className="flex gap-2 items-center">
+      <LogoImage logo={logo} />
+      <LogoText title={title} />
+    </div>
+  );
+}
+
+const getLogoType = (type, logo, title) => {
+  switch (type) {
+    case logoStyle.image:
+      return <LogoImage logo={logo} />;
+    case logoStyle.imageAndText:
+      return <LogoImageAndText logo={logo} title={title} />;
+    case logoStyle.text:
+      return <LogoText title={title} />;
+  }
+}
+
+export default function Logo({logo, type, title, background}) {
+
+
+  return (
     <Link href="/" passHref>
-      <LogoContent />
+     <div
+     layoutid="logo"
+     className={`flex relative z-50 items-center p-1 rounded-xl cursor-pointer pointer-events-auto ${background == logoBackground.solid  ? "bg-[var(--surface2)]" : "bg-transparent"}`}
+    >
+      {getLogoType(type, logo, title)}
+    </div>
     </Link>
   );
 }

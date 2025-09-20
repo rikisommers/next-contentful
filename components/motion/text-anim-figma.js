@@ -5,6 +5,7 @@ import { HighlightedSegment } from "./text-anim-highlighted-segment";
 import { motion } from "framer-motion";
 import { processItalicText } from "../utils/textFormatting";
 import { TextAnimImg } from "./text-anim-img";
+import { processTextWithBoldAndLineBreaks } from "../utils/text-processing";
 /**
  * @component
  * @description Text that animates with a Figma-like effect.
@@ -55,22 +56,6 @@ export const TextAnimFigma = ({
       );
     }
 
-    // Check for bold text (wrapped with __)
-    const boldMatch = word.match(/^__(.*)__$/);
-    if (boldMatch) {
-      // Extract the text inside the __ markers
-      const boldText = boldMatch[1];
-      return (
-        <motion.span 
-          key={wordIndex}
-          variants={segmentVariants}
-          custom={wordIndex}
-        >
-          <HighlightedSegment segment={boldText} highlight={highlight} />
-        </motion.span>
-      );
-    }
-
     // Process the word for italic text
     const { processed: processedWord, hasItalic } = processItalicText(word);
 
@@ -98,38 +83,87 @@ export const TextAnimFigma = ({
     }
   };
 
-  const renderLine = (line, lineIndex) => {
-    if (!line || typeof line !== 'string') {
-      return null;
-    }
-
-    // Split the line into words and filter out empty strings
-    const words = line.split(" ").filter(word => word && word.trim() !== "");
-
-    return (
-      <motion.div
-        key={lineIndex}
-        className="inline-flex gap-2 items-center leading-snug"
-        initial="hidden"
-        animate="visible"
-      >
-        {words.map((word, wordIndex) => (
-          <React.Fragment key={wordIndex}>
-            {renderWord(word, wordIndex)}
-            {wordIndex < words.length - 1 && " "}
-          </React.Fragment>
-        ))}
-      </motion.div>
-    );
-  };
-
-  const renderContent = (text) => {
+  const renderTextWithBoldAndLineBreaks = (text) => {
     if (!text || typeof text !== 'string') {
       return null;
     }
-
-    const lines = text.split("\n").filter(line => line && line.trim() !== "");
-    return lines.map((line, lineIndex) => renderLine(line, lineIndex));
+    
+    // First split by actual line breaks in the content
+    const lines = text.split('\n').filter(line => line && line.trim() !== '');
+    
+    return lines.map((line, lineIndex) => {
+      // Process each line for bold text
+      const boldSegments = processTextWithBoldAndLineBreaks(line);
+      
+      return (
+        <motion.div
+          key={lineIndex}
+          className="inline-flex gap-2 items-center leading-snug"
+          initial="hidden"
+          animate="visible"
+        >
+          {boldSegments.map((segmentData, segmentIndex) => {
+            const segment = segmentData.content;
+            const isBold = segmentData.isBold;
+            
+            if (isBold) {
+              // Bold text
+              return (
+                <motion.span 
+                  key={`bold-${segmentIndex}`}
+                  variants={segmentVariants}
+                  custom={segmentIndex}
+                >
+                  <HighlightedSegment segment={segment} highlight={highlight} />
+                </motion.span>
+              );
+            } else {
+              // Regular text - process words individually
+              // Check for image markdown syntax first
+              const imageMatch = segment.match(/!\[[^\]]*\]\((.*?)\)/);
+              
+              if (imageMatch) {
+                // Handle images in regular text
+                const beforeImage = segment.substring(0, imageMatch.index).trim();
+                const afterImage = segment.substring(imageMatch.index + imageMatch[0].length).trim();
+                
+                return (
+                  <React.Fragment key={`img-${segmentIndex}`}>
+                    {beforeImage && beforeImage.split(' ').map((word, wordIndex) => (
+                      <React.Fragment key={`before-${wordIndex}`}>
+                        {renderWord(word, wordIndex)}
+                        {wordIndex < beforeImage.split(' ').length - 1 && " "}
+                      </React.Fragment>
+                    ))}
+                    {afterImage && afterImage.split(' ').map((word, wordIndex) => (
+                      <React.Fragment key={`after-${wordIndex}`}>
+                        {renderWord(word, wordIndex)}
+                        {wordIndex < afterImage.split(' ').length - 1 && " "}
+                      </React.Fragment>
+                    ))}
+                  </React.Fragment>
+                );
+              } else {
+                // Regular text processing
+                const words = segment.split(" ").filter(word => word && word.trim() !== "");
+                
+                return (
+                  <React.Fragment key={`text-${segmentIndex}`}>
+                    {words.map((word, wordIndex) => (
+                      <React.Fragment key={wordIndex}>
+                        {renderWord(word, wordIndex)}
+                        {wordIndex < words.length - 1 && " "}
+                      </React.Fragment>
+                    ))}
+                    {segmentIndex < boldSegments.length - 1 && " "}
+                  </React.Fragment>
+                );
+              }
+            }
+          })}
+        </motion.div>
+      );
+    });
   };
 
   return (
@@ -139,7 +173,7 @@ export const TextAnimFigma = ({
       className="flex flex-col gap-3"
       style={{ color: "var(--heading-color)" }}
     >
-      {renderContent(content)}
+      {renderTextWithBoldAndLineBreaks(content)}
     </motion.span>
   );
 };

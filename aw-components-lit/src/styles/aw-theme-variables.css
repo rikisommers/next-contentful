@@ -1,0 +1,199 @@
+/**
+ * AW Theme Variables - CSS Custom Properties
+ * Based on source project theme system from utils/theme.js
+ * 
+ * ITCSS Layer: Settings
+ * BEM Methodology: Design tokens as CSS custom properties
+ */
+
+:root {
+  /* ========================================
+   * AW COLOR SYSTEM
+   * ======================================== */
+  
+  /* Primary Colors - Matching source --accent-pri */
+  --aw-color-primary-50: #fff7ed;
+  --aw-color-primary-100: #ffedd5;
+  --aw-color-primary-200: #fed7aa;
+  --aw-color-primary-300: #fdba74;
+  --aw-color-primary-400: #fb923c;
+  --aw-color-primary-500: #f97316;
+  --aw-color-primary-600: #ef7801; /* Source: accentPri */
+  --aw-color-primary-700: #c2410c;
+  --aw-color-primary-800: #9a3412;
+  --aw-color-primary-900: #7c2d12;
+
+  /* Secondary Colors - Matching source --accent-sec */
+  --aw-color-secondary-50: #fefce8;
+  --aw-color-secondary-100: #fef9c3;
+  --aw-color-secondary-200: #fef08a;
+  --aw-color-secondary-300: #fde047;
+  --aw-color-secondary-400: #facc15;
+  --aw-color-secondary-500: #eab308;
+  --aw-color-secondary-600: #fcd00a; /* Source: accentSec */
+  --aw-color-secondary-700: #a16207;
+  --aw-color-secondary-800: #854d0e;
+  --aw-color-secondary-900: #713f12;
+
+  /* Background Colors - Matching source theme system */
+  --aw-color-background-body: #fafafa; /* Source: bodyBackgroundColor */
+  --aw-color-background-primary: #f4f4f5; /* Source: backgroundColor */
+  --aw-color-background-inverse: #6b7280; /* Source: backgroundColorInv */
+  
+  /* Surface Colors */
+  --aw-color-surface-1: #c1c1c1; /* Source: surface1 */
+  --aw-color-surface-2: #6f6f6f; /* Source: surface2 */
+  --aw-color-surface-3: #c0c6c9; /* Source: surface3 */
+
+  /* Text Colors */
+  --aw-color-text-primary: #09090b; /* Source: textColor */
+  --aw-color-text-secondary: #52525b; /* Source: subtextColor */
+  --aw-color-text-heading: #52525b; /* Source: headingColor */
+  --aw-color-text-inverse: #fafafa; /* Source: textColorInv */
+  --aw-color-text-accent: #d946ef; /* Source: textAccent */
+
+  /* Navigation Colors */
+  --aw-color-nav-background: #c0c6c9; /* Source: navBg */
+
+  /* Gradient Colors */
+  --aw-color-gradient-start: #ef7801; /* Source: gradStart */
+  --aw-color-gradient-stop: #f4f4f5; /* Source: gradStop */
+
+  /* State Colors */
+  --aw-color-success-600: #059669;
+  --aw-color-success-700: #047857;
+  --aw-color-success-800: #065f46;
+  --aw-color-success-background: #d946ef; /* Source: stateSuccessBackground */
+
+  --aw-color-danger-600: #dc2626;
+  --aw-color-danger-700: #b91c1c;
+  --aw-color-danger-800: #991b1b;
+
+  --aw-color-warning-600: #d97706;
+  --aw-color-warning-700: #b45309;
+  --aw-color-warning-800: #92400e;
+
+  /* Neutral Colors */
+  --aw-color-neutral-white: #ffffff;
+  --aw-color-neutral-50: #fafafa;
+  --aw-color-neutral-100: #f5f5f5;
+  --aw-color-neutral-200: #e5e5e5;
+  --aw-color-neutral-300: #d4d4d4;
+  --aw-color-neutral-400: #a3a3a3;
+  --aw-color-neutral-500: #737373;
+  --aw-color-neutral-600: #525252;
+  --aw-color-neutral-700: #404040;
+  --aw-color-neutral-800: #262626;
+  --aw-color-neutral-900: #171717;
+
+  /* ========================================
+   * AW SPACING SYSTEM
+   * ======================================== */
+  
+  --aw-spacing-xs: 0.25rem;    /* 4px */
+  --aw-spacing-sm: 0.5rem;     /* 8px */
+  --aw-spacing-md: 0.75rem;    /* 12px */
+  --aw-spacing-lg: 1rem;       /* 16px */
+  --aw-spacing-xl: 1.25rem;    /* 20px */
+  --aw-spacing-2xl: 1.5rem;    /* 24px */
+  --aw-spacing-3xl: 2rem;      /* 32px */
+  --aw-spacing-4xl: 2.5rem;    /* 40px */
+
+  /* ========================================
+   * AW TYPOGRAPHY SYSTEM
+   * ======================================== */
+  
+  /* Font Families - Matching source theme system */
+  --aw-font-family-primary: var(--font-family-primary, "Inter", system-ui, -apple-system, sans-serif);
+  --aw-font-family-secondary: var(--font-family-secondary, "JetBrains Mono", "Courier New", monospace);
+  --aw-font-family-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
+  --aw-font-family-mono: "JetBrains Mono", "Fira Code", "Courier New", monospace;
+
+  /* Font Sizes - Matching Tailwind scale */
+  --aw-font-size-xs: 0.75rem;     /* 12px */
+  --aw-font-size-sm: 0.875rem;    /* 14px */
+  --aw-font-size-base: 1rem;      /* 16px */
+  --aw-font-size-lg: 1.125rem;    /* 18px */
+  --aw-font-size-xl: 1.25rem;     /* 20px */
+  --aw-font-size-2xl: 1.5rem;     /* 24px */
+  --aw-font-size-3xl: 1.875rem;   /* 30px */
+  --aw-font-size-4xl: 2.25rem;    /* 36px */
+  --aw-font-size-5xl: 3rem;       /* 48px */
+
+  /* Line Heights */
+  --aw-line-height-xs: 1rem;      /* 16px */
+  --aw-line-height-sm: 1.25rem;   /* 20px */
+  --aw-line-height-base: 1.5rem;  /* 24px */
+  --aw-line-height-lg: 1.75rem;   /* 28px */
+  --aw-line-height-xl: 1.75rem;   /* 28px */
+
+  /* Font Weights */
+  --aw-font-weight-light: 300;
+  --aw-font-weight-normal: 400;
+  --aw-font-weight-medium: 500;
+  --aw-font-weight-semibold: 600;
+  --aw-font-weight-bold: 700;
+
+  /* ========================================
+   * AW LAYOUT & EFFECTS
+   * ======================================== */
+  
+  /* Border Radius */
+  --aw-border-radius-sm: 0.125rem;  /* 2px */
+  --aw-border-radius-md: 0.375rem;  /* 6px */
+  --aw-border-radius-lg: 0.5rem;    /* 8px */
+  --aw-border-radius-xl: 0.75rem;   /* 12px */
+  --aw-border-radius-full: 9999px;
+
+  /* Transitions - Matching source animation timing */
+  --aw-transition-duration-fast: 0.15s;
+  --aw-transition-duration-default: 0.2s;
+  --aw-transition-duration-slow: 0.3s;
+  --aw-transition-timing-ease: ease-in-out;
+
+  /* Shadows */
+  --aw-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --aw-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --aw-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --aw-shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+  /* Opacity */
+  --aw-opacity-disabled: 0.5;
+
+  /* Z-Index */
+  --aw-z-index-dropdown: 1000;
+  --aw-z-index-sticky: 1020;
+  --aw-z-index-fixed: 1030;
+  --aw-z-index-modal-backdrop: 1040;
+  --aw-z-index-modal: 1050;
+  --aw-z-index-popover: 1060;
+  --aw-z-index-tooltip: 1070;
+
+  /* ========================================
+   * THEME-SPECIFIC OVERRIDES
+   * Dark theme support
+   * ======================================== */
+}
+
+/* Dark Theme Variables - Matching source dark theme */
+[data-theme="dark"] {
+  --aw-color-background-body: #271c1b; /* Source: dark.bodyBackgroundColor */
+  --aw-color-background-primary: #47362e; /* Source: dark.backgroundColor */
+  --aw-color-background-inverse: #f4f4f5; /* Source: dark.backgroundColorInv */
+  
+  --aw-color-text-primary: #fafafa; /* Source: dark.textColor */
+  --aw-color-text-secondary: #fe8500; /* Source: dark.subtextColor */
+  --aw-color-text-heading: #e4e4e7; /* Source: dark.headingColor */
+  --aw-color-text-inverse: #09090b; /* Inverted for dark theme */
+  --aw-color-text-accent: #99f6e4; /* Source: dark.textAccent */
+
+  --aw-color-gradient-start: #ef7801; /* Source: dark.gradStart */
+  --aw-color-gradient-stop: #47362e; /* Source: dark.gradStop */
+}
+
+/* Tokyo Theme Variables - Matching source tokyo theme */
+[data-theme="tokyo"] {
+  --aw-color-background-body: #f8fbf8; /* Source: tokyo.bodyBackgroundColor */
+  --aw-color-background-primary: #f7fcfe; /* Source: tokyo.backgroundColor */
+  --aw-color-surface-1: #f8fbf8; /* Source: tokyo.surface1 */
+}

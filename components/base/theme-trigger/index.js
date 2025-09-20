@@ -30,7 +30,7 @@ export default function ThemeTrigger({ toggleThemeEditor }) {
     <div className="col-span-1 col-start-5 row-start-1 justify-self-end pointer-events-auto goo group">
       <div className="flex relative gap-2 items-center">
         <div
-          className="flex gap-2 items-center p-2 bg-gray-600 rounded-xl transition-all cursor-pointer duration-600"
+          className="flex gap-2 items-center p-2 bg-[var(--surface2)] rounded-xl transition-all cursor-pointer duration-600"
           onClick={selectNextTheme}
           style={{
             backgroundColor: currentTheme.data.accenPri,
@@ -52,12 +52,12 @@ export default function ThemeTrigger({ toggleThemeEditor }) {
             type={ButtonType.PRIMARY}
           />
         </div>
-
-        {/* <div
+{/* 
+        <div
           onClick={toggleThemeEditor}
           className="absolute right-0 w-10 h-10 bg-teal-400 rounded-full  group-hover:translate-x-[0px] transition-all duration-300"
-        ></div>
-        <div className="absolute w-10 h-10 bg-teal-400 rounded-full translate-x-[-50px] group-hover:translate-x-[0px] transition-all duration-300"></div> */}
+        ></div> 
+        <div className="absolute w-10 h-10 bg-teal-400 rounded-full translate-x-[-50px] group-hover:translate-x-[0px] transition-all duration-300"></div>  */}
       </div>
     </div>
   );

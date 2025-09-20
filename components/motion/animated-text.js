@@ -3,12 +3,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { TextAnimLineUp } from "./text-anim-line-up";
 import { TextAnimLinePosUp } from "./text-anim-line-pos-up";
 import { TextAnimLinear } from "./text-anim-linear";
 import { TextAnimRandom } from "./text-anim-random";
 import { TextAnimBlur } from "./text-anim-blur";
-import { TextAnimLineFadeIn } from "./text-anim-line-fade";
+import { TextAnimLineFadeInUp } from "./text-anim-line-fade-in-up";
 import { TextAnimWordMask } from "./text-anim-word-mask";
 import { TextAnimNone } from "./text-anim-none";
 import { TextAnimCode } from "../motion/text-anim-code";
@@ -30,7 +29,7 @@ const AnimStyle = {
   FIGMA: "figma",
   LINESUP: "linesup",
   LINEPOSUP: "lineposup",
-  LINEFADEIN: "linefadein",
+  LINEFADEINUP: "linefadeinup",
   CHARFADE: "charfade",
   CHARBLUR: "charblur",
   CHARRANDOM: "charrandom",
@@ -53,7 +52,7 @@ const AnimTextOrder = {
   FIVE: 1.2,
 };
 
-const AnimatedText = ({ type, highlight, content, delay }) => {
+const AnimatedText = ({ type, highlight, content, delay, align }) => {
   //    return getAnimatedComponent(content, delay);
   const { currentTheme } = useThemeContext();
   const highlight2 = currentTheme.data.textHighlight;
@@ -63,7 +62,7 @@ const AnimatedText = ({ type, highlight, content, delay }) => {
   if (content) {
     switch (type) {
       case AnimStyle.NAVIGATORS:
-        return <TextAnimNavigators content={content} highlight={highlight2} />;
+        return <TextAnimNavigators content={content} highlight={highlight2} align={align} />
       case AnimStyle.FIGMA:
         return <TextAnimFigma content={content} highlight={highlight2} />;
       case AnimStyle.NONE:
@@ -87,9 +86,9 @@ const AnimatedText = ({ type, highlight, content, delay }) => {
             highlight={highlight2}
           />
         );
-      case AnimStyle.LINEFADEIN:
+      case AnimStyle.LINEFADEINUP:
         return (
-          <TextAnimLineFadeIn
+          <TextAnimLineFadeInUp
             theme={currentTheme}
             delay={delay}
             highlight={highlight2}

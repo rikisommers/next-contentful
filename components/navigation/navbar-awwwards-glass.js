@@ -73,7 +73,7 @@ export default function NavBarAwwwardsGlass({
           >
             {activePage === page.id && (
               <motion.div
-                layoutId="indicator"
+                layoutid="indicator"
                 style={{
                   borderColor: currentTheme.data.accentPri,
                 }}
@@ -106,7 +106,7 @@ export default function NavBarAwwwardsGlass({
         ))}
       </div>
       <motion.div
-        className="flex relative items-center px-3 py-3 text-xs uppercase bg-gray-600 rounded-lg border cursor-pointer"
+        className="flex relative items-center px-3 py-3 text-xs uppercase bg-[var(--surface-2)] rounded-lg border cursor-pointer"
         style={{
           color: "var(--text-color)",
           borderColor: "var(--text-color)",
