@@ -7,7 +7,7 @@ import { motion, useInView } from "../../utils/motion";
 import AnimatedElement,{ AnimStyleEl} from "../motion/animated-element";
 import FadeInWhenVisible from "../utils/fade-in-visible";
 import { useRouteAudio } from "../audio/audio-trigger";
-
+import { useThemeContext } from "../context/themeContext";
 /**
  * @component
  * @description A post tile with Reone-specific styling and layout.
@@ -65,7 +65,7 @@ export default function PostTileText({
     console.warn('PostTileHovertext: No post data provided');
     return null;
   }
-
+  const { currentTheme } = useThemeContext();
   const ref = useRef(null); // Unique ref for each instance
   const inView = useInView(ref, {once:true, threshold: 0.5 }); // Trigger when 50% of the element is visible
   const [isHovered, setIsHovered] = useState(false); // State to track hover
@@ -96,7 +96,7 @@ export default function PostTileText({
     >
      
      <div
-          className="grid z-20 grid-cols-2 gap-3 justify-between w-full fluid-type group"
+          className={`grid z-20 grid-cols-2 gap-3 justify-between w-full ${currentTheme.data.fontScale === 'fluid' ? 'fluid-type' : ''}  group`}
 
         >
           

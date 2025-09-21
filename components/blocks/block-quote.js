@@ -15,7 +15,7 @@ export const BlockQuote = ({ data }) => {
   console.log(data)
   
   return (
-    <blockquote className={`p-10 mx-auto flex flex-col gap-4 max-w-prose fluid-type bg-[var(--surface1)]/20 rounded-2xl text-${currentTheme.data.blockquoteTextAlign}`}>
+    <blockquote className={`p-10 mx-auto flex flex-col gap-4 max-w-prose ${currentTheme.data.fontScale === 'fluid' ? 'fluid-type' : ''} bg-[var(--surface1)]/20 rounded-2xl text-${currentTheme.data.blockquoteTextAlign}`}>
         {data.title && (
           <span className="text-sm text-[var(--subtext-color)]">
             {/* <AnimatedText

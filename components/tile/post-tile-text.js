@@ -7,7 +7,7 @@ import { motion, useInView } from "../../utils/motion";
 import AnimatedElement,{ AnimStyleEl} from "../motion/animated-element";
 import FadeInWhenVisible from "../utils/fade-in-visible";
 import { useRouteAudio } from "../audio/audio-trigger";
-
+import { useThemeContext } from "../context/themeContext";
 /**
  * @component
  * @description A post tile with text styling and layout.
@@ -76,12 +76,13 @@ export default function PostTileText({
     hoverSound: hoverSound
   });
 
+  const { currentTheme } = useThemeContext();
 
   return (
     <Link
       ref={ref}
       href={`/articles/${post.slug}`}
-      className={`flex relative z-20 flex-col gap-3 justify-between p-4 w-full no-underline fluid-type group`}
+      className={`flex relative z-20 flex-col gap-3 justify-between p-4 w-full no-underline ${currentTheme.data.fontScale === 'fluid' ? 'fluid-type' : ''} group`}
       onMouseEnter={(e) => {
         setIsHovered(true);
         audioProps.onMouseEnter?.(e);

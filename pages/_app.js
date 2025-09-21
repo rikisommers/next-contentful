@@ -17,7 +17,7 @@ import { motion } from "../utils/motion";
 
 function MyApp({ Component, pageProps, router, globalData, customThemes }) {
   const [isLoading, setIsLoading] = useState(true);
-  console.log('globalData',globalData)
+  console.log("globalData", globalData);
   useEffect(() => {
     window.addEventListener("load", () => {
       setIsLoading(false);
@@ -39,7 +39,9 @@ function MyApp({ Component, pageProps, router, globalData, customThemes }) {
         />
       )}
       <div
-        className={`${isLoading ? 'opacity-0' : 'opacity-100'} transition-opacity duration-500 ease-in-out w-full h-full`}
+        className={`${
+          isLoading ? "opacity-0" : "opacity-100"
+        } transition-opacity duration-500 ease-in-out w-full h-full`}
       >
         <svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="svg-filter">
           <defs>
@@ -57,6 +59,38 @@ function MyApp({ Component, pageProps, router, globalData, customThemes }) {
               />
               <feComposite in="SourceGraphic" in2="goo" operator="atop" />
             </filter>
+          </defs>
+        </svg>
+
+        <svg width="0" height="0" style={{position: 'absolute'}}>
+          <defs>
+            <mask
+              id="notchMask"
+              maskUnits="objectBoundingBox"
+              maskContentUnits="objectBoundingBox"
+              x="0"
+              y="0"
+              width="1"
+              height="1"
+              mask-type="alpha"
+            >
+              <rect x="0" y="0" width="1" height="1" fill="black" />
+              <rect
+                x="0.8"
+                y="0.8"
+                width="0.2"
+                height="0.2"
+                rx="0.2"
+                ry="0.2"
+                fill="black"
+              />
+            </mask>
+            <clipPath id="notchClip" clipPathUnits="objectBoundingBox">
+              <path
+                clip-rule="evenodd"
+                d="M0 0 H1 V1 H0 Z M1 1 V0.8 H0.85 A0.05 0.05 0 0 0 0.8 0.85 V1 Z"
+              />
+            </clipPath>
           </defs>
         </svg>
 

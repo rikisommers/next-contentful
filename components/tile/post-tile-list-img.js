@@ -7,7 +7,7 @@ import { motion, useInView } from "../../utils/motion";
 import AnimatedElement, { AnimStyleEl } from "../motion/animated-element";
 import FadeInWhenVisible from "../utils/fade-in-visible";
 import { useRouteAudio } from "../audio/audio-trigger";
-
+import { useThemeContext } from "../context/themeContext";
 /**
  * @component
  * @description A post tile with Reone-specific styling and layout.
@@ -76,6 +76,9 @@ export default function PostTileListImg({
     hoverSound: hoverSound,
   });
 
+
+  const { currentTheme } = useThemeContext();
+
   return (
     <Link
       ref={ref}
@@ -93,7 +96,7 @@ export default function PostTileListImg({
       }}
     >
       <div
-        className={`flex relative z-20 flex-col col-span-7 gap-3 justify-start p-14 w-full no-underline rounded-2xl transition-colors duration-300 fluid-type bg-[var(--surface1)]`}
+        className={`flex relative z-20 flex-col col-span-7 gap-3 justify-start p-14 w-full no-underline rounded-2xl transition-colors duration-300 ${currentTheme.data.fontScale === 'fluid' ? 'fluid-type' : ''} bg-[var(--surface1)]`}
       >
         <p className="text-xs text-[var(--subtext-color)]">{post.title}</p>
         {/* <span className="text-xs">Date: {post.date}</span> */}
