@@ -157,6 +157,39 @@ module.exports = {
     // Ensure grid start utilities are not purged when generated via utils
     {
       pattern: /^(col-start|row-start)-(1|2|3|4|5|6|7|8|9|10|11|12)$/,
-    }
+    },
+    // Ensure column span utilities are not purged when generated via utils
+    {
+      pattern: /^(col-span)-(1|2|3|4|5|6|7|8|9|10|11|12)$/,
+    },
+    // Ensure responsive column span utilities are not purged
+    {
+      pattern: /^(lg:|md:|sm:|xl:)(col-span)-(1|2|3|4|5|6|7|8|9|10|11|12)$/,
+    },
+    // Ensure dynamic height utilities are not purged
+    {
+      pattern: /^h-\[\d+(vh|%)\]$/,
+    },
+    // Explicit safelist for 12-column grid classes
+    'col-span-1', 'col-span-2', 'col-span-3', 'col-span-4', 'col-span-5', 'col-span-6',
+    'col-span-7', 'col-span-8', 'col-span-9', 'col-span-10', 'col-span-11', 'col-span-12',
+    'lg:col-span-1', 'lg:col-span-2', 'lg:col-span-3', 'lg:col-span-4', 'lg:col-span-5', 'lg:col-span-6',
+    'lg:col-span-7', 'lg:col-span-8', 'lg:col-span-9', 'lg:col-span-10', 'lg:col-span-11', 'lg:col-span-12',
+    'row-start-1', 'row-start-2', 'row-start-3', 'row-start-4', 'row-start-5', 'row-start-6',
+    'row-start-7', 'row-start-8', 'row-start-9', 'row-start-10', 'row-start-11', 'row-start-12',
+    'col-start-1', 'col-start-2', 'col-start-3', 'col-start-4', 'col-start-5', 'col-start-6',
+    'col-start-7', 'col-start-8', 'col-start-9', 'col-start-10', 'col-start-11', 'col-start-12',
+    // Important versions to override conflicting styles
+    '!row-start-1', '!row-start-2', '!row-start-3', '!row-start-4', '!row-start-5', '!row-start-6',
+    '!row-start-7', '!row-start-8', '!row-start-9', '!row-start-10', '!row-start-11', '!row-start-12',
+    '!col-start-1', '!col-start-2', '!col-start-3', '!col-start-4', '!col-start-5', '!col-start-6',
+    '!col-start-7', '!col-start-8', '!col-start-9', '!col-start-10', '!col-start-11', '!col-start-12',
+    // Test specific classes that should work
+    'row-start-8', 'col-start-7',
+    // Dynamic height classes
+    'h-[10vh]', 'h-[15vh]', 'h-[20vh]', 'h-[25vh]', 'h-[30vh]',
+    'h-[35vh]', 'h-[40vh]', 'h-[45vh]', 'h-[50vh]', 'h-[55vh]',
+    'h-[60vh]', 'h-[65vh]', 'h-[70vh]', 'h-[75vh]', 'h-[80vh]',
+    'h-[85vh]', 'h-[90vh]', 'h-[95vh]', 'h-[100vh]'
   ]
 } 

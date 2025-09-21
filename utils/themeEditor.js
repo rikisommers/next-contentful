@@ -21,6 +21,7 @@ import SliderInput from "../components/base/form/slider-input";
 //import RotaryInput from "../components/base/form/RotaryInput";
 import PositionInput from "../components/base/form/position-input";
 import BlockTags from "../components/blocks/block-tags";
+import ButtonGroup from "../components/base/form/button-group";
 
 const getBestTheme = (weightType, sliderValue) => {
   let bestTheme = null;
@@ -375,9 +376,82 @@ export default function ThemeEditor({ customThemes }) {
     }
   };
 
+  // Helper to render individual controls
+  const renderControlGroup = (controls) => {
+    return (
+      <div className="flex flex-col gap-2">
+        {Object.entries(controls).map(([key, config]) => {
+          if (config.isFolder) {
+            return renderSection(key, config);
+          }
+          return renderControl(key, config, currentTheme.data[key]);
+        })}
+      </div>
+    );
+  };
+
   // Helper to render a section
   const renderSection = (sectionName, sectionConfig) => {
     if (!sectionConfig) return null; // Guard for undefined/null
+    
+    // Special handling for Hero section with progressive disclosure
+    if (sectionName === "Hero") {
+      const basicControls = {
+        heroHeight: sectionConfig.heroHeight,
+        heroTextImage: sectionConfig.heroTextImage,
+        heroTextAlign: sectionConfig.heroTextAlign,
+        heroSubTextAlign: sectionConfig.heroSubTextAlign,
+      };
+
+      const textLayoutControls = {
+        heroTextPosition: sectionConfig.heroTextPosition,
+        heroTextColSpanDefault: sectionConfig.heroTextColSpanDefault,
+        heroTextColSpanLg: sectionConfig.heroTextColSpanLg,
+        headerTextPosition: sectionConfig.headerTextPosition,
+      };
+
+      const subtextLayoutControls = {
+        heroSubTextPosition: sectionConfig.heroSubTextPosition,
+        heroSubTextColSpanDefault: sectionConfig.heroSubTextColSpanDefault,
+        heroSubTextColSpanLg: sectionConfig.heroSubTextColSpanLg,
+      };
+
+      const buttonGroupOptions = [
+        {
+          value: 'basic',
+          label: 'Basic',
+          content: renderControlGroup(basicControls)
+        },
+        {
+          value: 'textLayout',
+          label: 'Text Layout',
+          content: renderControlGroup(textLayoutControls)
+        },
+        {
+          value: 'subtextLayout',
+          label: 'Subtext Layout',
+          content: renderControlGroup(subtextLayoutControls)
+        }
+      ];
+
+      return (
+        <fieldset
+          key={sectionName}
+          className="flex flex-col gap-2 rounded-lg bg-[var(--surface2)] mb-4 p-2 w-full"
+        >
+          <legend className="mb-2 uppercase text-xs text-[var(--text-accent)]">
+            {sectionName}
+          </legend>
+          <ButtonGroup
+            options={buttonGroupOptions}
+            defaultValue="basic"
+            onChange={(value) => console.log(`Hero section changed to: ${value}`)}
+          />
+        </fieldset>
+      );
+    }
+
+    // Default section rendering for other sections
     return (
       <fieldset
         key={sectionName}

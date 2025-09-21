@@ -1,6 +1,5 @@
 .positionInput {
   display: grid;
-  grid-template-columns: repeat(3, 16px);
   border: 1px solid var(--surface3);
   overflow: hidden;
   gap: 1px;
@@ -9,8 +8,8 @@
 }
 
 .positionInputItem {
-  width: 16px;
-  height: 16px;
+  width: 8px;
+  height: 8px;
   background: var(--surface1);
   border-radius: 0;
   cursor: pointer;

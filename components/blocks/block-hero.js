@@ -10,17 +10,8 @@ import { getGridPositionClass } from "../../utils/styleUtils";
 // Lazy imports for heavy components - only load when needed
 const UnifiedCanvas = React.lazy(() => import("../background/unified-canvas"));
 
-const getHeightClass = (height) => {
-  switch (height) {
-    case "full":
-      return "h-screen";
-    case "half":        
-      return "min-h-[50vh]";
-    case "auto":
-      return "min-h-fit";
-    default:
-      return "h-screen";
-  }
+const getHeightClass = (heightVh) => {
+  return `h-[${heightVh}vh]`;
 };
 
 /**
@@ -155,12 +146,13 @@ export default function BlockHero({ title, content, tag, image }) {
 {/* <ScaleContainer> */}
 
       <div
-        className={`${getHeightClass(
-          currentTheme.data.heroHeight
-        )} relative grid grid-cols-4 grid-rows-3 justify-end left-0 top-0 z-50 w-full gap-0  px-16 mt-16 mb-16 pointer-events-none fluid-type`}
+        className={`${getHeightClass(currentTheme.data.heroHeight)} relative grid grid-highlight grid-cols-12 grid-rows-12 justify-end left-0 top-0 z-50 w-full gap-0 px-8 mt-16 pointer-events-none fluid-type`}
       >
 
-        <div className={`justify-${currentTheme.data.heroTextAlign}  ${getGridPositionClass(currentTheme.data.heroTextPosition)} col-span-4 md:col-span-3 xl:col-span-3`}>
+        <div className={`justify-${currentTheme.data.heroTextAlign} ${getGridPositionClass(currentTheme.data.heroTextPosition, {
+          colSpanDefault: currentTheme.data.heroTextColSpanDefault,
+          colSpanLg: currentTheme.data.heroTextColSpanLg
+        })} `}>
     
                   {tag && (
                     <div
@@ -191,7 +183,10 @@ export default function BlockHero({ title, content, tag, image }) {
                   )}
               </div>
 
-              <div className={`${getGridPositionClass(currentTheme.data.heroSubTextPosition)} col-span-4 md:col-span-3 xl:col-span-1`}>
+              <div className={`${getGridPositionClass(currentTheme.data.heroSubTextPosition, {
+                colSpanDefault: currentTheme.data.heroSubTextColSpanDefault,
+                colSpanLg: currentTheme.data.heroSubTextColSpanLg
+              })}`}>
               {/* <figcaption className="flex absolute right-4 bottom-4 flex-col gap-4 max-w-[200px] bg-[var(--background-color)]/40  rounded-lg shadow-2xl p-4">
           <p className="text-[var(--text-color)] text-xs">{data.title}</p>
           </figcaption> */}

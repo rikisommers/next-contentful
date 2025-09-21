@@ -1,6 +1,6 @@
 "use client";
 
-import { heroHeightThemes, heroBackgroundThemes, heroCssGradientThemes, heroCssGradientRadialPositionThemes, heroTextImageThemes, heroTextPositionThemes, textAlignThemes, textAnimationThemes } from './theme';
+import { heroBackgroundThemes, heroCssGradientThemes, heroCssGradientRadialPositionThemes, heroTextImageThemes, heroTextPositionThemes, textAlignThemes, textAnimationThemes } from './theme';
 
 export const setStyleProperties = (theme) => {
   const root = document.documentElement;
@@ -72,7 +72,7 @@ export const setStyleProperties = (theme) => {
     root.style.setProperty("--nav-shadow-size", theme.data.navShadowSize || "0px");
     root.style.setProperty("--nav-label-display", theme.data.navLabelDisplay || "icons");
     // Hero properties
-    root.style.setProperty("--hero-height", theme.data.heroHeight || heroHeightThemes.full);
+    root.style.setProperty("--hero-height", theme.data.heroHeight || 80);
     root.style.setProperty("--hero-background", theme.data.heroBackground || heroBackgroundThemes.gradient);
     root.style.setProperty("--hero-css-gradient", theme.data.heroCssGradient || heroCssGradientThemes.linearVertical);
     root.style.setProperty("--hero-css-gradient-angle", theme.data.heroCssGradientAngle || '90');
@@ -81,6 +81,10 @@ export const setStyleProperties = (theme) => {
     root.style.setProperty("--hero-text-image", theme.data.heroTextImage || heroTextImageThemes.inline);
     root.style.setProperty("--hero-text-position", theme.data.heroTextPosition || heroTextPositionThemes[4]);
     root.style.setProperty("--hero-subtext-position", theme.data.heroSubTextPosition || heroTextPositionThemes[4]);
+    root.style.setProperty("--hero-text-col-span-default", theme.data.heroTextColSpanDefault || 4);
+    root.style.setProperty("--hero-text-col-span-lg", theme.data.heroTextColSpanLg || 3);
+    root.style.setProperty("--hero-subtext-col-span-default", theme.data.heroSubTextColSpanDefault || 4);
+    root.style.setProperty("--hero-subtext-col-span-lg", theme.data.heroSubTextColSpanLg || 1);
     root.style.setProperty("--hero-text-align", theme.data.heroTextAlign || textAlignThemes.center);
     root.style.setProperty("--hero-subtext-align", theme.data.heroSubTextAlign || textAlignThemes.center);
     root.style.setProperty("--text-animation", theme.data.textAnimation || textAnimationThemes.navigators);
@@ -191,51 +195,102 @@ export const getGridPositionClass = (position, options = {}) => {
   const [row, col] = position.split("-").map(Number);
   if (isNaN(row) || isNaN(col)) return "";
   
-  // Use predefined classes to ensure they're included in Tailwind build (up to 12)
+  // Use predefined classes with !important to override conflicting styles
   const rowClasses = {
-    1: "row-start-1",
-    2: "row-start-2", 
-    3: "row-start-3",
-    4: "row-start-4",
-    5: "row-start-5",
-    6: "row-start-6",
-    7: "row-start-7",
-    8: "row-start-8",
-    9: "row-start-9",
-    10: "row-start-10",
-    11: "row-start-11",
-    12: "row-start-12",
+    0: "!row-start-1",
+    1: "!row-start-2",
+    2: "!row-start-3", 
+    3: "!row-start-4",
+    4: "!row-start-5",
+    5: "!row-start-6",
+    6: "!row-start-7",
+    7: "!row-start-8",
+    8: "!row-start-9",
+    9: "!row-start-10",
+    10: "!row-start-11",
+    11: "!row-start-12",
   };
   
   const colClasses = {
-    1: "col-start-1",
-    2: "col-start-2",
-    3: "col-start-3", 
-    4: "col-start-4",
-    5: "col-start-5",
-    6: "col-start-6",
-    7: "col-start-7",
-    8: "col-start-8",
-    9: "col-start-9",
-    10: "col-start-10",
-    11: "col-start-11",
-    12: "col-start-12",
+    0: "!col-start-1",
+    1: "!col-start-2",
+    2: "!col-start-3", 
+    3: "!col-start-4",
+    4: "!col-start-5",
+    5: "!col-start-6",
+    6: "!col-start-7",
+    7: "!col-start-8",
+    8: "!col-start-9",
+    9: "!col-start-10",
+    10: "!col-start-11",
+    11: "!col-start-12",
   };
-  // Support both 0-based ("0-0") and 1-based ("1-2") inputs
-  const maxRows = Number.isFinite(options.maxRows) ? options.maxRows : 12;
-  const maxCols = Number.isFinite(options.maxCols) ? options.maxCols : 12;
-  const clampRow = (val) => Math.max(1, Math.min(maxRows, val));
-  const clampCol = (val) => Math.max(1, Math.min(maxCols, val));
-  const rowLine = clampRow(row >= 1 ? row : row + 1);
-  const colLine = clampCol(col >= 1 ? col : col + 1);
 
-  const rowClass = rowClasses[rowLine] || ``;
-  const colClass = colClasses[colLine] || ``;
+  // Column span classes
+  const colSpanClasses = {
+    1: "col-span-1",
+    2: "col-span-2",
+    3: "col-span-3",
+    4: "col-span-4",
+    5: "col-span-5",
+    6: "col-span-6",
+    7: "col-span-7",
+    8: "col-span-8",
+    9: "col-span-9",
+    10: "col-span-10",
+    11: "col-span-11",
+    12: "col-span-12",
+  };
+
+  // Use consistent predefined classes - they should all exist in our mapping
+  const rowClass = rowClasses[row] || '';
+  const colClass = colClasses[col] || '';
+  
+  // If classes don't exist in mapping, log an error
+  if (row >= 0 && row <= 11 && !rowClasses[row]) {
+    console.error(`Missing row class for row ${row}`);
+  }
+  if (col >= 0 && col <= 11 && !colClasses[col]) {
+    console.error(`Missing col class for col ${col}`);
+  }
+
+  // Debug logging for positioning
+  console.log('Grid Position Debug:', {
+    position,
+    row,
+    col,
+    rowClass,
+    colClass,
+    rowExists: !!rowClasses[row],
+    colExists: !!colClasses[col]
+  });
+
+  // Add responsive column spans if provided
+  let colSpanClass = "";
+  if (options.colSpanDefault && colSpanClasses[options.colSpanDefault]) {
+    colSpanClass += colSpanClasses[options.colSpanDefault];
+  }
+  if (options.colSpanLg && colSpanClasses[options.colSpanLg]) {
+    if (colSpanClass) colSpanClass += " ";
+    colSpanClass += `lg:col-span-${options.colSpanLg}`;
+  }
+
 
   // By default, avoid adding any col-span classes that can conflict with grid-cols count
   const responsiveClasses = options.responsive ?? ``;
   // Keep a sensible default alignment
   const alignment = options.alignment ?? "self-end";
 
-  return `${rowClass} ${colClass} ${responsiveClasses} ${alignment}`.trim();
+  const finalResult = `${rowClass} ${colClass} ${colSpanClass} ${responsiveClasses} ${alignment}`.trim();
+  
+  // Enhanced debug logging
+  console.log('Grid Position Final Result:', {
+    position,
+    row, col,
+    rowClass, colClass, colSpanClass,
+    finalResult,
+    individualClasses: finalResult.split(' ')
+  });
+  
+  return finalResult;
 }; 
