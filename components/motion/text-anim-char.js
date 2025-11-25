@@ -55,6 +55,7 @@ export const TextAnimChar = ({ content, delay = 0 }) => {
       initial="hidden"
       animate="visible"
     >
+      aaaaaa
       {characters.map((char, index) => (
         <motion.span
           key={index}
