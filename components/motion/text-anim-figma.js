@@ -3,7 +3,7 @@
 import React from "react";
 import { HighlightedSegment } from "./text-anim-highlighted-segment";
 import { motion } from "framer-motion";
-import { processItalicText } from "../utils/textFormatting";
+import { processItalicText } from "../utils/text-processing";
 import { TextAnimImg } from "./text-anim-img";
 import { processTextWithBoldAndLineBreaks } from "../utils/text-processing";
 /**
@@ -94,7 +94,7 @@ export const TextAnimFigma = ({
     return lines.map((line, lineIndex) => {
       // Process each line for bold text
       const boldSegments = processTextWithBoldAndLineBreaks(line);
-      
+
       return (
         <motion.div
           key={lineIndex}
