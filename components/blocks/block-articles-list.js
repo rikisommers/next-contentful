@@ -46,21 +46,19 @@ export const BlockArticlesList = ({ data, tags }) => {
   const discoveredListType = data.type ? data.type : currentTheme?.data?.listType
 
   // Normalize and render grid component based on layout type
-  const renderGridComponent = (layoutType, postsData) => {
+  const renderListComponent = (layoutType, postsData) => {
     // Normalize the layout type string to match enum values
-    const normalizedKey = String(layoutType ?? '')
-      .toLowerCase()
-      .replace(/[^a-z]/g, ''); // remove spaces, dashes, underscores
+  
 
     // Map normalized keys to components
-    switch (normalizedKey) {
-      case 'listText':
+    switch (layoutType) {
+      case 'textList':
         return <ListText data={postsData} />;
-      case 'listTexthover':
+      case 'textHoverList':
         return <ListTextHover data={postsData} />;
-      case 'listTextImage':
+      case 'textImageList':
         return <ListTextImage data={postsData} />;
-      case 'listTextImageStack':
+      case 'textImageListStack':
         return <ArticlesListStack data={postsData} />;
       default:
         return <ListTextImage data={postsData} />;
@@ -80,8 +78,9 @@ export const BlockArticlesList = ({ data, tags }) => {
       </header>
 
       <div className={`flex flex-col gap-4 px-8 pb-10 w-full`}>
+        <h1>{data.type} {currentTheme.data.listType}</h1>
         {data.articlesCollection.items.length &&
-          renderGridComponent(discoveredListType, filteredPosts)
+          renderListComponent(discoveredListType, filteredPosts)
         }
       </div>
 

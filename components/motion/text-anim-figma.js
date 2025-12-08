@@ -98,7 +98,7 @@ export const TextAnimFigma = ({
       return (
         <motion.div
           key={lineIndex}
-          className="inline-flex gap-2 items-center leading-snug"
+          className="inline-flex gap-2 items-center leading-snug flex-wrap"
           initial="hidden"
           animate="visible"
         >
