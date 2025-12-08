@@ -7,18 +7,17 @@ import BackgroundGrad from "./background/background-grad";
 import TextureContainer from "./background/texture-container";
 export default function LandingPage({ data, footerData, tags }) {
 
+  console.log('data-------', data);
+
   return (
-   
       <TextureContainer>  
-      <ClipContainer background={<BackgroundGrad/>}>
-          {data.csblocksCollection?.items && (
-            <PostBody content={data.csblocksCollection} tags={tags} />
-          )}
-
-
-      </ClipContainer>
-      
-      {footerData && <BlockFooter data={footerData} />}
+        <ClipContainer background={<BackgroundGrad/>}>
+            {data.csblocksCollection?.items && (
+              <PostBody content={data.csblocksCollection} tags={tags} />
+            )}
+        </ClipContainer>
+        
+        {footerData && <BlockFooter data={footerData} />}
       </TextureContainer>
    
   );

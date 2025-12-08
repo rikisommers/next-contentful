@@ -72,7 +72,7 @@ export default function BlockFooter({ data }) {
           <div className="flex flex-col gap-4 items-start">
             {data?.title && (
               <h1
-                className="text-8xl text-[var(--subtext-color)]"
+                className="text-sm text-[var(--subtext-color)]"
                 
               >
                 {data?.title}
@@ -81,7 +81,7 @@ export default function BlockFooter({ data }) {
 
             {data?.content && (
               <div >
-                <h2 className="text-sm font-normal">{data.content}</h2>
+                <h2 className="text-normal font-norma text-[var(--text-color)]">{data.content}</h2>
                 {/* <h2
                   className="text-3xl font-normal leading-normal text-balance"
                   style={{ color: "var(--text-color)" }}

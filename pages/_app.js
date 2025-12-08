@@ -87,7 +87,7 @@ function MyApp({ Component, pageProps, router, globalData, customThemes }) {
             </mask>
             <clipPath id="notchClip" clipPathUnits="objectBoundingBox">
               <path
-                clip-rule="evenodd"
+                clipRule="evenodd"
                 d="M0 0 H1 V1 H0 Z M1 1 V0.8 H0.85 A0.05 0.05 0 0 0 0.8 0.85 V1 Z"
               />
             </clipPath>

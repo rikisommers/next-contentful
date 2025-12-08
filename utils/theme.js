@@ -1438,15 +1438,20 @@ const colorThemes = {
 
 
 // Grid layout
-export const articleListLayoutThemes = {
+export const gridLayoutThemes = {
   gridBasic: "gridBasic",
   gridBento: "gridBento",
   gridBento2: "gridBento2",
   gridThings: "gridThings",
+};
+
+// List layout
+
+export const listLayoutThemes = {
   textList: "textList",
   textHoverList: "textHoverList",
   textImageList: "textImageList",
-  articlesListStack: "articlesListStack",
+  textImageListStack: "textImageListStack",
 };
 
 
@@ -1835,9 +1840,6 @@ export const heroTextCompositionThemes = {
   bar: 'bar',
 };
 
-
-
-
 export const heroTextImageThemes = {
   none: 'none',
   inline: 'inline',
@@ -1955,16 +1957,12 @@ export const themeContent = {
 
   cardHover:cardHoverThemes.none,
   cardAspectRatio:cardAspectRatio.square,
-  gridPrimary:articleListLayoutThemes.gridPrimary,
-  gridSecondary:articleListLayoutThemes.gridSecondary,
+  gridType:gridLayoutThemes.gridBasic,
+  listType:listLayoutThemes.textList,
   gridColumnsSm: 1,
   gridColumnsMd: 2,
   gridColumnsLg: 2,
   gridColumnsXl: 2,
-  gridSecColumnsSm: 1,
-  gridSecColumnsMd: 2,
-  gridSecColumnsLg: 2,
-  gridSecColumnsXl: 2,
   gridGap: "md",
   imageParallax:false,
   imageTexture:imageTextureThemes.noise,
@@ -2010,7 +2008,6 @@ export const themeContent = {
   navTextStyle:navigationTextStyleThemes.icons,
   navLayoutPosition: navigationOptions.position.fixed,
   
-
   navBorder: navigationOptions.bordered,
   navLabelDisplay:navigationOptions.labelDisplay.text,
   navShadow: false,
@@ -2739,7 +2736,8 @@ export const defaultTheme = {
     radii: radii.md,
     shadows: shadows.md,
     cardLayout: "formal",
-    articleListLayout: articleListLayoutThemes.gridPrimary,
+    gridType: gridLayoutThemes.gridBasic,
+    listType: listLayoutThemes.textList,
     gridColumns: { sm: 2, md: 3, lg: 4, xl: 4 },
     gridGap: "md",
     imageParallax: false,

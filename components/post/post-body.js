@@ -8,7 +8,8 @@ import BlockHotspotImg from "../blocks/block-hotspot-image";
 import BlockList from "../blocks/block-list";
 import BlockCode from "../blocks/block-code";
 import BlockArticle from "../blocks/block-article";
-import BlockArticles from "../blocks/block-articles";
+import BlockArticlesList from "../blocks/block-articles-list";
+import BlockArticlesGrid from "../blocks/block-articles-grid";
 import BlockHeader from "../blocks/block-header";
 import BlockHero from "../blocks/block-hero";
 import BlockIntro from "../blocks/block-intro";
@@ -95,15 +96,22 @@ export default function PostBody({ content, tags }) {
                 // </AnimatedElement>
               )}
               {item.__typename === "BlockArticles" && (
-
-                  <BlockArticles
+                  <BlockArticlesGrid
                     key={item.id}
-                    type={'things'}
+                    type={item.type}
                     data={item}
                     tags={tags}
                     id={item.title}
                   />
-      
+              )}
+              {item.__typename === "BlockArticlesList" && (
+                  <BlockArticlesList
+                    key={item.id}
+                    type={item.type}
+                    data={item}
+                    tags={tags}
+                    id={item.title}
+                  />
               )}
               {item.__typename === "BlockImage" && (
                 // <AnimatedElement type={AnimStyleEl.FADEIN}>

@@ -4,39 +4,52 @@ import GridThings from "./grid-things";
 import GridBasic from "./grid-basic";
 import ListText from "./list-text";
 import ListTextHover from "./list-text-hover";
-import { articleListLayoutThemes } from "../../utils/theme";
+import ListTextImage from "./list-text-image";
+import { gridLayoutThemes } from "../../utils/theme";
+import { listLayoutThemes } from "../../utils/theme";
 import { useThemeContext } from "../context/themeContext";
-
-const getGridType = (type, data, aspectRatio) => {
-    switch (type) {
-        case articleListLayoutThemes.gridPrimary:
-            return <GridBasic data={data} theme={currentTheme.data.gridPrimary}/>;
-        case articleListLayoutThemes.gridSecondary:
-            return <GridBasic data={data} theme={currentTheme.data.gridSecondary}/>;
-        case articleListLayoutThemes.gridBento:
-            return <GridBento data={data}/>;
-        case articleListLayoutThemes.gridThings:
-            return <GridThings data={data}/>;
-        case articleListLayoutThemes.textHoverList:
-            return <ListTextHover data={data}/>;
-        case articleListLayoutThemes.textImageList:
-            return <ListTextImage data={data}/>;
-        case articleListLayoutThemes.textList:
-            return <ListText data={data}/>;
-        default:
-            return <GridBasic data={data}/>;
-    }
-};
 
 const Grid = ({ 
     type,
     data
 }) => {
-
-
     const { currentTheme } = useThemeContext();
 
-    return getGridType(type, data)
+    const getGridType = (gridType, postsData) => {
+        switch (gridType) {
+            case gridLayoutThemes.gridBasic:
+                return <GridBasic data={postsData} theme={currentTheme.data.gridPrimary}/>;
+            case gridLayoutThemes.gridBento:
+                return <GridBento data={postsData}/>;
+            case gridLayoutThemes.gridThings:
+                return <GridThings data={postsData}/>;
+            default:
+                return <GridBasic data={postsData}/>;
+        }
+    };
+
+    const getListType = (listType, postsData) => {
+        switch (listType) {
+            case listLayoutThemes.textList:
+                return <ListText data={postsData}/>;
+            case listLayoutThemes.textHoverList:
+                return <ListTextHover data={postsData}/>;
+            case listLayoutThemes.textImageList:
+                return <ListTextImage data={postsData}/>;
+            default:
+                return <ListText data={postsData}/>;
+        }
+    };
+    
+    // Check data.type to determine grid or list layout
+    if (data?.type === 'grid') {
+        return getGridType(currentTheme?.data?.gridType, data);
+    } else if (data?.type === 'list') {
+        return getListType(currentTheme?.data?.listType, data);
+    } else {
+        // Fallback to GridBasic
+        return <GridBasic data={data}/>;
+    }
 };
 
 export default Grid;
