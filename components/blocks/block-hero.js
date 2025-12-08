@@ -125,7 +125,6 @@ export default function BlockHero({ title, content, tag, image }) {
     // TODO make clip path optional
     // grid grid-rows-[48px_48px_1fr_1fr_1fr_48px_48px] grid-cols-12
     <ClipContainer>
-      <main id="main-content" role="main" aria-label="Hero section">
 
         {renderHeroBackground(currentTheme.data.heroBackground, image, currentTheme.data.heroShaderEffect, currentTheme)}
 
@@ -143,7 +142,7 @@ export default function BlockHero({ title, content, tag, image }) {
           <button className="text-[var(--text-color)] text-xs">Cool man</button>
           </div>
         </div> */}
-{/* <ScaleContainer> */}
+<ScaleContainer>
 
       <div
         className={`${getHeightClass(currentTheme.data.heroHeight)}  ${currentTheme.data.fontScale === 'fluid' ? 'fluid-type' : ''} relative grid grid-highlight grid-cols-12 grid-rows-12 justify-end left-0 top-0 z-50 w-full gap-0 px-8 mt-16 pointer-events-none `}
@@ -210,8 +209,7 @@ export default function BlockHero({ title, content, tag, image }) {
           </div>
 
       </div>
-      {/* </ScaleContainer> */}
-      </main>
+      </ScaleContainer>
     </ClipContainer>
   );
 }

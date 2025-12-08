@@ -1439,10 +1439,9 @@ const colorThemes = {
 
 // Grid layout
 export const articleListLayoutThemes = {
-  gridPrimary: "gridPrimary",
-  gridSecondary: "gridSecondary",
+  gridBasic: "gridBasic",
   gridBento: "gridBento",
- // gridBento2: "gridBento2",
+  gridBento2: "gridBento2",
   gridThings: "gridThings",
   textList: "textList",
   textHoverList: "textHoverList",

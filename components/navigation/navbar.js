@@ -26,10 +26,10 @@ export default function NavBar({ containerRef, data ,logo}) {
   const pages = [
     ...(Array.isArray(data) && data.length > 0
       ? data.map((page) => ({
-          id: page.slug,
-          title: page.title,
-          icon: page.icon,
-          url: `/${page.slug}`, // Ensure the URL is correct
+          id: page?.slug,
+          title: page?.title,
+          icon: page?.icon,
+          url: `/${page?.slug}`, // Ensure the URL is correct
         }))
       : []), // Fallback to an empty array if slugs is not an array or is empty
   ];

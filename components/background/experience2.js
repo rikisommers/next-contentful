@@ -74,10 +74,10 @@ function Water() {
   });
 
   return (
-    <mesh rotation-x={-Math.PI/2.99} 
+    <mesh rotation-x={-Math.PI/4} 
           rotation-y={0} 
           rotation-z={0}>
-      <planeGeometry args={[10, 10, 100, 100]} />
+      <planeGeometry args={[20, 20, 100, 100]} />
       <waterMaterial ref={waterMaterial} side={THREE.DoubleSide} />
     </mesh>
   );
@@ -86,7 +86,7 @@ function Water() {
 export default function Experience2() {
   return (
     <>
-      {/* <OrbitControls enableDamping /> */}
+      <OrbitControls enableDamping />
       <Water />
     </>
   );

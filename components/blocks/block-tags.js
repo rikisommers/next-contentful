@@ -46,11 +46,11 @@ export const BlockTags = ({ data, selected, handleTagClick }) => {
   };
 
   return (
-    <nav className="flex relative flex-wrap gap-1 mb-8">
+    <nav className="flex relative flex-wrap gap-1 ">
     {[null, ...data.filter((tag) => tag !== null)].map((tag, index) => (
       <motion.button
         key={index}
-        className="flex relative z-50 items-center px-3 py-2 text-xs uppercase rounded-md transition-colors cursor-pointer"
+        className="flex relative z-50 items-center px-3 py-2 text-xs  rounded-md transition-colors cursor-pointer"
         style={getButtonStyle(selected === tag ? ButtonType.ACTIVE : ButtonType.DEFAULT)}
         onClick={() => handleTagClick(tag)}
         layout

@@ -2,7 +2,7 @@ import { Html, Head, Main, NextScript } from 'next/document'
 
 export default function Document() {
   return (
-    <Html lang="en">
+    <Html lang="en" initialScale={1}>
       <Head>
         {/* DNS Prefetch for external resources */}
         <link rel="dns-prefetch" href="//images.ctfassets.net" />

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { BlockTags } from "./block-tags";
 // import { useMousePos } from "../mousePosContext"
 import { useThemeContext } from "../context/themeContext";
@@ -12,7 +12,7 @@ import ListTextImage from "../articleList/list-text-image";
 import ListText from "../articleList/list-text";
 import ArticlesListStack from "../articleList/articles-list-stack";
 import PostIntro from "../post/post-intro"
-export const BlockArticles = ({ data, tags, type }) => {
+export const BlockArticles = ({ data, tags }) => {
   // const { setVisible, setContent } = useMousePos();
 
   // const handleShowCursor = ({content}) => {
@@ -30,12 +30,6 @@ export const BlockArticles = ({ data, tags, type }) => {
   const { currentTheme } = useThemeContext();
 
   const posts = data.articlesCollection?.items;
-
-  console.log("data.type:", data.type, typeof data.type);
-  console.log("textHoverList:", articleListLayoutThemes.textHoverList, typeof articleListLayoutThemes.textHoverList);
-  console.log("Strict equal?", data.type === articleListLayoutThemes.textHoverList);
-  console.log("Length check:", data.type?.length, articleListLayoutThemes.textHoverList?.length);
-
   const [selectedTag, setSelectedTag] = useState(null);
   const [filteredPosts, setFilteredPosts] = useState(posts);
 
@@ -44,8 +38,6 @@ export const BlockArticles = ({ data, tags, type }) => {
   }, [posts]);
 
   const handleTagClick = (tag) => {
-
-   // console.log(tag)
     setSelectedTag(tag);
     if (tag) {
       const filtered = posts.filter(
@@ -57,82 +49,50 @@ export const BlockArticles = ({ data, tags, type }) => {
     }
   };
 
-  const getGridType = (type, data, aspectRatio) => {
-    console.log("getGridType called with:", {
-      type,
-      typeType: typeof type,
-      textHoverList: articleListLayoutThemes.textHoverList,
-      textHoverListType: typeof articleListLayoutThemes.textHoverList,
-      equal: type === articleListLayoutThemes.textHoverList,
-      typeJSON: JSON.stringify(type),
-      textHoverListJSON: JSON.stringify(articleListLayoutThemes.textHoverList)
-    });
-
-    switch (type) {
-        case articleListLayoutThemes.gridPrimary:
-            return (
-                <GridBasic data={data} theme="primary" />
-            )
-        case articleListLayoutThemes.gridSecondary:
-            return (
-                <GridBasic data={data} theme="secondary" />
-            )
-        case articleListLayoutThemes.gridBento:
-            return <GridBento data={data}/>;
-        case articleListLayoutThemes.gridThings:
-            return <GridThings data={data}/>;
-        case articleListLayoutThemes.textHoverList:
-            return <ListTextHover data={data}/>;
-        case articleListLayoutThemes.textImageList:
-            return <ListTextImage data={data}/>;
-        case articleListLayoutThemes.textList:
-            return <ListText data={data}/>;
-        case articleListLayoutThemes.articlesListStack:
-            return <ArticlesListStack data={data}/>;
-        default:
-            return (
-    <GridBasic data={data} />
-            )
-    }
-};
-
-  // Normalize layout type to enum keys
-  const normalizeLayoutType = (t) => {
-    const key = String(t ?? '')
+  // Normalize and render grid component based on layout type
+  const renderGridComponent = (layoutType, postsData) => {
+    // Normalize the layout type string to match enum values
+    const normalizedKey = String(layoutType ?? '')
       .toLowerCase()
       .replace(/[^a-z]/g, ''); // remove spaces, dashes, underscores
-    switch (key) {
-      case 'gridprimary':
-        return articleListLayoutThemes.gridPrimary;
-      case 'gridsecondary':
-        return articleListLayoutThemes.gridSecondary;
+
+    // Map normalized keys to components
+    switch (normalizedKey) {
+      case 'gridBasic':
+        return <GridBasic data={postsData} theme="primary" />;
       case 'gridbento':
-        return articleListLayoutThemes.gridBento;
+        return <GridBento data={postsData} />;
+      case 'gridbento2':
+        return <GridBento data={postsData} />;
       case 'gridthings':
-        return articleListLayoutThemes.gridThings;
+        return <GridThings data={postsData} />;
       case 'texthoverlist':
-        return articleListLayoutThemes.textHoverList;
+        return <ListTextHover data={postsData} />;
       case 'textimagelist':
-        return articleListLayoutThemes.textImageList;
+        return <ListTextImage data={postsData} />;
       case 'textlist':
-        return articleListLayoutThemes.textList;
+        return <ListText data={postsData} />;
       case 'articlesliststack':
-        return articleListLayoutThemes.articlesListStack;
+        return <ArticlesListStack data={postsData} />;
       default:
-        return articleListLayoutThemes.gridPrimary;
+        return <GridBasic data={postsData} />;
     }
   };
 
   // Resolve layout type: prefer prop `type`, then `data.type`, then theme setting
-  const resolvedTypeRaw = (type ?? data?.type ?? currentTheme?.data?.articleListLayout);
-  const normalizedType = normalizeLayoutType(resolvedTypeRaw);
-  const gridType = getGridType(normalizedType, filteredPosts); 
+  const resolvedLayoutType = currentTheme?.data?.cardGrid;
+  
+  // Memoize grid component to ensure it updates when theme or data changes
+  const gridType = useMemo(() => {
+    return renderGridComponent(currentTheme?.data?.cardGrid, filteredPosts);
+  }, [resolvedLayoutType, filteredPosts]); 
   return (
 <>
-      <header className="px-8 mb-4">
+      <header className="px-8 mb-4 flex flex-col gap-8">
       {/* <PostIntro  title={data.title ? data.title : null}  description={data.description ? data.description : null}/> */}
 
-      <h1 className="text-2xl font-light transition-colors duration-300 text-balance  text-[var(--subtext-color)]">
+<h1>{currentTheme.data.gridPrimary} {data?.type ? data?.type : 'no type'}</h1>
+      <h1 className="text-xs font-light transition-colors duration-300 text-balance  text-[var(--subtext-color)]">
         {data.title ? data.title : null}
       </h1>
       {/* <p className="text-sm text-[var(--subtext-color)]"> {data.description ? data.description : null} </p> */}
@@ -150,7 +110,8 @@ export const BlockArticles = ({ data, tags, type }) => {
 
 
       <div className={`flex flex-col gap-4 px-8 pb-10 w-full`}>
-      {gridType}
+        <h1>{currentTheme?.data?.gridPrimary}</h1>
+      {renderGridComponent( data?.type ? data?.type : currentTheme?.data?.gridPrimary, filteredPosts)}
       </div>
   
       </>

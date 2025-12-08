@@ -2,7 +2,7 @@ import {
     shaderMaterial,
   Center,
 } from "@react-three/drei";
-
+import { OrbitControls } from "@react-three/drei";
 import { fragmentShader } from "../../shaders/fragmentShader";
 import { vertexShader } from "../../shaders/vertexShader";
 
@@ -33,6 +33,8 @@ export default function Experience() {
       <color />
 
       <Center>
+              <OrbitControls enableDamping />
+
       <mesh position={[0, 0, 0]} scale={1}>
           <sphereGeometry args={[ 8, 32, 32]} />
           <portalMaterial

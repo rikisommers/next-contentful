@@ -38,7 +38,7 @@ export default function PostBody({ content, tags }) {
   // console.log('currentTheme',currentTheme)
   // console.log('content',content)
   return (
-    <div className={`flex flex-col gap-8 self-center pb-20
+    <div className={`flex flex-col gap-8 self-center
        ${(() => {
          // For Tailwind v4, max-width classes have changed
          const widthClasses = {
@@ -98,7 +98,7 @@ export default function PostBody({ content, tags }) {
 
                   <BlockArticles
                     key={item.id}
-                    type={item.type}
+                    type={'things'}
                     data={item}
                     tags={tags}
                     id={item.title}
