@@ -70,12 +70,6 @@ export const BlockArticlesList = ({ data, tags }) => {
   return (
     <>
       <header className="px-8 mb-4 flex flex-col gap-8">
-
-        
-        <h1 className="text-xs font-light transition-colors duration-300 text-balance  text-[var(--subtext-color)]">
-          {data.title ? data.title : null}
-        </h1>
-
         {data.filter === true && tags?.length && (
           <BlockTags
             data={tags}
@@ -86,7 +80,6 @@ export const BlockArticlesList = ({ data, tags }) => {
       </header>
 
       <div className={`flex flex-col gap-4 px-8 pb-10 w-full`}>
-        <h1>{currentTheme?.data?.gridPrimary} {data?.type ? data?.type : 'no type'}</h1>
         {data.articlesCollection.items.length &&
           renderGridComponent(discoveredListType, filteredPosts)
         }
