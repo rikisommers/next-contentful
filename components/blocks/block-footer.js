@@ -71,12 +71,21 @@ export default function BlockFooter({ data }) {
         <div className="flex col-span-12 md:col-span-7">
           <div className="flex flex-col gap-4 items-start">
             {data?.title && (
-              <h1
-                className="text-sm text-[var(--subtext-color)]"
+              // <h1
+              //   className="text-sm text-[var(--subtext-color)]"
                 
-              >
+              // >
+              //   {data?.title}
+              // </h1>
+                     <div
+                     className="inline-flex px-2 py-1 text-xs font-medium uppercase rounded-full"
+                     style={{
+                       color: "var(--text-color-inv)",
+                       backgroundColor: "var(--accent-pri)",
+                     }}
+                   >
                 {data?.title}
-              </h1>
+                </div>
             )}
 
             {data?.content && (

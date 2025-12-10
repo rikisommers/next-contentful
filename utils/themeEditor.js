@@ -437,7 +437,7 @@ export default function ThemeEditor({ customThemes }) {
       return (
         <fieldset
           key={sectionName}
-          className="flex flex-col gap-2 rounded-lg bg-[var(--surface2)] mb-4 p-2 w-full"
+          className="flex flex-col gap-2 rounded-lg bg-[var(--body-background-color)] mb-4 p-2 w-full"
         >
           <legend className="mb-2 uppercase text-xs text-[var(--text-accent)]">
             {sectionName}
@@ -455,7 +455,7 @@ export default function ThemeEditor({ customThemes }) {
     return (
       <fieldset
         key={sectionName}
-        className="flex flex-col gap-2 rounded-lg bg-[var(--surface2)] mb-4 p-2 w-full"
+        className="flex flex-col gap-2 rounded-lg bg-[var(--body-background-color)] mb-4 p-2 w-full"
       >
         <legend className="mb-2 uppercase text-xs text-[var(--text-accent)]">
           {sectionName}

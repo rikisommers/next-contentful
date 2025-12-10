@@ -3,7 +3,7 @@ import AnimatedText, {
   AnimTextOrder,
 } from "../motion/animated-text";
 import { useThemeContext } from "../context/themeContext";
-import { getGridPositionClass, getJustifyClass } from "../../utils/styleUtils";
+import { getGridPositionClass, getJustifyClass, getTextAlignClass } from "../../utils/styleUtils";
 
 export default function   PostIntro({ title, content, tag }) {
   const { currentTheme } = useThemeContext();
@@ -13,14 +13,14 @@ export default function   PostIntro({ title, content, tag }) {
   return (
     //pt-[16rem] pb-8
     <div className={`grid z-10 grid-cols-4 gap-6 content-end items-end w-full ${currentTheme.data.fontScale === 'fluid' ? 'fluid-type' : ''}`}>
-       <div className={`col-span-2 ${getJustifyClass(currentTheme.data.headerTextAlign)} ${getGridPositionClass(currentTheme.data.headerTextPosition, { maxCols: 4, responsive: "", alignment: "" })}`}>
+       <div className={`flex flex-col col-span-2 ${getJustifyClass(currentTheme.data.heroTextAlign)} ${getGridPositionClass(currentTheme.data.headerTextPosition, { maxCols: 4, responsive: "", alignment: "" })}`}>
         <>
           {tag && (
             <div
               className="inline-flex px-2 py-1 mb-8 ml-2 text-xs font-medium uppercase rounded-full"
               style={{
                 color: "var(--text-color-inv)",
-                backgroundColor: "var(--accent-pri)",
+                backgroundColor: "var(--surface-1)",
               }}
             >
               {tag}
@@ -39,15 +39,14 @@ export default function   PostIntro({ title, content, tag }) {
           )}
         </>
       </div>
-      <div className="col-span-12 text-left md:col-span-8 lg:col-span-4 text-balance">
-        <p className="text-sm font-normal"
+      <div className={`col-span-12 text-left md:col-span-8 lg:col-span-4`}>
+        <p className={`text-sm font-normal leading-normal text-balance  ${getTextAlignClass(currentTheme.data.heroSubTextAlign)}`}
                       style={{
                         color: "var(--subtext-color)",
                       }}
         >
           {content && (
             <AnimatedText
-              align={currentTheme.data.headerTextAlign}
               type={currentTheme.data.textAnimationSec}
               content={content}
               delay={AnimTextOrder.THREE}

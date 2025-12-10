@@ -6,7 +6,7 @@ import BlendImage from "../image/blend-image";
 import { ClipContainer } from "../motion/clippath-container";
 import { ScaleContainer } from "../motion/scale-container";
 import AnimatedText, { AnimTextOrder } from "../motion/animated-text";
-import { getGridPositionClass } from "../../utils/styleUtils";
+import { getGridPositionClass, getTextAlignClass } from "../../utils/styleUtils";
 // Lazy imports for heavy components - only load when needed
 const UnifiedCanvas = React.lazy(() => import("../background/unified-canvas"));
 
@@ -148,7 +148,7 @@ export default function BlockHero({ title, content, tag, image }) {
         className={`${getHeightClass(currentTheme.data.heroHeight)}  ${currentTheme.data.fontScale === 'fluid' ? 'fluid-type' : ''} relative grid grid-highlight grid-cols-12 grid-rows-12 justify-end left-0 top-0 z-50 w-full gap-0 px-8 mt-16 pointer-events-none `}
       >
 
-        <div className={`justify-${currentTheme.data.heroTextAlign} ${getGridPositionClass(currentTheme.data.heroTextPosition, {
+        <div className={`flex flex-col items-${currentTheme.data.heroTextAlign} ${getGridPositionClass(currentTheme.data.heroTextPosition, {
           colSpanDefault: currentTheme.data.heroTextColSpanDefault,
           colSpanLg: currentTheme.data.heroTextColSpanLg
         })} `}>
@@ -192,7 +192,7 @@ export default function BlockHero({ title, content, tag, image }) {
 
                 <p
                   id="hero-content"
-                  className=" text-sm font-normal pointer-events-auto text-balance text-[var(--subtext-color)]"
+                  className={`text-${currentTheme.data.heroSubTextAlign} text-sm font-normal pointer-events-auto text-balance text-[var(--subtext-color)]`}
                   role="doc-subtitle"
                   aria-label="Hero section description"
                 >
