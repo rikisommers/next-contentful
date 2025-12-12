@@ -66,16 +66,17 @@ export const BlockArticlesGrid = ({ data, tags }) => {
 
   return (
     <>
+     {data.filter === true && tags?.length && (
       <header className="px-8 mb-4 flex flex-col gap-8">
-        {data.filter === true && tags?.length && (
+
           <BlockTags
             data={tags}
             selected={selectedTag}
             handleTagClick={handleTagClick}
           />
-        )}
+  
       </header>
-
+      )}
       <div className={`flex flex-col gap-4 px-8 pb-10 w-full`}>
         {data.articlesCollection.items.length &&
           renderGridComponent(discoveredGridType, filteredPosts)

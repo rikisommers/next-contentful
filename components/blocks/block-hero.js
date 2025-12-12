@@ -145,7 +145,7 @@ export default function BlockHero({ title, content, tag, image }) {
 <ScaleContainer>
 
       <div
-        className={`${getHeightClass(currentTheme.data.heroHeight)}  ${currentTheme.data.fontScale === 'fluid' ? 'fluid-type' : ''} relative grid grid-highlight grid-cols-12 grid-rows-12 justify-end left-0 top-0 z-50 w-full gap-0 px-8 mt-16 pointer-events-none `}
+        className={`${getHeightClass(currentTheme.data.heroHeight)}  ${currentTheme.data.fontScale === 'fluid' ? 'fluid-type' : ''} relative grid grid-highlight grid-cols-12 grid-rows-12 justify-end left-0 top-0 z-50 w-full gap-0 pointer-events-none `}
       >
 
         <div className={`flex flex-col items-${currentTheme.data.heroTextAlign} ${getGridPositionClass(currentTheme.data.heroTextPosition, {
@@ -155,7 +155,7 @@ export default function BlockHero({ title, content, tag, image }) {
     
                   {tag && (
                     <div
-                      className="inline-flex px-2 py-1 mb-8 ml-2 text-xs font-medium uppercase rounded-full pointer-events-auto"
+                      className="inline px-2 py-1 mb-8 ml-2 text-xs font-medium uppercase rounded-full pointer-events-auto"
                       style={{
                         color: "var(--text-color-inv)",
                         backgroundColor: "var(--accent-pri)",

@@ -90,7 +90,6 @@ import classNames from 'classnames';
  */
 export default function GridBasic({ 
   data: items = [], 
-  theme
 }) {
   const { currentTheme } = useThemeContext();
   const aspectRatio = currentTheme.data.cardAspectRatio;
@@ -117,8 +116,7 @@ export default function GridBasic({
     4: 'xl:grid-cols-4', 5: 'xl:grid-cols-5', 6: 'xl:grid-cols-6',
   };
 
-  const gridClassNamePrimary = classNames(
-    theme,
+  const gridResponsive = classNames(
     'grid',
     gapClass,
     gridColsSm[currentTheme.data.gridColumnsSm],
@@ -127,18 +125,8 @@ export default function GridBasic({
     gridColsXl[currentTheme.data.gridColumnsXl],
   );
 
-  const gridClassNameSecondary = classNames(
-    theme,
-    'grid',
-    gapClass,
-    gridColsSm[currentTheme.data.gridSecColumnsSm],
-    gridColsMd[currentTheme.data.gridSecColumnsMd],
-    gridColsLg[currentTheme.data.gridSecColumnsLg],
-    gridColsXl[currentTheme.data.gridSecColumnsXl],
-  );
-
   return (
-    <div className={theme === 'primary' ? gridClassNamePrimary : gridClassNameSecondary}>
+    <div className={gridResponsive}>
       {items.map((item, index) => {
         switch (currentTheme.data.cardLayout) {
           case 'colabs':

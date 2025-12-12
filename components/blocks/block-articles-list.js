@@ -48,7 +48,7 @@ export const BlockArticlesList = ({ data, tags }) => {
   // Normalize and render grid component based on layout type
   const renderListComponent = (layoutType, postsData) => {
     // Normalize the layout type string to match enum values
-  
+
 
     // Map normalized keys to components
     switch (layoutType) {
@@ -67,18 +67,19 @@ export const BlockArticlesList = ({ data, tags }) => {
 
   return (
     <>
-      <header className="px-8 mb-4 flex flex-col gap-8">
-        {data.filter === true && tags?.length && (
+      {data.filter === true && tags?.length && (
+
+        <header className="px-8 mb-4 flex flex-col gap-8">
           <BlockTags
             data={tags}
             selected={selectedTag}
             handleTagClick={handleTagClick}
           />
-        )}
-      </header>
+
+        </header>
+      )}
 
       <div className={`flex flex-col gap-4 px-8 pb-10 w-full`}>
-        <h1>{data.type} {currentTheme.data.listType}</h1>
         {data.articlesCollection.items.length &&
           renderListComponent(discoveredListType, filteredPosts)
         }

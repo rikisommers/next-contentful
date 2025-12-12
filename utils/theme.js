@@ -2014,8 +2014,8 @@ export const themeContent = {
   navShadowColor: navigationOptions.shadowColor.default,
   navShadowSize:navigationOptions.shadowSize.sm,
   
-  logoBackground:logoBackground.solid,
-  logoStyle:logoStyle.imageAndText,
+  logoBackground:logoBackground.transparent,
+  logoStyle:logoStyle.image,
 
   footerPosition: footerOptions.position.none,
   bodyTextDropCap: bodyTextThemes.dropCap,
