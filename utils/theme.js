@@ -1992,7 +1992,7 @@ export const themeContent = {
   gridColumnsXl: 2,
   gridGap: "md",
   imageParallax:false,
-  imageTexture:imageTextureThemes.noise,
+  imageTexture:imageTextureThemes.none,
   imageTextureContrast:imageTextureContrastThemes.contrast,
   imageTextureBrightness:imageTextureContrastThemes.brightness,
   imageTextureOpacity:imageTextureContrastThemes.opacity,
@@ -2031,8 +2031,7 @@ export const themeContent = {
   heroCssGradient:heroCssGradientThemes.linear,
   heroCssGradientAngle:'90',
   heroCssGradientRadialPosition: { x: 50, y: 50 }, // Center position as x,y percentages
-  heroTextLayout:heroTextCompositionThemes.foo,
-  heroBackground:heroBackgroundThemes.image,
+  heroBackground:heroBackgroundThemes.cssgradient,
   heroShaderEffect: shaderEffect.blueNoise, // Default shader type 
 
   // Effect size controls
