@@ -126,14 +126,13 @@ const ButtonGroup = ({
         {selectedOption?.content && (
           <motion.div
             key={selectedValue}
-            initial={{ opacity: 0, height: 0, y: -10 }}
-            animate={{ opacity: 1, height: "auto", y: 0 }}
-            exit={{ opacity: 0, height: 0, y: -10 }}
-            transition={{ 
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{
               duration: 0.3,
               ease: "easeInOut"
             }}
-            className="overflow-hidden"
           >
             <div className="rounded-lg bg-[var(--surface2)] p-3 border border-[var(--surface3)]">
               {selectedOption.content}

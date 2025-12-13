@@ -1,4 +1,5 @@
 import { useThemeContext } from "../context/themeContext";
+
 export default function BackgroundCssGrad() {
     const { currentTheme } = useThemeContext();
     const gradientType = currentTheme.data.heroCssGradient;
@@ -8,51 +9,68 @@ export default function BackgroundCssGrad() {
     const gradientAngle = `${angle}deg`;
 
     // Get contrast and brightness values, defaulting to 100% if not set
-    // These values come from the theme editor's imageTextureContrast and imageTextureBrightness controls
     const contrast = currentTheme.data.imageTextureContrast || "100%";
     const brightness = currentTheme.data.imageTextureBrightness || "100%";
     const texture = currentTheme.data.imageTexture || "none";
-  
 
-    // Set CSS variables for the gradient
+    // Convert joystick x,y values to CSS percentage format for radial position
+    const radialPosition = currentTheme.data.heroCssGradientRadialPosition;
+    let cssRadialPosition;
+    if (radialPosition && typeof radialPosition === 'object' && radialPosition.x !== undefined && radialPosition.y !== undefined) {
+        cssRadialPosition = `${radialPosition.x}% ${radialPosition.y}%`;
+    } else {
+        // Fallback to center
+        cssRadialPosition = '50% 50%';
+    }
+
+    // Use theme colors directly
+    const startColor = currentTheme.data.gradStart || '#f9f9f9';
+    const endColor = currentTheme.data.gradStop || '#1B1B1B';
+
+    // Build complete background gradient string using theme colors
+    let backgroundGradient = '';
+    
+    switch (gradientType) {
+        case 'radial':
+            backgroundGradient = `radial-gradient(ellipse at ${cssRadialPosition}, ${startColor} 0%, ${endColor} 62%, ${endColor} 100%)`;
+            break;
+        case 'linear':
+            backgroundGradient = `linear-gradient(${gradientAngle}, ${startColor} 0%, ${endColor} 62%, ${endColor} 100%)`;
+            break;
+        case 'conic':
+            backgroundGradient = `conic-gradient(from ${gradientAngle} at ${cssRadialPosition}, ${startColor}, ${endColor})`;
+            break;
+        default:
+            backgroundGradient = `radial-gradient(ellipse at center, ${startColor} 0%, ${endColor} 62%, ${endColor} 100%)`;
+    }
+
+    console.log('🎯 Gradient Debug:', {
+        radialPosition,
+        cssRadialPosition,
+        gradientType,
+        startColor,
+        endColor,
+        backgroundGradient
+    });
+
+    // Complete inline style object
     const gradientStyle = {
-        '--gradient-start': currentTheme.data.gradStart,
-        '--gradient-end': currentTheme.data.gradStop,
-        '--gradient-angle': gradientAngle,
+        background: backgroundGradient,
         '--image-texture-contrast': contrast,
         '--image-texture-brightness': brightness,
         '--mix-blend-mode': currentTheme.data.mixBlendMode,
-        'filter': texture === 'noise' ? `contrast(${contrast}) brightness(${brightness})` : 'none'
+        filter: texture === 'noise' ? `contrast(${contrast}) brightness(${brightness})` : 'none'
     };
 
-    // Log the complete style object
-   // console.log('Gradient Style Object:', gradientStyle);
-
-    // Determine which gradient class to use
-    let gradientClass = 'grainy-gradient--linear'; // default
-    switch (gradientType) {
-        case 'linear':
-            gradientClass = 'grainy-gradient--linear';
-            break;
-        case 'radial':
-            gradientClass = 'grainy-gradient--radial';
-            break;
-        case 'conic':
-            gradientClass = 'grainy-gradient--conic';
-            break;
-        default:
-            gradientClass = 'grainy-gradient--linear';
-    }
-
-    // Add the noise texture class only if texture is set to 'noise'
-    const finalClassName = texture === 'noise' 
-        ? `absolute top-0 left-0 w-full h-full grainy-gradient ${gradientClass}`
-        : `absolute top-0 left-0 w-full h-full ${gradientClass}`;
+    // Simple class without gradient logic
+    const baseClassName = texture === 'noise' 
+        ? 'absolute top-0 left-0 w-full h-full grainy-gradient'
+        : 'absolute top-0 left-0 w-full h-full';
 
     return (
         <div 
-            className={finalClassName}
+            className={baseClassName}
             style={gradientStyle}
-        ></div>
+        />
     );
 }

@@ -4,6 +4,7 @@ import { useThemeContext } from '../context/themeContext';
 // Lazy load the specific canvas implementations
 const ImageCanvas = lazy(() => import('./canvases/image-canvas'));
 const ShaderCanvas = lazy(() => import('./canvases/shader-canvas'));
+const GradientCanvas = lazy(() => import('./canvases/gradient-canvas'));
 
 /**
  * Unified Canvas Component - Entry point for all background canvas effects
@@ -95,7 +96,7 @@ const UnifiedCanvas = ({
             {...commonProps}
           />
         );
-      
+
       case 'shader':
         return (
           <ShaderCanvas
@@ -103,7 +104,14 @@ const UnifiedCanvas = ({
             {...commonProps}
           />
         );
-      
+
+      case 'gradient':
+        return (
+          <GradientCanvas
+            {...commonProps}
+          />
+        );
+
       default:
         return <ErrorFallback error={{ message: `Unknown canvas type: ${type}` }} />;
     }
@@ -142,8 +150,9 @@ export const EffectTypes = {
 
 // Shader type definitions
 export const ShaderTypes = {
-  WATER: 'water'
-  // Future: PLASMA, NOISE_FIELD, etc.
+  WATER: 'water',
+  SPHERE: 'sphere',
+  EXPERIENCE: 'experience'
 };
 
 // Canvas type definitions

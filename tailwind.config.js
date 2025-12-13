@@ -6,6 +6,16 @@ module.exports = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
     './utils/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  safelist: [
+    // Ensure responsive grid classes are always included
+    { pattern: /(sm|md|lg|xl):row-start-(1?[0-9]|1[0-2])$/ },
+    { pattern: /(sm|md|lg|xl):col-start-(1?[0-9]|1[0-2])$/ },
+    { pattern: /(sm|md|lg|xl):col-span-(1?[0-9]|1[0-2])$/ },
+    // Base classes without prefixes
+    { pattern: /^row-start-(1?[0-9]|1[0-2])$/ },
+    { pattern: /^col-start-(1?[0-9]|1[0-2])$/ },
+    { pattern: /^col-span-(1?[0-9]|1[0-2])$/ },
+  ],
   theme: {
     extend: {
      

@@ -77,13 +77,13 @@ function Water() {
     <mesh rotation-x={-Math.PI/4} 
           rotation-y={0} 
           rotation-z={0}>
-      <sphereGeometry args={[20, 20, 100, 100]} />
+      <sphereGeometry args={[10, 10, 60, 60]} />
       <waterMaterial ref={waterMaterial} side={THREE.DoubleSide} />
     </mesh>
   );
 }
 
-export default function Experience2() {
+export default function CanvasBgSphere() {
   return (
     <>
       <OrbitControls enableDamping />

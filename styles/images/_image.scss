@@ -29,7 +29,7 @@
     }
     
     &--radial {
-      background-image: radial-gradient(circle, var(--gradient-start, #000000), var(--gradient-end, #ffffff));
+      background-image: radial-gradient(circle at var(--hero-css-gradient-radial-position, 50% 50%), var(--gradient-start, #000000), var(--gradient-end, #ffffff));
     //  filter: contrast(var(--image-texture-contrast, 100%)) brightness(var(--image-texture-brightness, 100%));
     }
   }

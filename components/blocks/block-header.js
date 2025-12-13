@@ -1,14 +1,65 @@
 import React from "react";
 import { useThemeContext } from "../context/themeContext";
+import { getResponsiveGridPositionClass, getTextAlignClass } from "../../utils/styleUtils";
+import AnimatedText, { AnimTextOrder } from "../motion/animated-text";
 
-import PostIntro from "../../components/post/post-intro"
-export default function BlockHeader({ data  }) {
+const getHeightClass = (heightVh) => {
+  return `h-[${heightVh || 33}vh]`;
+};
+
+export default function BlockHeader({ data }) {
   const { currentTheme } = useThemeContext();
 
   return (
-    <div className={`flex relative flex-col justify-end pt-40`}
-    >
-      <PostIntro title={data.content}  tag={data.title}/>
+    <div className={`relative w-full flex items-end ${getHeightClass(currentTheme.data.headerHeight)}`}>
+      <div className="w-full">
+        <div
+          className={`grid grid-cols-12 gap-6 content-end items-end w-full`}
+        >
+          <div
+            className={`o-edit-outline flex flex-col items-start ${(() => {
+              const positions = {
+                sm: currentTheme.data.headerTextPositionSm || currentTheme.data.headerTextPosition || '0-0',
+                md: currentTheme.data.headerTextPositionMd || currentTheme.data.headerTextPosition || '0-0',
+                lg: currentTheme.data.headerTextPositionLg || currentTheme.data.headerTextPosition || '0-0',
+                xl: currentTheme.data.headerTextPositionXl || currentTheme.data.headerTextPosition || '0-0',
+              };
+              const colSpans = {
+                sm: currentTheme.data.headerTextColSpanSm || 3,
+                md: currentTheme.data.headerTextColSpanMd || 3,
+                lg: currentTheme.data.headerTextColSpanLg || 3,
+                xl: currentTheme.data.headerTextColSpanXl || 3,
+              };
+              const gridClasses = getResponsiveGridPositionClass(positions, colSpans);
+              console.log('Header Grid Debug:', { positions, colSpans, gridClasses, themeData: currentTheme.data });
+              return gridClasses;
+            })()}`}
+          >
+            {data.title && (
+              <h4
+                className={`mb-4 text-xs font-normal ${getTextAlignClass(currentTheme.data.headerTextAlign)}`}
+                style={{ color: 'var(--subtext-color)' }}
+              >
+                <AnimatedText
+                  content={data.title}
+                  type={currentTheme.data.textAnimationSec}
+                  delay={AnimTextOrder.TWO}
+                />
+              </h4>
+            )}
+
+            {data.content && (
+              <h2 className={`leading-normal font-normal text-2xl lg:text-4xl text-balance ${getTextAlignClass(currentTheme.data.headerTextAlign)}`}>
+                <AnimatedText
+                  content={data.content}
+                  type={currentTheme.data.textAnimation}
+                  delay={AnimTextOrder.TWO}
+                />
+              </h2>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

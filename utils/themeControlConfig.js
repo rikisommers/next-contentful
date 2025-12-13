@@ -25,6 +25,7 @@ import {
   heroTextColSpanThemes,
   heroTextColSpanLgThemes,
   headerTextPositionThemes,
+  headerTextColSpanThemes,
   textAlignThemes,
   cardThemes,
   cardHoverThemes,
@@ -67,8 +68,87 @@ export const themeControlConfig = {
   },
   Globals: {
     pageWidth: { type: "select", label: "Page Width", options: pageWidthThemes },
-    cursor: { type: "select", label: "Cursor", options: cursorThemes },
     pageTransition: { type: "select", label: "Page Transition", options: pageTransitionThemes },
+    cursor: { type: "select", label: "Cursor", options: cursorThemes },
+    pageClipContainer: {type: "boolean", label: "Page content clip container" }
+  },
+  Typography: {
+    fontFamilyPrimary: { type: "select", label: "Font Family Primary", options: typographyThemes },
+    fontFamilySecondary: { type: "select", label: "Font Family Secondary", options: typographyThemes },
+    fontScale: { type: "select", label: "Scale", options: fontScaleThemes },
+    fluidFontRatioMax: { type: "slider", label: "Fluid Max", min: 0, max: 1.3, step: 0.01 },
+    fluidFontRatioMin: { type: "slider", label: "Fluid Min", min: 0, max: 1.3, step: 0.01 },
+    headerTextAlign: { type: "select", label: "Header Align", options: textAlignThemes },
+    blockquoteTextAlign: { type: "select", label: "Blockquote Align", options: textAlignThemes },
+    bodyTextDropCap: { type: "boolean", label: "Drop Cap" },
+    bodyTextIndent: { type: "boolean", label: "Indent" },
+    bodyTextHighlight: { type: "select", label: "Highlight", options: textHighlightThemes },
+    bodyTextAlign: { type: "select", label: "Align", options: bodyTextAlign }
+  },
+  TypographyAnimation: {
+    textAnimation: { type: "select", label: "Text Animation", options: textAnimationThemes },
+    textAnimationSec: { type: "select", label: "Text Anim Sec", options: textAnimationThemes },
+    textHighlight: { type: "select", label: "Text Highlight", options: textHighlightThemes },
+  },
+  HeaderTextPosition: {
+    // Text Position - Responsive
+    headerTextPositionSm: { type: "position", label: "Text Position Sm", options: headerTextPositionThemes },
+    headerTextPositionMd: { type: "position", label: "Text Position Md", options: headerTextPositionThemes },
+    headerTextPositionLg: { type: "position", label: "Text Position Lg", options: headerTextPositionThemes },
+    headerTextPositionXl: { type: "position", label: "Text Position Xl", options: headerTextPositionThemes },
+
+    // Text Column Span - Responsive
+    headerTextColSpanSm: { type: "select", label: "Text Col Span Sm", options: headerTextColSpanThemes },
+    headerTextColSpanMd: { type: "select", label: "Text Col Span Md", options: headerTextColSpanThemes },
+    headerTextColSpanLg: { type: "select", label: "Text Col Span Lg", options: headerTextColSpanThemes },
+    headerTextColSpanXl: { type: "select", label: "Text Col Span Xl", options: headerTextColSpanThemes },
+  },
+  Header: {
+    headerHeight: { type: "slider", label: "Height (vh)", min: 10, max: 100, step: 5 },
+    headerTextAlign: { type: "select", label: "Text Align", options: textAlignThemes },
+  },
+  HeroTextPosition: {
+    // Text Position - Responsive
+    heroTextPositionSm: { type: "position", label: "Text Position Sm", options: heroTextPositionThemes },
+    heroTextPositionMd: { type: "position", label: "Text Position Md", options: heroTextPositionThemes },
+    heroTextPositionLg: { type: "position", label: "Text Position Lg", options: heroTextPositionThemes },
+    heroTextPositionXl: { type: "position", label: "Text Position Xl", options: heroTextPositionThemes },
+
+    // Text Column Span - Responsive
+    heroTextColSpanSm: { type: "select", label: "Text Col Span Sm", options: heroTextColSpanThemes },
+    heroTextColSpanMd: { type: "select", label: "Text Col Span Md", options: heroTextColSpanThemes },
+    heroTextColSpanLg: { type: "select", label: "Text Col Span Lg", options: heroTextColSpanLgThemes },
+    heroTextColSpanXl: { type: "select", label: "Text Col Span Xl", options: heroTextColSpanLgThemes },
+
+    // Subtext Position - Responsive
+    heroSubTextPositionSm: { type: "position", label: "Subtext Position Sm", options: heroTextPositionThemes },
+    heroSubTextPositionMd: { type: "position", label: "Subtext Position Md", options: heroTextPositionThemes },
+    heroSubTextPositionLg: { type: "position", label: "Subtext Position Lg", options: heroTextPositionThemes },
+    heroSubTextPositionXl: { type: "position", label: "Subtext Position Xl", options: heroTextPositionThemes },
+
+    // Subtext Column Span - Responsive
+    heroSubTextColSpanSm: { type: "select", label: "Subtext Col Span Sm", options: heroTextColSpanThemes },
+    heroSubTextColSpanMd: { type: "select", label: "Subtext Col Span Md", options: heroTextColSpanThemes },
+    heroSubTextColSpanLg: { type: "select", label: "Subtext Col Span Lg", options: heroTextColSpanLgThemes },
+    heroSubTextColSpanXl: { type: "select", label: "Subtext Col Span Xl", options: heroTextColSpanLgThemes },
+  },
+  Hero: {
+    heroHeight: { type: "slider", label: "Height (vh)", min: 10, max: 100, step: 5 },
+    heroTextImage: { type: "select", label: "Images", options: heroTextImageThemes },
+    heroBackground: { type: "select", label: "Bg", options: heroBackgroundThemes },
+    // Text Alignment Controls
+    heroTextAlign: { type: "select", label: "Text Align", options: textAlignThemes },
+    heroSubTextAlign: { type: "select", label: "Subtext Align", options: textAlignThemes },
+    // Shader Controls
+    heroShaderEffect: { type: "select", label: "Shader Effect", options: heroShaderEffectThemes },
+    // CSS Gradient Controls
+    heroCssGradient: { type: "select", label: "CSS Gradient Type", options: heroCssGradientThemes },
+    heroCssGradientAngle: { type: "slider", label: "CSS Gradient Angle", min: 0, max: 180, step: 1 },
+    heroCssGradientRadialPosition: { type: "joystick", label: "CSS Gradient Radial Position" },
+    heroGradMidPoint: { type: "slider", label: "Gradient Mid Point", min: 0, max: 1, step: 0.1 },
+
+  },
+  Articles: {
     gridType: { type: "select", label: "Grid Type", options: gridLayoutThemes },
     listType: { type: "select", label: "List Type", options: listLayoutThemes },
     gridColumnsSm: { type: "select", label: "Sm", options: gridColumns },
@@ -79,52 +159,14 @@ export const themeControlConfig = {
     cardAspectRatio: { type: "select", label: "Aspect Ratio", options: cardAspectRatio },
     cardLayout: { type: "select", label: "Card Type", options: cardThemes },
     cardHover: { type: "select", label: "Hover", options: cardHoverThemes },
-    cursor: { type: "select", label: "Cursor", options: cursorThemes },
   },
-  Typography: {
-    fontFamilyPrimary: { type: "select", label: "Font Family Primary", options: typographyThemes },
-    fontFamilySecondary: { type: "select", label: "Font Family Secondary", options: typographyThemes },
-    fontScale: { type: "select", label: "Scale", options: fontScaleThemes },
-    fluidFontRatioMax: { type: "slider", label: "Fluid Max", min: 0, max: 1.3, step: 0.01 },
-    fluidFontRatioMin: { type: "slider", label: "Fluid Min", min: 0, max: 1.3, step: 0.01 },
-    headerTextAlign: { type: "select", label: "Header Align", options: textAlignThemes },
-    blockquoteTextAlign: { type: "select", label: "Blockquote Align", options: textAlignThemes },
-    BodyText: {
-        isFolder: true,
-        bodyTextDropCap: { type: "boolean", label: "Drop Cap" },
-        bodyTextIndent: { type: "boolean", label: "Indent" },
-        bodyTextHighlight: { type: "select", label: "Highlight", options: textHighlightThemes },
-        bodyTextAlign: { type: "select", label: "Align", options: bodyTextAlign },
-    }
+  Images: {
+    imageParallax: { type: "boolean", label: "Parallax" },
+    imageMixBlendMode: { type: "select", label: "Blend Mode", options: mixBlendThemes },
+    imageTexture: { type: "select", label: "Texture", options: imageTextureThemes },
+    imageTextureContrast: { type: "slider", label: "Contrast", min: 0, max: 1000, step: 1, suffix: "%" },
+    imageTextureBrightness: { type: "slider", label: "Brightness", min: 0, max: 1000, step: 1, suffix: "%" },
   },
-  TypographyAnimation: {
-    textAnimation: { type: "select", label: "Text Animation", options: textAnimationThemes },
-    textAnimationSec: { type: "select", label: "Text Anim Sec", options: textAnimationThemes },
-    textHighlight: { type: "select", label: "Text Highlight", options: textHighlightThemes },
-
-  },
-  Hero: {
-    heroHeight: { type: "slider", label: "Height (vh)", min: 10, max: 100, step: 5 },
-    heroTextImage: { type: "select", label: "Images", options: heroTextImageThemes },
-    heroTextPosition: { type: "position", label: "Text Layout", options: heroTextPositionThemes },
-    heroTextColSpanDefault: { type: "select", label: "Text Col Span Default", options: heroTextColSpanThemes },
-    heroTextColSpanLg: { type: "select", label: "Text Col Span Large", options: heroTextColSpanLgThemes },
-    headerTextPosition: { type: "position", label: "Header Layout", options: headerTextPositionThemes },
-    heroSubTextPosition: { type: "position", label: "Subtext Layout", options: heroTextPositionThemes },
-    heroSubTextColSpanDefault: { type: "select", label: "Subtext Col Span Default", options: heroTextColSpanThemes },
-    heroSubTextColSpanLg: { type: "select", label: "Subtext Col Span Large", options: heroTextColSpanLgThemes },
-    heroTextAlign: { type: "select", label: "Text Align", options: textAlignThemes },
-    heroSubTextAlign: { type: "select", label: "Subtext Align", options: textAlignThemes },
-  },
-  HeroBg: {
-    heroBackground: { type: "select", label: "Bg", options: heroBackgroundThemes },
-    heroShaderEffect: { type: "select", label: "Shader Effect", options: heroShaderEffectThemes },
-    heroCssGradient: { type: "select", label: "CSS Gradient Type", options: heroCssGradientThemes },
-    heroCssGradientAngle: { type: "slider", label: "CSS Gradient Angle", min: 0, max: 180, step: 1 },
-    heroCssGradientRadialPosition: { type: "select", label: "CSS Gradient Radial Position", options: heroCssGradientRadialPositionThemes },
-    heroGradMidPoint: { type: "slider", label: "Gradient Mid Point", min: 0, max: 1, step: 0.1 },
-  },
-
   Navigation: {
     navPosition: { type: "select", label: "Position", options: navigationPositionThemes },
     navLayoutPosition: { type: "select", label: "Layout Position", options: navigationOptions.position},
@@ -140,14 +182,6 @@ export const themeControlConfig = {
   },
   Footer: {
     footerPosition: { type: "select", label: "Position", options: footerOptions.position },
-  },
-
-  Images: {
-    imageParallax: { type: "boolean", label: "Parallax" },
-    imageMixBlendMode: { type: "select", label: "Blend Mode", options: mixBlendThemes },
-    imageTexture: { type: "select", label: "Texture", options: imageTextureThemes },
-    imageTextureContrast: { type: "slider", label: "Contrast", min: 0, max: 1000, step: 1, suffix: "%" },
-    imageTextureBrightness: { type: "slider", label: "Brightness", min: 0, max: 1000, step: 1, suffix: "%" },
   },
   Color: {
     accentPri: { type: "color", label: "Accent Primary" },
@@ -169,21 +203,4 @@ export const themeControlConfig = {
     textColorInv: { type: "color", label: "Text Color Inverted" },
     surfaceTexture: { type: "select", label: "Surface Texture", options: surfaceTexture },
   },
-  Effects: {
-    halftoneSize: { type: "slider", label: "Halftone Dot Size", min: 2, max: 20, step: 0.5 },
-    asciiSize: { type: "slider", label: "ASCII Character Size", min: 6, max: 24, step: 1 },
-    ditherLevels: { type: "slider", label: "Dither Color Levels", min: 2, max: 16, step: 1 },
-    ditherSize: { type: "slider", label: "Dither Pattern Size", min: 2, max: 8, step: 1 },
-    pixelationSize: { type: "slider", label: "Pixelation Size", min: 2, max: 32, step: 1 },
-    noiseIntensity: { type: "slider", label: "Noise Intensity", min: 0, max: 1, step: 0.05 },
-  },
-  // Effects: {
-  //   shaderType: { type: "select", label: "Shader Type", options: shaderTypes },
-  //   shaderMesh: { type: "boolean", label: "Mesh" }, 
-  //   pixelDensity: { type: "slider", label: "Pixel Density", min: 1, max: 100, step: 1 },
-  //   halftoneSize: { type: "slider", label: "Halftone Size", min: 1, max: 20, step: 0.1 },
-  //   halftoneShape: { type: "select", label: "Halftone Shape", options: { circle: "Circle", square: "Square" } },
-  //   halftoneInvert: { type: "boolean", label: "Halftone Invert" },
-  //   dotScale: { type: "slider", label: "Dot Scale", min: 0.1, max: 1.0, step: 0.1 },
-  // },
 }; 

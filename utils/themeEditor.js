@@ -20,8 +20,10 @@ import ColorInput from "../components/base/form/color-input";
 import SliderInput from "../components/base/form/slider-input";
 //import RotaryInput from "../components/base/form/RotaryInput";
 import PositionInput from "../components/base/form/position-input";
+import PositionInputWithSpan from "../components/base/form/position-input-with-span";
 import BlockTags from "../components/blocks/block-tags";
 import ButtonGroup from "../components/base/form/button-group";
+import JoystickInput from "../components/base/form/joystick-input";
 
 const getBestTheme = (weightType, sliderValue) => {
   let bestTheme = null;
@@ -284,8 +286,114 @@ export default function ThemeEditor({ customThemes }) {
     }
   };
 
+  // Helper function to check if a field should be displayed based on conditions
+  const shouldDisplayField = (key) => {
+    const bgType = currentTheme.data.heroBackground;
+    const gradientType = currentTheme.data.heroCssGradient;
+
+    // Conditional display logic
+    switch (key) {
+      case 'heroCssGradientAngle':
+        // Only show if gradient type is linear or conic
+        return bgType === 'cssgradient' && (gradientType === 'linear' || gradientType === 'conic');
+
+      case 'heroShaderEffect':
+      case 'halftoneSize':
+      case 'asciiSize':
+      case 'ditherLevels':
+      case 'ditherSize':
+      case 'pixelationSize':
+      case 'noiseIntensity':
+        // Show if background type is any canvas type
+        return bgType === 'canvasImage' || bgType === 'canvasPlaneShader' || bgType === 'canvasSphereShader' || bgType === 'canvasExp' || bgType === 'canvasGradient';
+
+      case 'heroCssGradient':
+        // Only show if background type is cssgradient
+        return bgType === 'cssgradient';
+
+      case 'heroCssGradientRadialPosition':
+        // Only show if background type is cssgradient and gradient type is radial
+        return bgType === 'cssgradient' && gradientType === 'radial';
+
+      case 'heroGradMidPoint':
+        // Only show if background type is cssgradient and gradient type is linear
+        return bgType === 'cssgradient' && gradientType === 'linear';
+
+      // Audio controls - only show if audio is enabled
+      case 'audioVolume':
+      case 'audioInit':
+      case 'audioInternalLinkHover':
+      case 'audioPrimaryButton':
+      case 'audioSecondaryButton':
+      case 'audioInternalLink':
+      case 'audioExternalLink':
+      case 'audioPageTransitionStart':
+      case 'audioPageTransitionEnd':
+      case 'audioModalOpen':
+      case 'audioModalClose':
+        // Only show if audioEnabled is true
+        return currentTheme.data.audioEnabled === true;
+
+      default:
+        // Show all other fields by default
+        return true;
+    }
+  };
+
   // Helper to render a control based on config
   const renderControl = (key, config, value) => {
+    // Check if this field should be displayed based on conditional logic
+    if (!shouldDisplayField(key)) {
+      return null;
+    }
+
+    // Special handling for hero and header position controls to show column spans
+    if (key.includes('heroTextPosition') || key.includes('heroSubTextPosition') || key.includes('headerTextPosition')) {
+      const positionOptions = config.options;
+
+      // Extract breakpoint from key (e.g., 'heroTextPositionMd' -> 'Md')
+      const breakpointMatch = key.match(/(Sm|Md|Lg|Xl)$/);
+      const currentBreakpoint = breakpointMatch ? breakpointMatch[1] : '';
+
+      // Determine if this is a hero or header control
+      const isHeader = key.includes('headerTextPosition');
+      const isHero = key.includes('heroTextPosition') || key.includes('heroSubTextPosition');
+
+      let textColSpan = 6;
+      let subtextColSpan = 4;
+      let showTextSpan = true;
+      let showSubtextSpan = true;
+
+      if (isHeader) {
+        // For header, only show text span (no subtext)
+        const textColSpanKey = `headerTextColSpan${currentBreakpoint}`;
+        textColSpan = currentTheme.data[textColSpanKey] || 3;
+        showSubtextSpan = false;
+      } else if (isHero) {
+        // For hero, show both text and subtext spans
+        const textColSpanKey = `heroTextColSpan${currentBreakpoint}`;
+        const subtextColSpanKey = `heroSubTextColSpan${currentBreakpoint}`;
+        textColSpan = currentTheme.data[textColSpanKey] || 6;
+        subtextColSpan = currentTheme.data[subtextColSpanKey] || 4;
+      }
+
+      return (
+        <PositionInputWithSpan
+          key={key}
+          label={config.label}
+          value={value ?? ((positionOptions && positionOptions[0]) || "")}
+          options={positionOptions || []}
+          onChange={(val) => updateThemeProp(key, val)}
+          currentTheme={currentTheme}
+          showTextSpan={showTextSpan}
+          showSubtextSpan={showSubtextSpan}
+          textColSpan={textColSpan}
+          subtextColSpan={subtextColSpan}
+          currentBreakpoint={currentBreakpoint}
+          componentType={isHeader ? 'header' : 'hero'}
+        />
+      );
+    }
     switch (config.type) {
       case "text":
         return (
@@ -371,6 +479,15 @@ export default function ThemeEditor({ customThemes }) {
             />
           </>
         );
+      case "joystick":
+        return (
+          <JoystickInput
+            key={key}
+            label={config.label}
+            value={typeof value === "object" && value ? value : { x: 50, y: 50 }}
+            onChange={(val) => updateThemeProp(key, val)}
+          />
+        );
       default:
         return null;
     }
@@ -381,6 +498,7 @@ export default function ThemeEditor({ customThemes }) {
     return (
       <div className="flex flex-col gap-2">
         {Object.entries(controls).map(([key, config]) => {
+          if (!config) return null; // Guard against undefined config
           if (config.isFolder) {
             return renderSection(key, config);
           }
@@ -393,44 +511,57 @@ export default function ThemeEditor({ customThemes }) {
   // Helper to render a section
   const renderSection = (sectionName, sectionConfig) => {
     if (!sectionConfig) return null; // Guard for undefined/null
-    
-    // Special handling for Hero section with progressive disclosure
-    if (sectionName === "Hero") {
-      const basicControls = {
-        heroHeight: sectionConfig.heroHeight,
-        heroTextImage: sectionConfig.heroTextImage,
-        heroTextAlign: sectionConfig.heroTextAlign,
-        heroSubTextAlign: sectionConfig.heroSubTextAlign,
+
+    // Special handling for HeroTextPosition section with responsive breakpoint organization
+    if (sectionName === "HeroTextPosition") {
+      const smBreakpointControls = {
+        heroTextPositionSm: sectionConfig.heroTextPositionSm,
+        heroTextColSpanSm: sectionConfig.heroTextColSpanSm,
+        heroSubTextPositionSm: sectionConfig.heroSubTextPositionSm,
+        heroSubTextColSpanSm: sectionConfig.heroSubTextColSpanSm,
       };
 
-      const textLayoutControls = {
-        heroTextPosition: sectionConfig.heroTextPosition,
-        heroTextColSpanDefault: sectionConfig.heroTextColSpanDefault,
+      const mdBreakpointControls = {
+        heroTextPositionMd: sectionConfig.heroTextPositionMd,
+        heroTextColSpanMd: sectionConfig.heroTextColSpanMd,
+        heroSubTextPositionMd: sectionConfig.heroSubTextPositionMd,
+        heroSubTextColSpanMd: sectionConfig.heroSubTextColSpanMd,
+      };
+
+      const lgBreakpointControls = {
+        heroTextPositionLg: sectionConfig.heroTextPositionLg,
         heroTextColSpanLg: sectionConfig.heroTextColSpanLg,
-        headerTextPosition: sectionConfig.headerTextPosition,
+        heroSubTextPositionLg: sectionConfig.heroSubTextPositionLg,
+        heroSubTextColSpanLg: sectionConfig.heroSubTextColSpanLg,
       };
 
-      const subtextLayoutControls = {
-        heroSubTextPosition: sectionConfig.heroSubTextPosition,
-        heroSubTextColSpanDefault: sectionConfig.heroSubTextColSpanDefault,
-        heroSubTextColSpanLg: sectionConfig.heroSubTextColSpanLg,
+      const xlBreakpointControls = {
+        heroTextPositionXl: sectionConfig.heroTextPositionXl,
+        heroTextColSpanXl: sectionConfig.heroTextColSpanXl,
+        heroSubTextPositionXl: sectionConfig.heroSubTextPositionXl,
+        heroSubTextColSpanXl: sectionConfig.heroSubTextColSpanXl,
       };
 
       const buttonGroupOptions = [
         {
-          value: 'basic',
-          label: 'Basic',
-          content: renderControlGroup(basicControls)
+          value: 'sm',
+          label: 'SM',
+          content: renderControlGroup(smBreakpointControls)
         },
         {
-          value: 'textLayout',
-          label: 'Text Layout',
-          content: renderControlGroup(textLayoutControls)
+          value: 'md',
+          label: 'MD',
+          content: renderControlGroup(mdBreakpointControls)
         },
         {
-          value: 'subtextLayout',
-          label: 'Subtext Layout',
-          content: renderControlGroup(subtextLayoutControls)
+          value: 'lg',
+          label: 'LG',
+          content: renderControlGroup(lgBreakpointControls)
+        },
+        {
+          value: 'xl',
+          label: 'XL',
+          content: renderControlGroup(xlBreakpointControls)
         }
       ];
 
@@ -444,8 +575,125 @@ export default function ThemeEditor({ customThemes }) {
           </legend>
           <ButtonGroup
             options={buttonGroupOptions}
-            defaultValue="basic"
-            onChange={(value) => console.log(`Hero section changed to: ${value}`)}
+            defaultValue="sm"
+            onChange={(value) => console.log(`HeroTextPosition breakpoint changed to: ${value}`)}
+          />
+        </fieldset>
+      );
+    }
+
+    // Special handling for HeaderTextPosition section with responsive breakpoint organization
+    if (sectionName === "HeaderTextPosition") {
+      const smBreakpointControls = {
+        headerTextPositionSm: sectionConfig.headerTextPositionSm,
+        headerTextColSpanSm: sectionConfig.headerTextColSpanSm,
+      };
+
+      const mdBreakpointControls = {
+        headerTextPositionMd: sectionConfig.headerTextPositionMd,
+        headerTextColSpanMd: sectionConfig.headerTextColSpanMd,
+      };
+
+      const lgBreakpointControls = {
+        headerTextPositionLg: sectionConfig.headerTextPositionLg,
+        headerTextColSpanLg: sectionConfig.headerTextColSpanLg,
+      };
+
+      const xlBreakpointControls = {
+        headerTextPositionXl: sectionConfig.headerTextPositionXl,
+        headerTextColSpanXl: sectionConfig.headerTextColSpanXl,
+      };
+
+      const buttonGroupOptions = [
+        {
+          value: 'sm',
+          label: 'SM',
+          content: renderControlGroup(smBreakpointControls)
+        },
+        {
+          value: 'md',
+          label: 'MD',
+          content: renderControlGroup(mdBreakpointControls)
+        },
+        {
+          value: 'lg',
+          label: 'LG',
+          content: renderControlGroup(lgBreakpointControls)
+        },
+        {
+          value: 'xl',
+          label: 'XL',
+          content: renderControlGroup(xlBreakpointControls)
+        }
+      ];
+
+      return (
+        <fieldset
+          key={sectionName}
+          className="flex flex-col gap-2 rounded-lg bg-[var(--body-background-color)] mb-4 p-2 w-full"
+        >
+          <legend className="mb-2 uppercase text-xs text-[var(--text-accent)]">
+            {sectionName}
+          </legend>
+          <ButtonGroup
+            options={buttonGroupOptions}
+            defaultValue="sm"
+            onChange={(value) => console.log(`HeaderTextPosition breakpoint changed to: ${value}`)}
+          />
+        </fieldset>
+      );
+    }
+
+    // Special handling for ArticlesGridColumns section with responsive breakpoint organization
+    if (sectionName === "ArticlesGridColumns") {
+      const smBreakpointControls = {
+        gridColumnsSm: sectionConfig.gridColumnsSm,
+      };
+      const mdBreakpointControls = {
+        gridColumnsMd: sectionConfig.gridColumnsMd,
+      };
+      const lgBreakpointControls = {
+        gridColumnsLg: sectionConfig.gridColumnsLg,
+      };
+      const xlBreakpointControls = {
+        gridColumnsXl: sectionConfig.gridColumnsXl,
+      };
+
+      const buttonGroupOptions = [
+        {
+          value: 'sm',
+          label: 'SM',
+          content: renderControlGroup(smBreakpointControls)
+        },
+        {
+          value: 'md',
+          label: 'MD',
+          content: renderControlGroup(mdBreakpointControls)
+        },
+        {
+          value: 'lg',
+          label: 'LG',
+          content: renderControlGroup(lgBreakpointControls)
+        },
+        {
+          value: 'xl',
+          label: 'XL',
+          content: renderControlGroup(xlBreakpointControls)
+        }
+      ];
+
+      return (
+        <fieldset
+          key={sectionName}
+          className="flex flex-col gap-2 rounded-lg bg-[var(--body-background-color)] mb-4 p-2 w-full"
+        >
+          <legend className="mb-2 uppercase text-xs text-[var(--text-accent)]">
+            Grid Columns
+          </legend>
+          <ButtonGroup
+            options={buttonGroupOptions}
+            defaultValue="lg"
+            onChange={(value) => console.log(`ArticlesGridColumns breakpoint changed to: ${value}`)}
           />
         </fieldset>
       );
@@ -462,6 +710,10 @@ export default function ThemeEditor({ customThemes }) {
         </legend>
         <div className="flex flex-col gap-2">
           {Object.entries(sectionConfig).map(([key, config]) => {
+            if (!config) {
+              console.warn(`Missing config for key: ${key} in section: ${sectionName}`);
+              return null; // Guard against undefined config
+            }
             if (config.isFolder) {
               // Nested folder
               return renderSection(key, config);

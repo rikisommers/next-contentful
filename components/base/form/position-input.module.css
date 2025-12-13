@@ -5,11 +5,17 @@
   gap: 1px;
   background: var(--surface3);
   border-radius: 4px;
+  width: 100%;
+  max-width: 400px;
+  aspect-ratio: 1;
+}
+
+.positionInput.singleRow {
+  aspect-ratio: 12 / 1;
+  max-width: 600px;
 }
 
 .positionInputItem {
-  width: 8px;
-  height: 8px;
   background: var(--surface1);
   border-radius: 0;
   cursor: pointer;
@@ -18,6 +24,9 @@
   border: none;
   outline: none;
   transition: background-color 0.2s ease;
+  aspect-ratio: 1;
+  min-height: 0;
+  min-width: 0;
 }
 
 .positionInputItem:hover {
@@ -30,8 +39,8 @@
 
 .indicator {
   position: absolute;
-  width: 8px;
-  height: 8px;
+  width: 60%;
+  height: 60%;
   background: var(--accent-pri);
   border-radius: 50%;
   top: 50%;

@@ -2,23 +2,19 @@ import React from 'react';
 import { Canvas } from '@react-three/fiber';
 import { EffectComposer } from '@react-three/postprocessing';
 import { useThemeContext } from '../../context/themeContext';
-import CanvasBgPlane from '../canvasBgPlane';
-import CanvasBgSphere from '../canvasBgSphere';
-import Experience from '../experience';
 import { EffectRouter } from '../effects/postprocessing-effects';
 
 /**
- * Shader Canvas Component - Three.js implementation using experience2
+ * Gradient Canvas Component - Canvas-based gradient background
+ * Uses Three.js to create procedural gradients that can be post-processed
  */
-const ShaderCanvas = ({
-  shaderType = 'water',
+const GradientCanvas = ({
   effects = [],
   theme,
   className = '',
   style = {},
   onLoad,
   onError,
-  controls = {},
   ...props
 }) => {
   const { currentTheme } = useThemeContext();
@@ -26,33 +22,33 @@ const ShaderCanvas = ({
   // Debug effects
   React.useEffect(() => {
     if (effects.length > 0) {
-      console.log('Shader Canvas Effects:', effects);
+      console.log('Gradient Canvas Effects:', effects);
     }
   }, [effects]);
 
-  // Render the appropriate shader component based on shaderType
-  const renderShaderComponent = () => {
-    switch (shaderType) {
-      case 'water':
-        return <CanvasBgPlane />;
-      case 'sphere':
-        return <CanvasBgSphere />;
-      case 'experience':
-        return <Experience />;
-      default:
-        console.warn(`Unknown shader type: ${shaderType}, falling back to water`);
-        return <CanvasBgPlane />;
-    }
+  // For now, use a simple colored plane that can be post-processed
+  // This could be enhanced with procedural gradient shaders in the future
+  const GradientPlane = () => {
+    const gradStart = currentTheme?.data?.gradStart || '#ff6b6b';
+    const gradStop = currentTheme?.data?.gradStop || '#4ecdc4';
+
+    return (
+      <mesh position={[0, 0, 0]} scale={[10, 10, 1]}>
+        <planeGeometry args={[1, 1]} />
+        <meshBasicMaterial color={gradStart} />
+      </mesh>
+    );
   };
 
   return (
     <div className={`absolute inset-0 w-full h-full ${className}`} style={style} {...props}>
       <Canvas
-        camera={{ position: [0, 1.5, 3], fov: 75 }}
+        camera={{ position: [0, 0, 1], fov: 75 }}
         style={{ width: '100%', height: '100%' }}
         gl={{ preserveDrawingBuffer: true }}
+        orthographic
       >
-        {renderShaderComponent()}
+        <GradientPlane />
         {effects.length > 0 && (
           <EffectComposer>
             <EffectRouter effects={effects} />
@@ -63,4 +59,4 @@ const ShaderCanvas = ({
   );
 };
 
-export default ShaderCanvas;
+export default GradientCanvas;

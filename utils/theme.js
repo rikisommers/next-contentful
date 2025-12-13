@@ -1724,6 +1724,9 @@ export const footerOptions = {
 export const heroBackgroundThemes = {
   none: 'none',
   canvasPlaneShader: 'canvasPlaneShader', // Water shader
+  canvasSphereShader: 'canvasSphereShader', // Sphere shader
+  canvasExp: 'canvasExp', // Experience shader
+  canvasGradient: 'canvasGradient', // Canvas gradient background
   canvasImage: 'canvasImage',
   image: 'image',
   cssgradient: 'cssgradient',
@@ -1787,11 +1790,35 @@ export const heroTextPositionThemes = [
   '11-0', '11-1', '11-2', '11-3', '11-4', '11-5', '11-6', '11-7', '11-8', '11-9', '11-10', '11-11'
 ];
 
-export const headerTextPositionThemes = [
-  '0-0', // center-left
-  '0-1', // center-center
-  '0-2', // center-right
-];
+export const headerTextPositionThemes = {
+  '0-0': '0-0',
+  '0-1': '0-1',
+  '0-2': '0-2',
+  '0-3': '0-3',
+  '0-4': '0-4',
+  '0-5': '0-5',
+  '0-6': '0-6',
+  '0-7': '0-7',
+  '0-8': '0-8',
+  '0-9': '0-9',
+  '0-10': '0-10',
+  '0-11': '0-11',
+};
+
+export const headerTextColSpanThemes = {
+  1: 1,
+  2: 2,
+  3: 3,
+  4: 4,
+  5: 5,
+  6: 6,
+  7: 7,
+  8: 8,
+  9: 9,
+  10: 10,
+  11: 11,
+  12: 12,
+};
 
 export const heroTextColSpanThemes = {
   1: 1,
@@ -1979,11 +2006,31 @@ export const themeContent = {
   heroTextColSpanLg: 8, // 8 columns on large devices
   heroSubTextColSpanDefault: 12, // Full width on small devices  
   heroSubTextColSpanLg: 6, // 6 columns on large devices
+  // Hero Text Position - Responsive breakpoints
+  heroTextPositionSm: heroTextPositionThemes[60], // '5-0' middle-left for small screens
+  heroTextPositionMd: heroTextPositionThemes[60], // '5-0' middle-left for medium screens
+  heroTextPositionLg: heroTextPositionThemes[60], // '5-0' middle-left for large screens
+  heroTextPositionXl: heroTextPositionThemes[60], // '5-0' middle-left for extra large screens
+  // Hero Text Column Span - Responsive breakpoints
+  heroTextColSpanSm: 12, // Full width on small screens
+  heroTextColSpanMd: 10, // 10 columns on medium screens
+  heroTextColSpanLg: 8,  // 8 columns on large screens
+  heroTextColSpanXl: 8,  // 8 columns on extra large screens
+  // Hero Subtext Position - Responsive breakpoints
+  heroSubTextPositionSm: heroTextPositionThemes[84], // '7-0' lower-left for small screens
+  heroSubTextPositionMd: heroTextPositionThemes[84], // '7-0' lower-left for medium screens
+  heroSubTextPositionLg: heroTextPositionThemes[84], // '7-0' lower-left for large screens
+  heroSubTextPositionXl: heroTextPositionThemes[84], // '7-0' lower-left for extra large screens
+  // Hero Subtext Column Span - Responsive breakpoints
+  heroSubTextColSpanSm: 12, // Full width on small screens
+  heroSubTextColSpanMd: 8,  // 8 columns on medium screens
+  heroSubTextColSpanLg: 6,  // 6 columns on large screens
+  heroSubTextColSpanXl: 6,  // 6 columns on extra large screens
 
   heroGradMidPoint:heroGradThemes.gradMidPoint,
   heroCssGradient:heroCssGradientThemes.linear,
   heroCssGradientAngle:'90',
-  heroCssGradientRadialPosition:heroCssGradientRadialPositionThemes.center,
+  heroCssGradientRadialPosition: { x: 50, y: 50 }, // Center position as x,y percentages
   heroTextLayout:heroTextCompositionThemes.foo,
   heroBackground:heroBackgroundThemes.image,
   heroShaderEffect: shaderEffect.blueNoise, // Default shader type 
@@ -1998,6 +2045,16 @@ export const themeContent = {
 
   heroTextAlign:textAlignThemes.left,
   headerTextAlign:textAlignThemes.left,
+  // Header Text Position - Responsive breakpoints
+  headerTextPositionSm: '0-0', // Top-left default for small screens
+  headerTextPositionMd: '0-0', // Top-left default for medium screens
+  headerTextPositionLg: '0-0', // Top-left default for large screens
+  headerTextPositionXl: '0-0', // Top-left default for extra large screens
+  // Header Text Column Span - Responsive breakpoints
+  headerTextColSpanSm: 12, // Full width on small screens
+  headerTextColSpanMd: 8,  // 8 columns on medium screens
+  headerTextColSpanLg: 6,  // 6 columns on large screens
+  headerTextColSpanXl: 6,  // 6 columns on extra large screens
   blockquoteTextAlign:textAlignThemes.left,
   heroSubTextAlign:textAlignThemes.left,
   heroTextImage:heroTextImageThemes.none,

@@ -114,7 +114,7 @@ export default function GridLayout({
   };
 
   const gridClassName = classNames(
-    'grid',
+    'o-edit-outline grid',
     gapClass,
     gridColsSm[currentTheme.data.gridColumnsSm],
     gridColsMd[currentTheme.data.gridColumnsMd],

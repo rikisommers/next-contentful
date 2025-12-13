@@ -63,10 +63,10 @@ export default function PositionInput({ label, value, onChange, options = defaul
   return (
     <div className="flex flex-col gap-2 justify-between items-start">
       {label && <div className="mb-1 text-xs">{label}</div>}
-      <div 
+      <div
         className={styles.positionInput}
         style={{
-          gridTemplateColumns: `repeat(${gridCols}, 8px)`,
+          gridTemplateColumns: `repeat(${gridCols}, 1fr)`,
         }}
       >
         {gridOptions.map((opt) => (

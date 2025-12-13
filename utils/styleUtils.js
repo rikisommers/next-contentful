@@ -76,7 +76,16 @@ export const setStyleProperties = (theme) => {
     root.style.setProperty("--hero-background", theme.data.heroBackground || heroBackgroundThemes.gradient);
     root.style.setProperty("--hero-css-gradient", theme.data.heroCssGradient || heroCssGradientThemes.linearVertical);
     root.style.setProperty("--hero-css-gradient-angle", theme.data.heroCssGradientAngle || '90');
-    root.style.setProperty("--hero-css-gradient-radial-position", theme.data.heroCssGradientRadialPosition || heroCssGradientRadialPositionThemes.center);
+    // Convert joystick x,y values to CSS percentage format
+    const radialPosition = theme.data.heroCssGradientRadialPosition;
+    let cssRadialPosition;
+    if (radialPosition && typeof radialPosition === 'object' && radialPosition.x !== undefined && radialPosition.y !== undefined) {
+      cssRadialPosition = `${radialPosition.x}% ${radialPosition.y}%`;
+    } else {
+      // Fallback to center for legacy values or missing data
+      cssRadialPosition = '50% 50%';
+    }
+    root.style.setProperty("--hero-css-gradient-radial-position", cssRadialPosition);
     root.style.setProperty("--hero-grad-mid-point", theme.data.heroGradMidPoint || 0.5);
     root.style.setProperty("--hero-text-image", theme.data.heroTextImage || heroTextImageThemes.inline);
     root.style.setProperty("--hero-text-position", theme.data.heroTextPosition || heroTextPositionThemes[4]);
@@ -293,4 +302,73 @@ export const getGridPositionClass = (position, options = {}) => {
   });
   
   return finalResult;
+};
+
+/**
+ * Enhanced responsive grid position class generator
+ * Follows Tailwind's mobile-first approach: base classes for smallest screen, then responsive overrides
+ * @param {Object} positions - Responsive position values { sm, md, lg, xl }
+ * @param {Object} colSpans - Responsive column span values { sm, md, lg, xl }
+ * @returns {string} Complete responsive grid classes
+ */
+export const getResponsiveGridPositionClass = (positions = {}, colSpans = {}) => {
+  const rowClasses = {
+    0: "row-start-1", 1: "row-start-2", 2: "row-start-3", 3: "row-start-4",
+    4: "row-start-5", 5: "row-start-6", 6: "row-start-7", 7: "row-start-8",
+    8: "row-start-9", 9: "row-start-10", 10: "row-start-11", 11: "row-start-12",
+  };
+
+  const colClasses = {
+    0: "col-start-1", 1: "col-start-2", 2: "col-start-3", 3: "col-start-4",
+    4: "col-start-5", 5: "col-start-6", 6: "col-start-7", 7: "col-start-8",
+    8: "col-start-9", 9: "col-start-10", 10: "col-start-11", 11: "col-start-12",
+  };
+
+  const colSpanClasses = {
+    1: "col-span-1", 2: "col-span-2", 3: "col-span-3", 4: "col-span-4",
+    5: "col-span-5", 6: "col-span-6", 7: "col-span-7", 8: "col-span-8",
+    9: "col-span-9", 10: "col-span-10", 11: "col-span-11", 12: "col-span-12",
+  };
+
+  const parsePosition = (position) => {
+    if (!position || typeof position !== "string" || !position.includes("-")) {
+      return { row: 0, col: 0 };
+    }
+    const [row, col] = position.split("-").map(Number);
+    return { row: row || 0, col: col || 0 };
+  };
+
+  const generateBreakpointClasses = (breakpoint, position, colSpan) => {
+    if (!position && !colSpan) return [];
+
+    const { row, col } = parsePosition(position);
+    // Mobile-first: sm has no prefix (base classes), larger breakpoints get prefixes
+    const prefix = breakpoint === 'sm' ? '' : `${breakpoint}:`;
+
+    let classes = [];
+    if (position && rowClasses[row]) classes.push(`${prefix}${rowClasses[row]}`);
+    if (position && colClasses[col]) classes.push(`${prefix}${colClasses[col]}`);
+    if (colSpan && colSpanClasses[colSpan]) classes.push(`${prefix}${colSpanClasses[colSpan]}`);
+
+    return classes;
+  };
+
+  let allClasses = [];
+
+  // Generate classes in mobile-first order: sm (base), then md, lg, xl (overrides)
+  const breakpoints = ['sm', 'md', 'lg', 'xl'];
+  breakpoints.forEach(bp => {
+    const bpClasses = generateBreakpointClasses(bp, positions[bp], colSpans[bp]);
+    allClasses.push(...bpClasses);
+  });
+
+  // Debug logging
+  console.log('Responsive Grid Position Debug:', {
+    positions,
+    colSpans,
+    allClasses,
+    finalClasses: allClasses.join(' ')
+  });
+
+  return allClasses.join(' ');
 }; 
