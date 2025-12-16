@@ -111,6 +111,20 @@ const renderHeroBackground = (heroBackground, image, shaderEffect, theme) => {
           />
         </React.Suspense>
       );
+    case "canvasPerlinBlob":
+      return (
+        <React.Suspense fallback={<BackgroundCssGrad />}>
+          <UnifiedCanvas
+            type="shader"
+            shaderType="perlinBlob"
+            effects={
+              shaderEffect && shaderEffect !== "none"
+                ? [createEffect(shaderEffect)]
+                : []
+            }
+          />
+        </React.Suspense>
+      );
     case "canvasExp":
       return (
         <React.Suspense fallback={<BackgroundCssGrad />}>

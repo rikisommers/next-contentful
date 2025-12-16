@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { useFrame, extend } from "@react-three/fiber";
-import { OrbitControls, shaderMaterial } from "@react-three/drei";
+import { shaderMaterial } from "@react-three/drei";
 import { useControls } from "leva";
 import * as THREE from "three";
 import { vertexShader } from './shaders/water/vertex';
@@ -31,6 +31,12 @@ extend({ WaterMaterial });
 function Water() {
   const waterMaterial = useRef();
   const { currentTheme } = useThemeContext();
+
+  // Get geometry values from theme with fallbacks to defaults
+  const planeWidth = currentTheme?.data?.canvasPlaneWidth ?? 10;
+  const planeHeight = currentTheme?.data?.canvasPlaneHeight ?? 10;
+  const planeWidthSegments = currentTheme?.data?.canvasPlaneWidthSegments ?? 60;
+  const planeHeightSegments = currentTheme?.data?.canvasPlaneHeightSegments ?? 60;
   const {
     uBigWavesElevation,
     uBigWavesFrequencyX,
@@ -77,17 +83,12 @@ function Water() {
     <mesh rotation-x={-Math.PI/4} 
           rotation-y={0} 
           rotation-z={0}>
-      <planeGeometry args={[10, 10, 60, 60]} />
+      <planeGeometry args={[planeWidth, planeHeight, planeWidthSegments, planeHeightSegments]} />
       <waterMaterial ref={waterMaterial} side={THREE.DoubleSide} />
     </mesh>
   );
 }
 
 export default function CanvasBgPlane() {
-  return (
-    <>
-      <OrbitControls enableDamping />
-      <Water />
-    </>
-  );
+  return <Water />;
 }

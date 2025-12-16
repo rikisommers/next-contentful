@@ -319,6 +319,33 @@ export default function ThemeEditor({ customThemes }) {
         // Only show if background type is cssgradient and gradient type is linear
         return bgType === 'cssgradient' && gradientType === 'linear';
 
+      // Canvas Camera controls - only show if background type is any canvas type
+      case 'canvasCameraPositionX':
+      case 'canvasCameraPositionY':
+      case 'canvasCameraPositionZ':
+      case 'canvasCameraFov':
+      case 'canvasOrbitControlsEnabled':
+        return bgType === 'canvasImage' || bgType === 'canvasPlaneShader' || bgType === 'canvasSphereShader' || bgType === 'canvasExp' || bgType === 'canvasGradient';
+
+      // Canvas Plane Geometry controls - only show if background type is plane shader
+      case 'canvasPlaneWidth':
+      case 'canvasPlaneHeight':
+      case 'canvasPlaneWidthSegments':
+      case 'canvasPlaneHeightSegments':
+        return bgType === 'canvasPlaneShader';
+
+      // Canvas Sphere Geometry controls - only show if background type is sphere shader
+      case 'canvasSphereRadius':
+      case 'canvasSphereWidthSegments':
+      case 'canvasSphereHeightSegments':
+        return bgType === 'canvasSphereShader';
+
+      // Canvas Experience Geometry controls - only show if background type is experience shader
+      case 'canvasExpSphereRadius':
+      case 'canvasExpSphereWidthSegments':
+      case 'canvasExpSphereHeightSegments':
+        return bgType === 'canvasExp';
+
       // Audio controls - only show if audio is enabled
       case 'audioVolume':
       case 'audioInit':
@@ -487,6 +514,19 @@ export default function ThemeEditor({ customThemes }) {
             value={typeof value === "object" && value ? value : { x: 50, y: 50 }}
             onChange={(val) => updateThemeProp(key, val)}
           />
+        );
+      case "display":
+        return (
+          <div key={key} className="flex flex-col gap-1">
+            <label className="text-sm text-gray-600 dark:text-gray-400">
+              {config.label}
+            </label>
+            <div className="px-3 py-2 bg-gray-100 dark:bg-gray-800 rounded text-sm font-mono">
+              {typeof value === "number"
+                ? value.toFixed(config.decimals ?? 2)
+                : value ?? "N/A"}
+            </div>
+          </div>
         );
       default:
         return null;

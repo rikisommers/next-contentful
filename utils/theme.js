@@ -1725,6 +1725,7 @@ export const heroBackgroundThemes = {
   none: 'none',
   canvasPlaneShader: 'canvasPlaneShader', // Water shader
   canvasSphereShader: 'canvasSphereShader', // Sphere shader
+  canvasPerlinBlob: 'canvasPerlinBlob', // Perlin blob shader
   canvasExp: 'canvasExp', // Experience shader
   canvasGradient: 'canvasGradient', // Canvas gradient background
   canvasImage: 'canvasImage',
@@ -2031,8 +2032,30 @@ export const themeContent = {
   heroCssGradient:heroCssGradientThemes.linear,
   heroCssGradientAngle:'90',
   heroCssGradientRadialPosition: { x: 50, y: 50 }, // Center position as x,y percentages
-  heroBackground:heroBackgroundThemes.cssgradient,
-  heroShaderEffect: shaderEffect.blueNoise, // Default shader type 
+  heroBackground:heroBackgroundThemes.canvasPerlinBlob,
+  heroShaderEffect: shaderEffect.blueNoise, // Default shader type
+
+  // Canvas Camera Controls
+  canvasCameraPositionX: 0,    // Camera X position
+  canvasCameraPositionY: 1.5,  // Camera Y position
+  canvasCameraPositionZ: 3,    // Camera Z position
+  canvasCameraFov: 75,         // Field of view
+  canvasOrbitControlsEnabled: true, // Enable orbit controls
+
+  // Canvas Geometry Controls
+  canvasPlaneWidth: 10,        // Plane width
+  canvasPlaneHeight: 10,       // Plane height
+  canvasPlaneWidthSegments: 60,  // Plane width segments
+  canvasPlaneHeightSegments: 60, // Plane height segments
+  canvasSphereRadius: 10,      // Sphere radius
+  canvasSphereWidthSegments: 64,  // Sphere width segments (longitude)
+  canvasSphereHeightSegments: 64, // Sphere height segments (latitude)
+  canvasPerlinBlobRadius: 2,      // Perlin blob radius
+  canvasPerlinBlobWidthSegments: 6,  // Perlin blob width segments (detail level)
+  canvasPerlinBlobHeightSegments: 6, // Perlin blob height segments (detail level)
+  canvasExpSphereRadius: 8,    // Experience sphere radius
+  canvasExpSphereWidthSegments: 32,  // Experience sphere width segments
+  canvasExpSphereHeightSegments: 32, // Experience sphere height segments
 
   // Effect size controls
   halftoneSize: 6.0,

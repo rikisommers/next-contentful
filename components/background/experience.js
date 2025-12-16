@@ -2,9 +2,9 @@ import {
     shaderMaterial,
   Center,
 } from "@react-three/drei";
-import { OrbitControls } from "@react-three/drei";
 import { fragmentShader } from "../../shaders/fragmentShader";
 import { vertexShader } from "../../shaders/vertexShader";
+import { useThemeContext } from '../context/themeContext';
 
 import * as THREE from 'three'
 import { useRef } from 'react'
@@ -20,6 +20,12 @@ const PortalMaterial = shaderMaterial(
 extend({ PortalMaterial })
 
 export default function Experience() {
+    const { currentTheme } = useThemeContext();
+
+    // Get geometry values from theme with fallbacks to defaults
+    const sphereRadius = currentTheme?.data?.canvasExpSphereRadius ?? 8;
+    const sphereWidthSegments = currentTheme?.data?.canvasExpSphereWidthSegments ?? 32;
+    const sphereHeightSegments = currentTheme?.data?.canvasExpSphereHeightSegments ?? 32;
 
     const portalMaterial = useRef()
     useFrame((state, delta) =>
@@ -33,10 +39,8 @@ export default function Experience() {
       <color />
 
       <Center>
-              <OrbitControls enableDamping />
-
       <mesh position={[0, 0, 0]} scale={1}>
-          <sphereGeometry args={[ 8, 32, 32]} />
+          <sphereGeometry args={[sphereRadius, sphereWidthSegments, sphereHeightSegments]} />
           <portalMaterial
 
             ref={ portalMaterial }

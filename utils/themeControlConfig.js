@@ -148,6 +148,34 @@ export const themeControlConfig = {
     heroGradMidPoint: { type: "slider", label: "Gradient Mid Point", min: 0, max: 1, step: 0.1 },
 
   },
+  CanvasCamera: {
+    _description: "Control the 3D camera position and field of view. Use sliders to position the camera or enable orbit controls below.",
+    canvasCameraPositionX: { type: "slider", label: "Camera X", min: -20, max: 20, step: 0.1 },
+    canvasCameraPositionY: { type: "slider", label: "Camera Y", min: -20, max: 20, step: 0.1 },
+    canvasCameraPositionZ: { type: "slider", label: "Camera Z", min: 0.1, max: 30, step: 0.1 },
+    canvasCameraFov: { type: "slider", label: "Field of View", min: 10, max: 120, step: 1 },
+    canvasOrbitControlsEnabled: { type: "boolean", label: "Enable Orbit Controls" },
+  },
+  CanvasGeometry: {
+    _description: "Control the size and quality of 3D geometries. Higher segment counts create smoother surfaces but use more resources.",
+    // Plane Geometry Controls
+    canvasPlaneWidth: { type: "slider", label: "Plane Width", min: 1, max: 50, step: 1 },
+    canvasPlaneHeight: { type: "slider", label: "Plane Height", min: 1, max: 50, step: 1 },
+    canvasPlaneWidthSegments: { type: "slider", label: "Plane Width Segments", min: 1, max: 200, step: 1 },
+    canvasPlaneHeightSegments: { type: "slider", label: "Plane Height Segments", min: 1, max: 200, step: 1 },
+    // Sphere Geometry Controls
+    canvasSphereRadius: { type: "slider", label: "Sphere Radius", min: 1, max: 50, step: 1 },
+    canvasSphereWidthSegments: { type: "slider", label: "Sphere Width Segments", min: 3, max: 64, step: 1 },
+    canvasSphereHeightSegments: { type: "slider", label: "Sphere Height Segments", min: 3, max: 64, step: 1 },
+    // Perlin Blob Geometry Controls
+    canvasPerlinBlobRadius: { type: "slider", label: "Perlin Blob Radius", min: 0.5, max: 10, step: 0.1 },
+    canvasPerlinBlobWidthSegments: { type: "slider", label: "Perlin Blob Detail Level", min: 1, max: 10, step: 1 },
+    canvasPerlinBlobHeightSegments: { type: "slider", label: "Perlin Blob Height Segments", min: 1, max: 10, step: 1 },
+    // Experience Sphere Geometry Controls
+    canvasExpSphereRadius: { type: "slider", label: "Experience Sphere Radius", min: 1, max: 20, step: 1 },
+    canvasExpSphereWidthSegments: { type: "slider", label: "Experience Sphere Width Segments", min: 3, max: 64, step: 1 },
+    canvasExpSphereHeightSegments: { type: "slider", label: "Experience Sphere Height Segments", min: 3, max: 64, step: 1 },
+  },
   Articles: {
     gridType: { type: "select", label: "Grid Type", options: gridLayoutThemes },
     listType: { type: "select", label: "List Type", options: listLayoutThemes },
