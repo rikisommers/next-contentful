@@ -188,7 +188,9 @@
   }
 }
 
-/* Animation classes */
+/* Animation classes - NOT USED (using Framer Motion instead) */
+/* These CSS transitions conflict with Framer Motion animations */
+/*
 .toast-enter {
   opacity: 0;
   transform: translateY(-1rem) scale(0.95);
@@ -210,3 +212,4 @@
   transform: scale(0.95);
   transition: opacity 200ms, transform 200ms;
 }
+*/

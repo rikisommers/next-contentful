@@ -171,7 +171,7 @@ const renderHeroBackground = (heroBackground, image, shaderEffect, theme) => {
       return <BackgroundCssGrad />;
     case "image":
       return image ? (
-        <div className="absolute top-0 left-0 w-full h-full -z-10 bg-[var(--background-color)]">
+        <div className="absolute top-0 left-0 w-1/2 h-full z-10 bg-[var(--background-color)]">
           <BlendImage
             className="img-cover"
             alt={`Cover Image for ${image?.title}`}
@@ -199,7 +199,6 @@ export default function BlockHero({ title, content, tag, image, infoMessage}) {
         currentTheme.data.heroShaderEffect,
         currentTheme
       )}
-
      
       <ScaleContainer>
         {/* Debug panel for responsive values */}
@@ -266,20 +265,22 @@ export default function BlockHero({ title, content, tag, image, infoMessage}) {
                 {tag}
               </div>
             )}
-            {title && (
+         
               <h1
                 className={`text-4xl !text-[var(--text-color-inv)] leading-normal pointer-events-auto text-balance`}
                 tabIndex="0"
                 aria-describedby={content ? "hero-content" : undefined}
               >
+                   {/* {title && (
                 <AnimatedText
                   align={currentTheme.data.heroTextAlign}
                   content={title}
                   type={currentTheme.data.textAnimation}
                   delay={AnimTextOrder.ONE}
                 />
+              )} */}
               </h1>
-            )}
+            
           </div>
 
           <div
