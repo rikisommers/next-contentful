@@ -321,19 +321,14 @@ export default function BlockHero({ title, content, tag, image, infoMessage}) {
            
             
             {infoMessage && (
-            <>
-              <Message
-                type={infoMessage.type}
-                title={infoMessage.title}
-                content={infoMessage.content}
-                dismissible={infoMessage.dismiss}
-              />
-              <p>{infoMessage.type}</p>
-              <p>{infoMessage.title}</p>
-              <p>{infoMessage.content}</p>
-              <p>{infoMessage.dismiss}</p>
-
-              </>
+            <div class="absolute bottom-0 right-0">
+  <Message             
+    type={MessageType.DEFAULT}                                                                              
+    title={infoMessage.title}     
+    content={infoMessage.content}                                                                             
+            dismiss={infoMessage.dismiss}
+  />             
+              </div>
             )}
 
 

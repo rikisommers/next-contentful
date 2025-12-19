@@ -173,14 +173,13 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
           className={getPositionStyles(position as ToastPosition)}
           style={{ maxWidth: '420px', minWidth: '320px' }}
         >
-          <AnimatePresence mode="sync">
+          <AnimatePresence mode="popLayout">
             {positionToasts.map((toast) => (
-              <div key={toast.id} className="pointer-events-auto">
-                <Toast
-                  {...toast}
-                  onClose={closeToast}
-                />
-              </div>
+              <Toast
+                key={toast.id}
+                {...toast}
+                onClose={closeToast}
+              />
             ))}
           </AnimatePresence>
         </div>
