@@ -1544,6 +1544,7 @@ variableUnit: '1vw',
 };
 
 export const pageTransitionThemes = {
+  carousel:'carousel',
   tiltandwipe:'tilt and wipe',
   tilt:'tilt',
   fade:'fade',
