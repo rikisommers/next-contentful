@@ -4,6 +4,7 @@ import TransitionTilt from "./transition-tilt";
 import TransitionFade from "./transition-fade";
 import TransitionWipeWithChild from "./transition-wipewithchild";
 import TransitionTiltAndWipe from "./transition-tiltandwipe";
+import TransitionCarousel from "./transition-carousel";
 
 const TransitionContainer = ({children}) => {
     const { currentTheme } = useThemeContext();
@@ -26,6 +27,8 @@ const TransitionContainer = ({children}) => {
                 return <TransitionWipeWithChild>{children}</TransitionWipeWithChild>;
             case 'fade':
                 return <TransitionFade>{children}</TransitionFade>;
+            case 'carousel':
+                return <TransitionCarousel>{children}</TransitionCarousel>;
             case 'none':
             default:
                 return children;

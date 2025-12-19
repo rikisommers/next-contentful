@@ -5,6 +5,7 @@ import { ScrollPositionProvider } from "../components/context/scrollPosContext";
 import { RouteProvider } from "../components/context/routeContext";
 import { ThemeProvider } from "../components/context/themeContext";
 import { ToastProvider } from "../components/context/toastContext";
+import { MenuProvider } from "../components/context/menuContext";
 import Navigation from "../components/navigation/primary-navigation";
 import Preloader from "../components/utils/preloader";
 import ThemeEditor from "../utils/themeEditor";
@@ -135,6 +136,7 @@ function MyApp({ Component, pageProps, router, globalData, customThemes }) {
                   theme={globalData?.currentTheme}
                   customThemes={customThemes}
                 >
+                  <MenuProvider menuData={globalData?.menuCollection?.items}>
                   {globalData?.menuCollection?.items &&
                     globalData?.menuCollection?.items.length > 0 && (
                       <Navigation
@@ -144,9 +146,10 @@ function MyApp({ Component, pageProps, router, globalData, customThemes }) {
                         customThemes={customThemes}
                       />
                     )}
-                  <AnimatePresence mode="wait" initial={false}>
-                    <Component {...pageProps} key={router.asPath} />
-                  </AnimatePresence>
+                    <AnimatePresence mode="wait" initial={false}>
+                      <Component {...pageProps} key={router.asPath} />
+                    </AnimatePresence>
+                  </MenuProvider>
                 </ThemeProvider>
               </ToastProvider>
             </MousePosProvider>

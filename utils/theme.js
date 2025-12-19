@@ -1549,6 +1549,7 @@ export const pageTransitionThemes = {
   tilt:'tilt',
   fade:'fade',
   wipe:'wipe',
+  carousel:'carousel',
   pixel:'pixel',
   none:'none'
 };
@@ -1978,7 +1979,7 @@ export const themeContent = {
   textAnimation:textAnimationThemes.navigators,
   textAnimationSec:textAnimationThemes.none,
 
-  pageTransition:pageTransitionThemes.fade,
+  pageTransition:pageTransitionThemes.carousel,
   pageWidth:pageWidthThemes.fluid,
   cursor:cursorThemes.none,
 
