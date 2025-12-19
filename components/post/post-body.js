@@ -39,7 +39,7 @@ export default function PostBody({ content, tags }) {
   // console.log('currentTheme',currentTheme)
   // console.log('content',content)
   return (
-    <div className={`o-edit-outline flex flex-col gap-8 self-center
+    <div className={`o-edit-outline flex flex-col gap-8 self-center scanlines
        ${(() => {
          // For Tailwind v4, max-width classes have changed
          const widthClasses = {
