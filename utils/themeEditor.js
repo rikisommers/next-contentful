@@ -305,7 +305,7 @@ export default function ThemeEditor({ customThemes }) {
       case 'pixelationSize':
       case 'noiseIntensity':
         // Show if background type is any canvas type
-        return bgType === 'canvasImage' || bgType === 'canvasPlaneShader' || bgType === 'canvasSphereShader' || bgType === 'canvasExp' || bgType === 'canvasGradient';
+        return bgType === 'canvasImage' || bgType === 'canvasPlaneShader' || bgType === 'canvasPerlinBlob' || bgType === 'canvasSphereShader' || bgType === 'canvasExp' || bgType === 'canvasGradient';
 
       case 'heroCssGradient':
         // Only show if background type is cssgradient
@@ -325,7 +325,7 @@ export default function ThemeEditor({ customThemes }) {
       case 'canvasCameraPositionZ':
       case 'canvasCameraFov':
       case 'canvasOrbitControlsEnabled':
-        return bgType === 'canvasImage' || bgType === 'canvasPlaneShader' || bgType === 'canvasSphereShader' || bgType === 'canvasExp' || bgType === 'canvasGradient';
+        return bgType === 'canvasImage' || bgType === 'canvasPlaneShader' || bgType === 'canvasSphereShader' || bgType === 'canvasPerlinBlob' || bgType === 'canvasExp' || bgType === 'canvasGradient';
 
       // Canvas Plane Geometry controls - only show if background type is plane shader
       case 'canvasPlaneWidth':
@@ -345,6 +345,12 @@ export default function ThemeEditor({ customThemes }) {
       case 'canvasExpSphereWidthSegments':
       case 'canvasExpSphereHeightSegments':
         return bgType === 'canvasExp';
+
+      // Canvas Perlin Blob Geometry controls - only show if background type is perlin blob
+      case 'canvasPerlinBlobRadius':
+      case 'canvasPerlinBlobWidthSegments':
+      case 'canvasPerlinBlobHeightSegments':
+        return bgType === 'canvasPerlinBlob';
 
       // Audio controls - only show if audio is enabled
       case 'audioVolume':

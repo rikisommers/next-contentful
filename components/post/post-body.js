@@ -72,6 +72,7 @@ export default function PostBody({ content, tags }) {
                   title={item.intro}
                   content={item.content}
                   image={item.image}
+                  infoMessage={item.infoMessage}
                 />
                 
               )}

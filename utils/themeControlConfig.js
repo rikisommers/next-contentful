@@ -90,6 +90,10 @@ export const themeControlConfig = {
     textAnimationSec: { type: "select", label: "Text Anim Sec", options: textAnimationThemes },
     textHighlight: { type: "select", label: "Text Highlight", options: textHighlightThemes },
   },
+  Header: {
+    headerHeight: { type: "slider", label: "Height (vh)", min: 10, max: 100, step: 5 },
+    headerTextAlign: { type: "select", label: "Text Align", options: textAlignThemes },
+  },
   HeaderTextPosition: {
     // Text Position - Responsive
     headerTextPositionSm: { type: "position", label: "Text Position Sm", options: headerTextPositionThemes },
@@ -103,12 +107,24 @@ export const themeControlConfig = {
     headerTextColSpanLg: { type: "select", label: "Text Col Span Lg", options: headerTextColSpanThemes },
     headerTextColSpanXl: { type: "select", label: "Text Col Span Xl", options: headerTextColSpanThemes },
   },
-  Header: {
-    headerHeight: { type: "slider", label: "Height (vh)", min: 10, max: 100, step: 5 },
-    headerTextAlign: { type: "select", label: "Text Align", options: textAlignThemes },
+  Hero: {
+    heroHeight: { type: "slider", label: "Height (vh)", min: 10, max: 100, step: 5 },
+    heroTextImage: { type: "select", label: "Images", options: heroTextImageThemes },
+    heroBackground: { type: "select", label: "Bg", options: heroBackgroundThemes },
+    // Text Alignment Controls
+    heroTextAlign: { type: "select", label: "Text Align", options: textAlignThemes },
+    heroSubTextAlign: { type: "select", label: "Subtext Align", options: textAlignThemes },
+    // Shader Controls
+    heroShaderEffect: { type: "select", label: "Shader Effect", options: heroShaderEffectThemes },
+    // CSS Gradient Controls
+    heroCssGradient: { type: "select", label: "CSS Gradient Type", options: heroCssGradientThemes },
+    heroCssGradientAngle: { type: "slider", label: "CSS Gradient Angle", min: 0, max: 180, step: 1 },
+    heroCssGradientRadialPosition: { type: "joystick", label: "CSS Gradient Radial Position" },
+    heroGradMidPoint: { type: "slider", label: "Gradient Mid Point", min: 0, max: 1, step: 0.1 },
+    // Text Position - Responsive
+ 
   },
   HeroTextPosition: {
-    // Text Position - Responsive
     heroTextPositionSm: { type: "position", label: "Text Position Sm", options: heroTextPositionThemes },
     heroTextPositionMd: { type: "position", label: "Text Position Md", options: heroTextPositionThemes },
     heroTextPositionLg: { type: "position", label: "Text Position Lg", options: heroTextPositionThemes },
@@ -131,23 +147,7 @@ export const themeControlConfig = {
     heroSubTextColSpanMd: { type: "select", label: "Subtext Col Span Md", options: heroTextColSpanThemes },
     heroSubTextColSpanLg: { type: "select", label: "Subtext Col Span Lg", options: heroTextColSpanLgThemes },
     heroSubTextColSpanXl: { type: "select", label: "Subtext Col Span Xl", options: heroTextColSpanLgThemes },
-  },
-  Hero: {
-    heroHeight: { type: "slider", label: "Height (vh)", min: 10, max: 100, step: 5 },
-    heroTextImage: { type: "select", label: "Images", options: heroTextImageThemes },
-    heroBackground: { type: "select", label: "Bg", options: heroBackgroundThemes },
-    // Text Alignment Controls
-    heroTextAlign: { type: "select", label: "Text Align", options: textAlignThemes },
-    heroSubTextAlign: { type: "select", label: "Subtext Align", options: textAlignThemes },
-    // Shader Controls
-    heroShaderEffect: { type: "select", label: "Shader Effect", options: heroShaderEffectThemes },
-    // CSS Gradient Controls
-    heroCssGradient: { type: "select", label: "CSS Gradient Type", options: heroCssGradientThemes },
-    heroCssGradientAngle: { type: "slider", label: "CSS Gradient Angle", min: 0, max: 180, step: 1 },
-    heroCssGradientRadialPosition: { type: "joystick", label: "CSS Gradient Radial Position" },
-    heroGradMidPoint: { type: "slider", label: "Gradient Mid Point", min: 0, max: 1, step: 0.1 },
-
-  },
+    },
   CanvasCamera: {
     _description: "Control the 3D camera position and field of view. Use sliders to position the camera or enable orbit controls below.",
     canvasCameraPositionX: { type: "slider", label: "Camera X", min: -20, max: 20, step: 0.1 },
