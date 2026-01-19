@@ -88,12 +88,98 @@ export const setStyleProperties = (theme) => {
     root.style.setProperty("--hero-css-gradient-radial-position", cssRadialPosition);
     root.style.setProperty("--hero-grad-mid-point", theme.data.heroGradMidPoint || 0.5);
     root.style.setProperty("--hero-text-image", theme.data.heroTextImage || heroTextImageThemes.inline);
-    root.style.setProperty("--hero-text-position", theme.data.heroTextPosition || heroTextPositionThemes[4]);
-    root.style.setProperty("--hero-subtext-position", theme.data.heroSubTextPosition || heroTextPositionThemes[4]);
-    root.style.setProperty("--hero-text-col-span-default", theme.data.heroTextColSpanDefault || 4);
+    // Hero Text Position - Responsive (parse row-col format)
+    const parseHeroTextPosition = (position, defaultPos = heroTextPositionThemes[4]) => {
+      const pos = position || defaultPos;
+      if (!pos || !pos.includes('-')) return { row: 5, col: 5 };
+      const [row, col] = pos.split('-').map(Number);
+      return { row: (row || 0) + 1, col: (col || 0) + 1 }; // Convert to 1-based for CSS grid
+    };
+
+    const heroTextPosSm = parseHeroTextPosition(theme.data.heroTextPositionSm);
+    const heroTextPosMd = parseHeroTextPosition(theme.data.heroTextPositionMd);
+    const heroTextPosLg = parseHeroTextPosition(theme.data.heroTextPositionLg);
+    const heroTextPosXl = parseHeroTextPosition(theme.data.heroTextPositionXl);
+
+    // Grid column/row start positions
+    root.style.setProperty("--hero-text-col-start-sm", heroTextPosSm.col);
+    root.style.setProperty("--hero-text-col-start-md", heroTextPosMd.col);
+    root.style.setProperty("--hero-text-col-start-lg", heroTextPosLg.col);
+    root.style.setProperty("--hero-text-col-start-xl", heroTextPosXl.col);
+
+    root.style.setProperty("--hero-text-row-start-sm", heroTextPosSm.row);
+    root.style.setProperty("--hero-text-row-start-md", heroTextPosMd.row);
+    root.style.setProperty("--hero-text-row-start-lg", heroTextPosLg.row);
+    root.style.setProperty("--hero-text-row-start-xl", heroTextPosXl.row);
+
+    // Hero Subtext Position - Responsive (parse row-col format)
+    const heroSubTextPosSm = parseHeroTextPosition(theme.data.heroSubTextPositionSm);
+    const heroSubTextPosMd = parseHeroTextPosition(theme.data.heroSubTextPositionMd);
+    const heroSubTextPosLg = parseHeroTextPosition(theme.data.heroSubTextPositionLg);
+    const heroSubTextPosXl = parseHeroTextPosition(theme.data.heroSubTextPositionXl);
+
+    // Subtext grid column/row start positions
+    root.style.setProperty("--hero-subtext-col-start-sm", heroSubTextPosSm.col);
+    root.style.setProperty("--hero-subtext-col-start-md", heroSubTextPosMd.col);
+    root.style.setProperty("--hero-subtext-col-start-lg", heroSubTextPosLg.col);
+    root.style.setProperty("--hero-subtext-col-start-xl", heroSubTextPosXl.col);
+
+    root.style.setProperty("--hero-subtext-row-start-sm", heroSubTextPosSm.row);
+    root.style.setProperty("--hero-subtext-row-start-md", heroSubTextPosMd.row);
+    root.style.setProperty("--hero-subtext-row-start-lg", heroSubTextPosLg.row);
+    root.style.setProperty("--hero-subtext-row-start-xl", heroSubTextPosXl.row);
+    // Hero Text Column Span - Responsive
+    root.style.setProperty("--hero-text-col-span-sm", theme.data.heroTextColSpanSm || 4);
+    root.style.setProperty("--hero-text-col-span-md", theme.data.heroTextColSpanMd || 4);
     root.style.setProperty("--hero-text-col-span-lg", theme.data.heroTextColSpanLg || 3);
-    root.style.setProperty("--hero-subtext-col-span-default", theme.data.heroSubTextColSpanDefault || 4);
+    root.style.setProperty("--hero-text-col-span-xl", theme.data.heroTextColSpanXl || 3);
+
+    // Hero Text Row Span - Responsive
+    root.style.setProperty("--hero-text-row-span-sm", theme.data.heroTextRowSpanSm || 1);
+    root.style.setProperty("--hero-text-row-span-md", theme.data.heroTextRowSpanMd || 1);
+    root.style.setProperty("--hero-text-row-span-lg", theme.data.heroTextRowSpanLg || 1);
+    root.style.setProperty("--hero-text-row-span-xl", theme.data.heroTextRowSpanXl || 1);
+
+    // Hero Subtext Column Span - Responsive
+    root.style.setProperty("--hero-subtext-col-span-sm", theme.data.heroSubTextColSpanSm || 4);
+    root.style.setProperty("--hero-subtext-col-span-md", theme.data.heroSubTextColSpanMd || 4);
     root.style.setProperty("--hero-subtext-col-span-lg", theme.data.heroSubTextColSpanLg || 1);
+    root.style.setProperty("--hero-subtext-col-span-xl", theme.data.heroSubTextColSpanXl || 1);
+
+    // Hero Subtext Row Span - Responsive
+    root.style.setProperty("--hero-subtext-row-span-sm", theme.data.heroSubTextRowSpanSm || 1);
+    root.style.setProperty("--hero-subtext-row-span-md", theme.data.heroSubTextRowSpanMd || 1);
+    root.style.setProperty("--hero-subtext-row-span-lg", theme.data.heroSubTextRowSpanLg || 1);
+    root.style.setProperty("--hero-subtext-row-span-xl", theme.data.heroSubTextRowSpanXl || 1);
+
+    // Hero Background Position - Responsive (parse row-col format)
+    const heroBgPosSm = parseHeroTextPosition(theme.data.heroBgPositionSm, heroTextPositionThemes[0]);
+    const heroBgPosMd = parseHeroTextPosition(theme.data.heroBgPositionMd, heroTextPositionThemes[0]);
+    const heroBgPosLg = parseHeroTextPosition(theme.data.heroBgPositionLg, heroTextPositionThemes[0]);
+    const heroBgPosXl = parseHeroTextPosition(theme.data.heroBgPositionXl, heroTextPositionThemes[0]);
+
+    // Background grid column/row start positions
+    root.style.setProperty("--hero-bg-col-start-sm", heroBgPosSm.col);
+    root.style.setProperty("--hero-bg-col-start-md", heroBgPosMd.col);
+    root.style.setProperty("--hero-bg-col-start-lg", heroBgPosLg.col);
+    root.style.setProperty("--hero-bg-col-start-xl", heroBgPosXl.col);
+
+    root.style.setProperty("--hero-bg-row-start-sm", heroBgPosSm.row);
+    root.style.setProperty("--hero-bg-row-start-md", heroBgPosMd.row);
+    root.style.setProperty("--hero-bg-row-start-lg", heroBgPosLg.row);
+    root.style.setProperty("--hero-bg-row-start-xl", heroBgPosXl.row);
+
+    // Hero Background Column Span - Responsive
+    root.style.setProperty("--hero-bg-col-span-sm", theme.data.heroBgColSpanSm || 12);
+    root.style.setProperty("--hero-bg-col-span-md", theme.data.heroBgColSpanMd || 12);
+    root.style.setProperty("--hero-bg-col-span-lg", theme.data.heroBgColSpanLg || 12);
+    root.style.setProperty("--hero-bg-col-span-xl", theme.data.heroBgColSpanXl || 12);
+
+    // Hero Background Row Span - Responsive
+    root.style.setProperty("--hero-bg-row-span-sm", theme.data.heroBgRowSpanSm || 5);
+    root.style.setProperty("--hero-bg-row-span-md", theme.data.heroBgRowSpanMd || 5);
+    root.style.setProperty("--hero-bg-row-span-lg", theme.data.heroBgRowSpanLg || 5);
+    root.style.setProperty("--hero-bg-row-span-xl", theme.data.heroBgRowSpanXl || 5);
     root.style.setProperty("--hero-text-align", theme.data.heroTextAlign || textAlignThemes.center);
     root.style.setProperty("--hero-subtext-align", theme.data.heroSubTextAlign || textAlignThemes.center);
     root.style.setProperty("--text-animation", theme.data.textAnimation || textAnimationThemes.navigators);
@@ -371,4 +457,56 @@ export const getResponsiveGridPositionClass = (positions = {}, colSpans = {}) =>
   });
 
   return allClasses.join(' ');
+};
+
+/**
+ * Generate a unique CSS class name for responsive grid positioning
+ * @param {string} elementType - Type of element ('text', 'subtext', 'bg')
+ * @returns {string} CSS class name for responsive grid positioning
+ */
+export const getResponsiveGridCSSVars = (elementType) => {
+  return `hero-${elementType}-responsive-grid`;
+};
+
+/**
+ * Generate CSS styles for responsive grid positioning using CSS variables
+ * @param {string} elementType - Type of element ('text', 'subtext', 'bg')
+ * @returns {string} CSS styles for responsive grid positioning
+ */
+export const generateResponsiveGridCSS = (elementType) => {
+  return `
+    .hero-${elementType}-responsive-grid {
+      grid-column-start: var(--hero-${elementType}-col-start-sm);
+      grid-row-start: var(--hero-${elementType}-row-start-sm);
+      grid-column-end: span var(--hero-${elementType}-col-span-sm);
+      grid-row-end: span var(--hero-${elementType}-row-span-sm);
+    }
+
+    @media (min-width: 768px) {
+      .hero-${elementType}-responsive-grid {
+        grid-column-start: var(--hero-${elementType}-col-start-md);
+        grid-row-start: var(--hero-${elementType}-row-start-md);
+        grid-column-end: span var(--hero-${elementType}-col-span-md);
+        grid-row-end: span var(--hero-${elementType}-row-span-md);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .hero-${elementType}-responsive-grid {
+        grid-column-start: var(--hero-${elementType}-col-start-lg);
+        grid-row-start: var(--hero-${elementType}-row-start-lg);
+        grid-column-end: span var(--hero-${elementType}-col-span-lg);
+        grid-row-end: span var(--hero-${elementType}-row-span-lg);
+      }
+    }
+
+    @media (min-width: 1280px) {
+      .hero-${elementType}-responsive-grid {
+        grid-column-start: var(--hero-${elementType}-col-start-xl);
+        grid-row-start: var(--hero-${elementType}-row-start-xl);
+        grid-column-end: span var(--hero-${elementType}-col-span-xl);
+        grid-row-end: span var(--hero-${elementType}-row-span-xl);
+      }
+    }
+  `;
 }; 

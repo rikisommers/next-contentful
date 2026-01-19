@@ -24,6 +24,7 @@ import {
   heroTextPositionThemes,
   heroTextColSpanThemes,
   heroTextColSpanLgThemes,
+  heroTextRowSpanThemes,
   headerTextPositionThemes,
   headerTextColSpanThemes,
   textAlignThemes,
@@ -108,6 +109,8 @@ export const themeControlConfig = {
     headerTextColSpanXl: { type: "select", label: "Text Col Span Xl", options: headerTextColSpanThemes },
   },
   Hero: {
+    heroShowSubtext: { type: "boolean", label: "Show subtext" },
+
     heroHeight: { type: "slider", label: "Height (vh)", min: 10, max: 100, step: 5 },
     heroTextImage: { type: "select", label: "Images", options: heroTextImageThemes },
     heroBackground: { type: "select", label: "Bg", options: heroBackgroundThemes },
@@ -134,6 +137,12 @@ export const themeControlConfig = {
     heroTextColSpanLg: { type: "select", label: "Text Col Span Lg", options: heroTextColSpanLgThemes },
     heroTextColSpanXl: { type: "select", label: "Text Col Span Xl", options: heroTextColSpanLgThemes },
 
+    // Text Row Span - Responsive
+    heroTextRowSpanSm: { type: "select", label: "Text Row Span Sm", options: heroTextRowSpanThemes },
+    heroTextRowSpanMd: { type: "select", label: "Text Row Span Md", options: heroTextRowSpanThemes },
+    heroTextRowSpanLg: { type: "select", label: "Text Row Span Lg", options: heroTextRowSpanThemes },
+    heroTextRowSpanXl: { type: "select", label: "Text Row Span Xl", options: heroTextRowSpanThemes },
+
     // Subtext Position - Responsive
     heroSubTextPositionSm: { type: "position", label: "Subtext Position Sm", options: heroTextPositionThemes },
     heroSubTextPositionMd: { type: "position", label: "Subtext Position Md", options: heroTextPositionThemes },
@@ -145,6 +154,30 @@ export const themeControlConfig = {
     heroSubTextColSpanMd: { type: "select", label: "Subtext Col Span Md", options: heroTextColSpanThemes },
     heroSubTextColSpanLg: { type: "select", label: "Subtext Col Span Lg", options: heroTextColSpanLgThemes },
     heroSubTextColSpanXl: { type: "select", label: "Subtext Col Span Xl", options: heroTextColSpanLgThemes },
+
+    // Subtext Row Span - Responsive
+    heroSubTextRowSpanSm: { type: "select", label: "Subtext Row Span Sm", options: heroTextRowSpanThemes },
+    heroSubTextRowSpanMd: { type: "select", label: "Subtext Row Span Md", options: heroTextRowSpanThemes },
+    heroSubTextRowSpanLg: { type: "select", label: "Subtext Row Span Lg", options: heroTextRowSpanThemes },
+    heroSubTextRowSpanXl: { type: "select", label: "Subtext Row Span Xl", options: heroTextRowSpanThemes },
+
+    // Background Position - Responsive
+    heroBgPositionSm: { type: "position", label: "Bg Position Sm", options: heroTextPositionThemes },
+    heroBgPositionMd: { type: "position", label: "Bg Position Md", options: heroTextPositionThemes },
+    heroBgPositionLg: { type: "position", label: "Bg Position Lg", options: heroTextPositionThemes },
+    heroBgPositionXl: { type: "position", label: "Bg Position Xl", options: heroTextPositionThemes },
+
+    // Background Column Span - Responsive
+    heroBgColSpanSm: { type: "select", label: "Bg Col Span Sm", options: heroTextColSpanThemes },
+    heroBgColSpanMd: { type: "select", label: "Bg Col Span Md", options: heroTextColSpanThemes },
+    heroBgColSpanLg: { type: "select", label: "Bg Col Span Lg", options: heroTextColSpanLgThemes },
+    heroBgColSpanXl: { type: "select", label: "Bg Col Span Xl", options: heroTextColSpanLgThemes },
+
+    // Background Row Span - Responsive
+    heroBgRowSpanSm: { type: "select", label: "Bg Row Span Sm", options: heroTextRowSpanThemes },
+    heroBgRowSpanMd: { type: "select", label: "Bg Row Span Md", options: heroTextRowSpanThemes },
+    heroBgRowSpanLg: { type: "select", label: "Bg Row Span Lg", options: heroTextRowSpanThemes },
+    heroBgRowSpanXl: { type: "select", label: "Bg Row Span Xl", options: heroTextRowSpanThemes },
     },
   CanvasCamera: {
     _description: "Control the 3D camera position and field of view. Use sliders to position the camera or enable orbit controls below.",

@@ -62,7 +62,7 @@ export default function ThemeEditor({ customThemes }) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const presetThemes = themes;
-  const showToast = useToast();
+  const toast = useToast();
 
   const [value, setValue] = useState(0);
 
@@ -191,11 +191,11 @@ export default function ThemeEditor({ customThemes }) {
 
       if (!response.ok) throw new Error("Failed to save theme");
       console.log("Theme saved successfully", themeToSave);
-      showToast("Theme saved successfully", themeToSave.name);
+      toast.showSuccess(`Theme "${themeToSave.name}" saved successfully`);
       // Optionally, refresh the theme list or update state here
     } catch (error) {
       console.error("Error saving theme:", error);
-      showToast("Error saving theme:", error);
+      toast.showError(`Error saving theme: ${error.message}`);
     }
   };
 
@@ -217,17 +217,17 @@ export default function ThemeEditor({ customThemes }) {
       // console.log("Delete response body:", responseBody);
 
       if (!deleteResponse.ok) {
-        showToast(`Failed to delete theme: ${responseBody.message}`);
+        toast.showError(`Failed to delete theme: ${responseBody.message}`);
         throw new Error(`Failed to delete theme: ${responseBody.message}`);
       }
 
       console.log("Theme deleted successfully");
-      showToast("Theme deleted successfully", themeToSave.name);
+      toast.showSuccess(`Theme "${themeToSave.name}" deleted successfully`);
 
       // Optionally refresh the theme list or update state here
     } catch (error) {
       console.error("Error deleting theme:", error);
-      showToast("Error deleting theme:", error);
+      toast.showError(`Error deleting theme: ${error.message}`);
     }
   };
 
@@ -248,15 +248,15 @@ export default function ThemeEditor({ customThemes }) {
         body: JSON.stringify(themeToSave),
       });
       if (!response.ok) {
-        showToast(`Failed to save theme: ${errorData.message}`);
+        toast.showError(`Failed to save theme: ${errorData.message}`);
         const errorData = await response.json();
         throw new Error(`Failed to save theme: ${errorData.message}`);
       }
       console.log("Theme saved to Contentful successfully");
-      showToast("Theme saved to Contentful successfully");
+      toast.showSuccess("Theme saved to Contentful successfully");
     } catch (error) {
       console.error("Error saving theme to Contentful:", error.message);
-      showToast("Error saving theme to Contentful:", error.message);
+      toast.showError(`Error saving theme to Contentful: ${error.message}`);
     }
   };
 

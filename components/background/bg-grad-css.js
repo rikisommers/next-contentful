@@ -71,6 +71,8 @@ export default function BackgroundCssGrad() {
         <div 
             className={baseClassName}
             style={gradientStyle}
-        />
+        >
+            <h1>sd</h1>
+        </div>
     );
 }

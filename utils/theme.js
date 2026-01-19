@@ -1544,12 +1544,10 @@ variableUnit: '1vw',
 };
 
 export const pageTransitionThemes = {
-  carousel:'carousel',
   tiltandwipe:'tilt and wipe',
   tilt:'tilt',
   fade:'fade',
   wipe:'wipe',
-  carousel:'carousel',
   pixel:'pixel',
   none:'none'
 };
@@ -1872,6 +1870,14 @@ export const heroTextColSpanThemes = {
   12: 12,
 };
 
+export const heroTextRowSpanThemes = {
+  1: 1,
+  2: 2,
+  3: 3,
+  4: 4,
+  5: 5,
+};
+
 export const heroTextColSpanLgThemes = {
   1: 1,
   2: 2,
@@ -2034,7 +2040,7 @@ export const themeContent = {
   textAnimation:textAnimationThemes.navigators,
   textAnimationSec:textAnimationThemes.none,
 
-  pageTransition:pageTransitionThemes.carousel,
+  pageTransition:pageTransitionThemes.fade,
   pageWidth:pageWidthThemes.fluid,
   cursor:cursorThemes.none,
 
@@ -2056,7 +2062,14 @@ export const themeContent = {
   imageTextureOpacity:imageTextureContrastThemes.opacity,
   imageMixBlendMode:mixBlendThemes.luminosity,
 
-  heroHeight: 80,
+  headerHeight:50,
+  headerTextAlign:'left',
+  headerSubtextAlign:'left',
+  
+  heroHeight: 100,
+  heroTextAlign:'left',
+  heroSubtextAlign:'left',
+  heroShowSubtext:true,
 
   heroTextPosition:heroTextPositionThemes[60], // '5-0' middle-left  
   heroSubTextPosition:heroTextPositionThemes[84], // '7-0' lower-left
@@ -2070,10 +2083,10 @@ export const themeContent = {
   heroTextPositionLg: heroTextPositionThemes[60], // '5-0' middle-left for large screens
   heroTextPositionXl: heroTextPositionThemes[60], // '5-0' middle-left for extra large screens
   // Hero Text Column Span - Responsive breakpoints
-  heroTextColSpanSm: 12, // Full width on small screens
+  heroTextColSpanSm: 10, // Full width on small screens
   heroTextColSpanMd: 10, // 10 columns on medium screens
-  heroTextColSpanLg: 8,  // 8 columns on large screens
-  heroTextColSpanXl: 8,  // 8 columns on extra large screens
+  heroTextColSpanLg: 6,  // 8 columns on large screens
+  heroTextColSpanXl: 6,  // 8 columns on extra large screens
   // Hero Subtext Position - Responsive breakpoints
   heroSubTextPositionSm: heroTextPositionThemes[84], // '7-0' lower-left for small screens
   heroSubTextPositionMd: heroTextPositionThemes[84], // '7-0' lower-left for medium screens
@@ -2084,6 +2097,24 @@ export const themeContent = {
   heroSubTextColSpanMd: 8,  // 8 columns on medium screens
   heroSubTextColSpanLg: 6,  // 6 columns on large screens
   heroSubTextColSpanXl: 6,  // 6 columns on extra large screens
+
+  // Hero Background Position - Responsive breakpoints
+  heroBgPositionSm: heroTextPositionThemes[0], // '0-0' top-left for small screens
+  heroBgPositionMd: heroTextPositionThemes[0], // '0-0' top-left for medium screens
+  heroBgPositionLg: heroTextPositionThemes[0], // '0-0' top-left for large screens
+  heroBgPositionXl: heroTextPositionThemes[0], // '0-0' top-left for extra large screens
+
+  // Hero Background Column Span - Responsive breakpoints
+  heroBgColSpanSm: 12, // Full width on small screens
+  heroBgColSpanMd: 12, // Full width on medium screens
+  heroBgColSpanLg: 12, // Full width on large screens
+  heroBgColSpanXl: 12, // Full width on extra large screens
+
+  // Hero Background Row Span - Responsive breakpoints
+  heroBgRowSpanSm: 5, // Full height on small screens
+  heroBgRowSpanMd: 5, // Full height on medium screens
+  heroBgRowSpanLg: 5, // Full height on large screens
+  heroBgRowSpanXl: 5, // Full height on extra large screens
 
   heroGradMidPoint:heroGradThemes.gradMidPoint,
   heroCssGradient:heroCssGradientThemes.linear,

@@ -10,6 +10,8 @@ import AnimatedText, { AnimTextOrder } from "../motion/animated-text";
 import {
   getGridPositionClass,
   getResponsiveGridPositionClass,
+  getResponsiveGridCSSVars,
+  generateResponsiveGridCSS,
   getTextAlignClass,
 } from "../../utils/styleUtils";
 import Message, { MessageType } from "../base/message/message";
@@ -41,7 +43,7 @@ const renderHeroBackground = (heroBackground, image, theme) => {
   // Helper function to create effect object with all theme-based parameters
   const createEffect = (effectVariant, effectType, themeData) => {
     if (!effectVariant || effectVariant === 'none') return null;
-    
+
     const legacyMap = {
       blueNoise: 'dither-blue-noise',
       noiseDither: 'noise',
@@ -75,7 +77,7 @@ const renderHeroBackground = (heroBackground, image, theme) => {
       effect.contrast = isCustomCategory
         ? 100
         : themeData?.asciiContrast || 100;
-      
+
       // Map to specific ASCII character sets (these will be handled in EffectRouter)
       switch (normalizedVariant) {
         case 'ascii-standard':
@@ -179,8 +181,8 @@ const renderHeroBackground = (heroBackground, image, theme) => {
   const effectVariant =
     theme?.data?.effectVariant ?? theme?.data?.heroShaderEffect;
   const effectType = theme?.data?.effectType;
-  const effectsList = effectVariant && effectVariant !== 'none' 
-    ? [createEffect(effectVariant, effectType, theme?.data)] 
+  const effectsList = effectVariant && effectVariant !== 'none'
+    ? [createEffect(effectVariant, effectType, theme?.data)]
     : [];
 
   switch (heroBackground) {
@@ -268,16 +270,24 @@ export default function BlockHero({ title, content, tag, image, infoMessage}) {
   const full = false;
 
   return (
-    // TODO make clip path optional
-    // grid grid-rows-[48px_48px_1fr_1fr_1fr_48px_48px] grid-cols-12
-    <ClipContainer>
-      {renderHeroBackground(
-        currentTheme.data.heroBackground,
-        image,
-        currentTheme
-      )}
-     
-      <ScaleContainer>
+
+
+    <>
+      {/* Inject responsive grid CSS */}
+      <style>{`
+        ${generateResponsiveGridCSS('text')}
+        ${generateResponsiveGridCSS('subtext')}
+        ${generateResponsiveGridCSS('bg')}
+      `}</style>
+
+
+        {renderHeroBackground(
+            currentTheme.data.heroBackground,
+            image,
+            currentTheme
+        )}
+
+      {/* <ScaleContainer>  </ScaleContainer> */}
         {/* Debug panel for responsive values */}
         {/* <div className="fixed bottom-4 left-4 bg-black/80 text-white p-2 text-xs font-mono z-[9999] rounded max-w-lg">
           <div>Text: SM:{currentTheme.data.heroTextPositionSm || 'unset'} MD:{currentTheme.data.heroTextPositionMd || 'unset'} LG:{currentTheme.data.heroTextPositionLg || 'unset'}</div>
@@ -302,32 +312,23 @@ export default function BlockHero({ title, content, tag, image, infoMessage}) {
             currentTheme.data.fontScale === "fluid" ? "fluid-type" : ""
           } relative grid grid-highlight grid-cols-12 grid-rows-12 justify-end left-0 top-0 z-50 w-full gap-0 pointer-events-none `}
         >
+
+<div className={`bg-exp ${getResponsiveGridCSSVars('bg')}`}>
+  <div className="w-full h-full bg-red-300">
+      {renderHeroBackground(
+        currentTheme.data.heroBackground,
+          image,
+          currentTheme.data.heroShaderEffect,
+          currentTheme
+        )}
+      </div>
+
+
+
+
+    </div>
           <div
-            className={`o-edit-outline flex h-fit flex-col items-${
-              currentTheme.data.heroTextAlign
-            } ${(() => {
-              const positions = {
-                sm: currentTheme.data.heroTextPositionSm || currentTheme.data.heroTextPosition || '2-1',
-                md: currentTheme.data.heroTextPositionMd || currentTheme.data.heroTextPosition || '2-1',
-                lg: currentTheme.data.heroTextPositionLg || currentTheme.data.heroTextPosition || '2-1',
-                xl: currentTheme.data.heroTextPositionXl || currentTheme.data.heroTextPosition || '2-1',
-              };
-              const colSpans = {
-                sm: currentTheme.data.heroTextColSpanSm || currentTheme.data.heroTextColSpanDefault || 6,
-                md: currentTheme.data.heroTextColSpanMd || currentTheme.data.heroTextColSpanDefault || 6,
-                lg: currentTheme.data.heroTextColSpanLg || 4,
-                xl: currentTheme.data.heroTextColSpanXl || 4,
-              };
-              const gridClasses = getResponsiveGridPositionClass(positions, colSpans);
-              console.log('Hero Text Grid Debug:', { positions, colSpans, gridClasses, themeData: currentTheme.data });
-
-              // Add classes to debug panel
-              if (typeof window !== 'undefined') {
-                window.debugGridClasses = { text: gridClasses };
-              }
-
-              return gridClasses;
-            })()} `}
+            className={`o-edit-outline flex flex-col items-${currentTheme.data.heroTextAlign} ${getResponsiveGridCSSVars('text')}`}
           >
             {tag && (
               <div
@@ -348,35 +349,20 @@ export default function BlockHero({ title, content, tag, image, infoMessage}) {
                 tabIndex="0"
                 aria-describedby={content ? "hero-content" : undefined}
               >
-                   {/* {title && (
+                   {title && (
                 <AnimatedText
                   align={currentTheme.data.heroTextAlign}
                   content={title}
                   type={currentTheme.data.textAnimation}
                   delay={AnimTextOrder.ONE}
                 />
-              )} */}
+              )}
               </h1>
             
           </div>
 
           <div
-            className={`o-edit-outline h-fit ${(() => {
-              const positions = {
-                sm: currentTheme.data.heroSubTextPositionSm || currentTheme.data.heroSubTextPosition || '4-1',
-                md: currentTheme.data.heroSubTextPositionMd || currentTheme.data.heroSubTextPosition || '4-1',
-                lg: currentTheme.data.heroSubTextPositionLg || currentTheme.data.heroSubTextPosition || '4-1',
-                xl: currentTheme.data.heroSubTextPositionXl || currentTheme.data.heroSubTextPosition || '4-1',
-              };
-              const colSpans = {
-                sm: currentTheme.data.heroSubTextColSpanSm || currentTheme.data.heroSubTextColSpanDefault || 8,
-                md: currentTheme.data.heroSubTextColSpanMd || currentTheme.data.heroSubTextColSpanDefault || 8,
-                lg: currentTheme.data.heroSubTextColSpanLg || 6,
-                xl: currentTheme.data.heroSubTextColSpanXl || 6,
-              };
-              console.log('Hero Subtext Grid Debug:', { positions, colSpans });
-              return getResponsiveGridPositionClass(positions, colSpans);
-            })()}`}
+            className={`o-edit-outline h-fit ${getResponsiveGridCSSVars('subtext')}`}
           >
             {/* <figcaption className="flex absolute right-4 bottom-4 flex-col gap-4 max-w-[200px] bg-[var(--background-color)]/40  rounded-lg shadow-2xl p-4">
           <p className="text-[var(--text-color)] text-xs">{data.title}</p>
@@ -387,7 +373,7 @@ export default function BlockHero({ title, content, tag, image, infoMessage}) {
               role="doc-subtitle"
               aria-label="Hero section description"
             >
-              {content && (
+              {content && currentTheme.heroShowSubtext && (
 
                 <AnimatedText
                   type={currentTheme.data.textAnimationSec}
@@ -399,7 +385,7 @@ export default function BlockHero({ title, content, tag, image, infoMessage}) {
            
             
             {infoMessage && (
-            <div class="absolute bottom-0 right-0">
+            <div class="absolute right-0 bottom-0">
   <Message             
     type={MessageType.DEFAULT}                                                                              
     title={infoMessage.title}     
@@ -413,7 +399,7 @@ export default function BlockHero({ title, content, tag, image, infoMessage}) {
 
           </div>
         </div>
-      </ScaleContainer>
-    </ClipContainer>
+
+    </>
   );
 }
