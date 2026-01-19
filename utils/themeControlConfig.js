@@ -114,8 +114,6 @@ export const themeControlConfig = {
     // Text Alignment Controls
     heroTextAlign: { type: "select", label: "Text Align", options: textAlignThemes },
     heroSubTextAlign: { type: "select", label: "Subtext Align", options: textAlignThemes },
-    // Shader Controls
-    heroShaderEffect: { type: "select", label: "Shader Effect", options: heroShaderEffectThemes },
     // CSS Gradient Controls
     heroCssGradient: { type: "select", label: "CSS Gradient Type", options: heroCssGradientThemes },
     heroCssGradientAngle: { type: "slider", label: "CSS Gradient Angle", min: 0, max: 180, step: 1 },
@@ -210,6 +208,101 @@ export const themeControlConfig = {
   },
   Footer: {
     footerPosition: { type: "select", label: "Position", options: footerOptions.position },
+  },
+  EffectSelection: {
+    _description: "Choose visual effects to apply to canvas backgrounds. Select a category first, then choose a specific variant.",
+    effectType: { 
+      type: "select", 
+      label: "Effect Category",
+      options: {
+        none: 'None',
+        ascii: 'ASCII',
+        dithering: 'Dithering',
+        halftone: 'Halftone'
+      }
+    },
+    effectVariant: { 
+      type: "select", 
+      label: "Effect Variant",
+      options: heroShaderEffectThemes
+    }
+  },
+  EffectControls: {
+    _description: "Fine-tune the selected effect. Controls shown depend on the effect category.",
+    // ASCII Controls
+    asciiPixelSize: { 
+      type: "slider", 
+      label: "Cell Size", 
+      min: 4, max: 32, step: 2
+    },
+    asciiShowBackground: { 
+      type: "boolean", 
+      label: "Show Colors"
+    },
+    asciiContrast: { 
+      type: "slider", 
+      label: "Contrast", 
+      min: 50, max: 200, step: 10
+    },
+    
+    // Dithering Controls
+    ditherColorLevels: { 
+      type: "slider", 
+      label: "Color Levels", 
+      min: 2, max: 16, step: 1
+    },
+    ditherContrast: { 
+      type: "slider", 
+      label: "Contrast", 
+      min: 50, max: 200, step: 10
+    },
+    ditherInverted: { 
+      type: "boolean", 
+      label: "Inverted"
+    },
+    
+    // Halftone Controls
+    halftoneDotSize: { 
+      type: "slider", 
+      label: "Dot/Cell Size", 
+      min: 2, max: 32, step: 2
+    },
+    halftoneAngle: { 
+      type: "slider", 
+      label: "Angle (degrees)", 
+      min: 0, max: 360, step: 15
+    },
+    halftoneContrast: { 
+      type: "slider", 
+      label: "Contrast", 
+      min: 50, max: 200, step: 10
+    },
+    halftoneSpread: { 
+      type: "slider", 
+      label: "Spread", 
+      min: 0, max: 100, step: 5
+    },
+    halftoneShape: { 
+      type: "select", 
+      label: "Shape",
+      options: { 
+        circle: 'Circle', 
+        square: 'Square', 
+        line: 'Line' 
+      }
+    },
+    halftoneColorMode: { 
+      type: "select", 
+      label: "Color Mode",
+      options: { 
+        mono: 'Monochrome', 
+        color: 'Color' 
+      }
+    },
+    halftoneInverted: { 
+      type: "boolean", 
+      label: "Inverted"
+    }
   },
   Color: {
     accentPri: { type: "color", label: "Accent Primary" },

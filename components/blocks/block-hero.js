@@ -36,50 +36,91 @@ const getHeightClass = (heightVh) => {
 //   animatedGradient: 'animated-gradient',
 // };
 
-const renderHeroBackground = (heroBackground, image, shaderEffect, theme) => {
-  // Helper function to create effect object with theme-based sizing
-  const createEffect = (effectType) => {
-    const effect = { type: effectType };
+const renderHeroBackground = (heroBackground, image, theme) => {
+  // Helper function to create effect object with all theme-based parameters
+  const createEffect = (effectVariant, themeData) => {
+    if (!effectVariant || effectVariant === 'none') return null;
+    
+    const effect = { type: effectVariant };
 
-    // Add size parameters based on effect type and theme values
-    switch (effectType) {
-      case "halftone-dots":
-      case "halftone_dots":
-      case "halftone-led":
-      case "halftone_led":
-      case "halftone-lego":
-      case "halftone_lego":
-      case "halftone-rect":
-      case "halftone_rect":
-        effect.pixelSize = theme?.data?.halftoneSize || 6.0;
-        break;
-      case "halftone-ascii":
-      case "halftone_ascii":
-        effect.pixelSize = theme?.data?.asciiSize || 12.0;
-        break;
-      case "dither-color-quant":
-      case "dither_color_quant":
-        effect.levels = theme?.data?.ditherLevels || 4;
-        break;
-      case "pixelation":
-        effect.pixelSize = theme?.data?.pixelationSize || 8.0;
-        break;
-      case "noise":
-        effect.intensity = theme?.data?.noiseIntensity || 0.1;
-        break;
-      case "dither-blue-noise":
-      case "dither_blue_noise":
-        effect.intensity = theme?.data?.noiseIntensity || 1.0;
-        break;
-      case "dither-ordered":
-      case "dither_ordered":
-        effect.intensity = theme?.data?.noiseIntensity || 1.0;
-        effect.ditherSize = theme?.data?.ditherSize || 4;
-        break;
+    // Map effect-specific parameters based on effect type
+    // ASCII effects
+    if (effectVariant.startsWith('ascii')) {
+      effect.asciiPixelSize = themeData?.asciiPixelSize || 12;
+      effect.asciiShowBackground = themeData?.asciiShowBackground || false;
+      effect.asciiContrast = themeData?.asciiContrast || 100;
+      
+      // Map to specific ASCII character sets (these will be handled in EffectRouter)
+      switch (effectVariant) {
+        case 'ascii-standard':
+        case 'ascii_standard':
+          effect.asciiChars = ' .:-=+*#%@'; // Standard ASCII ramp
+          break;
+        case 'ascii-dense':
+        case 'ascii_dense':
+          effect.asciiChars = ' ░▒▓█'; // Dense blocks
+          break;
+        case 'ascii-minimal':
+        case 'ascii_minimal':
+          effect.asciiChars = ' .-:=+#%'; // Minimal set
+          break;
+        case 'ascii-blocks':
+        case 'ascii_blocks':
+          effect.asciiChars = ' ▁▂▃▄▅▆▇█'; // Block progression
+          break;
+        case 'ascii-braille':
+        case 'ascii_braille':
+          effect.asciiChars = ' ⠁⠃⠇⠏⠟⠿⣿'; // Braille patterns
+          break;
+        case 'ascii-technical':
+        case 'ascii_technical':
+          effect.asciiChars = ' ·:∴∷≡≣▓'; // Technical symbols
+          break;
+        case 'ascii-matrix':
+        case 'ascii_matrix':
+          effect.asciiChars = ' ｡ﾟ+*ﾟ｡+｡ﾟ'; // Matrix-style
+          break;
+        case 'ascii-hatching':
+        case 'ascii_hatching':
+          effect.asciiChars = ' /\\|#'; // Hatching patterns
+          break;
+      }
+    }
+    // Dithering effects
+    else if (effectVariant.startsWith('dither')) {
+      effect.ditherColorLevels = themeData?.ditherColorLevels || 4;
+      effect.ditherPaperColor = themeData?.ditherPaperColor || themeData?.backgroundColor || '#ffffff';
+      effect.ditherInkColor = themeData?.ditherInkColor || themeData?.textColor || '#000000';
+      effect.ditherInverted = themeData?.ditherInverted || false;
+    }
+    // Halftone effects
+    else if (effectVariant.startsWith('halftone')) {
+      effect.halftoneDotSize = themeData?.halftoneDotSize || 8;
+      effect.halftoneAngle = themeData?.halftoneAngle || 45;
+      effect.halftoneContrast = themeData?.halftoneContrast || 100;
+      effect.halftoneSpread = themeData?.halftoneSpread || 50;
+      effect.halftoneShape = themeData?.halftoneShape || 'circle';
+      effect.halftonePaperColor = themeData?.halftonePaperColor || themeData?.backgroundColor || '#ffffff';
+      effect.halftoneInkColor = themeData?.halftoneInkColor || themeData?.textColor || '#000000';
+      effect.halftoneColorMode = themeData?.halftoneColorMode || 'mono';
+      effect.halftoneInverted = themeData?.halftoneInverted || false;
+    }
+    // Legacy effects
+    else if (effectVariant === 'pixelation') {
+      effect.pixelSize = themeData?.pixelationSize || 8.0;
+    }
+    else if (effectVariant === 'noise') {
+      effect.intensity = themeData?.noiseIntensity || 0.1;
     }
 
     return effect;
   };
+
+  // Get effect variant from theme
+  const effectVariant = theme?.data?.effectVariant;
+  const effectsList = effectVariant && effectVariant !== 'none' 
+    ? [createEffect(effectVariant, theme?.data)] 
+    : [];
 
   switch (heroBackground) {
     case "none":
@@ -90,11 +131,7 @@ const renderHeroBackground = (heroBackground, image, shaderEffect, theme) => {
           <UnifiedCanvas
             type="shader"
             shaderType="water"
-            effects={
-              shaderEffect && shaderEffect !== "none"
-                ? [createEffect(shaderEffect)]
-                : []
-            }
+            effects={effectsList}
           />
         </React.Suspense>
       );
@@ -104,11 +141,7 @@ const renderHeroBackground = (heroBackground, image, shaderEffect, theme) => {
           <UnifiedCanvas
             type="shader"
             shaderType="sphere"
-            effects={
-              shaderEffect && shaderEffect !== "none"
-                ? [createEffect(shaderEffect)]
-                : []
-            }
+            effects={effectsList}
           />
         </React.Suspense>
       );
@@ -118,11 +151,7 @@ const renderHeroBackground = (heroBackground, image, shaderEffect, theme) => {
           <UnifiedCanvas
             type="shader"
             shaderType="perlinBlob"
-            effects={
-              shaderEffect && shaderEffect !== "none"
-                ? [createEffect(shaderEffect)]
-                : []
-            }
+            effects={effectsList}
           />
         </React.Suspense>
       );
@@ -132,11 +161,7 @@ const renderHeroBackground = (heroBackground, image, shaderEffect, theme) => {
           <UnifiedCanvas
             type="shader"
             shaderType="experience"
-            effects={
-              shaderEffect && shaderEffect !== "none"
-                ? [createEffect(shaderEffect)]
-                : []
-            }
+            effects={effectsList}
           />
         </React.Suspense>
       );
@@ -145,11 +170,7 @@ const renderHeroBackground = (heroBackground, image, shaderEffect, theme) => {
         <React.Suspense fallback={<BackgroundCssGrad />}>
           <UnifiedCanvas
             type="gradient"
-            effects={
-              shaderEffect && shaderEffect !== "none"
-                ? [createEffect(shaderEffect)]
-                : []
-            }
+            effects={effectsList}
           />
         </React.Suspense>
       );
@@ -159,11 +180,7 @@ const renderHeroBackground = (heroBackground, image, shaderEffect, theme) => {
           <UnifiedCanvas
             type="image"
             src={image?.url}
-            effects={
-              shaderEffect && shaderEffect !== "none"
-                ? [createEffect(shaderEffect)]
-                : []
-            }
+            effects={effectsList}
           />
         </React.Suspense>
       );
@@ -196,7 +213,6 @@ export default function BlockHero({ title, content, tag, image, infoMessage}) {
       {renderHeroBackground(
         currentTheme.data.heroBackground,
         image,
-        currentTheme.data.heroShaderEffect,
         currentTheme
       )}
      

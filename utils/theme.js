@@ -1738,16 +1738,50 @@ export const heroBackgroundThemes = {
 // Separate effects that can be applied to canvas backgrounds
 export const heroShaderEffectThemes = {
   none: 'none',
+  
+  // Original halftone effects
   halftone_dots: 'halftone-dots',
   halftone_ascii: 'halftone-ascii',
   halftone_led: 'halftone-led',
   halftone_lego: 'halftone-lego',
   halftone_rect: 'halftone-rect',
+  
+  // Original noise/pixel effects
   noise: 'noise',
   pixelation: 'pixelation',
+  
+  // Original dithering effects
   dither_blue_noise: 'dither-blue-noise',
   dither_ordered: 'dither-ordered',
   dither_color_quant: 'dither-color-quant',
+  
+  // New ASCII variants (efecto-inspired)
+  ascii_standard: 'ascii-standard',
+  ascii_dense: 'ascii-dense',
+  ascii_minimal: 'ascii-minimal',
+  ascii_blocks: 'ascii-blocks',
+  ascii_braille: 'ascii-braille',
+  ascii_technical: 'ascii-technical',
+  ascii_matrix: 'ascii-matrix',
+  ascii_hatching: 'ascii-hatching',
+  
+  // New dithering algorithms (efecto-inspired)
+  dither_floyd_steinberg: 'dither-floyd-steinberg',
+  dither_atkinson: 'dither-atkinson',
+  dither_jarvis_judice_ninke: 'dither-jarvis-judice-ninke',
+  dither_stucki: 'dither-stucki',
+  dither_burkes: 'dither-burkes',
+  dither_sierra: 'dither-sierra',
+  dither_sierra2: 'dither-sierra2',
+  dither_sierra_lite: 'dither-sierra-lite',
+  
+  // New halftone variants (efecto-inspired)
+  halftone_dots_new: 'halftone-dots-new',
+  halftone_circles: 'halftone-circles',
+  halftone_squares: 'halftone-squares',
+  halftone_lines: 'halftone-lines',
+  halftone_crosshatch: 'halftone-crosshatch',
+  halftone_newspaper: 'halftone-newspaper',
 };
 
 export const heroCssGradientThemes = {
@@ -1902,14 +1936,7 @@ export const helpers = {
 };
 
 export const shaderEffect = {
-  // watercolor: 'watercolor',
-  // noise: 'noise',
-  // pixel: 'pixel',
-  // halftone: 'halftone',
-  // moire: 'moire',
-  // vintagePrint: 'vintagePrint',
-  // vintageScreen: 'vintageScreen',
-  // dithered: 'dithered',
+  // Original effects
   blueNoise: 'blueNoise',
   noiseDither: 'noiseDither',
   orderedDither: 'orderedDither',
@@ -1923,6 +1950,34 @@ export const shaderEffect = {
   led: 'led',
   lego: 'lego',
   progress: 'progress',
+  
+  // ASCII variants (from efecto.app)
+  ascii_standard: 'ascii_standard',
+  ascii_dense: 'ascii_dense',
+  ascii_minimal: 'ascii_minimal',
+  ascii_blocks: 'ascii_blocks',
+  ascii_braille: 'ascii_braille',
+  ascii_technical: 'ascii_technical',
+  ascii_matrix: 'ascii_matrix',
+  ascii_hatching: 'ascii_hatching',
+  
+  // Dithering algorithms (from efecto.app)
+  dither_floyd_steinberg: 'dither_floyd_steinberg',
+  dither_atkinson: 'dither_atkinson',
+  dither_jarvis_judice_ninke: 'dither_jarvis_judice_ninke',
+  dither_stucki: 'dither_stucki',
+  dither_burkes: 'dither_burkes',
+  dither_sierra: 'dither_sierra',
+  dither_sierra2: 'dither_sierra2',
+  dither_sierra_lite: 'dither_sierra_lite',
+  
+  // Halftone variants (from efecto.app)
+  halftone_dots: 'halftone_dots',
+  halftone_circles: 'halftone_circles',
+  halftone_squares: 'halftone_squares',
+  halftone_lines: 'halftone_lines',
+  halftone_crosshatch: 'halftone_crosshatch',
+  halftone_newspaper: 'halftone_newspaper',
 };
 
 export const sounds = {
@@ -2035,7 +2090,30 @@ export const themeContent = {
   heroCssGradientAngle:'90',
   heroCssGradientRadialPosition: { x: 50, y: 50 }, // Center position as x,y percentages
   heroBackground:heroBackgroundThemes.canvasPerlinBlob,
-  heroShaderEffect: shaderEffect.blueNoise, // Default shader type
+  heroShaderEffect: shaderEffect.blueNoise, // Default shader type (legacy, use effectVariant)
+  
+  // Effect Selection
+  effectType: 'none',
+  effectVariant: heroShaderEffectThemes.none,
+  
+  // ASCII Effect Controls
+  asciiPixelSize: 12,
+  asciiShowBackground: false,
+  asciiContrast: 100,
+  
+  // Dithering Effect Controls
+  ditherColorLevels: 4,
+  ditherContrast: 100,
+  ditherInverted: false,
+  
+  // Halftone Effect Controls
+  halftoneDotSize: 8,
+  halftoneAngle: 45,
+  halftoneContrast: 100,
+  halftoneSpread: 50,
+  halftoneShape: 'circle',
+  halftoneColorMode: 'mono',
+  halftoneInverted: false,
 
   // Canvas Camera Controls
   canvasCameraPositionX: 0,    // Camera X position

@@ -3,8 +3,36 @@ import { Noise, Pixelation, DotScreen, Glitch, ShaderPass } from '@react-three/p
 import { BlendFunction, Effect } from 'postprocessing';
 import * as THREE from 'three';
 
-// Import the actual ASCII shader
+// Import original shaders
 import asciiFragmentShader from '../shaders/halftone/ascii.glsl';
+
+// Import new ASCII variant shaders
+import asciiStandardShader from '../shaders/halftone/ascii-standard.glsl';
+import asciiDenseShader from '../shaders/halftone/ascii-dense.glsl';
+import asciiMinimalShader from '../shaders/halftone/ascii-minimal.glsl';
+import asciiBlocksShader from '../shaders/halftone/ascii-blocks.glsl';
+import asciiBrailleShader from '../shaders/halftone/ascii-braille.glsl';
+import asciiTechnicalShader from '../shaders/halftone/ascii-technical.glsl';
+import asciiMatrixShader from '../shaders/halftone/ascii-matrix.glsl';
+import asciiHatchingShader from '../shaders/halftone/ascii-hatching.glsl';
+
+// Import new dithering algorithm shaders
+import floydSteinbergShader from '../shaders/dither/floyd-steinberg.glsl';
+import atkinsonShader from '../shaders/dither/atkinson.glsl';
+import jarvisJudiceNinkeShader from '../shaders/dither/jarvis-judice-ninke.glsl';
+import stuckiShader from '../shaders/dither/stucki.glsl';
+import burkesShader from '../shaders/dither/burkes.glsl';
+import sierraShader from '../shaders/dither/sierra.glsl';
+import sierra2Shader from '../shaders/dither/sierra-2.glsl';
+import sierraLiteShader from '../shaders/dither/sierra-lite.glsl';
+
+// Import new halftone variant shaders
+import halftoneDotsNewShader from '../shaders/halftone/halftone-dots.glsl';
+import halftoneCirclesShader from '../shaders/halftone/halftone-circles.glsl';
+import halftoneSquaresShader from '../shaders/halftone/halftone-squares.glsl';
+import halftoneLinesShader from '../shaders/halftone/halftone-lines.glsl';
+import halftoneCrosshatchShader from '../shaders/halftone/halftone-crosshatch.glsl';
+import halftoneNewspaperShader from '../shaders/halftone/halftone-newspaper.glsl';
 
 // Custom ASCII Effect using the original shader
 class ASCIIEffect extends Effect {
@@ -200,6 +228,311 @@ const createASCIITexture = (chars = './ノハメラマ木', pixelSize = 12) => {
   
   return texture;
 };
+
+// ============ NEW EFECTO-INSPIRED EFFECT CLASSES ============
+
+// ASCII Standard Effect
+class ASCIIStandardEffect extends Effect {
+  constructor(options = {}) {
+    const { pixelSize = 12.0, asciiTexture, charCount = [10, 1], showBackground = false } = options;
+    
+    super('ASCIIStandardEffect', asciiStandardShader, {
+      uniforms: new Map([
+        ['pixelSize', new THREE.Uniform(pixelSize)],
+        ['asciiTexture', new THREE.Uniform(asciiTexture)],
+        ['charCount', new THREE.Uniform(new THREE.Vector2(charCount[0], charCount[1]))],
+        ['showBackground', new THREE.Uniform(showBackground)]
+      ])
+    });
+  }
+}
+
+// ASCII Dense Effect
+class ASCIIDenseEffect extends Effect {
+  constructor(options = {}) {
+    const { pixelSize = 12.0, asciiTexture, charCount = [60, 1], showBackground = false } = options;
+    
+    super('ASCIIDenseEffect', asciiDenseShader, {
+      uniforms: new Map([
+        ['pixelSize', new THREE.Uniform(pixelSize)],
+        ['asciiTexture', new THREE.Uniform(asciiTexture)],
+        ['charCount', new THREE.Uniform(new THREE.Vector2(charCount[0], charCount[1]))],
+        ['showBackground', new THREE.Uniform(showBackground)]
+      ])
+    });
+  }
+}
+
+// ASCII Minimal Effect
+class ASCIIMinimalEffect extends Effect {
+  constructor(options = {}) {
+    const { pixelSize = 12.0, asciiTexture, charCount = [4, 1], showBackground = false } = options;
+    
+    super('ASCIIMinimalEffect', asciiMinimalShader, {
+      uniforms: new Map([
+        ['pixelSize', new THREE.Uniform(pixelSize)],
+        ['asciiTexture', new THREE.Uniform(asciiTexture)],
+        ['charCount', new THREE.Uniform(new THREE.Vector2(charCount[0], charCount[1]))],
+        ['showBackground', new THREE.Uniform(showBackground)]
+      ])
+    });
+  }
+}
+
+// ASCII Blocks Effect
+class ASCIIBlocksEffect extends Effect {
+  constructor(options = {}) {
+    const { pixelSize = 12.0 } = options;
+    
+    super('ASCIIBlocksEffect', asciiBlocksShader, {
+      uniforms: new Map([
+        ['pixelSize', new THREE.Uniform(pixelSize)]
+      ])
+    });
+  }
+}
+
+// ASCII Braille Effect
+class ASCIIBrailleEffect extends Effect {
+  constructor(options = {}) {
+    const { pixelSize = 12.0 } = options;
+    
+    super('ASCIIBrailleEffect', asciiBrailleShader, {
+      uniforms: new Map([
+        ['pixelSize', new THREE.Uniform(pixelSize)]
+      ])
+    });
+  }
+}
+
+// ASCII Technical Effect
+class ASCIITechnicalEffect extends Effect {
+  constructor(options = {}) {
+    const { pixelSize = 12.0, asciiTexture, charCount = [16, 1], showBackground = false } = options;
+    
+    super('ASCIITechnicalEffect', asciiTechnicalShader, {
+      uniforms: new Map([
+        ['pixelSize', new THREE.Uniform(pixelSize)],
+        ['asciiTexture', new THREE.Uniform(asciiTexture)],
+        ['charCount', new THREE.Uniform(new THREE.Vector2(charCount[0], charCount[1]))],
+        ['showBackground', new THREE.Uniform(showBackground)]
+      ])
+    });
+  }
+}
+
+// ASCII Matrix Effect
+class ASCIIMatrixEffect extends Effect {
+  constructor(options = {}) {
+    const { pixelSize = 12.0 } = options;
+    
+    super('ASCIIMatrixEffect', asciiMatrixShader, {
+      uniforms: new Map([
+        ['pixelSize', new THREE.Uniform(pixelSize)],
+        ['time', new THREE.Uniform(0)]
+      ])
+    });
+  }
+  
+  update(renderer, inputBuffer, deltaTime) {
+    this.uniforms.get('time').value += deltaTime;
+  }
+}
+
+// ASCII Hatching Effect
+class ASCIIHatchingEffect extends Effect {
+  constructor(options = {}) {
+    const { pixelSize = 12.0 } = options;
+    
+    super('ASCIIHatchingEffect', asciiHatchingShader, {
+      uniforms: new Map([
+        ['pixelSize', new THREE.Uniform(pixelSize)]
+      ])
+    });
+  }
+}
+
+// Floyd-Steinberg Dithering Effect
+class FloydSteinbergEffect extends Effect {
+  constructor(options = {}) {
+    const { colorLevels = 4 } = options;
+    
+    super('FloydSteinbergEffect', floydSteinbergShader, {
+      uniforms: new Map([
+        ['colorLevels', new THREE.Uniform(colorLevels)]
+      ])
+    });
+  }
+}
+
+// Atkinson Dithering Effect
+class AtkinsonEffect extends Effect {
+  constructor(options = {}) {
+    const { colorLevels = 4 } = options;
+    
+    super('AtkinsonEffect', atkinsonShader, {
+      uniforms: new Map([
+        ['colorLevels', new THREE.Uniform(colorLevels)]
+      ])
+    });
+  }
+}
+
+// Jarvis-Judice-Ninke Dithering Effect
+class JarvisJudiceNinkeEffect extends Effect {
+  constructor(options = {}) {
+    const { colorLevels = 4 } = options;
+    
+    super('JarvisJudiceNinkeEffect', jarvisJudiceNinkeShader, {
+      uniforms: new Map([
+        ['colorLevels', new THREE.Uniform(colorLevels)]
+      ])
+    });
+  }
+}
+
+// Stucki Dithering Effect
+class StuckiEffect extends Effect {
+  constructor(options = {}) {
+    const { colorLevels = 4 } = options;
+    
+    super('StuckiEffect', stuckiShader, {
+      uniforms: new Map([
+        ['colorLevels', new THREE.Uniform(colorLevels)]
+      ])
+    });
+  }
+}
+
+// Burkes Dithering Effect
+class BurkesEffect extends Effect {
+  constructor(options = {}) {
+    const { colorLevels = 4 } = options;
+    
+    super('BurkesEffect', burkesShader, {
+      uniforms: new Map([
+        ['colorLevels', new THREE.Uniform(colorLevels)]
+      ])
+    });
+  }
+}
+
+// Sierra Dithering Effect
+class SierraEffect extends Effect {
+  constructor(options = {}) {
+    const { colorLevels = 4 } = options;
+    
+    super('SierraEffect', sierraShader, {
+      uniforms: new Map([
+        ['colorLevels', new THREE.Uniform(colorLevels)]
+      ])
+    });
+  }
+}
+
+// Sierra 2 Dithering Effect
+class Sierra2Effect extends Effect {
+  constructor(options = {}) {
+    const { colorLevels = 4 } = options;
+    
+    super('Sierra2Effect', sierra2Shader, {
+      uniforms: new Map([
+        ['colorLevels', new THREE.Uniform(colorLevels)]
+      ])
+    });
+  }
+}
+
+// Sierra Lite Dithering Effect
+class SierraLiteEffect extends Effect {
+  constructor(options = {}) {
+    const { colorLevels = 4 } = options;
+    
+    super('SierraLiteEffect', sierraLiteShader, {
+      uniforms: new Map([
+        ['colorLevels', new THREE.Uniform(colorLevels)]
+      ])
+    });
+  }
+}
+
+// Halftone Dots (New) Effect
+class HalftoneDotsNewEffect extends Effect {
+  constructor(options = {}) {
+    const { pixelSize = 8.0 } = options;
+    
+    super('HalftoneDotsNewEffect', halftoneDotsNewShader, {
+      uniforms: new Map([
+        ['pixelSize', new THREE.Uniform(pixelSize)]
+      ])
+    });
+  }
+}
+
+// Halftone Circles Effect
+class HalftoneCirclesEffect extends Effect {
+  constructor(options = {}) {
+    const { pixelSize = 8.0 } = options;
+    
+    super('HalftoneCirclesEffect', halftoneCirclesShader, {
+      uniforms: new Map([
+        ['pixelSize', new THREE.Uniform(pixelSize)]
+      ])
+    });
+  }
+}
+
+// Halftone Squares Effect
+class HalftoneSquaresEffect extends Effect {
+  constructor(options = {}) {
+    const { pixelSize = 8.0 } = options;
+    
+    super('HalftoneSquaresEffect', halftoneSquaresShader, {
+      uniforms: new Map([
+        ['pixelSize', new THREE.Uniform(pixelSize)]
+      ])
+    });
+  }
+}
+
+// Halftone Lines Effect
+class HalftoneLinesEffect extends Effect {
+  constructor(options = {}) {
+    const { pixelSize = 8.0 } = options;
+    
+    super('HalftoneLinesEffect', halftoneLinesShader, {
+      uniforms: new Map([
+        ['pixelSize', new THREE.Uniform(pixelSize)]
+      ])
+    });
+  }
+}
+
+// Halftone Crosshatch Effect
+class HalftoneCrosshatchEffect extends Effect {
+  constructor(options = {}) {
+    const { pixelSize = 8.0 } = options;
+    
+    super('HalftoneCrosshatchEffect', halftoneCrosshatchShader, {
+      uniforms: new Map([
+        ['pixelSize', new THREE.Uniform(pixelSize)]
+      ])
+    });
+  }
+}
+
+// Halftone Newspaper Effect
+class HalftoneNewspaperEffect extends Effect {
+  constructor(options = {}) {
+    const { pixelSize = 8.0 } = options;
+    
+    super('HalftoneNewspaperEffect', halftoneNewspaperShader, {
+      uniforms: new Map([
+        ['pixelSize', new THREE.Uniform(pixelSize)]
+      ])
+    });
+  }
+}
 
 /**
  * Custom Halftone Effect using DotScreen
@@ -450,6 +783,253 @@ export const EffectRouter = ({ effects = [] }) => {
               {
                 key: `${effect.type}-${index}`,
                 object: new ColorQuantDitherEffect({ levels: effect.levels || 4 })
+              }
+            );
+          
+          // ============ NEW ASCII VARIANTS ============
+          case 'ascii-standard':
+          case 'ascii_standard':
+            const asciiStandardTexture = useMemo(() => createASCIITexture(' .:-=+*#%@', effect.pixelSize || 12.0), [effect.pixelSize]);
+            return React.createElement(
+              'primitive',
+              {
+                key: `${effect.type}-${index}`,
+                object: new ASCIIStandardEffect({ 
+                  pixelSize: effect.pixelSize || 12.0,
+                  asciiTexture: asciiStandardTexture,
+                  charCount: [10, 1],
+                  showBackground: effect.showBackground || false
+                })
+              }
+            );
+          
+          case 'ascii-dense':
+          case 'ascii_dense':
+            const asciiDenseTexture = useMemo(() => createASCIITexture(' .\'`^",:;Il!i><~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$', effect.pixelSize || 12.0), [effect.pixelSize]);
+            return React.createElement(
+              'primitive',
+              {
+                key: `${effect.type}-${index}`,
+                object: new ASCIIDenseEffect({ 
+                  pixelSize: effect.pixelSize || 12.0,
+                  asciiTexture: asciiDenseTexture,
+                  charCount: [60, 1],
+                  showBackground: effect.showBackground || false
+                })
+              }
+            );
+          
+          case 'ascii-minimal':
+          case 'ascii_minimal':
+            const asciiMinimalTexture = useMemo(() => createASCIITexture(' .o0@', effect.pixelSize || 12.0), [effect.pixelSize]);
+            return React.createElement(
+              'primitive',
+              {
+                key: `${effect.type}-${index}`,
+                object: new ASCIIMinimalEffect({ 
+                  pixelSize: effect.pixelSize || 12.0,
+                  asciiTexture: asciiMinimalTexture,
+                  charCount: [4, 1],
+                  showBackground: effect.showBackground || false
+                })
+              }
+            );
+          
+          case 'ascii-blocks':
+          case 'ascii_blocks':
+            return React.createElement(
+              'primitive',
+              {
+                key: `${effect.type}-${index}`,
+                object: new ASCIIBlocksEffect({ pixelSize: effect.pixelSize || 12.0 })
+              }
+            );
+          
+          case 'ascii-braille':
+          case 'ascii_braille':
+            return React.createElement(
+              'primitive',
+              {
+                key: `${effect.type}-${index}`,
+                object: new ASCIIBrailleEffect({ pixelSize: effect.pixelSize || 12.0 })
+              }
+            );
+          
+          case 'ascii-technical':
+          case 'ascii_technical':
+            const asciiTechnicalTexture = useMemo(() => createASCIITexture('0123456789ABCDEF', effect.pixelSize || 12.0), [effect.pixelSize]);
+            return React.createElement(
+              'primitive',
+              {
+                key: `${effect.type}-${index}`,
+                object: new ASCIITechnicalEffect({ 
+                  pixelSize: effect.pixelSize || 12.0,
+                  asciiTexture: asciiTechnicalTexture,
+                  charCount: [16, 1],
+                  showBackground: effect.showBackground || false
+                })
+              }
+            );
+          
+          case 'ascii-matrix':
+          case 'ascii_matrix':
+            return React.createElement(
+              'primitive',
+              {
+                key: `${effect.type}-${index}`,
+                object: new ASCIIMatrixEffect({ pixelSize: effect.pixelSize || 12.0 })
+              }
+            );
+          
+          case 'ascii-hatching':
+          case 'ascii_hatching':
+            return React.createElement(
+              'primitive',
+              {
+                key: `${effect.type}-${index}`,
+                object: new ASCIIHatchingEffect({ pixelSize: effect.pixelSize || 12.0 })
+              }
+            );
+          
+          // ============ NEW DITHERING ALGORITHMS ============
+          case 'dither-floyd-steinberg':
+          case 'dither_floyd_steinberg':
+            return React.createElement(
+              'primitive',
+              {
+                key: `${effect.type}-${index}`,
+                object: new FloydSteinbergEffect({ colorLevels: effect.colorLevels || 4 })
+              }
+            );
+          
+          case 'dither-atkinson':
+          case 'dither_atkinson':
+            return React.createElement(
+              'primitive',
+              {
+                key: `${effect.type}-${index}`,
+                object: new AtkinsonEffect({ colorLevels: effect.colorLevels || 4 })
+              }
+            );
+          
+          case 'dither-jarvis-judice-ninke':
+          case 'dither_jarvis_judice_ninke':
+            return React.createElement(
+              'primitive',
+              {
+                key: `${effect.type}-${index}`,
+                object: new JarvisJudiceNinkeEffect({ colorLevels: effect.colorLevels || 4 })
+              }
+            );
+          
+          case 'dither-stucki':
+          case 'dither_stucki':
+            return React.createElement(
+              'primitive',
+              {
+                key: `${effect.type}-${index}`,
+                object: new StuckiEffect({ colorLevels: effect.colorLevels || 4 })
+              }
+            );
+          
+          case 'dither-burkes':
+          case 'dither_burkes':
+            return React.createElement(
+              'primitive',
+              {
+                key: `${effect.type}-${index}`,
+                object: new BurkesEffect({ colorLevels: effect.colorLevels || 4 })
+              }
+            );
+          
+          case 'dither-sierra':
+          case 'dither_sierra':
+            return React.createElement(
+              'primitive',
+              {
+                key: `${effect.type}-${index}`,
+                object: new SierraEffect({ colorLevels: effect.colorLevels || 4 })
+              }
+            );
+          
+          case 'dither-sierra2':
+          case 'dither_sierra2':
+            return React.createElement(
+              'primitive',
+              {
+                key: `${effect.type}-${index}`,
+                object: new Sierra2Effect({ colorLevels: effect.colorLevels || 4 })
+              }
+            );
+          
+          case 'dither-sierra-lite':
+          case 'dither_sierra_lite':
+            return React.createElement(
+              'primitive',
+              {
+                key: `${effect.type}-${index}`,
+                object: new SierraLiteEffect({ colorLevels: effect.colorLevels || 4 })
+              }
+            );
+          
+          // ============ NEW HALFTONE VARIANTS ============
+          case 'halftone-dots-new':
+          case 'halftone_dots_new':
+            return React.createElement(
+              'primitive',
+              {
+                key: `${effect.type}-${index}`,
+                object: new HalftoneDotsNewEffect({ pixelSize: effect.pixelSize || 8.0 })
+              }
+            );
+          
+          case 'halftone-circles':
+          case 'halftone_circles':
+            return React.createElement(
+              'primitive',
+              {
+                key: `${effect.type}-${index}`,
+                object: new HalftoneCirclesEffect({ pixelSize: effect.pixelSize || 8.0 })
+              }
+            );
+          
+          case 'halftone-squares':
+          case 'halftone_squares':
+            return React.createElement(
+              'primitive',
+              {
+                key: `${effect.type}-${index}`,
+                object: new HalftoneSquaresEffect({ pixelSize: effect.pixelSize || 8.0 })
+              }
+            );
+          
+          case 'halftone-lines':
+          case 'halftone_lines':
+            return React.createElement(
+              'primitive',
+              {
+                key: `${effect.type}-${index}`,
+                object: new HalftoneLinesEffect({ pixelSize: effect.pixelSize || 8.0 })
+              }
+            );
+          
+          case 'halftone-crosshatch':
+          case 'halftone_crosshatch':
+            return React.createElement(
+              'primitive',
+              {
+                key: `${effect.type}-${index}`,
+                object: new HalftoneCrosshatchEffect({ pixelSize: effect.pixelSize || 8.0 })
+              }
+            );
+          
+          case 'halftone-newspaper':
+          case 'halftone_newspaper':
+            return React.createElement(
+              'primitive',
+              {
+                key: `${effect.type}-${index}`,
+                object: new HalftoneNewspaperEffect({ pixelSize: effect.pixelSize || 8.0 })
               }
             );
             
