@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { themes, themeContent } from "./theme";
+import { themes, themeContent, heroShaderEffectThemes } from "./theme";
 import { useThemeContext } from "../components/context/themeContext";
 import ThemeModal from "../components/base/theme-modal";
 import { toCamelCase } from "../components/utils/toCamelCase";
@@ -290,6 +290,7 @@ export default function ThemeEditor({ customThemes }) {
   const shouldDisplayField = (key) => {
     const bgType = currentTheme.data.heroBackground;
     const gradientType = currentTheme.data.heroCssGradient;
+    const effectType = currentTheme.data.effectType;
 
     // Conditional display logic
     switch (key) {
@@ -298,14 +299,43 @@ export default function ThemeEditor({ customThemes }) {
         return bgType === 'cssgradient' && (gradientType === 'linear' || gradientType === 'conic');
 
       case 'heroShaderEffect':
+        // Legacy control (hidden in config, but keep for fallback)
+        return bgType === 'canvasImage' || bgType === 'canvasPlaneShader' || bgType === 'canvasPerlinBlob' || bgType === 'canvasSphereShader' || bgType === 'canvasExp' || bgType === 'canvasGradient';
+
+      case 'effectVariant':
+        // Only show variants when a category is selected
+        return effectType && effectType !== 'none';
+
+      // Custom (legacy) controls
       case 'halftoneSize':
       case 'asciiSize':
       case 'ditherLevels':
       case 'ditherSize':
       case 'pixelationSize':
       case 'noiseIntensity':
-        // Show if background type is any canvas type
-        return bgType === 'canvasImage' || bgType === 'canvasPlaneShader' || bgType === 'canvasPerlinBlob' || bgType === 'canvasSphereShader' || bgType === 'canvasExp' || bgType === 'canvasGradient';
+        return effectType === 'custom';
+
+      // ASCII controls
+      case 'asciiPixelSize':
+      case 'asciiShowBackground':
+      case 'asciiContrast':
+        return effectType === 'ascii';
+
+      // Dithering controls
+      case 'ditherColorLevels':
+      case 'ditherContrast':
+      case 'ditherInverted':
+        return effectType === 'dithering';
+
+      // Halftone controls
+      case 'halftoneDotSize':
+      case 'halftoneAngle':
+      case 'halftoneContrast':
+      case 'halftoneSpread':
+      case 'halftoneShape':
+      case 'halftoneColorMode':
+      case 'halftoneInverted':
+        return effectType === 'halftone';
 
       case 'heroCssGradient':
         // Only show if background type is cssgradient
@@ -440,6 +470,62 @@ export default function ThemeEditor({ customThemes }) {
       case "select":
         // options can be array or object
         let options = config.options;
+        if (key === 'effectVariant') {
+          const effectCategoryMap = {
+            custom: [
+              'halftone_dots',
+              'halftone_ascii',
+              'halftone_led',
+              'halftone_lego',
+              'halftone_rect',
+              'noise',
+              'pixelation',
+              'dither_blue_noise',
+              'dither_ordered',
+              'dither_color_quant',
+            ],
+            ascii: [
+              'ascii_standard',
+              'ascii_dense',
+              'ascii_minimal',
+              'ascii_blocks',
+              'ascii_braille',
+              'ascii_technical',
+              'ascii_matrix',
+              'ascii_hatching',
+            ],
+            dithering: [
+              'dither_floyd_steinberg',
+              'dither_atkinson',
+              'dither_jarvis_judice_ninke',
+              'dither_stucki',
+              'dither_burkes',
+              'dither_sierra',
+              'dither_sierra2',
+              'dither_sierra_lite',
+            ],
+            halftone: [
+              'halftone_dots_new',
+              'halftone_circles',
+              'halftone_squares',
+              'halftone_lines',
+              'halftone_crosshatch',
+              'halftone_newspaper',
+            ],
+          };
+          const selectedType = currentTheme.data.effectType;
+          if (selectedType === 'none' || !selectedType) {
+            options = { none: 'none' };
+          } else {
+            const allowedKeys = effectCategoryMap[selectedType] || [];
+            options = allowedKeys.reduce((acc, keyName) => {
+              if (heroShaderEffectThemes[keyName]) {
+                acc[keyName] = heroShaderEffectThemes[keyName];
+              }
+              return acc;
+            }, {});
+          }
+        }
         if (options && !Array.isArray(options)) {
           options = Object.keys(options).map((optKey) => ({
             value: optKey,

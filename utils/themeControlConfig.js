@@ -216,6 +216,7 @@ export const themeControlConfig = {
       label: "Effect Category",
       options: {
         none: 'None',
+        custom: 'Custom',
         ascii: 'ASCII',
         dithering: 'Dithering',
         halftone: 'Halftone'
@@ -229,6 +230,38 @@ export const themeControlConfig = {
   },
   EffectControls: {
     _description: "Fine-tune the selected effect. Controls shown depend on the effect category.",
+    // Custom (legacy) Controls
+    halftoneSize: {
+      type: "slider",
+      label: "Halftone Size",
+      min: 2, max: 32, step: 2
+    },
+    asciiSize: {
+      type: "slider",
+      label: "ASCII Size",
+      min: 4, max: 32, step: 2
+    },
+    ditherLevels: {
+      type: "slider",
+      label: "Dither Levels",
+      min: 2, max: 16, step: 1
+    },
+    ditherSize: {
+      type: "slider",
+      label: "Dither Size",
+      min: 2, max: 16, step: 1
+    },
+    pixelationSize: {
+      type: "slider",
+      label: "Pixelation Size",
+      min: 2, max: 32, step: 2
+    },
+    noiseIntensity: {
+      type: "slider",
+      label: "Noise Intensity",
+      min: 0, max: 1, step: 0.05
+    },
+
     // ASCII Controls
     asciiPixelSize: { 
       type: "slider", 

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { heroShaderEffectThemes } from "../../utils/theme";
 import { motion } from "../../utils/motion";
 import BackgroundCssGrad from "../background/bg-grad-css";
 import { useThemeContext } from "../context/themeContext";
@@ -38,20 +39,45 @@ const getHeightClass = (heightVh) => {
 
 const renderHeroBackground = (heroBackground, image, theme) => {
   // Helper function to create effect object with all theme-based parameters
-  const createEffect = (effectVariant, themeData) => {
+  const createEffect = (effectVariant, effectType, themeData) => {
     if (!effectVariant || effectVariant === 'none') return null;
     
-    const effect = { type: effectVariant };
+    const legacyMap = {
+      blueNoise: 'dither-blue-noise',
+      noiseDither: 'noise',
+      orderedDither: 'dither-ordered',
+      colorQuant: 'dither-color-quant',
+      colorQuant2: 'dither-color-quant',
+      rect: 'halftone-rect',
+      dots: 'halftone-dots',
+      ascii: 'halftone-ascii',
+      ascii2: 'halftone-ascii',
+      luma: 'halftone-rect',
+      led: 'halftone-led',
+      lego: 'halftone-lego',
+      progress: 'halftone-rect',
+    };
+
+    const mappedFromKey = heroShaderEffectThemes[effectVariant];
+    const normalizedVariant = legacyMap[effectVariant] || mappedFromKey || effectVariant;
+    const isCustomCategory = effectType === 'custom';
+    const effect = { type: normalizedVariant };
 
     // Map effect-specific parameters based on effect type
     // ASCII effects
-    if (effectVariant.startsWith('ascii')) {
-      effect.asciiPixelSize = themeData?.asciiPixelSize || 12;
-      effect.asciiShowBackground = themeData?.asciiShowBackground || false;
-      effect.asciiContrast = themeData?.asciiContrast || 100;
+    if (normalizedVariant.startsWith('ascii')) {
+      effect.pixelSize = isCustomCategory
+        ? themeData?.asciiSize || 12
+        : themeData?.asciiPixelSize || 12;
+      effect.showBackground = isCustomCategory
+        ? false
+        : themeData?.asciiShowBackground || false;
+      effect.contrast = isCustomCategory
+        ? 100
+        : themeData?.asciiContrast || 100;
       
       // Map to specific ASCII character sets (these will be handled in EffectRouter)
-      switch (effectVariant) {
+      switch (normalizedVariant) {
         case 'ascii-standard':
         case 'ascii_standard':
           effect.asciiChars = ' .:-=+*#%@'; // Standard ASCII ramp
@@ -87,39 +113,74 @@ const renderHeroBackground = (heroBackground, image, theme) => {
       }
     }
     // Dithering effects
-    else if (effectVariant.startsWith('dither')) {
-      effect.ditherColorLevels = themeData?.ditherColorLevels || 4;
-      effect.ditherPaperColor = themeData?.ditherPaperColor || themeData?.backgroundColor || '#ffffff';
-      effect.ditherInkColor = themeData?.ditherInkColor || themeData?.textColor || '#000000';
-      effect.ditherInverted = themeData?.ditherInverted || false;
+    else if (normalizedVariant.startsWith('dither')) {
+      effect.colorLevels = isCustomCategory
+        ? themeData?.ditherLevels || 4
+        : themeData?.ditherColorLevels || 4;
+      effect.paperColor = isCustomCategory
+        ? themeData?.backgroundColor || '#ffffff'
+        : themeData?.ditherPaperColor || themeData?.backgroundColor || '#ffffff';
+      effect.inkColor = isCustomCategory
+        ? themeData?.textColor || '#000000'
+        : themeData?.ditherInkColor || themeData?.textColor || '#000000';
+      effect.inverted = isCustomCategory
+        ? false
+        : themeData?.ditherInverted || false;
+
+      if (
+        normalizedVariant === 'dither-ordered' ||
+        normalizedVariant === 'dither_ordered'
+      ) {
+        effect.ditherSize = themeData?.ditherSize || 4;
+      }
     }
     // Halftone effects
-    else if (effectVariant.startsWith('halftone')) {
-      effect.halftoneDotSize = themeData?.halftoneDotSize || 8;
-      effect.halftoneAngle = themeData?.halftoneAngle || 45;
-      effect.halftoneContrast = themeData?.halftoneContrast || 100;
-      effect.halftoneSpread = themeData?.halftoneSpread || 50;
-      effect.halftoneShape = themeData?.halftoneShape || 'circle';
-      effect.halftonePaperColor = themeData?.halftonePaperColor || themeData?.backgroundColor || '#ffffff';
-      effect.halftoneInkColor = themeData?.halftoneInkColor || themeData?.textColor || '#000000';
-      effect.halftoneColorMode = themeData?.halftoneColorMode || 'mono';
-      effect.halftoneInverted = themeData?.halftoneInverted || false;
+    else if (normalizedVariant.startsWith('halftone')) {
+      effect.pixelSize = isCustomCategory
+        ? themeData?.halftoneSize || 8
+        : themeData?.halftoneDotSize || 8;
+      effect.angle = isCustomCategory
+        ? 45
+        : themeData?.halftoneAngle || 45;
+      effect.contrast = isCustomCategory
+        ? 100
+        : themeData?.halftoneContrast || 100;
+      effect.spread = isCustomCategory
+        ? 50
+        : themeData?.halftoneSpread || 50;
+      effect.shape = isCustomCategory
+        ? 'circle'
+        : themeData?.halftoneShape || 'circle';
+      effect.paperColor = isCustomCategory
+        ? themeData?.backgroundColor || '#ffffff'
+        : themeData?.halftonePaperColor || themeData?.backgroundColor || '#ffffff';
+      effect.inkColor = isCustomCategory
+        ? themeData?.textColor || '#000000'
+        : themeData?.halftoneInkColor || themeData?.textColor || '#000000';
+      effect.colorMode = isCustomCategory
+        ? 'mono'
+        : themeData?.halftoneColorMode || 'mono';
+      effect.inverted = isCustomCategory
+        ? false
+        : themeData?.halftoneInverted || false;
     }
     // Legacy effects
-    else if (effectVariant === 'pixelation') {
+    else if (normalizedVariant === 'pixelation') {
       effect.pixelSize = themeData?.pixelationSize || 8.0;
     }
-    else if (effectVariant === 'noise') {
+    else if (normalizedVariant === 'noise') {
       effect.intensity = themeData?.noiseIntensity || 0.1;
     }
 
     return effect;
   };
 
-  // Get effect variant from theme
-  const effectVariant = theme?.data?.effectVariant;
+  // Get effect variant from theme (fallback to legacy heroShaderEffect)
+  const effectVariant =
+    theme?.data?.effectVariant ?? theme?.data?.heroShaderEffect;
+  const effectType = theme?.data?.effectType;
   const effectsList = effectVariant && effectVariant !== 'none' 
-    ? [createEffect(effectVariant, theme?.data)] 
+    ? [createEffect(effectVariant, effectType, theme?.data)] 
     : [];
 
   switch (heroBackground) {
