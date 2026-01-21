@@ -16,15 +16,16 @@ void mainImage(const in vec4 inputColor, const in vec2 uv, out vec4 outputColor)
     
     vec2 cellUV = fract(uv / normalizedPixelSize);
 
-    // Simplified character mapping for minimal look
+    // Character mapping (use provided atlas size)
+    float safeCharCount = max(charCount.x, 1.0);
     float charIndex = clamp(
-        floor(luma * 4.0),
+        floor(luma * safeCharCount),
         0.0,
-        3.0
+        safeCharCount - 1.0
     );
     
     vec2 asciiUV = vec2(
-        (charIndex + cellUV.x) / 4.0,
+        (charIndex + cellUV.x) / safeCharCount,
         cellUV.y
     );
   

@@ -105,6 +105,13 @@ const ImageCanvas = ({
     }
   }, [effects]);
 
+  React.useEffect(() => {
+    const effectTypes = effects.map((e) => e?.type ?? null).filter(Boolean);
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/f241fcae-4ba5-41c1-b477-9ff7394a377f',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:'debug-session',runId:'pre-fix',hypothesisId:'H1',location:'components/background/canvases/image-canvas.js:effects',message:'ImageCanvas received effects',data:{effectsCount:effects.length,effectTypes,hasSrc:!!src},timestamp:Date.now()})}).catch(()=>{});
+    // #endregion
+  }, [effects, src]);
+
   if (error) {
     return (
       <div 

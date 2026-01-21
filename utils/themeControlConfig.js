@@ -53,7 +53,7 @@ import {
 // audioModalClose: soundThemes.default,
 
 export const themeControlConfig = {
-  Audio: {
+/*  Audio: {
     audioEnabled: { type: "boolean", label: "Audio" },
     audioVolume: { type: "slider", label: "Volume", min: 0, max: 1, step: 0.1 },
     audioInit: { type: "select", label: "Init", options: sounds },
@@ -94,15 +94,13 @@ export const themeControlConfig = {
   Header: {
     headerHeight: { type: "slider", label: "Height (vh)", min: 10, max: 100, step: 5 },
     headerTextAlign: { type: "select", label: "Text Align", options: textAlignThemes },
-  },
+  },*/
   HeaderTextPosition: {
-    // Text Position - Responsive
     headerTextPositionSm: { type: "position", label: "Text Position Sm", options: headerTextPositionThemes },
     headerTextPositionMd: { type: "position", label: "Text Position Md", options: headerTextPositionThemes },
     headerTextPositionLg: { type: "position", label: "Text Position Lg", options: headerTextPositionThemes },
     headerTextPositionXl: { type: "position", label: "Text Position Xl", options: headerTextPositionThemes },
 
-    // Text Column Span - Responsive
     headerTextColSpanSm: { type: "select", label: "Text Col Span Sm", options: headerTextColSpanThemes },
     headerTextColSpanMd: { type: "select", label: "Text Col Span Md", options: headerTextColSpanThemes },
     headerTextColSpanLg: { type: "select", label: "Text Col Span Lg", options: headerTextColSpanThemes },
@@ -125,6 +123,136 @@ export const themeControlConfig = {
     // Text Position - Responsive
  
   },
+
+    EffectSelection: {
+        _description: "canvas fx.",
+        effectType: {
+            type: "select",
+            label: "Effect Category",
+            options: {
+                none: 'None',
+                custom: 'Custom',
+                ascii: 'ASCII',
+                dithering: 'Dithering',
+                halftone: 'Halftone'
+            }
+        },
+        effectVariant: {
+            type: "select",
+            label: "Effect Variant",
+            options: heroShaderEffectThemes
+        }
+    },
+    EffectControls: {
+        _description: "Fine-tune the selected effect. Controls shown depend on the effect category.",
+        // Custom (legacy) Controls
+        halftoneSize: {
+            type: "slider",
+            label: "Halftone Size",
+            min: 2, max: 32, step: 2
+        },
+        asciiSize: {
+            type: "slider",
+            label: "ASCII Size",
+            min: 4, max: 32, step: 2
+        },
+        ditherLevels: {
+            type: "slider",
+            label: "Dither Levels",
+            min: 2, max: 16, step: 1
+        },
+        ditherSize: {
+            type: "slider",
+            label: "Dither Size",
+            min: 2, max: 16, step: 1
+        },
+        pixelationSize: {
+            type: "slider",
+            label: "Pixelation Size",
+            min: 2, max: 32, step: 2
+        },
+        noiseIntensity: {
+            type: "slider",
+            label: "Noise Intensity",
+            min: 0, max: 1, step: 0.05
+        },
+
+        // ASCII Controls
+        asciiPixelSize: {
+            type: "slider",
+            label: "Cell Size",
+            min: 4, max: 32, step: 2
+        },
+        asciiShowBackground: {
+            type: "boolean",
+            label: "Show Colors"
+        },
+        asciiContrast: {
+            type: "slider",
+            label: "Contrast",
+            min: 50, max: 200, step: 10
+        },
+
+        // Dithering Controls
+        ditherColorLevels: {
+            type: "slider",
+            label: "Color Levels",
+            min: 2, max: 16, step: 1
+        },
+        ditherContrast: {
+            type: "slider",
+            label: "Contrast",
+            min: 50, max: 200, step: 10
+        },
+        ditherInverted: {
+            type: "boolean",
+            label: "Inverted"
+        },
+
+        // Halftone Controls
+        halftoneDotSize: {
+            type: "slider",
+            label: "Dot/Cell Size",
+            min: 2, max: 32, step: 2
+        },
+        halftoneAngle: {
+            type: "slider",
+            label: "Angle (degrees)",
+            min: 0, max: 360, step: 15
+        },
+        halftoneContrast: {
+            type: "slider",
+            label: "Contrast",
+            min: 50, max: 200, step: 10
+        },
+        halftoneSpread: {
+            type: "slider",
+            label: "Spread",
+            min: 0, max: 100, step: 5
+        },
+        halftoneShape: {
+            type: "select",
+            label: "Shape",
+            options: {
+                circle: 'Circle',
+                square: 'Square',
+                line: 'Line'
+            }
+        },
+        halftoneColorMode: {
+            type: "select",
+            label: "Color Mode",
+            options: {
+                mono: 'Monochrome',
+                color: 'Color'
+            }
+        },
+        halftoneInverted: {
+            type: "boolean",
+            label: "Inverted"
+        }
+    },
+
   HeroTextPosition: {
     heroTextPositionSm: { type: "position", label: "Text Position Sm", options: heroTextPositionThemes },
     heroTextPositionMd: { type: "position", label: "Text Position Md", options: heroTextPositionThemes },
@@ -207,7 +335,7 @@ export const themeControlConfig = {
     canvasExpSphereWidthSegments: { type: "slider", label: "Experience Sphere Width Segments", min: 3, max: 64, step: 1 },
     canvasExpSphereHeightSegments: { type: "slider", label: "Experience Sphere Height Segments", min: 3, max: 64, step: 1 },
   },
-  Articles: {
+  /*Articles: {
     gridType: { type: "select", label: "Grid Type", options: gridLayoutThemes },
     listType: { type: "select", label: "List Type", options: listLayoutThemes },
     gridColumnsSm: { type: "select", label: "Sm", options: gridColumns },
@@ -241,135 +369,8 @@ export const themeControlConfig = {
   },
   Footer: {
     footerPosition: { type: "select", label: "Position", options: footerOptions.position },
-  },
-  EffectSelection: {
-    _description: "Choose visual effects to apply to canvas backgrounds. Select a category first, then choose a specific variant.",
-    effectType: { 
-      type: "select", 
-      label: "Effect Category",
-      options: {
-        none: 'None',
-        custom: 'Custom',
-        ascii: 'ASCII',
-        dithering: 'Dithering',
-        halftone: 'Halftone'
-      }
-    },
-    effectVariant: { 
-      type: "select", 
-      label: "Effect Variant",
-      options: heroShaderEffectThemes
-    }
-  },
-  EffectControls: {
-    _description: "Fine-tune the selected effect. Controls shown depend on the effect category.",
-    // Custom (legacy) Controls
-    halftoneSize: {
-      type: "slider",
-      label: "Halftone Size",
-      min: 2, max: 32, step: 2
-    },
-    asciiSize: {
-      type: "slider",
-      label: "ASCII Size",
-      min: 4, max: 32, step: 2
-    },
-    ditherLevels: {
-      type: "slider",
-      label: "Dither Levels",
-      min: 2, max: 16, step: 1
-    },
-    ditherSize: {
-      type: "slider",
-      label: "Dither Size",
-      min: 2, max: 16, step: 1
-    },
-    pixelationSize: {
-      type: "slider",
-      label: "Pixelation Size",
-      min: 2, max: 32, step: 2
-    },
-    noiseIntensity: {
-      type: "slider",
-      label: "Noise Intensity",
-      min: 0, max: 1, step: 0.05
-    },
+  },*/
 
-    // ASCII Controls
-    asciiPixelSize: { 
-      type: "slider", 
-      label: "Cell Size", 
-      min: 4, max: 32, step: 2
-    },
-    asciiShowBackground: { 
-      type: "boolean", 
-      label: "Show Colors"
-    },
-    asciiContrast: { 
-      type: "slider", 
-      label: "Contrast", 
-      min: 50, max: 200, step: 10
-    },
-    
-    // Dithering Controls
-    ditherColorLevels: { 
-      type: "slider", 
-      label: "Color Levels", 
-      min: 2, max: 16, step: 1
-    },
-    ditherContrast: { 
-      type: "slider", 
-      label: "Contrast", 
-      min: 50, max: 200, step: 10
-    },
-    ditherInverted: { 
-      type: "boolean", 
-      label: "Inverted"
-    },
-    
-    // Halftone Controls
-    halftoneDotSize: { 
-      type: "slider", 
-      label: "Dot/Cell Size", 
-      min: 2, max: 32, step: 2
-    },
-    halftoneAngle: { 
-      type: "slider", 
-      label: "Angle (degrees)", 
-      min: 0, max: 360, step: 15
-    },
-    halftoneContrast: { 
-      type: "slider", 
-      label: "Contrast", 
-      min: 50, max: 200, step: 10
-    },
-    halftoneSpread: { 
-      type: "slider", 
-      label: "Spread", 
-      min: 0, max: 100, step: 5
-    },
-    halftoneShape: { 
-      type: "select", 
-      label: "Shape",
-      options: { 
-        circle: 'Circle', 
-        square: 'Square', 
-        line: 'Line' 
-      }
-    },
-    halftoneColorMode: { 
-      type: "select", 
-      label: "Color Mode",
-      options: { 
-        mono: 'Monochrome', 
-        color: 'Color' 
-      }
-    },
-    halftoneInverted: { 
-      type: "boolean", 
-      label: "Inverted"
-    }
-  },
   Color: {
     accentPri: { type: "color", label: "Accent Primary" },
     accentSec: { type: "color", label: "Accent Secondary" },

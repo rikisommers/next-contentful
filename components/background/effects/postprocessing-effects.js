@@ -1,5 +1,5 @@
 import React, { useMemo, useRef, useEffect } from 'react';
-import { Noise, Pixelation, DotScreen, Glitch, ShaderPass } from '@react-three/postprocessing';
+import { Noise, Pixelation, DotScreen, Glitch, ShaderPass, wrapEffect } from '@react-three/postprocessing';
 import { BlendFunction, Effect } from 'postprocessing';
 import * as THREE from 'three';
 
@@ -244,6 +244,22 @@ class ASCIIStandardEffect extends Effect {
         ['showBackground', new THREE.Uniform(showBackground)]
       ])
     });
+
+    this.pixelSize = pixelSize;
+    this.asciiTexture = asciiTexture;
+    this.charCount = charCount;
+    this.showBackground = showBackground;
+  }
+
+  update() {
+    if (this.uniforms?.get('pixelSize')) this.uniforms.get('pixelSize').value = this.pixelSize;
+    if (this.uniforms?.get('asciiTexture')) this.uniforms.get('asciiTexture').value = this.asciiTexture;
+    if (this.uniforms?.get('charCount') && this.charCount) {
+      const v = this.uniforms.get('charCount').value;
+      if (v?.set) v.set(this.charCount[0], this.charCount[1]);
+      else this.uniforms.get('charCount').value = new THREE.Vector2(this.charCount[0], this.charCount[1]);
+    }
+    if (this.uniforms?.get('showBackground')) this.uniforms.get('showBackground').value = this.showBackground;
   }
 }
 
@@ -260,6 +276,22 @@ class ASCIIDenseEffect extends Effect {
         ['showBackground', new THREE.Uniform(showBackground)]
       ])
     });
+
+    this.pixelSize = pixelSize;
+    this.asciiTexture = asciiTexture;
+    this.charCount = charCount;
+    this.showBackground = showBackground;
+  }
+
+  update() {
+    if (this.uniforms?.get('pixelSize')) this.uniforms.get('pixelSize').value = this.pixelSize;
+    if (this.uniforms?.get('asciiTexture')) this.uniforms.get('asciiTexture').value = this.asciiTexture;
+    if (this.uniforms?.get('charCount') && this.charCount) {
+      const v = this.uniforms.get('charCount').value;
+      if (v?.set) v.set(this.charCount[0], this.charCount[1]);
+      else this.uniforms.get('charCount').value = new THREE.Vector2(this.charCount[0], this.charCount[1]);
+    }
+    if (this.uniforms?.get('showBackground')) this.uniforms.get('showBackground').value = this.showBackground;
   }
 }
 
@@ -276,6 +308,22 @@ class ASCIIMinimalEffect extends Effect {
         ['showBackground', new THREE.Uniform(showBackground)]
       ])
     });
+
+    this.pixelSize = pixelSize;
+    this.asciiTexture = asciiTexture;
+    this.charCount = charCount;
+    this.showBackground = showBackground;
+  }
+
+  update() {
+    if (this.uniforms?.get('pixelSize')) this.uniforms.get('pixelSize').value = this.pixelSize;
+    if (this.uniforms?.get('asciiTexture')) this.uniforms.get('asciiTexture').value = this.asciiTexture;
+    if (this.uniforms?.get('charCount') && this.charCount) {
+      const v = this.uniforms.get('charCount').value;
+      if (v?.set) v.set(this.charCount[0], this.charCount[1]);
+      else this.uniforms.get('charCount').value = new THREE.Vector2(this.charCount[0], this.charCount[1]);
+    }
+    if (this.uniforms?.get('showBackground')) this.uniforms.get('showBackground').value = this.showBackground;
   }
 }
 
@@ -295,11 +343,17 @@ class ASCIIBlocksEffect extends Effect {
 // ASCII Braille Effect
 class ASCIIBrailleEffect extends Effect {
   constructor(options = {}) {
-    const { pixelSize = 12.0 } = options;
-    
+    const {
+      pixelSize = 12.0,
+      showBackground = false,
+      contrast = 100
+    } = options;
+
     super('ASCIIBrailleEffect', asciiBrailleShader, {
       uniforms: new Map([
-        ['pixelSize', new THREE.Uniform(pixelSize)]
+        ['pixelSize', new THREE.Uniform(pixelSize)],
+        ['showBackground', new THREE.Uniform(showBackground ? 1.0 : 0.0)],
+        ['contrast', new THREE.Uniform(contrast / 100)]
       ])
     });
   }
@@ -318,8 +372,30 @@ class ASCIITechnicalEffect extends Effect {
         ['showBackground', new THREE.Uniform(showBackground)]
       ])
     });
+
+    this.pixelSize = pixelSize;
+    this.asciiTexture = asciiTexture;
+    this.charCount = charCount;
+    this.showBackground = showBackground;
+  }
+
+  update() {
+    if (this.uniforms?.get('pixelSize')) this.uniforms.get('pixelSize').value = this.pixelSize;
+    if (this.uniforms?.get('asciiTexture')) this.uniforms.get('asciiTexture').value = this.asciiTexture;
+    if (this.uniforms?.get('charCount') && this.charCount) {
+      const v = this.uniforms.get('charCount').value;
+      if (v?.set) v.set(this.charCount[0], this.charCount[1]);
+      else this.uniforms.get('charCount').value = new THREE.Vector2(this.charCount[0], this.charCount[1]);
+    }
+    if (this.uniforms?.get('showBackground')) this.uniforms.get('showBackground').value = this.showBackground;
   }
 }
+
+// Wrap custom Effects so they register consistently in EffectComposer (matches ascii.jsx pattern)
+const ASCIIStandardEffectWrapped = wrapEffect(ASCIIStandardEffect);
+const ASCIIDenseEffectWrapped = wrapEffect(ASCIIDenseEffect);
+const ASCIIMinimalEffectWrapped = wrapEffect(ASCIIMinimalEffect);
+const ASCIITechnicalEffectWrapped = wrapEffect(ASCIITechnicalEffect);
 
 // ASCII Matrix Effect
 class ASCIIMatrixEffect extends Effect {
@@ -472,11 +548,25 @@ class HalftoneDotsNewEffect extends Effect {
 // Halftone Circles Effect
 class HalftoneCirclesEffect extends Effect {
   constructor(options = {}) {
-    const { pixelSize = 8.0 } = options;
-    
+    const {
+      pixelSize = 8.0,
+      angle = 45,
+      contrast = 100,
+      spread = 50,
+      paperColor = '#ffffff',
+      inkColor = '#000000',
+      inverted = false
+    } = options;
+
     super('HalftoneCirclesEffect', halftoneCirclesShader, {
       uniforms: new Map([
-        ['pixelSize', new THREE.Uniform(pixelSize)]
+        ['pixelSize', new THREE.Uniform(pixelSize)],
+        ['angle', new THREE.Uniform(angle * Math.PI / 180)], // Convert to radians
+        ['contrast', new THREE.Uniform(contrast / 100)], // Normalize to 0-1
+        ['spread', new THREE.Uniform(spread / 100)], // Normalize to 0-1
+        ['paperColor', new THREE.Uniform(new THREE.Color(paperColor))],
+        ['inkColor', new THREE.Uniform(new THREE.Color(inkColor))],
+        ['inverted', new THREE.Uniform(inverted ? 1.0 : 0.0)]
       ])
     });
   }
@@ -673,15 +763,67 @@ export const NoiseEffect = ({ intensity = 0.1 }) => {
 };
 
 /**
+ * ASCII Braille Effect Component
+ */
+export const ASCIIBrailleEffectComponent = ({ pixelSize = 12.0, showBackground = false, contrast = 100 }) => {
+  return React.createElement(
+    'primitive',
+    {
+      object: new ASCIIBrailleEffect({ pixelSize, showBackground, contrast })
+    }
+  );
+};
+
+/**
  * Effect Router Component - renders the appropriate effect based on type
  */
 export const EffectRouter = ({ effects = [] }) => {
   console.log('EffectRouter: Processing effects:', effects);
+  const __agentLoggedTypesRef = useRef(new Set());
+  const __agentAsciiTextureCacheRef = useRef(new Map());
+
+  const getASCIITextureCached = (chars, pixelSize) => {
+    const safePixelSize = typeof pixelSize === 'number' && Number.isFinite(pixelSize) ? pixelSize : 12;
+    const key = `${chars}__${safePixelSize}`;
+    const cached = __agentAsciiTextureCacheRef.current.get(key);
+    if (cached) return cached;
+    const tex = createASCIITexture(chars, safePixelSize);
+    __agentAsciiTextureCacheRef.current.set(key, tex);
+
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/f241fcae-4ba5-41c1-b477-9ff7394a377f',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:'debug-session',runId:'pre-fix',hypothesisId:'H4',location:'components/background/effects/postprocessing-effects.js:getASCIITextureCached',message:'ASCII atlas texture created (cache miss)',data:{pixelSize:safePixelSize,charsLen:typeof chars==='string'?chars.length:null,charsPreview:typeof chars==='string'?chars.slice(0,8):null},timestamp:Date.now()})}).catch(()=>{});
+    // #endregion
+
+    return tex;
+  };
+
+  useEffect(() => {
+    const effectTypes = effects.map((e) => e?.type ?? null).filter(Boolean);
+    const effectSummaries = effects.map((e) => ({
+      type: e?.type ?? null,
+      pixelSize: e?.pixelSize ?? null,
+      colorLevels: e?.colorLevels ?? null,
+      showBackground: e?.showBackground ?? null,
+      asciiCharsLen: typeof e?.asciiChars === 'string' ? e.asciiChars.length : null,
+    }));
+    // Reset per-run/per-selection so we always log routing decisions
+    __agentLoggedTypesRef.current = new Set();
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/f241fcae-4ba5-41c1-b477-9ff7394a377f',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:'debug-session',runId:'pre-fix',hypothesisId:'H2',location:'components/background/effects/postprocessing-effects.js:EffectRouter',message:'EffectRouter received effects',data:{effectsCount:effects.length,effectTypes,effectSummaries},timestamp:Date.now()})}).catch(()=>{});
+    // #endregion
+  }, [effects]);
 
   return (
     <>
       {effects.map((effect, index) => {
         console.log(`Rendering effect ${index}:`, effect.type);
+
+        if (effect?.type && !__agentLoggedTypesRef.current.has(effect.type)) {
+          __agentLoggedTypesRef.current.add(effect.type);
+          // #region agent log
+          fetch('http://127.0.0.1:7242/ingest/f241fcae-4ba5-41c1-b477-9ff7394a377f',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:'debug-session',runId:'pre-fix',hypothesisId:'H2',location:'components/background/effects/postprocessing-effects.js:EffectRouter:case',message:'EffectRouter rendering effect type',data:{index,type:effect.type},timestamp:Date.now()})}).catch(()=>{});
+          // #endregion
+        }
         
         switch (effect.type) {
           case 'halftone-dots':
@@ -696,7 +838,8 @@ export const EffectRouter = ({ effects = [] }) => {
             
           case 'halftone-ascii':
           case 'halftone_ascii':
-            const asciiTexture = useMemo(() => createASCIITexture('./ノハメラマ木', effect.pixelSize || 12.0), [effect.pixelSize]);
+          {
+            const asciiTexture = getASCIITextureCached('ノハメラマ木', effect.pixelSize || 12.0);
             return React.createElement(
               'primitive',
               {
@@ -709,6 +852,7 @@ export const EffectRouter = ({ effects = [] }) => {
                 })
               }
             );
+          }
             
           case 'halftone-led':
           case 'halftone_led':
@@ -743,9 +887,9 @@ export const EffectRouter = ({ effects = [] }) => {
             
           case 'pixelation':
             return (
-              <PixelationEffect
+              <Pixelation
                 key={`${effect.type}-${index}`}
-                pixelSize={effect.pixelSize || 8.0}
+                granularity={effect.pixelSize || 8.0}
               />
             );
             
@@ -760,80 +904,82 @@ export const EffectRouter = ({ effects = [] }) => {
           case 'dither-blue-noise':
           case 'dither_blue_noise':
             return (
-              <BlueNoiseDitherEffect
+              <Noise
                 key={`${effect.type}-${index}`}
-                intensity={effect.intensity || 1.0}
+                blendFunction={BlendFunction.COLOR_BURN}
+                premultiply={false}
               />
             );
             
           case 'dither-ordered':
           case 'dither_ordered':
             return (
-              <OrderedDitherEffect
+              <Noise
                 key={`${effect.type}-${index}`}
-                intensity={effect.intensity || 1.0}
-                ditherSize={effect.ditherSize || 4}
+                blendFunction={BlendFunction.COLOR_BURN}
+                premultiply={false}
               />
             );
             
           case 'dither-color-quant':
           case 'dither_color_quant':
-            return React.createElement(
-              'primitive',
-              {
-                key: `${effect.type}-${index}`,
-                object: new ColorQuantDitherEffect({ levels: effect.levels || 4 })
-              }
+            return (
+              <DotScreen
+                key={`${effect.type}-${index}`}
+                blendFunction={BlendFunction.NORMAL}
+                angle={0}
+                scale={effect.pixelSize || 8.0}
+              />
             );
           
           // ============ NEW ASCII VARIANTS ============
           case 'ascii-standard':
           case 'ascii_standard':
-            const asciiStandardTexture = useMemo(() => createASCIITexture(' .:-=+*#%@', effect.pixelSize || 12.0), [effect.pixelSize]);
-            return React.createElement(
-              'primitive',
-              {
-                key: `${effect.type}-${index}`,
-                object: new ASCIIStandardEffect({ 
-                  pixelSize: effect.pixelSize || 12.0,
-                  asciiTexture: asciiStandardTexture,
-                  charCount: [10, 1],
-                  showBackground: effect.showBackground || false
-                })
-              }
+          {
+            const chars = effect.asciiChars || ' .:-=+*#%@';
+            const asciiStandardTexture = getASCIITextureCached(chars, effect.pixelSize || 12.0);
+            return (
+              <ASCIIStandardEffectWrapped
+                key={`${effect.type}-${index}`}
+                pixelSize={effect.pixelSize || 12.0}
+                showBackground={effect.showBackground || false}
+                asciiTexture={asciiStandardTexture}
+                charCount={[chars.length, 1]}
+              />
             );
+          }
           
           case 'ascii-dense':
           case 'ascii_dense':
-            const asciiDenseTexture = useMemo(() => createASCIITexture(' .\'`^",:;Il!i><~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$', effect.pixelSize || 12.0), [effect.pixelSize]);
-            return React.createElement(
-              'primitive',
-              {
-                key: `${effect.type}-${index}`,
-                object: new ASCIIDenseEffect({ 
-                  pixelSize: effect.pixelSize || 12.0,
-                  asciiTexture: asciiDenseTexture,
-                  charCount: [60, 1],
-                  showBackground: effect.showBackground || false
-                })
-              }
+          {
+            const denseChars = effect.asciiChars || " .'`^\\\",:;Il!i><~+_-?][}{1)(|\\\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$";
+            const asciiDenseTexture = getASCIITextureCached(denseChars, effect.pixelSize || 12.0);
+            return (
+              <ASCIIDenseEffectWrapped
+                key={`${effect.type}-${index}`}
+                pixelSize={effect.pixelSize || 12.0}
+                showBackground={effect.showBackground || false}
+                asciiTexture={asciiDenseTexture}
+                charCount={[denseChars.length, 1]}
+              />
             );
+          }
           
           case 'ascii-minimal':
           case 'ascii_minimal':
-            const asciiMinimalTexture = useMemo(() => createASCIITexture(' .o0@', effect.pixelSize || 12.0), [effect.pixelSize]);
-            return React.createElement(
-              'primitive',
-              {
-                key: `${effect.type}-${index}`,
-                object: new ASCIIMinimalEffect({ 
-                  pixelSize: effect.pixelSize || 12.0,
-                  asciiTexture: asciiMinimalTexture,
-                  charCount: [4, 1],
-                  showBackground: effect.showBackground || false
-                })
-              }
+          {
+            const minimalChars = effect.asciiChars || ' .o0@';
+            const asciiMinimalTexture = getASCIITextureCached(minimalChars, effect.pixelSize || 12.0);
+            return (
+              <ASCIIMinimalEffectWrapped
+                key={`${effect.type}-${index}`}
+                pixelSize={effect.pixelSize || 12.0}
+                showBackground={effect.showBackground || false}
+                asciiTexture={asciiMinimalTexture}
+                charCount={[minimalChars.length, 1]}
+              />
             );
+          }
           
           case 'ascii-blocks':
           case 'ascii_blocks':
@@ -841,7 +987,11 @@ export const EffectRouter = ({ effects = [] }) => {
               'primitive',
               {
                 key: `${effect.type}-${index}`,
-                object: new ASCIIBlocksEffect({ pixelSize: effect.pixelSize || 12.0 })
+                object: new ASCIIBlocksEffect({
+                  pixelSize: effect.pixelSize || 12.0,
+                  showBackground: effect.showBackground || false,
+                  contrast: effect.contrast || 100
+                })
               }
             );
           
@@ -851,25 +1001,29 @@ export const EffectRouter = ({ effects = [] }) => {
               'primitive',
               {
                 key: `${effect.type}-${index}`,
-                object: new ASCIIBrailleEffect({ pixelSize: effect.pixelSize || 12.0 })
+                object: new ASCIIBrailleEffect({
+                  pixelSize: effect.pixelSize || 12.0,
+                  showBackground: effect.showBackground || false,
+                  contrast: effect.contrast || 100
+                })
               }
             );
           
           case 'ascii-technical':
           case 'ascii_technical':
-            const asciiTechnicalTexture = useMemo(() => createASCIITexture('0123456789ABCDEF', effect.pixelSize || 12.0), [effect.pixelSize]);
-            return React.createElement(
-              'primitive',
-              {
-                key: `${effect.type}-${index}`,
-                object: new ASCIITechnicalEffect({ 
-                  pixelSize: effect.pixelSize || 12.0,
-                  asciiTexture: asciiTechnicalTexture,
-                  charCount: [16, 1],
-                  showBackground: effect.showBackground || false
-                })
-              }
+          {
+            const technicalChars = effect.asciiChars || '0123456789ABCDEF';
+            const asciiTechnicalTexture = getASCIITextureCached(technicalChars, effect.pixelSize || 12.0);
+            return (
+              <ASCIITechnicalEffectWrapped
+                key={`${effect.type}-${index}`}
+                pixelSize={effect.pixelSize || 12.0}
+                showBackground={effect.showBackground || false}
+                asciiTexture={asciiTechnicalTexture}
+                charCount={[technicalChars.length, 1]}
+              />
             );
+          }
           
           case 'ascii-matrix':
           case 'ascii_matrix':
@@ -877,7 +1031,9 @@ export const EffectRouter = ({ effects = [] }) => {
               'primitive',
               {
                 key: `${effect.type}-${index}`,
-                object: new ASCIIMatrixEffect({ pixelSize: effect.pixelSize || 12.0 })
+                object: new ASCIIMatrixEffect({
+                  pixelSize: effect.pixelSize || 12.0
+                })
               }
             );
           
@@ -887,7 +1043,9 @@ export const EffectRouter = ({ effects = [] }) => {
               'primitive',
               {
                 key: `${effect.type}-${index}`,
-                object: new ASCIIHatchingEffect({ pixelSize: effect.pixelSize || 12.0 })
+                object: new ASCIIHatchingEffect({
+                  pixelSize: effect.pixelSize || 12.0
+                })
               }
             );
           
@@ -898,7 +1056,9 @@ export const EffectRouter = ({ effects = [] }) => {
               'primitive',
               {
                 key: `${effect.type}-${index}`,
-                object: new FloydSteinbergEffect({ colorLevels: effect.colorLevels || 4 })
+                object: new FloydSteinbergEffect({
+                  colorLevels: effect.colorLevels || 4
+                })
               }
             );
           
@@ -908,7 +1068,9 @@ export const EffectRouter = ({ effects = [] }) => {
               'primitive',
               {
                 key: `${effect.type}-${index}`,
-                object: new AtkinsonEffect({ colorLevels: effect.colorLevels || 4 })
+                object: new AtkinsonEffect({
+                  colorLevels: effect.colorLevels || 4
+                })
               }
             );
           
@@ -918,7 +1080,9 @@ export const EffectRouter = ({ effects = [] }) => {
               'primitive',
               {
                 key: `${effect.type}-${index}`,
-                object: new JarvisJudiceNinkeEffect({ colorLevels: effect.colorLevels || 4 })
+                object: new JarvisJudiceNinkeEffect({
+                  colorLevels: effect.colorLevels || 4
+                })
               }
             );
           
@@ -928,7 +1092,9 @@ export const EffectRouter = ({ effects = [] }) => {
               'primitive',
               {
                 key: `${effect.type}-${index}`,
-                object: new StuckiEffect({ colorLevels: effect.colorLevels || 4 })
+                object: new StuckiEffect({
+                  colorLevels: effect.colorLevels || 4
+                })
               }
             );
           
@@ -938,7 +1104,9 @@ export const EffectRouter = ({ effects = [] }) => {
               'primitive',
               {
                 key: `${effect.type}-${index}`,
-                object: new BurkesEffect({ colorLevels: effect.colorLevels || 4 })
+                object: new BurkesEffect({
+                  colorLevels: effect.colorLevels || 4
+                })
               }
             );
           
@@ -948,7 +1116,9 @@ export const EffectRouter = ({ effects = [] }) => {
               'primitive',
               {
                 key: `${effect.type}-${index}`,
-                object: new SierraEffect({ colorLevels: effect.colorLevels || 4 })
+                object: new SierraEffect({
+                  colorLevels: effect.colorLevels || 4
+                })
               }
             );
           
@@ -958,7 +1128,9 @@ export const EffectRouter = ({ effects = [] }) => {
               'primitive',
               {
                 key: `${effect.type}-${index}`,
-                object: new Sierra2Effect({ colorLevels: effect.colorLevels || 4 })
+                object: new Sierra2Effect({
+                  colorLevels: effect.colorLevels || 4
+                })
               }
             );
           
@@ -968,7 +1140,9 @@ export const EffectRouter = ({ effects = [] }) => {
               'primitive',
               {
                 key: `${effect.type}-${index}`,
-                object: new SierraLiteEffect({ colorLevels: effect.colorLevels || 4 })
+                object: new SierraLiteEffect({
+                  colorLevels: effect.colorLevels || 4
+                })
               }
             );
           
@@ -979,7 +1153,9 @@ export const EffectRouter = ({ effects = [] }) => {
               'primitive',
               {
                 key: `${effect.type}-${index}`,
-                object: new HalftoneDotsNewEffect({ pixelSize: effect.pixelSize || 8.0 })
+                object: new HalftoneDotsNewEffect({
+                  pixelSize: effect.pixelSize || 8.0
+                })
               }
             );
           
@@ -989,7 +1165,15 @@ export const EffectRouter = ({ effects = [] }) => {
               'primitive',
               {
                 key: `${effect.type}-${index}`,
-                object: new HalftoneCirclesEffect({ pixelSize: effect.pixelSize || 8.0 })
+                object: new HalftoneCirclesEffect({
+                  pixelSize: effect.pixelSize || 8.0,
+                  angle: effect.angle ?? 45,
+                  contrast: effect.contrast ?? 100,
+                  spread: effect.spread ?? 50,
+                  paperColor: effect.paperColor,
+                  inkColor: effect.inkColor,
+                  inverted: effect.inverted ?? false
+                })
               }
             );
           
@@ -999,7 +1183,9 @@ export const EffectRouter = ({ effects = [] }) => {
               'primitive',
               {
                 key: `${effect.type}-${index}`,
-                object: new HalftoneSquaresEffect({ pixelSize: effect.pixelSize || 8.0 })
+                object: new HalftoneSquaresEffect({
+                  pixelSize: effect.pixelSize || 8.0
+                })
               }
             );
           
@@ -1009,7 +1195,9 @@ export const EffectRouter = ({ effects = [] }) => {
               'primitive',
               {
                 key: `${effect.type}-${index}`,
-                object: new HalftoneLinesEffect({ pixelSize: effect.pixelSize || 8.0 })
+                object: new HalftoneLinesEffect({
+                  pixelSize: effect.pixelSize || 8.0
+                })
               }
             );
           
@@ -1019,7 +1207,9 @@ export const EffectRouter = ({ effects = [] }) => {
               'primitive',
               {
                 key: `${effect.type}-${index}`,
-                object: new HalftoneCrosshatchEffect({ pixelSize: effect.pixelSize || 8.0 })
+                object: new HalftoneCrosshatchEffect({
+                  pixelSize: effect.pixelSize || 8.0
+                })
               }
             );
           
@@ -1029,12 +1219,17 @@ export const EffectRouter = ({ effects = [] }) => {
               'primitive',
               {
                 key: `${effect.type}-${index}`,
-                object: new HalftoneNewspaperEffect({ pixelSize: effect.pixelSize || 8.0 })
+                object: new HalftoneNewspaperEffect({
+                  pixelSize: effect.pixelSize || 8.0
+                })
               }
             );
             
           default:
             console.warn(`Unknown effect type: ${effect.type}`);
+            // #region agent log
+            fetch('http://127.0.0.1:7242/ingest/f241fcae-4ba5-41c1-b477-9ff7394a377f',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:'debug-session',runId:'pre-fix',hypothesisId:'H2',location:'components/background/effects/postprocessing-effects.js:EffectRouter:default',message:'EffectRouter unknown effect type (no case match)',data:{index,type:effect?.type ?? null},timestamp:Date.now()})}).catch(()=>{});
+            // #endregion
             return null;
         }
       })}

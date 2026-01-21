@@ -1740,6 +1740,9 @@ export const heroShaderEffectThemes = {
   // Original halftone effects
   halftone_dots: 'halftone-dots',
   halftone_ascii: 'halftone-ascii',
+  ascii: 'ascii',
+  ascii2: 'ascii2',
+  luma: 'luma',
   halftone_led: 'halftone-led',
   halftone_lego: 'halftone-lego',
   halftone_rect: 'halftone-rect',
