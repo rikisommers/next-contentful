@@ -1801,6 +1801,13 @@ export const heroCssGradientRadialPositionThemes = {
   bottomRight:'bottom-right',
 };
 
+
+export const heroLabelTheme = {
+  badge: 'badge',
+  text:'text',
+};
+
+
 export const heroTextPositionThemes = [
   // Top row (0-11)
   '0-0', '0-1', '0-2', '0-3', '0-4', '0-5', '0-6', '0-7', '0-8', '0-9', '0-10', '0-11',
@@ -1828,6 +1835,24 @@ export const heroTextPositionThemes = [
   '11-0', '11-1', '11-2', '11-3', '11-4', '11-5', '11-6', '11-7', '11-8', '11-9', '11-10', '11-11'
 ];
 
+export const shadowThemes = {
+  none: 'none',
+  sm:'sm',
+  md:'md',
+  lg:'lg',
+  xl:'xl',
+  '2xl':'2xl',
+};
+
+export const borderRadiusThemes = {
+  none: 'none',
+  sm:'sm',
+  md:'md',
+  lg:'lg',
+  xl:'xl',
+  '2xl':'2xl',
+};
+
 export const headerTextPositionThemes = {
   '0-0': '0-0',
   '0-1': '0-1',
@@ -1841,6 +1866,22 @@ export const headerTextPositionThemes = {
   '0-9': '0-9',
   '0-10': '0-10',
   '0-11': '0-11',
+};
+
+
+export const colSpanThemes = {
+  1: 1,
+  2: 2,
+  3: 3,
+  4: 4,
+  5: 5,
+  6: 6,
+  7: 7,
+  8: 8,
+  9: 9,
+  10: 10,
+  11: 11,
+  12: 12,
 };
 
 export const headerTextColSpanThemes = {
@@ -1874,6 +1915,7 @@ export const heroTextColSpanThemes = {
 };
 
 export const heroTextRowSpanThemes = {
+  auto: 'auto',
   1: 1,
   2: 2,
   3: 3,
@@ -2070,6 +2112,7 @@ export const themeContent = {
   headerSubtextAlign:'left',
   
   heroHeight: 100,
+  heroLabelTheme:heroLabelTheme.text,
   heroTextAlign:'left',
   heroSubtextAlign:'left',
   heroShowSubtext:true,
@@ -2090,6 +2133,11 @@ export const themeContent = {
   heroTextColSpanMd: 10, // 10 columns on medium screens
   heroTextColSpanLg: 6,  // 8 columns on large screens
   heroTextColSpanXl: 6,  // 8 columns on extra large screens
+  // Hero Text Row Span - Responsive breakpoints
+  heroTextRowSpanSm: 1, // 1 row on small screens
+  heroTextRowSpanMd: 1, // 1 row on medium screens
+  heroTextRowSpanLg: 1, // 1 row on large screens
+  heroTextRowSpanXl: 1, // 1 row on extra large screens
   // Hero Subtext Position - Responsive breakpoints
   heroSubTextPositionSm: heroTextPositionThemes[84], // '7-0' lower-left for small screens
   heroSubTextPositionMd: heroTextPositionThemes[84], // '7-0' lower-left for medium screens
@@ -2100,6 +2148,11 @@ export const themeContent = {
   heroSubTextColSpanMd: 8,  // 8 columns on medium screens
   heroSubTextColSpanLg: 6,  // 6 columns on large screens
   heroSubTextColSpanXl: 6,  // 6 columns on extra large screens
+  // Hero Subtext Row Span - Responsive breakpoints
+  heroSubTextRowSpanSm: 1, // 1 row on small screens
+  heroSubTextRowSpanMd: 1, // 1 row on medium screens
+  heroSubTextRowSpanLg: 1, // 1 row on large screens
+  heroSubTextRowSpanXl: 1, // 1 row on extra large screens
 
   // Hero Background Position - Responsive breakpoints
   heroBgPositionSm: heroTextPositionThemes[0], // '0-0' top-left for small screens
@@ -2118,6 +2171,10 @@ export const themeContent = {
   heroBgRowSpanMd: 5, // Full height on medium screens
   heroBgRowSpanLg: 5, // Full height on large screens
   heroBgRowSpanXl: 5, // Full height on extra large screens
+
+heroBgShadow:shadowThemes.none,
+heroBgBorderRadius:borderRadiusThemes.none,
+
 
   heroGradMidPoint:heroGradThemes.gradMidPoint,
   heroCssGradient:heroCssGradientThemes.linear,
@@ -2275,100 +2332,11 @@ export const themes = {
       navTheme:navigationThemes.applauseMain,
     },
   },
-  tokyo: {
-    name: "tokyo",
-    data: {
-      key: "tokyo",
-      ...colorThemes.tokyo,
-      ...themeContent,
-      navTheme:navigationThemes.awwwards
-    },
-  },
   custom: {
     name: "custom",
     data: {
       key: "custom",
       ...colorThemes.custom,
-      ...themeContent,
-    },
-  },
-  coastalMirage: {
-    name: "coastalMirage",
-    data: {
-      key: "coastalMirage",
-      ...colorThemes.coastalMirage,
-      ...themeContent,
-    },
-  },
-  velvetArchive: {
-    name: "velvetArchive",
-    data: {
-      key: "velvetArchive",
-      ...colorThemes.velvetArchive,
-      ...themeContent,
-    },
-  },
-  desertCinema: {
-    name: "desertCinema",
-    data: {
-      key: "desertCinema",
-      ...colorThemes.desertCinema,
-      ...themeContent,
-    },
-  },
-  dataDream: {
-    name: "dataDream",
-    data: {
-      key: "dataDream",
-      ...colorThemes.dataDream,
-      ...themeContent,
-    },
-  },
-  forestFade: {
-    name: "forestFade",
-    data: {
-      key: "forestFade",
-      ...colorThemes.forestFade,
-      ...themeContent,
-    },
-  },
-  popFiction: {
-    name: "popFiction",
-    data: {
-      key: "popFiction",
-      ...colorThemes.popFiction,
-      ...themeContent,
-    },
-  },
-  cloudcore: {
-    name: "cloudcore",
-    data: {
-      key: "cloudcore",
-      ...colorThemes.cloudcore,
-      ...themeContent,
-    },
-  },
-  cosmicAurora: {
-    name: "cosmicAurora",
-    data: {
-      key: "cosmicAurora",
-      ...colorThemes.cosmicAurora,
-      ...themeContent,
-    },
-  },
-  silentStorm: {
-    name: "silentStorm",
-    data: {
-      key: "silentStorm",
-      ...colorThemes.silentStorm,
-      ...themeContent,
-    },
-  },
-  digitalMist: {
-    name: "digitalMist",
-    data: {
-      key: "digitalMist",
-      ...colorThemes.digitalMist,
       ...themeContent,
     },
   },
@@ -2380,14 +2348,6 @@ export const themes = {
       ...themeContent,
     },
   },
-  retroFuture: {
-    name: "retroFuture",
-    data: {
-      key: "retroFuture",
-      ...colorThemes.retroFuture,
-      ...themeContent,
-    },
-  },
   zenGardenPalette: {
     name: "zenGardenPalette",
     data: {
@@ -2396,38 +2356,8 @@ export const themes = {
       ...themeContent,
     },
   },
-  quantumFlora: {
-    name: "quantumFlora",
-    data: {
-      key: "quantumFlora",
-      ...colorThemes.quantumFlora,
-      ...themeContent,
-    },
-  },
-  blueDianneNorway: {
-    name: "blueDianneNorway",
-    data: {
-      key: "blueDianneNorway",
-      ...colorThemes.blueDianneNorway,
-      ...themeContent,
-    },
-  },
-  costaDelSolYuma: {
-    name: "costaDelSolYuma",
-    data: {
-      key: "costaDelSolYuma",
-      ...colorThemes.costaDelSolYuma,
-      ...themeContent,
-    },
-  },
-  pearlBushTea: {
-    name: "pearlBushTea",
-    data: {
-      key: "pearlBushTea",
-      ...colorThemes.pearlBushTea,
-      ...themeContent,
-    },
-  },
+
+
     
   amberMonochrome: {
     name: "amberMonochrome",
@@ -2510,14 +2440,14 @@ export const themes = {
       ...themeContent,
     },
   },
-  // gameboy: {
-  //   name: "gameboy",
-  //   data: {
-  //     key: "gameboy",
-  //     ...colorThemes.gameboy,
-  //     ...themeContent,
-  //   },
-  // },
+  gameboy: {
+    name: "gameboy",
+    data: {
+      key: "gameboy",
+      ...colorThemes.gameboy,
+      ...themeContent,
+    },
+  },
   // sega: {
   //   name: "sega",
   //   data: {

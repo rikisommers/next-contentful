@@ -292,6 +292,16 @@ export default function ThemeEditor({ customThemes }) {
     const gradientType = currentTheme.data.heroCssGradient;
     const effectType = currentTheme.data.effectType;
 
+    // Hide bg colspan and rowspan controls when they're shown as part of bg position control
+    if (key.includes('heroBgColSpan') || key.includes('heroBgRowSpan')) {
+      return false; // These are now shown inline with bg position controls
+    }
+    
+    // Hide text/subtext rowspan controls when they're shown as part of position controls
+    if (key.includes('heroTextRowSpan') || key.includes('heroSubTextRowSpan')) {
+      return false; // These are now shown inline with position controls
+    }
+
     // Conditional display logic
     switch (key) {
       case 'heroCssGradientAngle':
@@ -411,33 +421,192 @@ export default function ThemeEditor({ customThemes }) {
     }
 
     // Special handling for hero and header position controls to show column spans
-    if (key.includes('heroTextPosition') || key.includes('heroSubTextPosition') || key.includes('headerTextPosition')) {
+    if (key.includes('heroTextPosition') || key.includes('heroSubTextPosition') || key.includes('headerTextPosition') || key.includes('heroBgPosition')) {
       const positionOptions = config.options;
 
       // Extract breakpoint from key (e.g., 'heroTextPositionMd' -> 'Md')
       const breakpointMatch = key.match(/(Sm|Md|Lg|Xl)$/);
       const currentBreakpoint = breakpointMatch ? breakpointMatch[1] : '';
 
-      // Determine if this is a hero or header control
+      // Determine if this is a hero, header, or bg control
       const isHeader = key.includes('headerTextPosition');
       const isHero = key.includes('heroTextPosition') || key.includes('heroSubTextPosition');
+      const isBg = key.includes('heroBgPosition');
 
-      let textColSpan = 6;
-      let subtextColSpan = 4;
-      let showTextSpan = true;
-      let showSubtextSpan = true;
+      // Build spans array based on control type
+      const spans = [];
+      let editableSpanKey = null;
+      let colSpanOptions = null;
+      let rowSpanOptions = null;
 
       if (isHeader) {
-        // For header, only show text span (no subtext)
+        // For header, only show text span
         const textColSpanKey = `headerTextColSpan${currentBreakpoint}`;
-        textColSpan = currentTheme.data[textColSpanKey] || 3;
-        showSubtextSpan = false;
+        spans.push({
+          key: 'text',
+          label: 'Text',
+          color: '#3b82f6', // blue-500
+          positionKey: 'headerTextPosition',
+          colSpanKey: 'headerTextColSpan',
+          colSpan: currentTheme.data[textColSpanKey] || 3,
+          rowSpanKey: null, // Header doesn't use row span
+          rowSpan: 1,
+        });
       } else if (isHero) {
-        // For hero, show both text and subtext spans
+        // For hero text/subtext, show both spans
         const textColSpanKey = `heroTextColSpan${currentBreakpoint}`;
+        const textRowSpanKey = `heroTextRowSpan${currentBreakpoint}`;
         const subtextColSpanKey = `heroSubTextColSpan${currentBreakpoint}`;
-        textColSpan = currentTheme.data[textColSpanKey] || 6;
-        subtextColSpan = currentTheme.data[subtextColSpanKey] || 4;
+        const subtextRowSpanKey = `heroSubTextRowSpan${currentBreakpoint}`;
+        spans.push({
+          key: 'text',
+          label: 'Text',
+          color: '#3b82f6', // blue-500
+          positionKey: 'heroTextPosition',
+          colSpanKey: 'heroTextColSpan',
+          colSpan: currentTheme.data[textColSpanKey] || 6,
+          rowSpanKey: 'heroTextRowSpan',
+          rowSpan: currentTheme.data[textRowSpanKey] || 1,
+        });
+        spans.push({
+          key: 'subtext',
+          label: 'Subtext',
+          color: '#22c55e', // green-500
+          positionKey: 'heroSubTextPosition',
+          colSpanKey: 'heroSubTextColSpan',
+          colSpan: currentTheme.data[subtextColSpanKey] || 4,
+          rowSpanKey: 'heroSubTextRowSpan',
+          rowSpan: currentTheme.data[subtextRowSpanKey] || 1,
+        });
+        // Determine which span is editable based on the key
+        const isTextPosition = key.includes('heroTextPosition') && !key.includes('heroSubTextPosition');
+        const isSubtextPosition = key.includes('heroSubTextPosition');
+        if (isTextPosition) {
+          editableSpanKey = 'text';
+          const colSpanConfig = themeControlConfig.HeroTextPosition?.[`heroTextColSpan${currentBreakpoint}`];
+          if (colSpanConfig && colSpanConfig.options) {
+            if (typeof colSpanConfig.options === 'object' && !Array.isArray(colSpanConfig.options)) {
+              colSpanOptions = Object.keys(colSpanConfig.options).map((optKey) => ({
+                value: optKey,
+                label: colSpanConfig.options[optKey] || optKey,
+              }));
+            } else if (Array.isArray(colSpanConfig.options)) {
+              colSpanOptions = colSpanConfig.options.map((opt) =>
+                typeof opt === "object" ? opt : { value: opt, label: opt }
+              );
+            }
+          }
+          const rowSpanConfig = themeControlConfig.HeroTextPosition?.[`heroTextRowSpan${currentBreakpoint}`];
+          if (rowSpanConfig && rowSpanConfig.options) {
+            if (typeof rowSpanConfig.options === 'object' && !Array.isArray(rowSpanConfig.options)) {
+              rowSpanOptions = Object.keys(rowSpanConfig.options).map((optKey) => ({
+                value: optKey,
+                label: rowSpanConfig.options[optKey] || optKey,
+              }));
+            } else if (Array.isArray(rowSpanConfig.options)) {
+              rowSpanOptions = rowSpanConfig.options.map((opt) =>
+                typeof opt === "object" ? opt : { value: opt, label: opt }
+              );
+            }
+          }
+        } else if (isSubtextPosition) {
+          editableSpanKey = 'subtext';
+          const colSpanConfig = themeControlConfig.HeroTextPosition?.[`heroSubTextColSpan${currentBreakpoint}`];
+          if (colSpanConfig && colSpanConfig.options) {
+            if (typeof colSpanConfig.options === 'object' && !Array.isArray(colSpanConfig.options)) {
+              colSpanOptions = Object.keys(colSpanConfig.options).map((optKey) => ({
+                value: optKey,
+                label: colSpanConfig.options[optKey] || optKey,
+              }));
+            } else if (Array.isArray(colSpanConfig.options)) {
+              colSpanOptions = colSpanConfig.options.map((opt) =>
+                typeof opt === "object" ? opt : { value: opt, label: opt }
+              );
+            }
+          }
+          const rowSpanConfig = themeControlConfig.HeroTextPosition?.[`heroSubTextRowSpan${currentBreakpoint}`];
+          if (rowSpanConfig && rowSpanConfig.options) {
+            if (typeof rowSpanConfig.options === 'object' && !Array.isArray(rowSpanConfig.options)) {
+              rowSpanOptions = Object.keys(rowSpanConfig.options).map((optKey) => ({
+                value: optKey,
+                label: rowSpanConfig.options[optKey] || optKey,
+              }));
+            } else if (Array.isArray(rowSpanConfig.options)) {
+              rowSpanOptions = rowSpanConfig.options.map((opt) =>
+                typeof opt === "object" ? opt : { value: opt, label: opt }
+              );
+            }
+          }
+        }
+      } else if (isBg) {
+        // For bg, show bg span with text/subtext spans for reference
+        const bgColSpanKey = `heroBgColSpan${currentBreakpoint}`;
+        const bgRowSpanKey = `heroBgRowSpan${currentBreakpoint}`;
+        spans.push({
+          key: 'bg',
+          label: 'Bg',
+          color: '#a855f7', // purple-500
+          positionKey: 'heroBgPosition',
+          colSpanKey: 'heroBgColSpan',
+          colSpan: currentTheme.data[bgColSpanKey] || 12,
+          rowSpanKey: 'heroBgRowSpan',
+          rowSpan: currentTheme.data[bgRowSpanKey] || 5,
+        });
+        // Also show text/subtext spans for reference
+        const textColSpanKey = `heroTextColSpan${currentBreakpoint}`;
+        const textRowSpanKey = `heroTextRowSpan${currentBreakpoint}`;
+        const subtextColSpanKey = `heroSubTextColSpan${currentBreakpoint}`;
+        const subtextRowSpanKey = `heroSubTextRowSpan${currentBreakpoint}`;
+        spans.push({
+          key: 'text',
+          label: 'Text',
+          color: '#3b82f6', // blue-500
+          positionKey: 'heroTextPosition',
+          colSpanKey: 'heroTextColSpan',
+          colSpan: currentTheme.data[textColSpanKey] || 6,
+          rowSpanKey: 'heroTextRowSpan',
+          rowSpan: currentTheme.data[textRowSpanKey] || 1,
+        });
+        spans.push({
+          key: 'subtext',
+          label: 'Subtext',
+          color: '#22c55e', // green-500
+          positionKey: 'heroSubTextPosition',
+          colSpanKey: 'heroSubTextColSpan',
+          colSpan: currentTheme.data[subtextColSpanKey] || 4,
+          rowSpanKey: 'heroSubTextRowSpan',
+          rowSpan: currentTheme.data[subtextRowSpanKey] || 1,
+        });
+        // Make bg colspan and rowspan editable
+        editableSpanKey = 'bg';
+        const colSpanConfig = themeControlConfig.HeroTextPosition?.[`heroBgColSpan${currentBreakpoint}`];
+        if (colSpanConfig && colSpanConfig.options) {
+          // Convert options to array format if needed
+          if (typeof colSpanConfig.options === 'object' && !Array.isArray(colSpanConfig.options)) {
+            colSpanOptions = Object.keys(colSpanConfig.options).map((optKey) => ({
+              value: optKey,
+              label: colSpanConfig.options[optKey] || optKey,
+            }));
+          } else if (Array.isArray(colSpanConfig.options)) {
+            colSpanOptions = colSpanConfig.options.map((opt) =>
+              typeof opt === "object" ? opt : { value: opt, label: opt }
+            );
+          }
+        }
+        const rowSpanConfig = themeControlConfig.HeroTextPosition?.[`heroBgRowSpan${currentBreakpoint}`];
+        if (rowSpanConfig && rowSpanConfig.options) {
+          // Convert options to array format if needed
+          if (typeof rowSpanConfig.options === 'object' && !Array.isArray(rowSpanConfig.options)) {
+            rowSpanOptions = Object.keys(rowSpanConfig.options).map((optKey) => ({
+              value: optKey,
+              label: rowSpanConfig.options[optKey] || optKey,
+            }));
+          } else if (Array.isArray(rowSpanConfig.options)) {
+            rowSpanOptions = rowSpanConfig.options.map((opt) =>
+              typeof opt === "object" ? opt : { value: opt, label: opt }
+            );
+          }
+        }
       }
 
       return (
@@ -448,12 +617,58 @@ export default function ThemeEditor({ customThemes }) {
           options={positionOptions || []}
           onChange={(val) => updateThemeProp(key, val)}
           currentTheme={currentTheme}
-          showTextSpan={showTextSpan}
-          showSubtextSpan={showSubtextSpan}
-          textColSpan={textColSpan}
-          subtextColSpan={subtextColSpan}
+          spans={spans}
           currentBreakpoint={currentBreakpoint}
           componentType={isHeader ? 'header' : 'hero'}
+          onColSpanChange={editableSpanKey && colSpanOptions ? (spanKey, val) => {
+            let colSpanKey;
+            if (spanKey === 'bg') {
+              colSpanKey = `heroBgColSpan${currentBreakpoint}`;
+            } else if (spanKey === 'text') {
+              colSpanKey = `heroTextColSpan${currentBreakpoint}`;
+            } else if (spanKey === 'subtext') {
+              colSpanKey = `heroSubTextColSpan${currentBreakpoint}`;
+            }
+            if (colSpanKey) {
+              updateThemeProp(colSpanKey, val);
+            }
+          } : null}
+          colSpanOptions={colSpanOptions}
+          colSpanValue={editableSpanKey ? (() => {
+            if (editableSpanKey === 'bg') {
+              return currentTheme.data[`heroBgColSpan${currentBreakpoint}`];
+            } else if (editableSpanKey === 'text') {
+              return currentTheme.data[`heroTextColSpan${currentBreakpoint}`];
+            } else if (editableSpanKey === 'subtext') {
+              return currentTheme.data[`heroSubTextColSpan${currentBreakpoint}`];
+            }
+            return null;
+          })() : null}
+          onRowSpanChange={editableSpanKey && rowSpanOptions ? (spanKey, val) => {
+            let rowSpanKey;
+            if (spanKey === 'bg') {
+              rowSpanKey = `heroBgRowSpan${currentBreakpoint}`;
+            } else if (spanKey === 'text') {
+              rowSpanKey = `heroTextRowSpan${currentBreakpoint}`;
+            } else if (spanKey === 'subtext') {
+              rowSpanKey = `heroSubTextRowSpan${currentBreakpoint}`;
+            }
+            if (rowSpanKey) {
+              updateThemeProp(rowSpanKey, val);
+            }
+          } : null}
+          rowSpanOptions={rowSpanOptions}
+          rowSpanValue={editableSpanKey ? (() => {
+            if (editableSpanKey === 'bg') {
+              return currentTheme.data[`heroBgRowSpan${currentBreakpoint}`];
+            } else if (editableSpanKey === 'text') {
+              return currentTheme.data[`heroTextRowSpan${currentBreakpoint}`];
+            } else if (editableSpanKey === 'subtext') {
+              return currentTheme.data[`heroSubTextRowSpan${currentBreakpoint}`];
+            }
+            return null;
+          })() : null}
+          editableSpanKey={editableSpanKey}
         />
       );
     }
@@ -649,29 +864,49 @@ export default function ThemeEditor({ customThemes }) {
       const smBreakpointControls = {
         heroTextPositionSm: sectionConfig.heroTextPositionSm,
         heroTextColSpanSm: sectionConfig.heroTextColSpanSm,
+        heroTextRowSpanSm: sectionConfig.heroTextRowSpanSm,
         heroSubTextPositionSm: sectionConfig.heroSubTextPositionSm,
         heroSubTextColSpanSm: sectionConfig.heroSubTextColSpanSm,
+        heroSubTextRowSpanSm: sectionConfig.heroSubTextRowSpanSm,
+        heroBgPositionSm: sectionConfig.heroBgPositionSm,
+        heroBgColSpanSm: sectionConfig.heroBgColSpanSm,
+        heroBgRowSpanSm: sectionConfig.heroBgRowSpanSm,
       };
 
       const mdBreakpointControls = {
         heroTextPositionMd: sectionConfig.heroTextPositionMd,
         heroTextColSpanMd: sectionConfig.heroTextColSpanMd,
+        heroTextRowSpanMd: sectionConfig.heroTextRowSpanMd,
         heroSubTextPositionMd: sectionConfig.heroSubTextPositionMd,
         heroSubTextColSpanMd: sectionConfig.heroSubTextColSpanMd,
+        heroSubTextRowSpanMd: sectionConfig.heroSubTextRowSpanMd,
+        heroBgPositionMd: sectionConfig.heroBgPositionMd,
+        heroBgColSpanMd: sectionConfig.heroBgColSpanMd,
+        heroBgRowSpanMd: sectionConfig.heroBgRowSpanMd,
       };
 
       const lgBreakpointControls = {
         heroTextPositionLg: sectionConfig.heroTextPositionLg,
         heroTextColSpanLg: sectionConfig.heroTextColSpanLg,
+        heroTextRowSpanLg: sectionConfig.heroTextRowSpanLg,
         heroSubTextPositionLg: sectionConfig.heroSubTextPositionLg,
         heroSubTextColSpanLg: sectionConfig.heroSubTextColSpanLg,
+        heroSubTextRowSpanLg: sectionConfig.heroSubTextRowSpanLg,
+        heroBgPositionLg: sectionConfig.heroBgPositionLg,
+        heroBgColSpanLg: sectionConfig.heroBgColSpanLg,
+        heroBgRowSpanLg: sectionConfig.heroBgRowSpanLg,
       };
 
       const xlBreakpointControls = {
         heroTextPositionXl: sectionConfig.heroTextPositionXl,
         heroTextColSpanXl: sectionConfig.heroTextColSpanXl,
+        heroTextRowSpanXl: sectionConfig.heroTextRowSpanXl,
         heroSubTextPositionXl: sectionConfig.heroSubTextPositionXl,
         heroSubTextColSpanXl: sectionConfig.heroSubTextColSpanXl,
+        heroSubTextRowSpanXl: sectionConfig.heroSubTextRowSpanXl,
+        heroBgPositionXl: sectionConfig.heroBgPositionXl,
+        heroBgColSpanXl: sectionConfig.heroBgColSpanXl,
+        heroBgRowSpanXl: sectionConfig.heroBgRowSpanXl,
       };
 
       const buttonGroupOptions = [

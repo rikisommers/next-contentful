@@ -34,6 +34,9 @@ import {
   mixBlendThemes,
   imageTextureThemes,
   surfaceTexture,
+  shadowThemes,
+  borderRadiusThemes,
+  heroLabelTheme,
   logoStyle,
   logoBackground,
   sounds,
@@ -121,7 +124,10 @@ export const themeControlConfig = {
     heroCssGradientRadialPosition: { type: "joystick", label: "CSS Gradient Radial Position" },
     heroGradMidPoint: { type: "slider", label: "Gradient Mid Point", min: 0, max: 1, step: 0.1 },
     // Text Position - Responsive
- 
+    heroBgShadow: { type: "select", label: "Bg Shadow", options: shadowThemes },
+    heroBgBorderRadius: { type: "select", label: "Bg Border Radius", options: borderRadiusThemes },
+    heroLabelTheme: { type: "select", label: "Label Theme", options: heroLabelTheme },
+    
   },
 
     EffectSelection: {
@@ -306,6 +312,8 @@ export const themeControlConfig = {
     heroBgRowSpanMd: { type: "select", label: "Bg Row Span Md", options: heroTextRowSpanThemes },
     heroBgRowSpanLg: { type: "select", label: "Bg Row Span Lg", options: heroTextRowSpanThemes },
     heroBgRowSpanXl: { type: "select", label: "Bg Row Span Xl", options: heroTextRowSpanThemes },
+
+
     },
   CanvasCamera: {
     _description: "Control the 3D camera position and field of view. Use sliders to position the camera or enable orbit controls below.",

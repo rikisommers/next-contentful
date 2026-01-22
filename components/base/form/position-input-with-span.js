@@ -1,37 +1,42 @@
 import React from "react";
 import { motion } from "../../../utils/motion";
 import styles from './position-input.module.css';
+import SelectInput from "./select-input";
+import { heroTextPositionThemes } from "../../../utils/theme";
 
-const defaultOptions = [
-  '0-0', '0-1', '0-2', '0-3', '0-4', '0-5', '0-6', '0-7', '0-8', '0-9', '0-10', '0-11',
-  '1-0', '1-1', '1-2', '1-3', '1-4', '1-5', '1-6', '1-7', '1-8', '1-9', '1-10', '1-11',
-  '2-0', '2-1', '2-2', '2-3', '2-4', '2-5', '2-6', '2-7', '2-8', '2-9', '2-10', '2-11',
-  '3-0', '3-1', '3-2', '3-3', '3-4', '3-5', '3-6', '3-7', '3-8', '3-9', '3-10', '3-11',
-  '4-0', '4-1', '4-2', '4-3', '4-4', '4-5', '4-6', '4-7', '4-8', '4-9', '4-10', '4-11',
-  '5-0', '5-1', '5-2', '5-3', '5-4', '5-5', '5-6', '5-7', '5-8', '5-9', '5-10', '5-11',
-  '6-0', '6-1', '6-2', '6-3', '6-4', '6-5', '6-6', '6-7', '6-8', '6-9', '6-10', '6-11',
-  '7-0', '7-1', '7-2', '7-3', '7-4', '7-5', '7-6', '7-7', '7-8', '7-9', '7-10', '7-11',
-  '8-0', '8-1', '8-2', '8-3', '8-4', '8-5', '8-6', '8-7', '8-8', '8-9', '8-10', '8-11',
-  '9-0', '9-1', '9-2', '9-3', '9-4', '9-5', '9-6', '9-7', '9-8', '9-9', '9-10', '9-11',
-  '10-0', '10-1', '10-2', '10-3', '10-4', '10-5', '10-6', '10-7', '10-8', '10-9', '10-10', '10-11',
-  '11-0', '11-1', '11-2', '11-3', '11-4', '11-5', '11-6', '11-7', '11-8', '11-9', '11-10', '11-11'
-];
+// Helper to convert hex color to RGB
+const hexToRgb = (hex) => {
+  if (!hex || typeof hex !== 'string') return null;
+  // Remove # if present
+  const cleanHex = hex.replace('#', '');
+  if (cleanHex.length !== 6) return null;
+  const r = parseInt(cleanHex.substring(0, 2), 16);
+  const g = parseInt(cleanHex.substring(2, 4), 16);
+  const b = parseInt(cleanHex.substring(4, 6), 16);
+  if (isNaN(r) || isNaN(g) || isNaN(b)) return null;
+  return { r, g, b };
+};
 
+// Span configuration type: { key: string, label: string, color: string, positionKey: string, colSpanKey: string, colSpan: number }
 export default function PositionInputWithSpan({
   label,
   value,
   onChange,
-  options = defaultOptions,
+  options = heroTextPositionThemes,
   gridCols = 12,
   gridRows = 12,
   id,
-  textColSpan = 6,
-  subtextColSpan = 4,
+  spans = [], // Array of { key, label, color, positionKey, colSpanKey, colSpan, rowSpanKey, rowSpan }
   currentTheme = null,
-  showTextSpan = true,
-  showSubtextSpan = true,
   currentBreakpoint = '',
-  componentType = 'hero' // 'hero' or 'header'
+  componentType = 'hero', // 'hero' or 'header'
+  onColSpanChange = null, // Callback for colspan changes: (spanKey, value) => void
+  colSpanOptions = null, // Options for colspan select
+  colSpanValue = null, // Current colspan value
+  onRowSpanChange = null, // Callback for rowspan changes: (spanKey, value) => void
+  rowSpanOptions = null, // Options for rowspan select
+  rowSpanValue = null, // Current rowspan value
+  editableSpanKey = null // Which span's colspan/rowspan is editable (if any)
 }) {
   // Override gridRows for header (single row layout)
   const effectiveGridRows = componentType === 'header' ? 1 : gridRows;
@@ -50,7 +55,7 @@ export default function PositionInputWithSpan({
   };
 
   // Convert options object to array of matrix coordinates if needed
-  let gridOptions = defaultOptions;
+  let gridOptions = heroTextPositionThemes;
   if (options && typeof options === 'object' && !Array.isArray(options)) {
     if (componentType === 'header') {
       // For header, use all 12 columns in row 0: 0-0 through 0-11
@@ -86,22 +91,7 @@ export default function PositionInputWithSpan({
     return { row: row || 0, col: col || 0 };
   };
 
-  const selectedPos = parsePosition(selectedOption);
-
-  // Use the passed column span values directly
-  const effectiveTextColSpan = textColSpan;
-  const effectiveSubtextColSpan = subtextColSpan;
-
-  // Calculate which cells should be highlighted for text and subtext spans
-  const getSpanCells = (startRow, startCol, span) => {
-    const cells = [];
-    for (let i = 0; i < span && startCol + i < gridCols; i++) {
-      cells.push(`${startRow}-${startCol + i}`);
-    }
-    return cells;
-  };
-
-  // Get text and subtext positions for the current breakpoint
+  // Get position for a span key at current breakpoint
   const getPositionForBreakpoint = (baseKey) => {
     if (!currentTheme?.data) return '0-0';
 
@@ -117,19 +107,40 @@ export default function PositionInputWithSpan({
     }
   };
 
-  const textPosition = getPositionForBreakpoint(componentType === 'header' ? 'headerTextPosition' : 'heroTextPosition');
-  const subtextPosition = getPositionForBreakpoint('heroSubTextPosition'); // Only for hero
+  // Calculate which cells should be highlighted for a span (supports both row and col span)
+  const getSpanCells = (startRow, startCol, colSpan, rowSpan = 1) => {
+    const cells = [];
+    for (let row = 0; row < rowSpan && startRow + row < effectiveGridRows; row++) {
+      for (let col = 0; col < colSpan && startCol + col < gridCols; col++) {
+        cells.push(`${startRow + row}-${startCol + col}`);
+      }
+    }
+    return cells;
+  };
 
-  const textPos = parsePosition(textPosition);
-  const subtextPos = parsePosition(subtextPosition);
+  // Process spans to get their positions and cells
+  const processedSpans = spans.map(span => {
+    const position = getPositionForBreakpoint(span.positionKey);
+    const pos = parsePosition(position);
+    const colSpan = currentTheme?.data?.[`${span.colSpanKey}${currentBreakpoint}`] || 
+                    currentTheme?.data?.[span.colSpanKey] || 
+                    span.colSpan || 1;
+    const rowSpanValue = currentTheme?.data?.[`${span.rowSpanKey}${currentBreakpoint}`] || 
+                         currentTheme?.data?.[span.rowSpanKey] || 
+                         span.rowSpan || 1;
+    // Handle "auto" - use 1 for visualization but keep "auto" as the value
+    const rowSpanDisplay = rowSpanValue === 'auto' ? 1 : (typeof rowSpanValue === 'number' ? rowSpanValue : 1);
+    const cells = getSpanCells(pos.row, pos.col, colSpan, rowSpanDisplay);
+    return { ...span, position, pos, colSpan, rowSpan: rowSpanValue, rowSpanDisplay, cells };
+  });
 
-  const textSpanCells = showTextSpan ? getSpanCells(textPos.row, textPos.col, effectiveTextColSpan) : [];
-  const subtextSpanCells = showSubtextSpan ? getSpanCells(subtextPos.row, subtextPos.col, effectiveSubtextColSpan) : [];
-
-  // Check if current cell is part of text or subtext span
+  // Check if current cell is part of any span
   const getCellType = (cellId) => {
-    if (textSpanCells.includes(cellId)) return 'text';
-    if (subtextSpanCells.includes(cellId)) return 'subtext';
+    for (const span of processedSpans) {
+      if (span.cells.includes(cellId)) {
+        return span.key;
+      }
+    }
     return 'empty';
   };
 
@@ -138,20 +149,14 @@ export default function PositionInputWithSpan({
       {label && <div className="mb-1 text-xs">{label}</div>}
 
       {/* Legend */}
-      {(showTextSpan || showSubtextSpan) && (
+      {processedSpans.length > 0 && (
         <div className="flex gap-3 text-xs text-[var(--text-accent)] mb-1">
-          {showTextSpan && (
-            <div className="flex items-center gap-1">
-              <div className="w-2 h-2 bg-blue-500 rounded"></div>
-              <span>Text ({effectiveTextColSpan} cols)</span>
+          {processedSpans.map(span => (
+            <div key={span.key} className="flex items-center gap-1">
+              <div className="w-2 h-2 rounded" style={{ backgroundColor: span.color }}></div>
+              <span>{span.label} ({span.colSpan}×{span.rowSpan === 'auto' ? 'auto' : span.rowSpanDisplay})</span>
             </div>
-          )}
-          {showSubtextSpan && (
-            <div className="flex items-center gap-1">
-              <div className="w-2 h-2 bg-green-500 rounded"></div>
-              <span>Subtext ({effectiveSubtextColSpan} cols)</span>
-            </div>
-          )}
+          ))}
         </div>
       )}
 
@@ -172,12 +177,24 @@ export default function PositionInputWithSpan({
               onClick={() => onChange(opt)}
               className={`${styles.positionInputItem} ${isSelected ? styles.positionInputItemSelected : ''}`}
               style={{
-                backgroundColor: cellType === 'text' ? 'rgba(59, 130, 246, 0.3)' :
-                              cellType === 'subtext' ? 'rgba(34, 197, 94, 0.3)' : undefined,
-                border: cellType === 'text' ? '1px solid rgba(59, 130, 246, 0.5)' :
-                       cellType === 'subtext' ? '1px solid rgba(34, 197, 94, 0.5)' : undefined,
+                backgroundColor: cellType !== 'empty' ? (() => {
+                  const span = processedSpans.find(s => s.key === cellType);
+                  if (span) {
+                    const rgb = hexToRgb(span.color);
+                    return rgb ? `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.3)` : undefined;
+                  }
+                  return undefined;
+                })() : undefined,
+                border: cellType !== 'empty' ? (() => {
+                  const span = processedSpans.find(s => s.key === cellType);
+                  if (span) {
+                    const rgb = hexToRgb(span.color);
+                    return rgb ? `1px solid rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.5)` : undefined;
+                  }
+                  return undefined;
+                })() : undefined,
               }}
-              aria-label={`${opt} ${cellType === 'text' ? '(text span)' : cellType === 'subtext' ? '(subtext span)' : ''}`}
+              aria-label={`${opt} ${cellType !== 'empty' ? `(${processedSpans.find(s => s.key === cellType)?.label || cellType} span)` : ''}`}
             >
               {isSelected && (
                 <motion.div
@@ -194,6 +211,32 @@ export default function PositionInputWithSpan({
           );
         })}
       </div>
+
+      {/* Colspan and Rowspan controls for editable span - shown after the grid */}
+      {editableSpanKey && (
+        <div className="w-full mt-2 flex flex-col gap-2">
+          {onColSpanChange && colSpanOptions && (
+            <SelectInput
+              label="Col Span"
+              value={String(colSpanValue ?? processedSpans.find(s => s.key === editableSpanKey)?.colSpan ?? 12)}
+              options={colSpanOptions}
+              onChange={(val) => onColSpanChange(editableSpanKey, Number(val))}
+            />
+          )}
+          {onRowSpanChange && rowSpanOptions && (
+            <SelectInput
+              label="Row Span"
+              value={String(rowSpanValue ?? processedSpans.find(s => s.key === editableSpanKey)?.rowSpan ?? 1)}
+              options={rowSpanOptions}
+              onChange={(val) => {
+                // Handle "auto" as a string, otherwise convert to number
+                const newValue = val === 'auto' ? 'auto' : Number(val);
+                onRowSpanChange(editableSpanKey, newValue);
+              }}
+            />
+          )}
+        </div>
+      )}
     </div>
   );
 }

@@ -190,7 +190,7 @@ export default function HeroBackground({ heroBackground, image, theme }) {
       cssgradient: () => <BackgroundCssGrad />,
 
       image: () => image ? (
-        <div className="absolute top-0 left-0 w-1/2 h-full z-10 bg-[var(--background-color)]">
+        <div className="absolute top-0 left-0 w-full h-full z-10 bg-[var(--background-color)]">
           <BlendImage
             className="img-cover"
             alt={`Cover Image for ${image?.title}`}

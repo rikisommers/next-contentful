@@ -125,16 +125,16 @@ const Message = ({
 
   return (
     <div
-      className={`flex items-start gap-1 p-2 rounded-lg max-w-[300px] ${getColorClasses()} backdrop-blur-md ${className}`}
+      className={`flex gap-1 items-start p-2 rounded-lg backdrop-blur-md max-w-[300px] ${getColorClasses()} ${className}`}
       role="alert"
     >
-      <div className={`flex-shrink-0 ${getIconColorClass()}`}>
+      {/* <div className={`flex-shrink-0 ${getIconColorClass()}`}>
         {getIcon()}
-      </div>
+      </div> */}
       <div className="flex-1 text-xs text-[var(--subtext-color)]">
         
         {title}
-        <div className=" ">
+        <div className="">
         {content}
         </div>
       </div>
@@ -142,7 +142,7 @@ const Message = ({
       {dismissible && onClose && (
         <button
           type="button"
-          className="ml-3 flex-shrink-0 inline-flex text-gray-400 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 rounded-lg"
+          className="inline-flex flex-shrink-0 ml-3 text-gray-400 rounded-lg hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           onClick={onClose}
           aria-label="Close message"
         >
