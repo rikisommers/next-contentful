@@ -7,7 +7,10 @@ import PostTileImg from "../tile/post-tile-img";
 import PostTileRe from "../tile/post-tile-reone";
 import PostTileMonks from "../tile/post-tile-monks";
 import PostTileColabs from "../tile/post-tile-colabs";
+import PostTileFormFun from "../tile/post-tile-formfun";
 import classNames from 'classnames';
+import PostTileMount from "../tile/post-tile-mount";
+import PostTileOnto from "../tile/post-tile-onto";
 
 /**
  * @component
@@ -141,6 +144,12 @@ export default function GridBasic({
             return <PostTileMonks key={index} post={item} aspect={currentTheme.data.cardAspectRatio} />;
           case 'img':
             return <PostTileImg key={index} post={item} aspect={currentTheme.data.cardAspectRatio} />;
+          case 'formfun':
+            return <PostTileFormFun key={index} post={item} aspect={currentTheme.data.cardAspectRatio} />;
+          case 'mount':
+            return <PostTileMount key={index} post={item} aspect={currentTheme.data.cardAspectRatio} />;
+          case 'onto':
+            return <PostTileOnto key={index} post={item} aspect={currentTheme.data.cardAspectRatio} />;
           default:
             return null;
         }

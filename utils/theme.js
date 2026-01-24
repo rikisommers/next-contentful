@@ -1494,6 +1494,7 @@ export const textAnimationThemes = {
   charcode: "charcode",
   wordmask: "wordmask",
   navigators: "navigators",
+  wordsup: "wordsup",
 };
 
 export const textHighlightThemes = {
@@ -1575,6 +1576,9 @@ export const cardThemes = {
   text: "text",
   hovertext: "hovertext",
   colabs: "colabs",
+  formfun: "formfun",
+  mount: "mount",
+  onto: "onto",
 };
 
 export const cardAspectRatio = {

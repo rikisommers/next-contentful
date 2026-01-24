@@ -69,7 +69,7 @@ export const themeControlConfig = {
     audioPageTransitionEnd: { type: "select", label: "Page Transition End", options: sounds },
     audioModalOpen: { type: "select", label: "Modal Open", options: sounds },
     audioModalClose: { type: "select", label: "Modal Close", options: sounds },
-  },
+  },*/
   Globals: {
     pageWidth: { type: "select", label: "Page Width", options: pageWidthThemes },
     pageTransition: { type: "select", label: "Page Transition", options: pageTransitionThemes },
@@ -97,7 +97,7 @@ export const themeControlConfig = {
   Header: {
     headerHeight: { type: "slider", label: "Height (vh)", min: 10, max: 100, step: 5 },
     headerTextAlign: { type: "select", label: "Text Align", options: textAlignThemes },
-  },*/
+  },
   HeaderTextPosition: {
     headerTextPositionSm: { type: "position", label: "Text Position Sm", options: headerTextPositionThemes },
     headerTextPositionMd: { type: "position", label: "Text Position Md", options: headerTextPositionThemes },
@@ -343,7 +343,7 @@ export const themeControlConfig = {
     canvasExpSphereWidthSegments: { type: "slider", label: "Experience Sphere Width Segments", min: 3, max: 64, step: 1 },
     canvasExpSphereHeightSegments: { type: "slider", label: "Experience Sphere Height Segments", min: 3, max: 64, step: 1 },
   },
-  /*Articles: {
+  Articles: {
     gridType: { type: "select", label: "Grid Type", options: gridLayoutThemes },
     listType: { type: "select", label: "List Type", options: listLayoutThemes },
     gridColumnsSm: { type: "select", label: "Sm", options: gridColumns },
@@ -355,7 +355,7 @@ export const themeControlConfig = {
     cardLayout: { type: "select", label: "Card Type", options: cardThemes },
     cardHover: { type: "select", label: "Hover", options: cardHoverThemes },
   },
-  Images: {
+   /*Images: {
     imageParallax: { type: "boolean", label: "Parallax" },
     imageMixBlendMode: { type: "select", label: "Blend Mode", options: mixBlendThemes },
     imageTexture: { type: "select", label: "Texture", options: imageTextureThemes },

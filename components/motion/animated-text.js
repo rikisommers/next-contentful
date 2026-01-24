@@ -14,6 +14,7 @@ import { TextAnimCode } from "../motion/text-anim-code";
 import { TextAnimFigma } from "./text-anim-figma";
 import { useThemeContext } from "../context/themeContext";
 import { TextAnimNavigators } from "./text-anim-navigators";
+import { TextAnimWordPosUp } from "./text-anim-word-pos-up";
 
 const HighlightStyle = {
   NONE: "none",
@@ -67,6 +68,13 @@ const AnimatedText = ({ type, highlight, content, delay, align }) => {
         return <TextAnimFigma content={content} highlight={highlight2} />;
       case AnimStyle.NONE:
         return <TextAnimNone content={content} highlight={highlight2} />;
+      case AnimStyle.WORDSUP:
+        return (
+          <TextAnimWordPosUp
+            content={content}
+            delay={delay}
+          />
+        );
       case AnimStyle.LINESUP:
         return (
           <TextAnimLinePosUp
@@ -118,7 +126,7 @@ const AnimatedText = ({ type, highlight, content, delay, align }) => {
         return <TextAnimCode content={content} />;
       default:
         return (
-          <TextAnimLineUp
+          <TextAnimLinePosUp
             content={content}
             delay={delay}
             highlight={highlight2}
