@@ -11,7 +11,7 @@ import PostTileFormFun from "../tile/post-tile-formfun";
 import classNames from 'classnames';
 import PostTileMount from "../tile/post-tile-mount";
 import PostTileOnto from "../tile/post-tile-onto";
-
+import PostTileOnto2 from "../tile/post-tile-onto2";
 /**
  * @component
  * @category grid
@@ -150,6 +150,8 @@ export default function GridBasic({
             return <PostTileMount key={index} post={item} aspect={currentTheme.data.cardAspectRatio} />;
           case 'onto':
             return <PostTileOnto key={index} post={item} aspect={currentTheme.data.cardAspectRatio} />;
+          case 'onto2':
+            return <PostTileOnto2 key={index} post={item} aspect={currentTheme.data.cardAspectRatio} />;
           default:
             return null;
         }

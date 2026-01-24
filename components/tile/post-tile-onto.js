@@ -20,7 +20,7 @@ import FadeInWhenVisible from "../utils/fade-in-visible";
  * @param {string} [aspect] - The aspect ratio of the tile (e.g., 'square', '16/9').
  * @example
  * // Image Post Tile
- * <PostTileImg 
+ * <PostTileOnto 
  *   post={{
  *     title: "Project Title",
  *     subtitle: "A brief description of the project",
@@ -98,7 +98,7 @@ export default function PostTileOnto({ post, aspect }) {
 
 
        <h3
-           className="col-span-6 col-start-1 @min-[600px]:col-span-2 @min-[600px]:col-start-8  uppercase text-xs font-normal leading-tight"
+           className="col-span-6 col-start-1 @min-[600px]:col-span-2 @min-[600px]:col-start-8 uppercase text-xs font-normal leading-tight"
            style={{
              color: "var(--subtext-color)",
            }}

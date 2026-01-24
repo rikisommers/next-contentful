@@ -1579,6 +1579,7 @@ export const cardThemes = {
   formfun: "formfun",
   mount: "mount",
   onto: "onto",
+  onto2: "onto2",
 };
 
 export const cardAspectRatio = {
