@@ -72,7 +72,7 @@ export default function PostTileOnto2({ post, aspect }) {
 
       <div className="flex left-0 z-10 @min-[600px]:justify-between gap-6 items-baseline py-5 w-full no-underline">
         <h2
-          className="text-md @min-[600px]:text-lg font-light text-[var(--heading-color)]"
+          className="text-sm @min-[600px]:text-lg font-light text-[var(--heading-color)]"
         >
           {post?.title}
         </h2>

@@ -1926,6 +1926,13 @@ export const heroTextRowSpanThemes = {
   3: 3,
   4: 4,
   5: 5,
+  6: 6,
+  7: 7,
+  8: 8,
+  9: 9,
+  10: 10,
+  11: 11,
+  12: 12,
 };
 
 export const heroTextColSpanLgThemes = {
@@ -2172,10 +2179,10 @@ export const themeContent = {
   heroBgColSpanXl: 12, // Full width on extra large screens
 
   // Hero Background Row Span - Responsive breakpoints
-  heroBgRowSpanSm: 5, // Full height on small screens
-  heroBgRowSpanMd: 5, // Full height on medium screens
-  heroBgRowSpanLg: 5, // Full height on large screens
-  heroBgRowSpanXl: 5, // Full height on extra large screens
+  heroBgRowSpanSm: 12, // Full height on small screens
+  heroBgRowSpanMd: 12, // Full height on medium screens
+  heroBgRowSpanLg: 12, // Full height on large screens
+  heroBgRowSpanXl: 12, // Full height on extra large screens
 
 heroBgShadow:shadowThemes.none,
 heroBgBorderRadius:borderRadiusThemes.none,
@@ -2185,7 +2192,7 @@ heroBgBorderRadius:borderRadiusThemes.none,
   heroCssGradient:heroCssGradientThemes.linear,
   heroCssGradientAngle:'90',
   heroCssGradientRadialPosition: { x: 50, y: 50 }, // Center position as x,y percentages
-  heroBackground:heroBackgroundThemes.canvasPerlinBlob,
+  heroBackground:heroBackgroundThemes.cssGradient,
   heroShaderEffect: shaderEffect.blueNoise, // Default shader type (legacy, use effectVariant)
   
   // Effect Selection

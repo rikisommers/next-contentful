@@ -82,7 +82,7 @@ export default function PostTileText({
     <Link
       ref={ref}
       href={`/articles/${post.slug}`}
-      className={`flex relative z-20 flex-col gap-3 justify-between p-4 w-full no-underline ${currentTheme.data.fontScale === 'fluid' ? 'fluid-type' : ''} group`}
+      className={`group flex relative z-20 flex-col gap-3 justify-between p-4 w-full no-underline ${currentTheme.data.fontScale === 'fluid' ? 'fluid-type' : ''} group`}
       onMouseEnter={(e) => {
         setIsHovered(true);
         audioProps.onMouseEnter?.(e);
@@ -96,8 +96,8 @@ export default function PostTileText({
     >
 
           <h2
-            className="text-2xl font-light transition-colors duration-300 text-balance  text-[var(--text-color)] group-hover:text-[var(--hover-text)]"
-           
+            className="text-2xl font-light transition-colors duration-300 text-balance  text-[var(--text-color)] group-hover:text-[var(--text-color)]/60"
+
           >
             {post?.subtitle}
             </h2>
