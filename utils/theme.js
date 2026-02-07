@@ -1550,7 +1550,8 @@ export const pageTransitionThemes = {
   fade:'fade',
   wipe:'wipe',
   pixel:'pixel',
-  none:'none'
+  none:'none',
+  onto: 'onto',
 };
 
 export const pageWidthThemes = {
@@ -1564,7 +1565,8 @@ export const cursorThemes = {
   none: 'none',
   dot: 'dot',
   cta:'cta',
-  gabriel:'gabriel'
+  gabriel:'gabriel',
+  onto: 'onto',
 };
 
 export const cardThemes = {
@@ -1721,6 +1723,11 @@ export const footerOptions = {
   },
 };
 
+export const footerThemes = {
+  default: 'default',
+  format: 'format',
+  onto: 'onto',
+};
 
 
 // animatedGradient: 'animated-gradient',

@@ -2,7 +2,7 @@ import React from 'react';
 import { Canvas } from '@react-three/fiber';
 import { EffectComposer } from '@react-three/postprocessing';
 import { useThemeContext } from '../../context/themeContext';
-import { EffectRouter } from '../effects/postprocessing-effects';
+import { renderEffectElements } from '../effects/postprocessing-effects';
 
 /**
  * Gradient Canvas Component - Canvas-based gradient background
@@ -19,12 +19,11 @@ const GradientCanvas = ({
 }) => {
   const { currentTheme } = useThemeContext();
 
-  // Debug effects
-  React.useEffect(() => {
-    if (effects.length > 0) {
-      console.log('Gradient Canvas Effects:', effects);
-    }
-  }, [effects]);
+  // Filter to only valid effects (non-null with a type)
+  const validEffects = React.useMemo(
+    () => effects.filter((e) => e != null && e.type),
+    [effects]
+  );
 
   // For now, use a simple colored plane that can be post-processed
   // This could be enhanced with procedural gradient shaders in the future
@@ -49,9 +48,9 @@ const GradientCanvas = ({
         orthographic
       >
         <GradientPlane />
-        {effects.length > 0 && (
+        {validEffects.length > 0 && (
           <EffectComposer>
-            <EffectRouter effects={effects} />
+            {renderEffectElements(validEffects)}
           </EffectComposer>
         )}
       </Canvas>

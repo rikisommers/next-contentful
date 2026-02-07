@@ -40,6 +40,14 @@ const nextConfig = {
   compress: true,
   poweredByHeader: false,
   webpack: (config, { dev, isServer }) => {
+    // Force a single copy of 'postprocessing' to prevent duplicate module issues.
+    // @react-three/postprocessing bundles its own nested copy; without this alias,
+    // `instanceof Effect` checks fail because two different Effect classes exist.
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      'postprocessing': path.resolve(__dirname, 'node_modules/postprocessing'),
+    };
+
     // GLSL shader support
     config.module.rules.push({
       test: /\.(glsl|vs|fs|vert|frag)$/,

@@ -1,8 +1,8 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
-import { Canvas, useThree, useFrame } from '@react-three/fiber';
+import { Canvas, useThree } from '@react-three/fiber';
 import { EffectComposer } from '@react-three/postprocessing';
 import * as THREE from 'three';
-import { EffectRouter } from '../effects/postprocessing-effects';
+import { renderEffectElements } from '../effects/postprocessing-effects';
 
 /**
  * Three.js Image Plane Component
@@ -98,19 +98,12 @@ const ImageCanvas = ({
 }) => {
   const [error, setError] = useState(null);
 
-  // Debug effects
-  React.useEffect(() => {
-    if (effects.length > 0) {
-      console.log('Image Canvas Effects:', effects);
-    }
-  }, [effects]);
+  // Filter to only valid effects (non-null with a type)
+  const validEffects = React.useMemo(
+    () => effects.filter((e) => e != null && e.type),
+    [effects]
+  );
 
-  React.useEffect(() => {
-    const effectTypes = effects.map((e) => e?.type ?? null).filter(Boolean);
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/f241fcae-4ba5-41c1-b477-9ff7394a377f',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:'debug-session',runId:'pre-fix',hypothesisId:'H1',location:'components/background/canvases/image-canvas.js:effects',message:'ImageCanvas received effects',data:{effectsCount:effects.length,effectTypes,hasSrc:!!src},timestamp:Date.now()})}).catch(()=>{});
-    // #endregion
-  }, [effects, src]);
 
   if (error) {
     return (
@@ -133,7 +126,7 @@ const ImageCanvas = ({
       <Canvas
         camera={{ position: [0, 0, 5], fov: 75 }}
         style={{ width: '100%', height: '100%' }}
-        gl={{ preserveDrawingBuffer: true }}
+        gl={{ preserveDrawingBuffer: true, antialias: false }}
       >
         <ImagePlane 
           src={src}
@@ -146,9 +139,9 @@ const ImageCanvas = ({
           }}
           fit={fit}
         />
-        {effects.length > 0 && (
-          <EffectComposer>
-            <EffectRouter effects={effects} />
+        {validEffects.length > 0 && (
+          <EffectComposer multisampling={0}>
+            {renderEffectElements(validEffects)}
           </EffectComposer>
         )}
       </Canvas>

@@ -3,7 +3,6 @@ import { heroShaderEffectThemes } from "../../utils/theme";
 import {
   normalizeEffectType,
   getEffectCategory,
-  getEffectParameters,
   ASCII_CHARACTER_SETS,
   EFFECT_TYPES,
   EFFECT_CATEGORIES
@@ -15,6 +14,104 @@ import BlendImage from "../image/blend-image";
 const UnifiedCanvas = React.lazy(() => import("./unified-canvas"));
 
 /**
+ * Creates a normalized effect configuration object from theme data.
+ * Pure function - uses only its arguments and module-level imports.
+ *
+ * @param {string} effectVariant - Raw effect variant from theme
+ * @param {string} effectType - Effect type category (custom/preset/ascii/etc.)
+ * @param {Object} themeData - Theme configuration data
+ * @returns {Object|null} Effect configuration object or null
+ */
+function createEffect(effectVariant, effectType, themeData) {
+  if (!effectVariant || effectVariant === 'none') return null;
+
+  const normalizedVariant = normalizeEffectType(effectVariant, heroShaderEffectThemes);
+  if (!normalizedVariant) return null;
+
+  const category = getEffectCategory(normalizedVariant);
+  const isCustomCategory = effectType === EFFECT_TYPES.CUSTOM;
+  const effect = { type: normalizedVariant };
+
+  // Map effect-specific parameters based on effect category
+  if (category === EFFECT_CATEGORIES.ASCII) {
+    effect.pixelSize = isCustomCategory
+      ? themeData?.asciiSize || 12
+      : themeData?.asciiPixelSize || 12;
+    effect.showBackground = isCustomCategory
+      ? false
+      : themeData?.asciiShowBackground || false;
+    effect.contrast = isCustomCategory
+      ? 100
+      : themeData?.asciiContrast || 100;
+
+    // Add ASCII character sets
+    const asciiChars = ASCII_CHARACTER_SETS[normalizedVariant];
+    if (asciiChars) {
+      effect.asciiChars = asciiChars;
+    }
+  }
+  // Dithering effects
+  else if (category === EFFECT_CATEGORIES.DITHER) {
+    effect.colorLevels = isCustomCategory
+      ? themeData?.ditherLevels || 4
+      : themeData?.ditherColorLevels || 4;
+    effect.paperColor = isCustomCategory
+      ? themeData?.backgroundColor || '#ffffff'
+      : themeData?.ditherPaperColor || themeData?.backgroundColor || '#ffffff';
+    effect.inkColor = isCustomCategory
+      ? themeData?.textColor || '#000000'
+      : themeData?.ditherInkColor || themeData?.textColor || '#000000';
+    effect.inverted = isCustomCategory
+      ? false
+      : themeData?.ditherInverted || false;
+
+    if (normalizedVariant === 'dither-ordered' || normalizedVariant === 'dither_ordered') {
+      effect.ditherSize = themeData?.ditherSize || 4;
+    }
+  }
+  // Halftone effects
+  else if (category === EFFECT_CATEGORIES.HALFTONE) {
+    effect.pixelSize = isCustomCategory
+      ? themeData?.halftoneSize || 8
+      : themeData?.halftoneDotSize || 8;
+    effect.angle = isCustomCategory
+      ? 45
+      : themeData?.halftoneAngle || 45;
+    effect.contrast = isCustomCategory
+      ? 100
+      : themeData?.halftoneContrast || 100;
+    effect.spread = isCustomCategory
+      ? 50
+      : themeData?.halftoneSpread || 50;
+    effect.shape = isCustomCategory
+      ? 'circle'
+      : themeData?.halftoneShape || 'circle';
+    effect.paperColor = isCustomCategory
+      ? themeData?.backgroundColor || '#ffffff'
+      : themeData?.halftonePaperColor || themeData?.backgroundColor || '#ffffff';
+    effect.inkColor = isCustomCategory
+      ? themeData?.textColor || '#000000'
+      : themeData?.halftoneInkColor || themeData?.textColor || '#000000';
+    effect.colorMode = isCustomCategory
+      ? 'mono'
+      : themeData?.halftoneColorMode || 'mono';
+    effect.inverted = isCustomCategory
+      ? false
+      : themeData?.halftoneInverted || false;
+  }
+  // Legacy effects
+  else if (category === EFFECT_CATEGORIES.LEGACY) {
+    if (normalizedVariant === 'pixelation') {
+      effect.pixelSize = themeData?.pixelationSize || 8.0;
+    } else if (normalizedVariant === 'noise') {
+      effect.intensity = themeData?.noiseIntensity || 0.1;
+    }
+  }
+
+  return effect;
+}
+
+/**
  * Hero Background Component - Handles all canvas and background rendering for hero sections
  *
  * @param {string} heroBackground - The style of the hero background
@@ -23,128 +120,17 @@ const UnifiedCanvas = React.lazy(() => import("./unified-canvas"));
  * @returns {JSX.Element|null} - The rendered background component or null
  */
 export default function HeroBackground({ heroBackground, image, theme }) {
-  // Helper function to create effect object using centralized maps and utilities
-  const createEffect = (effectVariant, effectType, themeData) => {
-    if (!effectVariant || effectVariant === 'none') return null;
-
-    const normalizedVariant = normalizeEffectType(effectVariant, heroShaderEffectThemes);
-    if (!normalizedVariant) return null;
-
-    const category = getEffectCategory(normalizedVariant);
-    const isCustomCategory = effectType === EFFECT_TYPES.CUSTOM;
-    const effect = { type: normalizedVariant };
-
-    // Map effect-specific parameters based on effect category
-    if (category === EFFECT_CATEGORIES.ASCII) {
-      effect.pixelSize = isCustomCategory
-        ? themeData?.asciiSize || 12
-        : themeData?.asciiPixelSize || 12;
-      effect.showBackground = isCustomCategory
-        ? false
-        : themeData?.asciiShowBackground || false;
-      effect.contrast = isCustomCategory
-        ? 100
-        : themeData?.asciiContrast || 100;
-
-      // Add ASCII character sets
-      const asciiChars = ASCII_CHARACTER_SETS[normalizedVariant];
-      if (asciiChars) {
-        effect.asciiChars = asciiChars;
-      }
-    }
-    // Dithering effects
-    else if (category === EFFECT_CATEGORIES.DITHER) {
-      effect.colorLevels = isCustomCategory
-        ? themeData?.ditherLevels || 4
-        : themeData?.ditherColorLevels || 4;
-      effect.paperColor = isCustomCategory
-        ? themeData?.backgroundColor || '#ffffff'
-        : themeData?.ditherPaperColor || themeData?.backgroundColor || '#ffffff';
-      effect.inkColor = isCustomCategory
-        ? themeData?.textColor || '#000000'
-        : themeData?.ditherInkColor || themeData?.textColor || '#000000';
-      effect.inverted = isCustomCategory
-        ? false
-        : themeData?.ditherInverted || false;
-
-      if (normalizedVariant === 'dither-ordered' || normalizedVariant === 'dither_ordered') {
-        effect.ditherSize = themeData?.ditherSize || 4;
-      }
-    }
-    // Halftone effects
-    else if (category === EFFECT_CATEGORIES.HALFTONE) {
-      effect.pixelSize = isCustomCategory
-        ? themeData?.halftoneSize || 8
-        : themeData?.halftoneDotSize || 8;
-      effect.angle = isCustomCategory
-        ? 45
-        : themeData?.halftoneAngle || 45;
-      effect.contrast = isCustomCategory
-        ? 100
-        : themeData?.halftoneContrast || 100;
-      effect.spread = isCustomCategory
-        ? 50
-        : themeData?.halftoneSpread || 50;
-      effect.shape = isCustomCategory
-        ? 'circle'
-        : themeData?.halftoneShape || 'circle';
-      effect.paperColor = isCustomCategory
-        ? themeData?.backgroundColor || '#ffffff'
-        : themeData?.halftonePaperColor || themeData?.backgroundColor || '#ffffff';
-      effect.inkColor = isCustomCategory
-        ? themeData?.textColor || '#000000'
-        : themeData?.halftoneInkColor || themeData?.textColor || '#000000';
-      effect.colorMode = isCustomCategory
-        ? 'mono'
-        : themeData?.halftoneColorMode || 'mono';
-      effect.inverted = isCustomCategory
-        ? false
-        : themeData?.halftoneInverted || false;
-    }
-    // Legacy effects
-    else if (category === EFFECT_CATEGORIES.LEGACY) {
-      if (normalizedVariant === 'pixelation') {
-        effect.pixelSize = themeData?.pixelationSize || 8.0;
-      } else if (normalizedVariant === 'noise') {
-        effect.intensity = themeData?.noiseIntensity || 0.1;
-      }
-    }
-
-    return effect;
-  };
-
   // Get effect variant from theme (fallback to legacy heroShaderEffect)
   const effectVariant =
     theme?.data?.effectVariant ?? theme?.data?.heroShaderEffect;
   const effectType = theme?.data?.effectType;
-  const effectsList = effectVariant && effectVariant !== 'none'
-    ? [createEffect(effectVariant, effectType, theme?.data)]
-    : [];
-  const effectsListType = effectsList?.[0]?.type ?? null;
 
-  const __agentLastLoggedRef = React.useRef({
-    heroBackground: undefined,
-    effectVariant: undefined,
-    effectType: undefined,
-    effectsListType: undefined,
-  });
-
-  React.useEffect(() => {
-    const prev = __agentLastLoggedRef.current;
-    const next = { heroBackground, effectVariant, effectType, effectsListType };
-    const changed =
-      prev.heroBackground !== next.heroBackground ||
-      prev.effectVariant !== next.effectVariant ||
-      prev.effectType !== next.effectType ||
-      prev.effectsListType !== next.effectsListType;
-
-    if (!changed) return;
-    __agentLastLoggedRef.current = next;
-
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/f241fcae-4ba5-41c1-b477-9ff7394a377f',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:'debug-session',runId:'pre-fix',hypothesisId:'H1',location:'components/background/hero-background.js:effectsList',message:'HeroBackground effect selection snapshot',data:{heroBackground,effectVariant,effectType,effectsListType,themeHasEffectVariant:Object.prototype.hasOwnProperty.call(theme?.data||{},'effectVariant'),themeHasHeroShaderEffect:Object.prototype.hasOwnProperty.call(theme?.data||{},'heroShaderEffect')},timestamp:Date.now()})}).catch(()=>{});
-    // #endregion
-  }, [heroBackground, effectVariant, effectType, effectsListType, theme?.data]);
+  // Build effects list, filtering out null entries from createEffect
+  const effectsList = React.useMemo(() => {
+    if (!effectVariant || effectVariant === 'none') return [];
+    const effect = createEffect(effectVariant, effectType, theme?.data);
+    return effect ? [effect] : [];
+  }, [effectVariant, effectType, theme?.data]);
 
   // Factory function to create background renderer based on type
   const createBackgroundRenderer = (backgroundType) => {

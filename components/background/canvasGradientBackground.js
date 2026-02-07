@@ -135,13 +135,12 @@ export default function CanvasMorphingGradient({
   }, [color1, color2, color3, speed]);
 
   return (
-    <>
-      <h1 className="fixed top-0 left-0 z-40 text-white">CNA GRad</h1>
+
       <canvas
       ref={canvasRef}
       className="absolute top-0 left-0 w-full h-full -z-10"
       style={{ position: 'fixed' }}
     />
-    </>
+  
   );
 }

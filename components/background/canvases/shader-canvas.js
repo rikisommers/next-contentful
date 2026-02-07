@@ -7,7 +7,7 @@ import CanvasBgPlane from '../canvasBgPlane';
 import CanvasBgSphere from '../canvasBgSphere';
 import CanvasBgPerlinBlob from '../canvasBgPerlinBlob';
 import Experience from '../experience';
-import { EffectRouter } from '../effects/postprocessing-effects';
+import { renderEffectElements } from '../effects/postprocessing-effects';
 
 /**
  * Camera Controller Component - Handles camera position and orbit controls
@@ -190,12 +190,11 @@ const ShaderCanvas = ({
     }
   }, [updateTheme]);
 
-  // Debug effects
-  React.useEffect(() => {
-    if (effects.length > 0) {
-      console.log('Shader Canvas Effects:', effects);
-    }
-  }, [effects]);
+  // Filter to only valid effects (non-null with a type)
+  const validEffects = React.useMemo(
+    () => effects.filter((e) => e != null && e.type),
+    [effects]
+  );
 
   // Render the appropriate shader component based on shaderType
   const renderShaderComponent = () => {
@@ -226,9 +225,9 @@ const ShaderCanvas = ({
           updateTheme={updateCameraTheme}
         />
         {renderShaderComponent()}
-        {effects.length > 0 && (
+        {validEffects.length > 0 && (
           <EffectComposer>
-            <EffectRouter effects={effects} />
+            {renderEffectElements(validEffects)}
           </EffectComposer>
         )}
       </Canvas>

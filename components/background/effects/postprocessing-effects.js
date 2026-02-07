@@ -1,5 +1,5 @@
-import React, { useMemo, useRef, useEffect } from 'react';
-import { Noise, Pixelation, DotScreen, Glitch, ShaderPass, wrapEffect } from '@react-three/postprocessing';
+import React from 'react';
+import { Noise, Pixelation, DotScreen, wrapEffect } from '@react-three/postprocessing';
 import { BlendFunction, Effect } from 'postprocessing';
 import * as THREE from 'three';
 
@@ -227,6 +227,24 @@ const createASCIITexture = (chars = './ノハメラマ木', pixelSize = 12) => {
   texture.magFilter = THREE.NearestFilter;
   
   return texture;
+};
+
+// Module-level ASCII texture cache (shared across all renders)
+const _asciiTextureCache = new Map();
+
+/**
+ * Get or create a cached ASCII texture
+ * @param {string} chars - Character set for the texture atlas
+ * @param {number} pixelSize - Pixel size for rendering
+ * @returns {THREE.CanvasTexture} Cached texture instance
+ */
+const getASCIITextureCached = (chars, pixelSize) => {
+  const safePixelSize = typeof pixelSize === 'number' && Number.isFinite(pixelSize) ? pixelSize : 12;
+  const key = `${chars}__${safePixelSize}`;
+  if (_asciiTextureCache.has(key)) return _asciiTextureCache.get(key);
+  const tex = createASCIITexture(chars, safePixelSize);
+  _asciiTextureCache.set(key, tex);
+  return tex;
 };
 
 // ============ NEW EFECTO-INSPIRED EFFECT CLASSES ============
@@ -775,464 +793,453 @@ export const ASCIIBrailleEffectComponent = ({ pixelSize = 12.0, showBackground =
 };
 
 /**
- * Effect Router Component - renders the appropriate effect based on type
+ * Creates a single effect React element based on effect configuration.
+ * This is a pure function (no hooks) so it can be called directly inside
+ * EffectComposer's children, ensuring effects are direct children of the composer.
+ *
+ * @param {Object} effect - Effect configuration object with type and parameters
+ * @param {number} index - Array index for React key generation
+ * @returns {React.ReactElement|null} The effect element or null
+ */
+const createEffectElement = (effect, index) => {
+  if (!effect || !effect.type) return null;
+
+  try {
+  switch (effect.type) {
+    case 'halftone-dots':
+    case 'halftone_dots':
+      return (
+        <HalftoneDotsEffect
+          key={`${effect.type}-${index}`}
+          pixelSize={effect.pixelSize || 6.0}
+          intensity={effect.intensity || 1.0}
+        />
+      );
+
+    case 'halftone-ascii':
+    case 'halftone_ascii':
+    {
+      const asciiTexture = getASCIITextureCached('ノハメラマ木', effect.pixelSize || 12.0);
+      return React.createElement(
+        'primitive',
+        {
+          key: `${effect.type}-${index}`,
+          object: new ASCIIEffect({
+            pixelSize: effect.pixelSize || 12.0,
+            asciiTexture,
+            charCount: [8, 1],
+            showBackground: false
+          })
+        }
+      );
+    }
+
+    case 'halftone-led':
+    case 'halftone_led':
+      return (
+        <DotScreen
+          key={`${effect.type}-${index}`}
+          blendFunction={BlendFunction.NORMAL}
+          angle={0}
+          scale={effect.pixelSize || 8.0}
+        />
+      );
+
+    case 'halftone-lego':
+    case 'halftone_lego':
+      return React.createElement(
+        'primitive',
+        {
+          key: `${effect.type}-${index}`,
+          object: new LEGOEffect({ pixelSize: effect.pixelSize || 16.0 })
+        }
+      );
+
+    case 'halftone-rect':
+    case 'halftone_rect':
+      return React.createElement(
+        'primitive',
+        {
+          key: `${effect.type}-${index}`,
+          object: new RectHalftoneEffect({ pixelSize: effect.pixelSize || 10.0 })
+        }
+      );
+
+    case 'pixelation':
+      return (
+        <Pixelation
+          key={`${effect.type}-${index}`}
+          granularity={effect.pixelSize || 8.0}
+        />
+      );
+
+    case 'noise':
+      return (
+        <NoiseEffect
+          key={`${effect.type}-${index}`}
+          intensity={effect.intensity || 0.1}
+        />
+      );
+
+    case 'dither-blue-noise':
+    case 'dither_blue_noise':
+      return (
+        <Noise
+          key={`${effect.type}-${index}`}
+          blendFunction={BlendFunction.COLOR_BURN}
+          premultiply={false}
+        />
+      );
+
+    case 'dither-ordered':
+    case 'dither_ordered':
+      return (
+        <Noise
+          key={`${effect.type}-${index}`}
+          blendFunction={BlendFunction.COLOR_BURN}
+          premultiply={false}
+        />
+      );
+
+    case 'dither-color-quant':
+    case 'dither_color_quant':
+      return (
+        <DotScreen
+          key={`${effect.type}-${index}`}
+          blendFunction={BlendFunction.NORMAL}
+          angle={0}
+          scale={effect.pixelSize || 8.0}
+        />
+      );
+
+    // ============ ASCII VARIANTS ============
+    case 'ascii-standard':
+    case 'ascii_standard':
+    {
+      const stdChars = effect.asciiChars || ' .:-=+*#%@';
+      const asciiStdTexture = getASCIITextureCached(stdChars, effect.pixelSize || 12.0);
+      return (
+        <ASCIIStandardEffectWrapped
+          key={`${effect.type}-${index}`}
+          pixelSize={effect.pixelSize || 12.0}
+          showBackground={effect.showBackground || false}
+          asciiTexture={asciiStdTexture}
+          charCount={[stdChars.length, 1]}
+        />
+      );
+    }
+
+    case 'ascii-dense':
+    case 'ascii_dense':
+    {
+      const denseChars = effect.asciiChars || " .'`^\\\",:;Il!i><~+_-?][}{1)(|\\\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$";
+      const asciiDenseTexture = getASCIITextureCached(denseChars, effect.pixelSize || 12.0);
+      return (
+        <ASCIIDenseEffectWrapped
+          key={`${effect.type}-${index}`}
+          pixelSize={effect.pixelSize || 12.0}
+          showBackground={effect.showBackground || false}
+          asciiTexture={asciiDenseTexture}
+          charCount={[denseChars.length, 1]}
+        />
+      );
+    }
+
+    case 'ascii-minimal':
+    case 'ascii_minimal':
+    {
+      const minimalChars = effect.asciiChars || ' .o0@';
+      const asciiMinimalTexture = getASCIITextureCached(minimalChars, effect.pixelSize || 12.0);
+      return (
+        <ASCIIMinimalEffectWrapped
+          key={`${effect.type}-${index}`}
+          pixelSize={effect.pixelSize || 12.0}
+          showBackground={effect.showBackground || false}
+          asciiTexture={asciiMinimalTexture}
+          charCount={[minimalChars.length, 1]}
+        />
+      );
+    }
+
+    case 'ascii-blocks':
+    case 'ascii_blocks':
+      return React.createElement(
+        'primitive',
+        {
+          key: `${effect.type}-${index}`,
+          object: new ASCIIBlocksEffect({
+            pixelSize: effect.pixelSize || 12.0,
+            showBackground: effect.showBackground || false,
+            contrast: effect.contrast || 100
+          })
+        }
+      );
+
+    case 'ascii-braille':
+    case 'ascii_braille':
+      return React.createElement(
+        'primitive',
+        {
+          key: `${effect.type}-${index}`,
+          object: new ASCIIBrailleEffect({
+            pixelSize: effect.pixelSize || 12.0,
+            showBackground: effect.showBackground || false,
+            contrast: effect.contrast || 100
+          })
+        }
+      );
+
+    case 'ascii-technical':
+    case 'ascii_technical':
+    {
+      const technicalChars = effect.asciiChars || '0123456789ABCDEF';
+      const asciiTechnicalTexture = getASCIITextureCached(technicalChars, effect.pixelSize || 12.0);
+      return (
+        <ASCIITechnicalEffectWrapped
+          key={`${effect.type}-${index}`}
+          pixelSize={effect.pixelSize || 12.0}
+          showBackground={effect.showBackground || false}
+          asciiTexture={asciiTechnicalTexture}
+          charCount={[technicalChars.length, 1]}
+        />
+      );
+    }
+
+    case 'ascii-matrix':
+    case 'ascii_matrix':
+      return React.createElement(
+        'primitive',
+        {
+          key: `${effect.type}-${index}`,
+          object: new ASCIIMatrixEffect({
+            pixelSize: effect.pixelSize || 12.0
+          })
+        }
+      );
+
+    case 'ascii-hatching':
+    case 'ascii_hatching':
+      return React.createElement(
+        'primitive',
+        {
+          key: `${effect.type}-${index}`,
+          object: new ASCIIHatchingEffect({
+            pixelSize: effect.pixelSize || 12.0
+          })
+        }
+      );
+
+    // ============ DITHERING ALGORITHMS ============
+    case 'dither-floyd-steinberg':
+    case 'dither_floyd_steinberg':
+      return React.createElement(
+        'primitive',
+        {
+          key: `${effect.type}-${index}`,
+          object: new FloydSteinbergEffect({
+            colorLevels: effect.colorLevels || 4
+          })
+        }
+      );
+
+    case 'dither-atkinson':
+    case 'dither_atkinson':
+      return React.createElement(
+        'primitive',
+        {
+          key: `${effect.type}-${index}`,
+          object: new AtkinsonEffect({
+            colorLevels: effect.colorLevels || 4
+          })
+        }
+      );
+
+    case 'dither-jarvis-judice-ninke':
+    case 'dither_jarvis_judice_ninke':
+      return React.createElement(
+        'primitive',
+        {
+          key: `${effect.type}-${index}`,
+          object: new JarvisJudiceNinkeEffect({
+            colorLevels: effect.colorLevels || 4
+          })
+        }
+      );
+
+    case 'dither-stucki':
+    case 'dither_stucki':
+      return React.createElement(
+        'primitive',
+        {
+          key: `${effect.type}-${index}`,
+          object: new StuckiEffect({
+            colorLevels: effect.colorLevels || 4
+          })
+        }
+      );
+
+    case 'dither-burkes':
+    case 'dither_burkes':
+      return React.createElement(
+        'primitive',
+        {
+          key: `${effect.type}-${index}`,
+          object: new BurkesEffect({
+            colorLevels: effect.colorLevels || 4
+          })
+        }
+      );
+
+    case 'dither-sierra':
+    case 'dither_sierra':
+      return React.createElement(
+        'primitive',
+        {
+          key: `${effect.type}-${index}`,
+          object: new SierraEffect({
+            colorLevels: effect.colorLevels || 4
+          })
+        }
+      );
+
+    case 'dither-sierra2':
+    case 'dither_sierra2':
+      return React.createElement(
+        'primitive',
+        {
+          key: `${effect.type}-${index}`,
+          object: new Sierra2Effect({
+            colorLevels: effect.colorLevels || 4
+          })
+        }
+      );
+
+    case 'dither-sierra-lite':
+    case 'dither_sierra_lite':
+      return React.createElement(
+        'primitive',
+        {
+          key: `${effect.type}-${index}`,
+          object: new SierraLiteEffect({
+            colorLevels: effect.colorLevels || 4
+          })
+        }
+      );
+
+    // ============ HALFTONE VARIANTS ============
+    case 'halftone-dots-new':
+    case 'halftone_dots_new':
+      return React.createElement(
+        'primitive',
+        {
+          key: `${effect.type}-${index}`,
+          object: new HalftoneDotsNewEffect({
+            pixelSize: effect.pixelSize || 8.0
+          })
+        }
+      );
+
+    case 'halftone-circles':
+    case 'halftone_circles':
+      return React.createElement(
+        'primitive',
+        {
+          key: `${effect.type}-${index}`,
+          object: new HalftoneCirclesEffect({
+            pixelSize: effect.pixelSize || 8.0,
+            angle: effect.angle ?? 45,
+            contrast: effect.contrast ?? 100,
+            spread: effect.spread ?? 50,
+            paperColor: effect.paperColor,
+            inkColor: effect.inkColor,
+            inverted: effect.inverted ?? false
+          })
+        }
+      );
+
+    case 'halftone-squares':
+    case 'halftone_squares':
+      return React.createElement(
+        'primitive',
+        {
+          key: `${effect.type}-${index}`,
+          object: new HalftoneSquaresEffect({
+            pixelSize: effect.pixelSize || 8.0
+          })
+        }
+      );
+
+    case 'halftone-lines':
+    case 'halftone_lines':
+      return React.createElement(
+        'primitive',
+        {
+          key: `${effect.type}-${index}`,
+          object: new HalftoneLinesEffect({
+            pixelSize: effect.pixelSize || 8.0
+          })
+        }
+      );
+
+    case 'halftone-crosshatch':
+    case 'halftone_crosshatch':
+      return React.createElement(
+        'primitive',
+        {
+          key: `${effect.type}-${index}`,
+          object: new HalftoneCrosshatchEffect({
+            pixelSize: effect.pixelSize || 8.0
+          })
+        }
+      );
+
+    case 'halftone-newspaper':
+    case 'halftone_newspaper':
+      return React.createElement(
+        'primitive',
+        {
+          key: `${effect.type}-${index}`,
+          object: new HalftoneNewspaperEffect({
+            pixelSize: effect.pixelSize || 8.0
+          })
+        }
+      );
+
+    default:
+      console.warn(`Unknown effect type: ${effect.type}`);
+      return null;
+  }
+  } catch (err) {
+    console.error(`[PostProcessing] FAILED to create effect "${effect.type}":`, err);
+    return null;
+  }
+};
+
+/**
+ * Renders an array of effect configuration objects into React elements.
+ * Returns an array of elements suitable for use as direct children of EffectComposer.
+ *
+ * IMPORTANT: Call this as a function inside EffectComposer's JSX, NOT as a component.
+ * Effects must be direct children of EffectComposer for proper discovery.
+ *
+ * @example
+ * <EffectComposer>
+ *   {renderEffectElements(effects)}
+ * </EffectComposer>
+ *
+ * @param {Array} effects - Array of effect config objects from createEffect()
+ * @returns {Array<React.ReactElement>} Array of effect elements (nulls filtered out)
+ */
+export const renderEffectElements = (effects = []) => {
+  return effects
+    .map((effect, index) => createEffectElement(effect, index))
+    .filter(Boolean);
+};
+
+/**
+ * Effect Router Component - legacy wrapper, prefer renderEffectElements() for new code.
+ * Kept for backward compatibility but delegates to renderEffectElements.
  */
 export const EffectRouter = ({ effects = [] }) => {
-  console.log('EffectRouter: Processing effects:', effects);
-  const __agentLoggedTypesRef = useRef(new Set());
-  const __agentAsciiTextureCacheRef = useRef(new Map());
-
-  const getASCIITextureCached = (chars, pixelSize) => {
-    const safePixelSize = typeof pixelSize === 'number' && Number.isFinite(pixelSize) ? pixelSize : 12;
-    const key = `${chars}__${safePixelSize}`;
-    const cached = __agentAsciiTextureCacheRef.current.get(key);
-    if (cached) return cached;
-    const tex = createASCIITexture(chars, safePixelSize);
-    __agentAsciiTextureCacheRef.current.set(key, tex);
-
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/f241fcae-4ba5-41c1-b477-9ff7394a377f',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:'debug-session',runId:'pre-fix',hypothesisId:'H4',location:'components/background/effects/postprocessing-effects.js:getASCIITextureCached',message:'ASCII atlas texture created (cache miss)',data:{pixelSize:safePixelSize,charsLen:typeof chars==='string'?chars.length:null,charsPreview:typeof chars==='string'?chars.slice(0,8):null},timestamp:Date.now()})}).catch(()=>{});
-    // #endregion
-
-    return tex;
-  };
-
-  useEffect(() => {
-    const effectTypes = effects.map((e) => e?.type ?? null).filter(Boolean);
-    const effectSummaries = effects.map((e) => ({
-      type: e?.type ?? null,
-      pixelSize: e?.pixelSize ?? null,
-      colorLevels: e?.colorLevels ?? null,
-      showBackground: e?.showBackground ?? null,
-      asciiCharsLen: typeof e?.asciiChars === 'string' ? e.asciiChars.length : null,
-    }));
-    // Reset per-run/per-selection so we always log routing decisions
-    __agentLoggedTypesRef.current = new Set();
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/f241fcae-4ba5-41c1-b477-9ff7394a377f',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:'debug-session',runId:'pre-fix',hypothesisId:'H2',location:'components/background/effects/postprocessing-effects.js:EffectRouter',message:'EffectRouter received effects',data:{effectsCount:effects.length,effectTypes,effectSummaries},timestamp:Date.now()})}).catch(()=>{});
-    // #endregion
-  }, [effects]);
-
-  return (
-    <>
-      {effects.map((effect, index) => {
-        console.log(`Rendering effect ${index}:`, effect.type);
-
-        if (effect?.type && !__agentLoggedTypesRef.current.has(effect.type)) {
-          __agentLoggedTypesRef.current.add(effect.type);
-          // #region agent log
-          fetch('http://127.0.0.1:7242/ingest/f241fcae-4ba5-41c1-b477-9ff7394a377f',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:'debug-session',runId:'pre-fix',hypothesisId:'H2',location:'components/background/effects/postprocessing-effects.js:EffectRouter:case',message:'EffectRouter rendering effect type',data:{index,type:effect.type},timestamp:Date.now()})}).catch(()=>{});
-          // #endregion
-        }
-        
-        switch (effect.type) {
-          case 'halftone-dots':
-          case 'halftone_dots':
-            return (
-              <HalftoneDotsEffect
-                key={`${effect.type}-${index}`}
-                pixelSize={effect.pixelSize || 6.0}
-                intensity={effect.intensity || 1.0}
-              />
-            );
-            
-          case 'halftone-ascii':
-          case 'halftone_ascii':
-          {
-            const asciiTexture = getASCIITextureCached('ノハメラマ木', effect.pixelSize || 12.0);
-            return React.createElement(
-              'primitive',
-              {
-                key: `${effect.type}-${index}`,
-                object: new ASCIIEffect({ 
-                  pixelSize: effect.pixelSize || 12.0,
-                  asciiTexture,
-                  charCount: [8, 1],
-                  showBackground: false
-                })
-              }
-            );
-          }
-            
-          case 'halftone-led':
-          case 'halftone_led':
-            return (
-              <DotScreen
-                key={`${effect.type}-${index}`}
-                blendFunction={BlendFunction.NORMAL}
-                angle={0}
-                scale={effect.pixelSize || 8.0}
-              />
-            );
-            
-          case 'halftone-lego':
-          case 'halftone_lego':
-            return React.createElement(
-              'primitive',
-              {
-                key: `${effect.type}-${index}`,
-                object: new LEGOEffect({ pixelSize: effect.pixelSize || 16.0 })
-              }
-            );
-            
-          case 'halftone-rect':
-          case 'halftone_rect':
-            return React.createElement(
-              'primitive',
-              {
-                key: `${effect.type}-${index}`,
-                object: new RectHalftoneEffect({ pixelSize: effect.pixelSize || 10.0 })
-              }
-            );
-            
-          case 'pixelation':
-            return (
-              <Pixelation
-                key={`${effect.type}-${index}`}
-                granularity={effect.pixelSize || 8.0}
-              />
-            );
-            
-          case 'noise':
-            return (
-              <NoiseEffect
-                key={`${effect.type}-${index}`}
-                intensity={effect.intensity || 0.1}
-              />
-            );
-            
-          case 'dither-blue-noise':
-          case 'dither_blue_noise':
-            return (
-              <Noise
-                key={`${effect.type}-${index}`}
-                blendFunction={BlendFunction.COLOR_BURN}
-                premultiply={false}
-              />
-            );
-            
-          case 'dither-ordered':
-          case 'dither_ordered':
-            return (
-              <Noise
-                key={`${effect.type}-${index}`}
-                blendFunction={BlendFunction.COLOR_BURN}
-                premultiply={false}
-              />
-            );
-            
-          case 'dither-color-quant':
-          case 'dither_color_quant':
-            return (
-              <DotScreen
-                key={`${effect.type}-${index}`}
-                blendFunction={BlendFunction.NORMAL}
-                angle={0}
-                scale={effect.pixelSize || 8.0}
-              />
-            );
-          
-          // ============ NEW ASCII VARIANTS ============
-          case 'ascii-standard':
-          case 'ascii_standard':
-          {
-            const chars = effect.asciiChars || ' .:-=+*#%@';
-            const asciiStandardTexture = getASCIITextureCached(chars, effect.pixelSize || 12.0);
-            return (
-              <ASCIIStandardEffectWrapped
-                key={`${effect.type}-${index}`}
-                pixelSize={effect.pixelSize || 12.0}
-                showBackground={effect.showBackground || false}
-                asciiTexture={asciiStandardTexture}
-                charCount={[chars.length, 1]}
-              />
-            );
-          }
-          
-          case 'ascii-dense':
-          case 'ascii_dense':
-          {
-            const denseChars = effect.asciiChars || " .'`^\\\",:;Il!i><~+_-?][}{1)(|\\\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$";
-            const asciiDenseTexture = getASCIITextureCached(denseChars, effect.pixelSize || 12.0);
-            return (
-              <ASCIIDenseEffectWrapped
-                key={`${effect.type}-${index}`}
-                pixelSize={effect.pixelSize || 12.0}
-                showBackground={effect.showBackground || false}
-                asciiTexture={asciiDenseTexture}
-                charCount={[denseChars.length, 1]}
-              />
-            );
-          }
-          
-          case 'ascii-minimal':
-          case 'ascii_minimal':
-          {
-            const minimalChars = effect.asciiChars || ' .o0@';
-            const asciiMinimalTexture = getASCIITextureCached(minimalChars, effect.pixelSize || 12.0);
-            return (
-              <ASCIIMinimalEffectWrapped
-                key={`${effect.type}-${index}`}
-                pixelSize={effect.pixelSize || 12.0}
-                showBackground={effect.showBackground || false}
-                asciiTexture={asciiMinimalTexture}
-                charCount={[minimalChars.length, 1]}
-              />
-            );
-          }
-          
-          case 'ascii-blocks':
-          case 'ascii_blocks':
-            return React.createElement(
-              'primitive',
-              {
-                key: `${effect.type}-${index}`,
-                object: new ASCIIBlocksEffect({
-                  pixelSize: effect.pixelSize || 12.0,
-                  showBackground: effect.showBackground || false,
-                  contrast: effect.contrast || 100
-                })
-              }
-            );
-          
-          case 'ascii-braille':
-          case 'ascii_braille':
-            return React.createElement(
-              'primitive',
-              {
-                key: `${effect.type}-${index}`,
-                object: new ASCIIBrailleEffect({
-                  pixelSize: effect.pixelSize || 12.0,
-                  showBackground: effect.showBackground || false,
-                  contrast: effect.contrast || 100
-                })
-              }
-            );
-          
-          case 'ascii-technical':
-          case 'ascii_technical':
-          {
-            const technicalChars = effect.asciiChars || '0123456789ABCDEF';
-            const asciiTechnicalTexture = getASCIITextureCached(technicalChars, effect.pixelSize || 12.0);
-            return (
-              <ASCIITechnicalEffectWrapped
-                key={`${effect.type}-${index}`}
-                pixelSize={effect.pixelSize || 12.0}
-                showBackground={effect.showBackground || false}
-                asciiTexture={asciiTechnicalTexture}
-                charCount={[technicalChars.length, 1]}
-              />
-            );
-          }
-          
-          case 'ascii-matrix':
-          case 'ascii_matrix':
-            return React.createElement(
-              'primitive',
-              {
-                key: `${effect.type}-${index}`,
-                object: new ASCIIMatrixEffect({
-                  pixelSize: effect.pixelSize || 12.0
-                })
-              }
-            );
-          
-          case 'ascii-hatching':
-          case 'ascii_hatching':
-            return React.createElement(
-              'primitive',
-              {
-                key: `${effect.type}-${index}`,
-                object: new ASCIIHatchingEffect({
-                  pixelSize: effect.pixelSize || 12.0
-                })
-              }
-            );
-          
-          // ============ NEW DITHERING ALGORITHMS ============
-          case 'dither-floyd-steinberg':
-          case 'dither_floyd_steinberg':
-            return React.createElement(
-              'primitive',
-              {
-                key: `${effect.type}-${index}`,
-                object: new FloydSteinbergEffect({
-                  colorLevels: effect.colorLevels || 4
-                })
-              }
-            );
-          
-          case 'dither-atkinson':
-          case 'dither_atkinson':
-            return React.createElement(
-              'primitive',
-              {
-                key: `${effect.type}-${index}`,
-                object: new AtkinsonEffect({
-                  colorLevels: effect.colorLevels || 4
-                })
-              }
-            );
-          
-          case 'dither-jarvis-judice-ninke':
-          case 'dither_jarvis_judice_ninke':
-            return React.createElement(
-              'primitive',
-              {
-                key: `${effect.type}-${index}`,
-                object: new JarvisJudiceNinkeEffect({
-                  colorLevels: effect.colorLevels || 4
-                })
-              }
-            );
-          
-          case 'dither-stucki':
-          case 'dither_stucki':
-            return React.createElement(
-              'primitive',
-              {
-                key: `${effect.type}-${index}`,
-                object: new StuckiEffect({
-                  colorLevels: effect.colorLevels || 4
-                })
-              }
-            );
-          
-          case 'dither-burkes':
-          case 'dither_burkes':
-            return React.createElement(
-              'primitive',
-              {
-                key: `${effect.type}-${index}`,
-                object: new BurkesEffect({
-                  colorLevels: effect.colorLevels || 4
-                })
-              }
-            );
-          
-          case 'dither-sierra':
-          case 'dither_sierra':
-            return React.createElement(
-              'primitive',
-              {
-                key: `${effect.type}-${index}`,
-                object: new SierraEffect({
-                  colorLevels: effect.colorLevels || 4
-                })
-              }
-            );
-          
-          case 'dither-sierra2':
-          case 'dither_sierra2':
-            return React.createElement(
-              'primitive',
-              {
-                key: `${effect.type}-${index}`,
-                object: new Sierra2Effect({
-                  colorLevels: effect.colorLevels || 4
-                })
-              }
-            );
-          
-          case 'dither-sierra-lite':
-          case 'dither_sierra_lite':
-            return React.createElement(
-              'primitive',
-              {
-                key: `${effect.type}-${index}`,
-                object: new SierraLiteEffect({
-                  colorLevels: effect.colorLevels || 4
-                })
-              }
-            );
-          
-          // ============ NEW HALFTONE VARIANTS ============
-          case 'halftone-dots-new':
-          case 'halftone_dots_new':
-            return React.createElement(
-              'primitive',
-              {
-                key: `${effect.type}-${index}`,
-                object: new HalftoneDotsNewEffect({
-                  pixelSize: effect.pixelSize || 8.0
-                })
-              }
-            );
-          
-          case 'halftone-circles':
-          case 'halftone_circles':
-            return React.createElement(
-              'primitive',
-              {
-                key: `${effect.type}-${index}`,
-                object: new HalftoneCirclesEffect({
-                  pixelSize: effect.pixelSize || 8.0,
-                  angle: effect.angle ?? 45,
-                  contrast: effect.contrast ?? 100,
-                  spread: effect.spread ?? 50,
-                  paperColor: effect.paperColor,
-                  inkColor: effect.inkColor,
-                  inverted: effect.inverted ?? false
-                })
-              }
-            );
-          
-          case 'halftone-squares':
-          case 'halftone_squares':
-            return React.createElement(
-              'primitive',
-              {
-                key: `${effect.type}-${index}`,
-                object: new HalftoneSquaresEffect({
-                  pixelSize: effect.pixelSize || 8.0
-                })
-              }
-            );
-          
-          case 'halftone-lines':
-          case 'halftone_lines':
-            return React.createElement(
-              'primitive',
-              {
-                key: `${effect.type}-${index}`,
-                object: new HalftoneLinesEffect({
-                  pixelSize: effect.pixelSize || 8.0
-                })
-              }
-            );
-          
-          case 'halftone-crosshatch':
-          case 'halftone_crosshatch':
-            return React.createElement(
-              'primitive',
-              {
-                key: `${effect.type}-${index}`,
-                object: new HalftoneCrosshatchEffect({
-                  pixelSize: effect.pixelSize || 8.0
-                })
-              }
-            );
-          
-          case 'halftone-newspaper':
-          case 'halftone_newspaper':
-            return React.createElement(
-              'primitive',
-              {
-                key: `${effect.type}-${index}`,
-                object: new HalftoneNewspaperEffect({
-                  pixelSize: effect.pixelSize || 8.0
-                })
-              }
-            );
-            
-          default:
-            console.warn(`Unknown effect type: ${effect.type}`);
-            // #region agent log
-            fetch('http://127.0.0.1:7242/ingest/f241fcae-4ba5-41c1-b477-9ff7394a377f',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:'debug-session',runId:'pre-fix',hypothesisId:'H2',location:'components/background/effects/postprocessing-effects.js:EffectRouter:default',message:'EffectRouter unknown effect type (no case match)',data:{index,type:effect?.type ?? null},timestamp:Date.now()})}).catch(()=>{});
-            // #endregion
-            return null;
-        }
-      })}
-    </>
-  );
+  return <>{renderEffectElements(effects)}</>;
 };

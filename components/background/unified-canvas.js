@@ -48,13 +48,6 @@ const UnifiedCanvas = ({
     }
   }, [type, src, shaderType, onError]);
 
-  React.useEffect(() => {
-    const effectTypes = effects.map((e) => e?.type ?? null).filter(Boolean);
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/f241fcae-4ba5-41c1-b477-9ff7394a377f',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:'debug-session',runId:'pre-fix',hypothesisId:'H1',location:'components/background/unified-canvas.js:props',message:'UnifiedCanvas props snapshot',data:{type,shaderType,hasSrc:!!src,effectsCount:effects.length,effectTypes},timestamp:Date.now()})}).catch(()=>{});
-    // #endregion
-  }, [type, shaderType, src, effects]);
-
   // Common props passed to both canvas types
   const commonProps = {
     effects,

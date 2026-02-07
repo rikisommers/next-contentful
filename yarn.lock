@@ -7958,21 +7958,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postprocessing@npm:6.34.3":
-  version: 6.34.3
-  resolution: "postprocessing@npm:6.34.3"
-  peerDependencies:
-    three: ">= 0.138.0 < 0.162.0"
-  checksum: 10c0/ce64e83a47aaa3f76e034ecbe971f972b28a373d063de988cfbfd17d1e245e22dafc9bba2fc916caf65594802c6a1d4a769f870db4e5b265afa8f48d32f45eac
-  languageName: node
-  linkType: hard
-
 "postprocessing@npm:^6.32.1":
   version: 6.38.1
   resolution: "postprocessing@npm:6.38.1"
   peerDependencies:
     three: ">= 0.157.0 < 0.183.0"
   checksum: 10c0/465055d31698b7599aaf7905f81467e100bd911a53489e0e440d40fa77482ce6353f0aadb9fae36a35d832edae2e3bfecbdfd6b09e670ef490f2817adb80e85c
+  languageName: node
+  linkType: hard
+
+"postprocessing@npm:^6.38.1":
+  version: 6.38.2
+  resolution: "postprocessing@npm:6.38.2"
+  peerDependencies:
+    three: ">= 0.157.0 < 0.183.0"
+  checksum: 10c0/e471381e4c61b3e33e2113667fca6c0cdfa0f700e446f83fe75112cd7984246250fa3b1e486517f5e2a3ad112e824326d4bc78b4a164bae4f5347801629ae0f1
   languageName: node
   linkType: hard
 
@@ -8479,7 +8479,7 @@ __metadata:
     next: "npm:^14.2.23"
     next-themes: "npm:0.4.6"
     postcss: "npm:^8.5.3"
-    postprocessing: "npm:6.34.3"
+    postprocessing: "npm:^6.38.1"
     prismjs: "npm:^1.29.0"
     raw-loader: "npm:^4.0.2"
     react: "npm:^18.2.0"
