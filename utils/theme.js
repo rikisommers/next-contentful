@@ -1552,6 +1552,7 @@ export const pageTransitionThemes = {
   pixel:'pixel',
   none:'none',
   onto: 'onto',
+  carousel: 'carousel',
 };
 
 export const pageWidthThemes = {

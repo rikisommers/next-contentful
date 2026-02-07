@@ -41,6 +41,7 @@ import {
   logoBackground,
   sounds,
   shaderEffect,
+  footerThemes
 } from "./theme";
 
 
@@ -74,7 +75,8 @@ export const themeControlConfig = {
     pageWidth: { type: "select", label: "Page Width", options: pageWidthThemes },
     pageTransition: { type: "select", label: "Page Transition", options: pageTransitionThemes },
     cursor: { type: "select", label: "Cursor", options: cursorThemes },
-    pageClipContainer: {type: "boolean", label: "Page content clip container" }
+    pageClipContainer: {type: "boolean", label: "Page content clip container" },
+    footerTheme: { type: "select", label: "Footer Theme", options: footerThemes },
   },
   Typography: {
     fontFamilyPrimary: { type: "select", label: "Font Family Primary", options: typographyThemes },

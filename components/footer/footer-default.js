@@ -13,7 +13,7 @@ import { ButtonType, ButtonSound } from "../base/button/button.util";
 import ButtonSwap from "../base/button/button-swap";
 import { motion, useTransform, useScroll } from "../../utils/motion";
 
-export default function FooterDefault({ data }) {
+export default function FooterDefault({ data, pages }) {
   const { currentTheme } = useThemeContext();
   const [dimension, setDimension] = useState({ width: 0, height: 0 });
   const footerRef = useRef(null);
@@ -30,29 +30,6 @@ export default function FooterDefault({ data }) {
 
   const yTransform = useTransform(scrollYProgress, [0, 1], [-300, 0]);
   const scaleTransform = useTransform(scrollYProgress, [0, 1], [0.95, 1]);
-
-  const pages = [
-    {
-      id: "home",
-      title: "Home",
-      url: "/",
-    },
-    {
-      id: "work",
-      title: "Work",
-      url: "/work",
-    },
-    {
-      id: "blog",
-      title: "Blog",
-      url: "/blog",
-    },
-    {
-      id: "about",
-      title: "About",
-      url: "/bio",
-    },
-  ];
 
   return (
     <motion.div

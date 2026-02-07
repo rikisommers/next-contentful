@@ -1,291 +1,230 @@
 "use client";
 
-import React, { useContext, useEffect, useState, useRef } from "react";
-import { motion, LayoutGroup } from "../../utils/motion";
-import { RouteContext } from "../context/routeContext";
-import { useThemeContext } from "../../components/context/themeContext";
+import React, { useEffect, useRef, useCallback } from "react";
+import { useRouter } from "next/router";
 
-// Calculate carousel item dimensions to match scaled page
-const getCarouselDimensions = () => {
-  const scaleRatio = 0.65; // How much we scale the page down
-  const aspectRatio = 16 / 10; // Common aspect ratio for the carousel items
+/* ─── Tunable Configuration ────────────────────────────────────────────── */
 
-  // Calculate dimensions based on viewport
-  const maxWidth = window.innerWidth * scaleRatio;
-  const maxHeight = window.innerHeight * scaleRatio;
-
-  // Maintain aspect ratio
-  let itemWidth = maxWidth;
-  let itemHeight = maxWidth / aspectRatio;
-
-  if (itemHeight > maxHeight) {
-    itemHeight = maxHeight;
-    itemWidth = itemHeight * aspectRatio;
-  }
-
-  return { itemWidth, itemHeight };
+/**
+ * Adjust these values to change the look and feel of the cube transition.
+ */
+const CUBE_CONFIG = {
+  /** Total animation duration in seconds. */
+  duration: 1.5,
+  /** Scale factor when the cube is "pulled back" (0–1). */
+  scaleDown: 0.65,
+  /**
+   * CSS perspective distance.  Larger = subtler foreshortening.
+   * Using viewport-relative units keeps the effect consistent across screens.
+   */
+  perspective: "175vw",
+  /**
+   * Half-depth of the cube — how far each face sits from the cube centre.
+   * Using 40vw means the cube is almost as deep as it is wide, so each face
+   * swings ~40 % of the viewport width to the side during the rotation.
+   * The two `translateZ` values (−depth then +depth after rotateY) cancel
+   * at 0°; at −90° the post-rotation Z becomes an X-offset.
+   */
+  depth: "40vw",
+  /** CSS easing function applied to the keyframes. */
+  easing: "cubic-bezier(0.4, 0.0, 0.2, 1)",
 };
 
-// Individual carousel page rectangle
-const CarouselPage = ({ index, isCenter, currentTheme, offset, itemWidth, itemHeight }) => {
-  return (
-    <motion.div
-      className="absolute flex items-center justify-center rounded-lg overflow-hidden"
-      style={{
-        width: `${itemWidth}px`,
-        height: `${itemHeight}px`,
-        left: `calc(50vw - ${itemWidth/2}px + ${offset * itemWidth * 1.1}px)`,
-        top: `calc(50vh - ${itemHeight/2}px)`,
-        backgroundColor: index % 2 === 0
-          ? currentTheme?.data?.surface1
-          : currentTheme?.data?.surface2,
-        border: isCenter
-          ? `2px solid ${currentTheme?.data?.gradStart}`
-          : `1px solid ${currentTheme?.data?.surface3}`,
-        boxShadow: isCenter
-          ? `0 0 30px ${currentTheme?.data?.gradStart}40`
-          : '0 4px 20px rgba(0,0,0,0.1)',
-      }}
-      animate={{
-        scale: isCenter ? 1 : 0.9,
-        opacity: isCenter ? 1 : 0.7,
-      }}
-      transition={{
-        duration: 0.8,
-        ease: [0.25, 0.46, 0.45, 0.94],
-      }}
-    >
-      {/* Optional: Add some visual content to distinguish pages */}
-      <div
-        className="text-lg font-semibold opacity-40"
-        style={{ color: currentTheme?.data?.textColor }}
-      >
-        Page {index + 1}
-      </div>
-    </motion.div>
-  );
+/* ─── CSS Builder ──────────────────────────────────────────────────────── */
+
+/**
+ * Generates the CSS that styles the view-transition pseudo-elements as a
+ * rotating 3-D cube.  Injected into <head> once on mount.
+ *
+ * The cube geometry comes from a pair of `translateZ` calls that sandwich
+ * the `rotateY`:
+ *
+ *   perspective(P) · scale(S) · translateZ(−D) · rotateY(θ) · translateZ(D)
+ *
+ *  • At θ = 0 °  the two Z-translations cancel → face sits at Z = 0 (natural size).
+ *  • At θ = −90° the post-rotation Z becomes an X-offset and the pre-rotation
+ *    Z pushes the face into depth, so it physically separates from the other face.
+ *
+ * Both faces share the same scale at every point in time so they move as one cube.
+ *
+ * Timeline (percentage of total duration):
+ *   0 – 60 %   Scale down AND rotate simultaneously  (cube shrinks + turns)
+ *  60 – 100 %  Scale new page back up                (cube grows to fill viewport)
+ */
+const buildCubeCSS = ({ duration, scaleDown, perspective, depth, easing }) => {
+  const dur = `${duration}s`;
+  const p = perspective;
+  const d = depth;
+  const s = scaleDown;
+
+  return `
+/* ── View Transition · 3-D Cube ──────────────────────────────────────── */
+
+/*
+ * Shared perspective on the group gives BOTH faces the same vanishing point.
+ * Without this each face would project through its own centre — the edges
+ * would never line up as a true cube.
+ */
+::view-transition-group(root) {
+  perspective: ${p};
+  overflow: visible !important;
+}
+
+/*
+ * preserve-3d lets the old/new children live in the same 3-D space
+ * so their translateZ offsets and rotations compose correctly.
+ */
+::view-transition-image-pair(root) {
+  isolation: auto;
+  overflow: visible !important;
+  transform-style: preserve-3d;
+}
+
+/* ── Old page (front face) ───────────────────────────────────────────── */
+
+::view-transition-old(root) {
+  mix-blend-mode: normal;
+  backface-visibility: hidden;
+  animation: vt-cube-out ${dur} ${easing} both;
+}
+
+/* ── New page (right face) ───────────────────────────────────────────── */
+
+::view-transition-new(root) {
+  mix-blend-mode: normal;
+  backface-visibility: hidden;
+  animation: vt-cube-in ${dur} ${easing} both;
+}
+
+/*
+ * Front face (outgoing):
+ *   0 – 60 %   scale 1→${s}  +  rotate 0→−90°  (cube shrinks & turns)
+ *  60 – 100 %  hold at −90° / hidden
+ *
+ *  translateZ(-D) · rotateY(θ) · translateZ(D)
+ *  At θ=0:   net Z = 0         → natural size  (no perspective distortion)
+ *  At θ=-90: net = X:-D, Z:-D  → face swings left & into depth
+ */
+@keyframes vt-cube-out {
+  0%      { transform: scale(1)    translateZ(-${d}) rotateY(0deg)    translateZ(${d}); opacity: 1; }
+  60%     { transform: scale(${s}) translateZ(-${d}) rotateY(-90deg)  translateZ(${d}); opacity: 1; }
+  60.01%  { opacity: 0; }
+  100%    { transform: scale(${s}) translateZ(-${d}) rotateY(-90deg)  translateZ(${d}); opacity: 0; }
+}
+
+/*
+ * Right face (incoming):
+ *   0 – 60 %   scale 1→${s}  +  rotate +90°→0°  (swings into view)
+ *  60 – 100 %  scale ${s}→1  (grows back to fill viewport)
+ *
+ *  At θ=+90°: net = X:+D, Z:-D  → face sits to the right & in depth
+ *  At θ=0°:   net Z = 0         → natural size
+ */
+@keyframes vt-cube-in {
+  0%      { transform: scale(1)    translateZ(-${d}) rotateY(90deg)   translateZ(${d}); opacity: 0; }
+  0.01%   { opacity: 1; }
+  60%     { transform: scale(${s}) translateZ(-${d}) rotateY(0deg)    translateZ(${d}); opacity: 1; }
+  100%    { transform: scale(1)    translateZ(-${d}) rotateY(0deg)    translateZ(${d}); opacity: 1; }
+}
+`;
 };
 
-// The carousel background that creates the illusion
-const CarouselBackground = ({ isVisible, currentPageIndex, currentTheme }) => {
-  const mockPages = Array.from({ length: 6 }, (_, i) => i);
-  const [dimensions, setDimensions] = useState({ itemWidth: 800, itemHeight: 500 });
+/* ─── Custom Hook: View Transition Router ──────────────────────────────── */
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const updateDimensions = () => {
-        setDimensions(getCarouselDimensions());
-      };
+/**
+ * Wires the native View Transition API into Next.js page-router events.
+ *
+ *  routeChangeStart    → capture old-state snapshot, begin transition
+ *  routeChangeComplete → resolve callback, capture new-state snapshot
+ *  routeChangeError    → clean up gracefully
+ *
+ * The browser freezes the visual output (shows the old snapshot) while
+ * Next.js fetches data and React re-renders, so the user never sees a
+ * partially-loaded page.  When the route change completes we resolve the
+ * promise and the CSS keyframe animation takes over.
+ */
+const useViewTransitionRouter = () => {
+  const router = useRouter();
+  const resolveRef = useRef(null);
+  const transitionRef = useRef(null);
 
-      updateDimensions();
-      window.addEventListener('resize', updateDimensions);
-      return () => window.removeEventListener('resize', updateDimensions);
+  /** Start a new view transition (or skip an in-progress one). */
+  const startTransition = useCallback(() => {
+    if (transitionRef.current) {
+      transitionRef.current.skipTransition();
+      resolveRef.current?.();
+      resolveRef.current = null;
     }
+
+    const vt = document.startViewTransition(
+      () =>
+        new Promise((resolve) => {
+          resolveRef.current = resolve;
+        })
+    );
+
+    transitionRef.current = vt;
+    vt.finished.finally(() => {
+      transitionRef.current = null;
+    });
   }, []);
 
-  const { itemWidth, itemHeight } = dimensions;
-
-  return (
-    <motion.div
-      className="fixed inset-0 z-20 overflow-hidden"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: isVisible ? 1 : 0 }}
-      transition={{ duration: 0.3 }}
-      style={{
-        background: `radial-gradient(circle at center, ${currentTheme?.data?.backgroundColor}90, ${currentTheme?.data?.backgroundColor})`,
-      }}
-    >
-      {/* Carousel container that slides */}
-      <motion.div
-        className="relative w-full h-full"
-        animate={{
-          x: `-${currentPageIndex * itemWidth * 1.1}px`,
-        }}
-        transition={{
-          duration: 0.8,
-          ease: [0.25, 0.46, 0.45, 0.94],
-        }}
-      >
-        {mockPages.map((_, index) => (
-          <CarouselPage
-            key={index}
-            index={index}
-            isCenter={index === currentPageIndex}
-            currentTheme={currentTheme}
-            offset={index - currentPageIndex}
-            itemWidth={itemWidth}
-            itemHeight={itemHeight}
-          />
-        ))}
-      </motion.div>
-    </motion.div>
-  );
-};
-
-// Page content wrapper that clips to carousel dimensions
-const PageContentWrapper = ({ children, isScaledBack, showContent, currentTheme }) => {
-  const [dimensions, setDimensions] = useState({ itemWidth: 800, itemHeight: 500 });
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const updateDimensions = () => {
-        setDimensions(getCarouselDimensions());
-      };
-
-      updateDimensions();
-      window.addEventListener('resize', updateDimensions);
-      return () => window.removeEventListener('resize', updateDimensions);
-    }
+  /** Resolve the pending transition (tells the browser: new DOM is ready). */
+  const finishTransition = useCallback(() => {
+    resolveRef.current?.();
+    resolveRef.current = null;
   }, []);
 
-  const { itemWidth, itemHeight } = dimensions;
-  const scaleRatio = 0.65;
-
-  return (
-    <div className="relative z-30">
-      {/* Full page content - always present for normal state */}
-      <motion.div
-        className="relative w-full h-full"
-        animate={{
-          opacity: isScaledBack ? 0 : (showContent ? 1 : 0),
-        }}
-        transition={{
-          duration: 0.4,
-          ease: [0.25, 0.46, 0.45, 0.94],
-        }}
-      >
-        {children}
-      </motion.div>
-
-      {/* Scaled and clipped version for carousel state */}
-      <motion.div
-        className="fixed inset-0 z-40 flex items-center justify-center"
-        style={{ pointerEvents: 'none' }}
-        animate={{
-          opacity: isScaledBack && showContent ? 1 : 0,
-        }}
-        transition={{
-          duration: 0.4,
-          ease: [0.25, 0.46, 0.45, 0.94],
-          delay: showContent ? 0.6 : 0,
-        }}
-      >
-        {/* Clipped page content container */}
-        <motion.div
-          className="relative overflow-hidden rounded-lg"
-          style={{
-            width: `${itemWidth}px`,
-            height: `${itemHeight}px`,
-            backgroundColor: currentTheme?.data?.backgroundColor,
-            border: `2px solid ${currentTheme?.data?.gradStart}`,
-            boxShadow: `0 0 30px ${currentTheme?.data?.gradStart}40`,
-          }}
-          animate={{
-            scale: isScaledBack ? 1 : 1.5,
-          }}
-          transition={{
-            duration: 0.8,
-            ease: [0.25, 0.46, 0.45, 0.94],
-          }}
-        >
-          {/* Page content scaled to fit */}
-          <div
-            className="absolute inset-0 origin-top-left"
-            style={{
-              transform: `scale(${scaleRatio})`,
-              width: `${100 / scaleRatio}%`,
-              height: `${100 / scaleRatio}%`,
-            }}
-          >
-            {children}
-          </div>
-        </motion.div>
-      </motion.div>
-    </div>
-  );
-};
-
-const TransitionCarousel = ({ children }) => {
-  const { currentTheme } = useThemeContext();
-  const { routeInfo } = useContext(RouteContext);
-  const [isScaledBack, setIsScaledBack] = useState(false);
-  const [showCarousel, setShowCarousel] = useState(false);
-  const [showContent, setShowContent] = useState(true);
-  const [currentPageIndex, setCurrentPageIndex] = useState(0);
-  const timeoutRef = useRef(null);
-
-  // Mock page mapping
-  const getPageIndex = (route) => {
-    const pageMap = {
-      '/': 0,
-      '/home': 0,
-      '/bio': 1,
-      '/work': 2,
-      '/blog': 3,
-    };
-    const cleanRoute = route.replace(/\/$/, '') || '/';
-    return pageMap[cleanRoute] || 0;
-  };
-
   useEffect(() => {
-    if (routeInfo.destRoute !== routeInfo.sourceRoute) {
-      const sourceIndex = getPageIndex(routeInfo.sourceRoute);
-      const destIndex = getPageIndex(routeInfo.destRoute);
+    if (!("startViewTransition" in document)) return;
 
-      setCurrentPageIndex(sourceIndex);
-
-      // Clear any existing timeout
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-
-      // Transition sequence
-      // 1. Scale back and show clipped version
-      setIsScaledBack(true);
-
-      // 2. After scale animation, show carousel
-      timeoutRef.current = setTimeout(() => {
-        setShowCarousel(true);
-      }, 500);
-
-      // 3. Rotate carousel to new page
-      setTimeout(() => {
-        setCurrentPageIndex(destIndex);
-      }, 700);
-
-      // 4. Hide carousel and scale back to full
-      setTimeout(() => {
-        setShowCarousel(false);
-        setIsScaledBack(false);
-      }, 1500);
-    }
+    router.events.on("routeChangeStart", startTransition);
+    router.events.on("routeChangeComplete", finishTransition);
+    router.events.on("routeChangeError", finishTransition);
 
     return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
+      router.events.off("routeChangeStart", startTransition);
+      router.events.off("routeChangeComplete", finishTransition);
+      router.events.off("routeChangeError", finishTransition);
     };
-  }, [routeInfo]);
+  }, [router, startTransition, finishTransition]);
+};
 
-  return (
-    <LayoutGroup>
-      {/* Carousel Background */}
-      <CarouselBackground
-        isVisible={showCarousel}
-        currentPageIndex={currentPageIndex}
-        currentTheme={currentTheme}
-      />
+/* ─── Component ────────────────────────────────────────────────────────── */
 
-      {/* Page Content with proper clipping */}
-      <PageContentWrapper
-        isScaledBack={isScaledBack}
-        showContent={showContent}
-        currentTheme={currentTheme}
-      >
-        {children}
-      </PageContentWrapper>
-    </LayoutGroup>
-  );
+/**
+ * 3-D cube page transition powered by the **native View Transition API**.
+ *
+ * How it works:
+ *
+ *  1. On `routeChangeStart` the browser captures a bitmap snapshot of the
+ *     current viewport (the "old" page).
+ *  2. Next.js fetches the new page; React re-renders behind the frozen
+ *     snapshot so the user sees no flash.
+ *  3. On `routeChangeComplete` we tell the browser the DOM is ready.  It
+ *     captures the "new" page and exposes both as `::view-transition-old`
+ *     and `::view-transition-new` pseudo-elements.
+ *  4. CSS keyframes animate those pseudo-elements as the two visible faces
+ *     of a 3-D cube: scale down → rotate -90° → scale back up.
+ *
+ * Falls back to an instant (no-animation) navigation in browsers that
+ * do not support the View Transition API.
+ */
+const TransitionCarousel = ({ children }) => {
+  /* Inject the cube keyframe CSS into <head>. */
+  useEffect(() => {
+    const style = document.createElement("style");
+    style.id = "vt-cube-styles";
+    style.textContent = buildCubeCSS(CUBE_CONFIG);
+    document.head.appendChild(style);
+    return () => style.remove();
+  }, []);
+
+  /* Hook router events into the View Transition API. */
+  useViewTransitionRouter();
+
+  /* No wrapper div needed — the API operates on document-level snapshots. */
+  return <>{children}</>;
 };
 
 export default TransitionCarousel;
