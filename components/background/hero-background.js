@@ -52,6 +52,9 @@ function createEffect(effectVariant, effectType, themeData) {
   }
   // Dithering effects
   else if (category === EFFECT_CATEGORIES.DITHER) {
+    effect.pixelSize = isCustomCategory
+      ? themeData?.ditherSize || 1.0
+      : themeData?.ditherCellSize || 1.0;
     effect.colorLevels = isCustomCategory
       ? themeData?.ditherLevels || 4
       : themeData?.ditherColorLevels || 4;

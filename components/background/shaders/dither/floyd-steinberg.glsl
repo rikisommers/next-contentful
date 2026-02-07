@@ -4,6 +4,7 @@
 precision highp float;
 
 uniform float colorLevels;
+uniform float pixelSize;
 
 // Simplified Floyd-Steinberg using ordered dithering approximation
 // True error diffusion requires sequential processing, not possible in parallel shaders
@@ -16,8 +17,8 @@ const mat4x4 floydSteinbergMatrix = mat4x4(
     15.0, 7.0,  13.0, 5.0
 ) / 16.0;
 
-vec3 dither(vec2 uv, vec3 color) {
-    ivec2 pixelCoord = ivec2(uv * resolution);
+vec3 dither(vec2 uv, vec3 color, float cellScale) {
+    ivec2 pixelCoord = ivec2(uv * resolution / cellScale);
     int x = pixelCoord.x % 4;
     int y = pixelCoord.y % 4;
     
@@ -36,8 +37,12 @@ vec3 dither(vec2 uv, vec3 color) {
 }
 
 void mainImage(const in vec4 inputColor, const in vec2 uv, out vec4 outputColor) {
-    vec4 color = texture2D(inputBuffer, uv);
-    color.rgb = dither(uv, color.rgb);
+    float cellScale = max(pixelSize, 1.0);
+    vec2 cellSizeNorm = cellScale / resolution.xy;
+    vec2 cellUv = cellSizeNorm * floor(uv / cellSizeNorm) + cellSizeNorm * 0.5;
+    
+    vec4 color = texture2D(inputBuffer, cellUv);
+    color.rgb = dither(uv, color.rgb, cellScale);
     outputColor = color;
 }
 

@@ -200,6 +200,11 @@ export const themeControlConfig = {
         },
 
         // Dithering Controls
+        ditherCellSize: {
+            type: "slider",
+            label: "Cell Size",
+            min: 1, max: 16, step: 1
+        },
         ditherColorLevels: {
             type: "slider",
             label: "Color Levels",

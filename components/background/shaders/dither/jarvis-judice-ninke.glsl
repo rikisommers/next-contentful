@@ -4,6 +4,7 @@
 precision highp float;
 
 uniform float colorLevels;
+uniform float pixelSize;
 
 // JJN uses larger error distribution for smoother results
 const float jjnMatrix8x8[64] = float[64](
@@ -17,9 +18,9 @@ const float jjnMatrix8x8[64] = float[64](
    36.0/ 48.0, 16.0/ 48.0, 44.0/ 48.0, 20.0/ 48.0, 48.0/ 48.0, 24.0/ 48.0, 28.0/ 48.0,  8.0/ 48.0
 );
 
-vec3 dither(vec2 uv, vec3 color) {
-    int x = int(uv.x * resolution.x) % 8;
-    int y = int(uv.y * resolution.y) % 8;
+vec3 dither(vec2 uv, vec3 color, float cellScale) {
+    int x = int(uv.x * resolution.x / cellScale) % 8;
+    int y = int(uv.y * resolution.y / cellScale) % 8;
     float threshold = jjnMatrix8x8[y * 8 + x];
     
     // Smooth error distribution
@@ -35,8 +36,12 @@ vec3 dither(vec2 uv, vec3 color) {
 }
 
 void mainImage(const in vec4 inputColor, const in vec2 uv, out vec4 outputColor) {
-    vec4 color = texture2D(inputBuffer, uv);
-    color.rgb = dither(uv, color.rgb);
+    float cellScale = max(pixelSize, 1.0);
+    vec2 cellSizeNorm = cellScale / resolution.xy;
+    vec2 cellUv = cellSizeNorm * floor(uv / cellSizeNorm) + cellSizeNorm * 0.5;
+    
+    vec4 color = texture2D(inputBuffer, cellUv);
+    color.rgb = dither(uv, color.rgb, cellScale);
     outputColor = color;
 }
 

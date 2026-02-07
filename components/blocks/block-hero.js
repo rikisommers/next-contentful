@@ -23,7 +23,7 @@ export default function BlockHero({ title, content, tag, image, infoMessage }) {
   const full = false;
 
   return (
-    <>
+    <div className="relative max-lg:h-[100vh] overflow-hidden">
       {/* Inject responsive grid CSS */}
       <style>{`
         ${generateResponsiveGridCSS("text")}
@@ -143,6 +143,6 @@ export default function BlockHero({ title, content, tag, image, infoMessage }) {
         </div>
         
       </div>
-    </>
+    </div>
   );
 }

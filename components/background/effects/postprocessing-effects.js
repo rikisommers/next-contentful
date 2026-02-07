@@ -449,11 +449,12 @@ class ASCIIHatchingEffect extends Effect {
 // Floyd-Steinberg Dithering Effect
 class FloydSteinbergEffect extends Effect {
   constructor(options = {}) {
-    const { colorLevels = 4 } = options;
+    const { colorLevels = 4, pixelSize = 1.0 } = options;
     
     super('FloydSteinbergEffect', floydSteinbergShader, {
       uniforms: new Map([
-        ['colorLevels', new THREE.Uniform(colorLevels)]
+        ['colorLevels', new THREE.Uniform(colorLevels)],
+        ['pixelSize', new THREE.Uniform(pixelSize)]
       ])
     });
   }
@@ -462,11 +463,12 @@ class FloydSteinbergEffect extends Effect {
 // Atkinson Dithering Effect
 class AtkinsonEffect extends Effect {
   constructor(options = {}) {
-    const { colorLevels = 4 } = options;
+    const { colorLevels = 4, pixelSize = 1.0 } = options;
     
     super('AtkinsonEffect', atkinsonShader, {
       uniforms: new Map([
-        ['colorLevels', new THREE.Uniform(colorLevels)]
+        ['colorLevels', new THREE.Uniform(colorLevels)],
+        ['pixelSize', new THREE.Uniform(pixelSize)]
       ])
     });
   }
@@ -475,11 +477,12 @@ class AtkinsonEffect extends Effect {
 // Jarvis-Judice-Ninke Dithering Effect
 class JarvisJudiceNinkeEffect extends Effect {
   constructor(options = {}) {
-    const { colorLevels = 4 } = options;
+    const { colorLevels = 4, pixelSize = 1.0 } = options;
     
     super('JarvisJudiceNinkeEffect', jarvisJudiceNinkeShader, {
       uniforms: new Map([
-        ['colorLevels', new THREE.Uniform(colorLevels)]
+        ['colorLevels', new THREE.Uniform(colorLevels)],
+        ['pixelSize', new THREE.Uniform(pixelSize)]
       ])
     });
   }
@@ -488,11 +491,12 @@ class JarvisJudiceNinkeEffect extends Effect {
 // Stucki Dithering Effect
 class StuckiEffect extends Effect {
   constructor(options = {}) {
-    const { colorLevels = 4 } = options;
+    const { colorLevels = 4, pixelSize = 1.0 } = options;
     
     super('StuckiEffect', stuckiShader, {
       uniforms: new Map([
-        ['colorLevels', new THREE.Uniform(colorLevels)]
+        ['colorLevels', new THREE.Uniform(colorLevels)],
+        ['pixelSize', new THREE.Uniform(pixelSize)]
       ])
     });
   }
@@ -501,11 +505,12 @@ class StuckiEffect extends Effect {
 // Burkes Dithering Effect
 class BurkesEffect extends Effect {
   constructor(options = {}) {
-    const { colorLevels = 4 } = options;
+    const { colorLevels = 4, pixelSize = 1.0 } = options;
     
     super('BurkesEffect', burkesShader, {
       uniforms: new Map([
-        ['colorLevels', new THREE.Uniform(colorLevels)]
+        ['colorLevels', new THREE.Uniform(colorLevels)],
+        ['pixelSize', new THREE.Uniform(pixelSize)]
       ])
     });
   }
@@ -514,11 +519,12 @@ class BurkesEffect extends Effect {
 // Sierra Dithering Effect
 class SierraEffect extends Effect {
   constructor(options = {}) {
-    const { colorLevels = 4 } = options;
+    const { colorLevels = 4, pixelSize = 1.0 } = options;
     
     super('SierraEffect', sierraShader, {
       uniforms: new Map([
-        ['colorLevels', new THREE.Uniform(colorLevels)]
+        ['colorLevels', new THREE.Uniform(colorLevels)],
+        ['pixelSize', new THREE.Uniform(pixelSize)]
       ])
     });
   }
@@ -527,11 +533,12 @@ class SierraEffect extends Effect {
 // Sierra 2 Dithering Effect
 class Sierra2Effect extends Effect {
   constructor(options = {}) {
-    const { colorLevels = 4 } = options;
+    const { colorLevels = 4, pixelSize = 1.0 } = options;
     
     super('Sierra2Effect', sierra2Shader, {
       uniforms: new Map([
-        ['colorLevels', new THREE.Uniform(colorLevels)]
+        ['colorLevels', new THREE.Uniform(colorLevels)],
+        ['pixelSize', new THREE.Uniform(pixelSize)]
       ])
     });
   }
@@ -540,11 +547,12 @@ class Sierra2Effect extends Effect {
 // Sierra Lite Dithering Effect
 class SierraLiteEffect extends Effect {
   constructor(options = {}) {
-    const { colorLevels = 4 } = options;
+    const { colorLevels = 4, pixelSize = 1.0 } = options;
     
     super('SierraLiteEffect', sierraLiteShader, {
       uniforms: new Map([
-        ['colorLevels', new THREE.Uniform(colorLevels)]
+        ['colorLevels', new THREE.Uniform(colorLevels)],
+        ['pixelSize', new THREE.Uniform(pixelSize)]
       ])
     });
   }
@@ -1037,7 +1045,8 @@ const createEffectElement = (effect, index) => {
         {
           key: `${effect.type}-${index}`,
           object: new FloydSteinbergEffect({
-            colorLevels: effect.colorLevels || 4
+            colorLevels: effect.colorLevels || 4,
+            pixelSize: effect.pixelSize || 1.0
           })
         }
       );
@@ -1049,7 +1058,8 @@ const createEffectElement = (effect, index) => {
         {
           key: `${effect.type}-${index}`,
           object: new AtkinsonEffect({
-            colorLevels: effect.colorLevels || 4
+            colorLevels: effect.colorLevels || 4,
+            pixelSize: effect.pixelSize || 1.0
           })
         }
       );
@@ -1061,7 +1071,8 @@ const createEffectElement = (effect, index) => {
         {
           key: `${effect.type}-${index}`,
           object: new JarvisJudiceNinkeEffect({
-            colorLevels: effect.colorLevels || 4
+            colorLevels: effect.colorLevels || 4,
+            pixelSize: effect.pixelSize || 1.0
           })
         }
       );
@@ -1073,7 +1084,8 @@ const createEffectElement = (effect, index) => {
         {
           key: `${effect.type}-${index}`,
           object: new StuckiEffect({
-            colorLevels: effect.colorLevels || 4
+            colorLevels: effect.colorLevels || 4,
+            pixelSize: effect.pixelSize || 1.0
           })
         }
       );
@@ -1085,7 +1097,8 @@ const createEffectElement = (effect, index) => {
         {
           key: `${effect.type}-${index}`,
           object: new BurkesEffect({
-            colorLevels: effect.colorLevels || 4
+            colorLevels: effect.colorLevels || 4,
+            pixelSize: effect.pixelSize || 1.0
           })
         }
       );
@@ -1097,7 +1110,8 @@ const createEffectElement = (effect, index) => {
         {
           key: `${effect.type}-${index}`,
           object: new SierraEffect({
-            colorLevels: effect.colorLevels || 4
+            colorLevels: effect.colorLevels || 4,
+            pixelSize: effect.pixelSize || 1.0
           })
         }
       );
@@ -1109,7 +1123,8 @@ const createEffectElement = (effect, index) => {
         {
           key: `${effect.type}-${index}`,
           object: new Sierra2Effect({
-            colorLevels: effect.colorLevels || 4
+            colorLevels: effect.colorLevels || 4,
+            pixelSize: effect.pixelSize || 1.0
           })
         }
       );
@@ -1121,7 +1136,8 @@ const createEffectElement = (effect, index) => {
         {
           key: `${effect.type}-${index}`,
           object: new SierraLiteEffect({
-            colorLevels: effect.colorLevels || 4
+            colorLevels: effect.colorLevels || 4,
+            pixelSize: effect.pixelSize || 1.0
           })
         }
       );

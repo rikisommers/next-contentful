@@ -2212,6 +2212,7 @@ heroBgBorderRadius:borderRadiusThemes.none,
   asciiContrast: 100,
   
   // Dithering Effect Controls
+  ditherCellSize: 1,
   ditherColorLevels: 4,
   ditherContrast: 100,
   ditherInverted: false,

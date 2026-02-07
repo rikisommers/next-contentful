@@ -332,6 +332,7 @@ export default function ThemeEditor({ customThemes }) {
         return effectType === 'ascii';
 
       // Dithering controls
+      case 'ditherCellSize':
       case 'ditherColorLevels':
       case 'ditherContrast':
       case 'ditherInverted':

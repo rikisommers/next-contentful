@@ -5,6 +5,7 @@
 precision highp float;
 
 uniform float colorLevels;
+uniform float pixelSize;
 
 // Atkinson dithering matrix - creates crunchy, high-contrast look
 const mat4x4 atkinsonMatrix = mat4x4(
@@ -14,8 +15,8 @@ const mat4x4 atkinsonMatrix = mat4x4(
     10.0, 4.0,  9.0, 3.0
 ) / 12.0;
 
-vec3 dither(vec2 uv, vec3 color) {
-    ivec2 pixelCoord = ivec2(uv * resolution);
+vec3 dither(vec2 uv, vec3 color, float cellScale) {
+    ivec2 pixelCoord = ivec2(uv * resolution / cellScale);
     int x = pixelCoord.x % 4;
     int y = pixelCoord.y % 4;
     
@@ -37,8 +38,12 @@ vec3 dither(vec2 uv, vec3 color) {
 }
 
 void mainImage(const in vec4 inputColor, const in vec2 uv, out vec4 outputColor) {
-    vec4 color = texture2D(inputBuffer, uv);
-    color.rgb = dither(uv, color.rgb);
+    float cellScale = max(pixelSize, 1.0);
+    vec2 cellSizeNorm = cellScale / resolution.xy;
+    vec2 cellUv = cellSizeNorm * floor(uv / cellSizeNorm) + cellSizeNorm * 0.5;
+    
+    vec4 color = texture2D(inputBuffer, cellUv);
+    color.rgb = dither(uv, color.rgb, cellScale);
     outputColor = color;
 }
 
