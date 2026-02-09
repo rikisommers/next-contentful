@@ -19,7 +19,9 @@ const Layout = ({ children }) => {
         {currentTheme.data.cursor === "dot" && <CursorDot />}
         {currentTheme.data.cursor === "gabriel" && <CursorGabriel />}
         {currentTheme.data.cursor === "cta" && <CursorCta content="Hello" />}
-        {children}
+        <main id="main-content" role="main">
+          {children}
+        </main>
     </TransitionPage>
   );
 }

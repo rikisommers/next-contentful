@@ -7,6 +7,7 @@ export const ModalDirection = {
   RIGHT: "right",
   TOP: "top",
   BOTTOM: "bottom",
+  ORIGIN: "origin",
 };
 
 export const ModalWidth = {
@@ -33,6 +34,7 @@ const Modal = ({
   width = ModalWidth.PANEL_SM,
   position = ModalPosition.BOTTOM_RIGHT,
   bodyClass = "modal-active",
+  ariaLabel = "Modal dialog",
 }) => {
   useEffect(() => {
     if (isOpen && bodyClass) {
@@ -66,13 +68,21 @@ const Modal = ({
       animate: { y: 0, opacity: 1 },
       exit: { y: "100%", opacity: 1 },
     },
+    [ModalDirection.ORIGIN]: {
+      initial: { opacity: 0 },
+      animate: { opacity: 1 },
+      exit: { opacity: 0 },
+    },
   };
 
   const selectedVariant = directionVariants[direction] || directionVariants[ModalDirection.RIGHT];
 
   const widthClasses = {
     [ModalWidth.FULL]: "w-full",
-    [ModalWidth.PANEL_SM]: "w-panel-sm",
+    [ModalWidth.HALF]: "w-1/2",
+    [ModalWidth.THIRD]: "w-1/3",
+    [ModalWidth.QUARTER]: "w-1/4",
+    [ModalWidth.PANEL_SM]: "w-80",
   };
 
   const positionClasses = {
@@ -89,6 +99,9 @@ const Modal = ({
     <AnimatePresence>
       {isOpen && (
         <motion.div
+          role="dialog"
+          aria-modal="true"
+          aria-label={ariaLabel}
           initial="initial"
           animate="animate"
           exit="exit"
@@ -99,7 +112,7 @@ const Modal = ({
           }}
           className={modalClasses}
         >
-          <Close onClick={onClose} />
+          <Close onClick={onClose} aria-label="Close dialog" />
 
           <motion.div className="flex z-10 flex-col flex-grow gap-3 rounded-lg">
               {children}

@@ -172,13 +172,9 @@ export const measurePerformance = (name, fn) => {
   
   if (result && typeof result.then === 'function') {
     return result.finally(() => {
-      const endTime = performance.now();
-      console.log(`${name} took ${endTime - startTime} milliseconds`);
     });
   }
   
-  const endTime = performance.now();
-  console.log(`${name} took ${endTime - startTime} milliseconds`);
   
   return result;
 };

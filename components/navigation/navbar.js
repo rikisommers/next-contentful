@@ -218,12 +218,8 @@ export default function NavBar({ containerRef, data ,logo}) {
 
     const getSound = (soundName) => {
       // Use the public playAudio function directly
-      console.log('playing sound', soundName);
-      console.log('theme sound', currentTheme.data.audioPrimaryButton);
-  
       const audioRef = audioRefs[soundName];
       if (audioRef) {
-        console.log('playing sound', soundName);
         playAudio(audioRef, currentTheme.data.audioVolume, currentTheme.data.audioEnabled);
       }
     };

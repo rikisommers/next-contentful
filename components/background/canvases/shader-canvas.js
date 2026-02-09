@@ -40,15 +40,12 @@ const CameraController = ({ orbitControlsEnabled, updateTheme }) => {
           y: roundedPosition.canvasCameraPositionY,
           z: roundedPosition.canvasCameraPositionZ
         };
-        console.log('🎥 Camera position saved:', roundedPosition);
       }
     }
   }, [camera, updateTheme]);
 
   // Handle controls change with proper debouncing
   const handleControlsChange = React.useCallback(() => {
-    console.log('🔄 OrbitControls onChange triggered');
-
     // Clear existing timeout
     if (saveTimeoutRef.current) {
       clearTimeout(saveTimeoutRef.current);
@@ -125,11 +122,6 @@ const CameraController = ({ orbitControlsEnabled, updateTheme }) => {
     };
   }, []);
 
-  // Debug: Log when component renders
-  React.useEffect(() => {
-    console.log('🎮 CameraController rendered, orbitControlsEnabled:', orbitControlsEnabled);
-  }, [orbitControlsEnabled]);
-
   if (!orbitControlsEnabled) return null;
 
   return (
@@ -138,8 +130,6 @@ const CameraController = ({ orbitControlsEnabled, updateTheme }) => {
       enableDamping={true}
       dampingFactor={0.1}
       onChange={handleControlsChange}
-      onStart={() => console.log('🎯 OrbitControls onStart')}
-      onEnd={() => console.log('🎯 OrbitControls onEnd')}
       makeDefault
     />
   );
@@ -173,10 +163,8 @@ const ShaderCanvas = ({
 
   // Create a function to update only camera-related theme values
   const updateCameraTheme = React.useCallback((cameraData) => {
-    console.log('📡 updateCameraTheme called with:', cameraData);
     if (updateTheme) {
       updateTheme((prevTheme) => {
-        console.log('📝 Updating theme, prevTheme:', prevTheme);
         return {
           ...prevTheme,
           data: {

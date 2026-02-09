@@ -21,10 +21,6 @@ export const ClipContainer = ({ children, background, scale }) => {
     target: heroRef,
 
     offset: ["end end", "end 50%"],
-    onChange: (latest) => {
-      console.log("Latest scroll position:", latest);
-      // You can perform any other actions or state updates here
-    },
   });
 
   const insetValue = 1.5;

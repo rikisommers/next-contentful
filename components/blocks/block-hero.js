@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import { motion } from "../../utils/motion";
 import { useThemeContext } from "../context/themeContext";
 import HeroBackground from "../background/hero-background";
@@ -18,6 +19,42 @@ const getHeightClass = (heightVh) => {
   return `h-[${heightVh}vh]`;
 };
 
+/**
+ * Hero block component that renders a full-width hero section with animated text,
+ * background imagery, and optional info messages
+ * @component
+ * @category blocks
+ * @param {Object} props - Component props
+ * @param {string} props.title - Main hero heading text, rendered with animated text effects
+ * @param {string} props.content - Subtitle or description text below the heading
+ * @param {string} props.tag - Category or label badge displayed above the title
+ * @param {Object} props.image - Hero background image object from Contentful
+ * @param {Object} props.infoMessage - Optional info message displayed in the hero
+ * @param {string} props.infoMessage.title - Info message title
+ * @param {string} props.infoMessage.content - Info message body text
+ * @param {boolean} props.infoMessage.dismiss - Whether the message can be dismissed
+ * @example
+ * // Hero with title, content, and tag
+ * <BlockHero
+ *   title="Welcome to the Portfolio"
+ *   content="Explore my latest design work and case studies"
+ *   tag="Featured"
+ *   image={{ url: "https://images.ctfassets.net/hero.jpg", title: "Hero Image" }}
+ * />
+ * @example
+ * // Hero with info message
+ * <BlockHero
+ *   title="Project Showcase"
+ *   content="A deep dive into the design process"
+ *   tag="Case Study"
+ *   image={{ url: "https://images.ctfassets.net/project.jpg", title: "Project" }}
+ *   infoMessage={{
+ *     title: "New Release",
+ *     content: "This project was recently updated.",
+ *     dismiss: true,
+ *   }}
+ * />
+ */
 export default function BlockHero({ title, content, tag, image, infoMessage }) {
   const { currentTheme } = useThemeContext();
   const full = false;
@@ -146,3 +183,23 @@ export default function BlockHero({ title, content, tag, image, infoMessage }) {
     </div>
   );
 }
+
+BlockHero.propTypes = {
+  /** Main hero heading text */
+  title: PropTypes.string,
+  /** Subtitle or description text */
+  content: PropTypes.string,
+  /** Category or label badge text */
+  tag: PropTypes.string,
+  /** Hero background image object from Contentful */
+  image: PropTypes.shape({
+    url: PropTypes.string,
+    title: PropTypes.string,
+  }),
+  /** Optional info message displayed in the hero section */
+  infoMessage: PropTypes.shape({
+    title: PropTypes.string,
+    content: PropTypes.string,
+    dismiss: PropTypes.bool,
+  }),
+};

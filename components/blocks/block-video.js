@@ -1,4 +1,5 @@
 import React, {useRef} from "react";
+import PropTypes from "prop-types";
 import Audio from "../navigation/audio";
 import ContentfulImage from "../image/contentful-image";
 import FadeInWhenVisible from "../utils/fade-in-visible";
@@ -10,7 +11,35 @@ import {
   useScroll,
 } from "../../utils/motion";;
 
-
+/**
+ * Video block component that renders a poster image with parallax scroll effect,
+ * description text with fade-in animation, and an audio control
+ * @component
+ * @category blocks
+ * @param {Object} props - Component props (passed as flat object, accessed via props.data)
+ * @param {string} props.title - Video title displayed with motion animation
+ * @param {Object} props.data - Contentful video entry data
+ * @param {Object} props.data.poster - Poster image object displayed as the video thumbnail
+ * @param {string} props.data.poster.url - Poster image source URL
+ * @param {string} props.data.poster.title - Poster image alt text
+ * @param {string} props.data.description - Video description text shown below the poster
+ * @example
+ * // Video block with poster image and description
+ * <BlockVideo
+ *   title="Project Walkthrough"
+ *   data={{
+ *     poster: { url: "https://images.ctfassets.net/poster.jpg", title: "Video Poster" },
+ *     description: "A walkthrough of the design process and final prototype.",
+ *   }}
+ * />
+ * @example
+ * // Video block with minimal data
+ * <BlockVideo
+ *   data={{
+ *     description: "Behind the scenes of the brand identity project.",
+ *   }}
+ * />
+ */
 export const BlockVideo = (data) => {
 
   const ref = useRef(null);
@@ -102,6 +131,21 @@ export const BlockVideo = (data) => {
   </RollUpWhenVisible>
 
   );
+};
+
+BlockVideo.propTypes = {
+  /** Video title text */
+  title: PropTypes.string,
+  /** Contentful video entry data */
+  data: PropTypes.shape({
+    /** Poster image object for the video thumbnail */
+    poster: PropTypes.shape({
+      url: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+    }),
+    /** Video description text */
+    description: PropTypes.string,
+  }),
 };
 
 export default BlockVideo;

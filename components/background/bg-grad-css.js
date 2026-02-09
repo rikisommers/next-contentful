@@ -44,15 +44,6 @@ export default function BackgroundCssGrad() {
             backgroundGradient = `radial-gradient(ellipse at center, ${startColor} 0%, ${endColor} 62%, ${endColor} 100%)`;
     }
 
-    console.log('🎯 Gradient Debug:', {
-        radialPosition,
-        cssRadialPosition,
-        gradientType,
-        startColor,
-        endColor,
-        backgroundGradient
-    });
-
     // Complete inline style object
     const gradientStyle = {
         background: backgroundGradient,

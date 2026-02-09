@@ -7,6 +7,13 @@
     "setup": "node ./contentful/setup.js",
     "generate-examples": "node ./components/utils/generate-component-examples.js",
     "analyze": "ANALYZE=true npm run build",
+    "lint": "next lint",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
     "lighthouse": "npm run build && npm start & sleep 5 && npx lighthouse http://localhost:3000 --only-categories=performance --output=json --output-path=./lighthouse-report.json --chrome-flags='--headless' && pkill -f 'next start'"
   },
   "dependencies": {
@@ -40,22 +47,34 @@
     "use-sound": "^4.0.1"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.11.1",
+    "@eslint/eslintrc": "^3.3.3",
     "@phosphor-icons/react": "^2.0.8",
+    "@playwright/test": "^1.58.2",
     "@tailwindcss/postcss": "^4.1.4",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@vitejs/plugin-react": "^5.1.3",
     "autoprefixer": "^10.4.14",
     "contentful-cli": "^3.1.37",
     "contentful-import": "^9.4.88",
     "cookie": "^1.0.2",
     "cssnano": "^6.0.1",
+    "eslint": "^10.0.0",
     "eslint-config-next": "^14.1.0",
     "file-loader": "^6.2.0",
+    "happy-dom": "^20.5.0",
+    "jsdom": "^28.0.0",
     "material-icons": "^1.13.12",
     "postcss": "^8.5.3",
+    "prettier": "^3.8.1",
+    "prop-types": "^15.8.1",
     "raw-loader": "^4.0.2",
     "sass": "^1.60.0",
     "tailwindcss": "^4.1.4",
     "universal-cookie": "^7.2.2",
     "url-loader": "^4.1.1",
+    "vitest": "^4.0.18",
     "webpack-bundle-analyzer": "^4.10.2"
   }
 }

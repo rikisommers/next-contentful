@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import PropTypes from "prop-types";
 import Link from "next/link";
 import { useThemeContext } from "../context/themeContext";
 import AnimatedText, {
@@ -13,6 +14,64 @@ import { ButtonType, ButtonSound } from "../base/button/button.util";
 import ButtonSwap from "../base/button/button-swap";
 import { motion, useTransform, useScroll } from "../../utils/motion";
 
+/**
+ * Default footer layout with parallax scroll animation, title badge, content,
+ * CTA button, page navigation, social links, and legal policy links.
+ * Uses Framer Motion for scroll-driven y-transform and scale effects.
+ * @component
+ * @category footer
+ * @param {Object} props - Component props
+ * @param {Object} props.data - Contentful entry data for the footer
+ * @param {string} [props.data.title] - Footer badge/label text displayed as accent pill
+ * @param {string} [props.data.content] - Footer body text or tagline
+ * @param {string} [props.data.cta] - Call-to-action button label
+ * @param {string} [props.data.ctalink] - Call-to-action button URL
+ * @param {string} [props.data.privacypolicy] - Privacy policy page URL
+ * @param {string} [props.data.cookiespolicy] - Cookies policy page URL
+ * @param {Object} [props.data.socialCollection] - Collection of social link entries
+ * @param {Object[]} [props.data.socialCollection.items] - Array of social link items
+ * @param {string} [props.data.socialCollection.items[].title] - Social link display name
+ * @param {string} [props.data.socialCollection.items[].url] - Social link URL
+ * @param {Object} [props.data.socialCollection.items[].icon] - Social link icon asset
+ * @param {string} [props.data.socialCollection.items[].icon.url] - Social link icon image URL
+ * @param {Object[]} props.pages - Array of page navigation entries
+ * @param {string} props.pages[].id - Unique page identifier
+ * @param {string} props.pages[].title - Page display name
+ * @param {string} props.pages[].url - Page URL path
+ * @example
+ * // Full footer with CTA, pages, and social links
+ * <FooterDefault
+ *   data={{
+ *     title: "Newsletter",
+ *     content: "Stay up to date with the latest news",
+ *     cta: "Subscribe",
+ *     ctalink: "/subscribe",
+ *     privacypolicy: "/privacy",
+ *     cookiespolicy: "/cookies",
+ *     socialCollection: {
+ *       items: [
+ *         { title: "GitHub", url: "https://github.com", icon: { url: "/icons/github.svg" } }
+ *       ]
+ *     }
+ *   }}
+ *   pages={[
+ *     { id: "1", title: "Home", url: "/" },
+ *     { id: "2", title: "Blog", url: "/blog" }
+ *   ]}
+ * />
+ * @example
+ * // Minimal footer with title and pages only
+ * <FooterDefault
+ *   data={{
+ *     title: "My Portfolio",
+ *     content: "Thanks for visiting"
+ *   }}
+ *   pages={[
+ *     { id: "1", title: "Work", url: "/work" },
+ *     { id: "2", title: "Contact", url: "/contact" }
+ *   ]}
+ * />
+ */
 export default function FooterDefault({ data, pages }) {
   const { currentTheme } = useThemeContext();
   const [dimension, setDimension] = useState({ width: 0, height: 0 });
@@ -257,3 +316,49 @@ export default function FooterDefault({ data, pages }) {
     </motion.div>
   );
 }
+
+FooterDefault.propTypes = {
+  /** Contentful entry data for the footer */
+  data: PropTypes.shape({
+    /** Footer badge/label text displayed as accent pill */
+    title: PropTypes.string,
+    /** Footer body text or tagline */
+    content: PropTypes.string,
+    /** Call-to-action button label */
+    cta: PropTypes.string,
+    /** Call-to-action button URL */
+    ctalink: PropTypes.string,
+    /** Privacy policy page URL */
+    privacypolicy: PropTypes.string,
+    /** Cookies policy page URL */
+    cookiespolicy: PropTypes.string,
+    /** Collection of social link entries */
+    socialCollection: PropTypes.shape({
+      /** Array of social link items */
+      items: PropTypes.arrayOf(
+        PropTypes.shape({
+          /** Social link display name */
+          title: PropTypes.string,
+          /** Social link URL */
+          url: PropTypes.string,
+          /** Social link icon asset */
+          icon: PropTypes.shape({
+            /** Social link icon image URL */
+            url: PropTypes.string,
+          }),
+        })
+      ),
+    }),
+  }),
+  /** Array of page navigation entries */
+  pages: PropTypes.arrayOf(
+    PropTypes.shape({
+      /** Unique page identifier */
+      id: PropTypes.string,
+      /** Page display name */
+      title: PropTypes.string,
+      /** Page URL path */
+      url: PropTypes.string,
+    })
+  ),
+};

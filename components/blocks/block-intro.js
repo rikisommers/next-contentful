@@ -1,5 +1,38 @@
 import React from "react";
+import PropTypes from "prop-types";
 
+/**
+ * Introduction block component that displays project metadata such as overview,
+ * duration, client, and role in a responsive grid layout
+ * @component
+ * @category blocks
+ * @param {Object} props - Component props
+ * @param {Object} props.data - Contentful intro entry data
+ * @param {string} props.data.overview - Project overview or summary text
+ * @param {string} props.data.duration - Project duration (e.g., "3 months")
+ * @param {string} props.data.client - Client name for the project
+ * @param {string} props.data.role - Role or responsibilities in the project
+ * @param {boolean} props.data.primaryPageHeader - When true, uses full viewport height; otherwise uses 33vh
+ * @example
+ * // Full intro block with all fields
+ * <BlockIntro
+ *   data={{
+ *     overview: "A comprehensive redesign of the mobile banking experience.",
+ *     duration: "6 months",
+ *     client: "FinTech Corp",
+ *     role: "Lead Designer",
+ *     primaryPageHeader: true,
+ *   }}
+ * />
+ * @example
+ * // Minimal intro block with overview only
+ * <BlockIntro
+ *   data={{
+ *     overview: "Exploring new interaction patterns for data visualization.",
+ *     primaryPageHeader: false,
+ *   }}
+ * />
+ */
 export default function BlockIntro({ data }) {
   return (
     <div
@@ -64,4 +97,20 @@ export default function BlockIntro({ data }) {
     </div>
   );
 }
+
+BlockIntro.propTypes = {
+  /** Contentful intro entry data */
+  data: PropTypes.shape({
+    /** Project overview or summary text */
+    overview: PropTypes.string,
+    /** Project duration */
+    duration: PropTypes.string,
+    /** Client name */
+    client: PropTypes.string,
+    /** Role or responsibilities */
+    role: PropTypes.string,
+    /** Whether to use full viewport height */
+    primaryPageHeader: PropTypes.bool,
+  }),
+};
 

@@ -1,15 +1,18 @@
 import React from "react";
 import { getLandingPage, getAllHomePageSlugs, getFooter, getAllBlogTags } from '../lib/api';
 import LandingPage from "../components/landingPage";
-import Layout,{LayoutType} from "../components/layout";
+import Layout, { LayoutType } from "../components/layout";
 import ScrollContainer from "../components/utils/scroll-container";
+import SEOMeta from "../components/seo/seo-meta";
 
 const HomePage = ({ data, footerData, tags }) => {
-  // Render your home page using the fetched data
-
-  // console.log('tagsa',tags)
   return (
     <Layout>
+      <SEOMeta
+        title={data?.title || "Page"}
+        description={data?.description}
+        image={data?.heroImage?.url}
+      />
       <ScrollContainer>
         <LandingPage data={data} footerData={footerData} tags={tags} />
       </ScrollContainer>

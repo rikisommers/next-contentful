@@ -1,8 +1,33 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { useThemeContext } from "../context/themeContext";
 import Button, { ButtonType } from "../base/button/button";
 import { motion } from "../../utils/motion";
 
+/**
+ * Tag filter navigation component that displays a row of selectable tag buttons
+ * with animated active indicator. Used to filter articles or content by tag.
+ * @component
+ * @category blocks
+ * @param {Object} props - Component props
+ * @param {string[]} props.data - Array of tag strings to display as filter buttons
+ * @param {string|null} props.selected - Currently selected tag, or null for "All"
+ * @param {Function} props.handleTagClick - Callback fired when a tag is clicked, receives the tag string or null
+ * @example
+ * // Tag filter with a selection
+ * <BlockTags
+ *   data={["React", "Design", "JavaScript"]}
+ *   selected="React"
+ *   handleTagClick={(tag) => console.log("Selected:", tag)}
+ * />
+ * @example
+ * // Tag filter with no selection (shows "All" as active)
+ * <BlockTags
+ *   data={["Frontend", "Backend", "DevOps"]}
+ *   selected={null}
+ *   handleTagClick={(tag) => setSelectedTag(tag)}
+ * />
+ */
 export const BlockTags = ({ data, selected, handleTagClick }) => {
   const { currentTheme } = useThemeContext();
 
@@ -67,6 +92,15 @@ export const BlockTags = ({ data, selected, handleTagClick }) => {
     ))}
   </nav>
   );
+};
+
+BlockTags.propTypes = {
+  /** Array of tag strings to display as filter buttons */
+  data: PropTypes.arrayOf(PropTypes.string).isRequired,
+  /** Currently selected tag, or null for "All" */
+  selected: PropTypes.string,
+  /** Callback fired when a tag is clicked */
+  handleTagClick: PropTypes.func.isRequired,
 };
 
 export default BlockTags;

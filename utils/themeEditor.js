@@ -17,6 +17,7 @@ import TextInput from "../components/base/form/TextInput";
 import SelectInput from "../components/base/form/select-input";
 import CheckboxInput from "../components/base/form/checkbox-input";
 import ColorInput from "../components/base/form/color-input";
+import ColorInputContrast from "../components/base/form/color-input-contrast";
 import SliderInput from "../components/base/form/slider-input";
 //import RotaryInput from "../components/base/form/RotaryInput";
 import PositionInput from "../components/base/form/position-input";
@@ -40,7 +41,6 @@ const getBestTheme = (weightType, sliderValue) => {
     if (scoreDiff < closestScoreDiff) {
       closestScoreDiff = scoreDiff;
       bestTheme = themeName;
-      console.log("Best theme found:", bestTheme); // Log the best theme
     }
   }
 
@@ -80,7 +80,6 @@ export default function ThemeEditor({ customThemes }) {
   //  Update the ref whenever currentTheme changes
   // TODO: Align theme format This needs to use dataa from custom or defaut
   useEffect(() => {
-    console.log("Theme updated:", currentTheme.data.key);
     // Make a deep copy to avoid reference issues
     currentThemeRef.current = JSON.parse(JSON.stringify(currentTheme));
   }, [currentTheme]);
@@ -103,7 +102,6 @@ export default function ThemeEditor({ customThemes }) {
   // Save as custom thmeme to retain changes
   const updateThemeProp = useCallback(
     (key, value) => {
-      console.log(`Updating theme property: ${key} with value: ${value}`); // Log the property being updated
       // This ref is used to store temp/live changes until save
       const { data, ...rest } = currentThemeRef.current; // Destructure to get data and rest
 
@@ -136,7 +134,6 @@ export default function ThemeEditor({ customThemes }) {
         name: selectedThemeKey,
         data: JSON.parse(localThemeData),
       };
-      console.log(`Loaded theme '${selectedThemeKey}' from localStorage.`);
     } else {
       // Fallback to static theme
       selectedTheme = Object.values(target).find(
@@ -153,14 +150,11 @@ export default function ThemeEditor({ customThemes }) {
 
       updateTheme(newTheme);
       currentThemeRef.current = newTheme;
-      console.log("Theme changed to:", selectedThemeKey);
     }
   };
 
   // Save current theme as a new theme
   const saveNewTheme = async () => {
-    console.log("#SNT", currentThemeRef.current); // Log the current theme data
-
     try {
       const customKey = toCamelCase(themeName); // Convert name to camelCase and remove spaces
 
@@ -177,9 +171,6 @@ export default function ThemeEditor({ customThemes }) {
         }),
       };
 
-      // Log the theme object before saving
-      console.log("Theme to save:", themeToSave);
-
       // Attempt to save the theme
       const response = await fetch("/api/save-new-theme", {
         method: "POST",
@@ -190,7 +181,6 @@ export default function ThemeEditor({ customThemes }) {
       });
 
       if (!response.ok) throw new Error("Failed to save theme");
-      console.log("Theme saved successfully", themeToSave);
       toast.showSuccess(`Theme "${themeToSave.name}" saved successfully`);
       // Optionally, refresh the theme list or update state here
     } catch (error) {
@@ -203,7 +193,6 @@ export default function ThemeEditor({ customThemes }) {
   const deleteTheme = async () => {
     try {
       const entryIdToDelete = currentThemeRef.current.sys.id; // Get the entry ID
-      console.log("Attempting to delete theme with entry ID:", entryIdToDelete);
 
       // Use the entry ID in the URL
       const deleteResponse = await fetch(
@@ -221,7 +210,6 @@ export default function ThemeEditor({ customThemes }) {
         throw new Error(`Failed to delete theme: ${responseBody.message}`);
       }
 
-      console.log("Theme deleted successfully");
       toast.showSuccess(`Theme "${themeToSave.name}" deleted successfully`);
 
       // Optionally refresh the theme list or update state here
@@ -238,8 +226,6 @@ export default function ThemeEditor({ customThemes }) {
         ...currentThemeRef.current,
         data: mergeWithDefaults(currentThemeRef.current.data),
       };
-      console.log("Saving theme to Contentful:", themeToSave);
-
       const response = await fetch("/api/save-theme", {
         method: "POST",
         headers: {
@@ -252,7 +238,6 @@ export default function ThemeEditor({ customThemes }) {
         const errorData = await response.json();
         throw new Error(`Failed to save theme: ${errorData.message}`);
       }
-      console.log("Theme saved to Contentful successfully");
       toast.showSuccess("Theme saved to Contentful successfully");
     } catch (error) {
       console.error("Error saving theme to Contentful:", error.message);
@@ -412,6 +397,63 @@ export default function ThemeEditor({ customThemes }) {
         // Show all other fields by default
         return true;
     }
+  };
+
+  /**
+   * Maps color keys to their contrast-pair background/foreground for WCAG checking
+   * Returns the hex color that should be checked against, or null if no pairing
+   */
+  const getContrastPair = (colorKey, theme) => {
+    const data = theme?.data;
+    if (!data) return null;
+
+    const textToBackground = {
+      textColor: 'backgroundColor',
+      headingColor: 'backgroundColor',
+      subtextColor: 'backgroundColor',
+      textAccent: 'backgroundColor',
+      textColorInv: 'backgroundColorInv',
+      accentPri: 'backgroundColor',
+      accentSec: 'backgroundColor',
+      navBg: null, // no automatic pair
+    };
+
+    const backgroundToText = {
+      backgroundColor: 'textColor',
+      backgroundColorInv: 'textColorInv',
+      bodyBackgroundColor: 'textColor',
+      surface1: 'textColor',
+      surface2: 'textColor',
+      surface3: 'textColor',
+    };
+
+    if (textToBackground[colorKey] !== undefined) {
+      return textToBackground[colorKey] ? data[textToBackground[colorKey]] : null;
+    }
+    if (backgroundToText[colorKey]) {
+      return data[backgroundToText[colorKey]];
+    }
+    return null;
+  };
+
+  /** Returns a human-readable label for the contrast pair */
+  const getContrastLabel = (colorKey) => {
+    const labels = {
+      textColor: 'text on background',
+      headingColor: 'headings on background',
+      subtextColor: 'subtext on background',
+      textAccent: 'accent text on background',
+      textColorInv: 'text on inverted background',
+      accentPri: 'accent on background',
+      accentSec: 'secondary accent on background',
+      backgroundColor: 'background behind text',
+      backgroundColorInv: 'inverted background behind text',
+      bodyBackgroundColor: 'body background behind text',
+      surface1: 'surface behind text',
+      surface2: 'surface behind text',
+      surface3: 'surface behind text',
+    };
+    return labels[colorKey] || null;
   };
 
   // Helper to render a control based on config
@@ -791,11 +833,13 @@ export default function ThemeEditor({ customThemes }) {
         );
       case "color":
         return (
-          <ColorInput
+          <ColorInputContrast
             key={key}
             label={config.label}
             value={value ?? "#000000"}
             onChange={(val) => updateThemeProp(key, val)}
+            contrastAgainst={getContrastPair(key, currentTheme)}
+            contrastLabel={getContrastLabel(key)}
           />
         );
       case "slider":
@@ -944,7 +988,7 @@ export default function ThemeEditor({ customThemes }) {
           <ButtonGroup
             options={buttonGroupOptions}
             defaultValue="sm"
-            onChange={(value) => console.log(`HeroTextPosition breakpoint changed to: ${value}`)}
+            onChange={() => {}}
           />
         </fieldset>
       );
@@ -1006,7 +1050,7 @@ export default function ThemeEditor({ customThemes }) {
           <ButtonGroup
             options={buttonGroupOptions}
             defaultValue="sm"
-            onChange={(value) => console.log(`HeaderTextPosition breakpoint changed to: ${value}`)}
+            onChange={() => {}}
           />
         </fieldset>
       );
@@ -1061,7 +1105,7 @@ export default function ThemeEditor({ customThemes }) {
           <ButtonGroup
             options={buttonGroupOptions}
             defaultValue="lg"
-            onChange={(value) => console.log(`ArticlesGridColumns breakpoint changed to: ${value}`)}
+            onChange={() => {}}
           />
         </fieldset>
       );
@@ -1222,7 +1266,6 @@ export default function ThemeEditor({ customThemes }) {
           type={ButtonType.PRIMARY}
           size={ButtonSize.SM}
           onClick={() => {
-            console.log("Save theme as button clicked");
             setIsSaveModalOpen(true);
           }}
           label="Save theme as"
@@ -1239,10 +1282,6 @@ export default function ThemeEditor({ customThemes }) {
               `themeData_${themeKey}`,
               JSON.stringify(themeData)
             );
-            console.log(
-              `Theme data for '${themeKey}' saved to localStorage as 'themeData_${themeKey}'.`
-            );
-            
             // Save to Contentful
             await saveThemeToContentful();
           }}

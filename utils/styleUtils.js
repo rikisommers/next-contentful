@@ -349,17 +349,6 @@ export const getGridPositionClass = (position, options = {}) => {
     console.error(`Missing col class for col ${col}`);
   }
 
-  // Debug logging for positioning
-  console.log('Grid Position Debug:', {
-    position,
-    row,
-    col,
-    rowClass,
-    colClass,
-    rowExists: !!rowClasses[row],
-    colExists: !!colClasses[col]
-  });
-
   // Add responsive column spans if provided
   let colSpanClass = "";
   if (options.colSpanDefault && colSpanClasses[options.colSpanDefault]) {
@@ -377,15 +366,6 @@ export const getGridPositionClass = (position, options = {}) => {
   const alignment = options.alignment ?? "self-end";
 
   const finalResult = `${rowClass} ${colClass} ${colSpanClass} ${responsiveClasses} ${alignment}`.trim();
-  
-  // Enhanced debug logging
-  console.log('Grid Position Final Result:', {
-    position,
-    row, col,
-    rowClass, colClass, colSpanClass,
-    finalResult,
-    individualClasses: finalResult.split(' ')
-  });
   
   return finalResult;
 };
@@ -446,14 +426,6 @@ export const getResponsiveGridPositionClass = (positions = {}, colSpans = {}) =>
   breakpoints.forEach(bp => {
     const bpClasses = generateBreakpointClasses(bp, positions[bp], colSpans[bp]);
     allClasses.push(...bpClasses);
-  });
-
-  // Debug logging
-  console.log('Responsive Grid Position Debug:', {
-    positions,
-    colSpans,
-    allClasses,
-    finalClasses: allClasses.join(' ')
   });
 
   return allClasses.join(' ');

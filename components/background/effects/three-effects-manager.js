@@ -220,10 +220,6 @@ const DitherBlueNoise = {
 export const ThreeEffectsManager = ({ effects = [], children }) => {
   const { gl, scene, camera, size } = useThree();
   
-  // Debug logging
-  React.useEffect(() => {
-    console.log('ThreeEffectsManager: Effects received:', effects);
-  }, [effects]);
   const composerRef = useRef();
   
   // Create effect composer and passes
@@ -235,7 +231,6 @@ export const ThreeEffectsManager = ({ effects = [], children }) => {
     const passes = [];
     
     effects.forEach((effect) => {
-      console.log('Creating effect:', effect);
       let shader = null;
       let uniforms = {};
       
@@ -298,7 +293,6 @@ export const ThreeEffectsManager = ({ effects = [], children }) => {
       }
       
       if (shader) {
-        console.log('Creating shader pass for:', effect.type);
         const pass = new ShaderPass(shader);
         // Set custom uniforms
         Object.keys(uniforms).forEach(key => {
@@ -308,7 +302,6 @@ export const ThreeEffectsManager = ({ effects = [], children }) => {
         });
         composer.addPass(pass);
         passes.push(pass);
-        console.log('Added shader pass, total passes:', passes.length + 1); // +1 for render pass
       } else {
         console.warn('No shader found for effect type:', effect.type);
       }
@@ -346,11 +339,6 @@ export const ThreeEffectsManager = ({ effects = [], children }) => {
   // Take over rendering when effects are present
   useFrame((state) => {
     if (effects.length > 0 && composer) {
-      // Debug: Log first few renders
-      if (state.clock.elapsedTime < 2) {
-        console.log('Rendering with effects, time:', state.clock.elapsedTime.toFixed(2));
-      }
-      
       // Update time uniforms
       passes.forEach(pass => {
         if (pass.material?.uniforms?.uTime) {

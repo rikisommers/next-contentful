@@ -139,12 +139,13 @@ export default function Navigation({ data, logo, customThemes, title, isLoading 
       <Modal
         isOpen={isModalOpen}
         onClose={closeModal}
-        direction={ModalDirection.RIGHT}
-        position={ModalPosition.BOTTOM_RIGHT}
+        direction={ModalDirection.ORIGIN}
+        width={ModalWidth.PANEL_SM}
+        position={ModalPosition.TOP_RIGHT}
       >
         <div
           ref={modalRef}
-          className="h-screen w-[300px] flex flex-col gap-3 bg-[var(--background-color)]"
+          className="h-screen flex flex-col gap-3 bg-[var(--background-color)]"
 //          role="dialog"
           aria-modal="true"
           aria-labelledby="theme-editor-title"

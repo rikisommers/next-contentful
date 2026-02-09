@@ -1,5 +1,6 @@
 "use client";
 import React, { useRef, useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { useToast } from "../context/toastContext";
 import Prism from "prismjs"; // Import Prism.js
 import "prismjs/themes/prism-tomorrow.css"; // Dark theme
@@ -25,6 +26,7 @@ import Button, { ButtonType } from "../base/button/button";
  * @param {number} maxHeight - Maximum height in pixels before showing expand button (default: 400)
  * 
  * @example
+ * // Code block with syntax highlighting
  * <BlockCode 
  *   data={{
  *     code: "console.log('Hello World');",
@@ -32,6 +34,16 @@ import Button, { ButtonType } from "../base/button/button";
  *     type: "javascript"
  *   }}
  *   maxHeight={300}
+ * />
+ * @example
+ * // TypeScript code block with embed URL
+ * <BlockCode
+ *   data={{
+ *     code: "const greet = (name: string): string => `Hello, ${name}`;",
+ *     title: "TypeScript Greeting",
+ *     type: "typescript",
+ *     embedurl: "https://codepen.io/example/embed",
+ *   }}
  * />
  */
 export const BlockCode = ({ data, maxHeight = 400 }) => {
@@ -193,6 +205,22 @@ export const BlockCode = ({ data, maxHeight = 400 }) => {
       </div>
     </>
   );
+};
+
+BlockCode.propTypes = {
+  /** Contentful code block entry data */
+  data: PropTypes.shape({
+    /** The code content to display */
+    code: PropTypes.string,
+    /** Title for the code block */
+    title: PropTypes.string,
+    /** Programming language for syntax highlighting */
+    type: PropTypes.string,
+    /** Optional embed URL for iframe display */
+    embedurl: PropTypes.string,
+  }),
+  /** Maximum height in pixels before showing expand button */
+  maxHeight: PropTypes.number,
 };
 
 export default BlockCode;

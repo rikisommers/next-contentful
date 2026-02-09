@@ -10,6 +10,7 @@ import { useThemeContext } from "../../components/context/themeContext";
 import TransitionPage from "../../components/transition/pageTransition";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ClipContainer } from "../../components/motion/clippath-container";
+import SEOMeta from "../../components/seo/seo-meta";
 
 export default function Post({ post, footerData }) {
   
@@ -22,12 +23,20 @@ export default function Post({ post, footerData }) {
 
   return (
     <ScrollContainer>
+      <SEOMeta
+        title={post?.title}
+        description={post?.excerpt || post?.intro}
+        image={post?.heroImage?.url}
+        article
+        publishedTime={post?.sys?.firstPublishedAt}
+        modifiedTime={post?.sys?.publishedAt}
+        tags={post?.contentfulMetadata?.tags?.map((t) => t.name) || []}
+      />
+
       {articlesNavList.length > 0 && (
-                  <div className="relative">
-                  <nav className="flex fixed right-0 z-50 flex-col justify-center self-start h-screen">
-          
-        {/* <PageNav content={articlesNavList}></PageNav> */}
-        </nav>
+        <div className="relative">
+          <nav className="flex fixed right-0 z-50 flex-col justify-center self-start h-screen">
+          </nav>
         </div>
       )}
 
