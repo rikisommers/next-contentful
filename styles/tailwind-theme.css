@@ -207,4 +207,24 @@
   --color-theme-accent: #f81ce5;
   --color-theme-background: #000000;
   --color-theme-foreground: #ffffff;
-} 
+}
+
+/* Ticker tape animation */
+.ticker-tape {
+  display: flex;
+  white-space: nowrap;
+  animation: ticker 20s linear infinite;
+}
+
+.ticker-content {
+  display: inline-block;
+}
+
+@keyframes ticker {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}

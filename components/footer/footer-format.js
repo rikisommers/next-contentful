@@ -10,6 +10,7 @@ import ButtonMonks from '../base/button/button-monks';
 import { ButtonType, ButtonSound } from '../base/button/button.util';
 import ButtonSwap from '../base/button/button-swap';
 import { motion, useTransform, useScroll } from '../../utils/motion';
+import Ticker from '../base/ticker';
 
 /**
  * Formatted footer layout with title, content, page navigation links,
@@ -66,28 +67,7 @@ import { motion, useTransform, useScroll } from '../../utils/motion';
 export default function FooterFormat({ data, pages }) {
   const { currentTheme } = useThemeContext();
   return (
-    <>
-      <style jsx>{`
-        .ticker-tape {
-          display: flex;
-          white-space: nowrap;
-          animation: ticker 20s linear infinite;
-        }
-
-        .ticker-content {
-          display: inline-block;
-        }
-
-        @keyframes ticker {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-50%);
-          }
-        }
-      `}</style>
-      <div className="flex z-10 flex-col justify-between w-full overflow-clip">
+    <div className="flex z-10 flex-col justify-between w-full overflow-clip">
       <div className="grid grid-cols-12 gap-24 px-6 pt-16 pb-8">
         <div className="flex flex-col col-span-12 gap-6 items-start">
           {data?.title && (
@@ -156,11 +136,12 @@ export default function FooterFormat({ data, pages }) {
 
 
 
-        <div className="w-[110vw] ml-[-5vw] rotate-[-3deg] bg-[var(--background-color)] overflow-hidden font-medium uppercase leading-none text-8xl p-4 mt-16">
-          <div className="ticker-tape">
-            <span className="ticker-content">Lets make something great * Lets make something great * Lets make something great * Lets make something great * </span>
-          </div>
-        </div>      
+        <Ticker
+          text="Lets make something great"
+          className="w-[110vw] ml-[-5vw] rotate-[-3deg] bg-[var(--background-color)] font-medium uppercase leading-none text-8xl p-4 mt-16"
+          speed={20}
+          repetitions={4}
+        />      
         <div className="flex flex-col col-span-12 gap-16 p-8 w-full justify-between rounded-lg bg-[var(--background-color)]">
           {data.socialCollection && data.socialCollection.items?.length && (
             <div className="flex col-span-12 gap-2 justify-end">
@@ -205,7 +186,6 @@ export default function FooterFormat({ data, pages }) {
         </div>
       </div>
     </div>
-    </>
   );
 }
 
