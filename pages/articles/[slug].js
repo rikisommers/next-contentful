@@ -25,8 +25,8 @@ export default function Post({ post, footerData }) {
     <ScrollContainer>
       <SEOMeta
         title={post?.title}
-        description={post?.excerpt || post?.intro}
-        image={post?.heroImage?.url}
+        description={post?.subtitle}
+        image={post?.img?.url}
         article
         publishedTime={post?.sys?.firstPublishedAt}
         modifiedTime={post?.sys?.publishedAt}

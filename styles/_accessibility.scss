@@ -216,7 +216,7 @@ a {
 [role="dialog"] {
   position: fixed;
   top: 0%;
-  left: 0%;
+  right: 0%;
   transform: translate(0%, 0%);
   z-index: 1000;
   background: var(--background-color);
