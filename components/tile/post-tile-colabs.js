@@ -38,7 +38,13 @@ import { ParalaxElement } from "../motion/paralax-element";
  * />
  * @exports PostTileColabs
  */
-export default function PostTileColabs({
+export default function PostTileColabs(props) {
+  // Bail out before any hooks run: useScroll needs its target element to be rendered.
+  if (!props.post) return null;
+  return <PostTileColabsTile {...props} />;
+}
+
+function PostTileColabsTile({
   post = {
     title: "",
     subtitle: "",
@@ -77,12 +83,6 @@ export default function PostTileColabs({
       </motion.div>
     );
   };
-
-  // Early return if no post is provided
-  if (!post) {
-    console.warn("PostTileColabs: No post data provided");
-    return null;
-  }
 
   return (
     <Link

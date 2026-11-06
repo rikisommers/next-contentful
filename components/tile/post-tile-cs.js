@@ -81,6 +81,7 @@ export default function PostTileCs({
   
   return (
     <Link
+      ref={ref}
       scroll={false}
       data-name="show-cursor"
       href={`/articles/${post.slug}`}

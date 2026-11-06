@@ -33,7 +33,7 @@ export default function FooterOnto({ data, pages }) {
   const scaleTransform = useTransform(scrollYProgress, [0, 1], [0.95, 1]);
 
   return (
-    <footer className="flex z-10 flex-col items-center justify-center w-full h-screen overflow-clip">
+    <footer ref={footerRef} className="flex z-10 flex-col items-center justify-center w-full h-screen overflow-clip">
       {/* pt-32 pb-16 */}
 
       <div className="flex flex-col items-center text-center  gap-8 w-full  px-16 md:max-w-5xl">
