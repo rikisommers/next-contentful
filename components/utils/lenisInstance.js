@@ -4,10 +4,11 @@ let lenisInstance = null;
 
 export function getLenisInstance() {
   if (!lenisInstance && typeof window !== 'undefined') {
+    // Respect the visitor's motion preference: native scrolling instead of smoothing.
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     lenisInstance = new Lenis({
       duration: 0.6,
-      smoothWheel: true,
-      // Add any other Lenis options you need
+      smoothWheel: !reduceMotion,
     });
 
     function raf(time) {

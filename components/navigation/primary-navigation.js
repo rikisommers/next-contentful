@@ -127,7 +127,7 @@ export default function Navigation({ data, logo, customThemes, title, isLoading 
         >
             <img 
               className="w-[30px] h-[30px]" 
-              src="./icons/change.svg" 
+              src="/icons/change.svg" 
               alt="Theme settings icon"
               role="img"
             />

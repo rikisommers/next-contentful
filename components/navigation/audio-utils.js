@@ -2,19 +2,31 @@
 import { useState} from 'react';
 import { useThemeContext } from '../context/themeContext';
 
-// Initialize audio references
+const SOUND_FILES = {
+  click: "/audio/click_04.wav",
+  beepOn: "/audio/beep_short_on.wav",
+  beepOff: "/audio/beep_short_off.wav",
+  plink: "/audio/digi_plink.wav",
+  drip: "/audio/pop_drip.wav",
+  marimba: "/audio/music_marimba_chord.wav",
+};
+
+let sharedAudioRefs = null;
+
+// Created once and shared. preload="none" means nothing is downloaded until a sound is played.
 const initializeAudioRefs = () => {
-  if (typeof window !== "undefined") {
-    return {
-      click: new Audio("/audio/click_04.wav"),
-      beepOn: new Audio("/audio/beep_short_on.wav"),
-      beepOff: new Audio("/audio/beep_short_off.wav"),
-      plink: new Audio("/audio/digi_plink.wav"),
-      drip: new Audio("/audio/pop_drip.wav"),
-      marimba: new Audio("/audio/music_marimba_chord.wav"),
-    };
+  if (typeof window === "undefined") return {};
+  if (!sharedAudioRefs) {
+    sharedAudioRefs = Object.fromEntries(
+      Object.entries(SOUND_FILES).map(([name, src]) => {
+        const audio = new Audio();
+        audio.preload = "none";
+        audio.src = src;
+        return [name, audio];
+      })
+    );
   }
-  return {};
+  return sharedAudioRefs;
 };
 
 // Play audio function
@@ -66,7 +78,7 @@ export const toggleAudio = (audioRefs, isAudioOn) => {
 // Custom hook to manage audio controls
 export const useAudioControls = () => {
     const { currentTheme } = useThemeContext();
-    const [audioRefs, setAudioRefs] = useState(initializeAudioRefs());
+    const [audioRefs, setAudioRefs] = useState(initializeAudioRefs);
   //console.log('use  audio',currentTheme)
 
   

@@ -1,3 +1,4 @@
+import dynamic from "next/dynamic";
 import { BLOCKS } from "@contentful/rich-text-types";
 import RichTextAsset from "../rich-text/rich-text-asset";
 import BlockQuote from "../blocks/block-quote";
@@ -6,17 +7,21 @@ import BlockEmbed from "../blocks/block-embed";
 import BlockImages from "../blocks/block-images";
 import BlockHotspotImg from "../blocks/block-hotspot-image";
 import BlockList from "../blocks/block-list";
-import BlockCode from "../blocks/block-code";
 import BlockArticle from "../blocks/block-article";
 import BlockArticlesList from "../blocks/block-articles-list";
 import BlockArticlesGrid from "../blocks/block-articles-grid";
 import BlockHeader from "../blocks/block-header";
 import BlockHero from "../blocks/block-hero";
 import BlockIntro from "../blocks/block-intro";
-import { BlockPreviewGrid } from "../blocks/block_preview_grid";
 import AnimatedElement, { AnimStyleEl } from "../motion/animated-element";
 import { useThemeContext } from "../context/themeContext";
 import { pageWidthThemes } from "../../utils/theme";
+
+// Heavy, rarely-used blocks (Prism, generated component previews) load in their own chunks.
+const BlockCode = dynamic(() => import("../blocks/block-code"));
+const BlockPreviewGrid = dynamic(() =>
+  import("../blocks/block_preview_grid").then((m) => m.BlockPreviewGrid)
+);
 
 const ArticleWrapper = ({ children }) => {
   const { currentTheme } = useThemeContext();

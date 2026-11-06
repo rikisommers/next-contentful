@@ -1,6 +1,6 @@
 /**
- * Composes all application context providers into a single wrapper
- * Reduces nesting in _app.js and centralizes provider configuration
+ * Composes all application context providers into a single wrapper.
+ * ThemeProvider is outermost: other providers (e.g. the cursor tracker) read the theme.
  * @component
  * @category layout
  * @param {Object} props
@@ -8,26 +8,23 @@
  * @param {Object} [props.globalData] - Global site settings from Contentful
  */
 import { RouteProvider } from './context/routeContext';
-import { ScrollPositionProvider } from './context/scrollPosContext';
 import { MousePosProvider } from './context/mousePosContext';
 import { ToastProvider } from './context/toastContext';
 import { ThemeProvider } from './context/themeContext';
 import { MenuProvider } from './context/menuContext';
 
 const AppProviders = ({ children, globalData }) => (
-  <RouteProvider>
-    <ScrollPositionProvider>
+  <ThemeProvider initialTheme={globalData?.currentTheme}>
+    <RouteProvider>
       <MousePosProvider>
         <ToastProvider>
-          <ThemeProvider initialTheme={globalData?.currentTheme}>
-            <MenuProvider menuData={globalData?.menuCollection?.items}>
-              {children}
-            </MenuProvider>
-          </ThemeProvider>
+          <MenuProvider menuData={globalData?.menuCollection?.items}>
+            {children}
+          </MenuProvider>
         </ToastProvider>
       </MousePosProvider>
-    </ScrollPositionProvider>
-  </RouteProvider>
+    </RouteProvider>
+  </ThemeProvider>
 );
 
 export default AppProviders;
