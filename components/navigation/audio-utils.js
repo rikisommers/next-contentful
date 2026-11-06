@@ -30,7 +30,6 @@ export const playAudio = (audioRef, volume, isAudio) => {
           playPromise.catch(error => {
             // Autoplay was prevented - this is normal on first page load
             if (error.name === 'NotAllowedError') {
-              console.log('Audio autoplay prevented - user interaction required');
             } else {
               console.error("Error playing audio:", error);
             }

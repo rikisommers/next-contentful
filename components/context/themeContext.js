@@ -34,7 +34,6 @@ export const ThemeProvider = ({ children, initialTheme: initialThemeName, custom
     return themes[initialThemeName] || themes.light;
   });
 
-  console.log('currentTheme', currentTheme);
   
   const [isClient, setIsClient] = useState(false);
   const [isThemeDialogOpen, setIsThemeDialogOpen] = useState(false);

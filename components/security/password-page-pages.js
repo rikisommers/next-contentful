@@ -12,7 +12,6 @@ export default function PagesPasswordPage({ children, locked }) {
 
   useEffect(() => {
     const loginCookie = Cookies.get(process.env.PASSWORD_COOKIE_NAME);
-    console.log("Login cookie:", loginCookie);
     setIsLoggedIn(!!loginCookie);
     setIsLoading(false);
   }, []);
@@ -28,9 +27,7 @@ export default function PagesPasswordPage({ children, locked }) {
         method: "POST",
       });
 
-      console.log("Response Status:", response.status);
       const data = await response.json();
-      console.log("Response Data:", data);
 
       if (response.status !== 200) {
         setPasswordIncorrect(true);
@@ -132,8 +129,6 @@ export default function PagesPasswordPage({ children, locked }) {
 export async function getServerSideProps(context) {
   const { req } = context;
   const loginCookie = req.cookies[process.env.PASSWORD_COOKIE_NAME];
-  console.log("cookie", loginCookie);
-  console.log("is logged in", isLoggedIn);
 
   if (!loginCookie) {
     return {

@@ -19,7 +19,6 @@ export default async function handler(req, res) {
                 data: item.fields.data['en-US'], // Adjust locale as necessary
 
             }));
-            console.log('themes:', themes);
 
             res.status(200).json({ themes });
         } catch (error) {
