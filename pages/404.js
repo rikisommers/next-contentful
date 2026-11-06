@@ -1,5 +1,6 @@
 import React from "react";
 import Head from "next/head";
+import Link from "next/link";
 import { getGlobalProps, REVALIDATE_SECONDS } from "../lib/contentful/global";
 
 export default function NotFound() {
@@ -14,9 +15,9 @@ export default function NotFound() {
       </Head>
       <h1 className="text-4xl">Page not found</h1>
       <p>The page you are looking for does not exist or has moved.</p>
-      <a href="/" className="underline">
+      <Link href="/" className="underline">
         Back to the home page
-      </a>
+      </Link>
     </main>
   );
 }

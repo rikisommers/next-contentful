@@ -50,11 +50,6 @@ export default function PostTileColabs({
   parallaxOffset = 50,
   ...props
 }) {
-  // Early return if no post is provided
-  if (!post) {
-    console.warn("PostTileColabs: No post data provided");
-    return null;
-  }
 
   const [isHovered, setIsHovered] = useState(false);
   const tileRef = useRef(null);
@@ -82,6 +77,12 @@ export default function PostTileColabs({
       </motion.div>
     );
   };
+
+  // Early return if no post is provided
+  if (!post) {
+    console.warn("PostTileColabs: No post data provided");
+    return null;
+  }
 
   return (
     <Link

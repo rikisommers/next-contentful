@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { useFrame, extend } from "@react-three/fiber";
 import { shaderMaterial } from "@react-three/drei";
-import { useControls } from "leva";
+import { useControls } from "../../utils/dev-controls";
 import * as THREE from "three";
 import { perlinBlobVertexShader } from './shaders/perlinBlob/vertex';
 import { perlinBlobFragmentShader } from './shaders/perlinBlob/fragment';

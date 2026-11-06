@@ -6,9 +6,15 @@ import ScrollContainer from "../components/utils/scroll-container";
 import SEOMeta from "../components/seo/seo-meta";
 import { getGlobalProps, REVALIDATE_SECONDS } from "../lib/contentful/global";
 
+const hasHero = (items) => (items ?? []).some((item) => item.__typename === "BlockHero");
+
 const HomePage = ({ data, footerData, tags, slug }) => {
   return (
     <Layout>
+      {/* Every page needs one h1; heroes provide it, otherwise use the page title. */}
+      {!hasHero(data?.csblocksCollection?.items) && (
+        <h1 className="sr-only">{data?.title || slug}</h1>
+      )}
       <SEOMeta
         home={slug === "home"}
         canonical={slug === "home" ? "/" : undefined}

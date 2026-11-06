@@ -51,11 +51,6 @@ export default function PostTileFunky({
   'data-audio-hover': hoverSound, 
   ...props 
 }) {
-  // Early return if no post is provided
-  if (!post) {
-    console.warn('PostTileFunky: No post data provided');
-    return null;
-  }
 
   const [isHovered, setIsHovered] = useState(false); // State to track hover
   
@@ -64,6 +59,12 @@ export default function PostTileFunky({
     clickSound: clickSound,
     hoverSound: hoverSound
   });
+
+  // Early return if no post is provided
+  if (!post) {
+    console.warn('PostTileFunky: No post data provided');
+    return null;
+  }
 
   return (
     <Link

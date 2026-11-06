@@ -436,7 +436,7 @@ export const getResponsiveGridPositionClass = (positions = {}, colSpans = {}) =>
     // Mobile-first: sm has no prefix (base classes), larger breakpoints get prefixes
     const prefix = breakpoint === 'sm' ? '' : `${breakpoint}:`;
 
-    let classes = [];
+    const classes = [];
     if (position && rowClasses[row]) classes.push(`${prefix}${rowClasses[row]}`);
     if (position && colClasses[col]) classes.push(`${prefix}${colClasses[col]}`);
     if (colSpan && colSpanClasses[colSpan]) classes.push(`${prefix}${colSpanClasses[colSpan]}`);
@@ -444,7 +444,7 @@ export const getResponsiveGridPositionClass = (positions = {}, colSpans = {}) =>
     return classes;
   };
 
-  let allClasses = [];
+  const allClasses = [];
 
   // Generate classes in mobile-first order: sm (base), then md, lg, xl (overrides)
   const breakpoints = ['sm', 'md', 'lg', 'xl'];

@@ -24,6 +24,9 @@ export default function Post({ post, footerData }) {
 
   return (
     <ScrollContainer>
+      {!(post?.csblocksCollection?.items ?? []).some((i) => i.__typename === "BlockHero") && (
+        <h1 className="sr-only">{post?.title}</h1>
+      )}
       <SEOMeta
         title={post?.title}
         description={post?.subtitle}

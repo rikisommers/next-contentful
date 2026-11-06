@@ -1,3 +1,4 @@
+import AnimatedElement from "../motion/animated-element";
 import React from "react";
 import { useThemeContext } from "../context/themeContext";
 import { gridGaps, gridGapClasses } from "../../utils/theme";
@@ -182,9 +183,8 @@ export default function GridThings({
 }
 
 const GridGroup = ({ items, templateSize, startIndex }) => {
-    if (items.length === 0) return null;
-  
     const { currentTheme } = useThemeContext();
+    if (items.length === 0) return null;
 
     const groupItems = items.slice(0, templateSize);
     const remainingItems = items.slice(templateSize);
