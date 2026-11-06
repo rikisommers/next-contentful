@@ -71,6 +71,7 @@ export default function PostBody({ content, tags }) {
               {item.__typename === "BlockHero" && (
                 
                 <BlockHero
+                  headingLevel={index === 0 ? "h1" : "h2"}
                   // clip={content.items.length === 1 ? false : true}
                   intro={item.intro}
                   tag={item.tag}

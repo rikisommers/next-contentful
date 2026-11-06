@@ -24,28 +24,17 @@ const nextConfig = {
     },
   },
 
-  webpack: (config) => {
-    // Force a single copy of 'postprocessing'. @react-three/postprocessing bundles its own
-    // nested copy; without this alias `instanceof Effect` checks fail across the two copies.
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      postprocessing: path.resolve(__dirname, 'node_modules/postprocessing'),
-    };
-
-    // GLSL shader support
-    config.module.rules.push({
-      test: /\.(glsl|vs|fs|vert|frag)$/,
-      type: 'asset/source',
-    });
-
-    if (process.env.ANALYZE === 'true') {
-      const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-      config.plugins.push(
-        new BundleAnalyzerPlugin({ analyzerMode: 'static', openAnalyzer: false })
-      );
-    }
-
-    return config;
+  turbopack: {
+    root: __dirname,
+    resolveAlias: {
+      // Force a single copy of 'postprocessing'. @react-three/postprocessing could otherwise
+      // resolve its own nested copy and `instanceof Effect` checks would fail across the two.
+      postprocessing: './node_modules/postprocessing',
+    },
+    rules: {
+      // GLSL shaders are imported as strings
+      '*.{glsl,vs,fs,vert,frag}': { type: 'text' },
+    },
   },
 
   async headers() {

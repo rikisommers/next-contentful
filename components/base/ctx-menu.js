@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { motion, useAnimation } from 'framer-motion';
+import { motion, useAnimation } from "motion/react";
 
 const CtxMenu = ({ buttonContent, menuContent }) => {
   const [isOpen, setIsOpen] = useState(false);

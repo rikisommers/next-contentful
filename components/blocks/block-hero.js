@@ -55,7 +55,8 @@ const getHeightClass = (heightVh) => {
  *   }}
  * />
  */
-export default function BlockHero({ title, content, tag, image, infoMessage }) {
+export default function BlockHero({ title, content, tag, image, infoMessage, headingLevel = "h1" }) {
+  const Heading = headingLevel;
   const { currentTheme } = useThemeContext();
   const full = false;
 
@@ -117,9 +118,8 @@ export default function BlockHero({ title, content, tag, image, infoMessage }) {
             </div>
           )}
 
-          <h1
+          <Heading
             className={`text-4xl !text-[var(--text-color-inv)] leading-normal pointer-events-auto text-balance`}
-            tabIndex="0"
             aria-describedby={content ? "hero-content" : undefined}
           >
             {title && (
@@ -130,7 +130,7 @@ export default function BlockHero({ title, content, tag, image, infoMessage }) {
                 delay={AnimTextOrder.ONE}
               />
             )}
-          </h1>
+          </Heading>
         </div>
 
         <div
@@ -185,6 +185,8 @@ export default function BlockHero({ title, content, tag, image, infoMessage }) {
 }
 
 BlockHero.propTypes = {
+  /** Heading element. Only the first hero on a page should be an h1. */
+  headingLevel: PropTypes.oneOf(["h1", "h2"]),
   /** Main hero heading text */
   title: PropTypes.string,
   /** Subtitle or description text */

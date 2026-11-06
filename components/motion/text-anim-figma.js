@@ -2,7 +2,7 @@
 
 import React from "react";
 import { HighlightedSegment } from "./text-anim-highlighted-segment";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { processItalicText } from "../utils/text-processing";
 import { TextAnimImg } from "./text-anim-img";
 import { processTextWithBoldAndLineBreaks } from "../utils/text-processing";
