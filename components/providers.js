@@ -6,7 +6,6 @@
  * @param {Object} props
  * @param {React.ReactNode} props.children - Application content
  * @param {Object} [props.globalData] - Global site settings from Contentful
- * @param {Array} [props.customThemes] - Custom themes from CMS
  */
 import { RouteProvider } from './context/routeContext';
 import { ScrollPositionProvider } from './context/scrollPosContext';
@@ -15,15 +14,12 @@ import { ToastProvider } from './context/toastContext';
 import { ThemeProvider } from './context/themeContext';
 import { MenuProvider } from './context/menuContext';
 
-const AppProviders = ({ children, globalData, customThemes }) => (
+const AppProviders = ({ children, globalData }) => (
   <RouteProvider>
     <ScrollPositionProvider>
       <MousePosProvider>
         <ToastProvider>
-          <ThemeProvider
-            theme={globalData?.currentTheme}
-            customThemes={customThemes}
-          >
+          <ThemeProvider initialTheme={globalData?.currentTheme}>
             <MenuProvider menuData={globalData?.menuCollection?.items}>
               {children}
             </MenuProvider>

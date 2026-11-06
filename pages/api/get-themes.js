@@ -1,6 +1,7 @@
-import { getSpace, getEnvironment } from './contentfulManagement'; // Adjust the import path as necessary
+import { devOnly } from '../../lib/dev-only';
+import { getSpace, getEnvironment } from '../../lib/contentful/management'; // Adjust the import path as necessary
 
-export default async function handler(req, res) {
+async function handler(req, res) {
     if (req.method === 'GET') {
         try {
             const space = await getSpace();
@@ -30,3 +31,4 @@ export default async function handler(req, res) {
         res.status(405).json({ message: `Method ${req.method} Not Allowed` });
     }
 }
+export default devOnly(handler);

@@ -1,6 +1,7 @@
-import { getSpace, getEnvironment } from './contentfulManagement';
+import { devOnly } from '../../lib/dev-only';
+import { getSpace, getEnvironment } from '../../lib/contentful/management';
 
-export default async function handler(req, res) {
+async function handler(req, res) {
     if (req.method === 'POST') {
         try {
             const { name, data } = req.body; // Expecting name and data in the request body
@@ -43,3 +44,4 @@ export default async function handler(req, res) {
         res.status(405).json({ message: `Method ${req.method} Not Allowed` });
     }
 }
+export default devOnly(handler);

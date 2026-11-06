@@ -11,13 +11,14 @@ import TransitionPage from "../../components/transition/pageTransition";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ClipContainer } from "../../components/motion/clippath-container";
 import SEOMeta from "../../components/seo/seo-meta";
+import { getGlobalProps, REVALIDATE_SECONDS } from "../../lib/contentful/global";
 
 export default function Post({ post, footerData }) {
   
   const { currentTheme } = useThemeContext();
 
 
-  const articlesNavList = post.csblocksCollection.items.filter(
+  const articlesNavList = (post?.csblocksCollection?.items ?? []).filter(
     (item) => item.__typename === "BlockArticle"
   );
 
@@ -67,7 +68,7 @@ export async function getStaticProps({ params, preview = false }) {
       notFound: true, // This will trigger a 404 page
     };
   }
-  const footerData = await getFooter();
+  const [footerData, globalProps] = await Promise.all([getFooter(), getGlobalProps()]);
 
   return {
     props: {
@@ -75,7 +76,9 @@ export async function getStaticProps({ params, preview = false }) {
       preview,
       post: data[0] ?? null,
       footerData: footerData || null,
+      ...globalProps,
     },
+    revalidate: REVALIDATE_SECONDS,
   };
 }
 

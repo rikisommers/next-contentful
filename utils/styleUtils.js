@@ -1,9 +1,16 @@
 "use client";
 
+import { resolveTheme } from './themes/config/default-theme';
 import { heroBackgroundThemes, heroCssGradientThemes, heroCssGradientRadialPositionThemes, heroTextImageThemes, heroTextPositionThemes, textAlignThemes, textAnimationThemes } from './theme';
 
-export const setStyleProperties = (theme) => {
-  const root = document.documentElement;
+/**
+ * Apply a theme as CSS custom properties.
+ * The theme is merged over DEFAULT_THEME first, so partial themes are safe.
+ * @param {any} [rawTheme] - theme object ({ name, data }), partial, or nothing
+ * @param {{ style: { setProperty: (name: string, value: any) => void } }} [root] - target (defaults to <html>)
+ */
+export const setStyleProperties = (rawTheme, root = document.documentElement) => {
+  const theme = resolveTheme(rawTheme);
 
   if (theme && theme.data) {
     // Color properties
@@ -73,8 +80,8 @@ export const setStyleProperties = (theme) => {
     root.style.setProperty("--nav-label-display", theme.data.navLabelDisplay || "icons");
     // Hero properties
     root.style.setProperty("--hero-height", theme.data.heroHeight || 80);
-    root.style.setProperty("--hero-background", theme.data.heroBackground || heroBackgroundThemes.gradient);
-    root.style.setProperty("--hero-css-gradient", theme.data.heroCssGradient || heroCssGradientThemes.linearVertical);
+    root.style.setProperty("--hero-background", theme.data.heroBackground || heroBackgroundThemes.cssgradient);
+    root.style.setProperty("--hero-css-gradient", theme.data.heroCssGradient || heroCssGradientThemes.linear);
     root.style.setProperty("--hero-css-gradient-angle", theme.data.heroCssGradientAngle || '90');
     // Convert joystick x,y values to CSS percentage format
     const radialPosition = theme.data.heroCssGradientRadialPosition;
@@ -212,10 +219,28 @@ export const setStyleProperties = (theme) => {
     root.style.setProperty("--halftone-shape", theme.data.halftoneShape || "circle");
     root.style.setProperty("--halftone-invert", theme.data.halftoneInvert ? "true" : "false");
     root.style.setProperty("--dot-scale", theme.data.dotScale || 0.6);
-  } else {
-    console.warn("Theme is not defined. Exiting setStyleProperties.");
   }
 };
+
+/**
+ * Compute the CSS custom properties for a theme without touching the DOM.
+ * Used to server-render the theme so the first paint is already themed.
+ * @param {any} [theme]
+ * @returns {Record<string, string>}
+ */
+export const getThemeCssVars = (theme) => {
+  const vars = {};
+  setStyleProperties(theme, {
+    style: { setProperty: (name, value) => { vars[name] = String(value); } },
+  });
+  return vars;
+};
+
+/** Serialise a theme to a `:root{...}` rule. */
+export const getThemeCssText = (theme) =>
+  `:root{${Object.entries(getThemeCssVars(theme))
+    .map(([name, value]) => `${name}:${value.replace(/[<>{};]/g, '')}`)
+    .join(';')}}`;
 
 /**
  * Utility function to get Tailwind justify classes based on text alignment
