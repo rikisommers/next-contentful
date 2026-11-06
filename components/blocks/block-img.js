@@ -43,7 +43,8 @@ export const BlockImg = ({ data }) => {
       {data.image && data.title && (
         <div className="overflow-hidden relative rounded-lg">
                 <BlendImage
-          className="absolute w-full h-full img-cover"
+          className="img-cover"
+          sizes="(max-width: 768px) 100vw, 66vw"
           alt={`Cover Image for ${data.image?.title}`}
           src={data.image.url}
         />

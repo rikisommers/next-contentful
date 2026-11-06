@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import Link from "next/link";
+import { linkProps } from "../utils/links";
 import { useThemeContext } from "../context/themeContext";
 import AnimatedText, {
   AnimStyle,
@@ -59,7 +60,7 @@ export default function FooterOnto({ data, pages }) {
         )}
 
         {data?.ctalink && data?.cta && (
-          <Link href={data.ctalink} className="no-underline">
+          <Link {...linkProps(data.ctalink)} className="no-underline">
             <ButtonWipe label={data.cta} type={ButtonType.PRIMARY} />
           </Link>
         )}
@@ -71,7 +72,7 @@ export default function FooterOnto({ data, pages }) {
             data.socialCollection.items?.length &&
             data.socialCollection.items.map((item, i) => (
               <Link
-                href={item.url}
+                {...linkProps(item.url)}
                 key={i}
                 className="text-sm no-underline text-[var(--text-color)]"
               >
@@ -82,12 +83,12 @@ export default function FooterOnto({ data, pages }) {
 
         <div className="flex gap-2">
           {data.privacypolicy && (
-            <Link className="text-xs no-underline" href={data.privacypolicy}>
+            <Link className="text-xs no-underline" {...linkProps(data.privacypolicy)}>
               Privacy Policy
             </Link>
           )}
           {data.cookiespolicy && (
-            <Link className="text-xs no-underline" href={data.cookiespolicy}>
+            <Link className="text-xs no-underline" {...linkProps(data.cookiespolicy)}>
               Cookies Policy
             </Link>
           )}
@@ -97,18 +98,18 @@ export default function FooterOnto({ data, pages }) {
           <div className="flex gap-2">
             {data.socialCollection.items.map((item, i) => (
               <Link
-                href={item.url}
+                {...linkProps(item.url)}
                 key={i}
                 className={`flex justify-center items-center p-2 rounded-lg w-[32px] h-[32px]`}
                 style={{
                   backgroundColor: "var(--surface1)",
                 }}
               >
-                <img
-                  alt={item.title}
-                  src={item.icon.url}
-                  viewBox="0 0 24 24"
-                ></img>
+                {item.icon?.url ? (
+                    <img alt={item.title} src={item.icon.url} width={16} height={16} />
+                  ) : (
+                    <span className="text-xs">{item.title?.slice(0, 2)}</span>
+                  )}
               </Link>
             ))}
           </div>

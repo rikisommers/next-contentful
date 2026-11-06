@@ -369,7 +369,7 @@ export const themeControlConfig = {
     imageTextureContrast: { type: "slider", label: "Contrast", min: 0, max: 1000, step: 1, suffix: "%" },
     imageTextureBrightness: { type: "slider", label: "Brightness", min: 0, max: 1000, step: 1, suffix: "%" },
   },
-  /* Navigation: {
+  Navigation: {
     navPosition: { type: "select", label: "Position", options: navigationPositionThemes },
     navLayoutPosition: { type: "select", label: "Layout Position", options: navigationOptions.position},
     navStyle: { type: "select", label: "Style", options: navigationStyleThemes },
@@ -384,7 +384,7 @@ export const themeControlConfig = {
   },
   Footer: {
     footerPosition: { type: "select", label: "Position", options: footerOptions.position },
-  },*/
+  },
 
   Color: {
     accentPri: { type: "color", label: "Accent Primary" },

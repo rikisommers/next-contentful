@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import PropTypes from "prop-types";
 import Link from "next/link";
+import { linkProps } from "../utils/links";
 import { useThemeContext } from "../context/themeContext";
 import AnimatedText, {
   AnimStyle,
@@ -141,7 +142,7 @@ export default function FooterDefault({ data, pages }) {
             )}
 
             {data?.ctalink && data?.cta && (
-              <Link href={data.ctalink} className="no-underline">
+              <Link {...linkProps(data.ctalink)} className="no-underline">
                 <ButtonWipe label={data.cta} type={ButtonType.PRIMARY} />
               </Link>
             )}
@@ -196,7 +197,7 @@ export default function FooterDefault({ data, pages }) {
                     data.socialCollection.items?.length &&
                     data.socialCollection.items.map((item, i) => (
                       <Link
-                        href={item.url}
+                        {...linkProps(item.url)}
                         key={i}
                         className="text-sm no-underline text-[var(--text-color)]"
                       >
@@ -206,6 +207,29 @@ export default function FooterDefault({ data, pages }) {
                 </div>
               </div>
             </div>
+            {(data.email || data.phone || data.address) && (
+              <div className="flex flex-col flex-grow p-8 rounded-lg basis-1">
+                <h3
+                  className="mb-4 text-sm font-normal"
+                  style={{ color: "var(--subtext-color)" }}
+                >
+                  Contact
+                </h3>
+                <address className="flex flex-col gap-2 not-italic text-sm text-[var(--text-color)]">
+                  {data.email && (
+                    <a className="no-underline" href={`mailto:${data.email}`}>
+                      {data.email}
+                    </a>
+                  )}
+                  {data.phone && (
+                    <a className="no-underline" href={`tel:${data.phone.replace(/[^+\d]/g, "")}`}>
+                      {data.phone}
+                    </a>
+                  )}
+                  {data.address && <span>{data.address}</span>}
+                </address>
+              </div>
+            )}
           </div>
         </div>
         {/* <div className="grid grid-cols-12 col-span-12 gap-2 w-full">
@@ -260,12 +284,12 @@ export default function FooterDefault({ data, pages }) {
             style={{ color: "var(--text-color)" }}
           >
             {data.privacypolicy && (
-              <Link className="text-xs no-underline" href={data.privacypolicy}>
+              <Link className="text-xs no-underline" {...linkProps(data.privacypolicy)}>
                 Privacy Policy
               </Link>
             )}
             {data.cookiespolicy && (
-              <Link className="text-xs no-underline" href={data.cookiespolicy}>
+              <Link className="text-xs no-underline" {...linkProps(data.cookiespolicy)}>
                 Cookies Policy
               </Link>
             )}
@@ -275,18 +299,18 @@ export default function FooterDefault({ data, pages }) {
             <div className="flex gap-2">
               {data.socialCollection.items.map((item, i) => (
                 <Link
-                  href={item.url}
+                  {...linkProps(item.url)}
                   key={i}
                   className={`flex justify-center items-center p-2 rounded-lg w-[32px] h-[32px]`}
                   style={{
                     backgroundColor: "var(--surface1)",
                   }}
                 >
-                  <img
-                    alt={item.title}
-                    src={item.icon.url}
-                    viewBox="0 0 24 24"
-                  ></img>
+                  {item.icon?.url ? (
+                    <img alt={item.title} src={item.icon.url} width={16} height={16} />
+                  ) : (
+                    <span className="text-xs">{item.title?.slice(0, 2)}</span>
+                  )}
                 </Link>
               ))}
             </div>

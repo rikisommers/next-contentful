@@ -114,7 +114,7 @@ export default function FooterFormat({ data, pages }) {
                     data.socialCollection.items?.length &&
                     data.socialCollection.items.map((item, i) => (
                       <Link
-                        href={item.url}
+                        {...linkProps(item.url)}
                         key={i}
                         className="text-sm no-underline text-[var(--text-color)]"
                       >
@@ -126,7 +126,7 @@ export default function FooterFormat({ data, pages }) {
             </div>
             <div className="flex justify-start items-end md:justify-end grow">
               {data?.ctalink && data?.cta && (
-                <Link href={data.ctalink} className="no-underline">
+                <Link {...linkProps(data.ctalink)} className="no-underline">
                   <ButtonWipe label={data.cta} type={ButtonType.PRIMARY} />
                 </Link>
               )}
@@ -147,16 +147,16 @@ export default function FooterFormat({ data, pages }) {
             <div className="flex col-span-12 gap-2 justify-end">
               {data.socialCollection.items.map((item, i) => (
                 <Link
-                  href={item.url}
+                  {...linkProps(item.url)}
                   key={i}
                   className={`text-xs no-underline text-[var(--text-color)]`}
                 >
                   {item.title}
-                  {/* <img
-                    alt={item.title}
-                    src={item.icon.url}
-                    viewBox="0 0 24 24"
-                  ></img> */}
+                  {/* {item.icon?.url ? (
+                    <img alt={item.title} src={item.icon.url} width={16} height={16} />
+                  ) : (
+                    <span className="text-xs">{item.title?.slice(0, 2)}</span>
+                  )} */}
                 </Link>
               ))}
             </div>
@@ -170,12 +170,12 @@ export default function FooterFormat({ data, pages }) {
               style={{ color: 'var(--text-color)' }}
             >
               {data.privacypolicy && (
-                <Link className="text-xs no-underline" href={data.privacypolicy}>
+                <Link className="text-xs no-underline" {...linkProps(data.privacypolicy)}>
                   Privacy Policy
                 </Link>
               )}
               {data.cookiespolicy && (
-                <Link className="text-xs no-underline" href={data.cookiespolicy}>
+                <Link className="text-xs no-underline" {...linkProps(data.cookiespolicy)}>
                   Cookies Policy
                 </Link>
               )}

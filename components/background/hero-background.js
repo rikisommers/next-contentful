@@ -184,6 +184,7 @@ export default function HeroBackground({ heroBackground, image, theme }) {
         <div className="absolute top-0 left-0 w-full h-full z-10 bg-[var(--background-color)]">
           <BlendImage
             className="img-cover"
+            sizes="100vw"
             alt={`Cover Image for ${image?.title}`}
             priority
             src={image.url}

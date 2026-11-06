@@ -9,7 +9,7 @@ const DEFAULT_SIZES = "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
  * @component
  * @category image
  */
-const ContentfulImage = ({ alt = "", priority = false, className = "w-full h-full object-cover", ...props }) => (
+const ContentfulImage = ({ alt = "", priority = false, className = "", ...props }) => (
   <Image
     loader={contentfulLoader}
     sizes={DEFAULT_SIZES}
@@ -17,8 +17,9 @@ const ContentfulImage = ({ alt = "", priority = false, className = "w-full h-ful
     height={200}
     alt={alt}
     priority={priority}
-    className={className}
     {...props}
+    // Always fill the parent; callers can add classes but not remove these.
+    className={`w-full h-full object-cover ${className}`.trim()}
   />
 );
 
