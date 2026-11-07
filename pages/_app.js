@@ -12,7 +12,7 @@ const PRELOAD_MAX_MS = 700;
 const VISITED_KEY = "visited";
 
 function MyApp({ Component, pageProps, router }) {
-  const { globalData, customThemes } = pageProps;
+  const { globalData, customThemes, footerData } = pageProps;
   const [isLoading, setIsLoading] = useState(true);
 
   // The preloader is only a curtain: page content is always in the DOM (and in the
@@ -63,7 +63,7 @@ function MyApp({ Component, pageProps, router }) {
       <div className="w-full h-full">
         <SvgFilters />
 
-        <AppProviders globalData={globalData}>
+        <AppProviders globalData={globalData} footerData={footerData}>
           {menuItems && menuItems.length > 0 && (
             <Navigation
               title={globalData.sitetitle}

@@ -3,12 +3,15 @@ import type { NextRequest } from 'next/server';
 
 export const config = { runtime: 'edge' };
 
-const SITE_NAME = 'Halcyon Works';
-
-/** Generates the default 1200x630 social preview card: /api/og?title=... */
+/**
+ * Social preview card, 1200x630: /api/og?title=...&name=...&subtitle=...
+ * Name and role come from Contentful via SEOMeta; nothing identifying is hard-coded.
+ */
 export default function handler(req: NextRequest) {
   const { searchParams } = new URL(req.url);
-  const title = (searchParams.get('title') || 'Independent digital design and engineering').slice(0, 120);
+  const title = (searchParams.get('title') || '').slice(0, 120);
+  const name = (searchParams.get('name') || '').slice(0, 60);
+  const subtitle = (searchParams.get('subtitle') || '').slice(0, 80);
 
   return new ImageResponse(
     (
@@ -24,11 +27,9 @@ export default function handler(req: NextRequest) {
           color: '#e4ecec',
         }}
       >
-        <div style={{ fontSize: 30, letterSpacing: 4, textTransform: 'uppercase', color: '#5fc4cc' }}>
-          {SITE_NAME}
-        </div>
-        <div style={{ fontSize: 76, lineHeight: 1.1, fontWeight: 700, maxWidth: 980 }}>{title}</div>
-        <div style={{ fontSize: 28, color: '#94a7aa' }}>Design · Engineering · Motion</div>
+        <div style={{ fontSize: 30, letterSpacing: 4, textTransform: 'uppercase', color: '#5fc4cc' }}>{name}</div>
+        <div style={{ fontSize: 76, lineHeight: 1.1, fontWeight: 700, maxWidth: 980 }}>{title || name}</div>
+        <div style={{ fontSize: 28, color: '#94a7aa' }}>{subtitle}</div>
       </div>
     ),
     {

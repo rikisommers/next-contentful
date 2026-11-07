@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import Link from "next/link";
 import { linkProps } from "../utils/links";
+import { useSite } from "../context/siteContext";
 import { useThemeContext } from "../context/themeContext";
 import AnimatedText, {
   AnimStyle,
@@ -15,6 +16,7 @@ import ButtonSwap from "../base/button/button-swap";
 import { motion, useTransform, useScroll } from "../../utils/motion";
 
 export default function FooterOnto({ data, pages }) {
+  const profile = useSite();
   const { currentTheme } = useThemeContext();
   const [dimension, setDimension] = useState({ width: 0, height: 0 });
   const footerRef = useRef(null);
@@ -82,6 +84,7 @@ export default function FooterOnto({ data, pages }) {
         </div>
 
         <div className="flex gap-2">
+          <span className="text-xs">© {new Date().getFullYear()} {profile.name}</span>
           {data.privacypolicy && (
             <Link className="text-xs no-underline" {...linkProps(data.privacypolicy)}>
               Privacy Policy

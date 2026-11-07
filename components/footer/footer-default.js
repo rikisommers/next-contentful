@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import PropTypes from "prop-types";
 import Link from "next/link";
 import { linkProps } from "../utils/links";
+import { useSite } from "../context/siteContext";
 import { useThemeContext } from "../context/themeContext";
 import AnimatedText, {
   AnimStyle,
@@ -74,6 +75,7 @@ import { motion, useTransform, useScroll } from "../../utils/motion";
  * />
  */
 export default function FooterDefault({ data, pages }) {
+  const profile = useSite();
   const { currentTheme } = useThemeContext();
   const [dimension, setDimension] = useState({ width: 0, height: 0 });
   const footerRef = useRef(null);
@@ -283,6 +285,7 @@ export default function FooterDefault({ data, pages }) {
             className="flex flex-grow gap-4 items-center px-5 rounded-lg"
             style={{ color: "var(--text-color)" }}
           >
+            <span className="text-xs">© {new Date().getFullYear()} {profile.name}</span>
             {data.privacypolicy && (
               <Link className="text-xs no-underline" {...linkProps(data.privacypolicy)}>
                 Privacy Policy

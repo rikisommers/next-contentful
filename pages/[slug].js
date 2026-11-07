@@ -17,6 +17,7 @@ const HomePage = ({ data, footerData, tags, slug }) => {
       )}
       <SEOMeta
         home={slug === "home"}
+        profilePage={slug === "bio"}
         canonical={slug === "home" ? "/" : undefined}
         title={data?.title || slug}
         description={data?.description}

@@ -10,7 +10,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
   const { pages, articles } = await getSitemapEntries();
   res.setHeader('Content-Type', 'application/xml; charset=utf-8');
   res.setHeader('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
-  res.write(buildSitemap(pages, articles));
+  res.write(buildSitemap(pages, articles, process.env.SPACE));
   res.end();
   return { props: {} };
 };

@@ -18,13 +18,18 @@ To run a second server beside an existing one: `NEXT_DIST_DIR=.next-build yarn b
 ## Architecture
 
 - `pages/` -- every page fetches its data (including global nav/theme via `lib/contentful/global.ts`) in `getStaticProps` with ISR. Do not add `_app.getInitialProps`.
-- `lib/site.ts` -- site name, URL (`NEXT_PUBLIC_SITE_URL`), `absoluteUrl`. `lib/seo-feeds.ts` builds sitemap, robots and RSS.
-- `components/seo/seo-meta.tsx` -- all per-page metadata and JSON-LD. Pages must render one `h1`.
+- `lib/site.ts` -- URL (`NEXT_PUBLIC_SITE_URL`), `absoluteUrl`, OG image URL. No identity here.
+- `lib/profile.ts` -- the owner's identity (name, job title, summary, location, skills, profile links, CV) built from the Contentful `settings` entry + footer social links; exposed via `useSite()` (`components/context/siteContext.tsx`).
+- `lib/seo-feeds.ts` -- sitemap, robots, RSS, `/llms.txt`, `/resume.json`. `lib/case-study-visibility.ts` decides which case studies are indexed (no blocks, or tagged only for another site = hidden).
+- `components/seo/seo-meta.tsx` -- all per-page metadata and JSON-LD (Person, WebSite, ProfilePage, Article). Pages must render one `h1`.
+- `AnimatedText` renders plain text on the server and swaps to the animation after hydration, so crawlers read whole words.
 - `lib/contentful/` -- `client.ts` (`fetchGraphQL`, `gqlString`), `api.js`, `queries/`. Always wrap interpolated values in `gqlString()`.
 - `utils/themes/` -- theme definitions. `config/default-theme.ts` holds `DEFAULT_THEME` and `resolveTheme()`; every theme key must have a default there or in `config/defaults.js`. `utils/styleUtils.js` turns a theme into CSS variables (`getThemeCssVars`), used for SSR and in the browser.
 - `components/context/themeContext.tsx` -- renders on the server with the CMS theme; do not return `null` before mount.
 
 ## Rules
+
+- Names, identity and primary content come from Contentful, never hard-coded. Code may only hold neutral fallbacks.
 
 - Theme editor and its API routes are development only (`NODE_ENV === 'development'`). New routes that use `CONTENTFUL_MANAGEMENT_TOKEN` must be wrapped in `devOnly()` (`lib/dev-only.ts`).
 - Leva is dev-only: import `useControls` from `utils/dev-controls`, never from `leva`.
