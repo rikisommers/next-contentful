@@ -1,6 +1,8 @@
 import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
+import { useSite } from '../context/siteContext';
+import { linkProps } from '../utils/links';
 import { useThemeContext } from '../context/themeContext';
 import AnimatedText, { AnimStyle, AnimTextOrder } from '../motion/animated-text';
 import PostTileImg from '../tile/post-tile-img';
@@ -65,6 +67,7 @@ import Ticker from '../base/ticker';
  * />
  */
 export default function FooterFormat({ data, pages }) {
+  const profile = useSite();
   const { currentTheme } = useThemeContext();
   return (
     <div className="flex z-10 flex-col justify-between w-full overflow-clip">
@@ -114,7 +117,7 @@ export default function FooterFormat({ data, pages }) {
                     data.socialCollection.items?.length &&
                     data.socialCollection.items.map((item, i) => (
                       <Link
-                        href={item.url}
+                        {...linkProps(item.url)}
                         key={i}
                         className="text-sm no-underline text-[var(--text-color)]"
                       >
@@ -126,7 +129,7 @@ export default function FooterFormat({ data, pages }) {
             </div>
             <div className="flex justify-start items-end md:justify-end grow">
               {data?.ctalink && data?.cta && (
-                <Link href={data.ctalink} className="no-underline">
+                <Link {...linkProps(data.ctalink)} className="no-underline">
                   <ButtonWipe label={data.cta} type={ButtonType.PRIMARY} />
                 </Link>
               )}
@@ -147,16 +150,16 @@ export default function FooterFormat({ data, pages }) {
             <div className="flex col-span-12 gap-2 justify-end">
               {data.socialCollection.items.map((item, i) => (
                 <Link
-                  href={item.url}
+                  {...linkProps(item.url)}
                   key={i}
                   className={`text-xs no-underline text-[var(--text-color)]`}
                 >
                   {item.title}
-                  {/* <img
-                    alt={item.title}
-                    src={item.icon.url}
-                    viewBox="0 0 24 24"
-                  ></img> */}
+                  {/* {item.icon?.url ? (
+                    <img alt={item.title} src={item.icon.url} width={16} height={16} />
+                  ) : (
+                    <span className="text-xs">{item.title?.slice(0, 2)}</span>
+                  )} */}
                 </Link>
               ))}
             </div>
@@ -169,13 +172,14 @@ export default function FooterFormat({ data, pages }) {
               className="flex gap-4 items-center px-5 rounded-lg grow"
               style={{ color: 'var(--text-color)' }}
             >
+              <span className="text-xs">© {new Date().getFullYear()} {profile.name}</span>
               {data.privacypolicy && (
-                <Link className="text-xs no-underline" href={data.privacypolicy}>
+                <Link className="text-xs no-underline" {...linkProps(data.privacypolicy)}>
                   Privacy Policy
                 </Link>
               )}
               {data.cookiespolicy && (
-                <Link className="text-xs no-underline" href={data.cookiespolicy}>
+                <Link className="text-xs no-underline" {...linkProps(data.cookiespolicy)}>
                   Cookies Policy
                 </Link>
               )}

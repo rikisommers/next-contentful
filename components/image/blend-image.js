@@ -1,28 +1,26 @@
-import Image from 'next/image'
-import { useThemeContext } from '../context/themeContext';
+import Image from "next/image";
+import { useThemeContext } from "../context/themeContext";
+import { contentfulLoader } from "./contentful-loader";
 
-const contentfulLoader = ({ src, width, quality }) => {
-  return `${src}?w=${width}&q=${quality || 75}`
-}
-//priority eager
-const BlendImage = (props) => {
+const DEFAULT_SIZES = "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw";
 
+/** Greyscale image that blends with the page using the theme's blend mode. */
+const BlendImage = ({ alt = "", className = "", ...props }) => {
   const { currentTheme } = useThemeContext();
 
-  return <Image  
-      loading='lazy'   
-      alt="fdd"
-      sizes="(max-width: 768px) 100vw,
-              (max-width: 1200px) 50vw,
-              33vw" 
-   loader={contentfulLoader} {...props} 
-   width={400}
-   height={200}
-   style={{
-    mixBlendMode:currentTheme.data.imageMixBlendMode
-  }}
-   className='object-cover w-full h-full greyscale'
-   />
-}
+  return (
+    <Image
+      loader={contentfulLoader}
+      sizes={DEFAULT_SIZES}
+      width={400}
+      height={200}
+      alt={alt}
+      style={{ mixBlendMode: currentTheme.data.imageMixBlendMode }}
+      {...props}
+      // Always fill the parent; callers can add classes but not remove these.
+      className={`object-cover w-full h-full greyscale ${className}`.trim()}
+    />
+  );
+};
 
-export default BlendImage
+export default BlendImage;

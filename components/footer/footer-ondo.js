@@ -1,5 +1,7 @@
 import React, { useState, useRef } from "react";
 import Link from "next/link";
+import { linkProps } from "../utils/links";
+import { useSite } from "../context/siteContext";
 import { useThemeContext } from "../context/themeContext";
 import AnimatedText, {
   AnimStyle,
@@ -14,6 +16,7 @@ import ButtonSwap from "../base/button/button-swap";
 import { motion, useTransform, useScroll } from "../../utils/motion";
 
 export default function FooterOnto({ data, pages }) {
+  const profile = useSite();
   const { currentTheme } = useThemeContext();
   const [dimension, setDimension] = useState({ width: 0, height: 0 });
   const footerRef = useRef(null);
@@ -32,7 +35,7 @@ export default function FooterOnto({ data, pages }) {
   const scaleTransform = useTransform(scrollYProgress, [0, 1], [0.95, 1]);
 
   return (
-    <footer className="flex z-10 flex-col items-center justify-center w-full h-screen overflow-clip">
+    <footer ref={footerRef} className="flex z-10 flex-col items-center justify-center w-full h-screen overflow-clip">
       {/* pt-32 pb-16 */}
 
       <div className="flex flex-col items-center text-center  gap-8 w-full  px-16 md:max-w-5xl">
@@ -59,7 +62,7 @@ export default function FooterOnto({ data, pages }) {
         )}
 
         {data?.ctalink && data?.cta && (
-          <Link href={data.ctalink} className="no-underline">
+          <Link {...linkProps(data.ctalink)} className="no-underline">
             <ButtonWipe label={data.cta} type={ButtonType.PRIMARY} />
           </Link>
         )}
@@ -71,7 +74,7 @@ export default function FooterOnto({ data, pages }) {
             data.socialCollection.items?.length &&
             data.socialCollection.items.map((item, i) => (
               <Link
-                href={item.url}
+                {...linkProps(item.url)}
                 key={i}
                 className="text-sm no-underline text-[var(--text-color)]"
               >
@@ -81,13 +84,14 @@ export default function FooterOnto({ data, pages }) {
         </div>
 
         <div className="flex gap-2">
+          <span className="text-xs">© {new Date().getFullYear()} {profile.name}</span>
           {data.privacypolicy && (
-            <Link className="text-xs no-underline" href={data.privacypolicy}>
+            <Link className="text-xs no-underline" {...linkProps(data.privacypolicy)}>
               Privacy Policy
             </Link>
           )}
           {data.cookiespolicy && (
-            <Link className="text-xs no-underline" href={data.cookiespolicy}>
+            <Link className="text-xs no-underline" {...linkProps(data.cookiespolicy)}>
               Cookies Policy
             </Link>
           )}
@@ -97,18 +101,18 @@ export default function FooterOnto({ data, pages }) {
           <div className="flex gap-2">
             {data.socialCollection.items.map((item, i) => (
               <Link
-                href={item.url}
+                {...linkProps(item.url)}
                 key={i}
                 className={`flex justify-center items-center p-2 rounded-lg w-[32px] h-[32px]`}
                 style={{
                   backgroundColor: "var(--surface1)",
                 }}
               >
-                <img
-                  alt={item.title}
-                  src={item.icon.url}
-                  viewBox="0 0 24 24"
-                ></img>
+                {item.icon?.url ? (
+                    <img alt={item.title} src={item.icon.url} width={16} height={16} />
+                  ) : (
+                    <span className="text-xs">{item.title?.slice(0, 2)}</span>
+                  )}
               </Link>
             ))}
           </div>

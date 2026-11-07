@@ -7,10 +7,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import ThemeTrigger from "../base/theme-trigger";
 //import { useScrollPosition } from "../scrollPosContext";
-import ThemeEditor from "../../utils/themeEditor";
-import ThemeScrollContainer from "../utils/theme-scroll-container";
 import Button, { ButtonType, ButtonSize } from "../base/button/button";
-// import ThemeEditor from "../../utils/themeEditor";
 import Audio from "./audio";
 import Modal, {
   ModalDirection,
@@ -20,9 +17,14 @@ import Modal, {
 import { useThemeContext } from "../context/themeContext";
 import NavBar from "./navbar";
 import Logo from "./logo";
-import { X } from "@phosphor-icons/react/dist/icons/X";
 import { navigationOptions } from "../../utils/theme";
-import { SkipLinks, useFocusManagement, handleKeyboardNavigation } from "../utils/accessibility-helper";
+import { useFocusManagement, handleKeyboardNavigation } from "../utils/accessibility-helper";
+
+// The theme editor is a developer tool: it is only bundled and rendered in development.
+const IS_DEV = process.env.NODE_ENV === "development";
+const ThemeEditorPanel = IS_DEV
+  ? dynamic(() => import("./theme-editor-panel"), { ssr: false })
+  : null;
 
 export default function Navigation({ data, logo, customThemes, title, isLoading }) {
   const router = useRouter();
@@ -73,7 +75,6 @@ export default function Navigation({ data, logo, customThemes, title, isLoading 
 
   return (
     <>
-      <SkipLinks />
       <nav
         id="navigation"
         role="navigation" 
@@ -112,6 +113,7 @@ export default function Navigation({ data, logo, customThemes, title, isLoading 
 <div className="flex col-start-5 row-start-1 gap-2 justify-end items-center">
 
         <ThemeTrigger/>
+        {IS_DEV && (
         <button 
           className="cursor-pointer flex pointer-events-auto gap-1 items-center p-1 bg-[var(--accent-pri)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--accent-sec)] focus:ring-offset-2"
           onClick={toggleThemeEditor}
@@ -125,59 +127,33 @@ export default function Navigation({ data, logo, customThemes, title, isLoading 
         >
             <img 
               className="w-[30px] h-[30px]" 
-              src="./icons/change.svg" 
+              src="/icons/change.svg" 
               alt="Theme settings icon"
               role="img"
             />
         </button> 
+        )}
 </div>
 
 
 
       </nav>
 
-      <Modal
-        isOpen={isModalOpen}
-        onClose={closeModal}
-        direction={ModalDirection.ORIGIN}
-        width={ModalWidth.PANEL_SM}
-        position={ModalPosition.TOP_RIGHT}
-      >
-        <div
-          ref={modalRef}
-          className="h-screen flex flex-col gap-3 bg-[var(--background-color)]"
-//          role="dialog"
-          aria-modal="true"
-          aria-labelledby="theme-editor-title"
-          aria-describedby="theme-editor-description"
-          style={
-            {
-              // backgroundColor: "var(--background-color)",
-            }
-          }
+      {IS_DEV && ThemeEditorPanel && (
+        <Modal
+          isOpen={isModalOpen}
+          onClose={closeModal}
+          direction={ModalDirection.ORIGIN}
+          width={ModalWidth.PANEL_SM}
+          position={ModalPosition.TOP_RIGHT}
         >
-          <ThemeScrollContainer>
-            <div className="flex flex-col gap-8 justify-start">
-              <div className="flex sticky top-0 gap-8 justify-start p-2">
-                <h2 id="theme-editor-title" className="sr-only">Theme Editor</h2>
-                <p id="theme-editor-description" className="sr-only">
-                  Configure site theme settings including colors, typography, and layout options
-                </p>
-                <Button
-                  className="self-end"
-                  type={ButtonType.SECONDARY}
-                  size={ButtonSize.SM}
-                  onClick={closeModal}
-                  aria-label="Close theme editor"
-                >
-                  <X size={16} aria-hidden="true" />
-                </Button>
-              </div>
-              <ThemeEditor customThemes={customThemes} />
-            </div>
-          </ThemeScrollContainer>
-        </div>
-      </Modal>
+          <ThemeEditorPanel
+            ref={modalRef}
+            customThemes={customThemes}
+            onClose={closeModal}
+          />
+        </Modal>
+      )}
     </>
   );
 }

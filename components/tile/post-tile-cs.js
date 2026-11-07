@@ -81,6 +81,7 @@ export default function PostTileCs({
   
   return (
     <Link
+      ref={ref}
       scroll={false}
       data-name="show-cursor"
       href={`/articles/${post.slug}`}
@@ -149,8 +150,7 @@ export default function PostTileCs({
           }}
         >
           <img
-            src="arrow_forward.svg"
-            viewBox="0 0 20 20"
+            src="/arrow_forward.svg" alt="" aria-hidden="true" width={20} height={20}
             className="z-10 w-5 h-5"
             style={{
               color: "var(--accent-pri)",

@@ -49,12 +49,10 @@ export default async function handler(req, res) {
 
 
       if (process.env.PAGE_PASSWORD !== password) {
-        console.log('Incorrect password');
         return res.status(401).json({ message: "incorrect password you fool" }); // Use res to send the response
       }
       
       if (process.env.PAGE_PASSWORD === password) {
-        console.log('Correct password');
         const cookie = serialize(process.env.PASSWORD_COOKIE_NAME, "true", {
          // httpOnly: true,
           path: "/",

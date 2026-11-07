@@ -362,9 +362,9 @@ export const themeControlConfig = {
     cardLayout: { type: "select", label: "Card Type", options: cardThemes },
     cardHover: { type: "select", label: "Hover", options: cardHoverThemes },
   },
-   /*Images: {
+  Images: {
     imageParallax: { type: "boolean", label: "Parallax" },
-    imageMixBlendMode: { type: "select", label: "Blend Mode", options: mixBlendThemes },
+    imageMixBlendMode: { type: "select", label: "Image blend mode", options: mixBlendThemes },
     imageTexture: { type: "select", label: "Texture", options: imageTextureThemes },
     imageTextureContrast: { type: "slider", label: "Contrast", min: 0, max: 1000, step: 1, suffix: "%" },
     imageTextureBrightness: { type: "slider", label: "Brightness", min: 0, max: 1000, step: 1, suffix: "%" },
@@ -384,7 +384,7 @@ export const themeControlConfig = {
   },
   Footer: {
     footerPosition: { type: "select", label: "Position", options: footerOptions.position },
-  },*/
+  },
 
   Color: {
     accentPri: { type: "color", label: "Accent Primary" },

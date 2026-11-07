@@ -16,10 +16,11 @@ const Preloader = ({ show, data, logo}) => {
         <div className="w-24 h-24">
         <img
           src={logo.url}
-          title={logo.title}
-          viewBox="0 0 32 32"
+          alt=""
+          width={96}
+          height={96}
           className="h-full"
-        ></img>
+        />
         </div>
         }
     </div>

@@ -1,6 +1,6 @@
 // Accessibility utilities for WCAG AA compliance
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 // Skip links component for keyboard navigation
 export const SkipLinks = () => {
@@ -117,9 +117,16 @@ export const checkColorContrast = (foreground, background) => {
 
 // Reduced motion preferences
 export const useReducedMotion = () => {
-  const prefersReducedMotion = typeof window !== 'undefined' 
-    ? window.matchMedia('(prefers-reduced-motion: reduce)').matches 
-    : false;
+  // false on the server and first client render (no hydration mismatch), then the real preference
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const query = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const update = () => setPrefersReducedMotion(query.matches);
+    update();
+    query.addEventListener('change', update);
+    return () => query.removeEventListener('change', update);
+  }, []);
 
   useEffect(() => {
     if (prefersReducedMotion) {

@@ -173,9 +173,8 @@ export default function GridBento({
 }
 
 const GridGroup = ({ items, templateSize, startIndex }) => {
-    if (items.length === 0) return null;
-  
     const { currentTheme } = useThemeContext();
+    if (items.length === 0) return null;
 
     const groupItems = items.slice(0, templateSize);
     const remainingItems = items.slice(templateSize);

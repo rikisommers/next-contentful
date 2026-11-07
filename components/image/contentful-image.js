@@ -1,21 +1,26 @@
-import Image from 'next/image'
+import Image from "next/image";
+import { contentfulLoader } from "./contentful-loader";
 
-const contentfulLoader = ({ src, width, quality }) => {
-  return `${src}?w=${width}&q=${quality || 75}`
-}
-//priority eager
-const ContentfulImage = (props) => {
-  return <Image  
-      loading='lazy'   
-      
-      sizes="(max-width: 768px) 100vw,
-              (max-width: 1200px) 50vw,
-              33vw" 
-   loader={contentfulLoader} {...props} 
-   width={400}
-   height={200}
-   className='w-full h-full object-cover'
-   />
-}
+const DEFAULT_SIZES = "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw";
 
-export default ContentfulImage
+/**
+ * Contentful image with responsive sizes, WebP and lazy loading.
+ * Pass `priority` for the above-the-fold image (disables lazy loading).
+ * @component
+ * @category image
+ */
+const ContentfulImage = ({ alt = "", priority = false, className = "", ...props }) => (
+  <Image
+    loader={contentfulLoader}
+    sizes={DEFAULT_SIZES}
+    width={400}
+    height={200}
+    alt={alt}
+    priority={priority}
+    {...props}
+    // Always fill the parent; callers can add classes but not remove these.
+    className={`w-full h-full object-cover ${className}`.trim()}
+  />
+);
+
+export default ContentfulImage;

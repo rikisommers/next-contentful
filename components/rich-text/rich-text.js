@@ -8,12 +8,9 @@ export const useRichTextOptions = () => {
   const { audioRefs } = useAudioControls();
 
   const getSound = (soundName) => {
-    console.log('playing sound', soundName);
-    console.log('theme sound', currentTheme.data.audioInternalLink);
 
     const audioRef = audioRefs[soundName];
     if (audioRef) {
-      console.log('playing sound', soundName);
       playAudio(audioRef, currentTheme.data.audioVolume, currentTheme.data.audioEnabled);
     }
   };

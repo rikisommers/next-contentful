@@ -1,6 +1,7 @@
-import { getSpace, getEnvironment } from './contentfulManagement';
+import { devOnly } from '../../lib/dev-only';
+import { getSpace, getEnvironment } from '../../lib/contentful/management';
 
-export default async function handler(req, res) {
+async function handler(req, res) {
     const { id } = req.query; // This should be the Contentful entry ID
     console.log('Received DELETE request for entry ID:', id); // Log the ID received
 
@@ -30,3 +31,4 @@ export default async function handler(req, res) {
         res.status(405).json({ message: `Method ${req.method} Not Allowed` });
     }
 }
+export default devOnly(handler);

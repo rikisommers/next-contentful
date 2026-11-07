@@ -11,18 +11,23 @@ import TransitionPage from "../../components/transition/pageTransition";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ClipContainer } from "../../components/motion/clippath-container";
 import SEOMeta from "../../components/seo/seo-meta";
+import { isCaseStudyListed } from "../../lib/case-study-visibility";
+import { getGlobalProps, REVALIDATE_SECONDS } from "../../lib/contentful/global";
 
-export default function Post({ post, footerData }) {
+export default function Post({ post, footerData, listed = true }) {
   
   const { currentTheme } = useThemeContext();
 
 
-  const articlesNavList = post.csblocksCollection.items.filter(
+  const articlesNavList = (post?.csblocksCollection?.items ?? []).filter(
     (item) => item.__typename === "BlockArticle"
   );
 
   return (
     <ScrollContainer>
+      {!(post?.csblocksCollection?.items ?? []).some((i) => i.__typename === "BlockHero") && (
+        <h1 className="sr-only">{post?.title}</h1>
+      )}
       <SEOMeta
         title={post?.title}
         description={post?.subtitle}
@@ -30,7 +35,8 @@ export default function Post({ post, footerData }) {
         article
         publishedTime={post?.sys?.firstPublishedAt}
         modifiedTime={post?.sys?.publishedAt}
-        tags={post?.contentfulMetadata?.tags?.map((t) => t.name) || []}
+        skills={post?.tags ?? []}
+        noindex={!listed}
       />
 
       {articlesNavList.length > 0 && (
@@ -67,15 +73,22 @@ export async function getStaticProps({ params, preview = false }) {
       notFound: true, // This will trigger a 404 page
     };
   }
-  const footerData = await getFooter();
+  const [footerData, globalProps] = await Promise.all([getFooter(), getGlobalProps()]);
 
   return {
     props: {
       slug,
       preview,
       post: data[0] ?? null,
+      // Unfinished or other-site case studies stay reachable but are not indexed.
+      listed: isCaseStudyListed({
+        blockCount: data[0]?.csblocksCollection?.items?.length ?? 0,
+        tags: (data[0]?.contentfulMetadata?.tags ?? []).map((t) => t.id),
+      }),
       footerData: footerData || null,
+      ...globalProps,
     },
+    revalidate: REVALIDATE_SECONDS,
   };
 }
 
