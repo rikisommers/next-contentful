@@ -1,8 +1,8 @@
+import Media from "../image/media";
 import React from "react";
 import PropTypes from "prop-types";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { useRichTextOptions } from "../rich-text/rich-text";
-import ContentfulImage from "../image/contentful-image";
 import { useThemeContext } from "../context/themeContext";
 
 /**
@@ -79,16 +79,10 @@ export const BlockArticle = ({ data }) => {
             )} 
           </div>
         )}
-        {data.img &&
-          data.img.map((img) => {
+        {(data.img ?? data.imgCollection?.items ?? []).length > 0 &&
+          (data.img ?? data.imgCollection.items).map((img) => {
             return (
-              <ContentfulImage
-                key={img.title}
-                width={2000}
-                height={1000}
-                alt={`Cover Image for ${img.title}`}
-                src={img.url}
-              />
+              <Media key={img.url} asset={img} sizes="(max-width: 768px) 100vw, 66vw" />
             );
           })}
     </article>

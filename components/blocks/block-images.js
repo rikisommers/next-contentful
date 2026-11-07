@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import CoverImage from "../image/cover-image";
-import BlendImage from "../image/blend-image";
+import Media from "../image/media";
 import GridLayout from "../grid/basic";
 /**
  * Image gallery block that renders a collection of images in a grid layout
@@ -42,16 +42,17 @@ export const BlockImages = ({ data }) => {
   return (
     <figure>
 
-      <GridLayout>
+      <GridLayout maxCols={data.maxCols}>
         {data.imagesCollection &&
           data.imagesCollection.items.map((image) => {
             return (
               <figure className="overflow-hidden relative w-full h-full rounded-lg" key={image.url}>
-                <BlendImage title={image.title} src ={image.url} />
-       
-                <figcaption className="flex absolute right-4 bottom-4 flex-col gap-4 max-w-[200px] bg-[var(--background-color)]/40  rounded-lg shadow-2xl p-4">
-                <p className="text-[var(--text-color)] text-xs">{image.title}</p>
-                </figcaption>
+                <Media asset={image} sizes="(max-width: 768px) 100vw, 50vw" />
+                {image.title && (
+                  <figcaption className="flex absolute right-4 bottom-4 flex-col gap-4 max-w-[200px] bg-[var(--background-color)]/40  rounded-lg shadow-2xl p-4">
+                    <p className="text-[var(--text-color)] text-xs">{image.title}</p>
+                  </figcaption>
+                )}
               </figure>
             );
           })}

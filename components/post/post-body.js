@@ -127,7 +127,7 @@ export default function PostBody({ content, tags }) {
                 </ArticleWrapper>
                 // </AnimatedElement>
               )}
-              {item.__typename === "BlockHotspotImage px-16" && (
+              {item.__typename === "BlockHotspotImage" && (
                 // <AnimatedElement type={AnimStyleEl.FADEIN}>
                 <ArticleWrapper>
                   <BlockHotspotImg key={item.id} data={item} id={item.title} />

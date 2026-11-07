@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { toEmbedSrc } from "../utils/embed-urls";
 
 /**
  * Embed block that renders an iframe with an optional caption.
@@ -27,17 +28,24 @@ import PropTypes from "prop-types";
  * />
  */
 export const BlockEmbed = ({ data }) => {
-  return (
-    <figure>
-      {data.caption && (
-        <figcaption className="u-fs--caption u-c--light">
-          {data.caption}
-        </figcaption>
-      )}
+  if (!data?.url) return null;
+  const isPrototype = /figma\.com\/proto\//i.test(data.url);
 
-      <div className="c-image--landscape-tall">
-        <iframe src={data.url} width="100%" height="100%"></iframe>
+  return (
+    <figure className={`flex flex-col gap-3 ${data.displayFullWidth ? "w-full" : "mx-auto max-w-5xl"}`}>
+      <div className={`overflow-hidden relative w-full rounded-lg ${isPrototype ? "aspect-[4/3]" : "aspect-video"}`}>
+        <iframe
+          src={toEmbedSrc(data.url)}
+          title={data.title || data.caption || "Embedded content"}
+          className="absolute inset-0 w-full h-full border-0"
+          loading="lazy"
+          allow="fullscreen; clipboard-write; encrypted-media; picture-in-picture"
+          allowFullScreen
+        />
       </div>
+      {data.caption && (
+        <figcaption className="text-xs text-[var(--subtext-color)]">{data.caption}</figcaption>
+      )}
     </figure>
   );
 };
