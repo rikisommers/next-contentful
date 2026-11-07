@@ -331,6 +331,11 @@ export function validateSpec(spec, specDir = process.cwd()) {
   if (blocks.length > MAX_BLOCKS) errors.push(`${blocks.length} blocks: the site renders at most ${MAX_BLOCKS}`);
   if (blocks[0]?.type !== 'BlockHero') warnings.push('the first block should be a BlockHero');
   if (blocks[1]?.type !== 'BlockIntro') warnings.push('the second block should be a BlockIntro');
+  const isBlog = spec.caseStudy?.blog === true;
+  const limits = isBlog ? { words: 1600, article: 280, aim: '40–250' } : { words: 900, article: 180, aim: '40–150' };
+  if (!isBlog && blocks.length > 14) warnings.push(`${blocks.length} blocks: keep a portfolio case study to a 3-minute read (aim for 8–12), or set blog: true for a deeper post`);
+  const totalWords = blocks.reduce((n, b) => n + (b?.type === 'BlockArticle' && b.body ? wordCount(b.body) : 0), 0);
+  if (totalWords > limits.words) warnings.push(`${totalWords} words of article copy: cut to about ${isBlog ? '800–1,500' : '400–800'}`);
 
   let textRun = 0;
   let mediaCount = 0;
@@ -356,7 +361,7 @@ export function validateSpec(spec, specDir = process.cwd()) {
     if (block.type === 'BlockHeader' && wordCount(block.content) > 24) warnings.push(`${where}.content: ${wordCount(block.content)} words (aim for ≤ 20)`);
     if (block.type === 'BlockArticle' && block.body) {
       const n = wordCount(block.body);
-      if (n > 260) warnings.push(`${where}.body: ${n} words; split it (aim for 60–220)`);
+      if (n > limits.article) warnings.push(`${where}.body: ${n} words; cut it (aim for ${limits.aim})`);
       if (/^#\s/m.test(block.body)) warnings.push(`${where}.body: "#" headings are rendered as h2; use "##"`);
     }
     if (block.type === 'BlockCode' && block.code && block.code.split('\n').length > 40) warnings.push(`${where}.code: over 40 lines; show the interesting part`);

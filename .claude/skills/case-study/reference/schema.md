@@ -49,7 +49,7 @@ Enum values can be written as a string (`"results"`); the script wraps them in t
 | `color` | string | **required by Contentful** | tile accent | Hex, e.g. `#1F6FEB` |
 | `tags` | string[] | recommended | tiles, `article:tag` | 3–6, e.g. `Design systems`, `Tokens`, `React` |
 | `img` | image asset | recommended | tiles, social card | Cover, 16:10 or 3:2, ≥ 2400 px wide, no text |
-| `blog` | boolean | optional | | `true` for writing rather than project work |
+| `blog` | boolean | optional | | `true` = blog post for workmates and peers (listed under Writing, not on the résumé); `false` = portfolio case study for recruiters and employers |
 | `protected` | boolean | optional | | Password-protected case study (NDA work) |
 | `publishToWeb` | boolean | optional | | |
 | `related` | caseStudy entry ids | optional | | Not rendered yet |

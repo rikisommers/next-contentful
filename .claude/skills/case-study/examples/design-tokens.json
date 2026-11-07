@@ -24,7 +24,7 @@
       "client": "[Client]",
       "role": "Design systems engineer (lead)",
       "duration": "[N] months",
-      "overview": "Each brand had forked the component library to change colours and type, so fixes landed [N] times or not at all. I replaced the forks with a tiered token system generated from Figma variables, and moved brands to theme files instead of code."
+      "overview": "Each brand had forked the component library to change colours and type, so fixes landed [N] times or not at all. The goal: one library, and a rebrand in days rather than weeks. I led the token architecture and built the Figma-to-CSS pipeline with [N] engineers and the brand team."
     },
     {
       "type": "BlockHeader",
@@ -71,12 +71,6 @@
       "code": "export default {\n  color: {\n    action: {\n      primary: { value: '{color.blue.600}' },\n    },\n  },\n};"
     },
     {
-      "type": "BlockEmbed",
-      "title": "Token documentation in Storybook",
-      "url": "https://example.com/storybook/iframe.html?id=tokens--colors",
-      "caption": "Live token reference generated from the same source as the CSS."
-    },
-    {
       "type": "BlockHeader",
       "title": "Adoption",
       "content": "Migrating [N] products without a freeze."
@@ -96,9 +90,9 @@
       "title": "Results",
       "listType": "results",
       "items": [
-        { "title": "[N] forks → 1 library", "content": "[Evidence: what was retired and when]" },
-        { "title": "Rebrand in [N] days, not [N] weeks", "content": "[Evidence]" },
-        { "title": "WCAG AA focus styles in every product", "content": "[Evidence]" }
+        { "title": "Rebrand in [N] days, not [N] weeks", "content": "[Business impact with timeframe, e.g. about $[N]k saved per rebrand (estimate)]" },
+        { "title": "[N] forks → 1 library", "content": "[Evidence: what was retired and by when]" },
+        { "title": "WCAG AA focus styles in every product", "content": "[Risk reduced: accessibility audit passed in [month/year]]" }
       ]
     },
     {
@@ -110,7 +104,7 @@
     {
       "type": "BlockArticle",
       "title": "What I'd do next",
-      "body": "[Honest reflection: what didn't work, what the next step for the system is.]"
+      "body": "[Optional, ≤ 80 words: a blocker and how it was worked around, or what I'd do differently.]"
     }
   ]
 }
