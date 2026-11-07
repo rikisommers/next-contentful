@@ -1,11 +1,18 @@
 import { defineConfig, globalIgnores } from 'eslint/config';
 import nextVitals from 'eslint-config-next/core-web-vitals';
 import nextTs from 'eslint-config-next/typescript';
+import globals from 'globals';
 
 export default defineConfig([
   ...nextVitals,
   ...nextTs,
   globalIgnores(['.next/**', '.next-*/**', 'node_modules/**', 'next-env.d.ts', 'coverage/**', 'playwright-report/**']),
+  {
+    // Catch undefined identifiers (e.g. a missing import) in JavaScript; TypeScript checks its own files.
+    files: ['**/*.{js,jsx,mjs}'],
+    languageOptions: { globals: { ...globals.browser, ...globals.node } },
+    rules: { 'no-undef': 'error' },
+  },
   {
     rules: {
       'no-console': ['warn', { allow: ['warn', 'error'] }],

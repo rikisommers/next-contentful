@@ -124,28 +124,3 @@ export default function PagesPasswordPage({ children, locked }) {
     );
   }
 }
-
-// If you need server-side authentication, you can use getServerSideProps
-export async function getServerSideProps(context) {
-  const { req } = context;
-  const loginCookie = req.cookies[process.env.PASSWORD_COOKIE_NAME];
-
-  if (!loginCookie) {
-    return {
-      props: {
-        isLoggedIn: false,
-        content: null,
-      },
-    };
-  }
-
-  // User is authenticated, fetch and return content
-  const content = await fetchContent(); // Implement this function to fetch your content
-
-  return {
-    props: {
-      isLoggedIn: true,
-      content,
-    },
-  };
-}

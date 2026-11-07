@@ -4977,6 +4977,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"globals@npm:^17.14.0":
+  version: 17.14.0
+  resolution: "globals@npm:17.14.0"
+  checksum: 10c0/422d17c24e87170d4aa566b97a53339ae451c2f4d78512594a7ca951cdb939bc4a85c10071e6dcf77ca63de48713a77f2e71eb9214e44880233dff2090e92731
+  languageName: node
+  linkType: hard
+
 "globalthis@npm:^1.0.4":
   version: 1.0.4
   resolution: "globalthis@npm:1.0.4"
@@ -7451,6 +7458,7 @@ __metadata:
     cookie: "npm:^1.0.2"
     eslint: "npm:^10.0.0"
     eslint-config-next: "npm:^16"
+    globals: "npm:^17.14.0"
     happy-dom: "npm:^20.5.0"
     js-cookie: "npm:^3.0.5"
     lenis: "npm:^1.3"

@@ -1,4 +1,4 @@
-import AnimatedElement from "../motion/animated-element";
+import AnimatedElement, { AnimStyleEl } from "../motion/animated-element";
 import React from "react";
 import { useThemeContext } from "../context/themeContext";
 import { gridGaps, gridGapClasses } from "../../utils/theme";

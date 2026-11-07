@@ -210,7 +210,7 @@ export default function ThemeEditor({ customThemes }) {
         throw new Error(`Failed to delete theme: ${responseBody.message}`);
       }
 
-      toast.showSuccess(`Theme "${themeToSave.name}" deleted successfully`);
+      toast.showSuccess(`Theme "${currentThemeRef.current?.name ?? "theme"}" deleted successfully`);
 
       // Optionally refresh the theme list or update state here
     } catch (error) {
