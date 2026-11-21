@@ -1,6 +1,7 @@
 import { INLINES, BLOCKS, MARKS } from "@contentful/rich-text-types";
 import { useThemeContext } from "../context/themeContext";
 import { useAudioControls, playAudio } from "../navigation/audio-utils";
+import { isExternalHref, linkProps } from "../utils/links";
 
 // Create a custom hook to provide rich text options with audio support
 export const useRichTextOptions = () => {
@@ -21,13 +22,14 @@ export const useRichTextOptions = () => {
     },
     renderNode: {
       [INLINES.HYPERLINK]: (node, children) => {
-        const { uri } = node.data;
-        const isExternal = uri.startsWith('http');
+        // Bare domains ("bluesky.com") become https:// links instead of resolving under /articles/.
+        const link = linkProps(node.data.uri);
+        const isExternal = isExternalHref(link.href);
         const clickSound = isExternal ? currentTheme.data.audioExternalLink : currentTheme.data.audioInternalLink;
         const hoverSound = currentTheme.data.audioInternalLinkHover;
-        
+
         return (
-          <a href={uri} className="no-underline hover:underline"
+          <a {...link} className="no-underline hover:underline"
             onClick={() => getSound(clickSound)}
             onMouseEnter={() => getSound(hoverSound)}
             style={{

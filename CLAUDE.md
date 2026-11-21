@@ -45,5 +45,4 @@ The modernisation plan, phase status and the live task planner are in a claude.a
 
 - ~450 ESLint warnings (mostly unused variables) and React Compiler lint rules set to `warn`.
 - Some CMS content is placeholder text (home hero, footer).
-- Article links with domain-like slugs (`bluesky.com`, `ctatest.com`) prefetch missing pages.
 - Playwright e2e needs `npx playwright install` for the current Playwright version.
