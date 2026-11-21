@@ -57,7 +57,6 @@ export default function PostTileCs({
   'data-audio-hover': hoverSound, 
   ...props 
 }) {
-  //  console.log("ss", post);
   
   const ref = useRef(null);
 

@@ -59,7 +59,6 @@ const AnimatedText = ({ type, highlight, content, delay, align }) => {
   const { currentTheme } = useThemeContext();
   const highlight2 = currentTheme.data.textHighlight;
 
-  //    console.log('------',currentTheme);
 
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);

@@ -41,8 +41,6 @@ export default function PostBody({ content, tags }) {
   const { currentTheme } = useThemeContext();
   const pageWidth = currentTheme.data.pageWidth;
 
-  // console.log('currentTheme',currentTheme)
-  // console.log('content',content)
   return (
     <div className={`o-edit-outline flex flex-col gap-8 self-center scanlines
        ${(() => {

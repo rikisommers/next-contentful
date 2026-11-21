@@ -8,12 +8,10 @@ const Close = ({ isActive, onClick }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const handleHoverStart = () => {
-    //console.log("start");
     setIsHovered(true);
   };
 
   const handleHoverEnd = () => {
-    //console.log("end");
 
     setIsHovered(false);
   };

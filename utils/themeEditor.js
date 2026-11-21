@@ -202,8 +202,6 @@ export default function ThemeEditor({ customThemes }) {
 
       // Log the response status and body
       const responseBody = await deleteResponse.json();
-      // console.log("Delete response status:", deleteResponse.status);
-      // console.log("Delete response body:", responseBody);
 
       if (!deleteResponse.ok) {
         toast.showError(`Failed to delete theme: ${responseBody.message}`);
@@ -843,7 +841,6 @@ export default function ThemeEditor({ customThemes }) {
           />
         );
       case "slider":
-        // console.log("Slider config", key, config, value);
         return (
           <>
             <SliderInput

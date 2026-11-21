@@ -50,7 +50,6 @@ export default function Navigation({ data, logo, customThemes, title, isLoading 
   });
   const [orientation, setOrientation] = useState("");
 
-  // console.log('menu:',data)
   // Function to toggle the ThemeEditor modal
   const toggleThemeEditor = () => {
     if (!isModalOpen) {
@@ -69,7 +68,6 @@ export default function Navigation({ data, logo, customThemes, title, isLoading 
   };
 
   const toggleThemeEditor2 = () => {
-    //  console.log("sdd");
     setIsThemeDialogOpen((prev) => !prev);
   };
 

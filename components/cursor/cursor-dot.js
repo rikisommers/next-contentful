@@ -62,8 +62,6 @@ const CursorDot = () => {
 
   //   document.body.focus();
   //   setPosition({ x: e.clientX, y: e.clientY });
-  //  // console.log(cursor.x)
-  //  // console.log(cursorWithinViewport)
   // };
 
 

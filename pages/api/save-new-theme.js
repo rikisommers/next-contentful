@@ -6,7 +6,6 @@ async function handler(req, res) {
         try {
             const { name, data } = req.body; // Expecting name and data in the request body
             
-            console.log('Theme Data:', data); // Log the received data
             const space = await getSpace();
             const environment = await getEnvironment(space);
 

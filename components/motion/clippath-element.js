@@ -17,7 +17,6 @@ export const ClipPathElement = ({ children, offset}) => {
 
         offset: ["start end", "end end"],
         onChange: (latest) => {
-          //  console.log("Latest scroll position:", latest);
             // You can perform any other actions or state updates here
         },
     });

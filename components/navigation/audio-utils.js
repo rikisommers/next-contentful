@@ -79,7 +79,6 @@ export const toggleAudio = (audioRefs, isAudioOn) => {
 export const useAudioControls = () => {
     const { currentTheme } = useThemeContext();
     const [audioRefs, setAudioRefs] = useState(initializeAudioRefs);
-  //console.log('use  audio',currentTheme)
 
   
   return {

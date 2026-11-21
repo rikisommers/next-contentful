@@ -19,7 +19,6 @@ export default function PostTile({ post, index }) {
   //   },
   // };
 
-  //  console.log("ss", post);
 
   const ref = useRef(null);
 

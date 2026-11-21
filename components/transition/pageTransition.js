@@ -10,7 +10,6 @@ const TransitionContainer = ({children}) => {
     const { currentTheme } = useThemeContext();
 
     // useEffect(() => {
-    //     console.log('Theme updated in Layout:', currentTheme);
     //     // You can add any additional logic here that should run when the theme changes
     // }, [currentTheme]);
  
