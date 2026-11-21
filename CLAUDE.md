@@ -37,6 +37,10 @@ To run a second server beside an existing one: `NEXT_DIST_DIR=.next-build yarn b
 - New modules are TypeScript; JavaScript files are migrated when touched. Types for React 19.
 - Tests live in `tests/unit` (Vitest) and `tests/e2e` (Playwright).
 
+## Plan and progress
+
+The modernisation plan, phase status and the live task planner are in a claude.ai artifact: https://claude.ai/artifact/CPSnUfKNg93PBGeZer8f6R. Read it with the Artifact tool; read and update tasks with `ArtifactData` (collection `tasks`, fields `title`, `note`, `group`, `status` = todo | doing | done, `order`). Start a session by checking the open tasks there.
+
 ## Known follow-ups
 
 - ~450 ESLint warnings (mostly unused variables) and React Compiler lint rules set to `warn`.
