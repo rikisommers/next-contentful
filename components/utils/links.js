@@ -34,3 +34,10 @@ export function pagePathFromSlug(slug) {
   if (!slug) return "/";
   return slug === "home" ? "/" : `/${slug}`;
 }
+
+/** Same-site path or "/", so `?redirect=` values can't send visitors to another site. */
+export function safeRedirectPath(value) {
+  return typeof value === "string" && value.startsWith("/") && !value.startsWith("//") && !value.includes("\\")
+    ? value
+    : "/";
+}

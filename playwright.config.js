@@ -1,5 +1,8 @@
 import { defineConfig, devices } from '@playwright/test';
 
+// E2E_BASE_URL runs the suite against an already running server (e.g. a production build).
+const baseURL = process.env.E2E_BASE_URL || 'http://localhost:3000';
+
 export default defineConfig({
   testDir: './tests/e2e',
   fullyParallel: true,
@@ -8,7 +11,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: 'html',
   use: {
-    baseURL: 'http://localhost:3000',
+    baseURL,
     trace: 'on-first-retry',
   },
   projects: [
@@ -17,9 +20,11 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
   ],
-  webServer: {
-    command: 'yarn dev',
-    url: 'http://localhost:3000',
-    reuseExistingServer: !process.env.CI,
-  },
+  webServer: process.env.E2E_BASE_URL
+    ? undefined
+    : {
+        command: 'yarn dev',
+        url: baseURL,
+        reuseExistingServer: !process.env.CI,
+      },
 });
