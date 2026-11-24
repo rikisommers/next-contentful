@@ -155,7 +155,7 @@ export const BlockCode = ({ data, maxHeight = 400 }) => {
                   className="px-3 py-1 text-sm rounded-md"
                   onClick={handleCollapse}
                   style={{
-                    color: 'var(--accent-pri)',
+                    color: 'var(--text-color)',
                     backgroundColor: 'var(--surface1)',
                   }}
                 >
@@ -166,7 +166,7 @@ export const BlockCode = ({ data, maxHeight = 400 }) => {
                   className="px-3 py-1 text-sm rounded-md"
                   onClick={handleExpand}
                   style={{
-                    color: 'var(--accent-pri)',
+                    color: 'var(--text-color)',
                     backgroundColor: 'var(--surface1)',
                   }}
                 >
@@ -177,7 +177,7 @@ export const BlockCode = ({ data, maxHeight = 400 }) => {
                 className="px-3 py-1 text-sm rounded-md"
                 onClick={copyToClipboard}
                 style={{
-                  color: 'var(--accent-pri)',
+                  color: 'var(--text-color)',
                   backgroundColor: 'var(--surface1)',
                 }}
               >

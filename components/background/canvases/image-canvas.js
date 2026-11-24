@@ -124,6 +124,7 @@ const ImageCanvas = ({
   return (
     <div className={`absolute inset-0 w-full h-full ${className}`} style={style} {...props}>
       <Canvas
+        dpr={[1, 1.5]}
         camera={{ position: [0, 0, 5], fov: 75 }}
         style={{ width: '100%', height: '100%' }}
         gl={{ preserveDrawingBuffer: true, antialias: false }}

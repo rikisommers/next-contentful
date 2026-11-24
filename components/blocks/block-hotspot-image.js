@@ -2,7 +2,6 @@ import React from "react";
 import ContentfulImage from "../image/contentful-image";
 import CtxMenu from "../base/ctx-menu";
 export const BlockHotspotImg = ({ data }) => {
-  console.log("imgage data", data);
   return (
     <figure className="relative">
       {data && (

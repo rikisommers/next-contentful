@@ -60,11 +60,6 @@ export default function PostTileListImg({
   "data-audio-hover": hoverSound,
   ...props
 }) {
-  // Early return if no post is provided
-  if (!post) {
-    console.warn("PostTileHovertext: No post data provided");
-    return null;
-  }
 
   const ref = useRef(null); // Unique ref for each instance
   const inView = useInView(ref, { once: true, threshold: 0.5 }); // Trigger when 50% of the element is visible
@@ -78,6 +73,12 @@ export default function PostTileListImg({
 
 
   const { currentTheme } = useThemeContext();
+
+  // Early return if no post is provided
+  if (!post) {
+    console.warn("PostTileHovertext: No post data provided");
+    return null;
+  }
 
   return (
     <Link
@@ -132,8 +133,7 @@ export default function PostTileListImg({
               }}
             >
               <img
-                src="arrow_forward.svg"
-                viewBox="0 0 20 20"
+                src="/arrow_forward.svg" alt="" aria-hidden="true" width={20} height={20}
                 className="z-10 w-5 h-5"
                 style={{
                   color: "var(--accent-pri)",

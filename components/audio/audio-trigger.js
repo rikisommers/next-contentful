@@ -90,7 +90,6 @@ export const useRouteAudio = (options = {}) => {
   const playSound = useCallback((soundName) => {
     if (!currentTheme.data.audioEnabled) return;
     
-    console.log('playing sound', soundName);
     const audioRef = audioRefs[soundName];
     if (audioRef) {
       playAudio(audioRef, currentTheme.data.audioVolume, currentTheme.data.audioEnabled);

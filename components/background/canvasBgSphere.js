@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { useFrame, extend } from "@react-three/fiber";
 import { shaderMaterial } from "@react-three/drei";
-import { useControls } from "leva";
+import { useControls } from "../../utils/dev-controls";
 import * as THREE from "three";
 import { sphereVertexShader } from './shaders/sphere/vertex';
 import { sphereFragmentShader } from './shaders/sphere/fragment';

@@ -63,7 +63,6 @@ export const TextAnimNavigators = ({
   const previewTimes = [p1, p2, p3, p4];
 
   const handleContainerAnimationComplete = () => {
-  //  console.log("Container animation completed, triggering text fade out");
     setTextAnimationState("fadeOut");
   };
 

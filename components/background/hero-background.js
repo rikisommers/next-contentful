@@ -9,6 +9,7 @@ import {
 } from "../../utils/effect-types";
 import BackgroundCssGrad from "./bg-grad-css";
 import BlendImage from "../image/blend-image";
+import { useReducedMotion } from "../utils/accessibility-helper";
 
 // Lazy imports for heavy components - only load when needed
 const UnifiedCanvas = React.lazy(() => import("./unified-canvas"));
@@ -123,6 +124,7 @@ function createEffect(effectVariant, effectType, themeData) {
  * @returns {JSX.Element|null} - The rendered background component or null
  */
 export default function HeroBackground({ heroBackground, image, theme }) {
+  const reducedMotion = useReducedMotion();
   // Get effect variant from theme (fallback to legacy heroShaderEffect)
   const effectVariant =
     theme?.data?.effectVariant ?? theme?.data?.heroShaderEffect;
@@ -182,7 +184,9 @@ export default function HeroBackground({ heroBackground, image, theme }) {
         <div className="absolute top-0 left-0 w-full h-full z-10 bg-[var(--background-color)]">
           <BlendImage
             className="img-cover"
+            sizes="100vw"
             alt={`Cover Image for ${image?.title}`}
+            priority
             src={image.url}
           />
         </div>
@@ -191,6 +195,11 @@ export default function HeroBackground({ heroBackground, image, theme }) {
 
     return renderers[backgroundType] || (() => <BackgroundCssGrad />);
   };
+
+  // Animated WebGL backgrounds are replaced by the static CSS gradient for reduced-motion visitors.
+  if (reducedMotion && String(heroBackground).startsWith("canvas")) {
+    return <BackgroundCssGrad />;
+  }
 
   return createBackgroundRenderer(heroBackground)();
 }

@@ -204,6 +204,7 @@ const ShaderCanvas = ({
   return (
     <div className={`absolute inset-0 w-full h-full ${className}`} style={style} {...props}>
       <Canvas
+        dpr={[1, 1.5]}
         camera={{ position: cameraPosition, fov: cameraFov }}
         style={{ width: '100%', height: '100%' }}
         gl={{ preserveDrawingBuffer: true, clearColor: canvasBackgroundColor }}

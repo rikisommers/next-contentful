@@ -60,11 +60,6 @@ export default function PostTileText({
   'data-audio-hover': hoverSound, 
   ...props 
 }) {
-  // Early return if no post is provided
-  if (!post) {
-    console.warn('PostTileHovertext: No post data provided');
-    return null;
-  }
   const { currentTheme } = useThemeContext();
   const ref = useRef(null); // Unique ref for each instance
   const inView = useInView(ref, {once:true, threshold: 0.5 }); // Trigger when 50% of the element is visible
@@ -75,6 +70,12 @@ export default function PostTileText({
     clickSound: clickSound,
     hoverSound: hoverSound
   });
+
+  // Early return if no post is provided
+  if (!post) {
+    console.warn('PostTileHovertext: No post data provided');
+    return null;
+  }
 
   return (
     <Link

@@ -12,7 +12,7 @@ import {
   easeInOut,
   animate,
   stagger,
-} from "framer-motion";
+} from "motion/react";
 
 const createSpan = (content) => {
   const span = document.createElement("span");

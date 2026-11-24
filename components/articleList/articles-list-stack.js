@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import { motion, useTransform, useScroll } from "framer-motion";
+import { motion, useTransform, useScroll } from "motion/react";
 import { useThemeContext } from "../context/themeContext";
 import PostTile from "../tile/post-tile";
 import PostTileListImg from "../tile/post-tile-list-img";

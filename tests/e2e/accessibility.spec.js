@@ -1,18 +1,31 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
+/** First case study listed in the sitemap, so the test doesn't depend on a hard-coded CMS slug. */
+async function firstArticlePath(request) {
+  const xml = await (await request.get('/sitemap.xml')).text();
+  const match = xml.match(/<loc>https?:\/\/[^/<]+(\/articles\/[^<]+)<\/loc>/);
+  return match?.[1];
+}
+
 test.describe('Accessibility', () => {
-  test('homepage should have no critical accessibility violations', async ({ page }) => {
-    await page.goto('/');
-    await page.waitForLoadState('networkidle');
+  for (const name of ['home', 'work', 'article']) {
+    test(`${name} page should have no WCAG A/AA violations and one main landmark`, async ({ page, request }) => {
+      const path = name === 'home' ? '/' : name === 'work' ? '/work' : await firstArticlePath(request);
+      test.skip(!path, 'No case study in the sitemap');
+      await page.goto(path);
+      await page.waitForLoadState('networkidle');
 
-    const accessibilityScanResults = await new AxeBuilder({ page })
-      .withTags(['wcag2a', 'wcag2aa'])
-      .disableRules(['color-contrast']) // Theme-dependent, checked via contrast checker
-      .analyze();
+      await expect(page.locator('main#main-content')).toHaveCount(1);
 
-    expect(accessibilityScanResults.violations).toEqual([]);
-  });
+      const accessibilityScanResults = await new AxeBuilder({ page })
+        .withTags(['wcag2a', 'wcag2aa'])
+        .disableRules(['color-contrast']) // Theme-dependent, checked via contrast checker
+        .analyze();
+
+      expect(accessibilityScanResults.violations).toEqual([]);
+    });
+  }
 
   test('skip links should be present and functional', async ({ page }) => {
     await page.goto('/');

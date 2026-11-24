@@ -51,11 +51,6 @@ export default function PostTileFunky({
   'data-audio-hover': hoverSound, 
   ...props 
 }) {
-  // Early return if no post is provided
-  if (!post) {
-    console.warn('PostTileFunky: No post data provided');
-    return null;
-  }
 
   const [isHovered, setIsHovered] = useState(false); // State to track hover
   
@@ -64,6 +59,12 @@ export default function PostTileFunky({
     clickSound: clickSound,
     hoverSound: hoverSound
   });
+
+  // Early return if no post is provided
+  if (!post) {
+    console.warn('PostTileFunky: No post data provided');
+    return null;
+  }
 
   return (
     <Link
@@ -122,8 +123,7 @@ export default function PostTileFunky({
           }}
         >
           <img
-            src="arrow_forward.svg"
-            viewBox="0 0 20 20"
+            src="/arrow_forward.svg" alt="" aria-hidden="true" width={20} height={20}
             className="z-10 w-5 h-5"
             style={{
               color: "var(--accent-pri)",

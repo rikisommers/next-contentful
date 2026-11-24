@@ -58,6 +58,7 @@ export default function NavBarAwwwards({
         <Link
           key={page.id}
           href={page.url}
+          aria-label={page.title}
           scroll={false}
           onClick={() => handleNavClick(page.id)}
           className="flex relative items-center text-sm no-underline uppercase rounded-lg"

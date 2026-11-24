@@ -202,15 +202,13 @@ export default function ThemeEditor({ customThemes }) {
 
       // Log the response status and body
       const responseBody = await deleteResponse.json();
-      // console.log("Delete response status:", deleteResponse.status);
-      // console.log("Delete response body:", responseBody);
 
       if (!deleteResponse.ok) {
         toast.showError(`Failed to delete theme: ${responseBody.message}`);
         throw new Error(`Failed to delete theme: ${responseBody.message}`);
       }
 
-      toast.showSuccess(`Theme "${themeToSave.name}" deleted successfully`);
+      toast.showSuccess(`Theme "${currentThemeRef.current?.name ?? "theme"}" deleted successfully`);
 
       // Optionally refresh the theme list or update state here
     } catch (error) {
@@ -843,7 +841,6 @@ export default function ThemeEditor({ customThemes }) {
           />
         );
       case "slider":
-        // console.log("Slider config", key, config, value);
         return (
           <>
             <SliderInput

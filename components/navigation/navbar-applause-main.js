@@ -180,6 +180,7 @@ function NavItem({ page, activePage, handleNavClick, mousePosition, containerRec
     >
       <Link
         href={page.url}
+        aria-label={page.title}
         scroll={false}
         onClick={() => handleNavClick(page.id)}
         className="relative flex items-center justify-center p-4 text-sm no-underline uppercase"

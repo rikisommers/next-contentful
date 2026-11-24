@@ -2,8 +2,8 @@ import {
     shaderMaterial,
   Center,
 } from "@react-three/drei";
-import { fragmentShader } from "../../shaders/fragmentShader";
-import { vertexShader } from "../../shaders/vertexShader";
+import { fragmentShader } from "./shaders/fragmentShader";
+import { vertexShader } from "./shaders/vertexShader";
 import { useThemeContext } from '../context/themeContext';
 
 import * as THREE from 'three'

@@ -33,15 +33,15 @@ export default function ThemeTrigger({ toggleThemeEditor }) {
           className="flex gap-2 items-center p-2 bg-[var(--surface2)] rounded-xl transition-all cursor-pointer duration-600"
           onClick={selectNextTheme}
           style={{
-            backgroundColor: currentTheme.data.accenPri,
-            color: currentTheme.data.colorText,
+            backgroundColor: currentTheme.data.accentPri,
+            color: currentTheme.data.textColor,
           }}
         >
           <div
             className="flex gap-2 items-center text-sm rounded-md"
             style={{
-              backgroundColor: currentTheme.data.accenPri,
-              color: currentTheme.data.colorText,
+              backgroundColor: currentTheme.data.accentPri,
+              color: currentTheme.data.textColor,
             }}
           >
             {currentTheme.name}

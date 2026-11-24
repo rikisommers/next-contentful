@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useEffect, useRef } from "react";
-import Lenis from '@studio-freight/lenis';
+import Lenis from 'lenis';
 
 export default function ThemeScrollContainer({ children }) {
   const wrapperRef = useRef(null);

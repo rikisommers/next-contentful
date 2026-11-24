@@ -251,7 +251,7 @@ export default function BlockList({ data }) {
       default:
         return (
           <article className="flex flex-col gap-8 px-8">
-            <h1>{data.type}</h1>
+            <h2>{data.type}</h2>
 
             {data.title && (
               <h2

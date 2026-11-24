@@ -1,0 +1,110 @@
+{
+  "caseStudy": {
+    "title": "Multi-brand design tokens",
+    "slug": "example-multi-brand-design-tokens",
+    "subtitle": "One token pipeline that themes [N] products for [N] brands, from Figma variables to production CSS.",
+    "client": "[Client or 'Personal project']",
+    "color": "#1F6FEB",
+    "tags": ["Design systems", "Design tokens", "Figma", "Style Dictionary", "React"],
+    "img": { "placeholder": "Cover 2400×1500: the same card component rendered in three brand themes side by side, no text" },
+    "blog": false,
+    "protected": false
+  },
+  "blocks": [
+    {
+      "type": "BlockHero",
+      "title": "Multi-brand design tokens — Hero",
+      "intro": "One set of __tokens__, every brand, every product",
+      "content": "I designed and built the token pipeline that lets [N] product teams ship [N] brands from a single component library.",
+      "tag": "Design systems · [Year]"
+    },
+    {
+      "type": "BlockIntro",
+      "title": "Multi-brand design tokens — Intro",
+      "client": "[Client]",
+      "role": "Design systems engineer (lead)",
+      "duration": "[N] months",
+      "overview": "Each brand had forked the component library to change colours and type, so fixes landed [N] times or not at all. The goal: one library, and a rebrand in days rather than weeks. I led the token architecture and built the Figma-to-CSS pipeline with [N] engineers and the brand team."
+    },
+    {
+      "type": "BlockHeader",
+      "title": "The problem",
+      "content": "Brand changes meant forking components, and forks drifted within weeks."
+    },
+    {
+      "type": "BlockArticle",
+      "title": "Forks everywhere",
+      "body": "An audit of the [N] products found **[N] button variants** and [N] shades of the primary blue. Each brand team owned a fork of the library, so an accessibility fix had to be made, reviewed and released [N] times.\n\nThe cost showed up as:\n\n- Slow rebrands: [N] weeks for a colour change\n- Inconsistent accessibility: focus styles missing in [N] of [N] forks\n- Design and code disagreeing about what \"primary\" meant"
+    },
+    {
+      "type": "BlockImages",
+      "title": "Audit",
+      "layout": "basic",
+      "maxCols": 3,
+      "images": [
+        { "placeholder": "Audit grid: every primary button variant found, on a neutral background" },
+        { "placeholder": "Colour audit: swatches of every 'primary blue' with hex values" },
+        { "placeholder": "Same screen in two forks, differences annotated" }
+      ]
+    },
+    {
+      "type": "BlockHeader",
+      "title": "Architecture",
+      "content": "Three token tiers: raw values, semantic roles, and component decisions."
+    },
+    {
+      "type": "BlockArticle",
+      "title": "Tiers, not themes",
+      "body": "Raw tokens hold values (`blue-600`). Semantic tokens name intent (`color-action-primary`). Component tokens decide where intent applies (`button-background`). Brands only override the semantic tier, so a brand is a file, not a fork.\n\nI rejected per-component theming: it gave brands more control but brought the drift back.",
+      "images": [{ "placeholder": "Diagram 1600 px wide: raw → semantic → component tiers, with one brand override highlighted" }]
+    },
+    {
+      "type": "BlockImage",
+      "title": "Changing one semantic token re-themes every product at build time.",
+      "size": "full",
+      "image": { "placeholder": "Screen recording 10 s loop, no audio, ≤ 8 MB: edit a Figma variable, run the pipeline, three products update" }
+    },
+    {
+      "type": "BlockCode",
+      "title": "Semantic token with brand overrides",
+      "language": "javascript",
+      "code": "export default {\n  color: {\n    action: {\n      primary: { value: '{color.blue.600}' },\n    },\n  },\n};"
+    },
+    {
+      "type": "BlockHeader",
+      "title": "Adoption",
+      "content": "Migrating [N] products without a freeze."
+    },
+    {
+      "type": "BlockList",
+      "title": "Rollout",
+      "listType": "timeline",
+      "items": [
+        { "number": "01", "title": "Pilot", "content": "One product, one brand, behind a feature flag." },
+        { "number": "02", "title": "Codemods", "content": "Automated replacement of hard-coded values with tokens." },
+        { "number": "03", "title": "Brand files", "content": "Remaining brands moved from forks to theme files." }
+      ]
+    },
+    {
+      "type": "BlockList",
+      "title": "Results",
+      "listType": "results",
+      "items": [
+        { "title": "Rebrand in [N] days, not [N] weeks", "content": "[Business impact with timeframe, e.g. about $[N]k saved per rebrand (estimate)]" },
+        { "title": "[N] forks → 1 library", "content": "[Evidence: what was retired and by when]" },
+        { "title": "WCAG AA focus styles in every product", "content": "[Risk reduced: accessibility audit passed in [month/year]]" }
+      ]
+    },
+    {
+      "type": "BlockQuote",
+      "title": "[Role, team]",
+      "content": "[Real quote, with permission]",
+      "author": "[Name]"
+    },
+    {
+      "type": "BlockArticle",
+      "title": "What I'd do next",
+      "body": "[Optional, ≤ 80 words: a blocker and how it was worked around, or what I'd do differently.]"
+    }
+  ]
+}

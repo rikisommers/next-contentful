@@ -9,7 +9,6 @@ export default function   PostIntro({ title, content, tag }) {
   const { currentTheme } = useThemeContext();
   const headingPosition = currentTheme.data.heroTextPosition;
 
-//  console.log('titlecontent---------',title)
   return (
     //pt-[16rem] pb-8
     <div className={`grid z-10 grid-cols-4 gap-6 content-end items-end w-full ${currentTheme.data.fontScale === 'fluid' ? 'fluid-type' : ''}`}>

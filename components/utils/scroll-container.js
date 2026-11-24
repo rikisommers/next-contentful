@@ -1,43 +1,21 @@
-"use client"
+"use client";
 
-import React, { useEffect, useState } from "react";
-import { getLenisInstance, destroyLenisInstance} from "./lenisInstance";
-import { useScrollPosition } from "../context/scrollPosContext";
+import React, { useEffect } from "react";
+import { getLenisInstance } from "./lenisInstance";
 
+/**
+ * Starts smooth scrolling (Lenis) for its page and keeps it sized on resize.
+ * The Lenis instance is shared and kept alive across route changes.
+ */
 export default function ScrollContainer({ children }) {
-  const { setScrollPosition } = useScrollPosition();
-  const [lenis, setLenis] = useState(null);
-
   useEffect(() => {
-    const lenisInstance = getLenisInstance();
-    setLenis(lenisInstance);
+    const lenis = getLenisInstance();
+    if (!lenis) return undefined;
 
-    const updateScroll = () => {
-      setScrollPosition(lenisInstance.scroll);
-    };
-
-    lenisInstance.on('scroll', updateScroll);
-
-    return () => {
-      lenisInstance.off('scroll', updateScroll);
-      // Note: We're not destroying the instance here
-    };
+    const resize = () => lenis.resize();
+    window.addEventListener("resize", resize);
+    return () => window.removeEventListener("resize", resize);
   }, []);
 
-  useEffect(() => {
-    const resize = () => {
-      if (lenis) lenis.resize();
-    };
-
-    window.addEventListener("resize", resize);
-    return () => {
-      window.removeEventListener("resize", resize);
-    };
-  }, [lenis]);
-
-  return (
-   <>
-    {children}
-   </>
-  );
+  return <>{children}</>;
 }

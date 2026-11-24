@@ -1,10 +1,10 @@
-import { getSpace, getEnvironment } from './contentfulManagement';
+import { devOnly } from '../../lib/dev-only';
+import { getSpace, getEnvironment } from '../../lib/contentful/management';
 
-export default async function handler(req, res) {
+async function handler(req, res) {
     if (req.method === 'POST') {
       try {
         const theme = req.body;
-        console.log('Received theme data:', theme);
 
         const space = await getSpace();
         const environment = await getEnvironment(space);
@@ -18,7 +18,6 @@ export default async function handler(req, res) {
         let entry;
         if (entries.items.length > 0) {
           entry = entries.items[0];
-          console.log('Found existing settings entry:', entry.sys.id);
         } else {
           // Create a new settings entry if none exists
           entry = await environment.createEntry('settings', {
@@ -26,7 +25,6 @@ export default async function handler(req, res) {
               sitetitle: { 'en-US': 'Site Settings' }, // Use the field name from your content type
             },
           });
-          console.log('Created new settings entry:', entry.sys.id);
         }
   
         // Update only the currentTheme field
@@ -37,11 +35,9 @@ export default async function handler(req, res) {
 
         // Save the updated entry
         const updatedEntry = await entry.update();
-        console.log('Updated entry:', updatedEntry.sys.id);
   
         // Publish the entry
         await updatedEntry.publish();
-        console.log('Published entry:', updatedEntry.sys.id);
   
         res.status(200).json({ message: 'Theme saved successfully' });
       } catch (error) {
@@ -53,3 +49,4 @@ export default async function handler(req, res) {
       res.status(405).json({ message: `Method ${req.method} Not Allowed` });
     }
   }
+export default devOnly(handler);

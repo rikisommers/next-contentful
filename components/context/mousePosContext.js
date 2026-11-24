@@ -1,80 +1,85 @@
-import React ,{ createContext, useContext, useState, useEffect ,useRef } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import { useThemeContext } from "./themeContext";
 
-export const MousePosContext = createContext();
+export const MousePosContext = createContext({
+  mousePosition: { x: 0, y: 0 },
+  direction: null,
+  velocity: 0,
+  visible: false,
+  setVisible: () => {},
+  content: "",
+  setContent: () => {},
+});
 
+const DIRECTION_THRESHOLD = 0.5; // px of vertical travel before a direction is reported
+const DIRECTION_RESET_MS = 300;
+
+/**
+ * Tracks the pointer for the custom cursors.
+ * The listener is only attached when the theme uses a custom cursor, and state
+ * is committed at most once per animation frame.
+ */
 export const MousePosProvider = ({ children }) => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [direction, setDirection] = useState('');
-  const [velocity, setVelocity] = useState(0);
+  const { currentTheme } = useThemeContext();
+  const cursorEnabled = !!currentTheme.data.cursor && currentTheme.data.cursor !== "none";
+
+  const [pointer, setPointer] = useState({ mousePosition: { x: 0, y: 0 }, direction: null, velocity: 0 });
   const [visible, setVisible] = useState(false);
-  const [content, setContent] = useState(''); // Initialize content state
+  const [content, setContent] = useState("");
 
-  //const [rotationAngle, setRotationAngle] = useState(0);
-  const [lastTimestamp, setLastTimestamp] = useState(0);
-  const [lastMousePosition, setLastMousePosition] = useState({ x: 0, y: 0 });
-  const velocityThreshold = 0.5; // Define a threshold for velocity
-  const resetDelay = 300; // Delay before resetting direction
-  const resetTimeout = useRef(null); // Use useRef to hold the timeout reference
-
-  // const calculateRotationAngle = (velocity) => {
-  //   if (velocity > 0) {
-  //     return Math.min(20, velocity); // Cap the angle at 20 degrees
-  //   }
-  //   return 0; // No rotation if not moving
-  // };
-
-  const handleMouseMove = (event) => {
-    const currentTime = event.timeStamp;
-    const deltaY = event.clientY - lastMousePosition.y;
-
-    // Calculate velocity
-    const newVelocity = Math.abs(deltaY) / (currentTime - lastTimestamp);
-
-    // Determine direction
-    const newDirection = Math.abs(deltaY) > velocityThreshold ? (deltaY > 0 ? 'down' : 'up') : null;
-
-    // Update state
-    setMousePosition({ x: event.clientX, y: event.clientY });
-    setDirection(newDirection);
-    setVelocity(newVelocity);
-   // setRotationAngle(calculateRotationAngle(newVelocity));
-    setLastMousePosition({ x: event.clientX, y: event.clientY });
-    setLastTimestamp(currentTime);
-
-    // Clear any existing timeout to reset direction
-    clearTimeout(resetTimeout.current);
-    // Set a new timeout to reset direction after a delay
-    resetTimeout.current = setTimeout(() => {
-      setDirection(null);
-    }, resetDelay);
-
-  };
+  const last = useRef({ y: 0, time: 0 });
+  const frame = useRef(0);
+  const resetTimer = useRef(null);
 
   useEffect(() => {
-    const addEventListeners = () => {
-      if (typeof document !== "undefined") {
-        document.addEventListener("mousemove", handleMouseMove);
-      }
+    if (!cursorEnabled) return undefined;
+
+    const commit = (event) => {
+      frame.current = 0;
+      const deltaY = event.clientY - last.current.y;
+      const elapsed = event.timeStamp - last.current.time || 1;
+      const direction = Math.abs(deltaY) > DIRECTION_THRESHOLD ? (deltaY > 0 ? "down" : "up") : null;
+
+      setPointer({
+        mousePosition: { x: event.clientX, y: event.clientY },
+        direction,
+        velocity: Math.abs(deltaY) / elapsed,
+      });
+      last.current = { y: event.clientY, time: event.timeStamp };
+
+      clearTimeout(resetTimer.current);
+      resetTimer.current = setTimeout(
+        () => setPointer((prev) => ({ ...prev, direction: null })),
+        DIRECTION_RESET_MS
+      );
     };
 
-    const removeEventListeners = () => {
-      if (typeof document !== "undefined") {
-        document.removeEventListener("mousemove", handleMouseMove);
-      }
+    const onMove = (event) => {
+      if (frame.current) cancelAnimationFrame(frame.current);
+      frame.current = requestAnimationFrame(() => commit(event));
     };
 
-    addEventListeners();
+    document.addEventListener("mousemove", onMove, { passive: true });
     return () => {
-      clearTimeout(resetTimeout); // Clear timeout on unmount
-      removeEventListeners();
+      document.removeEventListener("mousemove", onMove);
+      cancelAnimationFrame(frame.current);
+      clearTimeout(resetTimer.current);
     };
-  }, [lastMousePosition]);
+  }, [cursorEnabled]);
 
-  return (
-    <MousePosContext.Provider value={{ mousePosition, direction, velocity, visible, setVisible, content, setContent}}>
-      {children}
-    </MousePosContext.Provider>
+  const value = useMemo(
+    () => ({ ...pointer, visible, setVisible, content, setContent }),
+    [pointer, visible, content]
   );
+
+  return <MousePosContext.Provider value={value}>{children}</MousePosContext.Provider>;
 };
 
 export const useMousePos = () => useContext(MousePosContext);

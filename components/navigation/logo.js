@@ -7,7 +7,7 @@ import { logoStyle, logoBackground } from "../../utils/theme";
 export function LogoImage({logo}) {
   return (
     <div className={`flex justify-center items-center p-1 w-[32px] h-[32px]`}>
-      <img src={logo.url} alt={logo.title} title={logo.title} className="h-full" />
+      <img src={logo.url} alt={logo.title} title={logo.title} width={24} height={24} className="w-auto h-full" />
     </div>
   );
 }
@@ -42,7 +42,7 @@ export default function Logo({logo, type, title, background}) {
 
 
   return (
-    <Link href="/" passHref>
+    <Link href="/" aria-label={title ? `${title}, home` : "Home"}>
      <div
      layoutid="logo"
      className={`flex relative z-50 items-center p-1 rounded-xl cursor-pointer pointer-events-auto ${background == logoBackground.solid  ? "bg-[var(--surface2)]" : "bg-transparent"}`}

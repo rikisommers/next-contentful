@@ -74,7 +74,7 @@ const Toast = ({
     }, 300);
   };
 
-  const getIcon = (): JSX.Element => {
+  const getIcon = (): React.JSX.Element => {
     switch (type) {
       case ToastType.SUCCESS:
         return (

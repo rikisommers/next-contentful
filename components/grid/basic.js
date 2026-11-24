@@ -87,8 +87,9 @@ import classNames from 'classnames';
  *   ]}
  * />
  */
-export default function GridLayout({ 
-  children, 
+export default function GridLayout({
+  children,
+  maxCols,
 }) {
   const { currentTheme } = useThemeContext();
   const gapClass = gridGapClasses[currentTheme.data.gridGap] || 'gap-4';
@@ -113,13 +114,16 @@ export default function GridLayout({
     4: 'xl:grid-cols-4', 5: 'xl:grid-cols-5', 6: 'xl:grid-cols-6',
   };
 
+  // Theme decides the columns; a block may cap them (e.g. a gallery with maxCols: 2).
+  const cap = (cols) => (maxCols ? Math.min(Number(cols) || maxCols, maxCols) : cols);
+
   const gridClassName = classNames(
     'o-edit-outline grid',
     gapClass,
-    gridColsSm[currentTheme.data.gridColumnsSm],
-    gridColsMd[currentTheme.data.gridColumnsMd],
-    gridColsLg[currentTheme.data.gridColumnsLg],
-    gridColsXl[currentTheme.data.gridColumnsXl],
+    gridColsSm[cap(currentTheme.data.gridColumnsSm)],
+    gridColsMd[cap(currentTheme.data.gridColumnsMd)],
+    gridColsLg[cap(currentTheme.data.gridColumnsLg)],
+    gridColsXl[cap(currentTheme.data.gridColumnsXl)],
   );
 
   return (

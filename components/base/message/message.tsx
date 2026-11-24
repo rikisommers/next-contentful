@@ -62,7 +62,7 @@ const Message = ({
   onClose,
   className = ''
 }: MessageProps) => {
-  const getIcon = (): JSX.Element => {
+  const getIcon = (): React.JSX.Element => {
     switch (type) {
       case ToastType.SUCCESS:
         return (

@@ -65,6 +65,11 @@ export const sounds = {
 //   modalClose: 'modalClose',
 // }
 
+/** Always-available font stacks, so text is readable before (or without) any custom font. */
+export const SYSTEM_SANS =
+  "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif";
+export const SYSTEM_SERIF = "ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif";
+
 export const themeContent = {
   audioEnabled:true,
   audioVolume:0.5,
@@ -79,8 +84,8 @@ export const themeContent = {
   audioModalOpen:sounds.click,
   audioModalClose:sounds.click,
 
-  fontFamilyPrimary:typographyThemes.sans,
-  fontFamilySecondary:typographyThemes.sans,
+  fontFamilyPrimary: SYSTEM_SANS,
+  fontFamilySecondary: SYSTEM_SERIF,
   fontScale:fontScaleThemes.fluid,
   fluidFontSizeMin: fluidFontSizeThemes.fontSizeMin,
   fluidFontSizeMax: fluidFontSizeThemes.fontSizeMax,
@@ -192,7 +197,7 @@ heroBgBorderRadius:borderRadiusThemes.none,
   heroCssGradient:heroCssGradientThemes.linear,
   heroCssGradientAngle:'90',
   heroCssGradientRadialPosition: { x: 50, y: 50 }, // Center position as x,y percentages
-  heroBackground:heroBackgroundThemes.cssGradient,
+  heroBackground:heroBackgroundThemes.cssgradient,
   heroShaderEffect: shaderEffect.blueNoise, // Default shader type (legacy, use effectVariant)
   
   // Effect Selection
@@ -266,7 +271,7 @@ heroBgBorderRadius:borderRadiusThemes.none,
   heroTextImage:heroTextImageThemes.none,
 
   navPosition:navigationPositionThemes.topCenter,
-  navStyle:navigationStyleThemes.applause,
+  navStyle:navigationStyleThemes.solid,
   navTheme:navigationThemes.awwwardsGlass,
   navTextStyle:navigationTextStyleThemes.icons,
   navLayoutPosition: navigationOptions.position.fixed,

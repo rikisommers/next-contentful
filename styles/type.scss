@@ -39,6 +39,11 @@ p, .body-text{
  font-family: var(--font-family-secondary)!important;
 }
 
+// Small labels above a heading (block-header): heading font, but not part of the heading outline.
+.eyebrow, .eyebrow * {
+ font-family: var(--font-family-primary)!important;
+}
+
 body{
  // font-family: $font-family-aeo;
  //font-family: var(--font-family-primary)!important;

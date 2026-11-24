@@ -34,3 +34,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+.next-build
+.yarn/install-state.gz
+.idea
+
+# case study media (large binaries live in Contentful)
+content/case-studies/*/media/

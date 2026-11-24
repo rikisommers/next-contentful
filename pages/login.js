@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import Cookies from 'js-cookie';
+import { safeRedirectPath } from '../components/utils/links';
 
 const LoginPage = () => {
   const [password, setPassword] = useState('');
@@ -21,9 +21,8 @@ const LoginPage = () => {
 
       if (response.status === 200) {
         setPasswordIncorrect(false);
-        Cookies.set(process.env.PASSWORD_COOKIE_NAME, "true"); // Set the cookie
-        const redirectTo = router.query.redirect || '/'; // Redirect to the original slug or home
-        router.replace(redirectTo); // Use replace to avoid adding to history
+        // /api/route sets the httpOnly access cookie.
+        router.replace(safeRedirectPath(router.query.redirect));
       } else {
         setPasswordIncorrect(true);
       }

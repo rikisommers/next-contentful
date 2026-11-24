@@ -5,6 +5,15 @@ import { useThemeContext } from "../context/themeContext";
 import FooterDefault from "../footer/footer-default";
 import FooterFormat from "../footer/footer-format";
 import FooterOnto from "../footer/footer-ondo";
+import { useMenuContext } from "../context/menuContext";
+import { pagePathFromSlug } from "../utils/links";
+
+const FALLBACK_PAGES = [
+  { id: "home", title: "Home", url: "/" },
+  { id: "work", title: "Work", url: "/work" },
+  { id: "blog", title: "Blog", url: "/blog" },
+  { id: "about", title: "About", url: "/bio" },
+];
 
 /**
  * Footer block component that renders different footer layouts based on type.
@@ -46,6 +55,7 @@ import FooterOnto from "../footer/footer-ondo";
 export default function BlockFooter({ data }) {
 
   const { currentTheme } = useThemeContext();
+  const { menuData } = useMenuContext();
 
   const discoveredFooterType = data.type ? data.type : currentTheme?.data?.footerTheme
 
@@ -66,28 +76,10 @@ export default function BlockFooter({ data }) {
   };
 
 
-  const pages = [
-    {
-      id: "home",
-      title: "Home",
-      url: "/",
-    },
-    {
-      id: "work",
-      title: "Work",
-      url: "/work",
-    },
-    {
-      id: "blog",
-      title: "Blog",
-      url: "/blog",
-    },
-    {
-      id: "about",
-      title: "About",
-      url: "/bio",
-    },
-  ];
+  // Footer page links mirror the CMS navigation menu; the static list is only a fallback.
+  const pages = menuData?.length
+    ? menuData.map((item) => ({ id: item.slug, title: item.title, url: pagePathFromSlug(item.slug) }))
+    : FALLBACK_PAGES;
 
   // return (
   //  <>

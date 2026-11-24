@@ -38,7 +38,13 @@ import { ParalaxElement } from "../motion/paralax-element";
  * />
  * @exports PostTileColabs
  */
-export default function PostTileColabs({
+export default function PostTileColabs(props) {
+  // Bail out before any hooks run: useScroll needs its target element to be rendered.
+  if (!props.post) return null;
+  return <PostTileColabsTile {...props} />;
+}
+
+function PostTileColabsTile({
   post = {
     title: "",
     subtitle: "",
@@ -50,11 +56,6 @@ export default function PostTileColabs({
   parallaxOffset = 50,
   ...props
 }) {
-  // Early return if no post is provided
-  if (!post) {
-    console.warn("PostTileColabs: No post data provided");
-    return null;
-  }
 
   const [isHovered, setIsHovered] = useState(false);
   const tileRef = useRef(null);
@@ -164,8 +165,7 @@ export default function PostTileColabs({
           }}
         >
           <img
-            src="arrow_forward.svg"
-            viewBox="0 0 20 20"
+            src="/arrow_forward.svg" alt="" aria-hidden="true" width={20} height={20}
             className="z-10 w-5 h-5"
             style={{
               color: "var(--accent-pri)",
