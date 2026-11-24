@@ -75,7 +75,7 @@ export default function FooterOnto({ data, pages }) {
               <Link
                 {...linkProps(item.url)}
                 key={i}
-                className="text-sm no-underline text-[var(--text-color)]"
+                className="py-1 text-sm no-underline text-[var(--text-color)]"
               >
                 {item.title}
               </Link>

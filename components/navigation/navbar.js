@@ -10,6 +10,7 @@ import NavBarApplause from "./navbar-applause";
 import NavBarApplauseMain from "./navbar-applause-main";
 import NavBarAwwwards2 from "./navbar-awwwards2";
 import NavBarAwwwardsGlass from "./navbar-awwwards-glass";
+import { pagePathFromSlug } from "../utils/links";
 
 export default function NavBar({ containerRef, data ,logo}) {
   const { currentTheme } = useThemeContext();
@@ -29,7 +30,7 @@ export default function NavBar({ containerRef, data ,logo}) {
           id: page?.slug,
           title: page?.title,
           icon: page?.icon,
-          url: `/${page?.slug}`, // Ensure the URL is correct
+          url: pagePathFromSlug(page?.slug),
         }))
       : []), // Fallback to an empty array if slugs is not an array or is empty
   ];

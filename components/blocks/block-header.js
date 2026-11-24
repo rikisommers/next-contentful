@@ -62,8 +62,8 @@ export default function BlockHeader({ data }) {
             })()}`}
           >
             {data.title && (
-              <h4
-                className={`mb-4 text-xs font-normal ${getTextAlignClass(currentTheme.data.headerTextAlign)}`}
+              <div
+                className={`eyebrow mb-4 text-xs font-normal ${getTextAlignClass(currentTheme.data.headerTextAlign)}`}
                 style={{ color: 'var(--subtext-color)' }}
               >
                 <AnimatedText
@@ -71,7 +71,7 @@ export default function BlockHeader({ data }) {
                   type={currentTheme.data.textAnimationSec}
                   delay={AnimTextOrder.TWO}
                 />
-              </h4>
+              </div>
             )}
 
             {data.content && (

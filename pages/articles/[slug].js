@@ -25,9 +25,6 @@ export default function Post({ post, footerData, listed = true }) {
 
   return (
     <ScrollContainer>
-      {!(post?.csblocksCollection?.items ?? []).some((i) => i.__typename === "BlockHero") && (
-        <h1 className="sr-only">{post?.title}</h1>
-      )}
       <SEOMeta
         title={post?.title}
         description={post?.subtitle}
@@ -48,16 +45,18 @@ export default function Post({ post, footerData, listed = true }) {
 
       <SpeedInsights />
       <TransitionPage>
-        {post && (
-          <ClipContainer>
-            
+        <main id="main-content">
+          {!(post?.csblocksCollection?.items ?? []).some((i) => i.__typename === "BlockHero") && (
+            <h1 className="sr-only">{post?.title}</h1>
+          )}
+          {post && (
+            <ClipContainer>
               {post.csblocksCollection && (
                 <PostBody content={post.csblocksCollection} />
               )}
-           
-            
-          </ClipContainer>
-        )}
+            </ClipContainer>
+          )}
+        </main>
 
         {footerData && <BlockFooter data={footerData} />}
       </TransitionPage>

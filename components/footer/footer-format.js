@@ -93,10 +93,10 @@ export default function FooterFormat({ data, pages }) {
                 <h3 className="mb-4 text-sm font-normal" style={{ color: 'var(--subtext-color)' }}>
                   Pages
                 </h3>
-                <div className="flex flex-col col-span-1 gap-2">
+                <div className="flex flex-col col-span-1">
                   {pages.map((page) => (
                     <Link
-                      className="text-sm no-underline text-[var(--text-color)]"
+                      className="py-1 text-sm no-underline text-[var(--text-color)]"
                       key={page.id}
                       href={page.url}
                       scroll={false}
@@ -112,14 +112,14 @@ export default function FooterFormat({ data, pages }) {
                   Links
                 </h3>
 
-                <div className="flex flex-col col-span-1 gap-2">
+                <div className="flex flex-col col-span-1">
                   {data.socialCollection &&
                     data.socialCollection.items?.length &&
                     data.socialCollection.items.map((item, i) => (
                       <Link
                         {...linkProps(item.url)}
                         key={i}
-                        className="text-sm no-underline text-[var(--text-color)]"
+                        className="py-1 text-sm no-underline text-[var(--text-color)]"
                       >
                         {item.title}
                       </Link>
